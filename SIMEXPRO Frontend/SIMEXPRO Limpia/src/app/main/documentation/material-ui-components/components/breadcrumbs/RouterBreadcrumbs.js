@@ -18,12 +18,16 @@ import {
   useLocation,
 } from 'react-router-dom';
 
+import {useTranslation} from 'react-i18next';
+
+const { t } = useTranslation('mailboxApp');
+
 const breadcrumbNameMap = {
   '/inbox': 'Inbox',
   '/inbox/important': 'Important',
   '/trash': 'Trash',
   '/spam': 'Spam',
-  '/drafts': 'Drafts',
+  '/drafts': t("DRAFTS"),
 };
 
 function ListItemLink(props) {

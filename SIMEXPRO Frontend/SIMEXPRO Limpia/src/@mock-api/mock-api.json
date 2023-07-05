@@ -26044,8 +26044,8 @@
         "value": {
           "visitors": {
             "ranges": {
-              "this-year": "This Year",
-              "last-year": "Last Year"
+              "this-year": "Este año",
+              "last-year": "El Último año"
             },
             "series": {
               "this-year": [

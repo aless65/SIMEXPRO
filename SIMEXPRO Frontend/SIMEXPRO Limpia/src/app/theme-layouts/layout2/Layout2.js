@@ -13,7 +13,7 @@ import LeftSideLayout2 from './components/LeftSideLayout2';
 import NavbarWrapperLayout2 from './components/NavbarWrapperLayout2';
 import RightSideLayout2 from './components/RightSideLayout2';
 import ToolbarLayout2 from './components/ToolbarLayout2';
-import SettingsPanel from '../shared-components/SettingsPanel';
+
 
 const Root = styled('div')(({ theme, config }) => ({
   ...(config.mode === 'boxed' && {
@@ -57,9 +57,7 @@ function Layout2(props) {
             />
           )}
 
-          <div className="sticky top-0 z-99">
-            <SettingsPanel />
-          </div>
+
 
           <div className="flex flex-col flex-auto min-h-0 relative z-10">
             <FuseDialog />

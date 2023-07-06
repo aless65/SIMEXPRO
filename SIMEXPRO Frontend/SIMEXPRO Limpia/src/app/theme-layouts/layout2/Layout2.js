@@ -44,7 +44,7 @@ function Layout2(props) {
         <main id="fuse-main" className="flex flex-col flex-auto min-h-full min-w-0 relative">
           {config.navbar.display && (
             <NavbarWrapperLayout2
-              className={clsx(config.navbar.style === 'fixed' && 'sticky top-0 z-50')}
+              className={clsx(config.navbar.style === 'static' && 'sticky top-0 z-50')}
             />
           )}
 
@@ -67,9 +67,7 @@ function Layout2(props) {
             {props.children}
           </div>
 
-          {config.footer.display && (
-            <FooterLayout2 className={config.footer.style === 'fixed' && 'sticky bottom-0'} />
-          )}
+   
         </main>
       </div>
 

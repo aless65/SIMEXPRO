@@ -38,7 +38,6 @@ function ToolbarLayout2(props) {
 
           <div className="flex flex-1">
             <Hidden lgDown>
-              <NavigationShortcuts />
             </Hidden>
           </div>
 
@@ -49,15 +48,12 @@ function ToolbarLayout2(props) {
 
             <FullScreenToggle />
 
-            <NavigationSearch />
 
             <Hidden lgUp>
-              <ChatPanelToggleButton />
             </Hidden>
 
             <QuickPanelToggleButton />
 
-            <NotificationPanelToggleButton />
 
             <UserMenu />
           </div>

@@ -59,9 +59,7 @@ function Layout1(props) {
             {props.children}
           </div>
 
-          {config.footer.display && (
-            <FooterLayout1 className={config.footer.style === 'fixed' && 'sticky bottom-0'} />
-          )}
+        
         </main>
 
         {config.navbar.display && config.navbar.position === 'right' && <NavbarWrapperLayout1 />}

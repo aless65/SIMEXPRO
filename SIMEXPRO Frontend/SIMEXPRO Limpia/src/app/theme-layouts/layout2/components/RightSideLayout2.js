@@ -6,11 +6,9 @@ import NotificationPanel from '../../shared-components/notificationPanel/Notific
 function RightSideLayout2() {
   return (
     <>
-      <ChatPanel />
 
       <QuickPanel />
 
-      <NotificationPanel />
     </>
   );
 }

@@ -13,7 +13,7 @@ import LeftSideLayout2 from './components/LeftSideLayout2';
 import NavbarWrapperLayout2 from './components/NavbarWrapperLayout2';
 import RightSideLayout2 from './components/RightSideLayout2';
 import ToolbarLayout2 from './components/ToolbarLayout2';
-import SettingsPanel from '../shared-components/SettingsPanel';
+
 
 const Root = styled('div')(({ theme, config }) => ({
   ...(config.mode === 'boxed' && {
@@ -44,7 +44,7 @@ function Layout2(props) {
         <main id="fuse-main" className="flex flex-col flex-auto min-h-full min-w-0 relative">
           {config.navbar.display && (
             <NavbarWrapperLayout2
-              className={clsx(config.navbar.style === 'fixed' && 'sticky top-0 z-50')}
+              className={clsx(config.navbar.style === 'static' && 'sticky top-0 z-50')}
             />
           )}
 
@@ -57,9 +57,7 @@ function Layout2(props) {
             />
           )}
 
-          <div className="sticky top-0 z-99">
-            <SettingsPanel />
-          </div>
+
 
           <div className="flex flex-col flex-auto min-h-0 relative z-10">
             <FuseDialog />
@@ -69,9 +67,7 @@ function Layout2(props) {
             {props.children}
           </div>
 
-          {config.footer.display && (
-            <FooterLayout2 className={config.footer.style === 'fixed' && 'sticky bottom-0'} />
-          )}
+   
         </main>
       </div>
 

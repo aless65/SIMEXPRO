@@ -992,6 +992,7 @@ CREATE TABLE Adua.tbTipoLiquidacion (
     tipl_Estado                	BIT DEFAULT 1,
    
    	CONSTRAINT PK_Adua_tbTipoLiquidacion_tipl_Id PRIMARY KEY (tipl_Id),
+	CONSTRAINT UQ_Adua_tbTipoLiquidacion_tipl_Descripcion UNIQUE (tipl_Descripcion),
 	CONSTRAINT FK_Adua_tbTipoLiquidacion_tipl_UsuarioCreacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
    	CONSTRAINT FK_Adua_tbTipoLiquidacion_tipl_UsuarioModificacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 );
@@ -1008,6 +1009,7 @@ CREATE TABLE Adua.tbEstadoBoletin (
     esbo_Estadoo               	BIT DEFAULT 1,
 
  	CONSTRAINT PK_Adua_tbEstadoBoletin_esbo_Id PRIMARY KEY (esbo_Id),
+	CONSTRAINT UQ_Adua_tbEstadoBoletin_esbo_Descripcion UNIQUE (esbo_Descripcion),
  	CONSTRAINT FK_Adua_tbEstadoBoletin_esbo_UsuarioCreacion_Acce_tbUsuarios_usua_Id FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
  	CONSTRAINT FK_Adua_tbEstadoBoletin_esbo_UsuarioModificacion_Acce_tbUsuarios_usua_Id	FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 );
@@ -1917,6 +1919,7 @@ CREATE TABLE Adua.tbTipoDocumento(
 	tido_FechaModificacion		DATETIME DEFAULT NULL,
 	tido_Estado 		        BIT DEFAULT 1
 	CONSTRAINT PK_Adua_tbTipoDocumento_tido_Id PRIMARY KEY(tido_Id),
+	CONSTRAINT UQ_Adua_tbTipoDocumento_tido_Descripcion UNIQUE(tido_Descripcion),
 	CONSTRAINT FK_Adua_tbTipoDocumento_Acce_tbUsuarios_usua_UsuarioCreacion_usua_Id			FOREIGN KEY (usua_UsuarioCreacion)     		REFERENCES Acce.tbUsuarios 	(usua_Id),
 	CONSTRAINT FK_Adua_tbTipoDocumento_Acce_tbUsuarios_usua_UsuarioModificacion_usua_Id		FOREIGN KEY (usua_UsuarioModificacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );

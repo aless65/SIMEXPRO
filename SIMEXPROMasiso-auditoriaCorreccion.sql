@@ -22,7 +22,7 @@
 	GO
 	CREATE SCHEMA Acce
 	GO
-	CREATE SCHEMA Gral
+	CREATE SCHEMA Gral
 	GO
 
 
@@ -1387,7 +1387,7 @@ CREATE TABLE Prod.tbMaquinas(
 );
 GO
 
-------------------Planificación y programación----------------
+------------------PlanificaciÃ³n y programaciÃ³n----------------
 
 CREATE TABLE Prod.tbMarcasMaquina(
 	 marq_Id						INT IDENTITY(1,1),

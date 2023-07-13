@@ -3,7 +3,7 @@
 --************USUARIOS******************--
 
 /*Vista usuarios*/
-CREATE OR ALTER VIEW Acce.VW_tbUsuarios
+CREATE OR ALTER VIEW acce.VW_tbUsuarios
 AS
 	SELECT t1.usua_Id, 
 		   t1.usua_Nombre, 
@@ -32,7 +32,7 @@ AS
 GO
 
 /*Listar Usuarios*/
-CREATE OR ALTER PROCEDURE acce.UDP_acce_tbUsuarios_List
+CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_List
 AS
 BEGIN
 	SELECT * FROM acce.VW_tbUsuarios
@@ -41,7 +41,7 @@ END
 GO
 
 /*Insertar Usuarios*/
-CREATE OR ALTER PROCEDURE acce.UDP_acce_tbUsuarios_Insert
+CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Insert
 	@usua_Nombre			NVARCHAR(150),
 	@usua_Contrasenia		NVARCHAR(MAX),
 	@usua_Correo			NVARCHAR(200),
@@ -99,21 +99,8 @@ BEGIN
 END
 GO
 
-/*Find Usuarios*/
-CREATE OR ALTER PROCEDURE acce.UDP_acce_VW_tbUsuarios_Find 
-	@usua_Id	INT
-AS
-BEGIN
-	SELECT * 
-	FROM acce.VW_tbUsuarios
-	WHERE usua_Estado = 1
-	AND usua_Id = @usua_Id
-END
-GO
-
-
 /*Editar usuarios*/
-CREATE OR ALTER PROCEDURE acce.UDP_acce_tbUsuarios_UPDATE
+CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Update
 	@usua_Id					INT,
 	@usua_Contrasenia			NVARCHAR(MAX),
 	@usua_Correo				NVARCHAR(200),
@@ -143,7 +130,7 @@ GO
 
 
 /*Eliminar usuarios*/
-CREATE OR ALTER PROCEDURE acce.UDP_acce_tbUsuarios_DELETE
+CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Delete
 	@usua_Id	INT
 AS
 BEGIN

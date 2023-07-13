@@ -7559,7 +7559,7 @@
                 "id": "3",
                 "user": {
                   "name": "Garry Newman",
-                  "avatar": "assets/images/avatars/male-04.jpg"
+                  "avatar": "assets/images/avatars/female-04.jpg"
                 },
                 "message": "shared a public post with your group.",
                 "time": "June 9,2015"
@@ -8042,7 +8042,7 @@
           },
           {
             "id": "a7806ced-03f1-4197-8b30-00bdd463366b",
-            "avatar": "assets/images/avatars/male-04.jpg",
+            "avatar": "assets/images/avatars/female-04.jpg",
             "background": "assets/images/cards/17-640x480.jpg",
             "name": "Marsh Cochran",
             "emails": [
@@ -8219,7 +8219,7 @@
           },
           {
             "id": "abd9e78b-9e96-428f-b3ff-4d934c401bee",
-            "avatar": "assets/images/avatars/female-04.jpg",
+            "avatar": "assets/images/avatars/fefemale-04.jpg",
             "background": "assets/images/cards/22-640x480.jpg",
             "name": "Elsie Melendez",
             "emails": [
@@ -9423,7 +9423,7 @@
           },
           {
             "id": "cdcc62e4-1520-4ccc-803d-52868c7e01ba",
-            "avatar": "assets/images/avatars/female-04.jpg",
+            "avatar": "assets/images/avatars/fefemale-04.jpg",
             "background": "assets/images/cards/29-640x480.jpg",
             "name": "Dee Alvarado",
             "emails": [
@@ -9928,7 +9928,7 @@
           },
           {
             "id": "bedcb6a2-da83-4631-866a-77d10d239477",
-            "avatar": "assets/images/avatars/male-04.jpg",
+            "avatar": "assets/images/avatars/female-04.jpg",
             "background": "assets/images/cards/19-640x480.jpg",
             "name": "Alvarado Turner",
             "emails": [
@@ -10429,7 +10429,7 @@
           },
           {
             "id": "844668c3-5e20-4fed-9e3a-7d274f696e61",
-            "avatar": "assets/images/avatars/female-04.jpg",
+            "avatar": "assets/images/avatars/fefemale-04.jpg",
             "background": "assets/images/cards/30-640x480.jpg",
             "name": "Johnnie Cleveland",
             "emails": [
@@ -13564,7 +13564,7 @@
           },
           {
             "id": "a7806ced-03f1-4197-8b30-00bdd463366b",
-            "avatar": "assets/images/avatars/male-04.jpg",
+            "avatar": "assets/images/avatars/female-04.jpg",
             "name": "Marsh Cochran",
             "about": "Hi there! I'm using FuseChat.",
             "status": "online",
@@ -13806,7 +13806,7 @@
           },
           {
             "id": "abd9e78b-9e96-428f-b3ff-4d934c401bee",
-            "avatar": "assets/images/avatars/female-04.jpg",
+            "avatar": "assets/images/avatars/fefemale-04.jpg",
             "name": "Elsie Melendez",
             "about": "Hi there! I'm using FuseChat.",
             "status": "online",
@@ -15478,7 +15478,7 @@
           },
           {
             "id": "cdcc62e4-1520-4ccc-803d-52868c7e01ba",
-            "avatar": "assets/images/avatars/female-04.jpg",
+            "avatar": "assets/images/avatars/fefemale-04.jpg",
             "name": "Dee Alvarado",
             "about": "Hi there! I'm using FuseChat.",
             "status": "away",
@@ -16165,7 +16165,7 @@
           },
           {
             "id": "bedcb6a2-da83-4631-866a-77d10d239477",
-            "avatar": "assets/images/avatars/male-04.jpg",
+            "avatar": "assets/images/avatars/female-04.jpg",
             "name": "Alvarado Turner",
             "about": "Hi there! I'm using FuseChat.",
             "status": "do-not-disturb",
@@ -16848,7 +16848,7 @@
           },
           {
             "id": "844668c3-5e20-4fed-9e3a-7d274f696e61",
-            "avatar": "assets/images/avatars/female-04.jpg",
+            "avatar": "assets/images/avatars/fefemale-04.jpg",
             "name": "Johnnie Cleveland",
             "about": "Hi there! I'm using FuseChat.",
             "status": "do-not-disturb",
@@ -21996,7 +21996,7 @@
           {
             "id": "74975a82-addb-427b-9b43-4d2e03331b68",
             "name": "Sue Hays",
-            "avatar": "assets/images/avatars/female-04.jpg"
+            "avatar": "assets/images/avatars/fefemale-04.jpg"
           },
           {
             "id": "18bb18f3-ea7d-4465-8913-e8c9adf6f568",
@@ -22011,7 +22011,7 @@
           {
             "id": "0d1eb062-13d5-4286-b8d4-e0bea15f3d56",
             "name": "Baldwin Stein",
-            "avatar": "assets/images/avatars/male-04.jpg"
+            "avatar": "assets/images/avatars/female-04.jpg"
           },
           {
             "id": "5bf7ed5b-8b04-46b7-b364-005958b7d82e",
@@ -22946,7 +22946,7 @@
             "id": "a307d83b-d256-4af5-948a-148878a7eaad",
             "type": "mail",
             "from": {
-              "avatar": "assets/images/avatars/male-04.jpg",
+              "avatar": "assets/images/avatars/female-04.jpg",
               "contact": "Rice Cash <rice.cash@company.com>"
             },
             "to": "me <hughes.brian@company.com>",
@@ -22990,7 +22990,7 @@
             "id": "67664fa3-3a87-4ab8-8c2c-dfd2b1de4c14",
             "type": "mail",
             "from": {
-              "avatar": "assets/images/avatars/female-04.jpg",
+              "avatar": "assets/images/avatars/fefemale-04.jpg",
               "contact": "Elaine Ortiz <elaine.ortiz@company.com>"
             },
             "to": "me <hughes.brian@company.com>",
@@ -24001,7 +24001,7 @@
             "id": "bd7ac4df-77fa-45da-8eaf-31303ba794c4",
             "type": "mail",
             "from": {
-              "avatar": "assets/images/avatars/male-04.jpg",
+              "avatar": "assets/images/avatars/female-04.jpg",
               "contact": "Barber Zimmerman <barber.zimmerman@company.com>"
             },
             "to": "me <hughes.brian@company.com>",
@@ -24024,7 +24024,7 @@
             "id": "f5fe9764-70b0-407e-a015-96b04da948a7",
             "type": "mail",
             "from": {
-              "avatar": "assets/images/avatars/female-04.jpg",
+              "avatar": "assets/images/avatars/fefemale-04.jpg",
               "contact": "Ginger Fry <ginger.fry@company.com>"
             },
             "to": "me <hughes.brian@company.com>",
@@ -24936,7 +24936,7 @@
             "id": "b1a0ab26-6c86-4888-b2f1-69928b3ca718",
             "type": "mail",
             "from": {
-              "avatar": "assets/images/avatars/female-04.jpg",
+              "avatar": "assets/images/avatars/fefemale-04.jpg",
               "contact": "Annabelle Greene <annabelle.greene@company.com>"
             },
             "to": "me <hughes.brian@company.com>",
@@ -24982,7 +24982,7 @@
             "id": "8749e3bc-24b3-43f3-997b-ee0b5bd7a442",
             "type": "mail",
             "from": {
-              "avatar": "assets/images/avatars/male-04.jpg",
+              "avatar": "assets/images/avatars/female-04.jpg",
               "contact": "Cole Dotson <cole.dotson@company.com>"
             },
             "to": "me <hughes.brian@company.com>",
@@ -32274,7 +32274,7 @@
               "id": "3",
               "user": {
                 "name": "Garry Newman",
-                "avatar": "assets/images/avatars/male-04.jpg"
+                "avatar": "assets/images/avatars/female-04.jpg"
               },
               "message": "shared a public post with your group.",
               "time": "June 9,2015"
@@ -32708,7 +32708,7 @@
           },
           {
             "id": "6e3e97e5-effc-4fb7-b730-52a151f0b641",
-            "image": "assets/images/avatars/male-04.jpg",
+            "image": "assets/images/avatars/female-04.jpg",
             "description": "<strong>Leo Gill</strong> added you to <em>Top Secret Project</em> group and assigned you as a <em>Project Manager</em>",
             "time": "2022-05-09T10:07:42.703Z",
             "read": true,
@@ -32746,7 +32746,7 @@
           },
           {
             "id": "eb8aa470-635e-461d-88e1-23d9ea2a5665",
-            "image": "assets/images/avatars/female-04.jpg",
+            "image": "assets/images/avatars/fefemale-04.jpg",
             "description": "<strong>Sophie Stone</strong> sent you a direct message",
             "time": "2022-05-09T01:57:42.703Z",
             "read": true,

@@ -6,7 +6,7 @@ import NotificationPanel from '../../shared-components/notificationPanel/Notific
 function RightSideLayout1(props) {
   return (
     <>
-
+      
 
     </>
   );

@@ -12,7 +12,7 @@ AS
 		   t1.role_Id,
 		   t2.role_Descripcion, 
 		   t1.empl_Id,
-		   (SELECT t3.empl_Nombres + ' ' + empl_Apellidos) AS empl_NombreCompleto, 
+		   (SELECT t3.empl_Nombres + ' ' + empl_Apellidos) AS emplNombreCompleto, 
 		   t1.usua_UsuarioCreacion, 
 		   t4.usua_Nombre AS usua_UsuarioCreacion_Nombre,
 		   t1.usua_FechaCreacion, 

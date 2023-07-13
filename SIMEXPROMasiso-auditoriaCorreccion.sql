@@ -39,16 +39,34 @@ CREATE TABLE Acce.tbUsuarios(
 	role_Id						INT	NOT NULL,
 	
 	usua_UsuarioCreacion 		INT	NOT NULL,
-	usua_FechaCreacion 			DATETIME DEFAULT GETDATE(),
+	usua_FechaCreacion 			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT	DEFAULT NULL,
 	usua_FechaModificacion		DATETIME DEFAULT NULL,
 	usua_Estado					BIT	DEFAULT 1,
-	CONSTRAINT PK_Acce_tbUsuarios_usua_Id PRIMARY KEY (usua_Id)
+	CONSTRAINT PK_Acce_tbUsuarios_usua_Id PRIMARY KEY (usua_Id),
+	CONSTRAINT UQ_acce_tbUsuarios_usua_Nombre UNIQUE(usua_Nombre)
+);
+GO
+
+CREATE TABLE Acce.tbUsuariosHistorial(
+	usua_Id 					INT,
+	usua_Nombre					NVARCHAR(100),
+	usua_Contrasenia			NVARCHAR(MAX),
+	usua_Correo					NVARCHAR(200),
+	empl_Id						INT,
+	usua_Image					NVARCHAR(500),
+	role_Id						INT,
+	
+	usua_UsuarioCreacion 		INT,
+	usua_FechaCreacion 			DATETIME NOT NULL,
+	usua_UsuarioModificacion	INT,
+	usua_FechaModificacion		DATETIME DEFAULT NULL,
+	usua_Estado					BIT
 );
 GO
 
 INSERT INTO Acce.tbUsuarios
-VALUES ('prueba', '123', 'ddd', 1, '',1,1,NULL, NULL, NULL,1)
+VALUES ('prueba', '123', 'ddd', 1, '', 1, 1,NULL, NULL, NULL,1)
 GO
 
 CREATE TABLE Acce.tbRoles
@@ -57,7 +75,7 @@ CREATE TABLE Acce.tbRoles
 	role_Descripcion			NVARCHAR(500),
 
 	usua_UsuarioCreacion 		INT	NOT NULL,
-	role_FechaCreacion 			DATETIME DEFAULT GETDATE(),
+	role_FechaCreacion 			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT	DEFAULT NULL,
 	role_FechaModificacion		DATETIME DEFAULT NULL,
 	role_Estado					BIT	DEFAULT 1,
@@ -65,7 +83,8 @@ CREATE TABLE Acce.tbRoles
 	CONSTRAINT PK_Acce_tbRoles_role_Id PRIMARY KEY (role_Id),
 
 	CONSTRAINT FK_Acce_tbUsuarios_usua_UsuarioCreacion_Acce_tbRoles_usua_Id		FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Acce_tbUsuarios_usua_UsuarioModificacion_Acce_tbRoles_usua_Id FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios (usua_Id)
+	CONSTRAINT FK_Acce_tbUsuarios_usua_UsuarioModificacion_Acce_tbRoles_usua_Id FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT UQ_acce_tbRoles_role_Descripcion UNIQUE(role_Descripcion)
 );
 GO
 
@@ -76,7 +95,7 @@ CREATE TABLE Acce.tbPantallas(
 	pant_Icono					NVARCHAR(50),
 
 	usua_UsuarioCreacion 		INT	NOT NULL,
-	pant_FechaCreacion 			DATETIME DEFAULT GETDATE(),
+	pant_FechaCreacion 			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT	DEFAULT NULL,
 	pant_FechaModificacion		DATETIME DEFAULT NULL,
 	pant_Estado					BIT	DEFAULT 1,
@@ -94,7 +113,7 @@ CREATE TABLE Acce.tbRolesXPantallas(
 	role_Id						INT,
 	
 	usua_UsuarioCreacion 		INT	NOT NULL,
-	ropa_FechaCreacion 			DATETIME DEFAULT GETDATE(),
+	ropa_FechaCreacion 			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT	DEFAULT NULL,
 	ropa_FechaModificacion		DATETIME DEFAULT NULL,
 	ropa_Estado					BIT	DEFAULT 1,
@@ -116,7 +135,7 @@ CREATE TABLE Adua.tbIncoterm(
 	inco_Descripcion			NVARCHAR(150) NOT NULL,
 	
 	usua_UsuarioCreacion 		INT	NOT NULL,
-	inco_FechaCreacion 			DATETIME DEFAULT GETDATE(),
+	inco_FechaCreacion 			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT	DEFAULT NULL,
 	inco_FechaModificacion		DATETIME DEFAULT NULL,
 	inco_Estado					BIT	DEFAULT 1,
@@ -133,7 +152,7 @@ CREATE TABLE Gral.tbPaises(
 	pais_Nombre 				NVARCHAR(150) NOT NULL,
 	
 	usua_UsuarioCreacion 		INT	NOT NULL,
-	pais_FechaCreacion 			DATETIME DEFAULT GETDATE(),
+	pais_FechaCreacion 			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT	DEFAULT NULL,
 	pais_FechaModificacion		DATETIME DEFAULT NULL,
 	pais_Estado					BIT	DEFAULT 1,
@@ -150,7 +169,7 @@ CREATE TABLE Gral.tbFormas_Envio(
 	foen_Descripcion			NVARCHAR(500),
 
 	usua_UsuarioCreacion 		INT	NOT NULL,
-	foen_FechaCreacion 			DATETIME DEFAULT GETDATE(),
+	foen_FechaCreacion 			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT	DEFAULT NULL,
 	foen_FechaModificacion		DATETIME DEFAULT NULL,
 	foen_Estado					BIT NOT NULL DEFAULT 1,
@@ -168,7 +187,7 @@ CREATE TABLE Gral.tbMonedas
 	mone_Descripcion			NVARCHAR(500),
 
 	usua_UsuarioCreacion 		INT	NOT NULL,
-	mone_FechaCreacion 			DATETIME DEFAULT GETDATE(),
+	mone_FechaCreacion 			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT	DEFAULT NULL,
 	mone_FechaModificacion		DATETIME DEFAULT NULL,
 	mone_Estado					BIT NOT NULL DEFAULT 1,
@@ -187,7 +206,7 @@ CREATE TABLE Gral.tbProvincias(
 	pais_Codigo					CHAR(2)	NOT NULL,
 
 	usua_UsuarioCreacion 		INT	NOT NULL,
-	pvin_FechaCreacion 			DATETIME DEFAULT GETDATE(),
+	pvin_FechaCreacion 			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT	DEFAULT NULL,
 	pvin_FechaModificacion		DATETIME DEFAULT NULL,
 	pvin_Estado					BIT	DEFAULT 1,
@@ -206,7 +225,7 @@ CREATE TABLE Gral.tbCiudades(
 	pvin_Id 					INT	NOT NULL,
 
 	usua_UsuarioCreacion 		INT	NOT NULL,
-	ciud_FechaCreacion 			DATETIME DEFAULT GETDATE(),
+	ciud_FechaCreacion 			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT	DEFAULT NULL,
 	ciud_FechaModificacion		DATETIME DEFAULT NULL,
 	ciud_Estado					BIT	DEFAULT 1,
@@ -225,7 +244,7 @@ CREATE TABLE Gral.tbAldeas(
 	ciud_Id 					INT	NOT NULL,
 
 	usua_UsuarioCreacion 		INT	NOT NULL,
-	alde_FechaCreacion 			DATETIME DEFAULT GETDATE(),
+	alde_FechaCreacion 			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT	DEFAULT NULL,
 	alde_FechaModificacion		DATETIME DEFAULT NULL,
 	alde_Estado					BIT	DEFAULT 1,
@@ -244,7 +263,7 @@ CREATE TABLE Gral.tbColonias(
 	alde_Id 					INT	NOT NULL,
 
 	usua_UsuarioCreacion 		INT	NOT NULL,
-	colo_FechaCreacion 			DATETIME DEFAULT GETDATE(),
+	colo_FechaCreacion 			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT	DEFAULT NULL,
 	colo_FechaModificacion		DATETIME DEFAULT NULL,
 	colo_Estado					BIT	DEFAULT 1,
@@ -262,7 +281,7 @@ CREATE TABLE Gral.tbEstadosCiviles(
 	escv_Nombre 				NVARCHAR(150) NOT NULL,
 
 	usua_UsuarioCreacion 		INT	NOT NULL,
-	escv_FechaCreacion 			DATETIME DEFAULT GETDATE(),
+	escv_FechaCreacion 			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT	DEFAULT NULL,
 	escv_FechaModificacion		DATETIME DEFAULT NULL,
 	escv_Estado					BIT	DEFAULT 1,
@@ -279,7 +298,7 @@ CREATE TABLE Gral.tbOficinas(
 	ofic_Nombre 				NVARCHAR(150) NOT NULL,
 
 	usua_UsuarioCreacion 		INT	NOT NULL,
-	ofic_FechaCreacion 			DATETIME DEFAULT GETDATE(),
+	ofic_FechaCreacion 			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT	DEFAULT NULL,
 	ofic_FechaModificacion		DATETIME DEFAULT NULL,
 	ofic_Estado					BIT	DEFAULT 1,
@@ -296,7 +315,7 @@ CREATE TABLE Gral.tbOficinasProfesiones(
 	ofpr_Nombre 				NVARCHAR(150) NOT NULL,
 
 	usua_UsuarioCreacion 		INT	NOT NULL,
-	ofpr_FechaCreacion 			DATETIME DEFAULT GETDATE(),
+	ofpr_FechaCreacion 			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT	DEFAULT NULL,
 	ofpr_FechaModificacion		DATETIME DEFAULT NULL,
 	ofpr_Estado					BIT	DEFAULT 1,
@@ -313,7 +332,7 @@ CREATE TABLE Gral.tbCargos(
 	carg_Nombre 				NVARCHAR(150) NOT NULL,
 
 	usua_UsuarioCreacion 		INT	NOT NULL,
-	carg_FechaCreacion 			DATETIME DEFAULT GETDATE(),
+	carg_FechaCreacion 			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT	DEFAULT NULL,
 	carg_FechaModificacion		DATETIME DEFAULT NULL,
 	carg_Estado					BIT	DEFAULT 1,
@@ -333,9 +352,9 @@ CREATE TABLE Gral.tbUnidadMedidas
 unme_Id							INT IDENTITY(1,1),
 unme_Descripcion				NVARCHAR(500) NOT NULL,
 usua_UsuarioCreacion			INT NOT NULL,
-unme_FechaCreacion				DATETIME NOT NULL DEFAULT GETDATE(),
+unme_FechaCreacion				DATETIME NOT NULL,
 usua_UsuarioModificacion		INT,
-unme_FechaModificacion		DATETIME,
+unme_FechaModificacion		DATETIME DEFAULT NULL,
 unme_Estado						BIT
 
 CONSTRAINT PK_Gral_tbUnidadMedida_unme_Id PRIMARY KEY (unme_Id),
@@ -361,7 +380,7 @@ CREATE TABLE Gral.tbEmpleados(
 		empl_EsAduana					BIT				NOT NULL,
 		
 		usua_UsuarioCreacion			INT 			NOT NULL,
-		empl_FechaCreacion 				DATETIME		NOT NULL DEFAULT GETDATE(),
+		empl_FechaCreacion 				DATETIME NOT NULL,
 		usua_UsuarioModificacion		INT,
 		empl_FechaModificacion  		DATETIME, 
 		empl_Estado						BIT 			NOT NULL DEFAULT 1,
@@ -382,7 +401,7 @@ CREATE TABLE Adua.tbFacturas
 fact_Id						INT IDENTITY(1,1),
 fect_Fecha					DATETIME NOT NULL,
 usua_UsuarioCreacion		INT NOT NULL,
-fact_FechaCreacion			DATETIME NOT NULL DEFAULT GETDATE(),
+fact_FechaCreacion			DATETIME NOT NULL ,
 usua_UsuarioModificacion			INT,
 fact_FechaModificacion			DATETIME,
 fact_Estado					BIT NOT NULL DEFAULT 1
@@ -399,9 +418,9 @@ adua_Id							INT IDENTITY(1,1),
 adua_Nombre						NVARCHAR(500) NOT NULL,
 adua_Direccion_Exacta			NVARCHAR(800) NOT NULL,
 usua_UsuarioCreacion			INT NOT NULL,
-adua_FechaCreacion				DATETIME NOT NULL DEFAULT GETDATE(),
+adua_FechaCreacion				DATETIME NOT NULL,
 usua_UsuarioModificacion		INT,
-adua_FechaModificacion		DATETIME,
+adua_FechaModificacion		DATETIME DEFAULT NULL,
 adua_Estado						BIT NOT NULL DEFAULT 1
 
 CONSTRAINT PK_Adua_tbAduanas_adua_Id PRIMARY KEY (adua_Id),
@@ -417,7 +436,7 @@ CREATE TABLE Adua.tbNivelesComerciales(
 		nico_Id								INT IDENTITY(1,1),
 		nico_Descripcion					NVARCHAR(150) NOT NULL,
 		usua_UsuarioCreacion				INT NOT NULL,
-		nico_FechaCreacion					DATETIME NOT NULL DEFAULT GETDATE(),
+		nico_FechaCreacion					DATETIME NOT NULL,
 		usua_UsuarioModificacion			INT,
 		nico_FechaModificacion         DATETIME,
 		nico_Estado							BIT NOT NULL DEFAULT 1
@@ -432,7 +451,7 @@ CREATE TABLE Adua.tbCondicionesComerciales(
    coco_Id							INT IDENTITY(1,1),
    coco_Descripcion					NVARCHAR(150) NOT NULL,
    usua_UsuarioCreacion             INT NOT NULL,
-   coco_FechaCreacion				DATETIME NOT NULL DEFAULT GETDATE(),
+   coco_FechaCreacion				DATETIME NOT NULL,
    usua_UsuarioModificacion     INT,
    coco_FechaModificacion      DATETIME,
    coco_Estado						BIT NOT NULL DEFAULT 1
@@ -447,7 +466,7 @@ CREATE TABLE Adua.tbFormasdePago(
 		fopa_Id								INT IDENTITY(1,1),
 		fopa_Descripcion					NVARCHAR(150) NOT NULL,
 		usua_UsuarioCreacion				INT NOT NULL,
-		fopa_FechaCreacion					DATETIME NOT NULL DEFAULT GETDATE(),
+		fopa_FechaCreacion					DATETIME NOT NULL,
 		usua_UsuarioModificacion			INT,
 		fopa_FechaModificacion         DATETIME,
 		fopa_Estado							BIT NOT NULL DEFAULT 1
@@ -466,7 +485,7 @@ CREATE TABLE Adua.tbFormasdePago(
    decl_Telefono            NVARCHAR(50) NOT NULL,
    decl_Fax                 NVARCHAR(50)NOT NULL, 
    usua_UsuarioCreacion             INT NOT NULL,
-   decl_FechaCreacion				DATETIME NOT NULL DEFAULT GETDATE(),
+   decl_FechaCreacion				DATETIME NOT NULL,
    usua_UsuarioModificacion			INT,
    decl_FechaModificacion      DATETIME,
    decl_Estado						BIT NOT NULL DEFAULT 1
@@ -484,7 +503,7 @@ CREATE TABLE Adua.tbImportadores(
 	impo_RTN                 INT NOT NULL,
 	impo_NumRegistro         INT NOT NULL,
 	usua_UsuarioCreacion     INT NOT NULL,
-	impo_FechaCreacion					DATETIME NOT NULL DEFAULT GETDATE(),
+	impo_FechaCreacion					DATETIME NOT NULL,
 	usua_UsuarioModificacion			INT,
 	impo_FechaModificacion				DATETIME,
 	impo_Estado							BIT NOT NULL DEFAULT 1
@@ -499,7 +518,7 @@ CREATE TABLE Adua.tbTipoIntermediario(
 		tite_Id								INT IDENTITY(1,1),
 		tite_Descripcion					NVARCHAR(150) NOT NULL,
 		usua_UsuarioCreacion				INT NOT NULL,
-		tite_FechaCreacion					DATETIME NOT NULL DEFAULT GETDATE(),
+		tite_FechaCreacion					DATETIME NOT NULL,
 		usua_UsuarioModificacion			INT,
 		tite_FechaModificacion				DATETIME,
 		tite_Estado							BIT NOT NULL DEFAULT 1
@@ -514,7 +533,7 @@ CREATE TABLE Adua.tbTipoIntermediario(
 		tite_Id							INT NOT NULL,
 		decl_Id							INT NOT NULL,
 		usua_UsuarioCreacion            INT NOT NULL,
-		inte_FechaCreacion				DATETIME NOT NULL DEFAULT GETDATE(),
+		inte_FechaCreacion				DATETIME NOT NULL,
 		usua_UsuarioModificacion   INT,
 		inte_FechaModificacion     DATETIME,
 		inte_Estado						BIT NOT NULL DEFAULT 1
@@ -538,7 +557,7 @@ CREATE TABLE Gral.tbProveedores(
 			prov_CorreoElectronico	NVARCHAR(250)		NOT NULL,
 			prov_Fax				NVARCHAR(20),
 			usua_UsuarioCreacion			INT					NOT NULL,
-			prov_FechaCreacion			 DATETIME NOT NULL DEFAULT GETDATE(),
+			prov_FechaCreacion			 DATETIME NOT NULL,
 			usua_UsuarioModificacion 		INT 			,
 			prov_FechaModificacion 			DATETIME		, 
 			prov_Estado 			BIT	NOT NULL DEFAULT 1, 
@@ -578,7 +597,7 @@ mone_Otra NVARCHAR(200) NOT NULL,
 deva_Conversion_Dolares  DECIMAL(18,2) NOT NULL,
 deva_Condiciones NVARCHAR(MAX) NOT NULL,
 usua_UsuarioCreacion INT NOT NULL,
-deva_FechaCreacion  DATETIME NOT NULL DEFAULT GETDATE(),
+deva_FechaCreacion  DATETIME NOT NULL,
 usua_UsuarioModificacion INT,
 deva_FechaModificacion  DATETIME,
 deva_Estado BIT	NOT NULL DEFAULT 1
@@ -608,7 +627,7 @@ fava_Id INT IDENTITY(1,1),
 deva_Id INT NOT NULL,
 fact_Id INT NOT NULL,
 usua_UsuarioCreacion INT NOT NULL,
-fava_FechaCreacion  DATETIME NOT NULL DEFAULT GETDATE(),
+fava_FechaCreacion  DATETIME NOT NULL,
 usua_UsuarioModificacion INT,
 fava_FechaModificacion DATETIME,
 feva_Estado BIT	NOT NULL DEFAULT 1
@@ -639,7 +658,7 @@ codi_Concepto_Monto_Declarado NVARCHAR(500) NOT NULL,
 codi_Existen_Canones BIT NOT NULL,
 codi_Indicar_Canones NVARCHAR(500) NOT NULL,
 usua_UsuarioCreacion INT NOT NULL,
-codi_FechaCreacion  DATETIME NOT NULL DEFAULT GETDATE(),
+codi_FechaCreacion  DATETIME NOT NULL,
 usua_UsuarioModificacion INT,
 codi_FechaModificacion DATETIME,
 codi_Estado BIT	NOT NULL DEFAULT 1
@@ -677,7 +696,7 @@ base_Deducciones_Legales DECIMAL(18,2) NOT NULL,
 base_Total_Deducciones_Precio DECIMAL(18,2) NOT NULL,
 base_Valor_Aduana DECIMAL(18,2) NOT NULL,
 usua_UsuarioCreacion INT NOT NULL,
-base_FechaCreacion  DATETIME NOT NULL DEFAULT GETDATE(),
+base_FechaCreacion  DATETIME NOT NULL,
 usua_UsuarioModificacion INT,
 base_FechaModificacion  DATETIME,
 base_Estado BIT	NOT NULL DEFAULT 1
@@ -689,7 +708,6 @@ CONSTRAINT FK_Prod_tbBaseCalculos_tbUsuarios_base_usua_UsuarioModificacion				FO
 )
 
 GO
-
 --Seccion #3
 --
 
@@ -697,15 +715,14 @@ CREATE TABLE Prod.tbEstilos(
 	esti_Id						INT  IDENTITY(1,1),
 	esti_Descripcion			NVARCHAR(200) NOT NULL,
 	usua_UsuarioCreacion 		INT NOT NULL,
-	esti_FechaCreacion			DATETIME DEFAULT GETDATE(), 
+	esti_FechaCreacion			DATETIME NOT NULL, 
 	usua_UsuarioModificacion	INT ,
-	esti_FechaModificacion		DATETIME ,
+	esti_FechaModificacion		DATETIME DEFAULT NULL ,
 	esti_Estado					BIT DEFAULT 1 
 
 	CONSTRAINT PK_Prod_tbEstilos_esti_Id												PRIMARY KEY (esti_Id)
 	CONSTRAINT FK_Prod_tbEstilos_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id 			FOREIGN KEY (usua_UsuarioCreacion )     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbEstilos_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios (usua_Id),
-
 
 );
 
@@ -714,9 +731,9 @@ CREATE TABLE Prod.tbModelos(
 	mode_Descripcion			INT ,
 	esti_Id						INT ,
 	usua_UsuarioCreacion 		INT ,
-	mode_FechaCreacion			DATETIME DEFAULT GETDATE(), 
+	mode_FechaCreacion			DATETIME NOT NULL, 
 	usua_UsuarioModificacion	INT ,
-	mode_FechaModificacion		DATETIME, 
+	mode_FechaModificacion		DATETIME DEFAULT NULL, 
 	mode_Estado					BIT DEFAULT 1
 
 	CONSTRAINT PK_Prod_tbModelos_mode_Id												PRIMARY KEY (mode_Id),
@@ -733,9 +750,9 @@ CREATE TABLE Prod.tbColores(
 	colo_Nombre					NVARCHAR(200) NOT NULL,
 	colo_Codigo					NVARCHAR(50) NOT NULL,
 	usua_UsuarioCreacion		INT,
-	colo_FechaCreacion			DATETIME DEFAULT GETDATE(), 
+	colo_FechaCreacion			DATETIME NOT NULL, 
 	usua_UsuarioModificacion	INT,
-	colo_FechaModificacion		DATETIME,
+	colo_FechaModificacion		DATETIME DEFAULT NULL,
 	colo_Estado					BIT DEFAULT 1 
 
 	CONSTRAINT PK_Prod_tbColores_colo_Id													PRIMARY KEY (colo_Id)
@@ -748,9 +765,9 @@ CREATE TABLE Prod.tbProcesos(
 	proc_Id						INT  IDENTITY(1,1), 
 	proc_Descripcion			NVARCHAR(200) NOT NULL,
 	usua_UsuarioCreacion 		INT,
-	proc_FechaCreacion			DATETIME DEFAULT GETDATE(),  
+	proc_FechaCreacion			DATETIME NOT NULL,  
 	usua_UsuarioModificacion	INT, 
-	proc_FechaModificacion		DATETIME, 
+	proc_FechaModificacion		DATETIME DEFAULT NULL, 
 	proc_Estado					BIT DEFAULT 1  
 
 	CONSTRAINT PK_Prod_tbProcesos_proc_Id													PRIMARY KEY (proc_Id)
@@ -764,9 +781,9 @@ CREATE TABLE Prod.tbArea(
 	tipa_area					NVARCHAR(200)		NOT NULL,
 	proc_Id						INT 				NOT NULL,
 	usua_UsuarioCreacion		INT					NOT NULL,
-	tipa_FechaCreacion			DATETIME			NOT NULL DEFAULT GETDATE(),
+	tipa_FechaCreacion			DATETIME			NOT NULL,
 	usua_UsuarioModificacion 	INT 			,
-	tipa_FechaModificacion		DATETIME		, 
+	tipa_FechaModificacion		DATETIME DEFAULT NULL		, 
 	tipa_Estado 				BIT					NOT NULL DEFAULT 1, 
 
 	CONSTRAINT PK_Prod_tbTipoArea_tipa_Id 													PRIMARY KEY (tipa_Id),
@@ -778,11 +795,11 @@ GO
 
 CREATE TABLE Prod.tbTipoEmbalaje(
 	tiem_Id  					INT IDENTITY(1,1),
-	tiem_Descripcion 			NVARCHAR(200)		NOT NULL,
-	usua_UsuarioCreacion		INT					NOT NULL,
-	tiem_FechaCreacion			DATETIME			NOT NULL DEFAULT GETDATE(),
+	tiem_Descripcion 			NVARCHAR(200) NOT NULL,
+	usua_UsuarioCreacion		INT			  NOT NULL,
+	tiem_FechaCreacion			DATETIME			NOT NULL,
 	usua_UsuarioModificacion 	INT 			,
-	tiem_FechaModificacion		DATETIME		, 
+	tiem_FechaModificacion		DATETIME DEFAULT NULL		, 
 	tiem_Estado 				BIT					NOT NULL DEFAULT 1, 
 
 	CONSTRAINT PK_Prod_tbTipoEmbalaje_tiem_Id												PRIMARY KEY (tiem_Id),
@@ -794,9 +811,9 @@ CREATE TABLE Prod.tbFuncionesMaquina(
 	func_Id   					INT IDENTITY(1,1),
 	func_Nombre  				NVARCHAR(200)		NOT NULL,
 	usua_UsuarioCreacion		INT					NOT NULL,
-	func_FechaCreacion			DATETIME			NOT NULL DEFAULT GETDATE(),
+	func_FechaCreacion			DATETIME			NOT NULL,
 	usua_UsuarioModificacion 	INT 			,
-	func_FechaModificacion		DATETIME		, 
+	func_FechaModificacion		DATETIME DEFAULT NULL		, 
 	func_Estado 				BIT					NOT NULL DEFAULT 1, 
 
 	CONSTRAINT PK_Prod_tbFuncionesMaquina_func_Id												PRIMARY KEY (func_Id),
@@ -809,9 +826,9 @@ CREATE TABLE Prod.tbCategoria(
 	cate_Id   					INT IDENTITY(1,1),
 	cate_Descripcion  			NVARCHAR(200)		NOT NULL,
 	usua_UsuarioCreacion		INT					NOT NULL,
-	cate_FechaCreacion			DATETIME			NOT NULL DEFAULT GETDATE(),
+	cate_FechaCreacion			DATETIME			NOT NULL,
 	usua_UsuarioModificacion 	INT 			,
-	cate_FechaModificacion		DATETIME		, 
+	cate_FechaModificacion		DATETIME DEFAULT NULL		, 
 	cate_Estado 				BIT					NOT NULL DEFAULT 1, 
 
 	CONSTRAINT PK_Prod_tbCategoria_cate_Id														PRIMARY KEY (cate_Id),
@@ -825,9 +842,9 @@ CREATE TABLE Prod.tbSubcategoria(
 	cate_Id  					INT,
 	subc_Descripcion			NVARCHAR(200),
 	usua_UsuarioCreacion		INT					NOT NULL,
-	subc_FechaCreacion			DATETIME			NOT NULL DEFAULT GETDATE(),
+	subc_FechaCreacion			DATETIME			NOT NULL,
 	usua_UsuarioModificacion 	INT 			,
-	subc_FechaModificacion		DATETIME		, 
+	subc_FechaModificacion		DATETIME DEFAULT NULL		, 
 	subc_Estado 				BIT					NOT NULL DEFAULT 1, 
 
 	CONSTRAINT PK_Prod_tbSubcategoria_subc_Id													PRIMARY KEY (subc_Id),
@@ -842,7 +859,7 @@ CREATE TABLE Adua.tbEstadoMercancias(
 	merc_Id						INT IDENTITY(1,1),
 	merc_Descrpcion				NVARCHAR(150) NOT NULL,
 	usua_UsuarioCreacion        INT NOT NULL,
-	merc_FechaCreacion			DATETIME NOT NULL DEFAULT GETDATE(),
+	merc_FechaCreacion			DATETIME NOT NULL,
 	usua_UsuarioModificacion    INT,
 	merc_FechaModificacion      DATETIME,
 	merc_Estado					BIT NOT NULL DEFAULT 1
@@ -865,7 +882,7 @@ CREATE TABLE Adua.tbItems(
 	item_ClasificacionArancelaria             CHAR(10),
 	item_ValorUnitario                        DECIMAL(18,2),
 	usua_UsuarioCreacion                      INT NOT NULL, 
-	item_FechaCreacion                        DATETIME NOT NULL DEFAULT GETDATE(),
+	item_FechaCreacion                        DATETIME NOT NULL ,
 	usua_UsuarioModificacion                  INT,
 	item_FechaModificacion                    DATETIME,
 	item_Estado                               BIT NOT NULL DEFAULT 1
@@ -886,9 +903,9 @@ CREATE TABLE Adua.tbFactura_Detalles
 	fact_Id						INT NOT NULL,
 	item_Id						INT NOT NULL,
 	usua_UsuarioCreacion		INT NOT NULL,
-	facd_FechaCreacion			DATETIME NOT NULL DEFAULT GETDATE(),
+	facd_FechaCreacion			DATETIME NOT NULL ,
 	usua_UsuarioModificacion	INT,
-	facd_FechaModificacion		DATETIME,
+	facd_FechaModificacion		DATETIME DEFAULT NULL,
 	facd_Estado					BIT NOT NULL DEFAULT 1
 	
 	CONSTRAINT PK_Adua_tbFacturaDetalles_facd_Id										PRIMARY KEY (facd_Id),
@@ -904,9 +921,9 @@ CREATE TABLE Prod.tbMateriales(
 	subc_Id  					INT,
 	mate_Precio					DECIMAL (18,2),
 	usua_UsuarioCreacion		INT					NOT NULL,
-	mate_FechaCreacion			DATETIME			NOT NULL DEFAULT GETDATE(),
+	mate_FechaCreacion			DATETIME			NOT NULL ,
 	usua_UsuarioModificacion 	INT 			,
-	mate_FechaModificacion		DATETIME		, 
+	mate_FechaModificacion		DATETIME DEFAULT NULL		, 
 	mate_Estado 				BIT					NOT NULL DEFAULT 1, 
 
 	CONSTRAINT PK_Prod_tbMateriales_mate_Id PRIMARY KEY (mate_Id),
@@ -921,9 +938,9 @@ CREATE TABLE Adua.tbAranceles(
 	aran_Codigo					NVARCHAR(100) NOT NULL,
 	aran_Descripcion			NVARCHAR(150) NOT NULL,
 	usua_UsuarioCreacion		INT NOT NULL,
-	aran_FechaCreacion			DATETIME NOT NULL DEFAULT GETDATE(),
+	aran_FechaCreacion			DATETIME NOT NULL ,
 	usua_UsuarioModificacion	INT,
-	aran_FechaModificacion		DATETIME,
+	aran_FechaModificacion		DATETIME DEFAULT NULL,
 	aram_Estado					BIT NOT NULL DEFAULT 1
 
 	CONSTRAINT PK_Adua_tbAranceles_aran_Id													PRIMARY KEY (aran_Id),
@@ -937,8 +954,9 @@ CREATE TABLE Adua.tbImpuestos(
 	aran_Codigo					NVARCHAR(100) NOT NULL,
 	impu_Descripcion			NVARCHAR(150) NOT NULL,
 	impu_Impuesto				DECIMAL(18,2) NOT NULL,
+	
 	usua_UsuarioCreacion		INT NOT NULL, 
-	impu_FechaCreacion			DATETIME NOT NULL DEFAULT GETDATE(),
+	impu_FechaCreacion			DATETIME NOT NULL ,
 	usua_UsuarioModificacion    INT,
 	impu_FechaModificacion      DATETIME,
 	impu_Estado					BIT NOT NULL DEFAULT 1
@@ -953,10 +971,11 @@ CREATE TABLE Adua.tbImpuestosPorArancel(
     imar_Id						INT IDENTITY(1,1),
 	impu_Id						INT NOT NULL,
 	aran_Id						INT NOT NULL,
+	
 	usua_UsuarioCreacion		INT NOT NULL, 
-	imar_FechaCreacion			DATETIME NOT NULL DEFAULT GETDATE(),
+	imar_FechaCreacion			DATETIME NOT NULL ,
 	usua_UsuarioModificacion    INT,
-	imar_FechaModificacion		DATETIME,
+	imar_FechaModificacion		DATETIME DEFAULT NULL,
 	imar_Estado					BIT NOT NULL DEFAULT 1,
 	
 	CONSTRAINT PK_Adua_tbImpuestosPorArancel_imar_Id											PRIMARY KEY (imar_Id),
@@ -965,57 +984,55 @@ CREATE TABLE Adua.tbImpuestosPorArancel(
     CONSTRAINT FK_Adua_tbImpuestosPorArancel_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios(usua_Id),
 	CONSTRAINT FK_Adua_tbImpuestosPorArancel_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id	FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios(usua_Id)
 );
-
---SeccioN #4 Alex
 GO
+
+
+--Sección #4 Alex
 CREATE TABLE Adua.tbTipoLiquidacion (
-    tipl_Id             INT IDENTITY(1,1) ,
-    tipl_Descripcion    NVARCHAR(200)  NOT NULL,
+	tipl_Descripcion    		NVARCHAR(200)  NOT NULL,
+	tipl_Id             		INT IDENTITY(1,1),
     
-	usua_UsuarioCreacion       INT            NOT NULL,
-    tipl_FechaCreacion         DATETIME       DEFAULT GETDATE(),
-    usua_UsuarioModificacion   INT			  NOT NULL,
-    tipl_FechaModificacion     DATETIME	      NULL,
-    tipl_Estado                BIT			  DEFAULT 1,
-
-   CONSTRAINT PK_Adua_tbTipoLiquidacion_tipl_Id PRIMARY KEY (tipl_Id),
-   CONSTRAINT FK_Adua_tbTipoLiquidacion_tipl_UsuarioCreacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
-   CONSTRAINT FK_Adua_tbTipoLiquidacion_tipl_UsuarioModificacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
-
-);
-
-GO
-CREATE TABLE Adua.tbEstadoBoletin (
-    esbo_Id           INT IDENTITY(1,1),
-    esbo_Descripcion  NVARCHAR(200) NOT NULL,
-    
-    usua_UsuarioCreacion       INT            NOT NULL,
-    esbo_FechaCreacion         DATETIME       DEFAULT GETDATE(),
-    usua_UsuarioModificacion   INT			  NOT NULL,
-    esbo_FechaModificacion     DATETIME	      NULL,
-    esbo_Estadoo               BIT			  DEFAULT 1,
-
- CONSTRAINT PK_Adua_tbEstadoBoletin_esbo_Id PRIMARY KEY (esbo_Id),
- CONSTRAINT FK_Adua_tbEstadoBoletin_esbo_UsuarioCreacion_Acce_tbUsuarios_usua_Id		  FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
- CONSTRAINT FK_Adua_tbEstadoBoletin_esbo_UsuarioModificacion_Acce_tbUsuarios_usua_Id	  FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
-
-);
-
-GO
-CREATE TABLE Adua.tbConceptoPago (
-    copa_Id           INT IDENTITY(1,1),
-    copa_Descripcion  NVARCHAR(200) NOT NULL,
+	usua_UsuarioCreacion       	INT NOT NULL,
+    tipl_FechaCreacion         	DATETIME NOT NULL,
+    usua_UsuarioModificacion   	INT DEFAULT NULL,
+    tipl_FechaModificacion     	DATETIME DEFAULT NULL,
+    tipl_Estado                	BIT DEFAULT 1,
    
-	usua_UsuarioCreacion       INT            NOT NULL,
-    copa_FechaCreacion         DATETIME       DEFAULT GETDATE(),
-    usua_UsuarioModificacion   INT			  NOT NULL,
-    copa_FechaModificacion     DATETIME	      NULL,
-    copa_Estado                BIT			  DEFAULT 1,
+   	CONSTRAINT PK_Adua_tbTipoLiquidacion_tipl_Id PRIMARY KEY (tipl_Id),
+	CONSTRAINT FK_Adua_tbTipoLiquidacion_tipl_UsuarioCreacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
+   	CONSTRAINT FK_Adua_tbTipoLiquidacion_tipl_UsuarioModificacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
+);
+GO
 
-CONSTRAINT PK_Adua_tbConceptoPago_copa_Id PRIMARY KEY (copa_Id),
-CONSTRAINT FK_Adua_tbConceptoPago_copa_UsuarioCreacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
-CONSTRAINT FK_Adua_tbConceptoPago_copa_UsuarioModificacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
+CREATE TABLE Adua.tbEstadoBoletin (
+    esbo_Id           			INT IDENTITY(1,1),
+    esbo_Descripcion  			NVARCHAR(200) NOT NULL,
+    
+    usua_UsuarioCreacion       	INT NOT NULL,
+    esbo_FechaCreacion         	DATETIME NOT NULL,
+    usua_UsuarioModificacion   	INT DEFAULT NULL,
+    esbo_FechaModificacion     	DATETIME DEFAULT NULL,
+    esbo_Estadoo               	BIT DEFAULT 1,
 
+ 	CONSTRAINT PK_Adua_tbEstadoBoletin_esbo_Id PRIMARY KEY (esbo_Id),
+ 	CONSTRAINT FK_Adua_tbEstadoBoletin_esbo_UsuarioCreacion_Acce_tbUsuarios_usua_Id FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
+ 	CONSTRAINT FK_Adua_tbEstadoBoletin_esbo_UsuarioModificacion_Acce_tbUsuarios_usua_Id	FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
+);
+GO
+
+CREATE TABLE Adua.tbConceptoPago (
+    copa_Id           			INT IDENTITY(1,1),
+    copa_Descripcion  			NVARCHAR(200) NOT NULL,
+   
+	usua_UsuarioCreacion       	INT NOT NULL,
+    copa_FechaCreacion         	DATETIME NOT NULL,
+    usua_UsuarioModificacion   	INT DEFAULT NULL,
+    copa_FechaModificacion     	DATETIME DEFAULT NULL,
+    copa_Estado                	BIT DEFAULT 1,
+
+	CONSTRAINT PK_Adua_tbConceptoPago_copa_Id PRIMARY KEY (copa_Id),
+	CONSTRAINT FK_Adua_tbConceptoPago_copa_UsuarioCreacion_Acce_tbUsuarios_usua_Id FOREIGN KEY (usua_UsuarioCreacion) REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT FK_Adua_tbConceptoPago_copa_UsuarioModificacion_Acce_tbUsuarios_usua_Id FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 );
 GO
 
@@ -1029,15 +1046,15 @@ CREATE TABLE Prod.tbClientes(
 	clie_Correo_Electronico		NVARCHAR(200)NOT NULL,
 	clie_FAX					NVARCHAR(50)NOT NULL,
 	
-	usua_UsuarioCreacion       INT            NOT NULL,
-	clie_FechaCreacion         DATETIME       DEFAULT GETDATE(),
-	usua_UsuarioModificacion   INT			  NOT NULL,
-	clie_FechaModificacion     DATETIME	      NULL,
-    clie_Estado                BIT			  DEFAULT 1,
+	usua_UsuarioCreacion       	INT NOT NULL,
+	clie_FechaCreacion         	DATETIME NOT NULL,
+	usua_UsuarioModificacion   	INT DEFAULT NULL,
+	clie_FechaModificacion     	DATETIME DEFAULT NULL,
+    clie_Estado                	BIT DEFAULT 1,
 	
 	CONSTRAINT PK_Prod_tbClientes_clie_Id PRIMARY KEY(clie_Id),
-	CONSTRAINT FK_Prod_tbClientes_clie_UsuarioCreacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Prod_tbClientes_clie_UsuarioModificacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT FK_Prod_tbClientes_clie_UsuarioCreacion_Acce_tbUsuarios_usua_Id FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT FK_Prod_tbClientes_clie_UsuarioModificacion_Acce_tbUsuarios_usua_Id FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 );
 GO
 
@@ -1046,11 +1063,11 @@ CREATE TABLE Adua.tbCodigoImpuesto (
     coim_Id          INT IDENTITY(1,1),
     coim_Descripcion NVARCHAR(200)  NOT NULL,
     
-	usua_UsuarioCreacion       INT            NOT NULL,
-    coim_FechaCreacion         DATETIME       DEFAULT GETDATE(),
-    usua_UsuarioModificacion   INT			  NOT NULL,
-    coim_FechaModificacion     DATETIME	      NULL,
-    coim_Estado                BIT			  DEFAULT 1,
+	usua_UsuarioCreacion       INT NOT NULL,
+    coim_FechaCreacion         DATETIME NOT NULL,
+    usua_UsuarioModificacion   INT DEFAULT NULL,
+    coim_FechaModificacion     DATETIME DEFAULT NULL,
+    coim_Estado                BIT DEFAULT 1,
 
 	CONSTRAINT PK_Adua_tbCodigoImpuesto_coim_Id 						PRIMARY KEY (coim_Id),
 	CONSTRAINT FK_Adua_tbCodigoImpuesto_coim_UsuarioCreacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
@@ -1064,7 +1081,7 @@ CREATE TABLE Adua.tbFormaPresentacion (
     pres_Descripcion NVARCHAR(200) NOT NULL,
 	
 	usua_UsuarioCreacion       INT            NOT NULL,
-    pres_FechaCreacion         DATETIME       DEFAULT GETDATE(),
+    pres_FechaCreacion         DATETIME       NOT NULL,
     usua_UsuarioModificacion   INT			  NOT NULL,
     pres_FechaModificacion     DATETIME	      NULL,
     Pres_Estado                BIT			  DEFAULT 1,
@@ -1080,7 +1097,7 @@ CREATE TABLE Gral.tbOficio_Profesiones(
 		ofpr_Nombre 	NVARCHAR(150) 	NOT NULL,
 		
 		usua_UsuarioCreacion       INT            NOT NULL,
-		ofpr_FechaCreacion         DATETIME       DEFAULT GETDATE(),
+		ofpr_FechaCreacion         DATETIME       NOT NULL,
 		usua_UsuarioModificacion   INT			  NOT NULL,
 		ofpr_FechaModificacion     DATETIME	      NULL,
 		ofpr_Estado                BIT			  DEFAULT 1,
@@ -1103,7 +1120,7 @@ CREATE TABLE Adua.tbPersonas (
   pers_OfprRepresentante INT NOT NULL,
  
   usua_UsuarioCreacion       INT            NOT NULL,
-  pers_FechaCreacion         DATETIME       DEFAULT GETDATE(),
+  pers_FechaCreacion         DATETIME       NOT NULL,
   usua_UsuarioModificacion   INT			NOT NULL,
   pers_FechaModificacion     DATETIME	    NULL,
   pers_Estado                BIT			DEFAULT 1,
@@ -1149,7 +1166,7 @@ CREATE TABLE Adua.tbComercianteIndividual (
   coin_ArchivoDeclaracion			NVARCHAR(MAX) NOT NULL,
  
   usua_UsuarioCreacion       INT            NOT NULL,
-  coin_FechaCreacion         DATETIME       DEFAULT GETDATE(),
+  coin_FechaCreacion         DATETIME       NOT NULL,
   usua_UsuarioModificacion   INT			  NOT NULL,
   coin_FechaModificacion     DATETIME	      NULL,
   coin_Estado                BIT			  DEFAULT 1,
@@ -1183,7 +1200,7 @@ CREATE TABLE Adua.tbPersonaNatural (
   pena_ArchivoNumeroRecibo		NVARCHAR(MAX) NOT NULL,
   
   usua_UsuarioCreacion       INT            NOT NULL,
-  pena_FechaCreacion         DATETIME       DEFAULT GETDATE(),
+  pena_FechaCreacion         DATETIME      NOT NULL,
   usua_UsuarioModificacion   INT			NOT NULL,
   pena_FechaModificacion     DATETIME	    NULL,
   pena_Estado                BIT			DEFAULT 1,
@@ -1218,7 +1235,7 @@ CREATE TABLE Adua.tbPersonaJuridica (
   peju_escritura_constitucional_modificaciones NVARCHAR(200) NOT NULL,
   
   usua_UsuarioCreacion       INT            NOT NULL,
-  peju_FechaCreacion         DATETIME       DEFAULT GETDATE(),
+  peju_FechaCreacion         DATETIME       NOT NULL,
   usua_UsuarioModificacion   INT			NOT NULL,
   peju_FechaModificacion     DATETIME	    NULL,
   peju_Estado                BIT			DEFAULT 1,
@@ -1255,7 +1272,7 @@ CREATE TABLE Prod.tbOrdenCompra(
 	orco_DireccionEntrega		NVARCHAR(250)NOT NULL,
 	
 	usua_UsuarioCreacion       INT            NOT NULL,
-	orco_FechaCreacion         DATETIME       DEFAULT GETDATE(),
+	orco_FechaCreacion         DATETIME       NOT NULL,
 	usua_UsuarioModificacion   INT			 NOT NULL,
 	orco_FechaModificacion     DATETIME	     NULL,
 	orco_Estado                BIT			 DEFAULT 1,
@@ -1275,7 +1292,7 @@ CREATE TABLE Prod.tbTallas(
 	tall_Nombre			NVARCHAR(200)		NOT NULL,
 	
 	usua_UsuarioCreacion       INT            NOT NULL,
-	tall_FechaCreacion         DATETIME       DEFAULT GETDATE(),
+	tall_FechaCreacion         DATETIME       NOT NULL,
 	usua_UsuarioModificacion   INT			  NOT NULL,
 	tall_FechaModificacion     DATETIME	      NULL,
 	tall_Estado                BIT			  DEFAULT 1,
@@ -1304,7 +1321,7 @@ CREATE TABLE Prod.tbOrdenCompraDetalles(
 	code_EspecificacionEmbalaje	NVARCHAR(200)NOT NULL,
 	
 	usua_UsuarioCreacion       INT            NOT NULL,
-	code_FechaCreacion         DATETIME       DEFAULT GETDATE(),
+	code_FechaCreacion         DATETIME       NOT NULL,
 	usua_UsuarioModificacion   INT			  NOT NULL,
 	code_FechaModificacion     DATETIME	      NULL,
 	code_Estado                BIT			  DEFAULT 1,
@@ -1330,7 +1347,7 @@ CREATE TABLE Prod.tbMaterialesBrindar(
 	mabr_Cantidad			INT NOT NULL,
 	
 	usua_UsuarioCreacion       INT            NOT NULL,
-	mabr_FechaCreacion         DATETIME       DEFAULT GETDATE(),
+	mabr_FechaCreacion         DATETIME       NOT NULL,
 	usua_UsuarioModificacion   INT			  NOT NULL,
 	mabr_FechaModificacion     DATETIME	      NULL,
 	mabr_Estado                BIT			  DEFAULT 1,
@@ -1353,7 +1370,7 @@ CREATE TABLE Prod.tbModulos(
 	empr_Id 				INT NOT NULL,
 	
 	usua_UsuarioCreacion       INT            NOT NULL,
-	modu_FechaCreacion         DATETIME       DEFAULT GETDATE(),
+	modu_FechaCreacion         DATETIME       NOT NULL,
 	usua_UsuarioModificacion   INT			  NOT NULL,
 	modu_FechaModificacion     DATETIME	      NULL,
 	modu_Estado                BIT			  DEFAULT 1,
@@ -1367,7 +1384,6 @@ CREATE TABLE Prod.tbModulos(
 );
 GO	
 
-
 --Secciom #5
 CREATE TABLE Prod.tbMaquinas(
 	 maqu_Id					INT IDENTITY(1,1),
@@ -1375,9 +1391,9 @@ CREATE TABLE Prod.tbMaquinas(
 	 mode_Id					INT NOT NULL,
 
 	 usua_UsuarioCreacion		INT NOT NULL,
-	 maqu_FechaCreacion			DATETIME	DEFAULT GETDATE(),
+	 maqu_FechaCreacion			DATETIME	NOT NULL,
 	 usua_UsuarioModificacion	INT,
-	 maqu_FechaModificacion		DATETIME,
+	 maqu_FechaModificacion		DATETIME DEFAULT NULL,
 	 maqu_Estado				BIT			DEFAULT 1
 	
 	CONSTRAINT PK_Prod_tbMaquinas_maqu_Id										PRIMARY KEY (maqu_Id),
@@ -1394,7 +1410,7 @@ CREATE TABLE Prod.tbMarcasMaquina(
 	 marq_Nombre					NVARCHAR(250)NOT NULL,
 
 	 usua_UsuarioCreacion			INT NOT NULL,
-	 marq_FechaCreacion				DATETIME	DEFAULT GETDATE(),
+	 marq_FechaCreacion				DATETIME	NOT NULL,
 	 usua_UsuarioModificacion		INT,
 	 marq_FechaModificacion			DATETIME,
 	 marq_Estado					BIT			DEFAULT 1
@@ -1412,9 +1428,9 @@ CREATE TABLE Prod.tbMaquinasModulos(
 	 maqu_Id						INT NOT NULL,
 
 	 usua_UsuarioCreacion		INT NOT NULL,
-	 moma_FechaCreacion			DATETIME	DEFAULT GETDATE(),
+	 moma_FechaCreacion			DATETIME	NOT NULL,
 	 usua_UsuarioModificacion	INT,
-	 moma_FechaModificacion		DATETIME,
+	 moma_FechaModificacion		DATETIME DEFAULT NULL,
 	 maqu_Estado				BIT			DEFAULT 1
 
 	CONSTRAINT PK_Prod_tbMaquinasModulos_moma_Id 									PRIMARY KEY(moma_Id),
@@ -1437,7 +1453,7 @@ CREATE TABLE Prod.tbMaquinaHistorial(
 	usua_UsuarioCreacion		INT NOT NULL,
 	mahi_FechaCreacion			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT,
-	mahi_FechaModificacion		DATETIME,
+	mahi_FechaModificacion		DATETIME DEFAULT NULL,
 	mahi_Estado					BIT DEFAULT 1,
 
 	CONSTRAINT PK_Prod_tbMaquinaHistorial_mahi_Id								PRIMARY KEY(mahi_Id),
@@ -1457,7 +1473,7 @@ CREATE TABLE Prod.tbModelosMaquina(
 	usua_UsuarioCreacion		INT NOT NULL,
 	mmaq_FechaCreacion			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT,
-	mmaq_FechaModificacion		DATETIME,
+	mmaq_FechaModificacion		DATETIME DEFAULT NULL,
 	mmaq_Estado					BIT DEFAULT 1,
 	
 	CONSTRAINT PK_Prod_tbModelosMaquina_mmaq_Id 								PRIMARY KEY(mmaq_Id),
@@ -1477,9 +1493,9 @@ CREATE TABLE Prod.tbAsignacionesOrden(
 	asor_EstadoDet		NVARCHAR	NOT NULL,
 
 	usua_UsuarioCreacion		INT			NOT NULL,
-	asor_FechaCreacion			DATETIME DEFAULT GETDATE(),
+	asor_FechaCreacion			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT ,
-	asor_FechaModificacion		DATETIME ,
+	asor_FechaModificacion		DATETIME DEFAULT NULL ,
 	asor_Estado					BIT DEFAULT 1
 
 	CONSTRAINT PK_Prod_tbAsignacionesOrden_asor_Id								PRIMARY KEY (asor_Id)
@@ -1497,9 +1513,9 @@ CREATE TABLE Prod.tbLotes(
 			lote_Est			BIT,
 
 			usua_UsuarioCreacion			INT					NOT NULL,
-			lote_FechaCreacion			DATETIME			NOT NULL DEFAULT GETDATE(),
+			lote_FechaCreacion			DATETIME			NOT NULL ,
 			usua_UsuarioModificacion 	INT 			,
-			lote_FechaModificacion		DATETIME		, 
+			lote_FechaModificacion		DATETIME DEFAULT NULL		, 
 			lote_Estado 				BIT					NOT NULL DEFAULT 1, 
 
 		CONSTRAINT PK_Prod_tbLotes_lote_Id PRIMARY KEY (lote_Id),
@@ -1521,9 +1537,9 @@ CREATE TABLE Prod.tbAsignacionesModuloDetalle(
 	amod_EstadoA			NVARCHAR(15),	
 	
 	usua_UsuarioCreacion		INT, 
-	amod_FechaCreacion			DATETIME DEFAULT GETDATE(),
+	amod_FechaCreacion			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT, 
-	amod_FechaModificacion		DATETIME,
+	amod_FechaModificacion		DATETIME DEFAULT NULL,
 	amod_Estado					BIT DEFAULT 1 
 
 	CONSTRAINT PK_Prod_tbAsignacionesModuloDetalle_amod_Id								PRIMARY KEY (amod_Id)
@@ -1544,9 +1560,9 @@ CREATE TABLE Prod.tbReporteModuloDia(
 	remo_TotalDanado	INT  NOT NULL,
 	
 	usua_UsuarioCreacion		INT  NOT NULL, 
-	remo_FechaCreacion			DATETIME DEFAULT GETDATE(), 
+	remo_FechaCreacion			DATETIME NOT NULL, 
 	usua_UsuarioModificacion	INT, 
-	remo_FechaModificacion		DATETIME, 
+	remo_FechaModificacion		DATETIME DEFAULT NULL, 
 	remo_Estado					BIT DEFAULT 1 
 
 	CONSTRAINT PK_Prod_tbReporteModuloDia_remo_Id								PRIMARY KEY (remo_Id)
@@ -1562,9 +1578,9 @@ CREATE TABLE Prod.tbReporteModuloDiaDetalle(
 	rdet_TotalDanado	INT NOT NULL,
 
 	usua_UsuarioCreacion	INT NOT NULL,
-	rdet_FechaCreacion		DATETIME DEFAULT GETDATE(),  
+	rdet_FechaCreacion		DATETIME,  
 	usua_UsuarioModificacion	INT,
-	rdet_FechaModificacion		DATETIME, 
+	rdet_FechaModificacion		DATETIME DEFAULT NULL, 
 	rdet_Estado			BIT DEFAULT 1  
 
 	CONSTRAINT PK_Prod_tbReporteModuloDiaDetalle_rdet_Id							PRIMARY KEY (rdet_Id)
@@ -1594,7 +1610,7 @@ CREATE TABLE Adua.tbTransporte(
 	tran_IdContenedor				NVARCHAR(100) NOT NULL,
 
 	usua_UsuarioCreacio				INT	NOT NULL,
-	tran_FechaCreacion				DATETIME NOT NULL DEFAULT GETDATE(),
+	tran_FechaCreacion				DATETIME NOT NULL ,
 	usua_UsuarioModificacion		INT,
 	tran_FechaModificacion			DATETIME, 
 	tran_Estado 					BIT	NOT NULL DEFAULT 1
@@ -1616,9 +1632,9 @@ CREATE TABLE Adua.tbConductor(
 
 
 	usua_UsuarioCreacion		INT	NOT NULL,
-	cont_FechaCreacion			DATETIME NOT NULL DEFAULT GETDATE(),
+	cont_FechaCreacion			DATETIME NOT NULL ,
 	usua_UsuarioModificacion 	INT,
-	cont_FechaModificacion		DATETIME, 
+	cont_FechaModificacion		DATETIME DEFAULT NULL, 
 	cont_Estado 				BIT	NOT NULL DEFAULT 1
 
 	CONSTRAINT PK_Adua_tbConductor_cont_Id PRIMARY KEY(cont_Id),
@@ -1631,14 +1647,14 @@ GO
 
 
 CREATE TABLE Prod.tbPedidosProduccion(
-   		ppro_Id              INT IDENTITY(1,1),
-   		empr_Id              INT NOT NULL,
-   		ppro_Fecha           DATETIME NOT NULL,
-   		ppro_Estados          NVARCHAR(150) NOT NULL,
-   		ppro_Observaciones   NVARCHAR(MAX) NOT NULL,
+   		ppro_Id              			INT IDENTITY(1,1),
+   		empr_Id              			INT NOT NULL,
+   		ppro_Fecha           			DATETIME NOT NULL,
+   		ppro_Estados          			NVARCHAR(150) NOT NULL,
+   		ppro_Observaciones   			NVARCHAR(MAX) NOT NULL,
 
    		usua_UsuarioCreacion			INT NOT NULL,
-   		ppro_FechaCreacion				DATETIME NOT NULL DEFAULT GETDATE(),
+   		ppro_FechaCreacion				DATETIME NOT NULL,
    		usua_UsuarioModificacion		INT,
    		ppro_FechaModificacion			DATETIME,
    		ppro_Estado						BIT NOT NULL DEFAULT 1
@@ -1653,19 +1669,19 @@ GO
 
 --CREATE TABLE Prod.tbOrdenCorte_Ensamblado_Acabado_Etiquetado(
 CREATE TABLE Prod.tbOrde_Ensa_Acab_Etiq(
-	ensa_Id				INT  IDENTITY(1,1),
-	ensa_Cantidad		INT NOT NULL,
-	empr_Id				INT NOT NULL,
-	amod_Id				INT NOT NULL,
-	code_Id				INT NOT NULL,
-	ensa_FechaInicio	DATE NOT NULL,
-	ensa_FechaLimite	DATE NOT NULL, 
-	ppro_Id				INT NOT NULL,
+	ensa_Id						INT  IDENTITY(1,1),
+	ensa_Cantidad				INT NOT NULL,
+	empr_Id						INT NOT NULL,
+	amod_Id						INT NOT NULL,
+	code_Id						INT NOT NULL,
+	ensa_FechaInicio			DATE NOT NULL,
+	ensa_FechaLimite			DATE NOT NULL, 
+	ppro_Id						INT NOT NULL,
 
 	usua_UsurioCreacion			INT NOT NULL,
-	ensa_FechaCreacion			DATETIME DEFAULT GETDATE(), 
+	ensa_FechaCreacion			DATETIME, 
 	usua_UsuarioModificacion	INT,
-	ensa_FechaModificacion		DATETIME, 
+	ensa_FechaModificacion		DATETIME DEFAULT NULL, 
 	ensa_Estado					BIT DEFAULT 1  
 
 	CONSTRAINT PK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_orde_Id								PRIMARY KEY (ensa_Id)
@@ -1681,13 +1697,13 @@ CREATE TABLE Prod.tbOrde_Ensa_Acab_Etiq(
 GO
 
 CREATE TABLE Prod.tbPedidosProduccionDetalles(
-		ppde_Id               INT IDENTITY(1,1),
-		ppro_Id               INT NOT NULL,
-		lote_Id               INT NOT NULL,
-		ppde_Cantidad         INT NOT NULL,
+		ppde_Id               			INT IDENTITY(1,1),
+		ppro_Id               			INT NOT NULL,
+		lote_Id               			INT NOT NULL,
+		ppde_Cantidad         			INT NOT NULL,
 
 		usua_UsuarioCreacion			INT NOT NULL,
-		ppde_FechaCreacion				DATETIME NOT NULL DEFAULT GETDATE(),
+		ppde_FechaCreacion				DATETIME NOT NULL ,
 		usua_UsuarioModificacion		INT,
 		ppde_FechaModificacion			DATETIME,
 		ppde_Estado						BIT NOT NULL DEFAULT 1
@@ -1736,7 +1752,7 @@ CREATE TABLE Adua.tbDuca(
 
 
 	usua_UsuarioCreacion			INT	NOT NULL,
-	duca_FechaCreacion				DATETIME NOT NULL DEFAULT GETDATE(),
+	duca_FechaCreacion				DATETIME NOT NULL,
 	usua_UsuarioModificacion		INT,
 	duca_FechaModificacion			DATETIME, 
 	duca_Estado 					BIT	NOT NULL DEFAULT 1
@@ -1761,16 +1777,16 @@ GO
 CREATE TABLE Prod.tbPedidosOrden(
 			peor_Id   					INT IDENTITY(1,1),
 			prov_Id						INT,
-			peor_No_Duca				NVARCHAR(100)		NOT NULL,
+			peor_No_Duca				NVARCHAR(100) NOT NULL,
 			peor_FechaEntrada			DATETIME,
 			peor_Obsevaciones			NVARCHAR(400),
 			peor_DadoCliente			BIT,
 			peor_Est					BIT,
-			usua_UsuarioCreacion		INT					NOT NULL,
-			peor_FechaCreacion			DATETIME			NOT NULL DEFAULT GETDATE(),
+			usua_UsuarioCreacion		INT	NOT NULL,
+			peor_FechaCreacion			DATETIME NOT NULL ,
 			usua_UsuarioModificacion 	INT,
-			peor_FechaModificacion		DATETIME, 
-			peor_Estado 				BIT					NOT NULL DEFAULT 1 
+			peor_FechaModificacion		DATETIME DEFAULT NULL, 
+			peor_Estado 				BIT	NOT NULL DEFAULT 1 
 
 		CONSTRAINT PK_Prod_tbPedidosOrden_peor_Id PRIMARY KEY (peor_Id),
 		CONSTRAINT FK_Prod_tbPedidosOrden_prov_Id_Prod_tbProveedores_prov_Id 			FOREIGN KEY (prov_Id)			REFERENCES Gral.tbProveedores(prov_Id),
@@ -1789,7 +1805,7 @@ CREATE TABLE Prod.tbPedidosOrdenDetalle(
   		prod_Precio						DECIMAL(18,2) NOT NULL,
   		prod_Peso						DECIMAL(18,2) NOT NULL,
 		usua_UsuarioCreacion			INT NOT NULL,
-		prod_FechaCreacion				DATETIME NOT NULL DEFAULT GETDATE(),
+		prod_FechaCreacion				DATETIME NOT NULL ,
 		usua_UsuarioModificacion		INT,
 		prod_FechaModificacion			DATETIME,
 		prod_Estado						BIT NOT NULL DEFAULT 1
@@ -1811,9 +1827,9 @@ CREATE TABLE Prod.tbRevisionDeCalidad(
   reca_Segunda					INT NOT NULL,
   reca_Scrap					INT NOT NULL,
   usua_UsuarioCreacion			INT NOT NULL,
-  reca_FechaCreacion			DATETIME NOT NULL DEFAULT GETDATE(),
+  reca_FechaCreacion			DATETIME NOT NULL ,
   usua_UsuarioModificacion		INT NOT NULL,
-  reca_FechaModificacion		DATETIME NOT NULL,
+  reca_FechaModificacion		DATETIME DEFAULT NULL NOT NULL,
   reca_Estado					BIT NOT NULL DEFAULT 1
 
   CONSTRAINT PK_Prod_tbRevisiondeCalidad_reca_Id 										PRIMARY KEY (reca_Id),
@@ -1828,9 +1844,9 @@ CREATE TABLE Prod.tbInspeccionesEstado(
 		ines_Id						INT IDENTITY(1,1),
 		reca_Id						INT NOT NULL,
 		usua_UsuarioCreacion		INT NOT NULL,
-		ines_FechaCreacion			DATETIME NOT NULL DEFAULT GETDATE(),
+		ines_FechaCreacion			DATETIME NOT NULL ,
 		usua_UsuarioModificacion	INT, 
-		ines_FechaModificacion		DATETIME,
+		ines_FechaModificacion		DATETIME DEFAULT NULL,
 		ines_Estado					BIT NOT NULL DEFAULT 1
 	CONSTRAINT PK_Prod_tbInspeccionesEstado_ines_Id PRIMARY KEY (ines_Id),
 	CONSTRAINT FK_Prod_tbRevisionDeCalidad_reca_Id_Prod_tbRevisionDeCalidad_reca_Id		FOREIGN KEY (reca_Id) REFERENCES Prod.tbRevisionDeCalidad(reca_Id),
@@ -1845,7 +1861,7 @@ CREATE TABLE Adua.tbMarcas(
 	marc_Id							INT IDENTITY(1,1),
 	marc_Descripcion				NVARCHAR(20) NOT NULL,
 	usua_UsuarioCreacion			INT	NOT NULL,
-	marc_FechaCreacion				DATETIME NOT NULL DEFAULT GETDATE(),
+	marc_FechaCreacion				DATETIME NOT NULL ,
 	usua_UsuarioModificacion 		INT,
 	marc_FechaModificacion			DATETIME, 
 	marc_Estado 					BIT	NOT NULL DEFAULT 1
@@ -1859,9 +1875,9 @@ CREATE TABLE Adua.tbTiposIdentificacion(
 	iden_Id						INT IDENTITY(1,1),
 	iden_Descripcion			NVARCHAR(75) NOT NULL,
 	usua_UsuarioCreacion		INT	NOT NULL,
-	iden_FechaCreacion				DATETIME DEFAULT GETDATE(),
+	iden_FechaCreacion			DATETIME NOT NULL,
 	usua_UsuarioModificacion 	INT,
-	iden_FechaModificacion				DATETIME, 
+	iden_FechaModificacion		DATETIME DEFAULT NULL, 
 	iden_Estado 				BIT	NOT NULL DEFAULT 1
 	CONSTRAINT PK_Adua_tbTiposIdentificacion_iden_Id PRIMARY KEY(iden_Id),
 	CONSTRAINT FK_Prod_tbTiposIdentificacion_tbUsuarios_iden_UsuarioCreacion		FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios 	(usua_Id),
@@ -1875,7 +1891,7 @@ CREATE TABLE Adua.tbModoTransporte(
 	motr_Id				     INT IDENTITY(1,1),
 	motr_Descripcion	     NVARCHAR(75) NOT NULL,
 	usua_UsuarioCreacion 	 INT NOT NULL,
-	motr_FechaCreacion		 DATETIME NOT NULL DEFAULT GETDATE(),
+	motr_FechaCreacion		 DATETIME NOT NULL ,
 	usua_UsuarioModificacion INT,
 	motr_FechaModificacion	 DATETIME, 
 	motr_Estado 		     BIT NOT NULL DEFAULT 1
@@ -1894,7 +1910,7 @@ CREATE TABLE Adua.tbLiquidacionGeneral(
 	lige_TotalGral			 NVARCHAR(50) NULL,
 	duca_Id				     NVARCHAR(100) NOT NULL,
 	usua_UsuarioCreacion 	 INT NOT NULL,
-	lige_FechaCreacion		 DATETIME NOT NULL DEFAULT GETDATE(),
+	lige_FechaCreacion		 DATETIME NOT NULL,
 	usua_UsuarioModificacion INT,
 	lige_FechaModicacion	 DATETIME, 
 	lige_Estado 			 BIT NOT NULL DEFAULT 1
@@ -1910,9 +1926,9 @@ CREATE TABLE Adua.tbTipoDocumento(
 	tido_Id				        CHAR(4),
 	tido_Descripcion	        NVARCHAR(50),
 	usua_UsuarioCreacion		INT	NOT NULL,
-	tido_FechaCrea		        DATETIME NOT NULL DEFAULT GETDATE(),
+	tido_FechaCreacion		    DATETIME NOT NULL ,
 	usua_UsuarioModificacion 	INT,
-	tido_FechaModificacion		DATETIME, 
+	tido_FechaModificacion		DATETIME DEFAULT NULL, 
 	tido_Estado 		        BIT	NOT NULL DEFAULT 1
 	CONSTRAINT PK_Adua_tbTipoDocumento_tido_Id PRIMARY KEY(tido_Id),
 	CONSTRAINT FK_Adua_tbTipoDocumento_Acce_tbUsuarios_usua_UsuarioCreacion_usua_Id			FOREIGN KEY (usua_UsuarioCreacion)     		REFERENCES Acce.tbUsuarios 	(usua_Id),
@@ -1927,7 +1943,7 @@ CREATE TABLE Gral.tbDocumentosPDF(
     dpdf_DUCA                  NVARCHAR(200) NOT NULL,
     dpdf_Boletin               NVARCHAR(200) NOT NULL,
 	usua_UsuarioCreacion       INT           NOT NULL,
-    dpdf_FechaCrea             DATETIME      NULL,
+    dpdf_FechaCreacion         DATETIME      NOT NULL,
     usua_UsuarioModificacion   INT           NOT NULL,
     dpdf_FechaModificacion	   DATETIME      NULL,
     dpdf_Estado                BIT           NOT NULL,
@@ -1954,7 +1970,7 @@ CREATE TABLE Adua.tbBoletinPago(
     coim_Id                        INT NOT NULL,
     copa_Id                        INT NOT NULL,
     usua_UsuarioCreacion           INT NOT NULL,
-    boen_FechaCrea                 DATETIME NULL,
+    boen_FechaCreacion             DATETIME NOT NULL,
     usua_UsuarioModificacion       INT NOT NULL,
     boen_FechaModificacion         DATETIME NULL,
     boen_Estado                    BIT NOT NULL,
@@ -1980,7 +1996,7 @@ CREATE TABLE Adua.tbDocumentosDeSoporte(
 	doso_EntidadEmitioDocumento         NVARCHAR(75),
 	doso_Monto				           	NVARCHAR(50),
 	usua_UsuarioCreacion				INT	NOT NULL,
-	doso_FechaCrea			          	DATETIME NOT NULL DEFAULT GETDATE(),
+	doso_FechaCreacion			        DATETIME NOT NULL,
 	usua_UsuarioModificacion 		    INT,
 	doso_FechaModificacion		        DATETIME, 
 	doso_Estado 				        BIT	NOT NULL DEFAULT 1

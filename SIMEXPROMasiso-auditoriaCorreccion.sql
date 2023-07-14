@@ -739,16 +739,16 @@ CREATE TABLE Prod.tbModelos(
 GO
 
 CREATE TABLE Prod.tbColores(
-	colo_Id						INT  IDENTITY(1,1),
-	colo_Nombre					NVARCHAR(200) NOT NULL,
-	colo_Codigo					NVARCHAR(50) NOT NULL,
+	colr_Id						INT  IDENTITY(1,1),
+	colr_Nombre					NVARCHAR(200) NOT NULL,
+	colr_Codigo					NVARCHAR(50) NOT NULL,
 	usua_UsuarioCreacion		INT,
-	colo_FechaCreacion			DATETIME NOT NULL, 
+	colr_FechaCreacion			DATETIME NOT NULL, 
 	usua_UsuarioModificacion	INT,
-	colo_FechaModificacion		DATETIME DEFAULT NULL,
-	colo_Estado					BIT DEFAULT 1 
+	colr_FechaModificacion		DATETIME DEFAULT NULL,
+	colr_Estado					BIT DEFAULT 1 
 
-	CONSTRAINT PK_Prod_tbColores_colo_Id													PRIMARY KEY (colo_Id)
+	CONSTRAINT PK_Prod_tbColores_colr_Id													PRIMARY KEY (colr_Id)
 	CONSTRAINT FK_Prod_tbColores_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id				FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbColores_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 );
@@ -1301,7 +1301,7 @@ CREATE TABLE Prod.tbOrdenCompraDetalles(
 	mode_Id						INT NOT NULL,
 	tall_Id						CHAR(5) NOT NULL,
 	code_Sexo					CHAR(1) NOT NULL,
-	colo_Id						INT NOT NULL,
+	colr_Id						INT NOT NULL,
 	code_Documento				NVARCHAR(250) NOT NULL,
 	code_Medidas				NVARCHAR(250) NOT NULL,
 	proc_IdComienza				INT NOT NULL,
@@ -1321,7 +1321,7 @@ CREATE TABLE Prod.tbOrdenCompraDetalles(
 	CONSTRAINT PK_Prod_tbOrdenCompraDetalles_code_Id PRIMARY KEY(code_Id),
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_orco_Id_Prod_tbOrdenCompra_orco_Id  FOREIGN KEY(orco_Id) REFERENCES Prod.tbOrdenCompra(orco_Id),
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_mode_Id_Prod_tbModelo_mode_Id       FOREIGN KEY(mode_Id) REFERENCES Prod.tbModelos(mode_Id),
-	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_colo_Id_Prod_tbColores_colo_Id	     FOREIGN KEY (colo_Id) REFERENCES Prod.tbColores(colo_Id),
+	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_colr_Id_Prod_tbColores_colr_Id	     FOREIGN KEY (colr_Id) REFERENCES Prod.tbColores(colr_Id),
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_tall_Id_Prod_tbTalla_mode_Id        FOREIGN KEY(tall_Id) REFERENCES Prod.tbTallas(tall_Id),
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_proc_IdComienza_Prod_tbProcesos_proc_Id     FOREIGN KEY(proc_IdComienza) REFERENCES Prod.tbProcesos(proc_Id),
 	CONSTRAINT CK_Prod_tbOrdenCompraDetalles_code_Sexo							 CHECK (code_Sexo IN ('F','M')),

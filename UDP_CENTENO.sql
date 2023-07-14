@@ -17,8 +17,6 @@ ON adu.usua_UsuarioCreacion = usu.usua_Id INNER JOIN
 
 go
 
-
-
 /*Listar aduanas*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Listar
 AS
@@ -27,8 +25,6 @@ BEGIN
    FROM Adua.VW_tbAduanas
    WHERE AduanaEstado = 1 
 END 
-
-
 
 /*Aduanas Crear */
 GO
@@ -40,6 +36,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Insertar
 AS 
 BEGIN 
      BEGIN TRY 
+		SET @adua_FechaCreacion = GETDATE();
 		IF EXISTS (SELECT * FROM [Adua].[tbAduanas]     
 		  WHERE @adua_Nombre = adua_Nombre
 			AND adua_Estado = 0)
@@ -91,6 +88,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Editar
 AS
 BEGIN 
    BEGIN TRY   
+     SET @adua_FechaModificacion = GETDATE()
 	   UPDATE  [Adua].[tbAduanas] 
 	   SET adua_Nombre = @adua_Nombre, 
 	       adua_Direccion_Exacta = @adua_Direccion_Exacta, 		   
@@ -158,6 +156,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbFormasdePago_Insertar
 AS
 BEGIN
      BEGIN TRY 
+	 SET @fopa_FechaCreacion = GETDATE()
 	    IF EXISTS(SELECT * FROM [Adua].[tbFormasdePago] WHERE fopa_Descripcion=@fopa_Descripcion 
 		 AND fopa_Estado = 0)	 
 		 BEGIN 
@@ -197,6 +196,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbFormasdePago_Editar
 AS
 BEGIN 
       BEGIN TRY 
+	  SET @fopa_FechaModificacion = GETDATE()
 	      UPDATE [Adua].[tbFormasdePago]
 		  SET fopa_Descripcion = @fopa_Descripcion, 
 		      usua_UsuarioModificacion = @usua_UsuarioModificacion,
@@ -221,9 +221,209 @@ AS
          SET [fopa_Estado] = 0
 		 WHERE [fopa_Id] = @fopa_id
    END TRY 
+   BEGIN CATCH 
+   SELECT 0
+   END CATCH
+GO
+/*******************************Condiciones comerciales *******************************/ 
+
+/*************************Vista Condiciones comerciales ************************************/
+CREATE OR ALTER VIEW Adua.VW_tbCondicionesComerciales 
+AS
+  SELECT condi.coco_Id   AS CondicionesComercialesID, 
+         condi.coco_Descripcion AS Descripcion, 
+		 usu.usua_Nombre AS UsuarioCreacion,
+		 usu1.usua_Nombre AS UsuarioModificacion ,
+		 condi.coco_Estado AS Estado
+  FROM [Adua].[tbCondicionesComerciales] condi INNER JOIN 
+  [Acce].[tbUsuarios] usu 
+  ON condi.coco_UsuCreacion = usu.usua_Id INNER JOIN [Acce].[tbUsuarios] usu1
+  ON usu1.usua_Id = condi.coco_UsuarioModificacion
+
+/*Listar Condiciones comerciales*/
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbCondicionesComerciales_Listar
+AS
+   SELECT * 
+   FROM Adua.VW_tbCondicionesComerciales 
+   WHERE Estado = 0
+
+/*Crear Condiciones comerciales*/
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbCondicionesComerciales_Insertar  
+ @coco_Descripcion    NVARCHAR(350), 
+ @coco_UsuCreacion        INT, 
+ @coco_FechaCreacion     DATETIME
+AS    
+BEGIN 
+    BEGIN TRY 
+	  SET @coco_FechaCreacion= GETDATE()
+	  IF EXISTS(SELECT * FROM [Adua].[tbCondicionesComerciales] con 
+	        WHERE con.coco_Descripcion = @coco_Descripcion AND con.[coco_Estado] =0)
+			BEGIN 
+			   UPDATE [Adua].[tbCondicionesComerciales]
+			   SET [coco_Estado] = 1
+			   SELECT 1
+			END
+			ELSE 
+			  BEGIN 
+			     INSERT INTO [Adua].[tbCondicionesComerciales]
+				 ( coco_Descripcion, 
+				   coco_UsuCreacion, 
+				   coco_FechaCreacion				     				 
+				 )
+				 VALUES(
+                  @coco_Descripcion,
+				  @coco_UsuCreacion,   
+				  @coco_FechaCreacion 					 
+				 )			  
+			  SELECT 1
+			 END 
+	   END TRY
+	BEGIN CATCH
+	    SELECT 0
+	END CATCH  
+END 
 
 
-/*******************************  *******************************/ 
+/*Editar Condiciones comerciales*/
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbCondicionesComerciales_Editar
+   @coco_Id                  INT,
+   @coco_Descripcion         NVARCHAR(150),
+   @coco_UsuarioModificacion         INT,
+   @coco_FechaModi           DATETIME
+AS
+BEGIN 
+      BEGIN TRY
+	SET  @coco_FechaModi = GETDATE()
+	      UPDATE [Adua].[tbCondicionesComerciales]
+		  SET coco_Descripcion = @coco_Descripcion, 
+		      coco_UsuarioModificacion = @coco_UsuarioModificacion,
+			  coco_FechaModi = @coco_FechaModi
+		  WHERE [coco_Id] = @coco_Id
+	   END TRY 
+	   BEGIN CATCH 
+	       SELECT 0
+	   END CATCH
+END
+ 
+ /*Eliminar Condiciones Comerciales */
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbCondicionesComerciales_Eliminar
+   @coco_Id INT,
+   @coco_UsuarioModificacion  INT 
+AS
+BEGIN 
+   BEGIN TRY 
+      UPDATE [Adua].[tbCondicionesComerciales]
+      SET coco_Estado = 0,
+	      coco_UsuarioModificacion = @coco_UsuarioModificacion
+	  WHERE coco_Id = @coco_Id
+	     
+   END TRY 
+   BEGIN CATCH 
+      SELECT 0
+   END CATCH
+END
+
+
+
+
+GO
+/************************Listar Tipos de Intermediarios*************************/
+/*************Vistas Tipo de intermediarios*****************/
+CREATE OR ALTER VIEW Adua.VW_tbTipoIntermediario
+AS
+ SELECT 
+ tite_Descripcion  AS Descripcion, 
+ usu.usua_Nombre AS UsuarioCreador, 
+ tite_FechaCreacion AS FechaCreacion,
+ usu1.usua_Nombre AS UsuarioModificacion,
+ tite_FechaModi AS FechaModificacion,
+ tite_Estado AS Estados
+ FROM [Adua].[tbTipoIntermediario] tip INNER JOIN [Acce].[tbUsuarios] usu
+ ON tip.tite_UsuCreacion = usu.usua_UsuCreacion INNER JOIN [Acce].[tbUsuarios] usu1
+ ON usu1.usua_UsuarioModificacion = tip.tite_UsuarioModificacion
+
+/*********************Listar Tipo intermediario***************************/
+ GO
+ CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Listar
+ AS
+ BEGIN 
+     SELECT *
+	 FROM Adua.VW_tbTipoIntermediario
+
+ END 
+ GO
+ /********************Crear Tipo Intermediario******************************/
+ -- Crear el procedimiento almacenado Adua.UDP_tbTipoIntermediario_Insertar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Insertar  
+   @tite_Descripcion    NVARCHAR(150), 
+   @tite_UsuCreacion        INT, 
+   @tite_FechaCreacion     DATETIME
+AS    
+BEGIN 
+   BEGIN TRY 
+   SET @tite_FechaCreacion= GETDATE();
+      IF EXISTS(SELECT * FROM [Adua].[tbTipoIntermediario] WHERE tite_Descripcion = @tite_Descripcion AND tite_Estado = 0)
+      BEGIN 
+         UPDATE [Adua].[tbTipoIntermediario]
+         SET tite_Estado = 1
+         SELECT 1
+      END
+      ELSE 
+      BEGIN 
+         INSERT INTO [Adua].[tbTipoIntermediario] (tite_Descripcion, tite_UsuCreacion, tite_FechaCrea)
+         VALUES (@tite_Descripcion, @tite_UsuCreacion, @tite_FechaCrea)			  
+         SELECT 1
+      END
+   END TRY
+   BEGIN CATCH
+      SELECT 0
+   END CATCH  
+END
+
+GO
+
+
+/*************Editar Tipo de intermediario ************************/
+-- Crear el procedimiento almacenado Adua.UDP_tbTipoIntermediario_Editar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Editar
+   @tite_Id                  INT,
+   @tite_Descripcion         NVARCHAR(150),
+   @tite_UsuarioModificacion         INT,
+   @tite_FechaModi           DATETIME
+AS
+BEGIN 
+   BEGIN TRY 
+     SET @tite_FechaModi = GETDATE();
+      UPDATE [Adua].[tbTipoIntermediario]
+      SET tite_Descripcion = @tite_Descripcion, 
+          tite_UsuarioModificacion = @tite_UsuarioModificacion,
+          tite_FechaModi = @tite_FechaModi
+      WHERE tite_Id = @tite_Id
+   END TRY 
+   BEGIN CATCH 
+       SELECT 0
+   END CATCH
+END
+
+GO
+/*************************Eliminar tipo de intermediario*****************/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Eliminar
+   @tite_Id INT
+AS
+BEGIN 
+   BEGIN TRY 
+      UPDATE [Adua].[tbTipoIntermediario]
+      SET tite_Estado = 0
+      WHERE tite_Id = @tite_Id
+   END TRY 
+   BEGIN CATCH 
+      SELECT 0
+   END CATCH
+END
 
 
  

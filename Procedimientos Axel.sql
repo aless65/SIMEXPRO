@@ -400,7 +400,7 @@ GO
 ----------------------------------------------------------------------//  Modulos de Producción Procedimientos final \\-------------------------------------------------------------------------------------------
 GO
 ---------------------------------------------------------------------//  Modulos de Aduanas Procedimientos Inicio \\-------------------------------------------------------------------------------------------
---************************************************************************   Tabla Modelos maquinas inicio   ***********************************************************************************************
+--************************************************************************   Tabla Aranceles inicio   ***********************************************************************************************
 
 --Listar Aranceles
 CREATE OR ALTER VIEW Adua.VW_tbArenceles
@@ -473,34 +473,141 @@ END
 GO
 
 --Eliminar Aranceles
+CREATE OR ALTER PROCEDURE Adua.UDP_tbAranceles_Eliminar
+	@aran_Id					INT,
+	@usua_UsuarioModificacion	INT,
+	@aran_FechaModificacion		DATETIME
+AS
+BEGIN
+	SET @aran_FechaModificacion = GETDATE();
+	BEGIN TRY
+		UPDATE	Adua.tbAranceles
+		SET		aram_Estado = 0,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				aran_FechaModificacion = @aran_FechaModificacion
+		WHERE Aran_Id = @aran_Id
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
 
+--************************************************************************   Tabla Aranceles FIN   ***********************************************************************************************
+GO
+--************************************************************************   Tabla Declaratntes inicio   ***********************************************************************************************
 
+--Listar Declarantes
+CREATE OR ALTER VIEW Adua.VW_tbDeclarantes
+AS
+SELECT	decl.decl_Id, 
+		decl.decl_Nombre_Raso, 
+		decl.decl_Direccion_Exacta, 
+		decl.pvin_Id,
+		prvi.pvin_Codigo,
+		prvi.pvin_Nombre,
+		pais.pais_Codigo,
+		pais.pais_Nombre,
+		decl.decl_Correo_Electronico, 
+		decl.decl_Telefono, 
+		decl.decl_Fax 
+FROM    Adua.tbDeclarantes decl INNER JOIN Gral.tbProvincias prvi
+ON		decl.pvin_Id = prvi.pvin_Id INNER JOIN Gral.tbPaises  pais
+ON		prvi.pais_Codigo = pais.pais_Codigo
 
+GO
 
+--Insertar Declarantes
+CREATE OR ALTER PROCEDURE Adua.UDP_tbDeclarantes_Insertar
+	@decl_Nombre_Raso			NVARCHAR(250), 
+	@decl_Direccion_Exacta		NVARCHAR(250), 
+	@pvin_Id					INT, 
+	@decl_Correo_Electronico	NVARCHAR(150), 
+	@decl_Telefono				NVARCHAR(50), 
+	@decl_Fax					NVARCHAR(50), 
+	@usua_UsuarioCreacion		INT,
+	@decl_FechaCreacion			DATETIME
+AS
+BEGIN
+	SET @decl_FechaCreacion = GETDATE();
+	BEGIN TRY
+		IF EXISTS(SELECT decl_Id FROM Adua.tbDeclarantes WHERE decl_Nombre_Raso = @decl_Nombre_Raso AND decl_Direccion_Exacta = @decl_Direccion_Exacta AND pvin_Id = @pvin_Id AND decl_Correo_Electronico = @decl_Correo_Electronico AND decl_Telefono = @decl_Telefono AND decl_Fax = @decl_Fax  AND decl_Estado = 0)
+			BEGIN
+				UPDATE	Adua.tbDeclarantes
+				SET		decl_Estado = 1
+				WHERE decl_Nombre_Raso = @decl_Nombre_Raso AND decl_Direccion_Exacta = @decl_Direccion_Exacta AND pvin_Id = @pvin_Id AND decl_Correo_Electronico = @decl_Correo_Electronico AND decl_Telefono = @decl_Telefono AND decl_Fax = @decl_Fax 
+				
+				SELECT 1
+			END
+		ELSE
+			BEGIN
+				INSERT INTO Adua.tbDeclarantes ([decl_Nombre_Raso], [decl_Direccion_Exacta], [pvin_Id], [decl_Correo_Electronico], [decl_Telefono], [decl_Fax], [usua_UsuarioCreacion], [decl_FechaCreacion], [usua_UsuarioModificacion], [decl_FechaModificacion], [decl_Estado])
+				VALUES (@decl_Nombre_Raso,@decl_Direccion_Exacta,@pvin_Id,@decl_Correo_Electronico,@decl_Telefono,@decl_Fax,@usua_UsuarioCreacion,@decl_FechaCreacion,NULL,NULL,1);
+				
+				SELECT 1
+			END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
 
+GO
 
+--Editar Declarantes
+CREATE OR ALTER PROCEDURE Adua.UDP_tbDeclarantes_Editar
+	@decl_Id					INT,
+	@decl_Nombre_Raso			NVARCHAR(250), 
+	@decl_Direccion_Exacta		NVARCHAR(250), 
+	@pvin_Id					INT, 
+	@decl_Correo_Electronico	NVARCHAR(150), 
+	@decl_Telefono				NVARCHAR(50), 
+	@decl_Fax					NVARCHAR(50), 
+	@usua_UsuarioModificacion	INT,
+	@decl_FechaModificacion		DATETIME
+AS
+BEGIN
+	SET @decl_FechaModificacion = GETDATE();
+	BEGIN TRY
+		UPDATE [Adua].[tbDeclarantes]
+		   SET [decl_Nombre_Raso] = @decl_Nombre_Raso
+			  ,[decl_Direccion_Exacta] = @decl_Direccion_Exacta
+			  ,[pvin_Id] = @pvin_Id
+			  ,[decl_Correo_Electronico] = @decl_Correo_Electronico
+			  ,[decl_Telefono] = @decl_Telefono
+			  ,[decl_Fax] = @decl_Fax
+			  ,[usua_UsuarioModificacion] = @usua_UsuarioModificacion
+			  ,[decl_FechaModificacion] = @decl_FechaModificacion
+		 WHERE decl_Id = @decl_Id
 
+		 SELECT 1
+	END  TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
 
+GO
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+--Eliminar Declarantes
+CREATE OR ALTER PROCEDURE Adua.UDP_tbAranceles_Eliminar
+	@decl_Id					INT,
+	@usua_UsuarioModificacion	INT,
+	@decl_FechaModificacion		DATETIME
+AS
+BEGIN
+	SET @decl_FechaModificacion = GETDATE()
+	BEGIN TRY
+		UPDATE	Adua.tbDeclarantes
+		SET		decl_Estado = 0,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				decl_FechaModificacion = @decl_FechaModificacion
+		WHERE decl_Id = @decl_Id
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
 
 ---------------------------------------------------------------------//  Modulos de Aduanas Procedimientos final \\-------------------------------------------------------------------------------------------

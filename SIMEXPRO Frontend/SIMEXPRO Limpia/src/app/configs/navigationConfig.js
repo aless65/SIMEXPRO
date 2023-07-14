@@ -60,7 +60,7 @@ const navigationConfig = [
                         title: 'Usuarios',
                         type: 'item',
                         icon: 'material-outline:hail',
-                        url: '/Seguridad/Usuarios',
+                        url: '/Usuarios/Index',
                     },
                     {
                         id: 'Seguridad.Roles',

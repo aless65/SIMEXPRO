@@ -7,6 +7,7 @@ import SignUpConfig from '../main/sign-up/SignUpConfig';
 import SignOutConfig from '../main/sign-out/SignOutConfig';
 import dashboardsConfigs from '../main/dashboards/dashboardsConfigs';
 import pagesConfigs from '../main/pages/pagesConfigs';
+import UsuariosIndex from '../Seguridad/Usuarios';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -30,6 +31,10 @@ const routes = [
   {
     path: '*',
     element: <Navigate to="pages/error/404" />,
+  },
+  {
+    path: 'Usuarios/Index',
+    element: <UsuariosIndex/>,
   },
 ];
 

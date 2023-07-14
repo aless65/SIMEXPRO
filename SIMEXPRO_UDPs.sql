@@ -33,7 +33,7 @@ AS
 GO
 
 /*Listar Usuarios*/
-CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Listar
+CREATE OR ALTER PROCEDURE acce.UDP_VW_tbUsuarios_Listar
 AS
 BEGIN
 	SELECT *

@@ -53,7 +53,7 @@ const navigationConfig = [
                 title: 'ECommerce',
                 type: 'collapse',
                 icon: 'material-outline:content_cut',
-                translate: 'Seguridad',
+                translate: 'Acceso',
                 children: [
                     {
                         id: 'Seguridad.Usuarios',
@@ -204,7 +204,7 @@ const navigationConfig = [
                         title: 'Estados Civiles',
                         type: 'item',
                         icon: 'material-outline:male',
-                        url: '/Personas/EstadosCiviles',
+                        url: 'EstadosCiviles/Index',
                     }, {
                         id: 'Personas.oficinas',
                         title: 'Oficinas',

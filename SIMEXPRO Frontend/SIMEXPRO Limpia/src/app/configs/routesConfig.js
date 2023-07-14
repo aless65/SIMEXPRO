@@ -7,7 +7,7 @@ import SignUpConfig from '../main/sign-up/SignUpConfig';
 import SignOutConfig from '../main/sign-out/SignOutConfig';
 import dashboardsConfigs from '../main/dashboards/dashboardsConfigs';
 import pagesConfigs from '../main/pages/pagesConfigs';
-
+import EstadosCivilesIndex from '../Personas/EstadosCiviles/EstadosCiviles';
 const routeConfigs = [
   ...dashboardsConfigs,
   ...pagesConfigs,
@@ -30,6 +30,10 @@ const routes = [
   {
     path: '*',
     element: <Navigate to="pages/error/404" />,
+  },
+  {
+    path: 'EstadosCiviles/Index',
+    element: <EstadosCivilesIndex />,
   },
 ];
 

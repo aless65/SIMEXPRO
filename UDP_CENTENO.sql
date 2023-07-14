@@ -237,8 +237,8 @@ AS
 		 condi.coco_Estado AS Estado
   FROM [Adua].[tbCondicionesComerciales] condi INNER JOIN 
   [Acce].[tbUsuarios] usu 
-  ON condi.coco_UsuCreacion = usu.usua_Id INNER JOIN [Acce].[tbUsuarios] usu1
-  ON usu1.usua_Id = condi.coco_UsuarioModificacion
+  ON condi.usua_UsuarioCreacion = usu.usua_Id INNER JOIN [Acce].[tbUsuarios] usu1
+  ON usu1.usua_Id = condi.usua_UsuarioModificacion
 
 /*Listar Condiciones comerciales*/
 GO
@@ -269,7 +269,7 @@ BEGIN
 			  BEGIN 
 			     INSERT INTO [Adua].[tbCondicionesComerciales]
 				 ( coco_Descripcion, 
-				   coco_UsuCreacion, 
+				   usua_UsuarioCreacion, 
 				   coco_FechaCreacion				     				 
 				 )
 				 VALUES(
@@ -299,8 +299,8 @@ BEGIN
 	SET  @coco_FechaModi = GETDATE()
 	      UPDATE [Adua].[tbCondicionesComerciales]
 		  SET coco_Descripcion = @coco_Descripcion, 
-		      coco_UsuarioModificacion = @coco_UsuarioModificacion,
-			  coco_FechaModi = @coco_FechaModi
+		      usua_UsuarioModificacion = @coco_UsuarioModificacion,
+			  coco_FechaModificacion = @coco_FechaModi
 		  WHERE [coco_Id] = @coco_Id
 	   END TRY 
 	   BEGIN CATCH 
@@ -318,7 +318,7 @@ BEGIN
    BEGIN TRY 
       UPDATE [Adua].[tbCondicionesComerciales]
       SET coco_Estado = 0,
-	      coco_UsuarioModificacion = @coco_UsuarioModificacion
+	      usua_UsuarioModificacion = @coco_UsuarioModificacion
 	  WHERE coco_Id = @coco_Id
 	     
    END TRY 
@@ -331,8 +331,7 @@ END
 
 
 GO
-/************************Listar Tipos de Intermediarios*************************/
-/*************Vistas Tipo de intermediarios*****************/
+/************************UDP Tipos de Intermediarios*************************/
 CREATE OR ALTER VIEW Adua.VW_tbTipoIntermediario
 AS
  SELECT 
@@ -340,11 +339,11 @@ AS
  usu.usua_Nombre AS UsuarioCreador, 
  tite_FechaCreacion AS FechaCreacion,
  usu1.usua_Nombre AS UsuarioModificacion,
- tite_FechaModi AS FechaModificacion,
+ tite_FechaModificacion AS FechaModificacion,
  tite_Estado AS Estados
  FROM [Adua].[tbTipoIntermediario] tip INNER JOIN [Acce].[tbUsuarios] usu
- ON tip.tite_UsuCreacion = usu.usua_UsuCreacion INNER JOIN [Acce].[tbUsuarios] usu1
- ON usu1.usua_UsuarioModificacion = tip.tite_UsuarioModificacion
+ ON tip.usua_UsuarioCreacion = usu.usua_Id INNER JOIN [Acce].[tbUsuarios] usu1
+ ON usu1.usua_UsuarioModificacion = tip.usua_UsuarioModificacion
 
 /*********************Listar Tipo intermediario***************************/
  GO
@@ -357,7 +356,6 @@ AS
  END 
  GO
  /********************Crear Tipo Intermediario******************************/
- -- Crear el procedimiento almacenado Adua.UDP_tbTipoIntermediario_Insertar
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Insertar  
    @tite_Descripcion    NVARCHAR(150), 
    @tite_UsuCreacion        INT, 
@@ -374,8 +372,8 @@ BEGIN
       END
       ELSE 
       BEGIN 
-         INSERT INTO [Adua].[tbTipoIntermediario] (tite_Descripcion, tite_UsuCreacion, tite_FechaCrea)
-         VALUES (@tite_Descripcion, @tite_UsuCreacion, @tite_FechaCrea)			  
+         INSERT INTO [Adua].[tbTipoIntermediario] (tite_Descripcion, usua_UsuarioCreacion, tite_FechaCreacion)
+         VALUES (@tite_Descripcion, @tite_UsuCreacion, @tite_FechaCreacion)			  
          SELECT 1
       END
    END TRY
@@ -388,7 +386,6 @@ GO
 
 
 /*************Editar Tipo de intermediario ************************/
--- Crear el procedimiento almacenado Adua.UDP_tbTipoIntermediario_Editar
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Editar
    @tite_Id                  INT,
    @tite_Descripcion         NVARCHAR(150),
@@ -400,8 +397,8 @@ BEGIN
      SET @tite_FechaModi = GETDATE();
       UPDATE [Adua].[tbTipoIntermediario]
       SET tite_Descripcion = @tite_Descripcion, 
-          tite_UsuarioModificacion = @tite_UsuarioModificacion,
-          tite_FechaModi = @tite_FechaModi
+          usua_UsuarioModificacion = @tite_UsuarioModificacion,
+          tite_FechaModificacion = @tite_FechaModi
       WHERE tite_Id = @tite_Id
    END TRY 
    BEGIN CATCH 
@@ -424,6 +421,13 @@ BEGIN
       SELECT 0
    END CATCH
 END
+
+
+/******************************
+
+
+
+
 
 
  

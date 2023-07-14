@@ -344,6 +344,11 @@ END
 GO
 
 
-
---**falttan los UDP CON FUNSION PARA ELIMINAR, DE TODAS LAS TABLAS QUE ESTÁN EN ESTE APARTADO **
 --**********************************************************************************************
+--********** TABLA MÁQUINAS MÓDULOS / procedimientos tomando en cuenta los uniques ***********************
+
+CREATE OR ALTER VIEW Prod.VW_tbMaquinasModulos
+AS
+
+SELECT 
+FROM 

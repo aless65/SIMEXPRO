@@ -266,8 +266,8 @@ GO
 CREATE TABLE Gral.tbColonias(
 	colo_Id						INT IDENTITY(1,1),
 	colo_Nombre 				NVARCHAR(150) NOT NULL,
-	alde_Id 					INT	NOT NULL,
-	ciud_Id						INT	NOT NULL,
+	alde_Id 					INT,
+	ciud_Id						INT,
 
 	usua_UsuarioCreacion 		INT	NOT NULL,
 	colo_FechaCreacion 			DATETIME NOT NULL,
@@ -317,7 +317,7 @@ CREATE TABLE Gral.tbOficinas(
 
 	CONSTRAINT FK_Gral_tbOficinas_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioCreacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbOficinas_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
-
+	CONSTRAINT UQ_Gral_tbOficinas_ofic_Nombre UNIQUE(ofic_Nombre)
 );
 GO
 

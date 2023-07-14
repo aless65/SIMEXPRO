@@ -8,8 +8,7 @@ import SignOutConfig from '../main/sign-out/SignOutConfig';
 import dashboardsConfigs from '../main/dashboards/dashboardsConfigs';
 import pagesConfigs from '../main/pages/pagesConfigs';
 import EstadosCivilesIndex from '../Personas/EstadosCiviles/EstadosCiviles';
-import UsuariosIndex from '../Seguridad/Usuarios';
-
+import UsuariosIndex from '../Seguridad/Usuarios/Usuarios';
 const routeConfigs = [
   ...dashboardsConfigs,
   ...pagesConfigs,
@@ -36,6 +35,9 @@ const routes = [
   {
     path: 'EstadosCiviles/Index',
     element: <EstadosCivilesIndex />,
+
+  },
+  {
     path: 'Usuarios/Index',
     element: <UsuariosIndex/>,
   },

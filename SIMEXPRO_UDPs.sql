@@ -1,5 +1,65 @@
 -----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS
 
+---***********VALIDACIÓN DE ELIMINAR**************---
+
+GO
+CREATE OR ALTER PROCEDURE dbo.UDP_ValidarReferencias
+	(@Id_Nombre		NVARCHAR(250),
+	 @Id_Valor		NVARCHAR(50),
+	 @tabla_Nombre NVARCHAR(1000),
+	 @respuesta INT OUTPUT)
+AS BEGIN
+	DECLARE @QUERY NVARCHAR(MAX);
+	SET @Id_Valor = CONCAT('=', @Id_Valor);
+
+	/*En esta sección se consiguen las tablas que está referenciadas al campo*/
+
+	WITH AKT AS ( SELECT ROW_NUMBER() OVER (ORDER BY f.name) RN, f.name AS ForeignKey
+						,OBJECT_NAME(f.parent_object_id) AS TableName
+						,COL_NAME(fc.parent_object_id, fc.parent_column_id) AS ColumnName
+						,SCHEMA_NAME(f.schema_id) SchemaName
+						,OBJECT_NAME (f.referenced_object_id) AS ReferenceTableName
+						,COL_NAME(fc.referenced_object_id, fc.referenced_column_id) AS ReferenceColumnName
+				  FROM   sys.foreign_keys AS f
+						 INNER JOIN sys.foreign_key_columns AS fc ON f.OBJECT_ID = fc.constraint_object_id
+						 INNER JOIN sys.objects oo ON oo.object_id = fc.referenced_object_id
+				  WHERE  f.referenced_object_id = object_id('gral.tbColonias'))
+
+		,bs AS (SELECT AKT.RN
+					  ,'SELECT ' + ColumnName + ' FROM ' + SchemaName + '.' + TableName + ' WHERE ' + ColumnName + ' = OO.' + ReferenceColumnName  SubQuery
+				FROM   AKT)
+		,re AS (SELECT bs.RN, CAST(RTRIM(bs.SubQuery) AS VARCHAR(MAX)) Joined
+				FROM   bs
+				WHERE  bs.RN = 1
+				UNION  ALL
+				SELECT bs2.RN, CAST(re.Joined + ' UNION ALL ' + ISNULL(RTRIM(bs2.SubQuery), '') AS VARCHAR(MAX)) Joined
+				FROM   re, bs bs2 
+				WHERE  re.RN = bs2.RN - 1 )
+		,fi AS (SELECT ROW_NUMBER() OVER (ORDER BY RN DESC) RNK, Joined
+				FROM   re)
+
+	/*Se crea el query para verificar si el campo se usó*/
+	SELECT @QUERY  = '
+			SELECT CASE WHEN XX.REFERENCED IS NULL THEN 1 ELSE 0 END Referenced
+			FROM   '+ @tabla_Nombre + ' OO
+			OUTER APPLY (SELECT SUM(1) REFERENCED
+						FROM   (' + Joined + ') II) XX
+						WHERE OO.'+ @Id_Nombre + '' + @Id_Valor 
+	FROM   fi
+	WHERE  RNK = 1
+		
+	/*Se ejecuta y consigue el código de verificación (0 no se puede eliminar porque está siendo usado, 1 se puede eliminar porque no está siendo usado*/
+	DECLARE @TempTable TABLE (Referenced INT)
+	INSERT INTO @TempTable
+	EXEC (@QUERY)
+
+	SELECT @respuesta = Referenced
+	FROM @TempTable
+
+END
+GO
+
+
 --************USUARIOS******************--
 
 /*Vista usuarios*/

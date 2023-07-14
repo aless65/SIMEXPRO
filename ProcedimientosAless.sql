@@ -94,11 +94,20 @@ CREATE OR ALTER PROCEDURE gral.UDP_tbEstadosCiviles_Eliminar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE	[Gral].[tbEstadosCiviles]
-		SET		[escv_Estado] = 0
-		WHERE	[escv_Id] = @escv_Id
+		
+		BEGIN
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'escv_Id', @escv_Id, 'gral.tbEstadosCiviles', @respuesta OUTPUT
 
-		SELECT 1
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					UPDATE	[Gral].[tbEstadosCiviles]
+					SET		[escv_Estado] = 0
+					WHERE	[escv_Id] = @escv_Id
+
+				END
+		END
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -202,11 +211,19 @@ CREATE OR ALTER PROCEDURE gral.UDP_tbOficinas_Eliminar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE	[Gral].[tbOficinas]
-		SET		[ofic_Estado] = 0
-		WHERE	[ofic_Id] = @ofic_Id
 
-		SELECT 1
+		BEGIN
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'ofic_Id', @ofic_Id, 'gral.tbOficinas', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					UPDATE	[Gral].[tbOficinas]
+					SET		[ofic_Estado] = 0
+					WHERE	[ofic_Id] = @ofic_Id
+				END
+		END
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -310,11 +327,19 @@ CREATE OR ALTER PROCEDURE gral.UDP_tbOficio_Profesiones_Eliminar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE	[Gral].[tbOficio_Profesiones]
-		SET		[ofpr_Estado] = 0
-		WHERE	[ofpr_Id] = @ofpr_Id
+		
+		BEGIN
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'ofpr_Id', @ofpr_Id, 'gral.tbOficio_Profesiones', @respuesta OUTPUT
 
-		SELECT 1
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					UPDATE	[Gral].[tbOficio_Profesiones]
+					SET		[ofpr_Estado] = 0
+					WHERE	[ofpr_Id] = @ofpr_Id
+				END
+		END
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -418,11 +443,20 @@ CREATE OR ALTER PROCEDURE gral.UDP_tbCargos_Eliminar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE	[Gral].[tbCargos]
-		SET		[carg_Estado] = 0
-		WHERE	[carg_Id] = @carg_Id
 
-		SELECT 1
+		BEGIN
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'carg_Id', @carg_Id, 'gral.tbCargos', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					UPDATE	[Gral].[tbCargos]
+					SET		[carg_Estado] = 0
+					WHERE	[carg_Id] = @carg_Id
+				END
+		END
+
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -616,15 +650,24 @@ GO
 
 /*Eliminar colonias*/
 CREATE OR ALTER PROCEDURE gral.UDP_tbColonias_Eliminar 
-	@carg_Id					INT
+	@colo_Id					INT
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE	[Gral].[tbCargos]
-		SET		[carg_Estado] = 0
-		WHERE	[carg_Id] = @carg_Id
 
-		SELECT 1
+		BEGIN
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'colo_Id', @colo_Id, 'gral.tbColonias', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					UPDATE	[Gral].[tbColonias]
+					SET		[colo_Estado] = 0
+					WHERE	[colo_Id] = @colo_Id
+				END
+		END
+
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -644,89 +687,37 @@ GO
 --SELECT 'SELECT ' + ColumnName + ' FROM ' + SchemaName + '.' + TableName + ' WHERE  RR.' + ColumnName + ' = OO.' + ReferenceColumnName + ' UNION ALL'
 --FROM   AKT
 
-BEGIN
 
-EXEC dbo.UDP_ValidarReferencias 'colo_Id', 1, 'gral.tbColonias' 
---EXEC @validacion
-END
+--DECLARE @QUERY NVARCHAR(MAX)
 
-GO
-CREATE OR ALTER PROCEDURE dbo.UDP_ValidarReferencias
-	(@Id_Nombre		NVARCHAR(250),
-	 @Id_Valor		NVARCHAR(50),
-	 @tabla_Nombre NVARCHAR(1000))
-AS BEGIN
-	DECLARE @QUERY NVARCHAR(MAX);
-	SET @Id_Valor = CONCAT('=', @Id_Valor);
+--WITH AKT AS ( SELECT ROW_NUMBER() OVER (ORDER BY f.name) RN, f.name AS ForeignKey
+--                    ,OBJECT_NAME(f.parent_object_id) AS TableName
+--                    ,COL_NAME(fc.parent_object_id, fc.parent_column_id) AS ColumnName
+--                    ,SCHEMA_NAME(f.schema_id) SchemaName
+--                    ,OBJECT_NAME (f.referenced_object_id) AS ReferenceTableName
+--                    ,COL_NAME(fc.referenced_object_id, fc.referenced_column_id) AS ReferenceColumnName
+--              FROM   sys.foreign_keys AS f
+--                     INNER JOIN sys.foreign_key_columns AS fc ON f.OBJECT_ID = fc.constraint_object_id
+--                     INNER JOIN sys.objects oo ON oo.object_id = fc.referenced_object_id
+--              WHERE  f.referenced_object_id = object_id('gral.tbColonias'))
 
-	WITH AKT AS ( SELECT ROW_NUMBER() OVER (ORDER BY f.name) RN, f.name AS ForeignKey
-						,OBJECT_NAME(f.parent_object_id) AS TableName
-						,COL_NAME(fc.parent_object_id, fc.parent_column_id) AS ColumnName
-						,SCHEMA_NAME(f.schema_id) SchemaName
-						,OBJECT_NAME (f.referenced_object_id) AS ReferenceTableName
-						,COL_NAME(fc.referenced_object_id, fc.referenced_column_id) AS ReferenceColumnName
-				  FROM   sys.foreign_keys AS f
-						 INNER JOIN sys.foreign_key_columns AS fc ON f.OBJECT_ID = fc.constraint_object_id
-						 INNER JOIN sys.objects oo ON oo.object_id = fc.referenced_object_id
-				  WHERE  f.referenced_object_id = object_id('gral.tbColonias'))
+--    ,bs AS (SELECT AKT.RN
+--                  ,'SELECT ' + ColumnName + ' FROM ' + SchemaName + '.' + TableName + ' WHERE ' + ColumnName + ' = OO.' + ReferenceColumnName  SubQuery
+--            FROM   AKT)
+--    ,re AS (SELECT bs.RN, CAST(RTRIM(bs.SubQuery) AS VARCHAR(MAX)) Joined
+--            FROM   bs
+--            WHERE  bs.RN = 1
+--            UNION  ALL
+--            SELECT bs2.RN, CAST(re.Joined + ' UNION ALL ' + ISNULL(RTRIM(bs2.SubQuery), '') AS VARCHAR(MAX)) Joined
+--            FROM   re, bs bs2 
+--            WHERE  re.RN = bs2.RN - 1 )
+--    ,fi AS (SELECT ROW_NUMBER() OVER (ORDER BY RN DESC) RNK, Joined
+--            FROM   re)
+--SELECT @QUERY  = 'SELECT OO.colo_Id, CASE WHEN XX.REFERENCED IS NULL THEN ''No'' ELSE ''Yes'' END Referenced
+--FROM   gral.tbColonias OO
+--       OUTER APPLY (SELECT SUM(1) REFERENCED
+--                    FROM   (' + Joined + ') II) XX'
+--FROM   fi
+--WHERE  RNK = 1
 
-		,bs AS (SELECT AKT.RN
-					  ,'SELECT ' + ColumnName + ' FROM ' + SchemaName + '.' + TableName + ' WHERE ' + ColumnName + ' = OO.' + ReferenceColumnName  SubQuery
-				FROM   AKT)
-		,re AS (SELECT bs.RN, CAST(RTRIM(bs.SubQuery) AS VARCHAR(MAX)) Joined
-				FROM   bs
-				WHERE  bs.RN = 1
-				UNION  ALL
-				SELECT bs2.RN, CAST(re.Joined + ' UNION ALL ' + ISNULL(RTRIM(bs2.SubQuery), '') AS VARCHAR(MAX)) Joined
-				FROM   re, bs bs2 
-				WHERE  re.RN = bs2.RN - 1 )
-		,fi AS (SELECT ROW_NUMBER() OVER (ORDER BY RN DESC) RNK, Joined
-				FROM   re)
-
-	SELECT @QUERY  = '
-			SELECT CASE WHEN XX.REFERENCED IS NULL THEN 0 ELSE 1 END Referenced
-			FROM   '+ @tabla_Nombre + ' OO
-			OUTER APPLY (SELECT SUM(1) REFERENCED
-						FROM   (' + Joined + ') II) XX
-						WHERE OO.'+ @Id_Nombre + '' + @Id_Valor 
-	FROM   fi
-	WHERE  RNK = 1
-		
-	IF(@Id_Nombre IS NOT NULL)
-		EXEC (@QUERY)
-END
-GO
-
-DECLARE @QUERY NVARCHAR(MAX)
-
-WITH AKT AS ( SELECT ROW_NUMBER() OVER (ORDER BY f.name) RN, f.name AS ForeignKey
-                    ,OBJECT_NAME(f.parent_object_id) AS TableName
-                    ,COL_NAME(fc.parent_object_id, fc.parent_column_id) AS ColumnName
-                    ,SCHEMA_NAME(f.schema_id) SchemaName
-                    ,OBJECT_NAME (f.referenced_object_id) AS ReferenceTableName
-                    ,COL_NAME(fc.referenced_object_id, fc.referenced_column_id) AS ReferenceColumnName
-              FROM   sys.foreign_keys AS f
-                     INNER JOIN sys.foreign_key_columns AS fc ON f.OBJECT_ID = fc.constraint_object_id
-                     INNER JOIN sys.objects oo ON oo.object_id = fc.referenced_object_id
-              WHERE  f.referenced_object_id = object_id('gral.tbColonias'))
-
-    ,bs AS (SELECT AKT.RN
-                  ,'SELECT ' + ColumnName + ' FROM ' + SchemaName + '.' + TableName + ' WHERE ' + ColumnName + ' = OO.' + ReferenceColumnName  SubQuery
-            FROM   AKT)
-    ,re AS (SELECT bs.RN, CAST(RTRIM(bs.SubQuery) AS VARCHAR(MAX)) Joined
-            FROM   bs
-            WHERE  bs.RN = 1
-            UNION  ALL
-            SELECT bs2.RN, CAST(re.Joined + ' UNION ALL ' + ISNULL(RTRIM(bs2.SubQuery), '') AS VARCHAR(MAX)) Joined
-            FROM   re, bs bs2 
-            WHERE  re.RN = bs2.RN - 1 )
-    ,fi AS (SELECT ROW_NUMBER() OVER (ORDER BY RN DESC) RNK, Joined
-            FROM   re)
-SELECT @QUERY  = 'SELECT OO.colo_Id, CASE WHEN XX.REFERENCED IS NULL THEN ''No'' ELSE ''Yes'' END Referenced
-FROM   gral.tbColonias OO
-       OUTER APPLY (SELECT SUM(1) REFERENCED
-                    FROM   (' + Joined + ') II) XX'
-FROM   fi
-WHERE  RNK = 1
-
-EXEC (@QUERY)
+--EXEC (@QUERY)

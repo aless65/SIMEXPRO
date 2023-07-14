@@ -3,6 +3,7 @@
 --Marcas Maquinas
 --Modelos Maquinas
 
+----------------------------------------------------------------//  Modulos de Producción Procedimientos Inicio \\-------------------------------------------------------------------------------------------
 --************************************************************************   Tabla Modulos inicio   ***********************************************************************************************
 
 GO
@@ -396,4 +397,110 @@ END
 
 GO
 --************************************************************************   Tabla Modelos maquinas fin   ***********************************************************************************************
+----------------------------------------------------------------------//  Modulos de Producción Procedimientos final \\-------------------------------------------------------------------------------------------
+GO
+---------------------------------------------------------------------//  Modulos de Aduanas Procedimientos Inicio \\-------------------------------------------------------------------------------------------
+--************************************************************************   Tabla Modelos maquinas inicio   ***********************************************************************************************
 
+--Listar Aranceles
+CREATE OR ALTER VIEW Adua.VW_tbArenceles
+AS
+SELECT	aran_Id,
+		aran_Codigo,
+		aran_Descripcion
+FROM	Adua.tbAranceles
+WHERE	aram_Estado = 1
+
+GO
+
+--Insertar Aranceles
+CREATE OR ALTER PROCEDURE Adua.UDP_tbAranceles_Insertar
+	@aran_Codigo				NVARCHAR(100),
+	@aran_Descripcion			NVARCHAR(150),
+	@usua_UsuarioCreacion		INT,
+	@aran_FechaCreacion			DATETIME
+AS
+BEGIN
+	SET @aran_FechaCreacion = DATETIME;
+	BEGIN TRY
+		IF EXISTS(SELECT aran_Id FROM Adua.tbAranceles WHERE aran_Codigo = @aran_Codigo AND aran_Descripcion = @aran_Descripcion AND aram_Estado = 0)
+			BEGIN
+				UPDATE Adua.tbAranceles
+				SET aram_Estado = 1
+				WHERE aran_Codigo = @aran_Codigo AND aran_Descripcion = @aran_Descripcion
+
+				SELECT 1
+			END
+		ELSE
+			BEGIN
+				INSERT INTO Adua.tbAranceles ([aran_Codigo], [aran_Descripcion], [usua_UsuarioCreacion], [aran_FechaCreacion], [usua_UsuarioModificacion], [aran_FechaModificacion], [aram_Estado])
+				VALUES	(@aran_Codigo,@aran_Descripcion,@usua_UsuarioCreacion,@aran_FechaCreacion,NULL,NULL,1)
+
+				SELECT 1
+			END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+
+GO
+
+--Editar Aranceles
+CREATE OR ALTER PROCEDURE Adua.UDP_tbAranceles_Editar
+	@aran_Id					INT,
+	@aran_Codigo				NVARCHAR(100),
+	@aran_Descripcion			NVARCHAR(150),
+	@usua_UsuarioModificacion	INT,
+	@aran_FechaModificacion		DATETIME
+AS
+BEGIN
+	SET @aran_FechaModificacion = GETDATE();
+	BEGIN TRY
+		UPDATE [Adua].[tbAranceles]
+		   SET [aran_Codigo] = @aran_Codigo
+			  ,[aran_Descripcion] = @aran_Descripcion
+			  ,[usua_UsuarioModificacion] = @usua_UsuarioModificacion
+			  ,[aran_FechaModificacion] = @aran_FechaModificacion
+		 WHERE aran_Id = @aran_Id
+		 SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+
+GO
+
+--Eliminar Aranceles
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------//  Modulos de Aduanas Procedimientos final \\-------------------------------------------------------------------------------------------

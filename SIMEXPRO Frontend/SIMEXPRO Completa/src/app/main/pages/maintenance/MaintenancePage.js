@@ -1,11 +1,21 @@
 import Typography from '@mui/material/Typography';
 import { motion } from 'framer-motion';
 import Box from '@mui/material/Box';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 function MaintenancePage() {
+
+  const navigate = useNavigate()
+
+  const enviar = () => {
+    navigate('/phymo');
+};
+
   return (
     <div className="flex flex-col flex-1 items-center justify-center p-16">
       <div className="w-full max-w-3xl text-center">
+        <Button onClick={enviar}>hola</Button>
         <motion.div
           initial={{ opacity: 0, scale: 0.6 }}
           animate={{ opacity: 1, scale: 1, transition: { delay: 0.1 } }}

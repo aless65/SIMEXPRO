@@ -562,7 +562,7 @@ END
 
 /*Eliminar Clientes*/
 
-CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Eliminar  
+/*CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Eliminar  */
 
 
 

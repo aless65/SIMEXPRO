@@ -38,6 +38,7 @@ CREATE OR ALTER PROCEDURE Gral.UDP_tbPaises_Insertar
 @pais_FechaCreacion			DATETIME
 AS
 BEGIN
+	SET @pais_FechaCreacion = GETDATE();
 	BEGIN TRY 
 		IF EXISTS (SELECT * FROM Gral.tbPaises WHERE @pais_Nombre = pais_Nombre		
 				   AND pais_Estado = 0)
@@ -48,7 +49,6 @@ BEGIN
 
 			SELECT 1
 		END
-
 		ELSE
 		BEGIN
 			INSERT INTO Gral.tbPaises (pais_Codigo, pais_Nombre, usua_UsuarioCreacion, pais_FechaCreacion)
@@ -71,6 +71,7 @@ CREATE OR ALTER PROCEDURE Gral.UDP_tbPaises_Editar
 @pais_FechaModificacion			DATETIME
 AS
 BEGIN
+	SET @pais_FechaModificacion = GETDATE();
 	BEGIN TRY		
 		UPDATE Gral.tbPaises
 		SET pais_Nombre = @pais_Nombre, usua_UsuarioModificacion = @usua_UsuarioModificacion
@@ -133,6 +134,7 @@ CREATE OR ALTER PROCEDURE Gral.UDP_tbCiudades_Insertar
 @ciud_FechaCreacion			DATETIME
 AS
 BEGIN
+	SET @ciud_FechaCreacion = GETDATE();
 	BEGIN TRY
 			IF EXISTS (SELECT*FROM [Gral].[tbCiudades] WHERE @ciud_Nombre = ciud_Nombre AND ciud_Estado = 0)
 			BEGIN
@@ -163,6 +165,7 @@ CREATE OR ALTER PROCEDURE Gral.UDP_tbCiudades_Editar
 @ciud_FechaModificacion		DATETIME
 AS
 BEGIN 
+	SET @ciud_FechaModificacion = GETDATE();
 	BEGIN TRY
 		UPDATE Gral.tbCiudades SET [ciud_Nombre] = @ciud_Nombre, pvin_Id = @pvin_Id,
 		 usua_UsuarioModificacion = @usua_UsuarioModificacion, ciud_FechaModificacion = @ciud_FechaModificacion
@@ -185,18 +188,18 @@ GO
 CREATE OR ALTER VIEW Gral.VW_tbProvincias
 AS
 SELECT
-pvin_Id ProvinciaId, 
-pvin_Nombre ProvinciaNombre,
-pvin_Codigo ProvinciaCodigo, 
-provin.pais_Codigo, 
-pais.pais_Nombre PaisNombre,
-provin.usua_UsuarioCreacion IdUsuarioCreador,
-usua1.usua_Nombre NombreUsuaraioCreador, 
-pvin_FechaCreacion, 
-provin.usua_UsuarioModificacion IdUsuarioModificador, 
-usua2.usua_Nombre NombreUsuarioModificador,
-pvin_FechaModificacion, 
-pvin_Estado
+	pvin_Id ProvinciaId, 
+	pvin_Nombre ProvinciaNombre,
+	pvin_Codigo ProvinciaCodigo, 
+	provin.pais_Codigo, 
+	pais.pais_Nombre PaisNombre,
+	provin.usua_UsuarioCreacion IdUsuarioCreador,
+	usua1.usua_Nombre NombreUsuaraioCreador, 
+	pvin_FechaCreacion, 
+	provin.usua_UsuarioModificacion IdUsuarioModificador, 
+	usua2.usua_Nombre NombreUsuarioModificador,
+	pvin_FechaModificacion, 
+	pvin_Estado
 FROM [Gral].[tbProvincias] provin INNER JOIN Gral.tbPaises pais
 ON provin.pais_Codigo =  pais.pais_Codigo INNER JOIN Acce.tbUsuarios usua1
 ON provin.usua_UsuarioCreacion = usua1.usua_Id LEFT JOIN Acce.tbUsuarios usua2
@@ -220,6 +223,7 @@ CREATE OR ALTER PROCEDURE GrAL.UDP_tbProvincias_Insertar
  @pvin_FechaCreacion		DATETIME 
 AS
 BEGIN
+	SET @pvin_FechaCreacion = GETDATE();
 	BEGIN TRY
 		IF EXISTS (SELECT*FROM Gral.tbProvincias WHERE pvin_Nombre = @pvin_Nombre AND pvin_Estado = 0)
 		BEGIN
@@ -249,6 +253,7 @@ CREATE OR ALTER PROCEDURE Gral.UDP_tbProvinvias_Editar
  @pvin_FechaModificacion 		DATETIME 
 AS
 BEGIN
+	SET @pvin_FechaModificacion = GETDATE();
 	BEGIN TRY
     		UPDATE Gral.tbProvincias SET pvin_Nombre = @pvin_Nombre, pvin_Codigo = @pvin_Codigo, 
 			pvin_FechaModificacion = @pvin_FechaModificacion, usua_UsuarioModificacion = @usua_UsuarioModificacion
@@ -300,7 +305,8 @@ CREATE OR ALTER PROCEDURE Gral.UDP_tbAldeas_Insertar
  @usua_UsuarioCreacion		INT, 
  @alde_FechaCreacion		DATETIME
 AS
-BEGIN 
+BEGIN
+	SET @alde_FechaCreacion = GETDATE();
 	BEGIN TRY
 		IF EXISTS (SELECT *FROM [Gral].[tbAldeas] WHERE [alde_Nombre] = @alde_Nombre AND alde_Estado = 0 )
 		BEGIN
@@ -330,6 +336,7 @@ CREATE OR ALTER PROCEDURE Gral.UDP_tbAldeas_Editar
  @alde_FechaModificacion		DATETIME
 AS
 BEGIN
+		SET @alde_FechaModificacion = GETDATE();
 	BEGIN TRY
 		UPDATE Gral.tbAldeas SET alde_Nombre = @alde_Nombre, ciud_Id = @ciud_Id, 
 		alde_FechaModificacion = @alde_FechaModificacion, usua_UsuarioModificacion = @usua_UsuarioModificacion
@@ -344,6 +351,85 @@ END
 GO
 
 
-
---**falttan los UDP CON FUNSION PARA ELIMINAR, DE TODAS LAS TABLAS QUE ESTÁN EN ESTE APARTADO **
 --**********************************************************************************************
+--********** TABLA MÁQUINAS MÓDULOS / procedimientos tomando en cuenta los uniques ***********************
+
+CREATE OR ALTER VIEW Prod.VW_tbMaquinasModulos
+AS
+SELECT  
+moma_Id MaquinaModuloId, 
+madu.modu_Id IdModulo,
+modu.modu_Nombre NombreModulo, 
+madu.maqu_Id IdMaquina, 
+maqui.maqu_NumeroSerie NumeroSerieMaquina,
+madu.usua_UsuarioCreacion IdUsuarioCreador,
+usua1.usua_Nombre NombreUsuaCreador,
+moma_FechaCreacion, 
+madu.usua_UsuarioModificacion IdUsuarioModificador, 
+usua2.usua_Nombre NombreUsuaModifica,
+moma_FechaModificacion, 
+madu.maqu_Estado
+FROM [Prod].[tbMaquinasModulos] madu INNER JOIN Prod.tbModulos modu
+ON madu.modu_Id = modu.modu_Id INNER JOIN Prod.tbMaquinas maqui
+ON madu.maqu_Id = maqui.maqu_Id INNER JOIN Acce.tbUsuarios usua1
+ON madu.usua_UsuarioCreacion = usua1.usua_Id LEFT JOIN Acce.tbUsuarios usua2
+ON madu.usua_UsuarioModificacion = usua2.usua_Id 
+GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinasModulos_Listar
+AS
+BEGIN
+	SELECT*FROM Prod.VW_tbMaquinasModulos
+	WHERE maqu_Estado = 1
+END
+GO
+
+--- PENDIENTE LO DE QUE SI YA EXISTE (VALIDACIÓN)
+CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinasModulos_Insertar
+ @modu_Id					INT, 
+ @maqu_Id					INT, 
+ @usua_UsuarioCreacion		INT,
+ @moma_FechaCreacion		DATETIME
+AS
+BEGIN
+	SET @moma_FechaCreacion = GETDATE();
+	BEGIN TRY
+		IF EXISTS (SELECT*FROM [Prod].[tbMaquinasModulos] WHERE modu_Id = @modu_Id AND maqu_Id = @maqu_Id AND maqu_Estado = 0 )
+			BEGIN 
+				UPDATE [Prod].[tbMaquinasModulos] SET maqu_Estado = 1
+				SELECT 1
+			END 
+		ELSE
+			BEGIN
+				INSERT INTO [Prod].[tbMaquinasModulos] (modu_Id, maqu_Id, usua_UsuarioCreacion, moma_FechaCreacion)
+				VALUES (@modu_Id, @maqu_Id, @usua_UsuarioCreacion, @moma_FechaCreacion)
+				SELECT 1
+			END
+	END TRY
+
+	BEGIN CATCH
+		SELECT 0
+	END CATCH 
+
+END
+GO
+
+---PENDIENTE
+CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinasModulos_Editar
+ @modu_Id					INT, 
+ @maqu_Id					INT, 
+ @usua_UsuarioModificacion	INT,
+ @moma_FechaModificacion	DATETIME
+AS
+BEGIN 
+	UPDATE Prod.tbMaquinasModulos SET 
+END
+GO
+
+
+
+
+
+
+
+

@@ -142,7 +142,14 @@ AS
   ON usu.usua_Id = form.usua_UsuarioCreacion INNER JOIN [Acce].[tbUsuarios] usu1
   ON usu1.usua_Id = form.usua_UsuarioModificacion   
 
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbFormadePago_Listar
+AS
+BEGIN 
+   SELECT *
+   FROM Adua.VW_tbFormasdePago
 
+END
 
 
 
@@ -422,8 +429,145 @@ BEGIN
    END CATCH
 END
 
+GO
+/****************************UDP's Clientes*********************************/
+CREATE OR ALTER VIEW Prod.Vw_tbClientes
+AS
+SELECT clie.clie_Id   AS ClienteID,
+       clie.clie_Numero_Contacto AS NumeroContacto,
+	   clie.clie_Nombre_Contacto AS NombreContacto,
+	   clie.clie_Correo_Electronico AS CorreoElectronico,
+	   clie.clie_Direccion AS Direccion,
+	   clie.clie_FAX AS FAX,
+	   clie.clie_RTN AS RTN,
+	   usu.usua_Nombre AS UsuarioCreacion,
+	   clie.clie_FechaCreacion AS FechaCreacion,
+	   usu1.usua_Nombre AS UsuarioModificacion,
+	   clie.clie_FechaModificacion FechaModificacion,
+	   clie.clie_Estado AS Estado
+FROM  [Prod].[tbClientes] clie INNER JOIN [Acce].[tbUsuarios] usu
+ON usu.usua_Id = clie.usua_UsuarioCreacion INNER JOIN [Acce].[tbUsuarios] usu1
+ON usu1.usua_Id = clie.usua_UsuarioModificacion
 
-/******************************
+GO
+
+/*Listar Clientes*/
+CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Listar
+AS
+BEGIN 
+    SELECT *
+	FROM Prod.Vw_tbClientes
+END
+
+GO
+/*Crear Clientes*/
+CREATE OR ALTER PROCEDURE prod.UDP_tbClientes_Insertar 
+   @clie_Nombre_O_Razon_Social    NVARCHAR(200), 
+   @clie_Direccion                NVARCHAR(250), 
+   @clie_RTN                      CHAR(13), 
+   @clie_Nombre_Contacto          NVARCHAR(200), 
+   @clie_Numero_Contacto          CHAR(50), 
+   @clie_Correo_Electronico       NVARCHAR(200), 
+   @clie_FAX                      NVARCHAR(50), 
+   @usua_UsuarioCreacion          INT, 
+   @clie_FechaCreacion            DATETIME
+
+AS
+BEGIN 
+  BEGIN TRY
+  IF EXISTS(SELECT * FROM [Prod].[tbClientes] cli WHERE cli.clie_Nombre_O_Razon_Social = @clie_Nombre_O_Razon_Social)    
+	BEGIN  
+		SET @clie_FechaCreacion = GETDATE();
+	    UPDATE [Prod].[tbClientes]
+		SET 
+		    clie_Nombre_O_Razon_Social=@clie_Nombre_O_Razon_Social, 
+			clie_Direccion=@clie_Direccion, 
+			clie_RTN=@clie_RTN, 
+			clie_Nombre_Contacto=@clie_Nombre_Contacto,
+			clie_Numero_Contacto=@clie_Numero_Contacto,
+			clie_Correo_Electronico=@clie_Correo_Electronico, 
+			clie_FAX=@clie_FAX,  
+			usua_UsuarioModificacion=@usua_UsuarioCreacion, 
+			clie_FechaModificacion=@clie_FechaCreacion
+			WHERE clie_Nombre_O_Razon_Social= @clie_Nombre_O_Razon_Social
+		SELECT 1
+  END 	  
+  ELSE 
+	   BEGIN  
+	      INSERT INTO [Prod].[tbClientes]
+		  ( 
+	      clie_Nombre_O_Razon_Social,
+		  clie_Direccion   ,  
+		  clie_RTN          , 
+		  clie_Nombre_Contacto ,
+		  clie_Numero_Contacto,
+		  clie_Correo_Electronico,
+		  clie_FAX ,
+		  usua_UsuarioCreacion,
+		  clie_FechaCreacion            	  		  
+		  )
+		  VALUES (		         
+		  @clie_Nombre_O_Razon_Social ,   
+		  @clie_Direccion ,  
+		  @clie_RTN ,  
+		  @clie_Nombre_Contacto ,  
+		  @clie_Numero_Contacto  ,  
+		  @clie_Correo_Electronico,  
+		  @clie_FAX,  
+		  @usua_UsuarioCreacion,  
+		  @clie_FechaCreacion           
+		  )	 
+	   SELECT 1
+    END		
+END TRY	    
+   BEGIN CATCH 	 
+	 SELECT 0
+   END CATCH
+END
+
+GO
+/*Editar Clientes*/
+CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Editar 
+  @clie_Id    INT, 
+  @clie_Nombre_O_Razon_Social NVARCHAR(200), 
+  @clie_Direccion     NVARCHAR(200), 
+  @clie_RTN CHAR(13), 
+  @clie_Nombre_Contacto   NVARCHAR(200),
+  @clie_Numero_Contacto CHAR(50), 
+  @clie_Correo_Electronico  NVARCHAR(200) , 
+  @clie_FAX  NVARCHAR(50) ,  
+  @usua_UsuarioModificacion INT, 
+  @clie_FechaModificacion DATETIME
+AS
+BEGIN 
+    SET @usua_UsuarioModificacion = GETDATE();     
+    BEGIN TRY 
+	    UPDATE [Prod].[tbClientes]
+		SET clie_Nombre_O_Razon_Social =@clie_Nombre_O_Razon_Social, 
+		    clie_Direccion=@clie_Direccion, 
+			clie_RTN = @clie_RTN, 
+			clie_Nombre_Contacto=@clie_Nombre_Contacto, 
+			clie_Numero_Contacto=@clie_Numero_Contacto, 
+			clie_Correo_Electronico=@clie_Correo_Electronico, 
+			clie_FAX=@clie_FAX, 
+			usua_UsuarioModificacion=@usua_UsuarioModificacion, 
+			clie_FechaModificacion=@clie_FechaModificacion 
+		WHERE clie_Id = @clie_Id
+		 SELECT 1
+	END TRY
+	BEGIN CATCH
+	     SELECT 0
+	END CATCH
+END
+
+/*Eliminar Clientes*/
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Eliminar  
+
+
+
+
+
 
 
 

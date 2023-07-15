@@ -23,7 +23,7 @@ AS BEGIN
 				  FROM   sys.foreign_keys AS f
 						 INNER JOIN sys.foreign_key_columns AS fc ON f.OBJECT_ID = fc.constraint_object_id
 						 INNER JOIN sys.objects oo ON oo.object_id = fc.referenced_object_id
-				  WHERE  f.referenced_object_id = object_id('gral.tbColonias'))
+				  WHERE  f.referenced_object_id = object_id(@tabla_Nombre))
 
 		,bs AS (SELECT AKT.RN
 					  ,'SELECT ' + ColumnName + ' FROM ' + SchemaName + '.' + TableName + ' WHERE ' + ColumnName + ' = OO.' + ReferenceColumnName  SubQuery

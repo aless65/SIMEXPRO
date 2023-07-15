@@ -32,7 +32,7 @@ GO
 CREATE OR ALTER PROCEDURE gral.UDP_tbEstadosCiviles_Insertar
 	@escv_Nombre			NVARCHAR(150),
 	@usua_UsuarioCreacion	INT,
-	@usua_FechaCreacion     DATETIME
+	@escv_FechaCreacion     DATETIME
 AS 
 BEGIN
 	
@@ -55,7 +55,7 @@ BEGIN
 													   escv_FechaCreacion)
 			VALUES(@escv_Nombre,	
 				   @usua_UsuarioCreacion,
-				   @usua_FechaCreacion)
+				   @escv_FechaCreacion)
 
 
 			SELECT 1
@@ -72,14 +72,14 @@ CREATE OR ALTER PROCEDURE gral.UDP_tbEstadosCiviles_Editar
 	@escv_Id					INT,
 	@escv_Nombre				NVARCHAR(150),
 	@usua_UsuarioModificacion	INT,
-	@usua_FechaModificacion     DATETIME
+	@escv_FechaModificacion     DATETIME
 AS
 BEGIN
 	BEGIN TRY
 		UPDATE  [Gral].[tbEstadosCiviles]
 		SET		[escv_Nombre] = @escv_Nombre,
 				[usua_UsuarioModificacion] = @usua_UsuarioModificacion,
-				[escv_FechaModificacion] = @usua_FechaModificacion
+				[escv_FechaModificacion] = @escv_FechaModificacion
 		WHERE	[escv_Id] = @escv_Id
 
 		SELECT 1
@@ -155,7 +155,7 @@ GO
 CREATE OR ALTER PROCEDURE gral.UDP_tbOficinas_Insertar
 	@ofic_Nombre			NVARCHAR(150),
 	@usua_UsuarioCreacion	INT,
-	@usua_FechaCreacion     DATETIME
+	@ofic_FechaCreacion     DATETIME
 AS 
 BEGIN
 	
@@ -178,7 +178,7 @@ BEGIN
 											     ofic_FechaCreacion)
 			VALUES(@ofic_Nombre,	
 				   @usua_UsuarioCreacion,
-				   @usua_FechaCreacion)
+				   @ofic_FechaCreacion)
 
 
 			SELECT 1
@@ -195,14 +195,14 @@ CREATE OR ALTER PROCEDURE gral.UDP_tbOficinas_Editar
 	@ofic_Id					INT,
 	@ofic_Nombre				NVARCHAR(150),
 	@usua_UsuarioModificacion	INT,
-	@usua_FechaModificacion     DATETIME
+	@ofic_FechaModificacion     DATETIME
 AS
 BEGIN
 	BEGIN TRY
 		UPDATE  [Gral].[tbOficinas]
 		SET		[ofic_Nombre] = @ofic_Nombre,
 				[usua_UsuarioModificacion] = @usua_UsuarioModificacion,
-				[ofic_FechaModificacion] = @usua_FechaModificacion
+				[ofic_FechaModificacion] = @ofic_FechaModificacion
 		WHERE	[ofic_Id] = @ofic_Id
 
 		SELECT 1
@@ -281,7 +281,7 @@ GO
 CREATE OR ALTER PROCEDURE gral.UDP_tbOficio_Profesiones_Insertar
 	@ofpr_Nombre			NVARCHAR(150),
 	@usua_UsuarioCreacion	INT,
-	@usua_FechaCreacion     DATETIME
+	@ofpr_FechaCreacion     DATETIME
 AS 
 BEGIN
 	
@@ -304,7 +304,7 @@ BEGIN
 														   ofpr_FechaCreacion)
 			VALUES(@ofpr_Nombre,	
 				   @usua_UsuarioCreacion,
-				   @usua_FechaCreacion)
+				   @ofpr_FechaCreacion)
 
 
 			SELECT 1
@@ -321,14 +321,14 @@ CREATE OR ALTER PROCEDURE gral.UDP_tbOficio_Profesiones_Editar
 	@ofpr_Id					INT,
 	@ofpr_Nombre				NVARCHAR(150),
 	@usua_UsuarioModificacion	INT,
-	@usua_FechaModificacion     DATETIME
+	@ofpr_FechaModificacion     DATETIME
 AS
 BEGIN
 	BEGIN TRY
 		UPDATE  [Gral].[tbOficio_Profesiones]
 		SET		[ofpr_Nombre] = @ofpr_Nombre,
 				[usua_UsuarioModificacion] = @usua_UsuarioModificacion,
-				[ofpr_FechaModificacion] = @usua_FechaModificacion
+				[ofpr_FechaModificacion] = @ofpr_FechaModificacion
 		WHERE	[ofpr_Id] = @ofpr_Id
 
 		SELECT 1
@@ -407,7 +407,7 @@ GO
 CREATE OR ALTER PROCEDURE gral.UDP_tbCargos_Insertar
 	@carg_Nombre			NVARCHAR(150),
 	@usua_UsuarioCreacion	INT,
-	@usua_FechaCreacion     DATETIME
+	@carg_FechaCreacion     DATETIME
 AS 
 BEGIN
 	
@@ -430,7 +430,7 @@ BEGIN
 											   carg_FechaCreacion)
 			VALUES(@carg_Nombre,	
 				   @usua_UsuarioCreacion,
-				   @usua_FechaCreacion)
+				   @carg_FechaCreacion)
 
 
 			SELECT 1
@@ -447,14 +447,14 @@ CREATE OR ALTER PROCEDURE gral.UDP_tbCargos_Editar
 	@carg_Id					INT,
 	@carg_Nombre				NVARCHAR(150),
 	@usua_UsuarioModificacion	INT,
-	@usua_FechaModificacion     DATETIME
+	@carg_FechaModificacion     DATETIME
 AS
 BEGIN
 	BEGIN TRY
 		UPDATE  [Gral].[tbCargos]
 		SET		[carg_Nombre] = @carg_Nombre,
 				[usua_UsuarioModificacion] = @usua_UsuarioModificacion,
-				[carg_FechaModificacion] = @usua_FechaModificacion
+				[carg_FechaModificacion] = @carg_FechaModificacion
 		WHERE	[carg_Id] = @carg_Id
 
 		SELECT 1
@@ -542,7 +542,7 @@ CREATE OR ALTER PROCEDURE gral.UDP_tbColonias_Insertar
 	@alde_Id				INT,
 	@ciud_Id				INT,
 	@usua_UsuarioCreacion	INT,
-	@usua_FechaCreacion     DATETIME
+	@colo_FechaCreacion     DATETIME
 AS 
 BEGIN
 	
@@ -578,7 +578,7 @@ BEGIN
 						VALUES(@colo_Nombre,	
 							   @alde_Id,
 							   @usua_UsuarioCreacion,
-							   @usua_FechaCreacion)
+							   @colo_FechaCreacion)
 
 						SELECT 1
 					END
@@ -615,7 +615,7 @@ BEGIN
 						VALUES(@colo_Nombre,	
 							   @ciud_Id,
 							   @usua_UsuarioCreacion,
-							   @usua_FechaCreacion)
+							   @colo_FechaCreacion)
 
 						SELECT 1
 					END
@@ -719,6 +719,133 @@ BEGIN
 END
 GO
 
+--**********FORMAS DE PRESENTACIÓN**********--
+
+/*Vista forma presentación*/
+CREATE OR ALTER VIEW adua.VW_tbFormaPresentacion
+AS
+SELECT pres_Id AS presentacionId, 
+	   pres_Descripcion AS presentacionNombre, 
+	   pres.usua_UsuarioCreacion AS usuarioCreacion, 
+	   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
+	   pres_FechaCreacion AS fechaCreacion, 
+	   pres.usua_UsuarioModificacion AS usuarioModificacion, 
+	   usuaModifica.usua_Nombre AS usuarioModificacionNombre,
+	   pres_FechaModificacion AS fechaModificacion, 
+	   pres.usua_UsuarioEliminacion AS usuarioEliminacion, 
+	   usuaElimina.usua_Nombre AS usuarioEliminacionNombre,
+	   pres_FechaEliminacion AS fechaEliminacion, 
+	   pres_Estado AS presentacionEstado
+FROM [Adua].[tbFormaPresentacion] pres INNER JOIN [Acce].[tbUsuarios] usuaCrea
+ON pres.usua_UsuarioCreacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaModifica
+ON pres.usua_UsuarioModificacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaElimina
+ON pres.usua_UsuarioEliminacion = usuaCrea.usua_Id
+GO
+
+
+/*Listar forma presentación*/
+CREATE OR ALTER PROCEDURE adua.UDP_VW_tbFormaPresentacion_Listar
+AS
+BEGIN
+	SELECT *
+    FROM adua.VW_tbFormaPresentacion
+	WHERE presentacionEstado = 1
+END
+GO
+
+/*Insertar forma presentación*/
+CREATE OR ALTER PROCEDURE adua.UDP_tbFormaPresentacion_Insertar
+	@pres_Descripcion		NVARCHAR(150),
+	@usua_UsuarioCreacion	INT,
+	@pres_FechaCreacion     DATETIME
+AS 
+BEGIN
+	
+	BEGIN TRY
+
+		IF EXISTS (SELECT * FROM [Adua].[tbFormaPresentacion]
+						WHERE [pres_Descripcion] = @pres_Descripcion
+						AND [pres_Estado] = 0)
+		BEGIN
+			UPDATE [Adua].[tbFormaPresentacion]
+			SET	   [pres_Estado] = 1
+			WHERE  [pres_Descripcion] = @pres_Descripcion
+
+			SELECT 1
+		END
+		ELSE 
+			BEGIN
+				INSERT INTO [Adua].[tbFormaPresentacion] (pres_Descripcion, 
+														  usua_UsuarioCreacion, 
+														  pres_FechaCreacion)
+			VALUES(@pres_Descripcion,	
+				   @usua_UsuarioCreacion,
+				   @pres_FechaCreacion)
+
+
+			SELECT 1
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH 
+END
+GO
+
+/*Editar forma presentación*/
+CREATE OR ALTER PROCEDURE adua.UDP_tbFormaPresentacion_Editar
+	@pres_Id					INT,
+	@pres_Descripcion			NVARCHAR(150),
+	@usua_UsuarioModificacion	INT,
+	@pres_FechaModificacion     DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE  [Adua].[tbFormaPresentacion]
+		SET		[pres_Descripcion] = @pres_Descripcion,
+				[usua_UsuarioModificacion] = @usua_UsuarioModificacion,
+				[pres_FechaModificacion] = @pres_FechaModificacion
+		WHERE	[pres_Id] = @pres_Id
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+/*Eliminar forma presentación*/
+CREATE OR ALTER PROCEDURE gral.UDP_tbFormaPresentacion_Eliminar 
+	@pres_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@pres_FechaEliminacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+
+		BEGIN
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'pres_Id', @pres_Id, 'adua.tbFormaPresentacion', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					UPDATE	[Adua].[tbFormaPresentacion]
+					SET		[pres_Estado] = 0,
+							[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
+							[pres_FechaEliminacion] = @pres_FechaEliminacion
+					WHERE	[pres_Id] = @pres_Id
+				END
+		END
+
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
 --WITH AKT AS ( SELECT f.name AS ForeignKey
 --                    ,OBJECT_NAME(f.parent_object_id) AS TableName
 --                    ,COL_NAME(fc.parent_object_id, fc.parent_column_id) AS ColumnName
@@ -805,7 +932,7 @@ GO
 CREATE OR ALTER PROCEDURE adua.UDP_tbIncoterm_Insertar
 	@inco_Descripcion		NVARCHAR(150),
 	@usua_UsuarioCreacion	INT,
-	@usua_FechaCreacion     DATETIME
+	@inco_FechaCreacion     DATETIME
 AS 
 BEGIN
 	
@@ -828,7 +955,7 @@ BEGIN
 											     inco_FechaCreacion)
 			VALUES(@inco_Descripcion,	
 				   @usua_UsuarioCreacion,
-				   @usua_FechaCreacion)
+				   @inco_FechaCreacion)
 
 
 			SELECT 1
@@ -884,6 +1011,133 @@ BEGIN
 							[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
 							[inco_FechaEliminacion] = @inco_FechaEliminacion
 					WHERE	[inco_Id] = @inco_Id
+				END
+		END
+
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+--**********MONEDAS**********--
+
+/*Vista monedas*/
+CREATE OR ALTER VIEW gral.VW_tbMonedas
+AS
+SELECT mone_Id AS monedaId, 
+	   mone_Descripcion AS monedaNombre, 
+	   mone.usua_UsuarioCreacion AS usuarioCreacion, 
+	   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
+	   mone_FechaCreacion AS fechaCreacion, 
+	   mone.usua_UsuarioModificacion AS usuarioModificacion, 
+	   usuaModifica.usua_Nombre AS usuarioModificacionNombre,
+	   mone_FechaModificacion AS fechaModificacion, 
+	   mone.usua_UsuarioEliminacion AS usuarioEliminacion, 
+	   usuaElimina.usua_Nombre AS usuarioEliminacionNombre,
+	   mone_FechaEliminacion AS fechaEliminacion, 
+	   mone_Estado AS monedaEstado
+FROM [Gral].[tbMonedas] mone INNER JOIN [Acce].[tbUsuarios] usuaCrea
+ON mone.usua_UsuarioCreacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaModifica
+ON mone.usua_UsuarioModificacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaElimina
+ON mone.usua_UsuarioEliminacion = usuaCrea.usua_Id
+GO
+
+
+/*Listar monedas*/
+CREATE OR ALTER PROCEDURE gral.UDP_VW_tbMonedas_Listar
+AS
+BEGIN
+	SELECT *
+    FROM gral.VW_tbMonedas
+	WHERE monedaEstado = 1
+END
+GO
+
+/*Insertar monedas*/
+CREATE OR ALTER PROCEDURE gral.UDP_tbMonedas_Insertar
+	@mone_Descripcion		NVARCHAR(150),
+	@usua_UsuarioCreacion	INT,
+	@mone_FechaCreacion     DATETIME
+AS 
+BEGIN
+	
+	BEGIN TRY
+
+		IF EXISTS (SELECT * FROM [Gral].[tbMonedas]
+						WHERE [mone_Descripcion] = @mone_Descripcion
+						AND [mone_Estado] = 0)
+		BEGIN
+			UPDATE [Gral].[tbMonedas]
+			SET	   [mone_Estado] = 1
+			WHERE  [mone_Descripcion] = @mone_Descripcion
+
+			SELECT 1
+		END
+		ELSE 
+			BEGIN
+				INSERT INTO [Gral].[tbMonedas] (mone_Descripcion, 
+											     usua_UsuarioCreacion, 
+											     mone_FechaCreacion)
+			VALUES(@mone_Descripcion,	
+				   @usua_UsuarioCreacion,
+				   @mone_FechaCreacion)
+
+
+			SELECT 1
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH 
+END
+GO
+
+/*Editar monedas*/
+CREATE OR ALTER PROCEDURE gral.UDP_tbMonedas_Editar
+	@mone_Id					INT,
+	@mone_Descripcion			NVARCHAR(150),
+	@usua_UsuarioModificacion	INT,
+	@mone_FechaModificacion     DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE  [Gral].[tbMonedas]
+		SET		[mone_Descripcion] = @mone_Descripcion,
+				[usua_UsuarioModificacion] = @usua_UsuarioModificacion,
+				[mone_FechaModificacion] = @mone_FechaModificacion
+		WHERE	[mone_Id] = @mone_Id
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+/*Eliminar monedas*/
+CREATE OR ALTER PROCEDURE gral.UDP_tbMonedas_Eliminar 
+	@mone_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@mone_FechaEliminacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+
+		BEGIN
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'mone_Id', @mone_Id, 'gral.tbMonedas', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					UPDATE	[Gral].[tbMonedas]
+					SET		[mone_Estado] = 0,
+							[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
+							[mone_FechaEliminacion] = @mone_FechaEliminacion
+					WHERE	[mone_Id] = @mone_Id
 				END
 		END
 

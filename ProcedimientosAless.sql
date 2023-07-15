@@ -1,3 +1,5 @@
+-----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS GENERAL
+
 --**********ESTADOS CIVILES**********--
 
 /*Vista estados civiles*/
@@ -343,7 +345,7 @@ GO
 CREATE OR ALTER PROCEDURE gral.UDP_tbOficio_Profesiones_Eliminar 
 	@ofpr_Id					INT,
 	@usua_UsuarioEliminacion	INT,
-	@ofpr_FechaEliminacion		INT
+	@ofpr_FechaEliminacion		DATETIME
 AS
 BEGIN
 	BEGIN TRY
@@ -719,6 +721,181 @@ BEGIN
 END
 GO
 
+--**********MONEDAS**********--
+
+/*Vista monedas*/
+CREATE OR ALTER VIEW gral.VW_tbMonedas
+AS
+SELECT mone_Id AS monedaId, 
+	   mone_Descripcion AS monedaNombre, 
+	   mone.usua_UsuarioCreacion AS usuarioCreacion, 
+	   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
+	   mone_FechaCreacion AS fechaCreacion, 
+	   mone.usua_UsuarioModificacion AS usuarioModificacion, 
+	   usuaModifica.usua_Nombre AS usuarioModificacionNombre,
+	   mone_FechaModificacion AS fechaModificacion, 
+	   mone.usua_UsuarioEliminacion AS usuarioEliminacion, 
+	   usuaElimina.usua_Nombre AS usuarioEliminacionNombre,
+	   mone_FechaEliminacion AS fechaEliminacion, 
+	   mone_Estado AS monedaEstado
+FROM [Gral].[tbMonedas] mone INNER JOIN [Acce].[tbUsuarios] usuaCrea
+ON mone.usua_UsuarioCreacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaModifica
+ON mone.usua_UsuarioModificacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaElimina
+ON mone.usua_UsuarioEliminacion = usuaCrea.usua_Id
+GO
+
+
+/*Listar monedas*/
+CREATE OR ALTER PROCEDURE gral.UDP_VW_tbMonedas_Listar
+AS
+BEGIN
+	SELECT *
+    FROM gral.VW_tbMonedas
+	WHERE monedaEstado = 1
+END
+GO
+
+/*Insertar monedas*/
+CREATE OR ALTER PROCEDURE gral.UDP_tbMonedas_Insertar
+	@mone_Descripcion		NVARCHAR(150),
+	@usua_UsuarioCreacion	INT,
+	@mone_FechaCreacion     DATETIME
+AS 
+BEGIN
+	
+	BEGIN TRY
+
+		IF EXISTS (SELECT * FROM [Gral].[tbMonedas]
+						WHERE [mone_Descripcion] = @mone_Descripcion
+						AND [mone_Estado] = 0)
+		BEGIN
+			UPDATE [Gral].[tbMonedas]
+			SET	   [mone_Estado] = 1
+			WHERE  [mone_Descripcion] = @mone_Descripcion
+
+			SELECT 1
+		END
+		ELSE 
+			BEGIN
+				INSERT INTO [Gral].[tbMonedas] (mone_Descripcion, 
+											     usua_UsuarioCreacion, 
+											     mone_FechaCreacion)
+			VALUES(@mone_Descripcion,	
+				   @usua_UsuarioCreacion,
+				   @mone_FechaCreacion)
+
+
+			SELECT 1
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH 
+END
+GO
+
+/*Editar monedas*/
+CREATE OR ALTER PROCEDURE gral.UDP_tbMonedas_Editar
+	@mone_Id					INT,
+	@mone_Descripcion			NVARCHAR(150),
+	@usua_UsuarioModificacion	INT,
+	@mone_FechaModificacion     DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE  [Gral].[tbMonedas]
+		SET		[mone_Descripcion] = @mone_Descripcion,
+				[usua_UsuarioModificacion] = @usua_UsuarioModificacion,
+				[mone_FechaModificacion] = @mone_FechaModificacion
+		WHERE	[mone_Id] = @mone_Id
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+/*Eliminar monedas*/
+CREATE OR ALTER PROCEDURE gral.UDP_tbMonedas_Eliminar 
+	@mone_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@mone_FechaEliminacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+
+		BEGIN
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'mone_Id', @mone_Id, 'gral.tbMonedas', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					UPDATE	[Gral].[tbMonedas]
+					SET		[mone_Estado] = 0,
+							[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
+							[mone_FechaEliminacion] = @mone_FechaEliminacion
+					WHERE	[mone_Id] = @mone_Id
+				END
+		END
+
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+--WITH AKT AS ( SELECT f.name AS ForeignKey
+--                    ,OBJECT_NAME(f.parent_object_id) AS TableName
+--                    ,COL_NAME(fc.parent_object_id, fc.parent_column_id) AS ColumnName
+--					,SCHEMA_NAME(schema_id) SchemaName
+--                    ,OBJECT_NAME (f.referenced_object_id) AS ReferenceTableName
+--                    ,COL_NAME(fc.referenced_object_id, fc.referenced_column_id) AS ReferenceColumnName
+--              FROM   sys.foreign_keys AS f
+--                     INNER JOIN sys.foreign_key_columns AS fc ON f.OBJECT_ID = fc.constraint_object_id
+--              WHERE  f.referenced_object_id = object_id('gral.tbColonias'))
+--SELECT 'SELECT ' + ColumnName + ' FROM ' + SchemaName + '.' + TableName + ' WHERE  RR.' + ColumnName + ' = OO.' + ReferenceColumnName + ' UNION ALL'
+--FROM   AKT
+
+
+--DECLARE @QUERY NVARCHAR(MAX)
+
+--WITH AKT AS ( SELECT ROW_NUMBER() OVER (ORDER BY f.name) RN, f.name AS ForeignKey
+--                    ,OBJECT_NAME(f.parent_object_id) AS TableName
+--                    ,COL_NAME(fc.parent_object_id, fc.parent_column_id) AS ColumnName
+--                    ,SCHEMA_NAME(f.schema_id) SchemaName
+--                    ,OBJECT_NAME (f.referenced_object_id) AS ReferenceTableName
+--                    ,COL_NAME(fc.referenced_object_id, fc.referenced_column_id) AS ReferenceColumnName
+--              FROM   sys.foreign_keys AS f
+--                     INNER JOIN sys.foreign_key_columns AS fc ON f.OBJECT_ID = fc.constraint_object_id
+--                     INNER JOIN sys.objects oo ON oo.object_id = fc.referenced_object_id
+--              WHERE  f.referenced_object_id = object_id('gral.tbColonias'))
+
+--    ,bs AS (SELECT AKT.RN
+--                  ,'SELECT ' + ColumnName + ' FROM ' + SchemaName + '.' + TableName + ' WHERE ' + ColumnName + ' = OO.' + ReferenceColumnName  SubQuery
+--            FROM   AKT)
+--    ,re AS (SELECT bs.RN, CAST(RTRIM(bs.SubQuery) AS VARCHAR(MAX)) Joined
+--            FROM   bs
+--            WHERE  bs.RN = 1
+--            UNION  ALL
+--            SELECT bs2.RN, CAST(re.Joined + ' UNION ALL ' + ISNULL(RTRIM(bs2.SubQuery), '') AS VARCHAR(MAX)) Joined
+--            FROM   re, bs bs2 
+--            WHERE  re.RN = bs2.RN - 1 )
+--    ,fi AS (SELECT ROW_NUMBER() OVER (ORDER BY RN DESC) RNK, Joined
+--            FROM   re)
+--SELECT @QUERY  = 'SELECT OO.colo_Id, CASE WHEN XX.REFERENCED IS NULL THEN ''No'' ELSE ''Yes'' END Referenced
+--FROM   gral.tbColonias OO
+--       OUTER APPLY (SELECT SUM(1) REFERENCED
+--                    FROM   (' + Joined + ') II) XX'
+--FROM   fi
+--WHERE  RNK = 1
+
+--EXEC (@QUERY)
+
+-----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS MÓDULO ADUANA
 --**********FORMAS DE PRESENTACIÓN**********--
 
 /*Vista forma presentación*/
@@ -846,54 +1023,6 @@ BEGIN
 END
 GO
 
---WITH AKT AS ( SELECT f.name AS ForeignKey
---                    ,OBJECT_NAME(f.parent_object_id) AS TableName
---                    ,COL_NAME(fc.parent_object_id, fc.parent_column_id) AS ColumnName
---					,SCHEMA_NAME(schema_id) SchemaName
---                    ,OBJECT_NAME (f.referenced_object_id) AS ReferenceTableName
---                    ,COL_NAME(fc.referenced_object_id, fc.referenced_column_id) AS ReferenceColumnName
---              FROM   sys.foreign_keys AS f
---                     INNER JOIN sys.foreign_key_columns AS fc ON f.OBJECT_ID = fc.constraint_object_id
---              WHERE  f.referenced_object_id = object_id('gral.tbColonias'))
---SELECT 'SELECT ' + ColumnName + ' FROM ' + SchemaName + '.' + TableName + ' WHERE  RR.' + ColumnName + ' = OO.' + ReferenceColumnName + ' UNION ALL'
---FROM   AKT
-
-
---DECLARE @QUERY NVARCHAR(MAX)
-
---WITH AKT AS ( SELECT ROW_NUMBER() OVER (ORDER BY f.name) RN, f.name AS ForeignKey
---                    ,OBJECT_NAME(f.parent_object_id) AS TableName
---                    ,COL_NAME(fc.parent_object_id, fc.parent_column_id) AS ColumnName
---                    ,SCHEMA_NAME(f.schema_id) SchemaName
---                    ,OBJECT_NAME (f.referenced_object_id) AS ReferenceTableName
---                    ,COL_NAME(fc.referenced_object_id, fc.referenced_column_id) AS ReferenceColumnName
---              FROM   sys.foreign_keys AS f
---                     INNER JOIN sys.foreign_key_columns AS fc ON f.OBJECT_ID = fc.constraint_object_id
---                     INNER JOIN sys.objects oo ON oo.object_id = fc.referenced_object_id
---              WHERE  f.referenced_object_id = object_id('gral.tbColonias'))
-
---    ,bs AS (SELECT AKT.RN
---                  ,'SELECT ' + ColumnName + ' FROM ' + SchemaName + '.' + TableName + ' WHERE ' + ColumnName + ' = OO.' + ReferenceColumnName  SubQuery
---            FROM   AKT)
---    ,re AS (SELECT bs.RN, CAST(RTRIM(bs.SubQuery) AS VARCHAR(MAX)) Joined
---            FROM   bs
---            WHERE  bs.RN = 1
---            UNION  ALL
---            SELECT bs2.RN, CAST(re.Joined + ' UNION ALL ' + ISNULL(RTRIM(bs2.SubQuery), '') AS VARCHAR(MAX)) Joined
---            FROM   re, bs bs2 
---            WHERE  re.RN = bs2.RN - 1 )
---    ,fi AS (SELECT ROW_NUMBER() OVER (ORDER BY RN DESC) RNK, Joined
---            FROM   re)
---SELECT @QUERY  = 'SELECT OO.colo_Id, CASE WHEN XX.REFERENCED IS NULL THEN ''No'' ELSE ''Yes'' END Referenced
---FROM   gral.tbColonias OO
---       OUTER APPLY (SELECT SUM(1) REFERENCED
---                    FROM   (' + Joined + ') II) XX'
---FROM   fi
---WHERE  RNK = 1
-
---EXEC (@QUERY)
-
------------------PROCEDIMIENTOS ALMACENADOS Y VISTAS MÓDULO PRODUCCIÓN
 --**********INCOTERM**********--
 
 /*Vista incoterm*/
@@ -1021,129 +1150,4 @@ BEGIN
 END
 GO
 
---**********MONEDAS**********--
-
-/*Vista monedas*/
-CREATE OR ALTER VIEW gral.VW_tbMonedas
-AS
-SELECT mone_Id AS monedaId, 
-	   mone_Descripcion AS monedaNombre, 
-	   mone.usua_UsuarioCreacion AS usuarioCreacion, 
-	   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
-	   mone_FechaCreacion AS fechaCreacion, 
-	   mone.usua_UsuarioModificacion AS usuarioModificacion, 
-	   usuaModifica.usua_Nombre AS usuarioModificacionNombre,
-	   mone_FechaModificacion AS fechaModificacion, 
-	   mone.usua_UsuarioEliminacion AS usuarioEliminacion, 
-	   usuaElimina.usua_Nombre AS usuarioEliminacionNombre,
-	   mone_FechaEliminacion AS fechaEliminacion, 
-	   mone_Estado AS monedaEstado
-FROM [Gral].[tbMonedas] mone INNER JOIN [Acce].[tbUsuarios] usuaCrea
-ON mone.usua_UsuarioCreacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaModifica
-ON mone.usua_UsuarioModificacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaElimina
-ON mone.usua_UsuarioEliminacion = usuaCrea.usua_Id
-GO
-
-
-/*Listar monedas*/
-CREATE OR ALTER PROCEDURE gral.UDP_VW_tbMonedas_Listar
-AS
-BEGIN
-	SELECT *
-    FROM gral.VW_tbMonedas
-	WHERE monedaEstado = 1
-END
-GO
-
-/*Insertar monedas*/
-CREATE OR ALTER PROCEDURE gral.UDP_tbMonedas_Insertar
-	@mone_Descripcion		NVARCHAR(150),
-	@usua_UsuarioCreacion	INT,
-	@mone_FechaCreacion     DATETIME
-AS 
-BEGIN
-	
-	BEGIN TRY
-
-		IF EXISTS (SELECT * FROM [Gral].[tbMonedas]
-						WHERE [mone_Descripcion] = @mone_Descripcion
-						AND [mone_Estado] = 0)
-		BEGIN
-			UPDATE [Gral].[tbMonedas]
-			SET	   [mone_Estado] = 1
-			WHERE  [mone_Descripcion] = @mone_Descripcion
-
-			SELECT 1
-		END
-		ELSE 
-			BEGIN
-				INSERT INTO [Gral].[tbMonedas] (mone_Descripcion, 
-											     usua_UsuarioCreacion, 
-											     mone_FechaCreacion)
-			VALUES(@mone_Descripcion,	
-				   @usua_UsuarioCreacion,
-				   @mone_FechaCreacion)
-
-
-			SELECT 1
-		END
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH 
-END
-GO
-
-/*Editar monedas*/
-CREATE OR ALTER PROCEDURE gral.UDP_tbMonedas_Editar
-	@mone_Id					INT,
-	@mone_Descripcion			NVARCHAR(150),
-	@usua_UsuarioModificacion	INT,
-	@mone_FechaModificacion     DATETIME
-AS
-BEGIN
-	BEGIN TRY
-		UPDATE  [Gral].[tbMonedas]
-		SET		[mone_Descripcion] = @mone_Descripcion,
-				[usua_UsuarioModificacion] = @usua_UsuarioModificacion,
-				[mone_FechaModificacion] = @mone_FechaModificacion
-		WHERE	[mone_Id] = @mone_Id
-
-		SELECT 1
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END
-GO
-
-/*Eliminar monedas*/
-CREATE OR ALTER PROCEDURE gral.UDP_tbMonedas_Eliminar 
-	@mone_Id					INT,
-	@usua_UsuarioEliminacion	INT,
-	@mone_FechaEliminacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
-
-		BEGIN
-			DECLARE @respuesta INT
-			EXEC dbo.UDP_ValidarReferencias 'mone_Id', @mone_Id, 'gral.tbMonedas', @respuesta OUTPUT
-
-			SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
-				BEGIN
-					UPDATE	[Gral].[tbMonedas]
-					SET		[mone_Estado] = 0,
-							[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
-							[mone_FechaEliminacion] = @mone_FechaEliminacion
-					WHERE	[mone_Id] = @mone_Id
-				END
-		END
-
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END
-GO
+-----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS MÓDULO PRODUCCIÓN

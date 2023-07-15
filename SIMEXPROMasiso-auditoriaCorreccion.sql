@@ -43,6 +43,8 @@ CREATE TABLE Acce.tbUsuarios(
 	usua_FechaCreacion 			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT	DEFAULT NULL,
 	usua_FechaModificacion		DATETIME DEFAULT NULL,
+	usua_UsuarioEliminacion 	INT	DEFAULT NULL,
+	usua_FechaEliminacion		DATETIME DEFAULT NULL,
 	usua_Estado					BIT	DEFAULT 1,
 	CONSTRAINT PK_Acce_tbUsuarios_usua_Id PRIMARY KEY (usua_Id),
 	CONSTRAINT UQ_acce_tbUsuarios_usua_Nombre UNIQUE(usua_Nombre)
@@ -67,7 +69,7 @@ CREATE TABLE Acce.tbUsuariosHistorial(
 GO
 
 INSERT INTO Acce.tbUsuarios
-VALUES ('prueba', '123', 'ddd', 1, '.jpg', 1, 1, 1,1, NULL, NULL,1)
+VALUES ('prueba', '123', 'ddd', 1, '.jpg', 1, 1, 1,1, NULL, NULL,NULL,NULL,1)
 GO
 
 CREATE TABLE Acce.tbRoles
@@ -566,14 +568,15 @@ CREATE TABLE Adua.tbImportadores(
 	usua_UsuarioModificacion			INT,
 	impo_FechaModificacion				DATETIME,
 	
-	usua_UsuarioModificacion			INT,
-	impo_FechaModificacion				DATETIME,
+	usua_UsuarioEliminacion			INT,
+	impo_FechaEliminacion 				DATETIME,
 	impo_Estado							BIT NOT NULL DEFAULT 1
 
    CONSTRAINT PK_Adua_tbImportadores_impo_Id PRIMARY KEY (impo_Id),
    CONSTRAINT FK_Adua_tbImportadores_nico_Id_Adua_tbNivelesComerciales_nico_Id FOREIGN KEY (nico_Id) REFERENCES Adua.tbNivelesComerciales(nico_Id),
    CONSTRAINT FK_Acce_tbImportadores_Adua_tbIncoterm_Valor_impo_UsuarioCreacion FOREIGN KEY (usua_UsuarioCreacion) REFERENCES Acce.tbUsuarios(usua_Id),
-   CONSTRAINT FK_Acce_tbImportadores_Adua_tbIncoterm_Valor_impo_usua_UsuarioModificacion FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios(usua_Id)
+   CONSTRAINT FK_Acce_tbImportadores_Adua_tbIncoterm_Valor_impo_usua_UsuarioModificacion FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios(usua_Id),
+   CONSTRAINT FK_Acce_tbImportadores_Adua_tbIncoterm_Valor_impo_usua_UsuarioEliminacion FOREIGN KEY (usua_UsuarioEliminacion) REFERENCES Acce.tbUsuarios(usua_Id)
    );
    GO
 CREATE TABLE Adua.tbTipoIntermediario(
@@ -1059,7 +1062,7 @@ CREATE TABLE Adua.tbTipoLiquidacion (
     usua_UsuarioModificacion   	INT DEFAULT NULL,
     tipl_FechaModificacion     	DATETIME DEFAULT NULL,
 	usua_UsuarioEliminacion		INT DEFAULT NULL,
-	tipl_FechaEliminacion		DATETIME DEFAULT NULL
+	tipl_FechaEliminacion		DATETIME DEFAULT NULL,
     tipl_Estado                	BIT DEFAULT 1,
 	
    	CONSTRAINT PK_Adua_tbTipoLiquidacion_tipl_Id PRIMARY KEY (tipl_Id),

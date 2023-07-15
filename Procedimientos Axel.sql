@@ -87,18 +87,23 @@ GO
 --Eliminar Modulos
 CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Eliminar
 	@modu_Id					INT,
-	@usua_UsuarioModificacion	INT,
-	@modu_FechaModificacion		DATETIME
+	@usua_UsuarioEliminacion	INT,
+	@modu_FechaEliminacion		DATETIME
 AS
 BEGIN
-	SET @modu_FechaModificacion = GETDATE();
+	SET @modu_FechaEliminacion = GETDATE();
 	BEGIN TRY
-		UPDATE	Prod.tbModulos
-		SET		usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				modu_FechaModificacion = @modu_FechaModificacion,
-				modu_Estado = 0
-		WHERE	modu_Id = @modu_Id
-		SELECT 1
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'modu_Id', @modu_Id, 'Prod.tbModulos', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+			BEGIN
+				UPDATE	Prod.tbModulos
+				SET		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+						modu_FechaEliminacion = @modu_FechaEliminacion,
+						modu_Estado = 0
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -182,18 +187,24 @@ GO
 --Eliminar Maquinas
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinas_Eliminar
 	@maqu_Id						INT,
-	@usua_UsuarioModificacion		INT,
-	@maqu_FechaModificacion			DATETIME
+	@usua_UsuarioEliminacion		INT,
+	@maqu_FechaEliminacion			DATETIME
 AS
 BEGIN
-	SET @maqu_FechaModificacion = GETDATE()
+	SET @maqu_FechaEliminacion = GETDATE()
 	BEGIN TRY
-		UPDATE	Prod.tbMaquinas
-		SET		usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				maqu_FechaModificacion   = @maqu_FechaModificacion,
-				maqu_Estado	= 0
-		WHERE	maqu_Id = @maqu_Id
-		SELECT 1
+		DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'maqu_Id', @maqu_Id, 'Prod.tbMaquinas', @respuesta OUTPUT
+
+		SELECT @respuesta AS Resultado
+		IF(@respuesta) = 1
+			BEGIN
+				UPDATE	Prod.tbMaquinas
+				SET		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+						maqu_FechaEliminacion   = @maqu_FechaEliminacion,
+						maqu_Estado	= 0
+				WHERE	maqu_Id = @maqu_Id
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -271,18 +282,24 @@ GO
 --Eliminar Marcas Maquina
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMarcasMaquina_Eliminar
 	@marq_Id					INT,
-	@usua_UsuarioModificacion	INT,
-	@marq_FechaModificacion		DATETIME
+	@usua_UsuarioEliminacion	INT,
+	@marq_FechaEliminacion		DATETIME
 AS
 BEGIN
-	SET @marq_FechaModificacion = GETDATE();
+	SET @marq_FechaEliminacion = GETDATE();
 	BEGIN TRY
-		UPDATE	Prod.tbMarcasMaquina
-		SET		marq_Estado = 0,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				marq_FechaModificacion = @marq_FechaModificacion
-		WHERE	marq_Id = @marq_Id
-		SELECT 1
+		DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'marq_Id', @marq_Id, 'Prod.tbMarcasMaquina', @respuesta OUTPUT
+
+		SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					UPDATE	Prod.tbMarcasMaquina
+					SET		marq_Estado = 0,
+							usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+							marq_FechaEliminacion = @marq_FechaEliminacion
+					WHERE	marq_Id = @marq_Id
+				END
 	END TRY
 	BEGIN CATCH
 		SELECT 0	
@@ -377,18 +394,24 @@ GO
 --Eliminar Modelos Maquinas
 CREATE OR ALTER PROCEDURE Prod.UDP_tbModelosMaquina_Eliminar
 	@mmaq_Id					INT,
-	@usua_UsuarioModificacion	INT,
-	@mmaq_FechaModificacion		DATETIME
+	@usua_UsuarioEliminacion	INT,
+	@mmaq_FechaEliminacion	DATETIME
 AS
 BEGIN
-	SET @marq_FechaModificacion = GETDATE();
+	SET @mmaq_FechaEliminacion = GETDATE();
 	BEGIN TRY
-		UPDATE	Prod.tbModelosMaquina
-		SET		mmaq_Estado = 0,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				mmaq_FechaModificacion = @mmaq_FechaModificacion
-		WHERE	mmaq_Id = @mmaq_Id
-		SELECT 1
+		DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'mmaq_Id', @mmaq_Id, 'Prod.tbModelosMaquina', @respuesta OUTPUT
+
+		SELECT @respuesta AS Resultado
+		IF(@respuesta = 1)
+			BEGIN
+				UPDATE	Prod.tbModelosMaquina
+				SET		mmaq_Estado = 0,
+						usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+						mmaq_FechaEliminacion = @mmaq_FechaEliminacion
+				WHERE	mmaq_Id = @mmaq_Id
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 0	
@@ -475,18 +498,24 @@ GO
 --Eliminar Aranceles
 CREATE OR ALTER PROCEDURE Adua.UDP_tbAranceles_Eliminar
 	@aran_Id					INT,
-	@usua_UsuarioModificacion	INT,
-	@aran_FechaModificacion		DATETIME
+	@usua_UsuarioEliminacion	INT,
+	@aran_FechaEliminacion		DATETIME
 AS
 BEGIN
-	SET @aran_FechaModificacion = GETDATE();
+	SET @aran_FechaEliminacion = GETDATE();
 	BEGIN TRY
-		UPDATE	Adua.tbAranceles
-		SET		aram_Estado = 0,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				aran_FechaModificacion = @aran_FechaModificacion
-		WHERE Aran_Id = @aran_Id
-		SELECT 1
+		DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'aran_Id', @aran_Id, 'Adua.tbAranceles', @respuesta OUTPUT
+
+		SELECT @respuesta AS Resultado
+		IF(@respuesta = 1)
+		BEGIN
+			UPDATE	Adua.tbAranceles
+			SET		aram_Estado = 0,
+					usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+					aran_FechaEliminacion = @aran_FechaEliminacion
+			WHERE	aran_Id = @aran_Id
+		END
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -592,22 +621,31 @@ GO
 --Eliminar Declarantes
 CREATE OR ALTER PROCEDURE Adua.UDP_tbAranceles_Eliminar
 	@decl_Id					INT,
-	@usua_UsuarioModificacion	INT,
-	@decl_FechaModificacion		DATETIME
+	@usua_UsuarioEliminacion	INT,
+	@decl_FechaEliminacion		DATETIME
 AS
 BEGIN
-	SET @decl_FechaModificacion = GETDATE()
+	SET @decl_FechaEliminacion = GETDATE()
 	BEGIN TRY
-		UPDATE	Adua.tbDeclarantes
-		SET		decl_Estado = 0,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				decl_FechaModificacion = @decl_FechaModificacion
-		WHERE decl_Id = @decl_Id
-		SELECT 1
+		DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'decl_Id', @decl_Id, 'Adua.tbDeclarantes', @respuesta OUTPUT
+
+		SELECT @respuesta AS Resultado
+		IF(@respuesta = 1)
+		BEGIN
+			UPDATE	Adua.tbDeclarantes
+			SET		decl_Estado = 0,
+					usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+					decl_FechaEliminacion = @decl_FechaEliminacion
+			WHERE decl_Id = @decl_Id
+		END
 	END TRY
 	BEGIN CATCH
 		SELECT 0
 	END CATCH
 END
+
+--************************************************************************   Tabla Declaratntes FIN   ***********************************************************************************************
+GO
 
 ---------------------------------------------------------------------//  Modulos de Aduanas Procedimientos final \\-------------------------------------------------------------------------------------------

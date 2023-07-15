@@ -1,6 +1,6 @@
------------------PROCEDIMIENTOS ALMACENADOS Y VISTAS
+-----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS MÃ“DULO ADUANERO
 
----***********VALIDACIÓN DE ELIMINAR**************---
+---***********VALIDACIï¿½N DE ELIMINAR**************---
 
 GO
 CREATE OR ALTER PROCEDURE dbo.UDP_ValidarReferencias
@@ -12,7 +12,7 @@ AS BEGIN
 	DECLARE @QUERY NVARCHAR(MAX);
 	SET @Id_Valor = CONCAT('=', @Id_Valor);
 
-	/*En esta sección se consiguen las tablas que está referenciadas al campo*/
+	/*En esta secciï¿½n se consiguen las tablas que estï¿½ referenciadas al campo*/
 
 	WITH AKT AS ( SELECT ROW_NUMBER() OVER (ORDER BY f.name) RN, f.name AS ForeignKey
 						,OBJECT_NAME(f.parent_object_id) AS TableName
@@ -23,7 +23,7 @@ AS BEGIN
 				  FROM   sys.foreign_keys AS f
 						 INNER JOIN sys.foreign_key_columns AS fc ON f.OBJECT_ID = fc.constraint_object_id
 						 INNER JOIN sys.objects oo ON oo.object_id = fc.referenced_object_id
-				  WHERE  f.referenced_object_id = object_id('gral.tbColonias'))
+				  WHERE  f.referenced_object_id = object_id(@tabla_Nombre))
 
 		,bs AS (SELECT AKT.RN
 					  ,'SELECT ' + ColumnName + ' FROM ' + SchemaName + '.' + TableName + ' WHERE ' + ColumnName + ' = OO.' + ReferenceColumnName  SubQuery
@@ -38,7 +38,7 @@ AS BEGIN
 		,fi AS (SELECT ROW_NUMBER() OVER (ORDER BY RN DESC) RNK, Joined
 				FROM   re)
 
-	/*Se crea el query para verificar si el campo se usó*/
+	/*Se crea el query para verificar si el campo se usï¿½*/
 	SELECT @QUERY  = '
 			SELECT CASE WHEN XX.REFERENCED IS NULL THEN 1 ELSE 0 END Referenced
 			FROM   '+ @tabla_Nombre + ' OO
@@ -48,7 +48,7 @@ AS BEGIN
 	FROM   fi
 	WHERE  RNK = 1
 		
-	/*Se ejecuta y consigue el código de verificación (0 no se puede eliminar porque está siendo usado, 1 se puede eliminar porque no está siendo usado*/
+	/*Se ejecuta y consigue el cï¿½digo de verificaciï¿½n (0 no se puede eliminar porque estï¿½ siendo usado, 1 se puede eliminar porque no estï¿½ siendo usado*/
 	DECLARE @TempTable TABLE (Referenced INT)
 	INSERT INTO @TempTable
 	EXEC (@QUERY)
@@ -80,6 +80,8 @@ AS
 	       t1.usua_UsuarioModificacion AS usuarioModificacion, 
 		   t5.usua_Nombre AS usuarioModificacionNombre, 
 		   t1.usua_FechaModificacion AS usuarioFechaModificacion,
+		   t6.usua_Nombre AS usuarioEliminacionNombre, 
+		   t1.usua_FechaEliminacion AS usuarioFechaEliminacion,
 		   t1.usua_Estado AS usuarioEstado,
 		   t3.empl_CorreoElectronico AS empleadoCorreoElectronico	
 		   FROM Acce.tbUsuarios t1 LEFT JOIN Acce.tbRoles t2
@@ -89,7 +91,9 @@ AS
 		   LEFT JOIN acce.tbUsuarios t4
 		   ON t1.usua_UsuarioCreacion = T4.usua_Id
 		   LEFT JOIN acce.tbUsuarios t5
-		   ON t1.usua_UsuarioModificacion = t5.usua_Id
+		   ON t1.usua_UsuarioModificacion = t5.usua_Id LEFT JOIN acce.tbUsuarios t6
+		   ON t1.usua_UsuarioEliminacion = t6.usua_Id
+		   
 GO
 
 /*Listar Usuarios*/
@@ -263,7 +267,9 @@ AS
 BEGIN
 	BEGIN TRY
 		UPDATE	acce.tbUsuarios
-		SET		usua_Estado = 0
+		SET		usua_Estado = 0,
+				usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+				usua_FechaEliminacion = @usua_FechaEliminacion
 		WHERE	usua_Id = @usua_Id
 
 		INSERT INTO acce.tbUsuariosHistorial (	[usua_Id],
@@ -298,3 +304,5 @@ BEGIN
 	END CATCH
 END
 GO
+
+

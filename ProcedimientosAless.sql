@@ -993,7 +993,7 @@ END
 GO
 
 /*Eliminar forma presentación*/
-CREATE OR ALTER PROCEDURE gral.UDP_tbFormaPresentacion_Eliminar 
+CREATE OR ALTER PROCEDURE adua.UDP_tbFormaPresentacion_Eliminar 
 	@pres_Id					INT,
 	@usua_UsuarioEliminacion	INT,
 	@pres_FechaEliminacion		DATETIME

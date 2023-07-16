@@ -432,6 +432,7 @@ CREATE TABLE Gral.tbEmpleados(
 		empl_Estado						BIT 			NOT NULL DEFAULT 1,
 
 		CONSTRAINT PK_Adua_tbEmpleados_emad_Id PRIMARY KEY (empl_Id),
+		CONSTRAINT UQ_Gral_tbEmpleados_empl_DNI UNIQUE (empl_DNI),
 		CONSTRAINT FK_Gral_tbEstadosCiviles_Adua_tbEmpleados_escv_Id FOREIGN KEY (escv_Id) REFERENCES Gral.tbEstadosCiviles(escv_Id),
 		CONSTRAINT FK_Gral_tbProvincias_Adua_tbEmpleados_pvin_Id FOREIGN KEY (pvin_Id) REFERENCES Gral.tbProvincias(pvin_Id),
 		CONSTRAINT FK_Gral_tbCargos_Adua_tbasEmpleados_carg_Id FOREIGN KEY (carg_Id) REFERENCES Gral.tbCargos(carg_Id),

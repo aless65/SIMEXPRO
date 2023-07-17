@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-pascal-case */
+/* eslint-disable camelcase */
 import FuseUtils from '@fuse/utils';
 import FuseLoading from '@fuse/core/FuseLoading';
 import { Navigate } from 'react-router-dom';
@@ -16,6 +18,8 @@ import OficinasIndex from '../Personas/Oficinas/Oficinas';
 import OficiosProfesiones from '../Personas/OficiosProfesiones/OficiosProfesiones';
 import UsuariosIndex from '../Seguridad/Usuarios/Usuarios';
 import ImpresionBoletindePago from '../BoletinDePago/ImpresionBoletinDePago';
+import PersonaNatural_Index from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/PersonaNatural_Index';
+import Declaracion_Valor_Index from '../Aduanas/Declaracion_De_Valor/Declaracion_Valor_Index';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -75,6 +79,18 @@ const routes = [
   {
     path: 'BoletindePago/impresionBoletin',
     element: <ImpresionBoletindePago />,
+  },
+  {
+    path: 'Contrato-de-Adhesion/Persona-Natural',
+    element: <PersonaNatural_Index />,
+  },
+  {
+    path: 'Declaracion-de-Valor/Listado',
+    element: <Declaracion_Valor_Index />,
+  },
+  {
+    path: 'Declaracion-de-Valor/Nueva-Declaración',
+    element: <Declaracion_Valor_Index />,
   },
 ];
 

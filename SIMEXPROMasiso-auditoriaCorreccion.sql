@@ -142,7 +142,7 @@ GO
 --**************** SCHEMA GENERAL **************************--
 --**********************************************************--
 CREATE TABLE Adua.tbIncoterm(
-	inco_Id						INT IDENTITY(1,1)
+	inco_Id						INT IDENTITY(1,1),
 	inco_Codigo					CHAR(3),
 	inco_Descripcion			NVARCHAR(150) NOT NULL,
 	
@@ -648,7 +648,7 @@ CREATE TABLE Adua.tbDeclaraciones_Valor
 	prov_Id INT NOT NULL,
 	inte_Id INT NOT NULL,
 	deva_Lugar_Entrega NVARCHAR(800) NOT NULL,
-	inco_Id CHAR(3) NOT NULL,
+	inco_Id INT NOT NULL,
 	deva_numero_contrato NVARCHAR(200) NOT NULL,
 	deva_Fecha_Contrato DATETIME NOT NULL,
 	foen_Id INT NOT NULL,
@@ -811,7 +811,6 @@ CREATE TABLE Adua.tbBaseCalculos
 
 GO
 --Seccion #3
---
 
 CREATE TABLE Prod.tbEstilos(
 	esti_Id						INT  IDENTITY(1,1),
@@ -823,7 +822,6 @@ CREATE TABLE Prod.tbEstilos(
 	usua_UsuarioEliminacion 	INT	DEFAULT NULL,
 	esti_FechaEliminacion		DATETIME DEFAULT NULL,
 	esti_Estado					BIT DEFAULT 1 
-
 	CONSTRAINT PK_Prod_tbEstilos_esti_Id												PRIMARY KEY (esti_Id)
 	CONSTRAINT FK_Prod_tbEstilos_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id 			FOREIGN KEY (usua_UsuarioCreacion )     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbEstilos_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios (usua_Id),

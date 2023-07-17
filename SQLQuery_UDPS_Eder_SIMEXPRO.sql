@@ -3,6 +3,36 @@ GO
 
 ----------------------------------------------UDPS tbEstadoMercancias----------------------------------------------
 
+/*******************************Vista*************************************/
+CREATE OR ALTER VIEW Adua.VW_tbEstadoMercancias
+AS
+	SELECT merc_Id	AS estadoMercanciaId,
+		   merc_Descripcion AS estadoMercanciaDescripcion,
+		   estadoMercancia.usua_UsuarioCreacion AS usuarioCreacionId,
+		   usuarioCreacion.usua_Nombre AS usuarioCreacionNombre,
+		   merc_FechaCreacion AS fechaCreacion,
+		   estadoMercancia.usua_UsuarioModificacion AS usuarioModificacionId,
+		   usuarioModificacion.usua_Nombre AS usuarioModificacionNombre,
+		   merc_FechaModificacion AS fechaModificacion,
+		   merc_Estado estadoMercanciaEstado
+	  FROM Adua.tbEstadoMercancias estadoMercancia
+INNER JOIN Acce.tbUsuarios usuarioCreacion
+		ON estadoMercancia.usua_UsuarioCreacion = usuarioCreacion.usua_Id
+ LEFT JOIN Acce.tbUsuarios usuarioModificacion
+		ON estadoMercancia.usua_UsuarioModificacion = usuarioModificacion.usua_Id
+GO
+
+/*******************************Listado*************************************/
+CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbEstadoMercancias_Listado
+AS
+BEGIN
+	SELECT * 
+	  FROM Adua.VW_tbEstadoMercancias 
+	 WHERE estadoMercanciaEstado = 1
+END
+GO
+
+/*******************************Insertar*************************************/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbEstadoMercancias_Insertar
 (
 	@merc_Descripcion		NVARCHAR(150),
@@ -23,6 +53,7 @@ BEGIN
 END
 GO
 
+/*******************************Editar*************************************/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbEstadoMercancias_Editar
 (
 	@merc_Id					INT,
@@ -48,11 +79,12 @@ BEGIN
 END
 GO
 
+/*******************************Eliminar*************************************/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbEstadoMercancias_Eliminar
 (
 	@merc_Id					INT,
-	@usua_UsuarioModificacion	INT,
-	@merc_FechaModificacion		DATETIME
+	@usua_UsuarioEliminacion	INT,
+	@merc_FechaEliminacion		DATETIME
 )
 AS
 BEGIN
@@ -65,8 +97,8 @@ BEGIN
 			BEGIN
 				 UPDATE Adua.tbEstadoMercancias
 					SET merc_Estado = 0,
-						usua_UsuarioModificacion = @usua_UsuarioModificacion,
-						merc_FechaModificacion = @merc_FechaModificacion
+						usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+						merc_FechaEliminacion = @merc_FechaEliminacion
 				  WHERE merc_Id = @merc_Id 
 					AND merc_Estado = 1
 			END
@@ -79,20 +111,17 @@ BEGIN
 END
 GO
 
+/*******************************Buscar por Id*************************************/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbEstadoMercancias_BuscarPorId
 (
 	@merc_Id	INT
 )
 AS
 BEGIN
-	SELECT merc_Id,
-		   merc_Descripcion,
-		   usua_UsuarioCreacion,
-		   usua_UsuarioModificacion,
-		   merc_FechaModificacion
-	  FROM Adua.tbEstadoMercancias
-	 WHERE merc_Id = @merc_Id
-	   AND merc_Estado = 1
+	SELECT * 
+	  FROM Adua.VW_tbEstadoMercancias 
+	 WHERE estadoMercanciaId = @merc_Id
+	   AND estadoMercanciaEstado = 1
 END
 GO
 
@@ -100,6 +129,36 @@ GO
 
 ------------------------------------------------UDPS tbUnidadMedidas-----------------------------------------------
 
+/*******************************Vista*************************************/
+CREATE OR ALTER VIEW Gral.VW_tbUnidadMedidas
+AS
+	SELECT unme_Id AS unidadMedidasId, 
+		   unme_Descripcion AS unidadMedidasDescripcion, 
+		   unidadMedidas.usua_UsuarioCreacion AS usuarioCreacionId, 
+		   usuarioCreacion.usua_Nombre AS usuarioCreacionNombre,
+		   unme_FechaCreacion AS fechaCreacion, 
+		   unidadMedidas.usua_UsuarioModificacion AS usuarioModificacionId, 
+		   usuarioModificacion.usua_Nombre AS usuarioModificacionNombre,
+		   unme_FechaModificacion AS fechaModificacion, 
+		   unme_Estado AS unidadMedidasEstado
+	  FROM Gral.tbUnidadMedidas unidadMedidas
+INNER JOIN Acce.tbUsuarios usuarioCreacion
+		ON unidadMedidas.usua_UsuarioCreacion = usuarioCreacion.usua_Id
+ LEFT JOIN Acce.tbUsuarios usuarioModificacion
+		ON unidadMedidas.usua_UsuarioModificacion = usuarioModificacion.usua_Id
+GO
+
+/*******************************Listado*************************************/
+CREATE OR ALTER PROCEDURE Gral.UDP_VW_tbUnidadMedidas_Listado
+AS
+BEGIN
+	SELECT * 
+	  FROM Gral.VW_tbUnidadMedidas
+	 WHERE unidadMedidasEstado = 1
+END
+GO
+
+/*******************************Insertar*************************************/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_Insertar
 (
 	@unme_Descripcion		NVARCHAR(500),
@@ -120,6 +179,7 @@ BEGIN
 END
 GO
 
+/*******************************Editar*************************************/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_Editar
 (
 	@unme_Id					INT,
@@ -145,11 +205,12 @@ BEGIN
 END
 GO
 
+/*******************************Eliminar*************************************/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_Eliminar
 (
 	@unme_Id					INT,
-	@usua_UsuarioModificacion	INT,
-	@unme_FechaModificacion		DATETIME
+	@usua_UsuarioEliminacion	INT,
+	@unme_FechaEliminacion		DATETIME
 )
 AS
 BEGIN 
@@ -161,8 +222,8 @@ BEGIN
 			BEGIN
 				UPDATE Gral.tbUnidadMedidas
 				   SET unme_Estado = 0,
-					   usua_UsuarioModificacion = @usua_UsuarioModificacion,
-					   unme_FechaModificacion = @unme_FechaModificacion
+					   usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+					   unme_FechaEliminacion = @unme_FechaEliminacion
 				 WHERE unme_Id = @unme_Id
 				   AND unme_Estado = 1
 			END
@@ -175,21 +236,17 @@ BEGIN
 END
 GO
 
+/*******************************Buscar por Id*************************************/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_BuscarPorId
 (
 	@unme_Id INT
 )
 AS
 BEGIN 
-	SELECT unme_Id,
-		   unme_Descripcion,
-		   usua_UsuarioCreacion,
-		   unme_FechaCreacion,
-		   usua_UsuarioModificacion,
-		   unme_FechaModificacion,
-		   unme_Estado
-	 WHERE unme_Id = @unme_Id
-	   AND unme_Estado = 1
+	SELECT * 
+	  FROM Gral.VW_tbUnidadMedidas
+	 WHERE unidadMedidasId = @unme_Id
+	   AND unidadMedidasEstado = 1
 END
 GO
 
@@ -197,6 +254,48 @@ GO
 
 -------------------------------------------------UDPS tbCondiciones-------------------------------------------------
 
+/*******************************Vista*************************************/
+CREATE OR ALTER VIEW Adua.VW_tbCondiciones
+AS
+	SELECT codi_Id AS condicionesId,
+		   deva_Id AS declaracionValorId,
+		   codi_Restricciones_Utilizacion AS restriccionesUtilizacion,
+		   codi_Indicar_Restricciones_Utilizacion AS indicarRestricciones,
+		   codi_Depende_Precio_Condicion AS dependePrecioCondicion,
+		   codi_Indicar_Existe_Condicion AS indicarExisteCondicion,
+		   codi_Condicionada_Revertir AS condicionadaRevertir,
+		   codi_Vinculacion_Comprador_Vendedor AS vinculacionCompradorVendedor,
+           codi_Tipo_Vinculacion AS tipoVinculacion,
+		   codi_Vinculacion_Influye_Precio AS vinculacionInfluyePrecio,
+		   codi_Pagos_Descuentos_Indirectos AS pagosDescuentosIndirectos,
+		   codi_Concepto_Monto_Declarado AS conceptoMontoDeclarado,
+		   codi_Existen_Canones	AS existenCanones,
+		   codi_Indicar_Canones AS indicarCanones,
+		   condiciones.usua_UsuarioCreacion AS usuarioCreacionId, 
+		   usuarioCreacion.usua_Nombre AS usuarioCreacionNombre,
+		   codi_FechaCreacion AS fechaCreacion, 
+		   condiciones.usua_UsuarioModificacion AS usuarioModificacionId, 
+		   usuarioModificacion.usua_Nombre AS usuarioModificacionNombre,
+		   codi_FechaModificacion AS fechaModificacion, 
+		   codi_Estado AS condicionesEstado
+	  FROM Adua.tbCondiciones condiciones
+INNER JOIN Acce.tbUsuarios usuarioCreacion
+		ON condiciones.usua_UsuarioCreacion = usuarioCreacion.usua_Id
+ LEFT JOIN Acce.tbUsuarios usuarioModificacion
+		ON condiciones.usua_UsuarioModificacion = usuarioModificacion.usua_Id
+GO
+
+/*******************************Listado*************************************/
+CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbCondiciones_Listado
+AS
+BEGIN
+	SELECT * 
+	  FROM Adua.VW_tbCondiciones
+	 WHERE condicionesEstado = 1
+END
+GO
+
+/*******************************Insertar*************************************/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Insertar
 (
 	@deva_Id								INT, 
@@ -258,6 +357,7 @@ BEGIN
 END
 GO
 
+/*******************************Editar*************************************/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Editar
 (
 	@codi_Id								INT,
@@ -311,21 +411,36 @@ GO
 
 ------------------------------------------------UDPS tbFormas_Envio-------------------------------------------------
 
-CREATE OR ALTER PROCEDURE Gral.UDP_tbFormas_Envio_Listado
+/*******************************Vista*************************************/
+CREATE OR ALTER VIEW Gral.VW_tbFormas_Envio
+AS
+	SELECT foen_Id AS formasEnvioId,
+		   foen_Descripcion AS formasEnvioDescripcion,
+		   formasEnvio.usua_UsuarioCreacion	AS usuarioCreacionId,
+		   usuarioCreacion.usua_Nombre AS usuarioCreacionNombre,
+		   foen_FechaCreacion AS fechaCreacion,
+		   formasEnvio.usua_UsuarioModificacion AS usuarioModificacionId,
+		   usuarioModificacion.usua_Nombre AS usuarioModificacionNombre,
+		   foen_FechaModificacion AS fechaModificacion,
+		   foen_Estado formasEnvioEstado
+	  FROM Gral.tbFormas_Envio formasEnvio
+INNER JOIN Acce.tbUsuarios usuarioCreacion
+		ON formasEnvio.usua_UsuarioCreacion = usuarioCreacion.usua_Id
+ LEFT JOIN Acce.tbUsuarios usuarioModificacion
+		ON formasEnvio.usua_UsuarioModificacion = usuarioModificacion.usua_Id
+GO
+
+/*******************************Listado*************************************/
+CREATE OR ALTER PROCEDURE Gral.UDP_VW_tbFormas_Envio_Listado
 AS
 BEGIN
-	SELECT foen_Id, 
-		   foen_Descripcion, 
-		   usua_UsuarioCreacion, 
-		   foen_FechaCreacion, 
-		   usua_UsuarioModificacion, 
-		   foen_FechaModificacion
-	  FROM Gral.tbFormas_Envio
-	 WHERE foen_Estado = 1
+	SELECT * 
+	  FROM Gral.VW_tbFormas_Envio
+	 WHERE formasEnvioEstado = 1
 END
 GO
 
-
+/*******************************Insertar*************************************/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbFormas_Envio_Insertar
 (
 	@foen_Descripcion		NVARCHAR(500),
@@ -346,6 +461,7 @@ BEGIN
 END
 GO
 
+/*******************************Editar*************************************/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbFormas_Envio_Editar
 (
 	@foen_Id					INT,
@@ -371,7 +487,7 @@ BEGIN
 END
 GO
 
-
+/*******************************Eliminar*************************************/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbFormas_Envio_Eliminar
 (
 	@foen_Id					INT,
@@ -403,17 +519,17 @@ BEGIN
 END
 GO
 
+/*******************************Buscar por Id*************************************/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbFormas_Envio_BuscarPorId
 (
 	@foen_Id	INT
 )
 AS
 BEGIN
-	SELECT foen_Id,
-		   foen_Descripcion,
-		   usua_UsuarioCreacion,
-		   foen_FechaCreacion
-	  FROM Gral.tbFormas_Envio
+	SELECT * 
+	  FROM Gral.VW_tbFormas_Envio
+	 WHERE formasEnvioEstado = 1
+	   AND formasEnvioId = @foen_Id
 END
 GO
 -----------------------------------------------/UDPS tbFormas_Envio-------------------------------------------------
@@ -429,10 +545,6 @@ GO
 
 
 --------------------------------------------/UDPS tbFuncionesMaquina------------------------------------------------
-
----------------------------------------------UDPS tbFuncionesMaquina------------------------------------------------
-
-
 
 -------------------------------------------------UDPS tbCategoria---------------------------------------------------
 

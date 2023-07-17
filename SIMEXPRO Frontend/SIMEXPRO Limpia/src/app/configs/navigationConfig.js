@@ -144,9 +144,8 @@ const navigationConfig = [
                         title: 'Ciudades',
                         type: 'item',
                         icon: 'material-outline:business',
-                        url: '/Ubicaciones/Ciudades',
+                        url: 'Ciudades/Index',
                     },
-
                     {
                         id: 'Ubicaciones.colonias',
                         title: 'Colonias',
@@ -159,13 +158,13 @@ const navigationConfig = [
                         title: 'Países',
                         type: 'item',
                         icon: 'material-outline:map',
-                        url: '/Ubicaciones/Paises',
+                        url: 'Paises/Index',
                     }, {
                         id: 'Ubicaciones.provincias',
                         title: 'Provincias',
                         type: 'item',
                         icon: 'material-outline:house',
-                        url: '/Ubicaciones/Provincias',
+                        url: 'Provincias/Index',
                     },
                 ],
             },
@@ -181,7 +180,7 @@ const navigationConfig = [
                         title: 'Cargos',
                         type: 'item',
                         icon: 'material-outline:cleaning_services',
-                        url: '/Personas/Cargos',
+                        url: 'Cargos/Index',
                     },
                     {
                         id: 'Personas.Clientes',
@@ -210,14 +209,14 @@ const navigationConfig = [
                         title: 'Oficinas',
                         type: 'item',
                         icon: 'material-outline:computer',
-                        url: '/Personas/Oficinas',
+                        url: 'Oficinas/Index',
                     },
                     {
                         id: 'Personas.oficios_profesiones',
                         title: 'Oficios y Profesiones',
                         type: 'item',
                         icon: 'heroicons-outline:academic-cap',
-                        url: '/Personas/OficiosProfesiones',
+                        url: 'OficiosProfesiones/Index',
                     },
 
                     {

@@ -1,11 +1,61 @@
---*****Modo Transporte*****--
---Insert Modo de Transporte
-INSERT INTO Adua.tbModoTransporte(motr_Descripcion,usua_UsuarioCreacion,motr_FechaCreacion)
-VALUES	('Marítimo',1,GETDATE()),
-		('Aéreo',1,GETDATE()),
-		('Terrestre',1,GETDATE()),
-		('Fluvial',1,GETDATE())
+ï»¿CREATE OR ALTER PROCEDURE dbo.UDP_ValidarReferencias
+	(@Id_Nombre		NVARCHAR(250),
+	 @Id_Valor		NVARCHAR(50),
+	 @tabla_Nombre NVARCHAR(1000),
+	 @respuesta INT OUTPUT)
+AS BEGIN
+	DECLARE @QUERY NVARCHAR(MAX);
+	SET @Id_Valor = CONCAT('=', @Id_Valor);
+
+	/*En esta secciï¿½n se consiguen las tablas que estï¿½ referenciadas al campo*/
+
+	WITH AKT AS ( SELECT ROW_NUMBER() OVER (ORDER BY f.name) RN, f.name AS ForeignKey
+						,OBJECT_NAME(f.parent_object_id) AS TableName
+						,COL_NAME(fc.parent_object_id, fc.parent_column_id) AS ColumnName
+						,SCHEMA_NAME(f.schema_id) SchemaName
+						,OBJECT_NAME (f.referenced_object_id) AS ReferenceTableName
+						,COL_NAME(fc.referenced_object_id, fc.referenced_column_id) AS ReferenceColumnName
+				  FROM   sys.foreign_keys AS f
+						 INNER JOIN sys.foreign_key_columns AS fc ON f.OBJECT_ID = fc.constraint_object_id
+						 INNER JOIN sys.objects oo ON oo.object_id = fc.referenced_object_id
+				  WHERE  f.referenced_object_id = object_id(@tabla_Nombre))
+
+		,bs AS (SELECT AKT.RN
+					  ,'SELECT ' + ColumnName + ' FROM ' + SchemaName + '.' + TableName + ' WHERE ' + ColumnName + ' = OO.' + ReferenceColumnName  SubQuery
+				FROM   AKT)
+		,re AS (SELECT bs.RN, CAST(RTRIM(bs.SubQuery) AS VARCHAR(MAX)) Joined
+				FROM   bs
+				WHERE  bs.RN = 1
+				UNION  ALL
+				SELECT bs2.RN, CAST(re.Joined + ' UNION ALL ' + ISNULL(RTRIM(bs2.SubQuery), '') AS VARCHAR(MAX)) Joined
+				FROM   re, bs bs2 
+				WHERE  re.RN = bs2.RN - 1 )
+		,fi AS (SELECT ROW_NUMBER() OVER (ORDER BY RN DESC) RNK, Joined
+				FROM   re)
+
+	/*Se crea el query para verificar si el campo se usï¿½*/
+	SELECT @QUERY  = '
+			SELECT CASE WHEN XX.REFERENCED IS NULL THEN 1 ELSE 0 END Referenced
+			FROM   '+ @tabla_Nombre + ' OO
+			OUTER APPLY (SELECT SUM(1) REFERENCED
+						FROM   (' + Joined + ') II) XX
+						WHERE OO.'+ @Id_Nombre + '' + @Id_Valor 
+	FROM   fi
+	WHERE  RNK = 1
+		
+	/*Se ejecuta y consigue el cï¿½digo de verificaciï¿½n (0 no se puede eliminar porque estï¿½ siendo usado, 1 se puede eliminar porque no estï¿½ siendo usado*/
+	DECLARE @TempTable TABLE (Referenced INT)
+	INSERT INTO @TempTable
+	EXEC (@QUERY)
+
+	SELECT @respuesta = Referenced
+	FROM @TempTable
+
+END
 GO
+
+--*****Modo Transporte*****--
+
 --*****Vista*****--
 
 CREATE OR ALTER VIEW Adua.VW_tbModoTransporte
@@ -108,11 +158,20 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Eliminar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE Adua.tbModoTransporte
-		SET		motr_Estado		= 0,
-		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-		motr_FechaEliminacion	= @motr_FechaEliminacion
-		SELECT 1
+	
+		DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'motr_Id', @motr_Id, 'Adua.tbModoTransporte', @respuesta OUTPUT
+
+		SELECT @respuesta AS Resultado
+		IF(@respuesta) = 1
+			BEGIN
+				UPDATE Adua.tbModoTransporte
+				SET		motr_Estado		= 0,
+				usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+				motr_FechaEliminacion	= @motr_FechaEliminacion
+				WHERE motr_Id= @motr_Id
+				SELECT 1
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -122,11 +181,7 @@ GO
 
 --*****Tipos de documento*****--
 
---Insert Tipo de documento
-INSERT INTO Adua.tbTipoDocumento(tido_Id, tido_Descripcion,usua_UsuarioCreacion,tido_FechaCreacion)
-VALUES	('DF','DUCA-F',1,GETDATE()),
-		('DT','DUCA-T',1,GETDATE())
-GO
+
 --*****Vista*****--
 CREATE OR ALTER VIEW Adua.VW_tbTipoDocumento
 AS
@@ -234,11 +289,18 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoDocumento_Eliminar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE Adua.tbTipoDocumento
-		SET tido_Estado = 0,
-		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-		tido_FechaEliminacion = tido_FechaEliminacion
-		WHERE tido_Id = @tido_Id
+		DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'tido_Id', @tido_Id, 'Adua.tbTipoDocumento', @respuesta OUTPUT
+
+		SELECT @respuesta AS Resultado
+		IF(@respuesta) = 1
+			BEGIN
+				UPDATE Adua.tbTipoDocumento
+				SET tido_Estado = 0,
+				usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+				tido_FechaEliminacion = tido_FechaEliminacion
+				WHERE tido_Id = @tido_Id
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -246,10 +308,6 @@ BEGIN
 END
 GO
 --*****Tipos de Liquidacion*****--
--- Inserts Tipos de Liquidacion
-INSERT INTO Adua.tbTipoLiquidacion(tipl_Descripcion,usua_UsuarioCreacion,tipl_FechaCreacion)
-VALUES ('',1,GETDATE())
-GO
 --*****Vista*****--
 CREATE OR ALTER VIEW Adua.VW_tbTipoLiquidacion
 AS
@@ -353,11 +411,18 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoLiquidacion_Eliminar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE Adua.tbTipoLiquidacion
-		SET tipl_Estado = 0,
-		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-		tipl_FechaEliminacion = @tipl_FechaEliminacion
-		WHERE tipl_Id = @tipl_Id
+		DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'tipl_Id', @tipl_Id, 'Adua.tbTipoLiquidacion', @respuesta OUTPUT
+
+		SELECT @respuesta AS Resultado
+		IF(@respuesta) = 1
+			BEGIN
+				UPDATE Adua.tbTipoLiquidacion
+				SET tipl_Estado = 0,
+				usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+				tipl_FechaEliminacion = @tipl_FechaEliminacion
+				WHERE tipl_Id = @tipl_Id
+			END
 	END TRY
 		BEGIN CATCH
 		SELECT 0
@@ -365,10 +430,7 @@ BEGIN
 END
 GO
 --*****Estado Boletin*****--
---Insert Estado Boletin
-INSERT INTO Adua.tbEstadoBoletin(esbo_Descripcion,usua_UsuarioCreacion,esbo_FechaCreacion)
-VALUES ('',1,GETDATE())
-GO
+
 --*****Vista*****--
 CREATE OR ALTER VIEW Adua.VW_tbEstadoBoletin
 AS
@@ -468,10 +530,18 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbEstadoBoletin_Eliminar
 AS
 BEGIN
 BEGIN TRY
-	UPDATE Adua.tbEstadoBoletin
-	SET esbo_Estadoo = 0,
-	usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-	esbo_FechaEliminacion = @esbo_FechaEliminacion
+	DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'esbo_Id', @esbo_Id, 'Adua.tbEstadoBoletin', @respuesta OUTPUT
+
+		SELECT @respuesta AS Resultado
+		IF(@respuesta) = 1
+			BEGIN
+				UPDATE Adua.tbEstadoBoletin
+				SET esbo_Estadoo = 0,
+				usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+				esbo_FechaEliminacion = @esbo_FechaEliminacion
+				WHERE esbo_Id = @esbo_Id
+			END
 END TRY
 	BEGIN CATCH
 		SELECT 0	
@@ -481,14 +551,6 @@ GO
 
 
 --*****Procesos*****--
---Inserts Procesos
-INSERT INTO Prod.tbProcesos(proc_Descripcion,usua_UsuarioCreacion,proc_FechaCreacion)
-VALUES	('Planificacion ',1,GETDATE()),
-		('Corte',1,GETDATE()),
-		('Ensamblado',1,GETDATE()),
-		('Acabado',1,GETDATE()),
-		('Calidad',1,GETDATE())
-GO
 --*****Vista*****--
 
 CREATE OR ALTER VIEW Prod.VW_tbProceso
@@ -592,11 +654,18 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbProcesos_Eliminar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE Prod.tbProcesos
-		SET proc_Estado = 0,
-		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-		proc_FechaEliminacion = @proc_FechaEliminacion
-		WHERE proc_ID = @proc_ID
+		DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'proc_ID', @proc_ID, 'Prod.tbProcesos', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					UPDATE Prod.tbProcesos
+					SET proc_Estado = 0,
+					usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+					proc_FechaEliminacion = @proc_FechaEliminacion
+					WHERE proc_ID = @proc_ID
+				END
 	END TRY
 	BEGIN CATCH 
 		SELECT 0
@@ -605,15 +674,6 @@ END
 GO
 
 --*****AREA*****--
---Insert Area
-INSERT INTO Prod.tbArea(tipa_area,proc_Id,usua_UsuarioCreacion,tipa_FechaCreacion)
-VALUES	('Area de Corte',1,1,GETDATE()),
-		('Area de Ensamblado',1,1,GETDATE()),
-		('Area de Acabado',1,1,GETDATE()),
-		('Area de Control de Calidad',1,1,GETDATE()),
-		('Area de Inventario',1,1,GETDATE())
-
-GO
 --*****Vista*****--
 CREATE OR ALTER VIEW Prod.VW_tbArea
 AS
@@ -725,11 +785,18 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbArea_Eliminar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE Prod.tbArea
-		SET tipa_Estado = 0,
-		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-		tipa_FechaEliminacion = @tipa_FechaEliminacion
-		WHERE tipa_Id = @tipa_Id
+		DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'tipa_Id', @tipa_Id, 'Prod.tbArea', @respuesta OUTPUT
+
+		SELECT @respuesta AS Resultado
+		IF(@respuesta) = 1
+			BEGIN
+				UPDATE Prod.tbArea
+				SET tipa_Estado = 0,
+				usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+				tipa_FechaEliminacion = @tipa_FechaEliminacion
+				WHERE tipa_Id = @tipa_Id
+			END
 		
 	END TRY
 	BEGIN CATCH
@@ -739,17 +806,6 @@ END
 GO
 
 --*****Talla*****--
---Insert Talla
-INSERT INTO Prod.tbTallas (tall_Id,tall_Nombre,usua_UsuarioCreacion,tall_FechaCreacion)
-VALUES	
-		('XXS','Extra Extra Small',1,GETDATE()),
-		('XS','Extra Small',1,GETDATE()),
-		('S','Small',1,GETDATE()),
-		('M','Medium',1,GETDATE()),
-		('L','Large',1,GETDATE()),
-		('XL','Extra Large',1,GETDATE()),
-		('XXL','Extra Extra Large',1,GETDATE())
-GO
 --*****Vista*****--
 
 CREATE OR ALTER VIEW Prod.VW_tbTallas
@@ -861,12 +917,19 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbTallas_Eliminar
 AS
 BEGIN
 	BEGIN TRY 
-		UPDATE Prod.tbTallas 
-		SET tall_Estado = 0,
-		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-		tall_FechaEliminacion = @tall_FechaEliminacion
-		WHERE tall_Id = @tall_Id
-			SELECT 1
+		DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'tall_Id', @tall_Id, 'Prod.tbTallas', @respuesta OUTPUT
+
+		SELECT @respuesta AS Resultado
+		IF(@respuesta) = 1
+			BEGIN
+				UPDATE Prod.tbTallas
+				SET tall_Estado = 0,
+				usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+				tall_FechaEliminacion = @tall_FechaEliminacion
+				WHERE tall_Id = @tall_Id
+				SELECT 1
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 0 
@@ -875,18 +938,6 @@ END
 GO
 
 --*****Tipo Embalaje*****--
---Inset Tipo Embalaje
-INSERT INTO Prod.tbTipoEmbalaje(tiem_Descripcion,usua_UsuarioCreacion,tiem_FechaCreacion)
-VALUES	('Cajas',1,GETDATE()),
-		('Bultos',1,GETDATE()),
-		('Tonel',1,GETDATE()),
-		('Barril',1,GETDATE()),
-		('Bolsas',1,GETDATE()),
-		('Caja de Acero',1,GETDATE()),
-		('Caja de Madera',1,GETDATE()),
-		('Caja de Plastico',1,GETDATE())
-
-GO
 --*****Vista*****--
 CREATE OR ALTER VIEW Prod.VW_tbTipoEmbalaje
 AS
@@ -987,15 +1038,22 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbTipoEmbalaje_Eliminar
 @tiem_FechaEliminacion	DATETIME
 AS
 BEGIN
-BEGIN TRY
-		UPDATE Prod.tbTipoEmbalaje
-		SET tiem_Estado = 0,
-		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-		tiem_FechaEliminacion = @tiem_FechaEliminacion
-		WHERE tiem_Id = @tiem_Id
-		SELECT 1
-END TRY 
-BEGIN CATCH
+	BEGIN TRY
+		DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'tiem_Id', @tiem_Id, 'Prod.tbTipoEmbalaje', @respuesta OUTPUT
+		
+		SELECT @respuesta AS Resultado
+		IF(@respuesta) = 1
+			BEGIN
+				UPDATE Prod.tbTipoEmbalaje
+				SET tiem_Estado = 0,
+				usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+				tiem_FechaEliminacion = @tiem_FechaEliminacion
+				WHERE tiem_Id = @tiem_Id
+				SELECT 1
+			END
+	END TRY 
+	BEGIN CATCH
 		SELECT 0 
 	END CATCH
 END

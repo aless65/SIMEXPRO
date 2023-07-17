@@ -1,54 +1,64 @@
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import { Button, FormControl, Icon, IconButton, InputAdornment, InputLabel, TextField } from '@mui/material';
-import * as React from 'react';
-import Stack from '@mui/material/Stack';
-import { DataGrid, GridToolbar, esES } from '@mui/x-data-grid'
-import { useState } from 'react';
-import SearchIcon from '@mui/icons-material/Search';
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import {
+  Button,
+  FormControl,
+  Icon,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  TextField,
+} from "@mui/material";
+import * as React from "react";
+import Stack from "@mui/material/Stack";
+import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
+import { useState } from "react";
+import SearchIcon from "@mui/icons-material/Search";
 
-import Collapse from '@mui/material/Collapse';
-import Grid from '@mui/material/Grid';
- 
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import Collapse from "@mui/material/Collapse";
+import Grid from "@mui/material/Grid";
 
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
-function Contrato_de_Adhesion_Comerciante_Individual_Index() {
-  const [searchText, setSearchText] = useState('');
-  const [mostrarIndex, setmostrarIndex] = useState(true);
-  const [mostrarAdd, setmostrarAdd] = useState(false);
+import { useNavigate } from "react-router-dom";
+
+function Comerciante_Individual_Index() {
+  const [searchText, setSearchText] = useState("");
   const [Eliminar, setEliminar] = useState(false);
+  const Navigate = useNavigate();
 
   const DialogEliminar = () => {
     setEliminar(!Eliminar);
   };
 
-  {/*Columnas de la tabla*/ }
+  {
+    /*Columnas de la tabla*/
+  }
   const columns = [
-    { field: 'id', headerName: 'Id', width: 10 },
-    { field: 'usuario', headerName: 'Usuario', flex: 1 },
-    { field: 'empleado', headerName: 'Empleado', flex: 1 },
-    { field: 'rol', headerName: 'Rol', flex: 1 },
+    { field: "id", headerName: "Id", width: 100 },
+    { field: "RTN", headerName: "RTN Solitante", flex: 1 },
+    { field: "fecha", headerName: "Fecha de Solicitud", flex: 1 },
     {
-      field: 'acciones',
-      headerName: 'Acciones',
-      width: 400,
+      field: "acciones",
+      headerName: "Acciones",
+      width: 500,
       renderCell: (params) => (
         <Stack direction="row" spacing={1}>
           <Button
             startIcon={<Icon>edit</Icon>}
             variant="contained"
-            style={{ borderRadius: '10px' }}
+            style={{ borderRadius: "10px" }}
             sx={{
-              backgroundColor: '#634A9E',
-              color: 'white',
-              "&:hover": { backgroundColor: '#6e52ae' },
-            }}>
+              backgroundColor: "#634A9E",
+              color: "white",
+              "&:hover": { backgroundColor: "#6e52ae" },
+            }}
+          >
             Editar
           </Button>
 
@@ -56,10 +66,11 @@ function Contrato_de_Adhesion_Comerciante_Individual_Index() {
             startIcon={<Icon>visibility</Icon>}
             variant="contained"
             color="primary"
-            style={{ borderRadius: '10px' }}
+            style={{ borderRadius: "10px" }}
             sx={{
-              backgroundColor: '#797979', color: 'white',
-              "&:hover": { backgroundColor: '#b69999' },
+              backgroundColor: "#797979",
+              color: "white",
+              "&:hover": { backgroundColor: "#b69999" },
             }}
           >
             Detalles
@@ -68,122 +79,130 @@ function Contrato_de_Adhesion_Comerciante_Individual_Index() {
             startIcon={<Icon>delete</Icon>}
             variant="contained"
             color="primary"
-            style={{ borderRadius: '10px' }}
+            style={{ borderRadius: "10px" }}
             sx={{
-              backgroundColor: '#E40F00', color: 'white',
-              "&:hover": { backgroundColor: '#eb5f56' },
+              backgroundColor: "#E40F00",
+              color: "white",
+              "&:hover": { backgroundColor: "#eb5f56" },
             }}
             onClick={DialogEliminar}
           >
             Eliminar
+          </Button>
+
+          <Button
+            startIcon={<Icon>print</Icon>}
+            variant="contained"
+            style={{ borderRadius: "10px" }}
+            sx={{
+              backgroundColor: "#C4BADD",
+              color: "white",
+              "&:hover": { backgroundColor: "#A9A2BB" },
+            }}
+          >
+            Imprimir
           </Button>
         </Stack>
       ),
     },
   ];
 
-
-  {/*Datos de la tabla*/ }
-  const rows = [
-    { id: '1', usuario: 'IsHatake', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
-    { id: '2', usuario: 'Admin', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
-    { id: '3', usuario: 'Shogun', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
-
-  ];
-
-  {/*Función para mostrar la tabla y mostrar agregar*/ }
-  const VisibilidadTabla = () => {
-    setmostrarIndex(!mostrarIndex);
-    setmostrarAdd(!mostrarAdd);
-  };
-
-
+  {
+    /*Datos de la tabla*/
+  }
+  const rows = [{ id: "1", RTN: "05012006017552", fecha: "01/02/2023" }];
 
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
   };
 
-  {/*Filtrado de datos*/ }
-  const filteredRows = rows.filter((row) =>
-    row.usuario.toLowerCase().includes(searchText.toLowerCase())
+  {
+    /*Filtrado de datos*/
+  }
+  const filteredRows = rows.filter(
+    (row) =>
+      row.RTN.toLowerCase().includes(searchText.toLowerCase()) ||
+      row.fecha.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
-    <Card sx={{ minWidth: 275, margin: '40px' }}>
+    <Card sx={{ minWidth: 275, margin: "40px" }}>
       <CardMedia
         component="img"
         height="200"
         image="https://i.ibb.co/T4VqYmN/Headers-SIMEXPRO-3.png"
         alt="Encabezado de la carta"
       />
-      <Collapse in={mostrarIndex}>
-        <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-
-          {/*Botón de Nuevo*/}
-          <Stack direction="row" spacing={1}>
-            <Button
-              startIcon={<Icon>add</Icon>}
-              variant="contained"
-              color="primary"
-              style={{ borderRadius: '10px' }}
-              sx={{
-                backgroundColor: '#634A9E', color: 'white',
-                "&:hover": { backgroundColor: '#6e52ae' },
-              }}
-              onClick={VisibilidadTabla}
-            >
-              Nuevo
-            </Button>
-          </Stack>
-
-          {/*Barra de Busqueda en la Tabla*/}
-          <TextField
-            style={{ borderRadius: '10px' }}
-            placeholder='Buscar'
-            value={searchText}
-            onChange={handleSearchChange}
-            size="small"
-            variant="outlined"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <IconButton edge="start">
-                    <SearchIcon />
-                  </IconButton>
-                </InputAdornment>
-              ),
+      <CardContent
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+        }}
+      >
+        {/*Botón de Nuevo*/}
+        <Stack direction="row" spacing={1}>
+          <Button
+            startIcon={<Icon>add</Icon>}
+            variant="contained"
+            color="primary"
+            style={{ borderRadius: "10px" }}
+            sx={{
+              backgroundColor: "#634A9E",
+              color: "white",
+              "&:hover": { backgroundColor: "#6e52ae" },
             }}
-          />
-        </CardContent>
-      </Collapse>
+            onClick={(e) => {
+              Navigate("/ContratoDeAdhesionComercianteIndividual/Agregar");
+            }}
+          >
+            Nuevo
+          </Button>
+        </Stack>
+
+        {/*Barra de Busqueda en la Tabla*/}
+        <TextField
+          style={{ borderRadius: "10px" }}
+          placeholder="Buscar"
+          value={searchText}
+          onChange={handleSearchChange}
+          size="small"
+          variant="outlined"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <IconButton edge="start">
+                  <SearchIcon />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+      </CardContent>
 
       {/*Tabla*/}
-      <Collapse in={mostrarIndex}>
-        <div style={{ height: 400, width: '100%' }}>
-          <DataGrid
-            localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-            components={{
-              Toolbar: GridToolbar,
-              Search: SearchIcon,
-            }}
-            rows={filteredRows}
-            columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: { page: 0, pageSize: 10 },
-              },
-            }}
-            pageSizeOptions={[10, 20, 50]}
-          />
-        </div>
-      </Collapse>
 
-
-      
+      <div style={{ height: 400, width: "100%" }}>
+        <DataGrid
+          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+          components={{
+            Toolbar: GridToolbar,
+            Search: SearchIcon,
+          }}
+          rows={filteredRows}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 10 },
+            },
+          }}
+          pageSizeOptions={[10, 20, 50]}
+        />
+      </div>
 
       <Dialog
         open={Eliminar}
-        fullWidth={'md'}
+        fullWidth={"md"}
         onClose={DialogEliminar}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
@@ -193,47 +212,53 @@ function Contrato_de_Adhesion_Comerciante_Individual_Index() {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-          ¿Está seguro(a) que desea eliminar este registro?
+            ¿Está seguro(a) que desea eliminar este registro?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
-              <Button
-                startIcon={<Icon>checked</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px', marginRight: '10px' }}
-                sx={{
-                  backgroundColor: '#634A9E', color: 'white',
-                  "&:hover": { backgroundColor: '#6e52ae' },
-                }}
-                onClick={DialogEliminar}
-              >
-                Eliminar
-              </Button>
+          <Grid
+            item
+            xs={12}
+            sx={{
+              display: "flex",
+              justifyContent: "right",
+              alignItems: "right",
+            }}
+          >
+            <Button
+              startIcon={<Icon>checked</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: "10px", marginRight: "10px" }}
+              sx={{
+                backgroundColor: "#634A9E",
+                color: "white",
+                "&:hover": { backgroundColor: "#6e52ae" },
+              }}
+              onClick={DialogEliminar}
+            >
+              Eliminar
+            </Button>
 
-              <Button
-                startIcon={<Icon>close</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px' }}
-                sx={{
-                  backgroundColor: '#DAD8D8', color: 'black',
-                  "&:hover": { backgroundColor: '#BFBABA' },
-                }}
-                onClick={DialogEliminar}
-              >
-                Cancelar
-              </Button>
-            </Grid>
+            <Button
+              startIcon={<Icon>close</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: "10px" }}
+              sx={{
+                backgroundColor: "#DAD8D8",
+                color: "black",
+                "&:hover": { backgroundColor: "#BFBABA" },
+              }}
+              onClick={DialogEliminar}
+            >
+              Cancelar
+            </Button>
+          </Grid>
         </DialogActions>
       </Dialog>
-
     </Card>
   );
 }
 
-export default Contrato_de_Adhesion_Comerciante_Individual_Index;
-
-
-
+export default Comerciante_Individual_Index;

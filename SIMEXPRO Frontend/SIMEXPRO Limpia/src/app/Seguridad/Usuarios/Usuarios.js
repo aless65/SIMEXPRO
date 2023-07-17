@@ -223,7 +223,7 @@ function UsuariosIndex() {
               >
                 <InputLabel htmlFor="grouped-native-select">Empleado</InputLabel>
                 <Select
-                  style={{ borderRadius: '10px' }}
+                  style={{ borderRadius: '3px' }}
                   label="Empleado"
                 />
               </FormControl>
@@ -235,7 +235,7 @@ function UsuariosIndex() {
               >
                 <InputLabel htmlFor="grouped-native-select">Rol</InputLabel>
                 <Select
-                  style={{ borderRadius: '10px' }}
+                  style={{ borderRadius: '3px' }}
                   label="Rol"
                 />
               </FormControl>

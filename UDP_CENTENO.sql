@@ -105,23 +105,39 @@ END
 
 GO
 /*Aduana Eliminar*/
-
 CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Eliminar
-   @adua_Id                   INT, 
-   @usua_UsuarioModificacion  INT
+	 @adua_Id					INT,
+	 @usua_UsuarioEliminacion	INT,
+	 @adua_FechaEliminacion		DATETIME
 AS
-BEGIN 
-   BEGIN TRY      
-    UPDATE [Adua].[tbAduanas]
-	    SET [usua_UsuarioModificacion]= @usua_UsuarioModificacion,
-	    [adua_Estado] = 1
-	   WHERE [adua_Id] = @adua_Id
-	  SELECT 1	
-    END TRY
-    BEGIN CATCH
-	  SELECT 0
-  	END CATCH 
+BEGIN
+	BEGIN TRY
+
+		BEGIN
+		   SET @adua_FechaEliminacion = GETDATE()
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'adua_Id',  @adua_Id, 'Adua.tbAduanas', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					UPDATE Adua.tbAduanas
+					SET adua_Estado = 0,
+					    usua_UsuarioEliminacion=@usua_UsuarioEliminacion,
+                        adua_FechaEliminacion=@adua_FechaEliminacion
+					WHERE adua_Id = @adua_Id
+				END
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
 END
+GO
+
+
+
+
 
 
 
@@ -148,7 +164,6 @@ AS
 BEGIN 
    SELECT *
    FROM Adua.VW_tbFormasdePago
-   where Estado = 1
 
 END
 
@@ -210,6 +225,7 @@ BEGIN
 		      usua_UsuarioModificacion = @usua_UsuarioModificacion,
 			  fopa_FechaModificacion = @fopa_FechaModificacion
 		  WHERE [fopa_Id] = @fopa_id
+		  SELECT 1
 	   END TRY 
 	   BEGIN CATCH 
 	       SELECT 0
@@ -217,22 +233,36 @@ BEGIN
 END 
 
 go
-
-
-
 /****************Eliminar Formas de pago*******************/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbFormasdePago_Eliminar
- @fopa_id    INT
+CREATE OR ALTER PROCEDURE Adua.UDP_tbFormasdePago_Eliminar 
+	@fopa_id					INT
+	@usua_UsuarioEliminacion	INT,
+	@fopa_FechaEliminacion		DATETIME
 AS
-   BEGIN TRY 
-         UPDATE [Adua].[tbFormasdePago]
-         SET [fopa_Estado] = 0
-		 WHERE [fopa_Id] = @fopa_id
-   END TRY 
-   BEGIN CATCH 
-   SELECT 0
-   END CATCH
+BEGIN
+	BEGIN TRY
+
+		BEGIN
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'fopa_id', @fopa_id, 'Adua.tbFormasdePago', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					UPDATE [Adua].[tbFormasdePago]
+					SET [fopa_Estado] = 0,
+					    usua_UsuarioEliminacion=@usua_UsuarioEliminacion,
+						fopa_FechaEliminacion=@fopa_FechaEliminacion
+					WHERE [fopa_Id] = @fopa_id
+				END
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
 GO
+
 /*******************************Condiciones comerciales *******************************/ 
 
 /*************************Vista Condiciones comerciales ************************************/
@@ -254,7 +284,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbCondicionesComerciales_Listar
 AS
    SELECT * 
    FROM Adua.VW_tbCondicionesComerciales 
-   WHERE Estado = 1
+   WHERE Estado = 0
 
 /*Crear Condiciones comerciales*/
 GO
@@ -310,6 +340,7 @@ BEGIN
 		      usua_UsuarioModificacion = @coco_UsuarioModificacion,
 			  coco_FechaModificacion = @coco_FechaModi
 		  WHERE [coco_Id] = @coco_Id
+		  SELECT 1
 	   END TRY 
 	   BEGIN CATCH 
 	       SELECT 0
@@ -319,23 +350,34 @@ END
  /*Eliminar Condiciones Comerciales */
 GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbCondicionesComerciales_Eliminar
-   @coco_Id INT,
-   @coco_UsuarioModificacion  INT 
+	@coco_Id					INT
+	@usua_UsuarioEliminacion	INT,
+	@coco_FechaEliminacion		DATETIME
 AS
-BEGIN 
-   BEGIN TRY 
-      UPDATE [Adua].[tbCondicionesComerciales]
-      SET coco_Estado = 0,
-	      usua_UsuarioModificacion = @coco_UsuarioModificacion
-	  WHERE coco_Id = @coco_Id
-	     
-   END TRY 
-   BEGIN CATCH 
-      SELECT 0
-   END CATCH
+BEGIN
+	BEGIN TRY
+
+		BEGIN
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'coco_Id', @coco_Id, 'Adua.tbFormasdePago', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					 UPDATE [Adua].[tbCondicionesComerciales]
+						SET coco_Estado = 0,
+						    usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+							coco_FechaEliminacion = @coco_FechaEliminacion
+						WHERE coco_Id = @coco_Id
+		SELECT 1
+				END
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
 END
-
-
+GO
 
 
 GO
@@ -348,7 +390,7 @@ AS
  tite_FechaCreacion AS FechaCreacion,
  usu1.usua_Nombre AS UsuarioModificacion,
  tite_FechaModificacion AS FechaModificacion,
- tite_Estado AS Estado
+ tite_Estado AS Estados
  FROM [Adua].[tbTipoIntermediario] tip INNER JOIN [Acce].[tbUsuarios] usu
  ON tip.usua_UsuarioCreacion = usu.usua_Id INNER JOIN [Acce].[tbUsuarios] usu1
  ON usu1.usua_UsuarioModificacion = tip.usua_UsuarioModificacion
@@ -360,7 +402,7 @@ AS
  BEGIN 
      SELECT *
 	 FROM Adua.VW_tbTipoIntermediario
-	 where Estado = 1
+
  END 
  GO
  /********************Crear Tipo Intermediario******************************/
@@ -391,8 +433,6 @@ BEGIN
 END
 
 GO
-
-
 /*************Editar Tipo de intermediario ************************/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Editar
    @tite_Id                  INT,
@@ -408,6 +448,7 @@ BEGIN
           usua_UsuarioModificacion = @tite_UsuarioModificacion,
           tite_FechaModificacion = @tite_FechaModi
       WHERE tite_Id = @tite_Id
+	  SELECT 1
    END TRY 
    BEGIN CATCH 
        SELECT 0
@@ -416,21 +457,37 @@ END
 
 GO
 /*************************Eliminar tipo de intermediario*****************/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Eliminar
-   @tite_Id INT
-AS
-BEGIN 
-   BEGIN TRY 
-      UPDATE [Adua].[tbTipoIntermediario]
-      SET tite_Estado = 0
-      WHERE tite_Id = @tite_Id
-   END TRY 
-   BEGIN CATCH 
-      SELECT 0
-   END CATCH
-END
-
 GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Eliminar
+	@tite_Id					INT
+	@usua_UsuarioEliminacion	INT,
+	@tite_FechaEliminacion	DATETIME
+AS
+BEGIN
+	BEGIN TRY
+
+		BEGIN
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'tite_Id', @tite_Id, 'Adua.tbTipoIntermediario', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					   UPDATE [Adua].[tbTipoIntermediario]
+					   SET tite_Estado = 0,
+					       usua_UsuarioEliminacion=@usua_UsuarioEliminacion,
+						   tite_FechaEliminacion = @tite_FechaEliminacion
+                       WHERE tite_Id = @tite_Id
+		SELECT 1
+				END
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
 /****************************UDP's Clientes*********************************/
 CREATE OR ALTER VIEW Prod.Vw_tbClientes
 AS
@@ -458,7 +515,6 @@ AS
 BEGIN 
     SELECT *
 	FROM Prod.Vw_tbClientes
-	where Estado=1
 END
 
 GO
@@ -563,7 +619,6 @@ BEGIN
 END
 
 /*Eliminar Clientes*/
-
 GO
 CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Eliminar  
 	@clie_Id					INT
@@ -597,6 +652,9 @@ END
 GO
 
 
+
+
+GO
 /****************************************UDPs Estilos******************/
 CREATE OR ALTER VIEW Prod.VW_tbEstilos
 AS
@@ -730,7 +788,6 @@ AS
 BEGIN
    SELECT *
    FROM Prod.Vw_tbModelos
-   where ModeloEstado = 1
 END 
 
 
@@ -767,7 +824,7 @@ END
 
 /*Editar Modelos*/
 GO
-CREATE OR ALTER PROCEDURE Prod.UDP_tbModelos_Editar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbModelos_Editar
    @mode_Id                  INT,
    @mode_Descripcion         INT,
    @esti_Id                  INT,
@@ -821,15 +878,6 @@ BEGIN
 		SELECT 0
 	END CATCH
 END
-
-
-
-
-
-
-
-
-
 
 
 

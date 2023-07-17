@@ -540,7 +540,7 @@ END
 GO
 
 /*Insertar colonias*/
-CREATE OR ALTER PROCEDURE gral.UDP_tbColonias_Insertar
+CREATE OR ALTER PROCEDURE gral.UDP_tbColonias_Insertar 
 	@colo_Nombre			NVARCHAR(150),
 	@alde_Id				INT,
 	@ciud_Id				INT,
@@ -576,10 +576,12 @@ BEGIN
 					BEGIN
 						INSERT INTO [Gral].[tbColonias] (colo_Nombre, 
 														 alde_Id,
+														 ciud_Id,
 														 usua_UsuarioCreacion, 
 														 colo_FechaCreacion)
 						VALUES(@colo_Nombre,	
 							   @alde_Id,
+							   @ciud_Id,
 							   @usua_UsuarioCreacion,
 							   @colo_FechaCreacion)
 
@@ -631,7 +633,7 @@ END
 GO
 
 /*Editar colonias*/
-CREATE OR ALTER PROCEDURE gral.UDP_tbColonias_Editar
+CREATE OR ALTER PROCEDURE gral.UDP_tbColonias_Editar 
 	@colo_Id					INT,
 	@colo_Nombre				NVARCHAR(150),
 	@alde_Id					INT,
@@ -758,6 +760,7 @@ GO
 
 /*Insertar monedas*/
 CREATE OR ALTER PROCEDURE gral.UDP_tbMonedas_Insertar
+	@mone_Id				CHAR(3),
 	@mone_Descripcion		NVARCHAR(150),
 	@usua_UsuarioCreacion	INT,
 	@mone_FechaCreacion     DATETIME
@@ -767,21 +770,26 @@ BEGIN
 	BEGIN TRY
 
 		IF EXISTS (SELECT * FROM [Gral].[tbMonedas]
-						WHERE [mone_Descripcion] = @mone_Descripcion
+						WHERE ([mone_Descripcion] = @mone_Descripcion
+						OR [mone_Id] = @mone_Id)
 						AND [mone_Estado] = 0)
 		BEGIN
 			UPDATE [Gral].[tbMonedas]
-			SET	   [mone_Estado] = 1
+			SET	   [mone_Estado] = 1,
+				   [mone_Descripcion] = @mone_Descripcion,
+				   [mone_Id] = @mone_Id
 			WHERE  [mone_Descripcion] = @mone_Descripcion
 
 			SELECT 1
 		END
 		ELSE 
 			BEGIN
-				INSERT INTO [Gral].[tbMonedas] (mone_Descripcion, 
+				INSERT INTO [Gral].[tbMonedas] ( mone_Id,
+												 mone_Descripcion, 
 											     usua_UsuarioCreacion, 
 											     mone_FechaCreacion)
-			VALUES(@mone_Descripcion,	
+			VALUES(@mone_Id,
+				   @mone_Descripcion,	
 				   @usua_UsuarioCreacion,
 				   @mone_FechaCreacion)
 
@@ -797,7 +805,7 @@ GO
 
 /*Editar monedas*/
 CREATE OR ALTER PROCEDURE gral.UDP_tbMonedas_Editar
-	@mone_Id					INT,
+	@mone_Id					CHAR(3),
 	@mone_Descripcion			NVARCHAR(150),
 	@usua_UsuarioModificacion	INT,
 	@mone_FechaModificacion     DATETIME
@@ -820,7 +828,7 @@ GO
 
 /*Eliminar monedas*/
 CREATE OR ALTER PROCEDURE gral.UDP_tbMonedas_Eliminar 
-	@mone_Id					INT,
+	@mone_Id					CHAR(3),
 	@usua_UsuarioEliminacion	INT,
 	@mone_FechaEliminacion		DATETIME
 AS
@@ -1060,6 +1068,7 @@ GO
 
 /*Insertar incoterm*/
 CREATE OR ALTER PROCEDURE adua.UDP_tbIncoterm_Insertar
+	@inco_Id				CHAR(3),
 	@inco_Descripcion		NVARCHAR(150),
 	@usua_UsuarioCreacion	INT,
 	@inco_FechaCreacion     DATETIME
@@ -1069,21 +1078,26 @@ BEGIN
 	BEGIN TRY
 
 		IF EXISTS (SELECT * FROM [Adua].[tbIncoterm]
-						WHERE [inco_Descripcion] = @inco_Descripcion
+						WHERE ([inco_Descripcion] = @inco_Descripcion
+						OR [inco_Id] = @inco_Id)
 						AND [inco_Estado] = 0)
 		BEGIN
 			UPDATE [Adua].[tbIncoterm]
-			SET	   [inco_Estado] = 1
+			SET	   [inco_Estado] = 1,
+				   [inco_Descripcion] = @inco_Descripcion,
+				   [inco_Id] = @inco_Id
 			WHERE  [inco_Descripcion] = @inco_Descripcion
 
 			SELECT 1
 		END
 		ELSE 
 			BEGIN
-				INSERT INTO [Adua].[tbIncoterm] (inco_Descripcion, 
+				INSERT INTO [Adua].[tbIncoterm] (inco_Id,
+												 inco_Descripcion, 
 											     usua_UsuarioCreacion, 
 											     inco_FechaCreacion)
-			VALUES(@inco_Descripcion,	
+			VALUES(@inco_Id,
+				   @inco_Descripcion,	
 				   @usua_UsuarioCreacion,
 				   @inco_FechaCreacion)
 
@@ -1099,7 +1113,7 @@ GO
 
 /*Editar incoterm*/
 CREATE OR ALTER PROCEDURE adua.UDP_tbIncoterm_Editar
-	@inco_Id					INT,
+	@inco_Id					CHAR(3),
 	@inco_Descripcion			NVARCHAR(150),
 	@usua_UsuarioModificacion	INT,
 	@inco_FechaModificacion     DATETIME
@@ -1122,7 +1136,7 @@ GO
 
 /*Eliminar incoterm*/
 CREATE OR ALTER PROCEDURE adua.UDP_tbIncoterm_Eliminar 
-	@inco_Id					INT,
+	@inco_Id					CHAR(3),
 	@usua_UsuarioEliminacion	INT,
 	@inco_FechaEliminacion		DATETIME
 AS

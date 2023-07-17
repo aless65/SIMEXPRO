@@ -142,7 +142,7 @@ GO
 --**************** SCHEMA GENERAL **************************--
 --**********************************************************--
 CREATE TABLE Adua.tbIncoterm(
-	inco_Id						INT IDENTITY(1,1),
+	inco_Id						CHAR(3),
 	inco_Descripcion			NVARCHAR(150) NOT NULL,
 	
 	usua_UsuarioCreacion 		INT	NOT NULL,
@@ -157,6 +157,7 @@ CREATE TABLE Adua.tbIncoterm(
 	CONSTRAINT FK_Adua_tbIncoterm_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY(usua_UsuarioCreacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Adua_tbIncoterm_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id	FOREIGN KEY(usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Adua_tbIncoterm_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id	FOREIGN KEY(usua_UsuarioEliminacion) REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT UQ_Adua_tbIncoterm_inco_Id UNIQUE (inco_Id),
 	CONSTRAINT UQ_Adua_tbIncoterm_inco_Descripcion UNIQUE (inco_Descripcion)
 );
 GO
@@ -203,7 +204,7 @@ GO
 
 CREATE TABLE Gral.tbMonedas 
 (
-	mone_Id						INT,
+	mone_Id						CHAR(3),
 	mone_Descripcion			NVARCHAR(500),
 
 	usua_UsuarioCreacion 		INT	NOT NULL,
@@ -219,6 +220,7 @@ CREATE TABLE Gral.tbMonedas
 	CONSTRAINT FK_Gral_tbMonedas_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioCreacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbMonedas_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbMonedas_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioEliminacion) REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT UQ_Gral_tbMonedas_mone_Id UNIQUE (mone_Id),
 	CONSTRAINT UQ_Gral_tbMonedas_mone_Descripcion UNIQUE (mone_Descripcion)
 );
 GO
@@ -313,8 +315,7 @@ CREATE TABLE Gral.tbColonias(
 
 	CONSTRAINT FK_Gral_tbColonias_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioCreacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbColonias_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Gral_tbColonias_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioEliminacion) REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT UQ_Gral_tbColonias_colo_Nombre UNIQUE(colo_Nombre)
+	CONSTRAINT FK_Gral_tbColonias_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioEliminacion) REFERENCES Acce.tbUsuarios (usua_Id)
 );
 GO
 
@@ -535,7 +536,7 @@ CREATE TABLE Adua.tbFormasdePago(
 		usua_UsuarioEliminacion		     	INT,
 		fopa_FechaEliminacion               DATETIME,
 		fopa_Estado							BIT NOT NULL DEFAULT 1
-   CONSTRAINT PK_Adua_tbFormasdePago_inco_Id PRIMARY KEY (fopa_Id)
+   CONSTRAINT PK_Adua_tbFormasdePago_fopa_Id PRIMARY KEY (fopa_Id)
    CONSTRAINT FK_Acce_tbFormasdePago_Adua_tbIncoterm_Valor_fopa_UsuarioCreacion FOREIGN KEY (usua_UsuarioCreacion) REFERENCES Acce.tbUsuarios(usua_Id),
    CONSTRAINT FK_Acce_tbFormasdePago_Adua_tbIncoterm_Valor_fopa_usua_UsuarioModificacion FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios(usua_Id),
    CONSTRAINT FK_Acce_tbFormasdePago_Adua_tbIncoterm_Valor_fopa_usua_UsuarioEliminacion FOREIGN KEY (usua_UsuarioEliminacion) REFERENCES Acce.tbUsuarios(usua_Id)
@@ -664,7 +665,7 @@ CREATE TABLE Adua.tbDeclaraciones_Valor
 	prov_Id INT NOT NULL,
 	inte_Id INT NOT NULL,
 	deva_Lugar_Entrega NVARCHAR(800) NOT NULL,
-	inco_Id INT NOT NULL,
+	inco_Id CHAR(3) NOT NULL,
 	deva_numero_contrato NVARCHAR(200) NOT NULL,
 	deva_Fecha_Contrato DATETIME NOT NULL,
 	foen_Id INT NOT NULL,
@@ -676,7 +677,7 @@ CREATE TABLE Adua.tbDeclaraciones_Valor
 	pais_Embarque_Id CHAR(2) NOT NULL,
 	pais_Exportacion_Id CHAR(2) NOT NULL,
 	deva_Fecha_Exportacion DATETIME NOT NULL,
-	mone_Id INT NOT NULL,
+	mone_Id CHAR(3) NOT NULL,
 	mone_Otra NVARCHAR(200) NOT NULL,
 	deva_Conversion_Dolares  DECIMAL(18,2) NOT NULL,
 	deva_Condiciones NVARCHAR(MAX) NOT NULL,
@@ -1672,7 +1673,7 @@ CREATE TABLE Prod.tbModelosMaquina(
 	mmaq_Nombre					NVARCHAR(250)NOT NULL,
 	marq_Id						INT NOT NULL,
 	func_Id						INT NOT NULL,
-	momq_Imagen					NVARCHAR(MAX)NOT NULL,
+	mmmaq_Imagen				NVARCHAR(MAX)NOT NULL,
 
 	usua_UsuarioCreacion		INT NOT NULL,
 	mmaq_FechaCreacion			DATETIME NOT NULL,

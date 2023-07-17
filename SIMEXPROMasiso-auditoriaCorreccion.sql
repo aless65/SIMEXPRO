@@ -811,7 +811,6 @@ CREATE TABLE Adua.tbBaseCalculos
 
 GO
 --Seccion #3
---
 
 CREATE TABLE Prod.tbEstilos(
 	esti_Id						INT  IDENTITY(1,1),
@@ -823,7 +822,6 @@ CREATE TABLE Prod.tbEstilos(
 	usua_UsuarioEliminacion 	INT	DEFAULT NULL,
 	esti_FechaEliminacion		DATETIME DEFAULT NULL,
 	esti_Estado					BIT DEFAULT 1 
-
 	CONSTRAINT PK_Prod_tbEstilos_esti_Id												PRIMARY KEY (esti_Id)
 	CONSTRAINT FK_Prod_tbEstilos_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id 			FOREIGN KEY (usua_UsuarioCreacion )     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbEstilos_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios (usua_Id),

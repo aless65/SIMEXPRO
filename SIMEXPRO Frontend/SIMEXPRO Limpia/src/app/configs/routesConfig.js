@@ -136,6 +136,26 @@ const routes = [
     path: 'Materiales/Index',
     element: <MaterialesIndex/>
   },
+  {
+    path: 'Areas/Index',
+    element: <AreasIndex />,
+  },
+  {
+    path: 'Estilos/Index',
+    element: <EstilosIndex />,
+  },
+  {
+    path: 'FuncionesMaquina/Index',
+    element: <FuncionesMaquinaIndex />,
+  },
+  {
+    path: 'Lotes/Index',
+    element: <LotesIndex />,
+  },
+  {
+    path: 'Maquinas/Index',
+    element: <MaquinasIndex />,
+  },
 ];
 
 export default routes;

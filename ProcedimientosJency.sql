@@ -32,7 +32,7 @@ AS
 GO
 
 /*Listar Conductor*/
-CREATE OR ALTER PROCEDURE gral.UDP_VW_tbConductor_Listar
+CREATE OR ALTER PROCEDURE adua.UDP_VW_tbConductor_Listar
 AS
 BEGIN
 	SELECT *

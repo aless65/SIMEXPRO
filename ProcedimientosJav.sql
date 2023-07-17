@@ -455,3 +455,242 @@ END TRY
 END
 GO
 
+--*****Talla*****--
+--*****Vista*****--
+
+CREATE OR ALTER VIEW Prod.VW_tbTallas
+AS
+SELECT	tall_Id, 
+		tall_Nombre, 
+		crea.usua_Nombre usua_UsuarioCreacion , 
+		tall_FechaCreacion, 
+		modi.usua_Nombre usua_UsuarioModificacion, 
+		tall_FechaModificacion, 
+		elim.usua_Nombre usua_UsuarioEliminacion, 
+		tall_FechaEliminacion, 
+		tall_Estado 
+FROM Prod.tbTallas tall INNER JOIN Acce.tbUsuarios crea 
+ON crea.usua_Id = tall.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
+ON modi.usua_Id = tall.usua_UsuarioModificacion INNER JOIN Acce.tbUsuarios elim
+ON elim.usua_Id = tall.usua_UsuarioEliminacion 
+GO
+
+--*****Listado*****--
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbTallas_Listar
+AS
+BEGIN
+SELECT * FROM Prod.VW_tbTallas
+WHERE tall_Estado = 1
+END
+GO
+
+--*****Insertar*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbTallas_Insertar
+@tall_Id				CHAR(5),
+@tall_Nombre			NVARCHAR(200),
+@usua_UsuarioCreacion	INT,
+@tall_FechaCreacion		DATETIME
+AS
+BEGIN
+BEGIN TRY 
+	IF EXISTS (SELECT * FROM Prod.tbTallas WHERE tall_Id = @tall_Id OR tall_Nombre = @tall_Nombre AND tall_Estado = 0 )
+	BEGIN	
+		UPDATE Prod.tbTallas 
+		SET tall_Estado = 1,
+		usua_UsuarioModificacion = @usua_UsuarioCreacion,
+		tall_FechaModificacion = @tall_FechaCreacion
+		WHERE tall_Id = @tall_Id OR tall_Nombre = @tall_Nombre
+			SELECT 1
+	END
+	ELSE
+	BEGIN 
+		INSERT INTO Prod.tbTallas(tall_Id,tall_Nombre,usua_UsuarioCreacion,tall_FechaCreacion)
+		VALUES (
+		@tall_Id,
+		@tall_Nombre,
+		@usua_UsuarioCreacion,
+		@tall_FechaCreacion
+		)
+			SELECT 1
+	END
+END TRY
+BEGIN CATCH
+	SELECT 0
+END CATCH
+
+END
+GO
+
+--*****Editar*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbTallas_Insertar
+@tall_Id				CHAR(5),
+@tall_Nombre				NVARCHAR(200),
+@usua_UsuarioModificacion	INT,
+@tall_FechaModificacion		DATETIME
+AS
+BEGIN
+BEGIN TRY 
+	IF EXISTS (SELECT * FROM Prod.tbTallas WHERE tall_Id = @tall_Id OR tall_Nombre = @tall_Nombre AND tall_Estado = 0 )
+	BEGIN	
+		UPDATE Prod.tbTallas 
+		SET tall_Estado = 1,
+		usua_UsuarioModificacion  = @usua_UsuarioModificacion,
+		tall_FechaModificacion = @tall_FechaModificacion
+		WHERE tall_Id = @tall_Id OR tall_Nombre = @tall_Nombre
+			SELECT 1
+	END
+	ELSE
+	BEGIN 
+		UPDATE  Prod.tbTallas 
+		SET tall_Id = @tall_Id,
+		tall_Nombre = @tall_Nombre,
+		usua_UsuarioModificacion = @usua_UsuarioModificacion,
+		tall_FechaModificacion = @tall_FechaModificacion
+			SELECT 1
+	END
+END TRY
+BEGIN CATCH
+	SELECT 0
+END CATCH
+
+END
+GO
+
+
+--*****Eliminar*****--
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbTallas_Eliminar
+@tall_Id					CHAR(5),
+@usua_UsuarioEliminacion	INT,
+@tall_FechaEliminacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY 
+		UPDATE Prod.tbTallas 
+		SET tall_Estado = 0,
+		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+		tall_FechaEliminacion = @tall_FechaEliminacion
+		WHERE tall_Id = @tall_Id
+			SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 0 
+	END CATCH
+END
+GO
+
+--*****Talla*****--
+--*****Vista*****--
+CREATE OR ALTER VIEW Prod.VW_tbTipoEmbalaje
+AS
+SELECT	tiem_Id, 
+		tiem_Descripcion, 
+		crea.usua_Nombre usua_UsuarioCreacion , 
+		tiem_FechaCreacion, 
+		modi.usua_Nombre usua_UsuarioModificacion, 
+		tiem_FechaModificacion, 
+		elim.usua_Nombre usua_UsuarioEliminacion, 
+		tiem_FechaEliminacion, 
+		tiem_Estado 
+FROM Prod.tbTipoEmbalaje tiem INNER JOIN Acce.tbUsuarios crea 
+ON crea.usua_Id = tiem.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
+ON modi.usua_Id = tiem.usua_UsuarioModificacion INNER JOIN Acce.tbUsuarios elim
+ON elim.usua_Id = tiem.usua_UsuarioEliminacion 
+GO
+--*****Listado*****--
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbTipoEmbalaje_Listar
+AS
+BEGIN
+SELECT * FROM Prod.VW_tbTipoEmbalaje
+WHERE tiem_Estado = 1
+END
+GO
+
+--*****Insertar*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbTipoEmbalaje_Insertar
+@tiem_Descripcion		NVARCHAR(200),
+@usua_UsuarioCreacion	INT,
+@tiem_FechaCreacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		IF EXISTS (SELECT * FROM Prod.tbTipoEmbalaje WHERE tiem_Descripcion = @tiem_Descripcion)
+		BEGIN 
+			UPDATE Prod.tbTipoEmbalaje
+			SET tiem_Estado = 1,
+			usua_UsuarioModificacion = @usua_UsuarioCreacion,
+			tiem_FechaModificacion = @tiem_FechaCreacion
+			WHERE tiem_Descripcion = @tiem_Descripcion
+			SELECT 1
+		END
+		ELSE
+		BEGIN 
+			INSERT INTO Prod.tbTipoEmbalaje (tiem_Descripcion, usua_UsuarioCreacion, tiem_FechaCreacion)
+			VALUES (
+			@tiem_Descripcion,
+			@usua_UsuarioCreacion,
+			@tiem_FechaCreacion
+			)
+			SELECT 1
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0 
+	END CATCH
+END
+GO
+--*****Editar*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbTipoEmbalaje_Editar
+@tiem_Id				INT,
+@tiem_Descripcion		NVARCHAR(200),
+@usua_UsuarioModificacion	INT,
+@tiem_FechaModificacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		IF EXISTS (SELECT * FROM Prod.tbTipoEmbalaje WHERE tiem_Descripcion = @tiem_Descripcion)
+			BEGIN 
+				UPDATE Prod.tbTipoEmbalaje
+				SET tiem_Estado = 1,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				tiem_FechaModificacion = @tiem_FechaModificacion
+				WHERE tiem_Id = @tiem_Id
+				SELECT 1
+			END
+		ELSE
+			BEGIN 
+				UPDATE Prod.tbTipoEmbalaje
+				SET tiem_Descripcion = @tiem_Descripcion,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				tiem_FechaModificacion = @tiem_FechaModificacion
+				WHERE tiem_Id = @tiem_Id
+				SELECT 1
+			END
+	END TRY
+	BEGIN CATCH
+		SELECT 0 
+	END CATCH
+END
+GO
+--*****Eliminar*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbTipoEmbalaje_Eliminar
+@tiem_Id				INT,
+@usua_UsuarioEliminacion INT,
+@tiem_FechaEliminacion	DATETIME
+AS
+BEGIN
+BEGIN TRY
+		UPDATE Prod.tbTipoEmbalaje
+		SET tiem_Estado = 0,
+		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+		tiem_FechaEliminacion = @tiem_FechaEliminacion
+		WHERE tiem_Id = @tiem_Id
+		SELECT 1
+END TRY 
+BEGIN CATCH
+		SELECT 0 
+	END CATCH
+END
+GO

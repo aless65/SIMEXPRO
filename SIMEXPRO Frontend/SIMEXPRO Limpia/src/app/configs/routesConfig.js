@@ -15,8 +15,9 @@ import CargosIndex from '../Personas/Cargos/Cargos';
 import OficinasIndex from '../Personas/Oficinas/Oficinas';
 import OficiosProfesiones from '../Personas/OficiosProfesiones/OficiosProfesiones';
 import UsuariosIndex from '../Seguridad/Usuarios/Usuarios';
-import Declaracion_Valor_Index from '../Aduanas/Declaracion_De_Valor/Declaracion_Valor_Index';
-import C_A_Persona_Natural from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/Persona_Natural_Index';
+import Declaracion_Valor_Index from '../Declaracion_Valor/Declaracion_Valor_Index';
+import C_A_Persona_Natural from '../Contratos_Adhesion/C_A_Persona_Natural';
+import ImpresionBoletindePago from '../BoletinDePago/ImpresionBoletinDePago';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -44,45 +45,42 @@ const routes = [
   {
     path: 'Ciudades/Index',
     element: <CiudadesIndex />,
-
   },
   {
     path: 'Provincias/Index',
     element: <ProvinciasIndex />,
-
   },
   {
     path: 'Paises/Index',
     element: <PaisesIndex />,
-
   },
   {
     path: 'Cargos/Index',
     element: <CargosIndex />,
-
   },
   {
     path: 'EstadosCiviles/Index',
     element: <EstadosCivilesIndex />,
-
   },
   {
     path: 'Oficinas/Index',
     element: <OficinasIndex />,
-
   },
   {
     path: 'OficiosProfesiones/Index',
     element: <OficiosProfesiones />,
-
   },
   {
     path: 'Usuarios/Index',
-    element: <UsuariosIndex/>,
+    element: <UsuariosIndex />,
   },
   {
-    path: 'Contratos_Adhesion/C_A_Persona_Natural',
-    element: <C_A_Persona_Natural/>,
+    path: '',
+    element: <ContratoAdhesionPersonaNatural />,
+  },
+  {
+    path: 'BoletindePago/impresionBoletin',
+    element: <ImpresionBoletindePago/> 
   },
 ];
 

@@ -16,7 +16,7 @@ SELECT
  usua2.usua_Nombre UsuarioModificadorNombre,
  pais_FechaModificacion,
  pais_Estado
- FROM Gral.tbPaises pais INNER JOIN Acce.tbUsuarios usua
+ FROM Gral.tbPaises pais					 INNER JOIN Acce.tbUsuarios usua
  ON pais.usua_UsuarioCreacion = usua.usua_Id LEFT JOIN Acce.tbUsuarios usua2
  ON pais.usua_UsuarioModificacion = usua2.usua_Id
  GO
@@ -112,10 +112,10 @@ SELECT
 	usu2.usua_Nombre NombreUsuaModifica,
     ciud_FechaModificacion, 
 	ciud_Estado
-FROM [Gral].[tbCiudades] ciu INNER JOIN Acce.tbUsuarios usu1
-ON ciu.usua_UsuarioCreacion = usu1.usua_Id LEFT JOIN Acce.tbUsuarios usu2
+FROM [Gral].[tbCiudades] ciu					INNER JOIN Acce.tbUsuarios usu1
+ON ciu.usua_UsuarioCreacion = usu1.usua_Id		LEFT JOIN Acce.tbUsuarios usu2
 ON ciu.usua_UsuarioModificacion = usu2.usua_Id	INNER JOIN Gral.tbProvincias provi
-ON ciu.pvin_Id = provi.pvin_Id INNER JOIN Gral.tbPaises pais
+ON ciu.pvin_Id = provi.pvin_Id					INNER JOIN Gral.tbPaises pais
 ON  provi.pais_Codigo = pais.pais_Codigo
 GO
 
@@ -200,9 +200,9 @@ SELECT
 	usua2.usua_Nombre NombreUsuarioModificador,
 	pvin_FechaModificacion, 
 	pvin_Estado
-FROM [Gral].[tbProvincias] provin INNER JOIN Gral.tbPaises pais
-ON provin.pais_Codigo =  pais.pais_Codigo INNER JOIN Acce.tbUsuarios usua1
-ON provin.usua_UsuarioCreacion = usua1.usua_Id LEFT JOIN Acce.tbUsuarios usua2
+FROM [Gral].[tbProvincias] provin				INNER JOIN Gral.tbPaises pais
+ON provin.pais_Codigo =  pais.pais_Codigo		INNER JOIN Acce.tbUsuarios usua1
+ON provin.usua_UsuarioCreacion = usua1.usua_Id	LEFT JOIN Acce.tbUsuarios usua2
 ON provin.usua_UsuarioModificacion = usua2.usua_Id 
 
 GO
@@ -285,8 +285,8 @@ alde.usua_UsuarioModificacion IdUsuarioModificador,
 usu2.usua_Nombre NombreUsuarioModifica, 
 alde_FechaModificacion, 
 alde_Estado
-FROM [Gral].[tbAldeas] alde INNER JOIN Gral.tbCiudades ciu
-ON alde.ciud_Id = ciu.ciud_Id INNER JOIN Acce.tbUsuarios usu1
+FROM [Gral].[tbAldeas] alde					INNER JOIN Gral.tbCiudades ciu
+ON alde.ciud_Id = ciu.ciud_Id				INNER JOIN Acce.tbUsuarios usu1
 ON alde.usua_UsuarioCreacion = usu1.usua_Id LEFT JOIN Acce.tbUsuarios usu2
 ON alde.usua_UsuarioCreacion = usu2.usua_Id
 
@@ -352,7 +352,7 @@ GO
 
 
 --**********************************************************************************************
---********** TABLA MÁQUINAS MÓDULOS / procedimientos tomando en cuenta los uniques ***********************
+--********** TABLA MÁQUINAS MÓDULOS / procedimientos tomando en cuenta los uniques *************
 
 CREATE OR ALTER VIEW Prod.VW_tbMaquinasModulos
 AS
@@ -369,9 +369,9 @@ madu.usua_UsuarioModificacion IdUsuarioModificador,
 usua2.usua_Nombre NombreUsuaModifica,
 moma_FechaModificacion, 
 madu.maqu_Estado
-FROM [Prod].[tbMaquinasModulos] madu INNER JOIN Prod.tbModulos modu
-ON madu.modu_Id = modu.modu_Id INNER JOIN Prod.tbMaquinas maqui
-ON madu.maqu_Id = maqui.maqu_Id INNER JOIN Acce.tbUsuarios usua1
+FROM [Prod].[tbMaquinasModulos] madu		 INNER JOIN Prod.tbModulos modu
+ON madu.modu_Id = modu.modu_Id				 INNER JOIN Prod.tbMaquinas maqui
+ON madu.maqu_Id = maqui.maqu_Id				 INNER JOIN Acce.tbUsuarios usua1
 ON madu.usua_UsuarioCreacion = usua1.usua_Id LEFT JOIN Acce.tbUsuarios usua2
 ON madu.usua_UsuarioModificacion = usua2.usua_Id 
 GO
@@ -416,13 +416,143 @@ GO
 
 ---PENDIENTE
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinasModulos_Editar
+ @moma_Id					INT,
  @modu_Id					INT, 
- @maqu_Id					INT, 
  @usua_UsuarioModificacion	INT,
  @moma_FechaModificacion	DATETIME
 AS
 BEGIN 
-	UPDATE Prod.tbMaquinasModulos SET 
+	SET @moma_FechaModificacion = GETDATE();
+	BEGIN TRY
+		UPDATE Prod.tbMaquinasModulos SET modu_Id = @modu_Id, usua_UsuarioModificacion = @usua_UsuarioModificacion, 
+		moma_FechaModificacion = @moma_FechaModificacion
+		WHERE moma_Id = @moma_Id
+		SELECT 1
+	END TRY
+
+BEGIN CATCH
+	SELECT 0
+END CATCH
+END
+GO
+
+--**********************************************************************************************
+--********** TABLA PROVEEDOTRES / procedimientos tomando en cuenta los uniques *****************
+
+CREATE OR ALTER VIEW Gral.VW_tbProveedores
+AS
+SELECT 
+[prov_Id] ProveedorId, 
+[prov_NombreCompania], 
+[prov_NombreContacto], 
+[prov_Telefono] NumeroTelefonico, 
+[prov_CodigoPostal], 
+[prov_Ciudad]	IdCiudadProveedor, 
+ciu.ciud_Nombre NombreCiudad,
+provi.pvin_Nombre NombreProvincia,
+pais.pais_Nombre NombrePais,
+[prov_DireccionExacta], 
+[prov_CorreoElectronico], 
+[prov_Fax], 
+prov.[usua_UsuarioCreacion] IdUusuarioCreador, 
+usu1.usua_Nombre NombreUsuarioCreador,
+[prov_FechaCreacion], 
+prov.[usua_UsuarioModificacion] IdUsuarioModificador, 
+usu2.usua_Nombre NombreUusuarioCreador,
+[prov_FechaModificacion], 
+[prov_Estado]
+FROM Gral.tbProveedores prov					INNER JOIN [Gral].[tbCiudades] ciu
+ON prov.prov_Ciudad = ciu.ciud_Id				INNER JOIN Acce.tbUsuarios usu1
+ON prov.usua_UsuarioCreacion = usu1.usua_Id		LEFT JOIN  Acce.tbUsuarios usu2
+ON prov.usua_UsuarioModificacion = usu2.usua_Id INNER JOIN Gral.tbProvincias provi
+ON ciu.pvin_Id = provi.pvin_Id					INNER JOIN Gral.tbPaises pais
+ON provi.pais_Codigo = pais.pais_Codigo
+
+GO
+
+
+CREATE OR ALTER PROCEDURE Gral.UDP_tbProveedores_Listar
+	AS
+	BEGIN
+	SELECT*FROM Gral.VW_tbProveedores
+	WHERE [prov_Estado] = 1
+END
+GO
+
+-- corroborar que el campo nombrecompania tenga el UK
+CREATE OR ALTER PROCEDURE Gral.UDP_tbProveedores_Insertar
+@prov_NombreCompania			NVARCHAR(200), 
+@prov_NombreContacto			NVARCHAR(200), 
+@prov_Telefono					NVARCHAR(20), 
+@prov_CodigoPostal				VARCHAR(5), 
+@prov_Ciudad					INT, 
+@prov_DireccionExacta			NVARCHAR(350), 
+@prov_CorreoElectronico			NVARCHAR(250), 
+@prov_Fax						NVARCHAR(20), 
+@usua_UsuarioCreacion			INT, 
+@prov_FechaCreacion				DATETIME
+AS
+BEGIN
+	SET @prov_FechaCreacion = GETDATE();
+	BEGIN TRY
+		IF EXISTS (SELECT*FROM Gral.tbProveedores WHERE prov_NombreCompania = @prov_NombreCompania AND prov_Estado = 0)
+		BEGIN
+			UPDATE Gral.tbProveedores SET prov_Estado = 1
+			SELECT 1
+		END
+		ELSE IF EXISTS(SELECT*FROM Gral.tbProveedores WHERE prov_CorreoElectronico = @prov_CorreoElectronico)
+		BEGIN
+			SELECT 'El correo electrónico ya está registrado'
+		END
+		ELSE
+		BEGIN
+			INSERT INTO Gral.tbProveedores([prov_NombreCompania], [prov_NombreContacto], [prov_Telefono], [prov_CodigoPostal], [prov_Ciudad], [prov_DireccionExacta], [prov_CorreoElectronico], [prov_Fax], [usua_UsuarioCreacion], [prov_FechaCreacion])
+			VALUES(@prov_NombreCompania, @prov_NombreContacto, @prov_Telefono, @prov_CodigoPostal, @prov_Ciudad, @prov_DireccionExacta, @prov_CorreoElectronico, @prov_Fax, @usua_UsuarioCreacion, @prov_FechaCreacion)
+			SELECT 1
+		END
+	END TRY
+
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+
+
+CREATE OR ALTER PROCEDURE Gral.UDP_tbProveedores_Editar
+@prov_Id						INT,
+@prov_NombreCompania			NVARCHAR(200), 
+@prov_NombreContacto			NVARCHAR(200), 
+@prov_Telefono					NVARCHAR(20), 
+@prov_CodigoPostal				VARCHAR(5), 
+@prov_Ciudad					INT, 
+@prov_DireccionExacta			NVARCHAR(350), 
+@prov_CorreoElectronico			NVARCHAR(250), 
+@prov_Fax						NVARCHAR(20), 
+@usua_UsuarioModificacion		INT, 
+@prov_FechaModificacion			DATETIME
+AS
+BEGIN
+	SET @prov_FechaModificacion = GETDATE();
+	BEGIN TRY
+		IF EXISTS(SELECT*FROM Gral.tbProveedores WHERE prov_CorreoElectronico = @prov_CorreoElectronico)
+		BEGIN
+			SELECT 'El correo electrónico ya está registrado'
+		END
+		ELSE
+		BEGIN
+			UPDATE Gral.tbProveedores SET prov_NombreCompania = @prov_NombreCompania, prov_Ciudad = @prov_Ciudad, prov_CodigoPostal = @prov_CodigoPostal,
+			prov_CorreoElectronico = @prov_CorreoElectronico, prov_DireccionExacta = @prov_DireccionExacta, prov_NombreContacto = @prov_NombreContacto,
+			prov_Fax = @prov_Fax, prov_Telefono = @prov_Telefono, prov_FechaModificacion = @prov_FechaModificacion, usua_UsuarioModificacion = @usua_UsuarioModificacion
+			WHERE prov_Id = @prov_Id
+			SELECT 1
+		END
+	END TRY
+
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
 END
 GO
 
@@ -430,6 +560,79 @@ GO
 
 
 
+--**********************************************************************************************
+--********** TABLA NIVELES COMERCIALES / procedimientos tomando en cuenta los uniques **********
 
+CREATE OR ALTER VIEW Adua.VW_tbNivelesComerciales
+AS
+SELECT 
+[nico_Id] NivelComercialId, 
+[nico_Descripcion] NivelComercialDescripcion, 
+nco.[usua_UsuarioCreacion] IdUsuarioCreador, 
+usu1.usua_Nombre NombreUsuarioCreador,
+[nico_FechaCreacion], 
+nco.[usua_UsuarioModificacion] IdUsuarioModificador, 
+usu2.usua_Nombre NombreUsuarioModificador,
+[nico_FechaModificacion], 
+[nico_Estado]
+FROM [Adua].[tbNivelesComerciales] nco			INNER JOIN Acce.tbUsuarios usu1
+ON nco.usua_UsuarioCreacion = usu1.usua_Id		LEFT JOIN Acce.tbUsuarios usu2
+ON nco.usua_UsuarioModificacion = usu2.usua_Id
+GO
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbNivelesComerciales_Listar
+AS
+BEGIN
+	SELECT*FROM Adua.VW_tbNivelesComerciales
+	WHERE nico_Estado = 1
+END
+GO
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbNivelesComerciales_Insertar
+@nico_Descripcion				NVARCHAR(150), 
+@usua_UsuarioCreacion			INT, 
+@nico_FechaCreacion				DATETIME
+AS
+BEGIN
+	SET @nico_FechaCreacion = GETDATE();
+	BEGIN TRY
+		IF EXISTS(SELECT*FROM Adua.tbNivelesComerciales WHERE nico_Descripcion = @nico_Descripcion AND nico_Estado = 0 )
+		BEGIN
+			UPDATE Adua.tbNivelesComerciales SET nico_Estado = 1
+			SELECT 1
+		END
+		ELSE
+		BEGIN
+			INSERT INTO Adua.tbNivelesComerciales ([nico_Descripcion], [usua_UsuarioCreacion], [nico_FechaCreacion])
+			VALUES (@nico_Descripcion, @usua_UsuarioCreacion, @nico_FechaCreacion)
+			SELECT 1
+		END
+	END TRY
+
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbNivelesComerciales_Editar
+@nico_Id						INT,
+@nico_Descripcion				NVARCHAR(150), 
+@usua_UsuarioModificacion		INT, 
+@nico_FechaModificacion			DATETIME
+AS
+BEGIN
+	SET @nico_FechaModificacion = GETDATE();
+	BEGIN TRY
+	UPDATE Adua.tbNivelesComerciales SET nico_Descripcion = @nico_Descripcion, usua_UsuarioModificacion = @usua_UsuarioModificacion,
+	nico_FechaModificacion = @nico_FechaModificacion WHERE nico_Id = @nico_Id
+		SELECT 1
+	END TRY
+
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
 
 

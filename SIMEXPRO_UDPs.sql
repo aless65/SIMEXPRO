@@ -1,6 +1,6 @@
------------------PROCEDIMIENTOS ALMACENADOS Y VISTAS
+-----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS MÃ“DULO ADUANERO
 
----***********VALIDACIÓN DE ELIMINAR**************---
+---***********VALIDACIï¿½N DE ELIMINAR**************---
 
 GO
 CREATE OR ALTER PROCEDURE dbo.UDP_ValidarReferencias
@@ -12,7 +12,7 @@ AS BEGIN
 	DECLARE @QUERY NVARCHAR(MAX);
 	SET @Id_Valor = CONCAT('=', @Id_Valor);
 
-	/*En esta sección se consiguen las tablas que está referenciadas al campo*/
+	/*En esta secciï¿½n se consiguen las tablas que estï¿½ referenciadas al campo*/
 
 	WITH AKT AS ( SELECT ROW_NUMBER() OVER (ORDER BY f.name) RN, f.name AS ForeignKey
 						,OBJECT_NAME(f.parent_object_id) AS TableName
@@ -38,7 +38,7 @@ AS BEGIN
 		,fi AS (SELECT ROW_NUMBER() OVER (ORDER BY RN DESC) RNK, Joined
 				FROM   re)
 
-	/*Se crea el query para verificar si el campo se usó*/
+	/*Se crea el query para verificar si el campo se usï¿½*/
 	SELECT @QUERY  = '
 			SELECT CASE WHEN XX.REFERENCED IS NULL THEN 1 ELSE 0 END Referenced
 			FROM   '+ @tabla_Nombre + ' OO
@@ -48,7 +48,7 @@ AS BEGIN
 	FROM   fi
 	WHERE  RNK = 1
 		
-	/*Se ejecuta y consigue el código de verificación (0 no se puede eliminar porque está siendo usado, 1 se puede eliminar porque no está siendo usado*/
+	/*Se ejecuta y consigue el cï¿½digo de verificaciï¿½n (0 no se puede eliminar porque estï¿½ siendo usado, 1 se puede eliminar porque no estï¿½ siendo usado*/
 	DECLARE @TempTable TABLE (Referenced INT)
 	INSERT INTO @TempTable
 	EXEC (@QUERY)
@@ -59,7 +59,7 @@ AS BEGIN
 END
 GO
 
-
+-----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS ACCESO
 --************USUARIOS******************--
 
 /*Vista usuarios*/
@@ -80,6 +80,8 @@ AS
 	       t1.usua_UsuarioModificacion AS usuarioModificacion, 
 		   t5.usua_Nombre AS usuarioModificacionNombre, 
 		   t1.usua_FechaModificacion AS usuarioFechaModificacion,
+		   t6.usua_Nombre AS usuarioEliminacionNombre, 
+		   t1.usua_FechaEliminacion AS usuarioFechaEliminacion,
 		   t1.usua_Estado AS usuarioEstado,
 		   t3.empl_CorreoElectronico AS empleadoCorreoElectronico	
 		   FROM Acce.tbUsuarios t1 LEFT JOIN Acce.tbRoles t2
@@ -89,7 +91,9 @@ AS
 		   LEFT JOIN acce.tbUsuarios t4
 		   ON t1.usua_UsuarioCreacion = T4.usua_Id
 		   LEFT JOIN acce.tbUsuarios t5
-		   ON t1.usua_UsuarioModificacion = t5.usua_Id
+		   ON t1.usua_UsuarioModificacion = t5.usua_Id LEFT JOIN acce.tbUsuarios t6
+		   ON t1.usua_UsuarioEliminacion = t6.usua_Id
+		   
 GO
 
 /*Listar Usuarios*/
@@ -263,7 +267,9 @@ AS
 BEGIN
 	BEGIN TRY
 		UPDATE	acce.tbUsuarios
-		SET		usua_Estado = 0
+		SET		usua_Estado = 0,
+				usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+				usua_FechaEliminacion = @usua_FechaEliminacion
 		WHERE	usua_Id = @usua_Id
 
 		INSERT INTO acce.tbUsuariosHistorial (	[usua_Id],
@@ -298,3 +304,400 @@ BEGIN
 	END CATCH
 END
 GO
+
+-----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS GENERAL
+
+--**********ESTADOS CIVILES**********--
+
+/*Listar estados civiles*/
+CREATE OR ALTER PROCEDURE gral.UDP_tbEstadosCiviles_Listar
+AS
+BEGIN
+	SELECT [escv_Id], 
+		   [escv_Nombre]
+    FROM [Gral].[tbEstadosCiviles]
+	WHERE [escv_Estado] = 1
+END
+GO
+
+--**********OFICINAS**********--
+
+/*Vista oficinas*/
+CREATE OR ALTER VIEW gral.VW_tbOficinas
+AS
+SELECT ofic_Id AS oficinaId, 
+	   ofic_Nombre AS oficinaNombre, 
+	   ofic.usua_UsuarioCreacion AS usuarioCreacion, 
+	   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
+	   ofic_FechaCreacion AS fechaCreacion, 
+	   ofic.usua_UsuarioModificacion AS usuarioModificacion, 
+	   usuaModifica.usua_Nombre AS usuarioModificacionNombre,
+	   ofic_FechaModificacion AS fechaModificacion, 
+	   ofic.usua_UsuarioEliminacion AS usuarioEliminacion, 
+	   usuaElimina.usua_Nombre AS usuarioEliminacionNombre,
+	   ofic_FechaEliminacion AS fechaEliminacion, 
+	   ofic_Estado AS oficinaEstado
+FROM [Gral].[tbOficinas] ofic INNER JOIN [Acce].[tbUsuarios] usuaCrea
+ON ofic.usua_UsuarioCreacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaModifica
+ON ofic.usua_UsuarioModificacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaElimina
+ON ofic.usua_UsuarioEliminacion = usuaCrea.usua_Id
+GO
+
+
+/*Listar oficinas*/
+CREATE OR ALTER PROCEDURE gral.UDP_VW_tbOficinas_Listar
+AS
+BEGIN
+	SELECT *
+    FROM gral.VW_tbOficinas
+	WHERE oficinaEstado = 1
+END
+GO
+
+/*Insertar oficinas*/
+CREATE OR ALTER PROCEDURE gral.UDP_tbOficinas_Insertar 
+	@ofic_Nombre			NVARCHAR(150),
+	@usua_UsuarioCreacion	INT,
+	@ofic_FechaCreacion     DATETIME
+AS 
+BEGIN
+	
+	BEGIN TRY
+
+		IF EXISTS (SELECT * FROM [Gral].[tbOficinas]
+						WHERE @ofic_Nombre = [ofic_Nombre]
+						AND [ofic_Estado] = 0)
+		BEGIN
+			UPDATE [Gral].[tbOficinas]
+			SET	   [ofic_Estado] = 1
+			WHERE  [ofic_Nombre] = @ofic_Nombre
+
+			SELECT 1
+		END
+		ELSE 
+			BEGIN
+				INSERT INTO [Gral].[tbOficinas] (ofic_Nombre, 
+											     usua_UsuarioCreacion, 
+											     ofic_FechaCreacion)
+			VALUES(@ofic_Nombre,	
+				   @usua_UsuarioCreacion,
+				   @ofic_FechaCreacion)
+
+
+			SELECT 1
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH 
+END
+GO
+
+/*Editar oficinas*/
+CREATE OR ALTER PROCEDURE gral.UDP_tbOficinas_Editar 
+	@ofic_Id					INT,
+	@ofic_Nombre				NVARCHAR(150),
+	@usua_UsuarioModificacion	INT,
+	@ofic_FechaModificacion     DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE  [Gral].[tbOficinas]
+		SET		[ofic_Nombre] = @ofic_Nombre,
+				[usua_UsuarioModificacion] = @usua_UsuarioModificacion,
+				[ofic_FechaModificacion] = @ofic_FechaModificacion
+		WHERE	[ofic_Id] = @ofic_Id
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+/*Eliminar oficinas*/
+CREATE OR ALTER PROCEDURE gral.UDP_tbOficinas_Eliminar 
+	@ofic_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@ofic_FechaEliminacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+
+		BEGIN
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'ofic_Id', @ofic_Id, 'gral.tbOficinas', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					UPDATE	[Gral].[tbOficinas]
+					SET		[ofic_Estado] = 0,
+							[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
+							[ofic_FechaEliminacion] = @ofic_FechaEliminacion
+					WHERE	[ofic_Id] = @ofic_Id
+				END
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+--**********OFICIO/PROFESIÃ“N**********--
+
+/*Vista oficio/profesiÃ³n*/
+CREATE OR ALTER VIEW gral.VW_tbOficio_Profesiones
+AS
+SELECT ofpr_Id AS oficioId, 
+	   ofpr_Nombre AS oficioNombre, 
+	   ofpr.usua_UsuarioCreacion AS usuarioCreacion, 
+	   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
+	   ofpr_FechaCreacion AS fechaCreacion, 
+	   ofpr.usua_UsuarioModificacion AS usuarioModificacion, 
+	   usuaModifica.usua_Nombre AS usuarioModificacionNombre,
+	   ofpr_FechaModificacion AS fechaModificacion, 
+	   ofpr.usua_UsuarioEliminacion AS usuarioEliminacion, 
+	   usuaElimina.usua_Nombre AS usuarioEliminacionNombre,
+	   ofpr_FechaEliminacion AS fechaEliminacion, 
+	   ofpr_Estado AS oficioEstado
+FROM [Gral].[tbOficio_Profesiones] ofpr INNER JOIN [Acce].[tbUsuarios] usuaCrea
+ON ofpr.usua_UsuarioCreacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaModifica
+ON ofpr.usua_UsuarioModificacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaElimina
+ON ofpr.usua_UsuarioEliminacion = usuaCrea.usua_Id
+GO
+
+
+/*Listar oficio/profesiÃ³n*/
+CREATE OR ALTER PROCEDURE gral.UDP_VW_tbOficio_Profesiones_Listar
+AS
+BEGIN
+	SELECT *
+    FROM gral.VW_tbOficio_Profesiones
+	WHERE oficioEstado = 1
+END
+GO
+
+
+/*Insertar oficio/profesiÃ³n*/
+CREATE OR ALTER PROCEDURE gral.UDP_tbOficio_Profesiones_Insertar 
+	@ofpr_Nombre			NVARCHAR(150),
+	@usua_UsuarioCreacion	INT,
+	@ofpr_FechaCreacion     DATETIME
+AS 
+BEGIN
+	
+	BEGIN TRY
+
+		IF EXISTS (SELECT * FROM [Gral].[tbOficio_Profesiones]
+						WHERE @ofpr_Nombre = [ofpr_Nombre]
+						AND [ofpr_Estado] = 0)
+		BEGIN
+			UPDATE [Gral].[tbOficio_Profesiones]
+			SET	   [ofpr_Estado] = 1
+			WHERE  [ofpr_Nombre] = @ofpr_Nombre
+
+			SELECT 1
+		END
+		ELSE 
+			BEGIN
+				INSERT INTO [Gral].[tbOficio_Profesiones] (ofpr_Nombre, 
+														   usua_UsuarioCreacion, 
+														   ofpr_FechaCreacion)
+			VALUES(@ofpr_Nombre,	
+				   @usua_UsuarioCreacion,
+				   @ofpr_FechaCreacion)
+
+
+			SELECT 1
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH 
+END
+GO
+
+/*Editar oficio/profesiÃ³n*/
+CREATE OR ALTER PROCEDURE gral.UDP_tbOficio_Profesiones_Editar 
+	@ofpr_Id					INT,
+	@ofpr_Nombre				NVARCHAR(150),
+	@usua_UsuarioModificacion	INT,
+	@ofpr_FechaModificacion     DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE  [Gral].[tbOficio_Profesiones]
+		SET		[ofpr_Nombre] = @ofpr_Nombre,
+				[usua_UsuarioModificacion] = @usua_UsuarioModificacion,
+				[ofpr_FechaModificacion] = @ofpr_FechaModificacion
+		WHERE	[ofpr_Id] = @ofpr_Id
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+/*Eliminar oficio/profesiÃ³n*/
+CREATE OR ALTER PROCEDURE gral.UDP_tbOficio_Profesiones_Eliminar 
+	@ofpr_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@ofpr_FechaEliminacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		
+		BEGIN
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'ofpr_Id', @ofpr_Id, 'gral.tbOficio_Profesiones', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					UPDATE	[Gral].[tbOficio_Profesiones]
+					SET		[ofpr_Estado] = 0,
+							[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
+							[ofpr_FechaEliminacion] = @ofpr_FechaEliminacion
+					WHERE	[ofpr_Id] = @ofpr_Id
+				END
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+--**********CARGOS**********--
+
+/*Vista cargos*/
+CREATE OR ALTER VIEW gral.VW_tbCargos
+AS
+SELECT carg_Id AS cargoId, 
+	   carg_Nombre AS cargoNombre, 
+	   carg.usua_UsuarioCreacion AS usuarioCreacion, 
+	   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
+	   carg_FechaCreacion AS fechaCreacion, 
+	   carg.usua_UsuarioModificacion AS usuarioModificacion, 
+	   usuaModifica.usua_Nombre AS usuarioModificacionNombre,
+	   carg_FechaModificacion AS fechaModificacion, 
+	   carg.usua_UsuarioEliminacion AS usuarioEliminacion, 
+	   usuaElimina.usua_Nombre AS usuarioEliminacionNombre,
+	   carg_FechaEliminacion AS fechaEliminacion, 
+	   carg_Estado AS cargoEstado
+FROM [Gral].[tbCargos] carg INNER JOIN [Acce].[tbUsuarios] usuaCrea
+ON carg.usua_UsuarioCreacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaModifica
+ON carg.usua_UsuarioModificacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaElimina
+ON carg.usua_UsuarioEliminacion = usuaCrea.usua_Id
+GO
+
+
+/*Listar cargos*/
+CREATE OR ALTER PROCEDURE gral.UDP_VW_tbCargos_Listar
+AS
+BEGIN
+	SELECT *
+    FROM gral.VW_tbCargos
+	WHERE cargoEstado = 1
+END
+GO
+
+/*Insertar cargos*/
+CREATE OR ALTER PROCEDURE gral.UDP_tbCargos_Insertar 
+	@carg_Nombre			NVARCHAR(150),
+	@usua_UsuarioCreacion	INT,
+	@carg_FechaCreacion     DATETIME
+AS 
+BEGIN
+	
+	BEGIN TRY
+
+		IF EXISTS (SELECT * FROM [Gral].[tbCargos]
+						WHERE @carg_Nombre = [carg_Nombre]
+						AND [carg_Estado] = 0)
+		BEGIN
+			UPDATE [Gral].[tbCargos]
+			SET	   [carg_Estado] = 1
+			WHERE  [carg_Nombre] = @carg_Nombre
+
+			SELECT 1
+		END
+		ELSE 
+			BEGIN
+				INSERT INTO [Gral].[tbCargos] (carg_Nombre, 
+											   usua_UsuarioCreacion, 
+											   carg_FechaCreacion)
+			VALUES(@carg_Nombre,	
+				   @usua_UsuarioCreacion,
+				   @carg_FechaCreacion)
+
+
+			SELECT 1
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH 
+END
+GO
+
+/*Editar cargos*/
+CREATE OR ALTER PROCEDURE gral.UDP_tbCargos_Editar 
+	@carg_Id					INT,
+	@carg_Nombre				NVARCHAR(150),
+	@usua_UsuarioModificacion	INT,
+	@carg_FechaModificacion     DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE  [Gral].[tbCargos]
+		SET		[carg_Nombre] = @carg_Nombre,
+				[usua_UsuarioModificacion] = @usua_UsuarioModificacion,
+				[carg_FechaModificacion] = @carg_FechaModificacion
+		WHERE	[carg_Id] = @carg_Id
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+/*Eliminar cargos*/
+CREATE OR ALTER PROCEDURE gral.UDP_tbCargos_Eliminar 
+	@carg_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@carg_FechaEliminacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+
+		BEGIN
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'carg_Id', @carg_Id, 'gral.tbCargos', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					UPDATE	[Gral].[tbCargos]
+					SET		[carg_Estado] = 0,
+							[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
+							[carg_FechaEliminacion] = @carg_FechaEliminacion
+					WHERE	[carg_Id] = @carg_Id
+				END
+		END
+
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+-----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS MÃ“DULO ADUANA

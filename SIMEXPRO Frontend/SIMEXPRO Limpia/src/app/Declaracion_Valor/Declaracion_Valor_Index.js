@@ -61,15 +61,15 @@ const ColorButton = styled(Button)(({ theme }) => ({
 }));
 
 const rows = [
-  { id: 'C', descripcion: 'Casado' },
-  { id: 'S', descripcion: 'Soltero' },
-  { id: 'V', descripcion: 'Viudo' },
-  { id: 'A', descripcion: 'Amante' },
-  { id: 'D', descripcion: 'Divorciado' },
-  { id: 'E', descripcion: 'Separado' },
+  { id: '1', descripcion: '00001' },
+  { id: '2', descripcion: '00002' },
+  { id: '3', descripcion: '00003' },
+  { id: '4', descripcion: '00004' },
+  { id: '5', descripcion: '00005' },
+  { id: '6', descripcion: '00006' },
 ];
 
-function UsuariosIndex() {
+function Declaracion_Valor_Index() {
   const [searchText, setSearchText] = useState('');
 
   const handleSearchChange = (event) => {
@@ -134,4 +134,4 @@ function UsuariosIndex() {
   );
 }
 
-export default UsuariosIndex;
+export default Declaracion_Valor_Index;

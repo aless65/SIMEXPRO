@@ -17,6 +17,7 @@ import OficiosProfesiones from '../Personas/OficiosProfesiones/OficiosProfesione
 import UsuariosIndex from '../Seguridad/Usuarios/Usuarios';
 import Declaracion_Valor_Index from '../Declaracion_Valor/Declaracion_Valor_Index';
 import C_A_Persona_Natural from '../Contratos_Adhesion/C_A_Persona_Natural';
+import ImpresionBoletindePago from '../BoletinDePago/ImpresionBoletinDePago';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -83,6 +84,10 @@ const routes = [
   {
     path: 'Contratos_Adhesion/C_A_Persona_Natural',
     element: <C_A_Persona_Natural/>,
+  },
+  {
+    path: 'BoletindePago/impresionBoletin',
+    element: <ImpresionBoletindePago/> 
   },
 ];
 

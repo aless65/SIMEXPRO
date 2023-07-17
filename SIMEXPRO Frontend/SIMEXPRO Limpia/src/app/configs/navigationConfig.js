@@ -17,31 +17,31 @@ const navigationConfig = [
         icon: 'heroicons-outline:home',
         translate: 'INICIO',
         children: [
-          {
-            id: 'Inicio.Inicio',
-            title: 'Inicio',
-            type: 'item',
-            icon: 'heroicons-outline:clipboard-check',
-            url: '/Inicio/project',
-          },
-          {
-            id: 'Inicio.Graficas',
-            title: 'Gráficas',
-            type: 'item',
-            icon: 'heroicons-outline:chart-pie',
-            url: '/Inicio/Graficas',
-          },
-          {
-            id: 'Inicio.Reportes',
-            title: 'Reportes',
-            type: 'item',
-            icon: 'heroicons-outline:cash',
-            url: '/Inicio/Reportes',
-          },
-          
+            {
+                id: 'Inicio.Inicio',
+                title: 'Inicio',
+                type: 'item',
+                icon: 'heroicons-outline:clipboard-check',
+                url: '/Inicio/project',
+            },
+            {
+                id: 'Inicio.Graficas',
+                title: 'Gráficas',
+                type: 'item',
+                icon: 'heroicons-outline:chart-pie',
+                url: '/Inicio/Graficas',
+            },
+            {
+                id: 'Inicio.Reportes',
+                title: 'Reportes',
+                type: 'item',
+                icon: 'heroicons-outline:cash',
+                url: '/Inicio/Reportes',
+            },
+
         ],
-      },
-      {
+    },
+    {
         id: 'Seguridad',
         title: 'Seguridad',
         type: 'group',
@@ -69,10 +69,10 @@ const navigationConfig = [
                         icon: 'material-outline:manage_search',
                         url: '/Seguridad/Roles',
                     },
-             
+
                 ]
             },
-  
+
         ],
     },
     {
@@ -240,7 +240,7 @@ const navigationConfig = [
                         id: 'Prendas.Colores',
                         title: 'Colores',
                         type: 'item',
-                        icon: 'material-outline:format_color_fill'  ,
+                        icon: 'material-outline:format_color_fill',
                         url: '/Prendas/Colores',
                     },
 
@@ -270,6 +270,95 @@ const navigationConfig = [
 
 
         ]
+    },
+    {
+        id: 'general.Personas',
+        title: 'Personas',
+        type: 'collapse',
+        icon: 'material-outline:emoji_people',
+        translate: 'Personas',
+        children: [
+            {
+                id: 'Personas.cargos',
+                title: 'Cargos',
+                type: 'item',
+                icon: 'material-outline:cleaning_services',
+                url: 'Cargos/Index',
+            },
+            {
+                id: 'Personas.Clientes',
+                title: 'Clientes',
+                type: 'item',
+                icon: 'material-outline:groups',
+                url: '/Personas/Clientes',
+            },
+
+            {
+                id: 'Personas.empleados',
+                title: 'Empleados',
+                type: 'item',
+                icon: 'material-outline:nature_people',
+                url: '/Personas/Empleados',
+            },
+
+            {
+                id: 'Personas.estados_civiles',
+                title: 'Estados Civiles',
+                type: 'item',
+                icon: 'material-outline:male',
+                url: 'EstadosCiviles/Index',
+            }, {
+                id: 'Personas.oficinas',
+                title: 'Oficinas',
+                type: 'item',
+                icon: 'material-outline:computer',
+                url: 'Oficinas/Index',
+            },
+            {
+                id: 'Personas.oficios_profesiones',
+                title: 'Oficios y Profesiones',
+                type: 'item',
+                icon: 'heroicons-outline:academic-cap',
+                url: 'OficiosProfesiones/Index',
+            },
+
+            {
+                id: 'Personas.proveedores',
+                title: 'Proveedores ',
+                type: 'item',
+                icon: 'material-outline:local_shipping',
+                url: '/Personas/Proveedores',
+            },
+
+        ],
+    },
+    {
+        id: 'Aduanas',
+        title: 'Aduanad',
+        type: 'group',
+        icon: 'material-outline:content_cut',
+        translate: 'ADUANAS',
+        children: [
+            {
+                id: 'BoletinPago',
+                title: 'Boletin de Pago',
+                type: 'collapse',
+                icon: 'heroicons-outline:briefcase',
+                translate: '',
+                children: [
+                    {
+                        id: 'BoletinPago.Impresión',
+                        title: 'Impresión Boletin de ',
+                        type: 'item',
+                        icon: 'heroicons-outline:printer',
+                        url: '/BoletindePago/ImpresionBoletin',
+                    },
+                   
+             
+                ]
+            },
+  
+        ],
     },
     {
         id: 'Produccion',

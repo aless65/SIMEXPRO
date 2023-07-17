@@ -241,7 +241,7 @@ const navigationConfig = [
                         title: 'Colores',
                         type: 'item',
                         icon: 'material-outline:format_color_fill',
-                        url: '/Prendas/Colores',
+                        url: '/Colores/Index',
                     },
 
                     {
@@ -386,7 +386,7 @@ const navigationConfig = [
                         title: 'Inspecciones',
                         type: 'item',
                         icon: 'material-outline:manage_search',
-                        url: '/Produccion/Inspecciones',
+                        url: '/Inspecciones/Index',
                     },
                     {
                         id: 'Produccion.Modulos',
@@ -451,14 +451,14 @@ const navigationConfig = [
                         title: 'Historial de Máquina',
                         type: 'item',
                         icon: 'material-outline:all_inbox',
-                        url: '/Maquinaria/MaquinaHistorial',
+                        url: '/MaquinaHistorial/Index',
                     },
                     {
                         id: 'Maquinaria.MaquinaModulos',
                         title: 'Módulo de Máquina',
                         type: 'item',
                         icon: 'material-outline:animation',
-                        url: '/Maquinaria/MaquinaModulos',
+                        url: '/MaquinaModulos/Index',
                     },
                     {
                         id: 'Maquinaria.MarcasMaquina',
@@ -495,7 +495,7 @@ const navigationConfig = [
                         title: 'Categorías',
                         type: 'item',
                         icon: 'material-outline:category',
-                        url: '/Inventario/Categorias',
+                        url: '/Categoria/Index',
                     },
                     {
                         id: 'Inventario.Lotes',

@@ -700,4 +700,137 @@ BEGIN
 END
 GO
 
+--**********COLONIAS**********--
+
+/*Vista colonias*/
+CREATE OR ALTER VIEW gral.VW_tbColonias
+AS
+SELECT colo_Id AS coloniaId, 
+	   colo_Nombre AS coloniaNombre, 
+	   colo.alde_Id AS aldeaId,
+	   alde.alde_Nombre AS aldeaNombre,
+	   colo.ciud_Id AS ciudadId,
+	   ciud.ciud_Nombre AS ciudadNombre,
+	   colo.usua_UsuarioCreacion AS usuarioCreacion, 
+	   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
+	   colo_FechaCreacion AS fechaCreacion, 
+	   colo.usua_UsuarioModificacion AS usuarioModificacion, 
+	   usuaModifica.usua_Nombre AS usuarioModificacionNombre,
+	   colo_FechaModificacion AS fechaModificacion, 
+	   colo.usua_UsuarioEliminacion AS usuarioEliminacion, 
+	   usuaElimina.usua_Nombre AS usuarioEliminacionNombre,
+	   colo_FechaEliminacion AS fechaEliminacion, 
+	   colo_Estado AS coloniaEstado
+FROM [Gral].[tbColonias] colo LEFT JOIN [Gral].[tbAldeas] alde
+ON colo.alde_Id = alde.alde_Id LEFT JOIN [Gral].[tbCiudades] ciud
+ON colo.ciud_Id = ciud.ciud_Id INNER JOIN [Acce].[tbUsuarios] usuaCrea
+ON colo.usua_UsuarioCreacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaModifica
+ON colo.usua_UsuarioModificacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaElimina
+ON colo.usua_UsuarioEliminacion = usuaCrea.usua_Id
+GO
+
+
+/*Listar colonias*/
+CREATE OR ALTER PROCEDURE gral.UDP_VW_tbColonias_Listar
+AS
+BEGIN
+	SELECT *
+    FROM gral.VW_tbColonias
+	WHERE coloniaEstado = 1
+END
+GO
+
+/*Insertar colonias*/
+CREATE OR ALTER PROCEDURE gral.UDP_tbColonias_Insertar 
+	@colo_Nombre			NVARCHAR(150),
+	@alde_Id				INT,
+	@ciud_Id				INT,
+	@usua_UsuarioCreacion	INT,
+	@colo_FechaCreacion     DATETIME
+AS 
+BEGIN
+	
+	BEGIN TRY
+
+		IF @alde_Id IS NOT NULL
+			BEGIN
+				IF EXISTS (SELECT * FROM [Gral].[tbColonias]
+						WHERE @colo_Nombre = [colo_Nombre]
+						AND alde_Id = @alde_Id
+						AND [colo_Estado] = 1)
+					BEGIN
+						SELECT 0
+					END
+				ELSE IF EXISTS (SELECT * FROM [Gral].[tbColonias]
+						WHERE @colo_Nombre = [colo_Nombre]
+						AND alde_Id = @alde_Id
+						AND [colo_Estado] = 0)
+					BEGIN
+						UPDATE [Gral].[tbColonias]
+						SET	   [colo_Estado] = 1
+						WHERE  [colo_Nombre] = @colo_Nombre
+						AND [alde_Id] = @alde_Id
+
+						SELECT 1
+					END
+				ELSE
+					BEGIN
+						INSERT INTO [Gral].[tbColonias] (colo_Nombre, 
+														 alde_Id,
+														 ciud_Id,
+														 usua_UsuarioCreacion, 
+														 colo_FechaCreacion)
+						VALUES(@colo_Nombre,	
+							   @alde_Id,
+							   @ciud_Id,
+							   @usua_UsuarioCreacion,
+							   @colo_FechaCreacion)
+
+						SELECT 1
+					END
+			END
+		
+		ELSE 
+			BEGIN
+				IF EXISTS (SELECT * FROM [Gral].[tbColonias]
+						WHERE @colo_Nombre = [colo_Nombre]
+						AND ciud_Id = @ciud_Id
+						AND [colo_Estado] = 1)
+					BEGIN
+						SELECT 0
+					END
+				ELSE IF EXISTS (SELECT * FROM [Gral].[tbColonias]
+						WHERE @colo_Nombre = [colo_Nombre]
+						AND ciud_Id = @ciud_Id
+						AND [colo_Estado] = 0)
+					BEGIN
+						UPDATE [Gral].[tbColonias]
+						SET	   [colo_Estado] = 1
+						WHERE  [colo_Nombre] = @colo_Nombre
+						AND ciud_Id = @ciud_Id
+
+						SELECT 1 
+			
+					END
+				ELSE
+					BEGIN
+						INSERT INTO [Gral].[tbColonias] (colo_Nombre, 
+														 ciud_Id,
+														 usua_UsuarioCreacion, 
+														 colo_FechaCreacion)
+						VALUES(@colo_Nombre,	
+							   @ciud_Id,
+							   @usua_UsuarioCreacion,
+							   @colo_FechaCreacion)
+
+						SELECT 1
+					END
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH 
+END
+GO
+
 -----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS MÓDULO ADUANA

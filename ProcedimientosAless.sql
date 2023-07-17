@@ -908,129 +908,129 @@ GO
 --**********FORMAS DE PRESENTACIÓN**********--
 
 /*Vista forma presentación*/
-CREATE OR ALTER VIEW adua.VW_tbFormaPresentacion
-AS
-SELECT pres_Id AS presentacionId, 
-	   pres_Descripcion AS presentacionNombre, 
-	   pres.usua_UsuarioCreacion AS usuarioCreacion, 
-	   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
-	   pres_FechaCreacion AS fechaCreacion, 
-	   pres.usua_UsuarioModificacion AS usuarioModificacion, 
-	   usuaModifica.usua_Nombre AS usuarioModificacionNombre,
-	   pres_FechaModificacion AS fechaModificacion, 
-	   pres.usua_UsuarioEliminacion AS usuarioEliminacion, 
-	   usuaElimina.usua_Nombre AS usuarioEliminacionNombre,
-	   pres_FechaEliminacion AS fechaEliminacion, 
-	   pres_Estado AS presentacionEstado
-FROM [Adua].[tbFormaPresentacion] pres INNER JOIN [Acce].[tbUsuarios] usuaCrea
-ON pres.usua_UsuarioCreacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaModifica
-ON pres.usua_UsuarioModificacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaElimina
-ON pres.usua_UsuarioEliminacion = usuaCrea.usua_Id
-GO
+--CREATE OR ALTER VIEW adua.VW_tbFormaPresentacion
+--AS
+--SELECT pres_Id AS presentacionId, 
+--	   pres_Descripcion AS presentacionNombre, 
+--	   pres.usua_UsuarioCreacion AS usuarioCreacion, 
+--	   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
+--	   pres_FechaCreacion AS fechaCreacion, 
+--	   pres.usua_UsuarioModificacion AS usuarioModificacion, 
+--	   usuaModifica.usua_Nombre AS usuarioModificacionNombre,
+--	   pres_FechaModificacion AS fechaModificacion, 
+--	   pres.usua_UsuarioEliminacion AS usuarioEliminacion, 
+--	   usuaElimina.usua_Nombre AS usuarioEliminacionNombre,
+--	   pres_FechaEliminacion AS fechaEliminacion, 
+--	   pres_Estado AS presentacionEstado
+--FROM [Adua].[tbFormaPresentacion] pres INNER JOIN [Acce].[tbUsuarios] usuaCrea
+--ON pres.usua_UsuarioCreacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaModifica
+--ON pres.usua_UsuarioModificacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaElimina
+--ON pres.usua_UsuarioEliminacion = usuaCrea.usua_Id
+--GO
 
 
-/*Listar forma presentación*/
-CREATE OR ALTER PROCEDURE adua.UDP_VW_tbFormaPresentacion_Listar
-AS
-BEGIN
-	SELECT *
-    FROM adua.VW_tbFormaPresentacion
-	WHERE presentacionEstado = 1
-END
-GO
+--/*Listar forma presentación*/
+--CREATE OR ALTER PROCEDURE adua.UDP_VW_tbFormaPresentacion_Listar
+--AS
+--BEGIN
+--	SELECT *
+--    FROM adua.VW_tbFormaPresentacion
+--	WHERE presentacionEstado = 1
+--END
+--GO
 
-/*Insertar forma presentación*/
-CREATE OR ALTER PROCEDURE adua.UDP_tbFormaPresentacion_Insertar
-	@pres_Descripcion		NVARCHAR(150),
-	@usua_UsuarioCreacion	INT,
-	@pres_FechaCreacion     DATETIME
-AS 
-BEGIN
+--/*Insertar forma presentación*/
+--CREATE OR ALTER PROCEDURE adua.UDP_tbFormaPresentacion_Insertar
+--	@pres_Descripcion		NVARCHAR(150),
+--	@usua_UsuarioCreacion	INT,
+--	@pres_FechaCreacion     DATETIME
+--AS 
+--BEGIN
 	
-	BEGIN TRY
+--	BEGIN TRY
 
-		IF EXISTS (SELECT * FROM [Adua].[tbFormaPresentacion]
-						WHERE [pres_Descripcion] = @pres_Descripcion
-						AND [pres_Estado] = 0)
-		BEGIN
-			UPDATE [Adua].[tbFormaPresentacion]
-			SET	   [pres_Estado] = 1
-			WHERE  [pres_Descripcion] = @pres_Descripcion
+--		IF EXISTS (SELECT * FROM [Adua].[tbFormaPresentacion]
+--						WHERE [pres_Descripcion] = @pres_Descripcion
+--						AND [pres_Estado] = 0)
+--		BEGIN
+--			UPDATE [Adua].[tbFormaPresentacion]
+--			SET	   [pres_Estado] = 1
+--			WHERE  [pres_Descripcion] = @pres_Descripcion
 
-			SELECT 1
-		END
-		ELSE 
-			BEGIN
-				INSERT INTO [Adua].[tbFormaPresentacion] (pres_Descripcion, 
-														  usua_UsuarioCreacion, 
-														  pres_FechaCreacion)
-			VALUES(@pres_Descripcion,	
-				   @usua_UsuarioCreacion,
-				   @pres_FechaCreacion)
+--			SELECT 1
+--		END
+--		ELSE 
+--			BEGIN
+--				INSERT INTO [Adua].[tbFormaPresentacion] (pres_Descripcion, 
+--														  usua_UsuarioCreacion, 
+--														  pres_FechaCreacion)
+--			VALUES(@pres_Descripcion,	
+--				   @usua_UsuarioCreacion,
+--				   @pres_FechaCreacion)
 
 
-			SELECT 1
-		END
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH 
-END
-GO
+--			SELECT 1
+--		END
+--	END TRY
+--	BEGIN CATCH
+--		SELECT 0
+--	END CATCH 
+--END
+--GO
 
-/*Editar forma presentación*/
-CREATE OR ALTER PROCEDURE adua.UDP_tbFormaPresentacion_Editar
-	@pres_Id					INT,
-	@pres_Descripcion			NVARCHAR(150),
-	@usua_UsuarioModificacion	INT,
-	@pres_FechaModificacion     DATETIME
-AS
-BEGIN
-	BEGIN TRY
-		UPDATE  [Adua].[tbFormaPresentacion]
-		SET		[pres_Descripcion] = @pres_Descripcion,
-				[usua_UsuarioModificacion] = @usua_UsuarioModificacion,
-				[pres_FechaModificacion] = @pres_FechaModificacion
-		WHERE	[pres_Id] = @pres_Id
+--/*Editar forma presentación*/
+--CREATE OR ALTER PROCEDURE adua.UDP_tbFormaPresentacion_Editar
+--	@pres_Id					INT,
+--	@pres_Descripcion			NVARCHAR(150),
+--	@usua_UsuarioModificacion	INT,
+--	@pres_FechaModificacion     DATETIME
+--AS
+--BEGIN
+--	BEGIN TRY
+--		UPDATE  [Adua].[tbFormaPresentacion]
+--		SET		[pres_Descripcion] = @pres_Descripcion,
+--				[usua_UsuarioModificacion] = @usua_UsuarioModificacion,
+--				[pres_FechaModificacion] = @pres_FechaModificacion
+--		WHERE	[pres_Id] = @pres_Id
 
-		SELECT 1
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END
-GO
+--		SELECT 1
+--	END TRY
+--	BEGIN CATCH
+--		SELECT 0
+--	END CATCH
+--END
+--GO
 
-/*Eliminar forma presentación*/
-CREATE OR ALTER PROCEDURE adua.UDP_tbFormaPresentacion_Eliminar 
-	@pres_Id					INT,
-	@usua_UsuarioEliminacion	INT,
-	@pres_FechaEliminacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
+--/*Eliminar forma presentación*/
+--CREATE OR ALTER PROCEDURE adua.UDP_tbFormaPresentacion_Eliminar 
+--	@pres_Id					INT,
+--	@usua_UsuarioEliminacion	INT,
+--	@pres_FechaEliminacion		DATETIME
+--AS
+--BEGIN
+--	BEGIN TRY
 
-		BEGIN
-			DECLARE @respuesta INT
-			EXEC dbo.UDP_ValidarReferencias 'pres_Id', @pres_Id, 'adua.tbFormaPresentacion', @respuesta OUTPUT
+--		BEGIN
+--			DECLARE @respuesta INT
+--			EXEC dbo.UDP_ValidarReferencias 'pres_Id', @pres_Id, 'adua.tbFormaPresentacion', @respuesta OUTPUT
 
-			SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
-				BEGIN
-					UPDATE	[Adua].[tbFormaPresentacion]
-					SET		[pres_Estado] = 0,
-							[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
-							[pres_FechaEliminacion] = @pres_FechaEliminacion
-					WHERE	[pres_Id] = @pres_Id
-				END
-		END
+--			SELECT @respuesta AS Resultado
+--			IF(@respuesta) = 1
+--				BEGIN
+--					UPDATE	[Adua].[tbFormaPresentacion]
+--					SET		[pres_Estado] = 0,
+--							[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
+--							[pres_FechaEliminacion] = @pres_FechaEliminacion
+--					WHERE	[pres_Id] = @pres_Id
+--				END
+--		END
 
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END
-GO
+--	END TRY
+--	BEGIN CATCH
+--		SELECT 0
+--	END CATCH
+--END
+--GO
 
 --**********INCOTERM**********--
 

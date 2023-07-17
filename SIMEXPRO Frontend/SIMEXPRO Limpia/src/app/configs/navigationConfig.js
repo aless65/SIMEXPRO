@@ -357,6 +357,24 @@ const navigationConfig = [
              
                 ]
             },
+            {
+                id: 'Contratos',
+                title: 'Contratos de Adhesión',
+                type: 'collapse',
+                icon: 'heroicons-outline:briefcase',
+                translate: '',
+                children: [
+                    {
+                        id: 'BoletinPago.Impresión',
+                        title: 'Impresión Boletin de ',
+                        type: 'item',
+                        icon: 'heroicons-outline:printer',
+                        url: 'ContratoDeAdhesionComercianteIndividual/Index',
+                    },
+                   
+             
+                ]
+            },
   
         ],
     },

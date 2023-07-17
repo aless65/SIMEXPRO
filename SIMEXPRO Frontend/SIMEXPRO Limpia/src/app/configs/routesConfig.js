@@ -15,14 +15,9 @@ import CargosIndex from '../Personas/Cargos/Cargos';
 import OficinasIndex from '../Personas/Oficinas/Oficinas';
 import OficiosProfesiones from '../Personas/OficiosProfesiones/OficiosProfesiones';
 import UsuariosIndex from '../Seguridad/Usuarios/Usuarios';
-//import Declaracion_Valor_Index from '../Declaracion_Valor/Declaracion_Valor_Index';
-//import C_A_Persona_Natural from '../Contratos_Adhesion/C_A_Persona_Natural';
-//import ImpresionBoletindePago from '../BoletinDePago/ImpresionBoletinDePago';
-import CategoriaIndex from '../Inventario/Categoria/Categorias';
-import ColoresIndex from '../Prendas/Colores/Colores';
-import InspeccionesIndex from '../Produccion/Inspecciones/InspeccionesEstado';
-import MaquinaHistorialIndex from '../Maquinaria/MaquinaHistorial/MaquinaHistorial';
-import MaquinaModulosIndex from '../Maquinaria/MaquinaModulos/MaquinaModulos';
+import ImpresionBoletindePago from '../BoletinDePago/ImpresionBoletinDePago';
+import Comerciante_Individual_Index from '../Aduanas/Contratos_de_Adhesión/Comerciante_Individual/Comerciante_Individual_Index';
+import Comerciante_Individual_Agregar from '../Aduanas/Contratos_de_Adhesión/Comerciante_Individual/Comerciante_Individual_Agregrar';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -79,14 +74,10 @@ const routes = [
     path: 'Usuarios/Index',
     element: <UsuariosIndex />,
   },
- /* {
-    path: '',
-    element: <ContratoAdhesionPersonaNatural />,
-  },
   {
     path: 'BoletindePago/impresionBoletin',
     element: <ImpresionBoletindePago/> 
-  },*/
+  },
   {
     path: 'Categoria/Index',
     element: <CategoriaIndex/>
@@ -106,6 +97,14 @@ const routes = [
   {
     path: 'MaquinaModulos/Index',
     element: <MaquinaModulosIndex/>
+  },
+  {
+    path: 'ContratoDeAdhesionComercianteIndividual/Index',
+    element: <Comerciante_Individual_Index/> 
+  },
+  {
+    path: 'ContratoDeAdhesionComercianteIndividual/Agregar',
+    element: <Comerciante_Individual_Agregar/> 
   },
 ];
 

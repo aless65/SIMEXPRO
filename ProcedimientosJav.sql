@@ -124,8 +124,8 @@ GO
 
 --Insert Tipo de documento
 INSERT INTO Adua.tbTipoDocumento(tido_Id, tido_Descripcion,usua_UsuarioCreacion,tido_FechaCreacion)
-VALUES	('','',1,GETDATE())
-		
+VALUES	('DF','DUCA-F',1,GETDATE()),
+		('DT','DUCA-T',1,GETDATE())
 GO
 --*****Vista*****--
 CREATE OR ALTER VIEW Adua.VW_tbTipoDocumento
@@ -483,7 +483,11 @@ GO
 --*****Procesos*****--
 --Inserts Procesos
 INSERT INTO Prod.tbProcesos(proc_Descripcion,usua_UsuarioCreacion,proc_FechaCreacion)
-VALUES ('',1,GETDATE())
+VALUES	('Planificacion ',1,GETDATE()),
+		('Corte',1,GETDATE()),
+		('Ensamblado',1,GETDATE()),
+		('Acabado',1,GETDATE()),
+		('Calidad',1,GETDATE())
 GO
 --*****Vista*****--
 
@@ -603,7 +607,12 @@ GO
 --*****AREA*****--
 --Insert Area
 INSERT INTO Prod.tbArea(tipa_area,proc_Id,usua_UsuarioCreacion,tipa_FechaCreacion)
-VALUES('',1,1,GETDATE())
+VALUES	('Area de Corte',1,1,GETDATE()),
+		('Area de Ensamblado',1,1,GETDATE()),
+		('Area de Acabado',1,1,GETDATE()),
+		('Area de Control de Calidad',1,1,GETDATE()),
+		('Area de Inventario',1,1,GETDATE())
+
 GO
 --*****Vista*****--
 CREATE OR ALTER VIEW Prod.VW_tbArea
@@ -732,7 +741,14 @@ GO
 --*****Talla*****--
 --Insert Talla
 INSERT INTO Prod.tbTallas (tall_Id,tall_Nombre,usua_UsuarioCreacion,tall_FechaCreacion)
-VALUES ('','',1,GETDATE())
+VALUES	
+		('XXS','Extra Extra Small',1,GETDATE()),
+		('XS','Extra Small',1,GETDATE()),
+		('S','Small',1,GETDATE()),
+		('M','Medium',1,GETDATE()),
+		('L','Large',1,GETDATE()),
+		('XL','Extra Large',1,GETDATE()),
+		('XXL','Extra Extra Large',1,GETDATE())
 GO
 --*****Vista*****--
 
@@ -801,7 +817,7 @@ END
 GO
 
 --*****Editar*****--
-CREATE OR ALTER PROCEDURE Prod.UDP_tbTallas_Insertar
+CREATE OR ALTER PROCEDURE Prod.UDP_tbTallas_Editar
 @tall_Id				CHAR(5),
 @tall_Nombre				NVARCHAR(200),
 @usua_UsuarioModificacion	INT,
@@ -861,7 +877,15 @@ GO
 --*****Tipo Embalaje*****--
 --Inset Tipo Embalaje
 INSERT INTO Prod.tbTipoEmbalaje(tiem_Descripcion,usua_UsuarioCreacion,tiem_FechaCreacion)
-VALUES ('',1,GETDATE())
+VALUES	('Cajas',1,GETDATE()),
+		('Bultos',1,GETDATE()),
+		('Tonel',1,GETDATE()),
+		('Barril',1,GETDATE()),
+		('Bolsas',1,GETDATE()),
+		('Caja de Acero',1,GETDATE()),
+		('Caja de Madera',1,GETDATE()),
+		('Caja de Plastico',1,GETDATE())
+
 GO
 --*****Vista*****--
 CREATE OR ALTER VIEW Prod.VW_tbTipoEmbalaje

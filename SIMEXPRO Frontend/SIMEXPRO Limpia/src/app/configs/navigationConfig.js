@@ -244,94 +244,11 @@ const navigationConfig = [
                         url: '/Colores/Index',
                     },
 
-                    {
-                        id: 'Prendas.Estilos',
-                        title: 'Estilos',
-                        type: 'item',
-                        icon: 'material-outline:design_services',
-                        url: '/Prendas/Estilos',
-                    },
-
-                    {
-                        id: 'Prendas.Modelos',
-                        title: 'Modelos',
-                        type: 'item',
-                        icon: 'material-outline:document_scanner',
-                        url: '/Prendas/Modelos',
-                    }, {
-                        id: 'Prendas.Tallas',
-                        title: 'Tallas',
-                        type: 'item',
-                        icon: 'material-outline:dry_cleaning',
-                        url: '/Prendas/Tallas',
-                    }
-                ],
-            }
 
 
         ]
     },
-    {
-        id: 'general.Personas',
-        title: 'Personas',
-        type: 'collapse',
-        icon: 'material-outline:emoji_people',
-        translate: 'Personas',
-        children: [
-            {
-                id: 'Personas.cargos',
-                title: 'Cargos',
-                type: 'item',
-                icon: 'material-outline:cleaning_services',
-                url: 'Cargos/Index',
-            },
-            {
-                id: 'Personas.Clientes',
-                title: 'Clientes',
-                type: 'item',
-                icon: 'material-outline:groups',
-                url: '/Personas/Clientes',
-            },
 
-            {
-                id: 'Personas.empleados',
-                title: 'Empleados',
-                type: 'item',
-                icon: 'material-outline:nature_people',
-                url: '/Personas/Empleados',
-            },
-
-            {
-                id: 'Personas.estados_civiles',
-                title: 'Estados Civiles',
-                type: 'item',
-                icon: 'material-outline:male',
-                url: 'EstadosCiviles/Index',
-            }, {
-                id: 'Personas.oficinas',
-                title: 'Oficinas',
-                type: 'item',
-                icon: 'material-outline:computer',
-                url: 'Oficinas/Index',
-            },
-            {
-                id: 'Personas.oficios_profesiones',
-                title: 'Oficios y Profesiones',
-                type: 'item',
-                icon: 'heroicons-outline:academic-cap',
-                url: 'OficiosProfesiones/Index',
-            },
-
-            {
-                id: 'Personas.proveedores',
-                title: 'Proveedores ',
-                type: 'item',
-                icon: 'material-outline:local_shipping',
-                url: '/Personas/Proveedores',
-            },
-
-        ],
-    },
     {
         id: 'Aduanas',
         title: 'Aduanad',
@@ -392,6 +309,7 @@ const navigationConfig = [
                 icon: 'material-outline:content_cut',
                 translate: 'Producción',
                 children: [
+                    
                     {
                         id: 'Produccion.AsignacionesModulo',
                         title: 'Asignaciones de Módulo',
@@ -455,6 +373,7 @@ const navigationConfig = [
                         icon: 'material-outline:recycling',
                         url: '/Produccion/RevisionModuloDia',
                     },
+
                 ]
             },
             {
@@ -465,10 +384,19 @@ const navigationConfig = [
                 translate: 'Maquinaria',
                 children: [
                     {
+                        id: 'Maquinaria.FuncionesMaquina',
+                        title: 'Funciones de Máquinas',
+                        type: 'item',
+                        icon: 'material-outline:bike_scooter',
+                        url: '/FuncionesMaquina/Index',
+                    },
+                    {
                         id: 'Maquinaria.MaquinaHistorial',
                         title: 'Historial de Máquina',
                         type: 'item',
                         icon: 'material-outline:all_inbox',
+                        url: '/Maquinaria/MaquinaHistorial',
+                    },               
                         url: '/MaquinaHistorial/Index',
                     },
                     {
@@ -486,19 +414,28 @@ const navigationConfig = [
                         url: '/Maquinaria/MarcasMaquina',
                     },
                     {
+                        id: 'Maquinaria.MarcasMaquina',
+                        title: 'Máquinas',
+                        type: 'item',
+                        icon: 'material-outline:precision_manufacturing',
+                        url: '/Maquinas/Index',
+                    },
+                    {
+                        id: 'Maquinaria.MaquinaModulos',
+                        title: 'Módulo de Máquina',
+                        type: 'item',
+                        icon: 'material-outline:animation',
+                        url: '/Maquinaria/MaquinaModulos',
+                    },
+   
+                    {
                         id: 'Maquinaria.ModelosMaquina',
                         title: 'Modelos de Máquinas',
                         type: 'item',
                         icon: 'material-outline:biotech',
                         url: '/Modelos/Index',
                     },
-                    {
-                        id: 'Maquinaria.FuncionesMaquina',
-                        title: 'Funciones de Máquinas',
-                        type: 'item',
-                        icon: 'material-outline:bike_scooter',
-                        url: '/Maquinaria/FuncionesMaquina',
-                    },
+
                 ]
             },
             {
@@ -508,6 +445,13 @@ const navigationConfig = [
                 icon: 'material-outline:store',
                 translate: 'Inventario',
                 children: [
+                    {
+                        id: 'Inventario.Areas',
+                        title: 'Áreas',
+                        type: 'item',
+                        icon: 'material-outline:all_inbox',
+                        url: '/Areas/Index',
+                    },
                     {
                         id: 'Inventario.Categorias',
                         title: 'Categorías',
@@ -520,7 +464,7 @@ const navigationConfig = [
                         title: 'Lotes',
                         type: 'item',
                         icon: 'material-outline:card_membership',
-                        url: '/Inventario/Lotes',
+                        url: '/Lotes/Index',
                     },
                     {
                         id: 'Inventario.Materiales',
@@ -558,6 +502,44 @@ const navigationConfig = [
                         url: '/Inventario/TipoEmbalaje',
                     },
                 ]
+            },
+            {
+                id: 'produccion.prendas',
+                title: 'Prendas',
+                type: 'collapse',
+                icon: 'material-outline:checkroom',
+                translate: 'Prendas',
+                children: [
+                    {
+                        id: 'Prendas.Colores',
+                        title: 'Colores',
+                        type: 'item',
+                        icon: 'material-outline:format_color_fill',
+                        url: '/Prendas/Colores',
+                    },
+
+                    {
+                        id: 'Prendas.Estilos',
+                        title: 'Estilos',
+                        type: 'item',
+                        icon: 'material-outline:design_services',
+                        url: '/Estilos/Index',
+                    },
+
+                    {
+                        id: 'Prendas.Modelos',
+                        title: 'Modelos',
+                        type: 'item',
+                        icon: 'material-outline:document_scanner',
+                        url: '/Prendas/Modelos',
+                    }, {
+                        id: 'Prendas.Tallas',
+                        title: 'Tallas',
+                        type: 'item',
+                        icon: 'material-outline:dry_cleaning',
+                        url: '/Prendas/Tallas',
+                    }
+                ],
             }
         ],
     },

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -23,7 +24,7 @@ const columns = [
         <Button
           startIcon={<Icon>edit</Icon>}
           variant="contained"
-          sx={{ backgroundColor: '#634A9E', color: 'white', borderRadius: '10px', }}
+          sx={{ backgroundColor: '#634A9E', color: 'white', borderRadius: '10px' }}
         >
           Editar
         </Button>
@@ -31,7 +32,7 @@ const columns = [
           startIcon={<Icon>visibility</Icon>}
           variant="contained"
           color="primary"
-          sx={{ backgroundColor: '#797979', color: 'white',  borderRadius: '10px' }}
+          sx={{ backgroundColor: '#797979', color: 'white', borderRadius: '10px' }}
         >
           Detallesc
         </Button>
@@ -39,7 +40,7 @@ const columns = [
           startIcon={<Icon>delete</Icon>}
           variant="contained"
           color="primary"
-          sx={{ backgroundColor: '#E40F00', color: 'white',  borderRadius: '10px' }}
+          sx={{ backgroundColor: '#E40F00', color: 'white', borderRadius: '10px' }}
         >
           Eliminar
         </Button>
@@ -88,21 +89,23 @@ function Declaracion_Valor_Index() {
         image="https://i.ibb.co/DWv6wP7/ESTADOS-CIVILES-1.png"
         alt="Encabezado de la carta"
       />
-      <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-      <Stack direction="row" spacing={1}>
-      <Button
-          startIcon={<Icon>add</Icon>}
-          variant="contained"
-          color="primary"
-          sx={{ backgroundColor: '#634A9E', color: 'white',  borderRadius: '10px' }}
-        >
-          Nuevo
-        </Button>
+      <CardContent
+        sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}
+      >
+        <Stack direction="row" spacing={1}>
+          <Button
+            startIcon={<Icon>add</Icon>}
+            variant="contained"
+            color="primary"
+            sx={{ backgroundColor: '#634A9E', color: 'white', borderRadius: '10px' }}
+          >
+            Nuevo
+          </Button>
         </Stack>
 
         <TextField
-       placeholder='Buscar'
-       borderRadius= '100px'
+          placeholder="Buscar"
+          borderRadius="100px"
           value={searchText}
           onChange={handleSearchChange}
           size="small"

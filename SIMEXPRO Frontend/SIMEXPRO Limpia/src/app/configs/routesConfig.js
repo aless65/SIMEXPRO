@@ -15,8 +15,6 @@ import CargosIndex from '../Personas/Cargos/Cargos';
 import OficinasIndex from '../Personas/Oficinas/Oficinas';
 import OficiosProfesiones from '../Personas/OficiosProfesiones/OficiosProfesiones';
 import UsuariosIndex from '../Seguridad/Usuarios/Usuarios';
-import Declaracion_Valor_Index from '../Declaracion_Valor/Declaracion_Valor_Index';
-import C_A_Persona_Natural from '../Contratos_Adhesion/C_A_Persona_Natural';
 import ImpresionBoletindePago from '../BoletinDePago/ImpresionBoletinDePago';
 
 const routeConfigs = [
@@ -75,12 +73,8 @@ const routes = [
     element: <UsuariosIndex />,
   },
   {
-    path: '',
-    element: <ContratoAdhesionPersonaNatural />,
-  },
-  {
     path: 'BoletindePago/impresionBoletin',
-    element: <ImpresionBoletindePago/> 
+    element: <ImpresionBoletindePago />,
   },
 ];
 

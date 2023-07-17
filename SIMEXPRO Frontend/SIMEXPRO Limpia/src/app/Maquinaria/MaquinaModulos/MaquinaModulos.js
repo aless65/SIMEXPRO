@@ -25,9 +25,10 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { DateTimePicker } from '@mui/x-date-pickers';
 
 
-function UsuariosIndex() {
+function MaquinaModulosIndex() {
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
@@ -39,10 +40,9 @@ function UsuariosIndex() {
 
   {/* Columnas de la tabla */ }
   const columns = [
-    { field: 'id', headerName: 'Id', width: 10 },
-    { field: 'usuario', headerName: 'Usuario', flex: 1 },
-    { field: 'empleado', headerName: 'Empleado', flex: 1 },
-    { field: 'rol', headerName: 'Rol', flex: 1 },
+    { field: 'id', headerName: 'Id', flex: 1},
+    { field: 'modulo', headerName: 'Módulo', flex: 2,  },
+    { field: 'maquina', headerName: 'Máquina', flex: 3,  },
     {
       field: 'acciones',
       headerName: 'Acciones',
@@ -93,10 +93,11 @@ function UsuariosIndex() {
 
   {/* Datos de la tabla */ }
   const rows = [
-    { id: '1', usuario: 'IsHatake', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
-    { id: '2', usuario: 'Admin', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
-    { id: '3', usuario: 'Shogun', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
-
+    { id: '1', modulo: 'Producción', maquina: 'Máquina de coser industrial' },
+    { id: '2', modulo: 'Corte', maquina: 'Máquina de corte automático' },
+    { id: '3', modulo: 'Acabado', maquina: 'Máquina de estampado' },
+    { id: '4', modulo: 'Acabado', maquina: 'Máquina de planchado y prensado' },
+    { id: '5', modulo: 'Etiquetado', maquina: 'Máquina de etiquetado' },
   ];
 
   {/* Función para mostrar la tabla y mostrar agregar */ }
@@ -111,7 +112,7 @@ function UsuariosIndex() {
 
   {/* Filtrado de datos */ }
   const filteredRows = rows.filter((row) =>
-    row.usuario.toLowerCase().includes(searchText.toLowerCase())
+    row.modulo.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
@@ -119,7 +120,7 @@ function UsuariosIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/T4VqYmN/Headers-SIMEXPRO-3.png"
+        image="https://i.ibb.co/KjWGh9s/M-DULO-DE-M-QUINA.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>
@@ -191,7 +192,7 @@ function UsuariosIndex() {
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <Typography variant="h5" gutterBottom>
-                Nuevo Usuario
+                Nuevo Registro de Máquina por Módulo
               </Typography>
             </Grid>
 
@@ -199,32 +200,10 @@ function UsuariosIndex() {
               <FormControl
                 fullWidth
               >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Usuario"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Contraseña"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <InputLabel htmlFor="grouped-native-select">Empleado</InputLabel>
+                <InputLabel htmlFor="grouped-native-select">Módulo</InputLabel>
                 <Select
-                  style={{ borderRadius: '3px' }}
-                  label="Empleado"
+                  style={{ borderRadius: '10px' }}
+                  label="Módulo"
                 />
               </FormControl>
             </Grid>
@@ -233,20 +212,10 @@ function UsuariosIndex() {
               <FormControl
                 fullWidth
               >
-                <InputLabel htmlFor="grouped-native-select">Rol</InputLabel>
+                <InputLabel htmlFor="grouped-native-select">Máquina</InputLabel>
                 <Select
-                  style={{ borderRadius: '3px' }}
-                  label="Rol"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <FormControl fullWidth>
-                <FormControlLabel
-                  control={<Switch sx={{ '&.Mui-checked': { color: '#634A9E' } }} />}
-                  label="Administrador"
-                  labelPlacement="bottom"
+                  style={{ borderRadius: '10px' }}
+                  label="Máquina"
                 />
               </FormControl>
             </Grid>
@@ -338,7 +307,7 @@ function UsuariosIndex() {
   );
 }
 
-export default UsuariosIndex;
+export default MaquinaModulosIndex;
 
 
 

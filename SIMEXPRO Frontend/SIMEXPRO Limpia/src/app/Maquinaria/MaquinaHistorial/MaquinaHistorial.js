@@ -25,9 +25,10 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { DateTimePicker } from '@mui/x-date-pickers';
 
 
-function UsuariosIndex() {
+function MaquinaHistorialIndex() {
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
@@ -39,10 +40,10 @@ function UsuariosIndex() {
 
   {/* Columnas de la tabla */ }
   const columns = [
-    { field: 'id', headerName: 'Id', width: 10 },
-    { field: 'usuario', headerName: 'Usuario', flex: 1 },
-    { field: 'empleado', headerName: 'Empleado', flex: 1 },
-    { field: 'rol', headerName: 'Rol', flex: 1 },
+    { field: 'id', headerName: 'Id', flex: 2},
+    { field: 'maquina', headerName: 'Máquina', flex: 2,  },
+    { field: 'fechaInicio', headerName: 'Fecha de Inicio', flex: 2,  },
+    { field: 'fechaFin', headerName: 'Fecha de Fin', flex: 2,  },
     {
       field: 'acciones',
       headerName: 'Acciones',
@@ -93,10 +94,11 @@ function UsuariosIndex() {
 
   {/* Datos de la tabla */ }
   const rows = [
-    { id: '1', usuario: 'IsHatake', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
-    { id: '2', usuario: 'Admin', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
-    { id: '3', usuario: 'Shogun', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
-
+    { id: '1', maquina: 'Máquina de coser industrial', fechaInicio: '10-12-2022', fechaFin: '11-12-2022'},
+    { id: '2', maquina: 'Máquina de corte automático', fechaInicio: '13-12-2022', fechaFin: '14-12-2022' },
+    { id: '3', maquina: 'Máquina de estampado', fechaInicio: '13-12-2022', fechaFin: '14-12-2022' },
+    { id: '4', maquina: 'Máquina de planchado y prensado', fechaInicio: '15-12-2022', fechaFin: '16-12-2022' },
+    { id: '5', maquina: 'Máquina de etiquetado', fechaInicio: '17-12-2022', fechaFin: '18-12-2022' },
   ];
 
   {/* Función para mostrar la tabla y mostrar agregar */ }
@@ -111,7 +113,7 @@ function UsuariosIndex() {
 
   {/* Filtrado de datos */ }
   const filteredRows = rows.filter((row) =>
-    row.usuario.toLowerCase().includes(searchText.toLowerCase())
+    row.maquina.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
@@ -119,7 +121,7 @@ function UsuariosIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/T4VqYmN/Headers-SIMEXPRO-3.png"
+        image="https://i.ibb.co/x3Dpksj/HISTORIAL-DE-M-QUINA.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>
@@ -191,7 +193,7 @@ function UsuariosIndex() {
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <Typography variant="h5" gutterBottom>
-                Nuevo Usuario
+                Nuevo Registro de Máquina
               </Typography>
             </Grid>
 
@@ -199,9 +201,21 @@ function UsuariosIndex() {
               <FormControl
                 fullWidth
               >
+                <InputLabel htmlFor="grouped-native-select">Máquina</InputLabel>
+                <Select
+                  style={{ borderRadius: '10px' }}
+                  label="Máquina"
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6}>
+              <FormControl
+                fullWidth
+              >
                 <TextField
                   style={{ borderRadius: '10px' }}
-                  label="Usuario"
+                  label="Observaciones"
                 />
               </FormControl>
             </Grid>
@@ -210,9 +224,9 @@ function UsuariosIndex() {
               <FormControl
                 fullWidth
               >
-                <TextField
+                <Date
                   style={{ borderRadius: '10px' }}
-                  label="Contraseña"
+                  label="Fecha de Inicio"
                 />
               </FormControl>
             </Grid>
@@ -221,32 +235,9 @@ function UsuariosIndex() {
               <FormControl
                 fullWidth
               >
-                <InputLabel htmlFor="grouped-native-select">Empleado</InputLabel>
-                <Select
-                  style={{ borderRadius: '3px' }}
-                  label="Empleado"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <InputLabel htmlFor="grouped-native-select">Rol</InputLabel>
-                <Select
-                  style={{ borderRadius: '3px' }}
-                  label="Rol"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <FormControl fullWidth>
-                <FormControlLabel
-                  control={<Switch sx={{ '&.Mui-checked': { color: '#634A9E' } }} />}
-                  label="Administrador"
-                  labelPlacement="bottom"
+                <Date
+                  style={{ borderRadius: '10px' }}
+                  label="Fecha de Fin"
                 />
               </FormControl>
             </Grid>
@@ -338,7 +329,7 @@ function UsuariosIndex() {
   );
 }
 
-export default UsuariosIndex;
+export default MaquinaHistorialIndex;
 
 
 

@@ -229,6 +229,20 @@ const navigationConfig = [
 
                 ],
             },
+            {
+                id: 'general.prendas',
+                title: 'Prendas',
+                type: 'collapse',
+                icon: 'material-outline:checkroom',
+                translate: 'Prendas',
+                children: [
+                    {
+                        id: 'Prendas.Colores',
+                        title: 'Colores',
+                        type: 'item',
+                        icon: 'material-outline:format_color_fill',
+                        url: '/Colores/Index',
+                    },
 
 
 
@@ -255,6 +269,24 @@ const navigationConfig = [
                         type: 'item',
                         icon: 'heroicons-outline:printer',
                         url: '/BoletindePago/ImpresionBoletin',
+                    },
+                   
+             
+                ]
+            },
+            {
+                id: 'Contratos',
+                title: 'Contratos de Adhesión',
+                type: 'collapse',
+                icon: 'heroicons-outline:briefcase',
+                translate: '',
+                children: [
+                    {
+                        id: 'BoletinPago.Impresión',
+                        title: 'Impresión Boletin de ',
+                        type: 'item',
+                        icon: 'heroicons-outline:printer',
+                        url: 'ContratoDeAdhesionComercianteIndividual/Index',
                     },
                    
              
@@ -290,7 +322,7 @@ const navigationConfig = [
                         title: 'Inspecciones',
                         type: 'item',
                         icon: 'material-outline:manage_search',
-                        url: '/Produccion/Inspecciones',
+                        url: '/Inspecciones/Index',
                     },
                     {
                         id: 'Produccion.Modulos',
@@ -365,6 +397,15 @@ const navigationConfig = [
                         icon: 'material-outline:all_inbox',
                         url: '/Maquinaria/MaquinaHistorial',
                     },               
+                        url: '/MaquinaHistorial/Index',
+                    },
+                    {
+                        id: 'Maquinaria.MaquinaModulos',
+                        title: 'Módulo de Máquina',
+                        type: 'item',
+                        icon: 'material-outline:animation',
+                        url: '/MaquinaModulos/Index',
+                    },
                     {
                         id: 'Maquinaria.MarcasMaquina',
                         title: 'Marcas de Máquinas',
@@ -416,7 +457,7 @@ const navigationConfig = [
                         title: 'Categorías',
                         type: 'item',
                         icon: 'material-outline:category',
-                        url: '/Inventario/Categorias',
+                        url: '/Categoria/Index',
                     },
                     {
                         id: 'Inventario.Lotes',
@@ -430,7 +471,7 @@ const navigationConfig = [
                         title: 'Materiales',
                         type: 'item',
                         icon: 'material-outline:bakery_dining',
-                        url: '/Inventario/Materiales',
+                        url: '/Materiales/Index',
                     },
                     {
                         id: 'Inventario.MaterialesBrindar',

@@ -27,7 +27,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 
-function UsuariosIndex() {
+function MaterialesIndex() {
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
@@ -40,9 +40,9 @@ function UsuariosIndex() {
   {/* Columnas de la tabla */ }
   const columns = [
     { field: 'id', headerName: 'Id', width: 10 },
-    { field: 'usuario', headerName: 'Usuario', flex: 1 },
-    { field: 'empleado', headerName: 'Empleado', flex: 1 },
-    { field: 'rol', headerName: 'Rol', flex: 1 },
+    { field: 'material', headerName: 'Material', flex: 1 },
+    { field: 'categoria', headerName: 'Categoría', flex: 1 },
+    { field: 'subcategoria', headerName: 'SubCategoría', flex: 1 },
     {
       field: 'acciones',
       headerName: 'Acciones',
@@ -93,9 +93,9 @@ function UsuariosIndex() {
 
   {/* Datos de la tabla */ }
   const rows = [
-    { id: '1', usuario: 'IsHatake', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
-    { id: '2', usuario: 'Admin', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
-    { id: '3', usuario: 'Shogun', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
+    { id: '1', material: 'Tela coral', categoria: 'Tela', subcategoria: 'Algodón' },
+    { id: '2', material: 'Botón negro', categoria: 'Botón', subcategoria: 'Metal' },
+    { id: '3', material: 'Zipper 15 cm', categoria: 'Zipper', subcategoria: 'Para pantalón' },
 
   ];
 
@@ -111,7 +111,7 @@ function UsuariosIndex() {
 
   {/* Filtrado de datos */ }
   const filteredRows = rows.filter((row) =>
-    row.usuario.toLowerCase().includes(searchText.toLowerCase())
+    row.material.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
@@ -119,7 +119,7 @@ function UsuariosIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/T4VqYmN/Headers-SIMEXPRO-3.png"
+        image="https://i.ibb.co/cL2c1Zs/MATERIALES.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>
@@ -191,7 +191,7 @@ function UsuariosIndex() {
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <Typography variant="h5" gutterBottom>
-                Nuevo Usuario
+                Nuevo Material
               </Typography>
             </Grid>
 
@@ -201,7 +201,7 @@ function UsuariosIndex() {
               >
                 <TextField
                   style={{ borderRadius: '10px' }}
-                  label="Usuario"
+                  label="Material"
                 />
               </FormControl>
             </Grid>
@@ -210,46 +210,14 @@ function UsuariosIndex() {
               <FormControl
                 fullWidth
               >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Contraseña"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <InputLabel htmlFor="grouped-native-select">Empleado</InputLabel>
+                <InputLabel htmlFor="grouped-native-select">Subcategoría</InputLabel>
                 <Select
                   style={{ borderRadius: '3px' }}
-                  label="Empleado"
+                  label="Subcategoría"
                 />
               </FormControl>
             </Grid>
 
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <InputLabel htmlFor="grouped-native-select">Rol</InputLabel>
-                <Select
-                  style={{ borderRadius: '3px' }}
-                  label="Rol"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <FormControl fullWidth>
-                <FormControlLabel
-                  control={<Switch sx={{ '&.Mui-checked': { color: '#634A9E' } }} />}
-                  label="Administrador"
-                  labelPlacement="bottom"
-                />
-              </FormControl>
-            </Grid>
 
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
               <Button
@@ -338,7 +306,7 @@ function UsuariosIndex() {
   );
 }
 
-export default UsuariosIndex;
+export default MaterialesIndex;
 
 
 

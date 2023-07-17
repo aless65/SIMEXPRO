@@ -356,6 +356,8 @@ SELECT	esbo_Id,
 		esbo_FechaCreacion, 
 		modi.usua_Nombre usua_UsuarioModificacion, 
 		esbo_FechaModificacion, 
+		elim.usua_Nombre usua_UsuarioEliminacion,
+		esbo_FechaEliminacion,
 
 		esbo_Estadoo 
 FROM Adua.tbEstadoBoletin esbo INNER JOIN Acce.tbUsuarios crea 
@@ -439,19 +441,261 @@ GO
 --*****Eliminar*****--
 CREATE OR ALTER PROCEDURE Adua.UDP_tbEstadoBoletin_Eliminar
 @esbo_Id					INT,
-@usua_UsuarioModificacion	INT,
-@esbo_FechaModificacion		DATETIME
+@usua_UsuarioEliminacion	INT,
+@esbo_FechaEliminacion		DATETIME
 AS
 BEGIN
 BEGIN TRY
 	UPDATE Adua.tbEstadoBoletin
 	SET esbo_Estadoo = 0,
-	usua_UsuarioModificacion = @usua_UsuarioModificacion,
-	esbo_FechaModificacion = @esbo_FechaModificacion
+	usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+	esbo_FechaEliminacion = @esbo_FechaEliminacion
 END TRY
 	BEGIN CATCH
 		SELECT 0	
 	END CATCH 
+END
+GO
+
+
+--*****Procesos*****--
+--*****Vista*****--
+
+CREATE OR ALTER VIEW Prod.VW_tbProceso
+AS
+SELECT	proc_Id, 
+		proc_Descripcion, 
+		crea.usua_Nombre usua_UsuarioCreacion, 
+		proc_FechaCreacion, 
+		modi.usua_Nombre usua_UsuarioModificacion, 
+		proc_FechaModificacion, 
+		elim.usua_Nombre usua_UsuarioEliminacion,
+		proc_FechaEliminacion,
+		proc_Estado 
+FROM Prod.tbProcesos pro INNER JOIN Acce.tbUsuarios crea 
+ON crea.usua_Id = pro.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
+ON modi.usua_Id = pro.usua_UsuarioModificacion INNER JOIN Acce.tbUsuarios elim
+ON elim.usua_Id = pro.usua_UsuarioEliminacion 
+GO
+--*****Listado*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbProcesos_Listar
+AS
+BEGIN
+SELECT * FROM Prod.VW_tbProceso 
+WHERE proc_Estado = 1
+END
+GO
+
+--*****Insertar*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbProcesos_Insertar
+@proc_Descripcion		NVARCHAR(200),
+@usua_UsuarioCreacion	INT,
+@proc_FechaCreacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		IF EXISTS (SELECT * FROM Prod.tbProcesos WHERE proc_Descripcion = @proc_Descripcion AND proc_Estado = 0)
+			BEGIN
+				UPDATE Prod.tbProcesos
+				SET proc_Estado = 1,
+				usua_UsuarioModificacion = @usua_UsuarioCreacion,
+				proc_FechaModificacion = @proc_FechaCreacion
+				WHERE proc_Descripcion = @proc_Descripcion
+				SELECT 1
+			END
+		ELSE
+			BEGIN
+				INSERT INTO Prod.tbProcesos(proc_Descripcion,usua_UsuarioCreacion,proc_FechaCreacion)
+				VALUES (
+				@proc_Descripcion,		
+				@usua_UsuarioCreacion,	
+				@proc_FechaCreacion
+				)
+				SELECT 1
+			END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+--*****Editar*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbProcesos_Editar
+@proc_ID				INT,
+@proc_Descripcion		NVARCHAR(200),
+@usua_UsuarioModificacion	INT,
+@proc_FechaCreacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		IF EXISTS (SELECT * FROM Prod.tbProcesos WHERE proc_Descripcion = @proc_Descripcion AND proc_Estado = 0)
+			BEGIN
+				UPDATE Prod.tbProcesos
+				SET proc_Estado = 1,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				proc_FechaModificacion = @proc_FechaCreacion
+				WHERE proc_Descripcion = @proc_Descripcion
+				SELECT 1
+			END
+		ELSE
+			BEGIN
+				UPDATE Prod.tbProcesos
+				SET proc_Descripcion = @proc_Descripcion,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				proc_FechaModificacion = @proc_FechaCreacion
+				WHERE proc_ID = @proc_ID
+				SELECT 1
+			END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+--*****Eliminar*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbProcesos_Eliminar
+@proc_ID				INT,
+@usua_UsuarioEliminacion	INT,
+@proc_FechaEliminacion	DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE Prod.tbProcesos
+		SET proc_Estado = 0,
+		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+		proc_FechaEliminacion = @proc_FechaEliminacion
+		WHERE proc_ID = @proc_ID
+	END TRY
+	BEGIN CATCH 
+		SELECT 0
+	END CATCH
+END
+GO
+
+--*****AREA*****--
+--*****Vista*****--
+CREATE OR ALTER VIEW Prod.VW_tbArea
+AS
+SELECT	tipa_Id, 
+		tipa_area, 
+		pro.proc_Id, 
+		pro.proc_Descripcion,
+		crea.usua_Nombre usua_UsuarioCreacion, 
+		tipa_FechaCreacion, 
+		modi.usua_Nombre usua_UsuarioModificacion , 
+		tipa_FechaModificacion, 
+		elim.usua_Nombre usua_UsuarioEliminacion,
+		tipa_FechaEliminacion
+		tipa_Estado 
+FROM Prod.tbArea area INNER JOIN Prod.tbProcesos pro 
+ON area.proc_Id = pro.proc_Id  INNER JOIN Acce.tbUsuarios crea 
+ON crea.usua_Id = area.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
+ON modi.usua_Id = area.usua_UsuarioModificacion INNER JOIN Acce.tbUsuarios elim
+ON elim.usua_Id = area.usua_UsuarioEliminacion 
+GO
+
+--*****Listado*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbArea_Listar
+AS
+BEGIN
+	SELECT * FROM Prod.VW_tbArea
+	WHERE tipa_Estado = 1
+END
+GO
+
+--*****Insertar*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbArea_Insertar
+@tipa_area				NVARCHAR(200),
+@proc_Id				INT,
+@usua_UsuarioCreacion	INT,
+@tipa_FechaCreacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		IF EXISTS (SELECT * FROM Prod.tbArea WHERE tipa_area = @tipa_area AND proc_Id = @proc_Id)
+			BEGIN 
+				UPDATE Prod.tbArea
+				SET tipa_Estado = 1,
+				usua_UsuarioModificacion = @usua_UsuarioCreacion
+				tipa_FechaModificacion = @tipa_FechaCreacion
+				WHERE tipa_area = @tipa_area
+				SELECT 1
+			END
+		ELSE
+			BEGIN
+				INSERT INTO Prod.tbArea(tipa_area,proc_Id,usua_UsuarioCreacion,tipa_FechaCreacion)
+				VALUES (
+				@tipa_area,				
+				@proc_Id,				
+				@usua_UsuarioCreacion,	
+				@tipa_FechaCreacion				
+				)
+				SELECT 1
+			END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+--*****Editar*****--
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbArea_Editar
+@tipa_Id					INT,
+@tipa_area					NVARCHAR(200),
+@proc_Id					INT,
+@usua_UsuarioModificacion	INT,
+@tipa_FechaModificacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		IF EXISTS (SELECT * FROM Prod.tbArea WHERE tipa_area = @tipa_area AND proc_Id = @proc_Id)
+			BEGIN 
+				UPDATE Prod.tbArea
+				SET tipa_Estado = 1,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				tipa_FechaModificacion = @tipa_FechaModificacion
+				WHERE tipa_area = @tipa_area
+				SELECT 1
+			END
+		ELSE
+			BEGIN
+				UPDATE Prod.tbArea
+				SET tipa_area = @tipa_area,
+				proc_Id = @proc_Id,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				tipa_FechaModificacion = @tipa_FechaModificacion
+				WHERE tipa_Id = @tipa_Id	
+				SELECT 1
+			END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+--*****Eliminar*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbArea_Eliminar
+@tipa_Id					INT,
+@usua_UsuarioEliminacion	INT,
+@tipa_FechaEliminacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE Prod.tbArea
+		SET tipa_Estado = 0,
+		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+		tipa_FechaEliminacion = @tipa_FechaEliminacion
+		WHERE tipa_Id = @tipa_Id
+		
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
 END
 GO
 
@@ -580,7 +824,7 @@ BEGIN
 END
 GO
 
---*****Talla*****--
+--*****Tipo Embalaje*****--
 --*****Vista*****--
 CREATE OR ALTER VIEW Prod.VW_tbTipoEmbalaje
 AS

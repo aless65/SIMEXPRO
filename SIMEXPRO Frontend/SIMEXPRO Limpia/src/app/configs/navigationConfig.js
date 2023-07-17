@@ -351,7 +351,7 @@ const navigationConfig = [
                         title: 'Impresión Boletin de ',
                         type: 'item',
                         icon: 'heroicons-outline:printer',
-                        url: '/BoletindePago/ImpresionBoletin',
+                        url: 'BoletindePago/BoletinDePagoIndex',
                     },
                    
              

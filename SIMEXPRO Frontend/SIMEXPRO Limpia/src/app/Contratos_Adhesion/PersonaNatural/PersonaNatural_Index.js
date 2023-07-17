@@ -27,22 +27,19 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 
-function UsuariosIndex() {
+function ContratoAdhesionPersonaNatural() {
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
   const [Eliminar, setEliminar] = useState(false);
 
-  const DialogEliminar = () => {
-    setEliminar(!Eliminar);
-  };
+  const DialogEliminar = () => {setEliminar(!Eliminar);};
 
   {/* Columnas de la tabla */ }
   const columns = [
     { field: 'id', headerName: 'Id', width: 10 },
-    { field: 'usuario', headerName: 'Usuario', flex: 1 },
+    { field: 'codigo', headerName: 'Usuario', flex: 1 },
     { field: 'empleado', headerName: 'Empleado', flex: 1 },
-    { field: 'rol', headerName: 'Rol', flex: 1 },
     {
       field: 'acciones',
       headerName: 'Acciones',
@@ -93,10 +90,9 @@ function UsuariosIndex() {
 
   {/* Datos de la tabla */ }
   const rows = [
-    { id: '1', usuario: 'IsHatake', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
-    { id: '2', usuario: 'Admin', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
-    { id: '3', usuario: 'Shogun', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
-
+    { id: '1', usuario: 'IsHatake', empleado: 'Jafet Gomez'},
+    { id: '2', usuario: 'Admin', empleado: 'Jafet Gomez'},
+    { id: '3', usuario: 'Shogun', empleado: 'Jafet Gomez'},
   ];
 
   {/* Función para mostrar la tabla y mostrar agregar */ }
@@ -184,108 +180,6 @@ function UsuariosIndex() {
         </div>
       </Collapse>
 
-
-      {/* Formulario Agregar */}
-      <Collapse in={mostrarAdd}>
-        <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Typography variant="h5" gutterBottom>
-                Nuevo Usuario
-              </Typography>
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Usuario"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Contraseña"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <InputLabel htmlFor="grouped-native-select">Empleado</InputLabel>
-                <Select
-                  style={{ borderRadius: '10px' }}
-                  label="Empleado"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <InputLabel htmlFor="grouped-native-select">Rol</InputLabel>
-                <Select
-                  style={{ borderRadius: '10px' }}
-                  label="Rol"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <FormControl fullWidth>
-                <FormControlLabel
-                  control={<Switch sx={{ '&.Mui-checked': { color: '#634A9E' } }} />}
-                  label="Administrador"
-                  labelPlacement="bottom"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
-              <Button
-                startIcon={<Icon>checked</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px', marginRight: '10px' }}
-                sx={{
-                  backgroundColor: '#634A9E', color: 'white',
-                  "&:hover": { backgroundColor: '#6e52ae' },
-                }}
-                onClick={VisibilidadTabla}
-              >
-                Guardar
-              </Button>
-
-              <Button
-                startIcon={<Icon>close</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px' }}
-                sx={{
-                  backgroundColor: '#DAD8D8', color: 'black',
-                  "&:hover": { backgroundColor: '#BFBABA' },
-                }}
-                onClick={VisibilidadTabla}
-              >
-                Cancelar
-              </Button>
-            </Grid>
-
-          </Grid>
-        </CardContent>
-      </Collapse>
-
-
       <Dialog
         open={Eliminar}
         fullWidth="md"
@@ -338,7 +232,7 @@ function UsuariosIndex() {
   );
 }
 
-export default UsuariosIndex;
+export default ContratoAdhesionPersonaNatural;
 
 
 

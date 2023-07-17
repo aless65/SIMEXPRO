@@ -1,4 +1,11 @@
 --*****Modo Transporte*****--
+--Insert Modo de Transporte
+INSERT INTO Adua.tbModoTransporte(motr_Descripcion,usua_UsuarioCreacion,motr_FechaCreacion)
+VALUES	('Marítimo',1,GETDATE()),
+		('Aéreo',1,GETDATE()),
+		('Terrestre',1,GETDATE()),
+		('Fluvial',1,GETDATE())
+GO
 --*****Vista*****--
 
 CREATE OR ALTER VIEW Adua.VW_tbModoTransporte
@@ -112,7 +119,14 @@ BEGIN
 	END CATCH
 END
 GO
+
 --*****Tipos de documento*****--
+
+--Insert Tipo de documento
+INSERT INTO Adua.tbTipoDocumento(tido_Id, tido_Descripcion,usua_UsuarioCreacion,tido_FechaCreacion)
+VALUES	('','',1,GETDATE())
+		
+GO
 --*****Vista*****--
 CREATE OR ALTER VIEW Adua.VW_tbTipoDocumento
 AS
@@ -232,6 +246,10 @@ BEGIN
 END
 GO
 --*****Tipos de Liquidacion*****--
+-- Inserts Tipos de Liquidacion
+INSERT INTO Adua.tbTipoLiquidacion(tipl_Descripcion,usua_UsuarioCreacion,tipl_FechaCreacion)
+VALUES ('',1,GETDATE())
+GO
 --*****Vista*****--
 CREATE OR ALTER VIEW Adua.VW_tbTipoLiquidacion
 AS
@@ -347,6 +365,10 @@ BEGIN
 END
 GO
 --*****Estado Boletin*****--
+--Insert Estado Boletin
+INSERT INTO Adua.tbEstadoBoletin(esbo_Descripcion,usua_UsuarioCreacion,esbo_FechaCreacion)
+VALUES ('',1,GETDATE())
+GO
 --*****Vista*****--
 CREATE OR ALTER VIEW Adua.VW_tbEstadoBoletin
 AS
@@ -459,6 +481,10 @@ GO
 
 
 --*****Procesos*****--
+--Inserts Procesos
+INSERT INTO Prod.tbProcesos(proc_Descripcion,usua_UsuarioCreacion,proc_FechaCreacion)
+VALUES ('',1,GETDATE())
+GO
 --*****Vista*****--
 
 CREATE OR ALTER VIEW Prod.VW_tbProceso
@@ -575,6 +601,10 @@ END
 GO
 
 --*****AREA*****--
+--Insert Area
+INSERT INTO Prod.tbArea(tipa_area,proc_Id,usua_UsuarioCreacion,tipa_FechaCreacion)
+VALUES('',1,1,GETDATE())
+GO
 --*****Vista*****--
 CREATE OR ALTER VIEW Prod.VW_tbArea
 AS
@@ -700,6 +730,10 @@ END
 GO
 
 --*****Talla*****--
+--Insert Talla
+INSERT INTO Prod.tbTallas (tall_Id,tall_Nombre,usua_UsuarioCreacion,tall_FechaCreacion)
+VALUES ('','',1,GETDATE())
+GO
 --*****Vista*****--
 
 CREATE OR ALTER VIEW Prod.VW_tbTallas
@@ -825,6 +859,10 @@ END
 GO
 
 --*****Tipo Embalaje*****--
+--Inset Tipo Embalaje
+INSERT INTO Prod.tbTipoEmbalaje(tiem_Descripcion,usua_UsuarioCreacion,tiem_FechaCreacion)
+VALUES ('',1,GETDATE())
+GO
 --*****Vista*****--
 CREATE OR ALTER VIEW Prod.VW_tbTipoEmbalaje
 AS

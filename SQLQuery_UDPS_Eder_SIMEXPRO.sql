@@ -42,8 +42,20 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbEstadoMercancias_Insertar
 AS
 BEGIN
 	BEGIN TRY
-		INSERT INTO Adua.tbEstadoMercancias (merc_Descripcion, usua_UsuarioCreacion, merc_FechaCreacion)
-		VALUES (@merc_Descripcion, @usua_UsuarioCreacion, @merc_FechaCreacion)
+		IF EXISTS (SELECT * 
+					 FROM Adua.tbEstadoMercancias 
+					WHERE merc_Descripcion = @merc_Descripcion 
+					  AND merc_Estado = 0)
+		BEGIN 
+			UPDATE Adua.tbEstadoMercancias
+			   SET merc_Estado = 1
+			 WHERE merc_Descripcion = @merc_Descripcion 
+		END
+		ELSE
+		BEGIN
+			INSERT INTO Adua.tbEstadoMercancias (merc_Descripcion, usua_UsuarioCreacion, merc_FechaCreacion)
+			VALUES (@merc_Descripcion, @usua_UsuarioCreacion, @merc_FechaCreacion)
+		END
 
 		SELECT 1
 	END TRY
@@ -612,7 +624,7 @@ BEGIN
 	BEGIN TRY
 
 		IF EXISTS (SELECT * FROM [Gral].[tbEmpleados]
-						WHERE [empl_DNI] = @empl_DNI
+						WHERE [empl_DNI] = @empl_DNI AND [empl_Telefono] = @empl_Telefono
 						AND [empl_Estado] = 0)
 		BEGIN
 			UPDATE [Gral].[tbEmpleados]
@@ -694,6 +706,7 @@ CREATE OR ALTER PROCEDURE gral.UDP_tbEmpleados_Editar
 AS
 BEGIN
 	BEGIN TRY
+		
 		UPDATE  [Gral].[tbEmpleados]
 		SET		empl_Nombres = @empl_Nombres, 
 				empl_Apellidos = @empl_Apellidos, 

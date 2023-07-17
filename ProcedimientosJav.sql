@@ -1,8 +1,8 @@
 --*****Modo Transporte*****--
 --Insert Modo de Transporte
 INSERT INTO Adua.tbModoTransporte(motr_Descripcion,usua_UsuarioCreacion,motr_FechaCreacion)
-VALUES	('Marítimo',1,GETDATE()),
-		('Aéreo',1,GETDATE()),
+VALUES	('MarÃ­timo',1,GETDATE()),
+		('AÃ©reo',1,GETDATE()),
 		('Terrestre',1,GETDATE()),
 		('Fluvial',1,GETDATE())
 GO

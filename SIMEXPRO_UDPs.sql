@@ -426,12 +426,12 @@ BEGIN
 	BEGIN TRY
 
 		BEGIN
-			DECLARE @respuesta INT
-			EXEC dbo.UDP_ValidarReferencias 'ofic_Id', @ofic_Id, 'gral.tbOficinas', @respuesta OUTPUT
+				DECLARE @respuesta INT
+				EXEC dbo.UDP_ValidarReferencias 'ofic_Id', @ofic_Id, 'gral.tbOficinas', @respuesta OUTPUT
 
-			SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
-				BEGIN
+				SELECT @respuesta AS Resultado
+				IF(@respuesta) = 1
+					BEGIN
 					UPDATE	[Gral].[tbOficinas]
 					SET		[ofic_Estado] = 0,
 							[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,

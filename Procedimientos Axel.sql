@@ -3,7 +3,7 @@
 --Marcas Maquinas
 --Modelos Maquinas
 
-----------------------------------------------------------------//  Modulos de Producción Procedimientos Inicio \\-------------------------------------------------------------------------------------------
+----------------------------------------------------------------//  Modulos de Producciï¿½n Procedimientos Inicio \\-------------------------------------------------------------------------------------------
 --************************************************************************   Tabla Modulos inicio   ***********************************************************************************************
 
 GO
@@ -21,6 +21,16 @@ FROM	Prod.tbModulos modu			INNER JOIN Prod.tbProcesos proe
 ON		modu.proc_Id = proe.proc_Id INNER JOIN Gral.tbEmpleados empe
 ON		modu.empr_Id = empe.empl_Id 
 WHERE   empe.empl_EsAduana = 0 AND modu_Estado = 1
+
+GO
+
+--Ejecutar procedimiento de listar modulos
+CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Listar
+AS
+BEGIN
+	SELECT * 
+	FROM	Prod.VW_tbModulos
+END
 
 GO
 
@@ -127,6 +137,16 @@ WHERE	maqu.maqu_Estado = 1
 
 GO
 
+--Ejecutar procedimiento de listar Maquinas
+CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinas_Listar
+AS
+BEGIN
+	SELECT 	* 
+	FROM	Prod.VW_tbMaquinas
+END
+
+GO
+
 --Insertar Maquinas
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinas_Insertar
 	@maqu_NumeroSerie		NVARCHAR(100),
@@ -222,6 +242,16 @@ SELECT  mrqu.marq_Id,
 		mrqu.marq_Nombre
 FROM    Prod.tbMarcasMaquinas mrqu
 WHERE	mrqu.[marq_Estado] = 1
+
+GO
+
+--Ejecutar procedimiento de listar MarcasMaquina
+CREATE OR ALTER PROCEDURE Prod.UDP_tbMarcasMaquinas_Listar
+AS
+BEGIN
+	SELECT 	* 
+	FROM	Prod.VW_tbMarcasMaquina
+END
 
 GO
 
@@ -326,6 +356,16 @@ ON		moma.marq_Id = mrqu.marq_Id
 
 GO
 
+--Ejecutar procedimiento de listar ModelosMaquina
+CREATE OR ALTER PROCEDURE Prod.UDP_tbModelosMaquina_Listar
+AS
+BEGIN
+	SELECT 	* 
+	FROM	Prod.VW_tbModelosMaquina
+END
+
+GO
+
 --Insertar Modelos Maquinas
 CREATE OR ALTER PROCEDURE Prod.UDP_tbModelosMaquina_Insertar
 	@mmaq_Nombre				NVARCHAR(250),
@@ -420,7 +460,7 @@ END
 
 GO
 --************************************************************************   Tabla Modelos maquinas fin   ***********************************************************************************************
-----------------------------------------------------------------------//  Modulos de Producción Procedimientos final \\-------------------------------------------------------------------------------------------
+----------------------------------------------------------------------//  Modulos de Producciï¿½n Procedimientos final \\-------------------------------------------------------------------------------------------
 GO
 ---------------------------------------------------------------------//  Modulos de Aduanas Procedimientos Inicio \\-------------------------------------------------------------------------------------------
 --************************************************************************   Tabla Aranceles inicio   ***********************************************************************************************
@@ -436,15 +476,25 @@ WHERE	aram_Estado = 1
 
 GO
 
+--Ejecutar procedimiento de listar Aranceles
+CREATE OR ALTER PROCEDURE Adua.UDP_tbAranceles_Listar
+AS
+BEGIN
+	SELECT 	* 
+	FROM	Prod.VW_tbArenceles
+END
+
+GO
+
 --Insertar Aranceles
-CREATE OR ALTER PROCEDURE Adua.UDP_tbAranceles_Insertar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbAranceles_Insertar 
 	@aran_Codigo				NVARCHAR(100),
 	@aran_Descripcion			NVARCHAR(150),
 	@usua_UsuarioCreacion		INT,
 	@aran_FechaCreacion			DATETIME
 AS
 BEGIN
-	SET @aran_FechaCreacion = DATETIME;
+	SET @aran_FechaCreacion = GETDATE();
 	BEGIN TRY
 		IF EXISTS(SELECT aran_Id FROM Adua.tbAranceles WHERE aran_Codigo = @aran_Codigo AND aran_Descripcion = @aran_Descripcion AND aram_Estado = 0)
 			BEGIN
@@ -469,8 +519,10 @@ END
 
 GO
 
+
+
 --Editar Aranceles
-CREATE OR ALTER PROCEDURE Adua.UDP_tbAranceles_Editar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbAranceles_Editar 
 	@aran_Id					INT,
 	@aran_Codigo				NVARCHAR(100),
 	@aran_Descripcion			NVARCHAR(150),
@@ -495,9 +547,10 @@ END
 
 GO
 
+go
 --Eliminar Aranceles
-CREATE OR ALTER PROCEDURE Adua.UDP_tbAranceles_Eliminar
-	@aran_Id					INT,
+CREATE OR ALTER PROCEDURE Adua.UDP_tbAranceles_Eliminar 
+	@aran_Id					INT
 	@usua_UsuarioEliminacion	INT,
 	@aran_FechaEliminacion		DATETIME
 AS
@@ -511,7 +564,7 @@ BEGIN
 		IF(@respuesta = 1)
 		BEGIN
 			UPDATE	Adua.tbAranceles
-			SET		aram_Estado = 0,
+			SET		aram_Estado = 0
 					usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
 					aran_FechaEliminacion = @aran_FechaEliminacion
 			WHERE	aran_Id = @aran_Id
@@ -545,6 +598,17 @@ ON		decl.pvin_Id = prvi.pvin_Id INNER JOIN Gral.tbPaises  pais
 ON		prvi.pais_Codigo = pais.pais_Codigo
 
 GO
+
+--Ejecutar procedimiento de listar Declarantes
+CREATE OR ALTER PROCEDURE Adua.UDP_tbDeclarantes_Listar
+AS
+BEGIN
+	SELECT 	* 
+	FROM	Adua.VW_tbDeclarantes
+END
+
+GO
+
 
 --Insertar Declarantes
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDeclarantes_Insertar

@@ -527,7 +527,7 @@ const navigationConfig = [
                         title: 'Materiales',
                         type: 'item',
                         icon: 'material-outline:bakery_dining',
-                        url: '/Inventario/Materiales',
+                        url: '/Materiales/Index',
                     },
                     {
                         id: 'Inventario.MaterialesBrindar',

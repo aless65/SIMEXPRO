@@ -23,7 +23,7 @@ import ColoresIndex from '../Prendas/Colores/Colores';
 import InspeccionesIndex from '../Produccion/Inspecciones/InspeccionesEstado';
 import MaquinaHistorialIndex from '../Maquinaria/MaquinaHistorial/MaquinaHistorial';
 import MaquinaModulosIndex from '../Maquinaria/MaquinaModulos/MaquinaModulos';
-
+import MaterialesIndex from '../Inventario/Materiales/Materiales';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -131,6 +131,10 @@ const routes = [
   {
     path: 'MaquinaModulos/Index',
     element: <MaquinaModulosIndex/>
+  },
+  {
+    path: 'Materiales/Index',
+    element: <MaterialesIndex/>
   },
 ];
 

@@ -3,16 +3,19 @@
 
 CREATE OR ALTER VIEW Adua.VW_tbModoTransporte
 AS
-SELECT	modo.motr_Id, 
-		modo.motr_Descripcion, 
-		crea.usua_Nombre usua_UsuarioCreacion, 
-		modo.motr_FechaCreacion, 
-		modi.usua_Nombre usua_UsuarioModificacion, 
-		modo.motr_FechaModificacion, 
+SELECT	modo.motr_Id,
+		modo.motr_Descripcion,
+		crea.usua_Nombre usua_UsuarioCreacion,
+		modo.motr_FechaCreacion,
+		modi.usua_Nombre usua_UsuarioModificacion,
+		modo.motr_FechaModificacion,
+		elim.usua_Nombre usua_UsuarioEliminacion,
+		motr_FechaEliminacion,
 		modo.motr_Estado
 FROM Adua.tbModoTransporte modo INNER JOIN Acce.tbUsuarios crea 
 ON crea.usua_Id = modo.usua_UsuarioCreacion		INNER JOIN  Acce.tbUsuarios modi 
-ON modi.usua_Id = modo.usua_UsuarioModificacion 
+ON modi.usua_Id = modo.usua_UsuarioModificacion INNER JOIN Acce.tbUsuarios elim
+ON elim.usua_Id = modo.usua_UsuarioEliminacion
 GO
 --*****Listado*****--
 CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Listar
@@ -92,12 +95,16 @@ END
 GO
 --*****Eliminar*****--
 CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Eliminar
-@motr_Id					INT
+@motr_Id					INT,
+@usua_UsuarioEliminacion	INT,
+@motr_FechaEliminacion		DATETIME
 AS
 BEGIN
 	BEGIN TRY
 		UPDATE Adua.tbModoTransporte
-		SET		motr_Estado = 0
+		SET		motr_Estado		= 0,
+		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+		motr_FechaEliminacion	= @motr_FechaEliminacion
 		SELECT 1
 	END TRY
 	BEGIN CATCH
@@ -112,13 +119,16 @@ AS
 SELECT	tido_Id, 
 		tido_Descripcion, 
 		crea.usua_Nombre usua_UsuarioCreacion, 
-		tido_FechaCrea, 
+		tido_FechaCreacion, 
 		modi.usua_Nombre usua_UsuarioModificacion, 
 		tido_FechaModificacion, 
+		elim.usua_Nombre usua_UsuarioEliminacion,
+		tido_FechaEliminacion,
 		tido_Estado 
 FROM	Adua.tbTipoDocumento tido INNER JOIN Acce.tbUsuarios crea 
 ON crea.usua_Id = tido.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
-ON modi.usua_Id = tido.usua_UsuarioModificacion
+ON modi.usua_Id = tido.usua_UsuarioModificacion INNER JOIN Acce.tbUsuarios elim
+ON elim.usua_Id = tido.usua_UsuarioEliminacion
 GO
 
 --*****Listado*****--
@@ -150,7 +160,7 @@ BEGIN
 			END
 		ELSE
 			BEGIN
-				INSERT INTO Adua.tbTipoDocumento (tido_Id,tido_Descripcion,usua_UsuarioCreacion,tido_FechaCrea)
+				INSERT INTO Adua.tbTipoDocumento (tido_Id,tido_Descripcion,usua_UsuarioCreacion,tido_FechaCreacion)
 				VALUES (
 				@tido_Id,
 				@tido_Descripcion,
@@ -180,7 +190,7 @@ BEGIN
 				UPDATE Adua.tbTipoDocumento
 				SET tido_Estado = 1,
 				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				tido_FechaCrea = @tido_FechaModificacion
+				tido_FechaModificacion = @tido_FechaModificacion
 				WHERE @tido_Id = tido_Id
 
 				SELECT 1
@@ -189,8 +199,8 @@ BEGIN
 			BEGIN
 				UPDATE Adua.tbTipoDocumento
 				SET @tido_Descripcion = @tido_Descripcion,
-				@usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				@tido_FechaModificacion = @tido_FechaModificacion
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				tido_FechaModificacion = @tido_FechaModificacion
 				WHERE tido_Id = @tido_Id
 
 				SELECT 1
@@ -204,12 +214,16 @@ GO
 
 --*****Eliminar*****--
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoDocumento_Eliminar
-@tido_Id					CHAR(4)
+@tido_Id					CHAR(4),
+@usua_UsuarioEliminacion		INT,
+@tido_FechaEliminacion		DATETIME
 AS
 BEGIN
 	BEGIN TRY
 		UPDATE Adua.tbTipoDocumento
-		SET tido_Estado = 0
+		SET tido_Estado = 0,
+		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+		tido_FechaEliminacion = tido_FechaEliminacion
 		WHERE tido_Id = @tido_Id
 	END TRY
 	BEGIN CATCH
@@ -227,10 +241,13 @@ SELECT	tipl_Id,
 		tipl_FechaCreacion, 
 		modi.usua_Nombre usua_UsuarioModificacion, 
 		tipl_FechaModificacion, 
+		elim.usua_Nombre usua_UsuarioEliminacion,
+		tipl_FechaEliminacion,
 		tipl_Estado 
 FROM	Adua.tbTipoLiquidacion tilin INNER JOIN Acce.tbUsuarios crea 
 ON crea.usua_Id = tilin.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
-ON modi.usua_Id = tilin.usua_UsuarioModificacion
+ON modi.usua_Id = tilin.usua_UsuarioModificacion INNER JOIN Acce.tbUsuarios elim
+ON elim.usua_Id = tilin.usua_UsuarioEliminacion
 GO
 --*****Listado*****--
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoLiquidacion_Listar
@@ -312,12 +329,16 @@ END
 GO
 --*****Eliminar*****--
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoLiquidacion_Eliminar
-@tipl_Id					INT
+@tipl_Id					INT,
+@usua_UsuarioEliminacion	INT,
+@tipl_FechaEliminacion		DATETIME
 AS
 BEGIN
 	BEGIN TRY
 		UPDATE Adua.tbTipoLiquidacion
-		SET tipl_Estado = 0
+		SET tipl_Estado = 0,
+		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+		tipl_FechaEliminacion = @tipl_FechaEliminacion
 		WHERE tipl_Id = @tipl_Id
 	END TRY
 		BEGIN CATCH
@@ -335,10 +356,12 @@ SELECT	esbo_Id,
 		esbo_FechaCreacion, 
 		modi.usua_Nombre usua_UsuarioModificacion, 
 		esbo_FechaModificacion, 
+
 		esbo_Estadoo 
 FROM Adua.tbEstadoBoletin esbo INNER JOIN Acce.tbUsuarios crea 
 ON crea.usua_Id = esbo.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
-ON modi.usua_Id = esbo.usua_UsuarioModificacion
+ON modi.usua_Id = esbo.usua_UsuarioModificacion INNER JOIN Acce.tbUsuarios elim
+ON elim.usua_Id = esbo.usua_UsuarioEliminacion 
 GO
 --*****Listado*****--
 CREATE OR ALTER PROCEDURE Adua.UDP_tbEstadoBoletin_Listar
@@ -414,3 +437,21 @@ BEGIN
 END
 GO
 --*****Eliminar*****--
+CREATE OR ALTER PROCEDURE Adua.UDP_tbEstadoBoletin_Eliminar
+@esbo_Id					INT,
+@usua_UsuarioModificacion	INT,
+@esbo_FechaModificacion		DATETIME
+AS
+BEGIN
+BEGIN TRY
+	UPDATE Adua.tbEstadoBoletin
+	SET esbo_Estadoo = 0,
+	usua_UsuarioModificacion = @usua_UsuarioModificacion,
+	esbo_FechaModificacion = @esbo_FechaModificacion
+END TRY
+	BEGIN CATCH
+		SELECT 0	
+	END CATCH 
+END
+GO
+

@@ -21,12 +21,12 @@ GO
 
 
 /*Listar estados civiles*/
-CREATE OR ALTER PROCEDURE gral.UDP_VW_tbEstadosCiviles_Listar
+CREATE OR ALTER PROCEDURE gral.UDP_tbEstadosCiviles_Listar
 AS
 BEGIN
-	SELECT *
-    FROM gral.VW_tbEstadosCiviles
-	WHERE estadoCivilEstado = 1
+	SELECT [escv_Id], [escv_Nombre]
+    FROM [Gral].[tbEstadosCiviles]
+	WHERE [escv_Estado] = 1
 END
 GO
 
@@ -154,7 +154,7 @@ END
 GO
 
 /*Insertar oficinas*/
-CREATE OR ALTER PROCEDURE gral.UDP_tbOficinas_Insertar
+CREATE OR ALTER PROCEDURE gral.UDP_tbOficinas_Insertar 
 	@ofic_Nombre			NVARCHAR(150),
 	@usua_UsuarioCreacion	INT,
 	@ofic_FechaCreacion     DATETIME
@@ -193,7 +193,7 @@ END
 GO
 
 /*Editar oficinas*/
-CREATE OR ALTER PROCEDURE gral.UDP_tbOficinas_Editar
+CREATE OR ALTER PROCEDURE gral.UDP_tbOficinas_Editar 
 	@ofic_Id					INT,
 	@ofic_Nombre				NVARCHAR(150),
 	@usua_UsuarioModificacion	INT,
@@ -279,8 +279,9 @@ BEGIN
 END
 GO
 
+
 /*Insertar oficio/profesión*/
-CREATE OR ALTER PROCEDURE gral.UDP_tbOficio_Profesiones_Insertar
+CREATE OR ALTER PROCEDURE gral.UDP_tbOficio_Profesiones_Insertar 
 	@ofpr_Nombre			NVARCHAR(150),
 	@usua_UsuarioCreacion	INT,
 	@ofpr_FechaCreacion     DATETIME
@@ -319,7 +320,7 @@ END
 GO
 
 /*Editar oficio/profesión*/
-CREATE OR ALTER PROCEDURE gral.UDP_tbOficio_Profesiones_Editar
+CREATE OR ALTER PROCEDURE gral.UDP_tbOficio_Profesiones_Editar 
 	@ofpr_Id					INT,
 	@ofpr_Nombre				NVARCHAR(150),
 	@usua_UsuarioModificacion	INT,
@@ -406,7 +407,7 @@ END
 GO
 
 /*Insertar cargos*/
-CREATE OR ALTER PROCEDURE gral.UDP_tbCargos_Insertar
+CREATE OR ALTER PROCEDURE gral.UDP_tbCargos_Insertar 
 	@carg_Nombre			NVARCHAR(150),
 	@usua_UsuarioCreacion	INT,
 	@carg_FechaCreacion     DATETIME
@@ -445,7 +446,7 @@ END
 GO
 
 /*Editar cargos*/
-CREATE OR ALTER PROCEDURE gral.UDP_tbCargos_Editar
+CREATE OR ALTER PROCEDURE gral.UDP_tbCargos_Editar 
 	@carg_Id					INT,
 	@carg_Nombre				NVARCHAR(150),
 	@usua_UsuarioModificacion	INT,

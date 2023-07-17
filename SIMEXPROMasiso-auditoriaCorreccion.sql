@@ -244,7 +244,7 @@ CREATE TABLE Gral.tbProvincias(
 	CONSTRAINT FK_Gral_tbProvincias_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbProvincias_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioEliminacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT UQ_Gral_tbProvincias_pvin_Nombre UNIQUE(pvin_Nombre),
-	CONSTRAINT UQ_Gral_tbProvincias_pvin_Codigo UNIQUE(pvin_Codigo)
+	--CONSTRAINT UQ_Gral_tbProvincias_pvin_Codigo UNIQUE(pvin_Codigo)
 );
 GO
 
@@ -266,8 +266,7 @@ CREATE TABLE Gral.tbCiudades(
 
 	CONSTRAINT FK_Gral_tbCiudades_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioCreacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbCiudades_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Gral_tbCiudades_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioEliminacion) REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT UQ_Gral_tbCiudades_ciud_Nombre UNIQUE(ciud_Nombre)
+	CONSTRAINT FK_Gral_tbCiudades_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioEliminacion) REFERENCES Acce.tbUsuarios (usua_Id)
 );
 GO
 
@@ -379,8 +378,8 @@ CREATE TABLE Gral.tbCargos(
 
 	CONSTRAINT FK_Gral_tbCargos_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioCreacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbCargos_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Gral_tbCargos_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioEliminacion) REFERENCES Acce.tbUsuarios (usua_Id)
-
+	CONSTRAINT FK_Gral_tbCargos_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioEliminacion) REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT UQ_Gral_tbCargos__carg_Nombre UNIQUE(carg_Nombre)
 );
 GO
 
@@ -1269,7 +1268,8 @@ CREATE TABLE Gral.tbOficio_Profesiones(
 	ofpr_FechaEliminacion		DATETIME DEFAULT NULL,
 	ofpr_Estado                	BIT DEFAULT 1,
 	
-	CONSTRAINT PK_Gral_tbOficinasProfesiones_ofpr_Id1 PRIMARY KEY (ofpr_Id),
+	CONSTRAINT PK_Gral_tbOficinasProfesiones_ofpr_Id PRIMARY KEY (ofpr_Id),
+	CONSTRAINT UQ_Gral_tbOficinasProfesiones_ofpr_Nombre UNIQUE(ofpr_Nombre),
 	CONSTRAINT FK_Gral_tbOficio_Profesiones_ofpr_UsuarioCreacion_Acce_tbUsuarios_usua_Id FOREIGN KEY (usua_UsuarioCreacion) REFERENCES Acce.tbUsuarios(usua_Id),
 	CONSTRAINT FK_Gral_tbOficio_Profesiones_ofpr_UsuarioModificacion_Acce_tbUsuarios_usua_Id FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios(usua_Id),
 	CONSTRAINT FK_Gral_tbOficio_Profesiones_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id FOREIGN KEY (usua_UsuarioEliminacion) REFERENCES Acce.tbUsuarios(usua_Id),
@@ -1350,7 +1350,7 @@ CREATE TABLE Adua.tbComercianteIndividual (
   
   	CONSTRAINT FK_Adua_ComercianteIndividual_coin_UsuarioCreacion_Acce_tbUsuarios_usua_Id		   	  FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
   	CONSTRAINT FK_Adua_ComercianteIndividual_coin_UsuarioModificacion_Acce_tbUsuarios_usua_Id		  FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
-  	CONSTRAINT FK_Adua_ComercianteIndividual_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id		  FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios (usua_Id),}
+  	CONSTRAINT FK_Adua_ComercianteIndividual_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id		  FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios (usua_Id)
 	
 );
 GO
@@ -1662,7 +1662,7 @@ CREATE TABLE Prod.tbMaquinaHistorial(
 	CONSTRAINT PK_Prod_tbMaquinaHistorial_mahi_Id								PRIMARY KEY(mahi_Id),
 	CONSTRAINT FK_Prod_tbMaquinaHistorial_Prod_tbMaquinas_maqu_Id				FOREIGN KEY(maqu_Id) REFERENCES Prod.tbMaquinas(maqu_Id),
 	CONSTRAINT FK_Prod_tbMaquinaHistorial_tbUsuarios_mahi_UsuaCrea				FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Prod_tbMaquinaHistorial_tbUsuarios_mahi_UsuModificacion		FOREIGN KEY (usua_UsuarioModificacion) 	REFERENCES Acce.tbUsuarios (usua_Id)
+	CONSTRAINT FK_Prod_tbMaquinaHistorial_tbUsuarios_mahi_UsuModificacion		FOREIGN KEY (usua_UsuarioModificacion) 	REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbMaquinaHistorial_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
@@ -1840,7 +1840,7 @@ CREATE TABLE Adua.tbTransporte(
 	CONSTRAINT PK_Adua_tbTransporte_tran_Id PRIMARY KEY(tran_Id),
 	CONSTRAINT FK_Prod_tbTransporte_tbUsuarios_tran_UsuCrea			FOREIGN KEY (usua_UsuarioCreacio)		REFERENCES Acce.tbUsuarios 	(usua_Id),
 	CONSTRAINT FK_Prod_tbTransporte_tbUsuarios_tran_UsuModifica		FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios 	(usua_Id),
-	CONSTRAINT FK_Gral_tbPaises_pais_Id_Adua_tbTransporte_pais_Id 	FOREIGN KEY (pais_Id)					REFERENCES Gral.tbPaises(pais_Codigo)
+	CONSTRAINT FK_Gral_tbPaises_pais_Id_Adua_tbTransporte_pais_Id 	FOREIGN KEY (pais_Id)					REFERENCES Gral.tbPaises(pais_Codigo),
 	CONSTRAINT PK_Adua_tbTransporte_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
@@ -1865,7 +1865,7 @@ CREATE TABLE Adua.tbConductor(
 	CONSTRAINT FK_Prod_tbConductor_tbUsuarios_cont_UsuCrea			FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios 	(usua_Id),
 	CONSTRAINT FK_Prod_tbConductor_tbUsuarios_cont_UsuModifica		FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios 	(usua_Id),
 	-- CONSTRAINT FK_Gral_tbPaises_pais_Id_Adua_tbConductor_pais_IdExpedicion FOREIGN KEY (pais_IdExpedicion) REFERENCES Gral.tbPaises (pais_Id),
-	CONSTRAINT FK_Adua_tbTransporte_tran_Id_Adua_tbConductor_tran_Id FOREIGN KEY (tran_Id) REFERENCES Adua.tbTransporte(tran_Id)
+	CONSTRAINT FK_Adua_tbTransporte_tran_Id_Adua_tbConductor_tran_Id FOREIGN KEY (tran_Id) REFERENCES Adua.tbTransporte(tran_Id),
 	CONSTRAINT FK_Prod_tbConductor_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
@@ -1939,9 +1939,9 @@ CREATE TABLE Prod.tbPedidosProduccionDetalles(
 	CONSTRAINT PK_Prod_tbPedidosProduccionDetalle PRIMARY KEY (ppde_Id),
 	CONSTRAINT FK_Prod_tbPedidosProduccionDetalle_ppro_Id_Prod_tbPedidosProduccion FOREIGN KEY (ppro_Id) REFERENCES Prod.tbPedidosProduccion(ppro_Id),
 	CONSTRAINT FK_Prod_tbPedidosProduccionDetalle_lote_Id_Prod_tbLotes FOREIGN KEY (lote_Id) REFERENCES Prod.tbLotes(lote_Id),
-	CONSTRAINT FK_Prod_tbPedidosProduccion_tbUsuarios_ppde_UsuCrea				FOREIGN KEY (usua_UsuarioCreacion)     	REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Prod_tbPedidosProduccion_tbUsuarios_ppde_UsuModifica			FOREIGN KEY (usua_UsuarioModificacion) 	REFERENCES Acce.tbUsuarios (usua_Id), 
-	CONSTRAINT FK_Prod_tbPedidosProduccion_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
+	CONSTRAINT FK_Prod_tbPedidosProduccionDetalle_tbUsuarios_ppde_UsuCrea				FOREIGN KEY (usua_UsuarioCreacion)     	REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT FK_Prod_tbPedidosProduccionDetalle_tbUsuarios_ppde_UsuModifica			FOREIGN KEY (usua_UsuarioModificacion) 	REFERENCES Acce.tbUsuarios (usua_Id), 
+	CONSTRAINT FK_Prod_tbPedidosProduccionDetalle_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
 
@@ -1960,7 +1960,7 @@ CREATE TABLE Adua.tbModoTransporte(
 	CONSTRAINT PK_Adua_tbModoTransporte_tran_Id PRIMARY KEY(motr_Id),
 	CONSTRAINT FK_Prod_tbModoTransporte_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios 	(usua_Id),
 	CONSTRAINT FK_Prod_tbModoTransporte_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id	FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios 	(usua_Id),
-    CONSTRAINT UQ_Adua_tbModoTransporte_iden_Descripcion UNIQUE(motr_Descripcion)
+    CONSTRAINT UQ_Adua_tbModoTransporte_iden_Descripcion UNIQUE(motr_Descripcion),
 	CONSTRAINT FK_Prod_tbModoTransporte__Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
@@ -2017,7 +2017,7 @@ CREATE TABLE Adua.tbDuca(
 	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_deva_Id_Adua_tbDeclaraciondeValor 	FOREIGN KEY (deva_Id) 				REFERENCES Adua.tbDeclaraciones_Valor(deva_Id),
 	CONSTRAINT FK_Adua_tbDuca_tbUsuarios_duca_UsuCrea			               	FOREIGN KEY (usua_UsuarioCreacion)     		REFERENCES Acce.tbUsuarios 	(usua_Id),
 	CONSTRAINT FK_Prod_tbDuca_tbUsuarios_duca_UsuModifica		               	FOREIGN KEY (usua_UsuarioModificacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id),
-	CONSTRAINT FK_Adua_tbDuca_tbTipoTransporte_motr_Id			                FOREIGN KEY (motr_id)            REFERENCES Adua.tbModoTransporte(motr_id)
+	CONSTRAINT FK_Adua_tbDuca_tbTipoTransporte_motr_Id			                FOREIGN KEY (motr_id)            REFERENCES Adua.tbModoTransporte(motr_id),
 	CONSTRAINT FK_Adua_tbDuca__Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
@@ -2044,7 +2044,7 @@ CREATE TABLE Prod.tbPedidosOrden(
 	CONSTRAINT FK_Prod_tbPedidosOrden_prov_Id_Prod_tbProveedores_prov_Id 			FOREIGN KEY (prov_Id)			REFERENCES Gral.tbProveedores(prov_Id),
 	CONSTRAINT FK_Prod_tbPedidosOrden_tbUsuarios_peor_UsuarioCreacion				FOREIGN KEY (usua_UsuarioCreacion)     	REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbPedidosOrden_tbUsuarios_peor_UsuarioModificacion			FOREIGN KEY (usua_UsuarioModificacion) 	REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Prod_tbPedidosOrden_tbDuca_peor_No_Duca							FOREIGN KEY(peor_No_Duca)		REFERENCES Adua.tbDuca(duca_No_Duca)
+	CONSTRAINT FK_Prod_tbPedidosOrden_tbDuca_peor_No_Duca							FOREIGN KEY(peor_No_Duca)		REFERENCES Adua.tbDuca(duca_No_Duca),
 	CONSTRAINT FK_Prod_tbPedidosOrden__Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
@@ -2134,7 +2134,7 @@ CREATE TABLE Adua.tbMarcas(
 	CONSTRAINT PK_Adua_tbMarcas_marc_Id PRIMARY KEY(marc_Id),
 	CONSTRAINT FK_Prod_tbMarcas_tbUsuarios_marc_UsuarioCreacion		FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios 	(usua_Id),
 	CONSTRAINT FK_Prod_tbMarcas_tbUsuarios_marc_UsuarioModificacion	FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios 	(usua_Id),
-    CONSTRAINT UQ_Adua_tbMarcas_marc_Descripcion UNIQUE(marc_Descripcion)
+    CONSTRAINT UQ_Adua_tbMarcas_marc_Descripcion UNIQUE(marc_Descripcion),
 	CONSTRAINT FK_Prod_tbMarcas_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
@@ -2153,7 +2153,7 @@ CREATE TABLE Adua.tbTiposIdentificacion(
 	CONSTRAINT PK_Adua_tbTiposIdentificacion_iden_Id PRIMARY KEY(iden_Id),
 	CONSTRAINT FK_Prod_tbTiposIdentificacion_tbUsuarios_iden_UsuarioCreacion		FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios 	(usua_Id),
 	CONSTRAINT FK_Prod_tbTiposIdentificacion_tbUsuarios_iden_UsuarioModificacion	FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios 	(usua_Id),
-    CONSTRAINT UQ_Adua_tbTiposIdentificacion_iden_Descripcion UNIQUE(iden_Descripcion)
+    CONSTRAINT UQ_Adua_tbTiposIdentificacion_iden_Descripcion UNIQUE(iden_Descripcion),
 	CONSTRAINT FK_Prod_tbTiposIdentificacion_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
@@ -2179,7 +2179,7 @@ CREATE TABLE Adua.tbLiquidacionGeneral(
 	CONSTRAINT PK_Adua_tbLiquidacionGeneral_lige_Id PRIMARY KEY(lige_Id),
 	CONSTRAINT FK_Adua_tbDuca_duca_Id_Adua_tbLiquidacionGeneral_duca_Id 	                    FOREIGN KEY	(duca_Id) 				        REFERENCES Adua.tbDuca(duca_No_Duca),
 	CONSTRAINT FK_Adua_tbLiquidacionGeneral_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id	    FOREIGN KEY (usua_UsuarioCreacion)     		REFERENCES Acce.tbUsuarios 	(usua_Id),
-	CONSTRAINT FK_Adua_tbLiquidacionGeneral_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id	FOREIGN KEY (usua_UsuarioModificacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
+	CONSTRAINT FK_Adua_tbLiquidacionGeneral_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id	FOREIGN KEY (usua_UsuarioModificacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id),
 	CONSTRAINT FK_Adua_tbLiquidacionGeneral_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
@@ -2198,7 +2198,7 @@ CREATE TABLE Adua.tbTipoDocumento(
 	CONSTRAINT PK_Adua_tbTipoDocumento_tido_Id PRIMARY KEY(tido_Id),
 	CONSTRAINT UQ_Adua_tbTipoDocumento_tido_Descripcion UNIQUE(tido_Descripcion),
 	CONSTRAINT FK_Adua_tbTipoDocumento_Acce_tbUsuarios_usua_UsuarioCreacion_usua_Id			FOREIGN KEY (usua_UsuarioCreacion)     		REFERENCES Acce.tbUsuarios 	(usua_Id),
-	CONSTRAINT FK_Adua_tbTipoDocumento_Acce_tbUsuarios_usua_UsuarioModificacion_usua_Id		FOREIGN KEY (usua_UsuarioModificacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
+	CONSTRAINT FK_Adua_tbTipoDocumento_Acce_tbUsuarios_usua_UsuarioModificacion_usua_Id		FOREIGN KEY (usua_UsuarioModificacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id),
 	CONSTRAINT FK_Adua_tbTipoDocumento__Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
@@ -2219,7 +2219,7 @@ CREATE TABLE Gral.tbDocumentosPDF(
     dpdf_Estado                BIT DEFAULT 1,
 	CONSTRAINT PK_Gral_tbDocumentosPDF_dpdf_ID PRIMARY KEY (dpdf_ID),
 	CONSTRAINT FK_Acce_tbUsuarios_usua_Id_Gral_tbDocumentosPDF_usua_UsuarioCreacion   FOREIGN KEY (usua_UsuarioCreacion) REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Acce_tbUsuarios_usua_Id_Gral_tbDocumentosPDF_usua_UsuarioModicacion FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id)
+	CONSTRAINT FK_Acce_tbUsuarios_usua_Id_Gral_tbDocumentosPDF_usua_UsuarioModicacion FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbDocumentosPDF_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 ); 
 GO

@@ -27,6 +27,13 @@ const navigationConfig = [
         url: '/dashboards/project',
       },
       {
+        id: 'dashboards.project',
+        title: 'loa',
+        type: 'item',
+        icon: 'heroicons-outline:clipboard-check',
+        url: '/phymo',
+      },
+      {
         id: 'dashboards.analytics',
         title: 'Analytics',
         type: 'item',

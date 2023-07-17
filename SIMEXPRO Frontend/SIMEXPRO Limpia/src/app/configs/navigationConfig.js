@@ -228,21 +228,7 @@ const navigationConfig = [
                     },
 
                 ],
-            },
-            {
-                id: 'general.prendas',
-                title: 'Prendas',
-                type: 'collapse',
-                icon: 'material-outline:checkroom',
-                translate: 'Prendas',
-                children: [
-                    {
-                        id: 'Prendas.Colores',
-                        title: 'Colores',
-                        type: 'item',
-                        icon: 'material-outline:format_color_fill',
-                        url: '/Colores/Index',
-                    },
+            }
 
 
 
@@ -397,8 +383,7 @@ const navigationConfig = [
                         icon: 'material-outline:all_inbox',
                         url: '/Maquinaria/MaquinaHistorial',
                     },               
-                        url: '/MaquinaHistorial/Index',
-                    },
+                    
                     {
                         id: 'Maquinaria.MaquinaModulos',
                         title: 'Módulo de Máquina',
@@ -419,13 +404,6 @@ const navigationConfig = [
                         type: 'item',
                         icon: 'material-outline:precision_manufacturing',
                         url: '/Maquinas/Index',
-                    },
-                    {
-                        id: 'Maquinaria.MaquinaModulos',
-                        title: 'Módulo de Máquina',
-                        type: 'item',
-                        icon: 'material-outline:animation',
-                        url: '/Maquinaria/MaquinaModulos',
                     },
    
                     {
@@ -515,7 +493,7 @@ const navigationConfig = [
                         title: 'Colores',
                         type: 'item',
                         icon: 'material-outline:format_color_fill',
-                        url: '/Prendas/Colores',
+                        url: '/Colores/Index',
                     },
 
                     {
@@ -531,13 +509,13 @@ const navigationConfig = [
                         title: 'Modelos',
                         type: 'item',
                         icon: 'material-outline:document_scanner',
-                        url: '/Prendas/Modelos',
+                        url: '/Modelos/Index',
                     }, {
                         id: 'Prendas.Tallas',
                         title: 'Tallas',
                         type: 'item',
                         icon: 'material-outline:dry_cleaning',
-                        url: '/Prendas/Tallas',
+                        url: '/Tallas/Index',
                     }
                 ],
             }
@@ -545,7 +523,7 @@ const navigationConfig = [
     },
 
 
-
-];
+        ];
+   
 
 export default navigationConfig;

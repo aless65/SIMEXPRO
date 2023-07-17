@@ -24,7 +24,11 @@ import InspeccionesIndex from '../Produccion/Inspecciones/InspeccionesEstado';
 import MaquinaHistorialIndex from '../Maquinaria/MaquinaHistorial/MaquinaHistorial';
 import MaquinaModulosIndex from '../Maquinaria/MaquinaModulos/MaquinaModulos';
 import MaterialesIndex from '../Inventario/Materiales/Materiales';
-
+import AreasIndex from '../Inventario/Areas/Areas';
+import EstilosIndex from '../Prendas/Estilos/Estilos';
+import FuncionesMaquinaIndex from '../Maquinaria/FuncionesMaquina/FuncionesMaquina';
+import LotesIndex from '../Inventario/Lotes/Lotes';
+import MaquinasIndex from '../Maquinaria/Máquinas/Maquinas';
 const routeConfigs = [
   ...dashboardsConfigs,
   ...pagesConfigs,

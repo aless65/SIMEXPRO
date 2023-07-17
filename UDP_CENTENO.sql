@@ -114,7 +114,7 @@ BEGIN
    BEGIN TRY      
     UPDATE [Adua].[tbAduanas]
 	    SET [usua_UsuarioModificacion]= @usua_UsuarioModificacion,
-	    [adua_Estado] = 0
+	    [adua_Estado] = 1
 	   WHERE [adua_Id] = @adua_Id
 	  SELECT 1	
     END TRY
@@ -148,6 +148,7 @@ AS
 BEGIN 
    SELECT *
    FROM Adua.VW_tbFormasdePago
+   where Estado = 1
 
 END
 
@@ -253,7 +254,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbCondicionesComerciales_Listar
 AS
    SELECT * 
    FROM Adua.VW_tbCondicionesComerciales 
-   WHERE Estado = 0
+   WHERE Estado = 1
 
 /*Crear Condiciones comerciales*/
 GO
@@ -347,7 +348,7 @@ AS
  tite_FechaCreacion AS FechaCreacion,
  usu1.usua_Nombre AS UsuarioModificacion,
  tite_FechaModificacion AS FechaModificacion,
- tite_Estado AS Estados
+ tite_Estado AS Estado
  FROM [Adua].[tbTipoIntermediario] tip INNER JOIN [Acce].[tbUsuarios] usu
  ON tip.usua_UsuarioCreacion = usu.usua_Id INNER JOIN [Acce].[tbUsuarios] usu1
  ON usu1.usua_UsuarioModificacion = tip.usua_UsuarioModificacion
@@ -359,7 +360,7 @@ AS
  BEGIN 
      SELECT *
 	 FROM Adua.VW_tbTipoIntermediario
-
+	 where Estado = 1
  END 
  GO
  /********************Crear Tipo Intermediario******************************/
@@ -457,6 +458,7 @@ AS
 BEGIN 
     SELECT *
 	FROM Prod.Vw_tbClientes
+	where Estado=1
 END
 
 GO
@@ -728,6 +730,7 @@ AS
 BEGIN
    SELECT *
    FROM Prod.Vw_tbModelos
+   where ModeloEstado = 1
 END 
 
 
@@ -764,7 +767,7 @@ END
 
 /*Editar Modelos*/
 GO
-CREATE OR ALTER PROCEDURE Adua.UDP_tbModelos_Editar
+CREATE OR ALTER PROCEDURE Prod.UDP_tbModelos_Editar
    @mode_Id                  INT,
    @mode_Descripcion         INT,
    @esti_Id                  INT,

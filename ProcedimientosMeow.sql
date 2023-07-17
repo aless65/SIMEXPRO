@@ -91,6 +91,7 @@ GO
 
 
 
+
 --**********************************************************************************************
 --********** TABLA CIUDADES / procedimientos tomando en cuenta los uniques *********************
 
@@ -351,90 +352,90 @@ END
 GO
 
 
---**********************************************************************************************
---********** TABLA MÁQUINAS MÓDULOS / procedimientos tomando en cuenta los uniques *************
+----**********************************************************************************************
+----********** TABLA MÁQUINAS MÓDULOS / procedimientos tomando en cuenta los uniques *************
 
-CREATE OR ALTER VIEW Prod.VW_tbMaquinasModulos
-AS
-SELECT  
-moma_Id MaquinaModuloId, 
-madu.modu_Id IdModulo,
-modu.modu_Nombre NombreModulo, 
-madu.maqu_Id IdMaquina, 
-maqui.maqu_NumeroSerie NumeroSerieMaquina,
-madu.usua_UsuarioCreacion IdUsuarioCreador,
-usua1.usua_Nombre NombreUsuaCreador,
-moma_FechaCreacion, 
-madu.usua_UsuarioModificacion IdUsuarioModificador, 
-usua2.usua_Nombre NombreUsuaModifica,
-moma_FechaModificacion, 
-madu.maqu_Estado
-FROM [Prod].[tbMaquinasModulos] madu		 INNER JOIN Prod.tbModulos modu
-ON madu.modu_Id = modu.modu_Id				 INNER JOIN Prod.tbMaquinas maqui
-ON madu.maqu_Id = maqui.maqu_Id				 INNER JOIN Acce.tbUsuarios usua1
-ON madu.usua_UsuarioCreacion = usua1.usua_Id LEFT JOIN Acce.tbUsuarios usua2
-ON madu.usua_UsuarioModificacion = usua2.usua_Id 
-GO
+--CREATE OR ALTER VIEW Prod.VW_tbMaquinasModulos
+--AS
+--SELECT  
+--moma_Id MaquinaModuloId, 
+--madu.modu_Id IdModulo,
+--modu.modu_Nombre NombreModulo, 
+--madu.maqu_Id IdMaquina, 
+--maqui.maqu_NumeroSerie NumeroSerieMaquina,
+--madu.usua_UsuarioCreacion IdUsuarioCreador,
+--usua1.usua_Nombre NombreUsuaCreador,
+--moma_FechaCreacion, 
+--madu.usua_UsuarioModificacion IdUsuarioModificador, 
+--usua2.usua_Nombre NombreUsuaModifica,
+--moma_FechaModificacion, 
+--madu.maqu_Estado
+--FROM [Prod].[tbMaquinasModulos] madu		 INNER JOIN Prod.tbModulos modu
+--ON madu.modu_Id = modu.modu_Id				 INNER JOIN Prod.tbMaquinas maqui
+--ON madu.maqu_Id = maqui.maqu_Id				 INNER JOIN Acce.tbUsuarios usua1
+--ON madu.usua_UsuarioCreacion = usua1.usua_Id LEFT JOIN Acce.tbUsuarios usua2
+--ON madu.usua_UsuarioModificacion = usua2.usua_Id 
+--GO
 
-CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinasModulos_Listar
-AS
-BEGIN
-	SELECT*FROM Prod.VW_tbMaquinasModulos
-	WHERE maqu_Estado = 1
-END
-GO
+--CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinasModulos_Listar
+--AS
+--BEGIN
+--	SELECT*FROM Prod.VW_tbMaquinasModulos
+--	WHERE maqu_Estado = 1
+--END
+--GO
 
---- PENDIENTE LO DE QUE SI YA EXISTE (VALIDACIÓN)
-CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinasModulos_Insertar
- @modu_Id					INT, 
- @maqu_Id					INT, 
- @usua_UsuarioCreacion		INT,
- @moma_FechaCreacion		DATETIME
-AS
-BEGIN
-	SET @moma_FechaCreacion = GETDATE();
-	BEGIN TRY
-		IF EXISTS (SELECT*FROM [Prod].[tbMaquinasModulos] WHERE modu_Id = @modu_Id AND maqu_Id = @maqu_Id AND maqu_Estado = 0 )
-			BEGIN 
-				UPDATE [Prod].[tbMaquinasModulos] SET maqu_Estado = 1
-				SELECT 1
-			END 
-		ELSE
-			BEGIN
-				INSERT INTO [Prod].[tbMaquinasModulos] (modu_Id, maqu_Id, usua_UsuarioCreacion, moma_FechaCreacion)
-				VALUES (@modu_Id, @maqu_Id, @usua_UsuarioCreacion, @moma_FechaCreacion)
-				SELECT 1
-			END
-	END TRY
+----- PENDIENTE LO DE QUE SI YA EXISTE (VALIDACIÓN)
+--CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinasModulos_Insertar
+-- @modu_Id					INT, 
+-- @maqu_Id					INT, 
+-- @usua_UsuarioCreacion		INT,
+-- @moma_FechaCreacion		DATETIME
+--AS
+--BEGIN
+--	SET @moma_FechaCreacion = GETDATE();
+--	BEGIN TRY
+--		IF EXISTS (SELECT*FROM [Prod].[tbMaquinasModulos] WHERE modu_Id = @modu_Id AND maqu_Id = @maqu_Id AND maqu_Estado = 0 )
+--			BEGIN 
+--				UPDATE [Prod].[tbMaquinasModulos] SET maqu_Estado = 1
+--				SELECT 1
+--			END 
+--		ELSE
+--			BEGIN
+--				INSERT INTO [Prod].[tbMaquinasModulos] (modu_Id, maqu_Id, usua_UsuarioCreacion, moma_FechaCreacion)
+--				VALUES (@modu_Id, @maqu_Id, @usua_UsuarioCreacion, @moma_FechaCreacion)
+--				SELECT 1
+--			END
+--	END TRY
 
-	BEGIN CATCH
-		SELECT 0
-	END CATCH 
+--	BEGIN CATCH
+--		SELECT 0
+--	END CATCH 
 
-END
-GO
+--END
+--GO
 
----PENDIENTE
-CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinasModulos_Editar
- @moma_Id					INT,
- @modu_Id					INT, 
- @usua_UsuarioModificacion	INT,
- @moma_FechaModificacion	DATETIME
-AS
-BEGIN 
-	SET @moma_FechaModificacion = GETDATE();
-	BEGIN TRY
-		UPDATE Prod.tbMaquinasModulos SET modu_Id = @modu_Id, usua_UsuarioModificacion = @usua_UsuarioModificacion, 
-		moma_FechaModificacion = @moma_FechaModificacion
-		WHERE moma_Id = @moma_Id
-		SELECT 1
-	END TRY
+-----PENDIENTE
+--CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinasModulos_Editar
+-- @moma_Id					INT,
+-- @modu_Id					INT, 
+-- @usua_UsuarioModificacion	INT,
+-- @moma_FechaModificacion	DATETIME
+--AS
+--BEGIN 
+--	SET @moma_FechaModificacion = GETDATE();
+--	BEGIN TRY
+--		UPDATE Prod.tbMaquinasModulos SET modu_Id = @modu_Id, usua_UsuarioModificacion = @usua_UsuarioModificacion, 
+--		moma_FechaModificacion = @moma_FechaModificacion
+--		WHERE moma_Id = @moma_Id
+--		SELECT 1
+--	END TRY
 
-BEGIN CATCH
-	SELECT 0
-END CATCH
-END
-GO
+--BEGIN CATCH
+--	SELECT 0
+--END CATCH
+--END
+--GO
 
 --**********************************************************************************************
 --********** TABLA PROVEEDOTRES / procedimientos tomando en cuenta los uniques *****************
@@ -556,7 +557,38 @@ BEGIN
 END
 GO
 
+/*******************************Eliminar*************************************/
+CREATE OR ALTER PROCEDURE Gral.UDP_tbProveedores_Eliminar
+(
+	@prov_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@prov_FechaEliminacion		DATETIME
+)
+AS
+BEGIN
+	SET @prov_FechaEliminacion = GETDATE();
+	BEGIN TRY
+		DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'prov_Id', @prov_Id, 'Gral.tbProveedores', @respuesta OUTPUT
 
+		
+		IF(@respuesta) = 1
+			BEGIN
+				 UPDATE Gral.tbProveedores
+					SET prov_Estado = 0,
+						usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+						prov_FechaEliminacion = @prov_FechaEliminacion
+				  WHERE prov_Id = @prov_Id 
+					AND prov_Estado = 1
+			END
+
+		SELECT @respuesta AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 0	
+	END CATCH
+END
+GO
 
 
 
@@ -636,3 +668,36 @@ END
 GO
 
 
+/*******************************Eliminar*************************************/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbNivelesComerciales_Eliminar
+(
+	@nico_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@nico_FechaEliminacion		DATETIME
+)
+AS
+BEGIN
+	SET @nico_FechaEliminacion = GETDATE();
+	BEGIN TRY
+		DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'nico_Id', @nico_Id, 'Adua.tbNivelesComerciales', @respuesta OUTPUT
+
+		
+		IF(@respuesta) = 1
+			BEGIN
+				 UPDATE Adua.tbNivelesComerciales
+					SET nico_Estado = 0,
+						usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+						
+						nico_FechaEliminacion = @nico_FechaEliminacion
+				  WHERE nico_Id = @nico_Id 
+					AND nico_Estado = 1
+			END
+
+		SELECT @respuesta AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 0	
+	END CATCH
+END
+GO

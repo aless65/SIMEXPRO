@@ -9,6 +9,9 @@ import dashboardsConfigs from '../main/dashboards/dashboardsConfigs';
 import pagesConfigs from '../main/pages/pagesConfigs';
 import EstadosCivilesIndex from '../Personas/EstadosCiviles/EstadosCiviles';
 import UsuariosIndex from '../Seguridad/Usuarios/Usuarios';
+import Declaracion_Valor_Index from '../Declaracion_Valor/Declaracion_Valor_Index';
+import C_A_Persona_Natural from '../Contratos_Adhesion/C_A_Persona_Natural';
+
 const routeConfigs = [
   ...dashboardsConfigs,
   ...pagesConfigs,
@@ -40,6 +43,10 @@ const routes = [
   {
     path: 'Usuarios/Index',
     element: <UsuariosIndex/>,
+  },
+  {
+    path: 'Contratos_Adhesion/C_A_Persona_Natural',
+    element: <C_A_Persona_Natural/>,
   },
 ];
 

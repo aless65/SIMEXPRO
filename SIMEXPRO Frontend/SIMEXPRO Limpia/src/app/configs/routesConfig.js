@@ -18,6 +18,12 @@ import UsuariosIndex from '../Seguridad/Usuarios/Usuarios';
 import ImpresionBoletindePago from '../BoletinDePago/ImpresionBoletinDePago';
 import Comerciante_Individual_Index from '../Aduanas/Contratos_de_Adhesión/Comerciante_Individual/Comerciante_Individual_Index';
 import Comerciante_Individual_Agregar from '../Aduanas/Contratos_de_Adhesión/Comerciante_Individual/Comerciante_Individual_Agregrar';
+import CategoriaIndex from '../Inventario/Categoria/Categorias';
+import ColoresIndex from '../Prendas/Colores/Colores';
+import InspeccionesIndex from '../Produccion/Inspecciones/InspeccionesEstado';
+import MaquinaHistorialIndex from '../Maquinaria/MaquinaHistorial/MaquinaHistorial';
+import MaquinaModulosIndex from '../Maquinaria/MaquinaModulos/MaquinaModulos';
+
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -105,6 +111,26 @@ const routes = [
   {
     path: 'ContratoDeAdhesionComercianteIndividual/Agregar',
     element: <Comerciante_Individual_Agregar/> 
+  },
+  {
+    path: 'Categoria/Index',
+    element: <CategoriaIndex/>
+  },
+  {
+    path: 'Colores/Index',
+    element: <ColoresIndex/>
+  },
+  {
+    path: 'Inspecciones/Index',
+    element: <InspeccionesIndex/>
+  },
+  {
+    path: 'MaquinaHistorial/Index',
+    element: <MaquinaHistorialIndex/>
+  },
+  {
+    path: 'MaquinaModulos/Index',
+    element: <MaquinaModulosIndex/>
   },
 ];
 

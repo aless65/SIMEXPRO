@@ -878,7 +878,8 @@ CREATE TABLE Prod.tbProcesos(
 	proc_FechaEliminacion		DATETIME DEFAULT NULL,
 	proc_Estado					BIT DEFAULT 1  
 
-	CONSTRAINT PK_Prod_tbProcesos_proc_Id													PRIMARY KEY (proc_Id)
+	CONSTRAINT PK_Prod_tbProcesos_proc_Id													PRIMARY KEY (proc_Id),
+	CONSTRAINT UQ_Prod_tbProcesos_proc_Descripcion											UNIQUE (proc_Descripcion),
 	CONSTRAINT FK_Prod_tbProcesos_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id				FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbProcesos_Acce_tbUsuarios_proce_UsuModifica							FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbProcesos_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioEliminacion) 	REFERENCES Acce.tbUsuarios (usua_Id),
@@ -898,6 +899,7 @@ CREATE TABLE Prod.tbArea(
 	tipa_Estado 				BIT					NOT NULL DEFAULT 1, 
 
 	CONSTRAINT PK_Prod_tbTipoArea_tipa_Id 													PRIMARY KEY (tipa_Id),
+	CONSTRAINT UQ_Prod_tbTipoArea_tipa_area													UNIQUE (tipa_area),
 	CONSTRAINT FK_Prod_tbTipoArea_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id 				FOREIGN KEY (usua_UsuarioCreacion) 		REFERENCES Acce.tbUsuarios(usua_Id),
 	CONSTRAINT FK_Prod_tbTipoArea_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id 			FOREIGN KEY (usua_UsuarioModificacion) 	REFERENCES Acce.tbUsuarios(usua_Id),
 	CONSTRAINT FK_Prod_tbTipoArea_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioEliminacion) 	REFERENCES Acce.tbUsuarios (usua_Id),
@@ -917,6 +919,7 @@ CREATE TABLE Prod.tbTipoEmbalaje(
 	tiem_Estado 				BIT					NOT NULL DEFAULT 1, 
 
 	CONSTRAINT PK_Prod_tbTipoEmbalaje_tiem_Id												PRIMARY KEY (tiem_Id),
+	CONSTRAINT UQ_Prod_tbTipoEmbalaje_tiem_Descripcion										UNIQUE (tiem_Descripcion),
 	CONSTRAINT FK_Prod_tbTipoEmbalaje_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbTipoEmbajale_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbTipoEmbajale_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios (usua_Id),

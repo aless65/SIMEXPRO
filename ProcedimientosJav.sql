@@ -657,7 +657,7 @@ BEGIN
 			BEGIN 
 				UPDATE Prod.tbArea
 				SET tipa_Estado = 1,
-				usua_UsuarioModificacion = @usua_UsuarioCreacion
+				usua_UsuarioModificacion = @usua_UsuarioCreacion,
 				tipa_FechaModificacion = @tipa_FechaCreacion
 				WHERE tipa_area = @tipa_area
 				SELECT 1

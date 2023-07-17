@@ -24,6 +24,7 @@ import InspeccionesIndex from '../Produccion/Inspecciones/InspeccionesEstado';
 import MaquinaHistorialIndex from '../Maquinaria/MaquinaHistorial/MaquinaHistorial';
 import MaquinaModulosIndex from '../Maquinaria/MaquinaModulos/MaquinaModulos';
 import MaterialesIndex from '../Inventario/Materiales/Materiales';
+import ModelosIndex from '../Maquinaria/Modelos/ModelosMaquina';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -135,6 +136,10 @@ const routes = [
   {
     path: 'Materiales/Index',
     element: <MaterialesIndex/>
+  },
+  {
+    path: 'Modelos/Index',
+    element: <ModelosIndex/>
   },
 ];
 

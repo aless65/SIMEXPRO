@@ -13,7 +13,8 @@ SELECT	modo.motr_Id,
 		modo.motr_Estado
 FROM Adua.tbModoTransporte modo INNER JOIN Acce.tbUsuarios crea 
 ON crea.usua_Id = modo.usua_UsuarioCreacion		INNER JOIN  Acce.tbUsuarios modi 
-ON modi.usua_Id = modo.usua_UsuarioModificacion
+ON modi.usua_Id = modo.usua_UsuarioModificacion 
+WHERE usua_Estado = 1
 END
 GO
 --*****Insertar*****--
@@ -80,6 +81,7 @@ SELECT	tido_Id,
 FROM	Adua.tbTipoDocumento tido INNER JOIN Acce.tbUsuarios crea 
 ON crea.usua_Id = tido.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
 ON modi.usua_Id = tido.usua_UsuarioModificacion 
+WHERE usua_Estado = 1
 END
 GO
 
@@ -148,6 +150,7 @@ SELECT	tipl_Id,
 FROM	Adua.tbTipoLiquidacion tilin INNER JOIN Acce.tbUsuarios crea 
 ON crea.usua_Id = tilin.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
 ON modi.usua_Id = tilin.usua_UsuarioModificacion
+WHERE usua_Estado = 1
 END
 GO
 
@@ -211,6 +214,7 @@ SELECT	esbo_Id,
 FROM	Adua.tbEstadoBoletin esbo INNER JOIN Acce.tbUsuarios crea 
 ON crea.usua_Id = esbo.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
 ON modi.usua_Id = esbo.usua_UsuarioModificacion 
+WHERE usua_Estado = 1
 END 
 GO
 --*****Insertar*****--
@@ -277,6 +281,7 @@ FROM	Prod.tbProcesos pro INNER JOIN Acce.tbUsuarios crea
 ON crea.usua_Id = pro.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
 ON modi.usua_Id = pro.usua_UsuarioModificacion INNER JOIN Acce.tbUsuarios elim
 ON elim.usua_Id = pro.usua_UsuarioEliminacion 
+WHERE usua_Estado = 1
 END
 GO
 
@@ -390,6 +395,7 @@ ON area.proc_Id = pro.proc_Id  INNER JOIN Acce.tbUsuarios crea
 ON crea.usua_Id = area.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
 ON modi.usua_Id = area.usua_UsuarioModificacion INNER JOIN Acce.tbUsuarios elim
 ON elim.usua_Id = area.usua_UsuarioEliminacion 
+WHERE usua_Estado = 1
 END
 GO
 
@@ -504,6 +510,7 @@ SELECT	tall_Id,
 FROM Prod.tbTallas tall INNER JOIN Acce.tbUsuarios crea 
 ON crea.usua_Id = tall.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
 ON modi.usua_Id = tall.usua_UsuarioModificacion 
+WHERE usua_Estado = 1
 END
 GO
 
@@ -579,6 +586,7 @@ FROM	Prod.tbTipoEmbalaje tiem INNER JOIN Acce.tbUsuarios crea
 ON crea.usua_Id = tiem.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
 ON modi.usua_Id = tiem.usua_UsuarioModificacion INNER JOIN Acce.tbUsuarios elim
 ON elim.usua_Id = tiem.usua_UsuarioEliminacion
+WHERE usua_Estado = 1
 END
 GO
 

@@ -26,7 +26,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { DateTimePicker } from '@mui/x-date-pickers';
-import NumberFormat from 'react-number-format';
+import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 
 function OrdenProcesosIndex() {
@@ -38,6 +39,9 @@ function OrdenProcesosIndex() {
   const DialogEliminar = () => {
     setEliminar(!Eliminar);
   };
+
+  /*Relajo para los DatePicker*/
+
 
   {/* Columnas de la tabla */ }
   const columns = [
@@ -284,11 +288,15 @@ function OrdenProcesosIndex() {
             </Grid>
 
             <Grid item xs={6}>
-            <InputLabel htmlFor="grouped-native-select">Fecha Inicio</InputLabel>
+                <InputLabel htmlFor="grouped-native-select">Fecha Inicio</InputLabel>
               <FormControl
                 fullWidth
               >
                 <DateTimePicker
+                dateFormat="dd/MM/yyyy"
+                onChange={(date) => {
+                    console.log(date);
+                  }}
                 renderInput={(_props) => (
                   <TextField
                     className="w-full"
@@ -306,6 +314,10 @@ function OrdenProcesosIndex() {
                 fullWidth
               >
                 <DateTimePicker
+                dateFormat="dd/MM/yyyy"
+                onChange={(date) => {
+                    console.log(date);
+                  }}
                 renderInput={(_props) => (
                   <TextField
                     className="w-full"

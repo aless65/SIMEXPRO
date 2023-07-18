@@ -19,7 +19,9 @@ import OficiosProfesiones from '../Personas/OficiosProfesiones/OficiosProfesione
 import UsuariosIndex from '../Seguridad/Usuarios/Usuarios';
 import ImpresionBoletindePago from '../BoletinDePago/ImpresionBoletinDePago';
 import PersonaNatural_Index from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/PersonaNatural_Index';
+import PersonaNatural_Crear from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/PersonaNatural_Crear';
 import Declaracion_Valor_Index from '../Aduanas/Declaracion_De_Valor/Declaracion_Valor_Index';
+import Declaracion_Valor_Crear from '../Aduanas/Declaracion_De_Valor/Declaracion_Valor_Crear';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -85,12 +87,16 @@ const routes = [
     element: <PersonaNatural_Index />,
   },
   {
+    path: 'Contrato-de-Adhesion/Persona-Natural-Crear',
+    element: <PersonaNatural_Crear />,
+  },
+  {
     path: 'Declaracion-de-Valor/Listado',
     element: <Declaracion_Valor_Index />,
   },
   {
-    path: 'Declaracion-de-Valor/Nueva-Declaración',
-    element: <Declaracion_Valor_Index />,
+    path: 'Declaracion-de-Valor/Nueva-Declaracion',
+    element: <Declaracion_Valor_Crear />,
   },
 ];
 

@@ -131,7 +131,9 @@ function Declaracion_Valor_Index() {
                 backgroundColor: '#634A9E', color: 'white',
                 "&:hover": { backgroundColor: '#6e52ae' },
               }}
-
+              onClick={() => {
+                navigate('/Declaracion-de-Valor/Nueva-Declaracion')
+              }}
             >
               Nuevo                                        
             </Button>

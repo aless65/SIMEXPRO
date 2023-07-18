@@ -26,9 +26,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { useNavigate } from 'react-router-dom';
 
 
 function PersonaNatural_Index() {
+  const navigate = useNavigate();
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
@@ -134,6 +136,9 @@ function PersonaNatural_Index() {
                 backgroundColor: '#634A9E', color: 'white',
                 "&:hover": { backgroundColor: '#6e52ae' },
               }}
+              onClick={() => {
+                navigate('/Contrato-de-Adhesion/Persona-Natural-Crear')
+              }}              
             >
               Nuevo
                             

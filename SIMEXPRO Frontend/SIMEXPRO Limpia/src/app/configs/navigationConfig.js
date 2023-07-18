@@ -326,7 +326,7 @@ const navigationConfig = [
   },
   {
     id: 'Aduanas',
-    title: 'Aduanad',
+    title: 'Aduanas',
     type: 'group',
     icon: 'material-outline:content_cut',
     translate: 'ADUANAS',

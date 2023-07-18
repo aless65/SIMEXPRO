@@ -76,21 +76,16 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbConductor_Insert
 AS 
 BEGIN
 	BEGIN TRY
-		INSERT INTO Adua.tbConductor(cont_Nombre, 
-			                            cont_Apellido, 
-										cont_Licencia, 
-										pais_IdExpedicion, 
-										tran_Id, 
-										usua_UsuarioCreacion, 
-										cont_FechaCreacion)
+		INSERT INTO Adua.tbConductor(cont_Nombre,cont_Apellido, cont_Licencia, 
+		  pais_IdExpedicion, tran_Id, usua_UsuarioCreacion, cont_FechaCreacion)
 		VALUES(
-		@cont_Nombre, 
-		@cont_Apellido, 
-		@cont_Licencia, 
-		@pais_IdExpedicion, 
-		@tran_Id, 
-		@usua_UsuarioCreacion, 
-		@cont_FechaCreacion
+		  @cont_Nombre, 
+		  @cont_Apellido, 
+		  @cont_Licencia, 
+		  @pais_IdExpedicion, 
+		  @tran_Id, 
+		  @usua_UsuarioCreacion, 
+		  @cont_FechaCreacion
 		);
 		SELECT 1
 	END TRY
@@ -159,6 +154,8 @@ BEGIN
 	END CATCH
 END
 GO
+
+
 --CREATE OR ALTER PROCEDURE Adua.UDP_tbConductor_Eliminar 
 --	@cont_Id					INT
 --AS
@@ -175,7 +172,6 @@ GO
 --	END CATCH
 --END
 --GO
-
 
 --************TRANSPORTE******************--
 
@@ -620,98 +616,79 @@ END
 GO
 
 
---************MODO TRANSPORTE******************--
+----************MODO TRANSPORTE******************--
 
-/*Vista Modo Transporte*/
---CREATE OR ALTER VIEW Adua.VW_tbModoTransporte
+--/*Vista Modo Transporte*/
+----CREATE OR ALTER VIEW Adua.VW_tbModoTransporte
+----AS
+----	SELECT motran.motr_Id                   AS modoTranId,
+----	       motran.motr_Descripcion          AS modoTranDescripcion, 
+----		   motran.usua_UsuarioCreacion      AS modoTranUsuCrea ,  
+----		   usuCrea.usua_Nombre              AS usuarioCreacionNombre,
+----		   motran.motr_FechaCreacion        AS modoTranFechaCrea, 
+----		   motran.usua_UsuarioModificacion  AS modoTranUsuModifica, 
+----		   usuModi.usua_Nombre              AS usuarioModificacionNombre,
+----		   motran.usua_UsuarioModificacion  AS modoTranFechaModi , 
+----		   motran.motr_Estado               AS modoTranEstado 
+----	 FROM  Adua.tbModoTransporte motran 
+----		   LEFT JOIN acce.tbUsuarios usuCrea ON motran.usua_UsuarioCreacion	 = usuCrea.usua_Id
+----		   LEFT JOIN acce.tbUsuarios usuModi ON motran.usua_UsuarioModificacion = usuModi.usua_Id
+----	 WHERE motr_Estado = 1   
+----GO
+
+--/*Listar Modo Transporte*/
+--CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbModoTransporte_Listar
 --AS
---	SELECT motran.motr_Id                   AS modoTranId,
---	       motran.motr_Descripcion          AS modoTranDescripcion, 
---		   motran.usua_UsuarioCreacion      AS modoTranUsuCrea ,  
---		   usuCrea.usua_Nombre              AS usuarioCreacionNombre,
---		   motran.motr_FechaCreacion        AS modoTranFechaCrea, 
---		   motran.usua_UsuarioModificacion  AS modoTranUsuModifica, 
---		   usuModi.usua_Nombre              AS usuarioModificacionNombre,
---		   motran.usua_UsuarioModificacion  AS modoTranFechaModi , 
---		   motran.motr_Estado               AS modoTranEstado 
+--BEGIN
+--	SELECT motran.motr_Id						AS modoTranId,
+--	       motran.motr_Descripcion				AS modoTranDescripcion, 
+--		   motran.usua_UsuarioCreacion			AS modoTranUsuCrea ,  
+--		   usuCrea.usua_Nombre					AS usuarioCreacionNombre,
+--		   motran.motr_FechaCreacion			AS modoTranFechaCrea, 
+--		   motran.usua_UsuarioModificacion		AS modoTranUsuModifica, 
+--		   usuModi.usua_Nombre					AS usuarioModificacionNombre,
+--		   motran.usua_UsuarioModificacion		AS modoTranFechaModi , 
+--		   motran.motr_Estado					AS modoTranEstado 
 --	 FROM  Adua.tbModoTransporte motran 
---		   LEFT JOIN acce.tbUsuarios usuCrea ON motran.usua_UsuarioCreacion	 = usuCrea.usua_Id
---		   LEFT JOIN acce.tbUsuarios usuModi ON motran.usua_UsuarioModificacion = usuModi.usua_Id
---	 WHERE motr_Estado = 1   
+--		   LEFT JOIN acce.tbUsuarios usuCrea	ON motran.usua_UsuarioCreacion	 = usuCrea.usua_Id
+--		   LEFT JOIN acce.tbUsuarios usuModi	ON motran.usua_UsuarioModificacion = usuModi.usua_Id
+--	 WHERE motr_Estado = 1  
+--END
 --GO
 
-/*Listar Modo Transporte*/
-CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbModoTransporte_Listar
-AS
-BEGIN
-	SELECT motran.motr_Id						AS modoTranId,
-	       motran.motr_Descripcion				AS modoTranDescripcion, 
-		   motran.usua_UsuarioCreacion			AS modoTranUsuCrea ,  
-		   usuCrea.usua_Nombre					AS usuarioCreacionNombre,
-		   motran.motr_FechaCreacion			AS modoTranFechaCrea, 
-		   motran.usua_UsuarioModificacion		AS modoTranUsuModifica, 
-		   usuModi.usua_Nombre					AS usuarioModificacionNombre,
-		   motran.usua_UsuarioModificacion		AS modoTranFechaModi , 
-		   motran.motr_Estado					AS modoTranEstado 
-	 FROM  Adua.tbModoTransporte motran 
-		   LEFT JOIN acce.tbUsuarios usuCrea	ON motran.usua_UsuarioCreacion	 = usuCrea.usua_Id
-		   LEFT JOIN acce.tbUsuarios usuModi	ON motran.usua_UsuarioModificacion = usuModi.usua_Id
-	 WHERE motr_Estado = 1  
-END
-GO
-
-/*Insertar Modo Transporte*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Insertar
-	@motr_Descripcion			NVARCHAR(150),
-	@motr_UsuCrea	            INT,
-	@motr_FechaCrea             DATETIME
-AS 
-BEGIN
+--/*Insertar Modo Transporte*/
+--CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Insertar
+--	@motr_Descripcion			NVARCHAR(150),
+--	@motr_UsuCrea	            INT,
+--	@motr_FechaCrea             DATETIME
+--AS 
+--BEGIN
 	
-	BEGIN TRY
-		INSERT INTO Adua.tbModoTransporte (motr_Descripcion, usua_UsuarioCreacion, motr_FechaCreacion)
-		VALUES(@motr_Descripcion, @motr_UsuCrea, @motr_FechaCrea)
+--	BEGIN TRY
+--		INSERT INTO Adua.tbModoTransporte (motr_Descripcion, usua_UsuarioCreacion, motr_FechaCreacion)
+--		VALUES(@motr_Descripcion, @motr_UsuCrea, @motr_FechaCrea)
 
-		SELECT 1
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH 
-END
-GO
+--		SELECT 1
+--	END TRY
+--	BEGIN CATCH
+--		SELECT 0
+--	END CATCH 
+--END
+--GO
 
-/*Editar Modo Transporte*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Editar
-	@motr_Id					INT,
-	@motr_Descripcion			NVARCHAR(75),
-	@usua_UsuarioModificacion	INT,
-	@usua_FechaModificacion     DATETIME
-AS
-BEGIN
-	BEGIN TRY
-		UPDATE  Adua.tbModoTransporte
-		SET		motr_Descripcion = @motr_Descripcion,
-		        usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				motr_FechaModificacion   = @usua_FechaModificacion
-		WHERE	motr_Id = @motr_Id
-
-		SELECT 1
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END
-GO
-
-
---/*Eliminar Modo Transporte*/
---CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Eliminar 
---	@motr_Id					INT
+--/*Editar Modo Transporte*/
+--CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Editar
+--	@motr_Id					INT,
+--	@motr_Descripcion			NVARCHAR(75),
+--	@usua_UsuarioModificacion	INT,
+--	@usua_FechaModificacion     DATETIME
 --AS
 --BEGIN
 --	BEGIN TRY
---		UPDATE	Adua.tbModoTransporte
---		SET		motr_Estado = 0
+--		UPDATE  Adua.tbModoTransporte
+--		SET		motr_Descripcion = @motr_Descripcion,
+--		        usua_UsuarioModificacion = @usua_UsuarioModificacion,
+--				motr_FechaModificacion   = @usua_FechaModificacion
 --		WHERE	motr_Id = @motr_Id
 
 --		SELECT 1
@@ -722,32 +699,51 @@ GO
 --END
 --GO
 
-/*Eliminar Modo Transporte*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Eliminar
-	@motr_Id					INT,
-	@usua_UsuarioEliminacion	INT,
-	@motr_FechaEliminacion		DATETIME
-AS
-BEGIN
-	SET @motr_FechaEliminacion = GETDATE();
-	BEGIN TRY
-			DECLARE @respuesta INT
-			EXEC dbo.UDP_ValidarReferencias 'motr_Id', @motr_Id, 'Adua.tbModoTransporte', @respuesta OUTPUT
 
-			SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
-			BEGIN
-				UPDATE	Adua.tbModoTransporte
-				SET		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-						motr_FechaEliminacion = @motr_FechaEliminacion,
-						motr_Estado = 0
-			END
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END
-GO
+----/*Eliminar Modo Transporte*/
+----CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Eliminar 
+----	@motr_Id					INT
+----AS
+----BEGIN
+----	BEGIN TRY
+----		UPDATE	Adua.tbModoTransporte
+----		SET		motr_Estado = 0
+----		WHERE	motr_Id = @motr_Id
+
+----		SELECT 1
+----	END TRY
+----	BEGIN CATCH
+----		SELECT 0
+----	END CATCH
+----END
+----GO
+
+--/*Eliminar Modo Transporte*/
+--CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Eliminar
+--	@motr_Id					INT,
+--	@usua_UsuarioEliminacion	INT,
+--	@motr_FechaEliminacion		DATETIME
+--AS
+--BEGIN
+--	SET @motr_FechaEliminacion = GETDATE();
+--	BEGIN TRY
+--			DECLARE @respuesta INT
+--			EXEC dbo.UDP_ValidarReferencias 'motr_Id', @motr_Id, 'Adua.tbModoTransporte', @respuesta OUTPUT
+
+--			SELECT @respuesta AS Resultado
+--			IF(@respuesta) = 1
+--			BEGIN
+--				UPDATE	Adua.tbModoTransporte
+--				SET		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+--						motr_FechaEliminacion = @motr_FechaEliminacion,
+--						motr_Estado = 0
+--			END
+--	END TRY
+--	BEGIN CATCH
+--		SELECT 0º
+--	END CATCH
+--END
+--GO
 
 
 

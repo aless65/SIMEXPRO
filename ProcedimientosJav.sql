@@ -1,28 +1,19 @@
 --*****Modo Transporte*****--
---*****Vista*****--
-
-CREATE OR ALTER VIEW Adua.VW_tbModoTransporte
+--CREATE OR ALTER VIEW VW_tbModoTransporte
+--*****Listado*****--
+CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbModoTransporte_Listar
 AS
+BEGIN
 SELECT	modo.motr_Id,
 		modo.motr_Descripcion,
 		crea.usua_Nombre usua_UsuarioCreacion,
 		modo.motr_FechaCreacion,
 		modi.usua_Nombre usua_UsuarioModificacion,
 		modo.motr_FechaModificacion,
-		elim.usua_Nombre usua_UsuarioEliminacion,
-		motr_FechaEliminacion,
 		modo.motr_Estado
 FROM Adua.tbModoTransporte modo INNER JOIN Acce.tbUsuarios crea 
 ON crea.usua_Id = modo.usua_UsuarioCreacion		INNER JOIN  Acce.tbUsuarios modi 
-ON modi.usua_Id = modo.usua_UsuarioModificacion INNER JOIN Acce.tbUsuarios elim
-ON elim.usua_Id = modo.usua_UsuarioEliminacion
-GO
---*****Listado*****--
-CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Listar
-AS
-BEGIN
-SELECT * FROM Adua.VW_tbModoTransporte
-WHERE motr_Estado = 1
+ON modi.usua_Id = modo.usua_UsuarioModificacion
 END
 GO
 --*****Insertar*****--
@@ -33,29 +24,16 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Insertar
 AS
 BEGIN
 	BEGIN TRY 
-		
-		IF EXISTS (SELECT * FROM Adua.tbModoTransporte WHERE motr_Descripcion = @motr_Descripcion AND motr_Estado = 0)
-			BEGIN
-				UPDATE Adua.tbModoTransporte
-				SET motr_Estado = 1,
-				usua_UsuarioModificacion = @usua_UsuarioCreacion,
-				motr_FechaModificacion = @motr_FechaCreacion
-				WHERE motr_Descripcion = @motr_Descripcion
-				SELECT 1
-			END
-		ELSE
-			BEGIN
-				INSERT INTO Adua.tbModoTransporte(motr_Descripcion,usua_UsuarioCreacion,motr_FechaCreacion)
-				VALUES (
-				@motr_Descripcion,
-				@usua_UsuarioCreacion,
-				@motr_FechaCreacion
-				)
-			END
+		INSERT INTO Adua.tbModoTransporte(motr_Descripcion,usua_UsuarioCreacion,motr_FechaCreacion)
+		VALUES (
+		@motr_Descripcion,
+		@usua_UsuarioCreacion,
+		@motr_FechaCreacion
+		)
 		SELECT 1
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 GO
@@ -68,17 +46,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Editar
 AS
 BEGIN
 	BEGIN TRY 
-		IF EXISTS (SELECT * FROM Adua.tbModoTransporte WHERE motr_Descripcion = @motr_Descripcion AND motr_Estado = 0)
-			BEGIN
-				UPDATE Adua.tbModoTransporte
-				SET motr_Estado = 1,
-					usua_UsuarioModificacion = @usua_UsuarioModificacion,
-					motr_FechaModificacion = @motr_FechaModificacion
-				WHERE motr_Descripcion = @motr_Descripcion
-				SELECT 1
-			END
-		ELSE
-			BEGIN
+
 		UPDATE Adua.tbModoTransporte
 		SET		motr_Descripcion = @motr_Descripcion,
 				usua_UsuarioModificacion = @usua_UsuarioModificacion,
@@ -86,38 +54,21 @@ BEGIN
 		WHERE	motr_Id = @motr_Id
 		
 		SELECT 1
-			END
 	END TRY 
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 GO
+
 --*****Eliminar*****--
 --CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Eliminar
---@motr_Id					INT,
---@usua_UsuarioEliminacion	INT,
---@motr_FechaEliminacion		DATETIME
---AS
---BEGIN
---	BEGIN TRY
---		UPDATE Adua.tbModoTransporte
---		SET		motr_Estado		= 0,
---		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
---		motr_FechaEliminacion	= @motr_FechaEliminacion
---		SELECT 1
---	END TRY
---	BEGIN CATCH
---		SELECT 0
---	END CATCH
---END
---GO
-
 --*****Tipos de documento*****--
-
---*****Vista*****--
-CREATE OR ALTER VIEW Adua.VW_tbTipoDocumento
+--CREATE OR ALTER VIEW VW_tbTipoDocumento
+--*****Listado*****--
+CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbTipoDocumento_Listar
 AS
+BEGIN
 SELECT	tido_Id, 
 		tido_Codigo,
 		tido_Descripcion, 
@@ -125,21 +76,10 @@ SELECT	tido_Id,
 		tido_FechaCreacion, 
 		modi.usua_Nombre usua_UsuarioModificacion, 
 		tido_FechaModificacion, 
-		elim.usua_Nombre usua_UsuarioEliminacion,
-		tido_FechaEliminacion,
 		tido_Estado 
 FROM	Adua.tbTipoDocumento tido INNER JOIN Acce.tbUsuarios crea 
 ON crea.usua_Id = tido.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
-ON modi.usua_Id = tido.usua_UsuarioModificacion INNER JOIN Acce.tbUsuarios elim
-ON elim.usua_Id = tido.usua_UsuarioEliminacion
-GO
-
---*****Listado*****--
-CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoDocumento_Listar
-AS
-BEGIN
-SELECT * FROM Adua.VW_tbTipoDocumento
-WHERE tido_Estado = 1
+ON modi.usua_Id = tido.usua_UsuarioModificacion 
 END
 GO
 
@@ -152,17 +92,6 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoDocumento_Insertar
 AS
 BEGIN
 	BEGIN TRY
-	IF EXISTS (SELECT * FROM Adua.tbTipoDocumento WHERE tido_Descripcion = @tido_Descripcion OR tido_Codigo = @tido_Codigo AND tido_Estado = 0)
-			BEGIN
-				UPDATE Adua.tbTipoDocumento
-				SET tido_Estado = 1,
-				usua_UsuarioModificacion = @usua_UsuarioCreacion,
-				tido_FechaModificacion = @tido_FechaCrea
-				WHERE tido_Codigo = @tido_Codigo
-				SELECT 1
-			END
-		ELSE
-			BEGIN
 				INSERT INTO Adua.tbTipoDocumento (tido_Codigo,tido_Descripcion,usua_UsuarioCreacion,tido_FechaCreacion)
 				VALUES (
 				@tido_Codigo,
@@ -171,10 +100,9 @@ BEGIN
 				@tido_FechaCrea
 				)
 				SELECT 1
-			END
 	END TRY
 	BEGIN CATCH
-	SELECT 0
+	SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 GO
@@ -189,59 +117,27 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoDocumento_Editar
 AS
 BEGIN
 	BEGIN TRY
-		IF EXISTS (SELECT * FROM Adua.tbTipoDocumento WHERE tido_Descripcion = @tido_Descripcion AND tido_Codigo = @tido_Codigo AND tido_Id = @tido_Id AND tido_Estado = 0)
-			BEGIN
-				UPDATE Adua.tbTipoDocumento
-				SET tido_Estado = 1,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				tido_FechaModificacion = @tido_FechaModificacion
-				WHERE @tido_Id = tido_Id
-
-				SELECT 1
-			END
-		ELSE
-			BEGIN
-				UPDATE Adua.tbTipoDocumento
-				SET @tido_Descripcion = @tido_Descripcion,
-				tido_Codigo = @tido_Codigo,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				tido_FechaModificacion = @tido_FechaModificacion
-				WHERE tido_Id = @tido_Id
-
-				SELECT 1
-			END
+		UPDATE Adua.tbTipoDocumento
+		SET @tido_Descripcion = @tido_Descripcion,
+		tido_Codigo = @tido_Codigo,
+		usua_UsuarioModificacion = @usua_UsuarioModificacion,
+		tido_FechaModificacion = @tido_FechaModificacion
+		WHERE tido_Id = @tido_Id
 	END TRY
 BEGIN CATCH 
-	SELECT 0
+	SELECT 'Error Message: ' + ERROR_MESSAGE()
 END CATCH
 END
 GO
 
 --*****Eliminar*****--
 --CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoDocumento_Eliminar
---@tido_Id						INT,
---@usua_UsuarioEliminacion		INT,
---@tido_FechaEliminacion			DATETIME
---AS
---BEGIN
---	BEGIN TRY
---		UPDATE Adua.tbTipoDocumento
---		SET tido_Estado = 0,
---		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
---		tido_FechaEliminacion = tido_FechaEliminacion
---		WHERE tido_Id = @tido_Id
---	END TRY
---	BEGIN CATCH
---		SELECT 
---	END CATCH
---END
---GO
 --*****Tipos de Liquidacion*****--
-
---*****Vista*****--
-CREATE OR ALTER VIEW Adua.VW_tbTipoLiquidacion
+--CREATE OR ALTER VIEW VW_tbTipoLiquidacion
+--*****Listado*****--
+CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbTipoLiquidacion_Listar
 AS
-
+BEGIN
 SELECT	tipl_Id, 
 		tipl_Descripcion, 
 		crea.usua_Nombre usua_UsuarioCreacion, 
@@ -252,13 +148,6 @@ SELECT	tipl_Id,
 FROM	Adua.tbTipoLiquidacion tilin INNER JOIN Acce.tbUsuarios crea 
 ON crea.usua_Id = tilin.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
 ON modi.usua_Id = tilin.usua_UsuarioModificacion
-GO
---*****Listado*****--
-CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoLiquidacion_Listar
-AS
-BEGIN
-SELECT * FROM Adua.VW_tbTipoLiquidacion
-WHERE tipl_Estado = 1
 END
 GO
 
@@ -270,29 +159,16 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoLiquidacion_Insertar
 AS
 BEGIN
 	BEGIN TRY
-		IF EXISTS (SELECT * FROM Adua.tbTipoLiquidacion WHERE tipl_Descripcion = @tipl_Descripcion AND tipl_Estado = 0)
-			BEGIN
-				UPDATE Adua.tbTipoLiquidacion
-				SET tipl_Estado = 1,
-				usua_UsuarioModificacion = @usua_UsuarioCreacion,
-				tipl_FechaModificacion = @tipl_FechaCreacion
-				WHERE tipl_Descripcion = @tipl_Descripcion
-
-				SELECT 1
-			END
-		ELSE
-			BEGIN
-				INSERT INTO Adua.tbTipoLiquidacion (tipl_Descripcion,usua_UsuarioModificacion, tipl_FechaModificacion)
-				VALUES (
-				@tipl_Descripcion,		
-				@usua_UsuarioCreacion,
-				@tipl_FechaCreacion	
-				)
-				SELECT 1
-			END
+		INSERT INTO Adua.tbTipoLiquidacion (tipl_Descripcion,usua_UsuarioModificacion, tipl_FechaModificacion)
+		VALUES (
+		@tipl_Descripcion,		
+		@usua_UsuarioCreacion,
+		@tipl_FechaCreacion	
+		)
+		SELECT 1
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 GO
@@ -306,37 +182,27 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoLiquidacion_Editar
 AS
 BEGIN
 	BEGIN TRY
-		IF EXISTS (SELECT * FROM Adua.tbTipoLiquidacion WHERE tipl_Descripcion = @tipl_Descripcion AND tipl_Estado = 0)
-			BEGIN
-				UPDATE Adua.tbTipoLiquidacion
-				SET tipl_Estado = 1,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				tipl_FechaModificacion = @tipl_FechaModificacion
-				WHERE tipl_Descripcion = @tipl_Descripcion
-
-				SELECT 1
-			END
-		ELSE
-			BEGIN
-				UPDATE Adua.tbTipoLiquidacion
-				SET tipl_Descripcion = @tipl_Descripcion,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				tipl_FechaModificacion = @tipl_FechaModificacion
-				WHERE tipl_Id = @tipl_Id
-				SELECT 1
-			END
+			UPDATE Adua.tbTipoLiquidacion
+			SET tipl_Descripcion = @tipl_Descripcion,
+			usua_UsuarioModificacion = @usua_UsuarioModificacion,
+			tipl_FechaModificacion = @tipl_FechaModificacion
+			WHERE tipl_Id = @tipl_Id
+			SELECT 1
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 GO
 
+--*****Eliminar*****--
+--CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoLiquidacion_Eliminar
 --*****Estado Boletin*****--
-
---*****Vista*****--
-CREATE OR ALTER VIEW Adua.VW_tbEstadoBoletin
+--CREATE OR ALTER VIEW VW_tbEstadoBoletin
+--*****Listado*****--
+CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbEstadoBoletin_Listar
 AS
+BEGIN
 SELECT	esbo_Id, 
 		esbo_Descripcion, 
 		crea.usua_Nombre usua_UsuarioCreacion, 
@@ -345,13 +211,6 @@ SELECT	esbo_Id,
 FROM	Adua.tbEstadoBoletin esbo INNER JOIN Acce.tbUsuarios crea 
 ON crea.usua_Id = esbo.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
 ON modi.usua_Id = esbo.usua_UsuarioModificacion 
-GO
---*****Listado*****--
-CREATE OR ALTER PROCEDURE Adua.UDP_tbEstadoBoletin_Listar
-AS
-BEGIN
-SELECT * FROM Adua.VW_tbEstadoBoletin
-WHERE esbo_Estadoo = 1
 END 
 GO
 --*****Insertar*****--
@@ -362,27 +221,16 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbEstadoBoletin_Insertar
 AS
 BEGIN
 	BEGIN TRY
-		IF EXISTS (SELECT * FROM Adua.tbEstadoBoletin WHERE esbo_Descripcion = @esbo_Descripcion AND esbo_Estadoo = 0)
-			BEGIN
-				UPDATE Adua.tbEstadoBoletin 
-				SET usua_UsuarioModificacion = @usua_UsuarioCreacion,
-				esbo_FechaModificacion = @esbo_FechaCreacion
-				WHERE esbo_Descripcion = @esbo_Descripcion
-				SELECT 1
-			END
-		ELSE
-			BEGIN 
-				INSERT INTO Adua.tbEstadoBoletin(esbo_Descripcion,usua_UsuarioCreacion,esbo_FechaCreacion)
-				VALUES (
-				@esbo_Descripcion,		
-				@usua_UsuarioCreacion,	
-				@esbo_FechaCreacion					
-				)
-				SELECT 1
-			END
+			INSERT INTO Adua.tbEstadoBoletin(esbo_Descripcion,usua_UsuarioCreacion,esbo_FechaCreacion)
+			VALUES (
+			@esbo_Descripcion,		
+			@usua_UsuarioCreacion,	
+			@esbo_FechaCreacion					
+			)
+			SELECT 1
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 GO
@@ -395,35 +243,27 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbEstadoBoletin_Editar
 AS
 BEGIN
 	BEGIN TRY
-		IF EXISTS(SELECT * FROM Adua.tbEstadoBoletin WHERE esbo_Descripcion = @esbo_Descripcion AND esbo_Id = @esbo_Id AND esbo_Estadoo = 0)
-		BEGIN
-			UPDATE Adua.tbEstadoBoletin
-			SET esbo_Estadoo = 1,
-			usua_UsuarioModificacion = @usua_UsuarioModificacion,
-			esbo_FechaModificacion = @esbo_FechaModificacion
-			WHERE esbo_Descripcion = @esbo_Descripcion
-			SELECT 1
-		END
-		ELSE
-			BEGIN
-			UPDATE  Adua.tbEstadoBoletin
-			SET esbo_Descripcion = @esbo_Descripcion,
-			usua_UsuarioModificacion = @usua_UsuarioModificacion,
-			esbo_FechaModificacion = @esbo_FechaModificacion
-			WHERE esbo_Id = @esbo_Id
-			SELECT 1
-			END
+		UPDATE  Adua.tbEstadoBoletin
+		SET esbo_Descripcion = @esbo_Descripcion,
+		usua_UsuarioModificacion = @usua_UsuarioModificacion,
+		esbo_FechaModificacion = @esbo_FechaModificacion
+		WHERE esbo_Id = @esbo_Id
+		SELECT 1
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 GO
---*****Procesos*****--
---*****Vista*****--
 
-CREATE OR ALTER VIEW Prod.VW_tbProceso
+--*****Eliminar*****--
+--CREATE OR ALTER PROCEDURE Prod.UDP_tbEstadoBoletin_Eliminar
+--*****Procesos*****--
+--CREATE OR ALTER VIEW VW_tbProcesos
+--*****Listado*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_VW_tbProcesos_Listar
 AS
+BEGIN
 SELECT	proc_Id, 
 		proc_Descripcion, 
 		crea.usua_Nombre usua_UsuarioCreacion, 
@@ -437,13 +277,6 @@ FROM	Prod.tbProcesos pro INNER JOIN Acce.tbUsuarios crea
 ON crea.usua_Id = pro.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
 ON modi.usua_Id = pro.usua_UsuarioModificacion INNER JOIN Acce.tbUsuarios elim
 ON elim.usua_Id = pro.usua_UsuarioEliminacion 
-GO
---*****Listado*****--
-CREATE OR ALTER PROCEDURE Prod.UDP_tbProcesos_Listar
-AS
-BEGIN
-SELECT * FROM Prod.VW_tbProceso 
-WHERE proc_Estado = 1
 END
 GO
 
@@ -476,7 +309,7 @@ BEGIN
 			END
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 GO
@@ -510,7 +343,7 @@ BEGIN
 			END
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 GO
@@ -530,17 +363,17 @@ BEGIN
 		WHERE proc_ID = @proc_ID
 	END TRY
 	BEGIN CATCH 
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 GO
 
 --*****AREA*****--
-
---*****Vista*****--
-CREATE OR ALTER VIEW Prod.VW_tbArea
+--CREATE OR ALTER VIEW VW_tbArea
+--*****Listado*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_VW_tbArea_Listar
 AS
-
+BEGIN
 SELECT	tipa_Id, 
 		tipa_area, 
 		pro.proc_Id, 
@@ -557,14 +390,6 @@ ON area.proc_Id = pro.proc_Id  INNER JOIN Acce.tbUsuarios crea
 ON crea.usua_Id = area.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
 ON modi.usua_Id = area.usua_UsuarioModificacion INNER JOIN Acce.tbUsuarios elim
 ON elim.usua_Id = area.usua_UsuarioEliminacion 
-GO
-
---*****Listado*****--
-CREATE OR ALTER PROCEDURE Prod.UDP_tbArea_Listar
-AS
-BEGIN
-	SELECT * FROM Prod.VW_tbArea
-	WHERE tipa_Estado = 1
 END
 GO
 
@@ -599,7 +424,7 @@ BEGIN
 			END
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 GO
@@ -636,7 +461,7 @@ BEGIN
 			END
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 GO
@@ -657,16 +482,17 @@ BEGIN
 		
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 GO
 
 --*****Talla*****--
---*****Vista*****--
-
-CREATE OR ALTER VIEW Prod.VW_tbTallas
+--CREATE OR ALTER VIEW VW_tbTallas
+--*****Listado*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_VW_tbTallas_Listar
 AS
+BEGIN
 SELECT	tall_Id, 
 		tall_Codigo,
 		tall_Nombre, 
@@ -674,22 +500,10 @@ SELECT	tall_Id,
 		tall_FechaCreacion, 
 		modi.usua_Nombre usua_UsuarioModificacion, 
 		tall_FechaModificacion, 
-		elim.usua_Nombre usua_UsuarioEliminacion, 
-		tall_FechaEliminacion, 
 		tall_Estado 
 FROM Prod.tbTallas tall INNER JOIN Acce.tbUsuarios crea 
 ON crea.usua_Id = tall.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
-ON modi.usua_Id = tall.usua_UsuarioModificacion INNER JOIN Acce.tbUsuarios elim
-ON elim.usua_Id = tall.usua_UsuarioEliminacion 
-GO
-
---*****Listado*****--
-
-CREATE OR ALTER PROCEDURE Prod.UDP_tbTallas_Listar
-AS
-BEGIN
-SELECT * FROM Prod.VW_tbTallas
-WHERE tall_Estado = 1
+ON modi.usua_Id = tall.usua_UsuarioModificacion 
 END
 GO
 
@@ -702,17 +516,6 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbTallas_Insertar
 AS
 BEGIN
 BEGIN TRY 
-	IF EXISTS (SELECT * FROM Prod.tbTallas WHERE tall_Codigo = @tall_Codigo OR tall_Nombre = @tall_Nombre AND tall_Estado = 0 )
-	BEGIN	
-		UPDATE Prod.tbTallas 
-		SET tall_Estado = 1,
-		usua_UsuarioModificacion = @usua_UsuarioCreacion,
-		tall_FechaModificacion = @tall_FechaCreacion
-		WHERE tall_Codigo = @tall_Codigo OR tall_Nombre = @tall_Nombre
-			SELECT 1
-	END
-	ELSE
-	BEGIN 
 		INSERT INTO Prod.tbTallas(tall_Codigo,tall_Nombre,usua_UsuarioCreacion,tall_FechaCreacion)
 		VALUES (
 		@tall_Codigo,
@@ -721,10 +524,9 @@ BEGIN TRY
 		@tall_FechaCreacion
 		)
 			SELECT 1
-	END
 END TRY
 BEGIN CATCH
-	SELECT 0
+	SELECT 'Error Message: ' + ERROR_MESSAGE()
 END CATCH
 
 END
@@ -739,18 +541,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbTallas_Editar
 @tall_FechaModificacion		DATETIME
 AS
 BEGIN
-BEGIN TRY 
-	IF EXISTS (SELECT * FROM Prod.tbTallas WHERE tall_Id = @tall_Id AND tall_Nombre = @tall_Nombre AND tall_Codigo = @tall_Codigo AND tall_Estado = 0 )
-	BEGIN	
-		UPDATE Prod.tbTallas 
-		SET tall_Estado = 1,
-		usua_UsuarioModificacion  = @usua_UsuarioModificacion,
-		tall_FechaModificacion = @tall_FechaModificacion
-		WHERE tall_Id = @tall_Id OR tall_Nombre = @tall_Nombre
-			SELECT 1
-	END
-	ELSE
-	BEGIN 
+BEGIN TRY  
 		UPDATE  Prod.tbTallas 
 		SET tall_Nombre = @tall_Nombre,
 		tall_Codigo = @tall_Codigo,
@@ -758,43 +549,23 @@ BEGIN TRY
 		tall_FechaModificacion = @tall_FechaModificacion
 		WHERE tall_Id = @tall_Id
 			SELECT 1
-	END
 END TRY
 BEGIN CATCH
-	SELECT 0
+	SELECT 'Error Message: ' + ERROR_MESSAGE()
 END CATCH
 
 END
 GO
-
-
 --*****Eliminar*****--
-
 --CREATE OR ALTER PROCEDURE Prod.UDP_tbTallas_Eliminar
---@tall_Id					INT,
---@usua_UsuarioEliminacion	INT,
---@tall_FechaEliminacion		DATETIME
---AS
---BEGIN
---	BEGIN TRY 
---		UPDATE Prod.tbTallas 
---		SET tall_Estado = 0,
---		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
---		tall_FechaEliminacion = @tall_FechaEliminacion
---		WHERE tall_Id = @tall_Id
---			SELECT 1
---	END TRY
---	BEGIN CATCH
---		SELECT 0 
---	END CATCH
---END
---GO
 
---*****Tipo Embalaje*****--
+--*****Tipo Embalaje*****-
+--CREATE OR ALTER VIEW VW_tbTipoEmbalaje
+--*****Listado*****--
 
---*****Vista*****--
-CREATE OR ALTER VIEW Prod.VW_tbTipoEmbalaje
+CREATE OR ALTER PROCEDURE Prod.UDP_VW_tbTipoEmbalaje_Listar
 AS
+BEGIN
 SELECT	tiem_Id, 
 		tiem_Descripcion, 
 		crea.usua_Nombre usua_UsuarioCreacion , 
@@ -807,15 +578,7 @@ SELECT	tiem_Id,
 FROM	Prod.tbTipoEmbalaje tiem INNER JOIN Acce.tbUsuarios crea 
 ON crea.usua_Id = tiem.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
 ON modi.usua_Id = tiem.usua_UsuarioModificacion INNER JOIN Acce.tbUsuarios elim
-ON elim.usua_Id = tiem.usua_UsuarioEliminacion 
-GO
---*****Listado*****--
-
-CREATE OR ALTER PROCEDURE Prod.UDP_tbTipoEmbalaje_Listar
-AS
-BEGIN
-SELECT * FROM Prod.VW_tbTipoEmbalaje
-WHERE tiem_Estado = 1
+ON elim.usua_Id = tiem.usua_UsuarioEliminacion
 END
 GO
 
@@ -848,7 +611,7 @@ BEGIN
 		END
 	END TRY
 	BEGIN CATCH
-		SELECT 0 
+		SELECT 'Error Message: ' + ERROR_MESSAGE() 
 	END CATCH
 END
 GO
@@ -881,7 +644,7 @@ BEGIN
 			END
 	END TRY
 	BEGIN CATCH
-		SELECT 0 
+		SELECT 'Error Message: ' + ERROR_MESSAGE() 
 	END CATCH
 END
 GO
@@ -892,16 +655,16 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbTipoEmbalaje_Eliminar
 @tiem_FechaEliminacion	DATETIME
 AS
 BEGIN
-BEGIN TRY
+	BEGIN TRY
 		UPDATE Prod.tbTipoEmbalaje
 		SET tiem_Estado = 0,
 		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
 		tiem_FechaEliminacion = @tiem_FechaEliminacion
 		WHERE tiem_Id = @tiem_Id
 		SELECT 1
-END TRY 
-BEGIN CATCH
-		SELECT 0 
+	END TRY 
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() 
 	END CATCH
 END
 GO

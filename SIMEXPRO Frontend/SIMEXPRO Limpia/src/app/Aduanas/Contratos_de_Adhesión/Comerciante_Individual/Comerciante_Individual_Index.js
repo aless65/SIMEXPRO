@@ -153,7 +153,7 @@ function Comerciante_Individual_Index() {
               "&:hover": { backgroundColor: "#6e52ae" },
             }}
             onClick={(e) => {
-              Navigate("/ContratoDeAdhesionComercianteIndividual/Agregar");
+              Navigate("/Contrato-de-Adhesion-Comerciante-Individual/Agregar");
             }}
           >
             Nuevo

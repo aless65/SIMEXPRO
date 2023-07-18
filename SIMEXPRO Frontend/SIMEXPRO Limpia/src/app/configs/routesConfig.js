@@ -173,19 +173,19 @@ const routes = [
     element: <MaquinaModulosIndex/>
   },
   {
-    path: 'ContratoDeAdhesionComercianteIndividual/Index',
+    path: 'Contrato-de-Adhesion-Comerciante-Individual/Index',
     element: <Comerciante_Individual_Index/> 
   },
   {
-    path: 'ContratoDeAdhesionComercianteIndividual/Agregar',
+    path: 'Contrato-de-Adhesion-Comerciante-Individual/Agregar',
     element: <Comerciante_Individual_Agregar/> 
   },
   {
-    path: 'ContratoDeAdhesionPersonaJuridica/Index',
+    path: 'Contrato-de-Adhesion-Persona-Juridica/Index',
     element: <Persona_Juridica_Index/> 
   },
   {
-    path: 'ContratoDeAdhesionPersonaJuridica/Agregar',
+    path: 'Contrato-de-Adhesion-Persona-Juridica/Agregar',
     element: <Persona_Juridica_Agregar/> 
   },
   {

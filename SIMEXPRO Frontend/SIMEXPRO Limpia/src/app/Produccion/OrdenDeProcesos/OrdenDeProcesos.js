@@ -26,9 +26,11 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { DateTimePicker } from '@mui/x-date-pickers';
+import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 
-function MaquinaHistorialIndex() {
+function OrdenProcesosIndex() {
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
@@ -38,12 +40,14 @@ function MaquinaHistorialIndex() {
     setEliminar(!Eliminar);
   };
 
+  /*Relajo para los DatePicker*/
+
+
   {/* Columnas de la tabla */ }
   const columns = [
-    { field: 'id', headerName: 'Id', flex: 2},
-    { field: 'maquina', headerName: 'Máquina', flex: 2,  },
-    { field: 'fechaInicio', headerName: 'Fecha de Inicio', flex: 2,  },
-    { field: 'fechaFin', headerName: 'Fecha de Fin', flex: 2,  },
+    { field: 'id', headerName: 'Id', flex: 1},
+    { field: 'npo', headerName: 'Máquina', flex: 2,  },
+    { field: 'empleado', headerName: 'Fecha de Inicio', flex: 2,  },
     {
       field: 'acciones',
       headerName: 'Acciones',
@@ -94,11 +98,9 @@ function MaquinaHistorialIndex() {
 
   {/* Datos de la tabla */ }
   const rows = [
-    { id: '1', maquina: 'Máquina de coser industrial', fechaInicio: '10-12-2022', fechaFin: '11-12-2022'},
-    { id: '2', maquina: 'Máquina de corte automático', fechaInicio: '13-12-2022', fechaFin: '14-12-2022' },
-    { id: '3', maquina: 'Máquina de estampado', fechaInicio: '13-12-2022', fechaFin: '14-12-2022' },
-    { id: '4', maquina: 'Máquina de planchado y prensado', fechaInicio: '15-12-2022', fechaFin: '16-12-2022' },
-    { id: '5', maquina: 'Máquina de etiquetado', fechaInicio: '17-12-2022', fechaFin: '18-12-2022' },
+    { id: '1', npo: 'CW22-103/72898', empleado: 'Alberto Laínez' },
+    { id: '2', npo: 'CW22-103/72899', empleado: 'Daniel Pineda' },
+    { id: '3', npo: 'CW22-89/723541', empleado: 'Denia McCarthy' },
   ];
 
   {/* Función para mostrar la tabla y mostrar agregar */ }
@@ -113,7 +115,7 @@ function MaquinaHistorialIndex() {
 
   {/* Filtrado de datos */ }
   const filteredRows = rows.filter((row) =>
-    row.maquina.toLowerCase().includes(searchText.toLowerCase())
+    row.npo.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
@@ -121,7 +123,7 @@ function MaquinaHistorialIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/x3Dpksj/HISTORIAL-DE-M-QUINA.png"
+        image="https://i.ibb.co/TtV62Xs/RDEN-DE-PROCESOS.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>
@@ -196,10 +198,9 @@ function MaquinaHistorialIndex() {
               <FormControl
                 fullWidth
               >
-                <InputLabel htmlFor="grouped-native-select">Máquina</InputLabel>
-                <Select
+                <TextField
                   style={{ borderRadius: '10px' }}
-                  label="Máquina"
+                  label="# Detalle de P.O"
                 />
               </FormControl>
             </Grid>
@@ -208,15 +209,86 @@ function MaquinaHistorialIndex() {
               <FormControl
                 fullWidth
               >
+                <TextField 
+                  disabled="true"
+                  style={{ borderRadius: '10px' }}
+                  label="Color"
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6} >
+              <FormControl
+                fullWidth
+              >
+                <TextField
+                  disabled="true"
+                  style={{ borderRadius: '10px' }}
+                  label="Estilo"
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6} >
+              <FormControl
+                fullWidth
+              >
+                <TextField
+                  disabled="true"
+                  style={{ borderRadius: '10px' }}
+                  label="Talla"
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6} >
+              <FormControl
+                fullWidth
+              >
                 <TextField
                   style={{ borderRadius: '10px' }}
-                  label="Observaciones"
+                  label="Módulo Asignado"
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6} >
+              <FormControl
+                fullWidth
+              >
+                <InputLabel htmlFor="grouped-native-select">Proceso</InputLabel>
+                <Select
+                  style={{ borderRadius: '10px' }}
+                  label="Proceso"
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6} >
+              <FormControl
+                fullWidth
+              >
+                <InputLabel htmlFor="grouped-native-select">Empleado</InputLabel>
+                <Select
+                  style={{ borderRadius: '10px' }}
+                  label="Empleado"
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6} >
+              <FormControl
+                fullWidth
+              >
+                <TextField
+                  style={{ borderRadius: '10px' }}
+                  label="Cantidad"
                 />
               </FormControl>
             </Grid>
 
             <Grid item xs={6}>
-            <InputLabel htmlFor="grouped-native-select">Fecha Inicio</InputLabel>
+                <InputLabel htmlFor="grouped-native-select">Fecha Inicio</InputLabel>
               <FormControl
                 fullWidth
               >
@@ -237,7 +309,7 @@ function MaquinaHistorialIndex() {
             </Grid>
 
             <Grid item xs={6}>
-            <InputLabel htmlFor="grouped-native-select">Fecha Fin</InputLabel>
+                <InputLabel htmlFor="grouped-native-select">Fecha Límite</InputLabel>
               <FormControl
                 fullWidth
               >
@@ -254,6 +326,18 @@ function MaquinaHistorialIndex() {
                 )}
                 className="w-full"
               />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6} >
+              <FormControl
+                fullWidth
+              >
+                <InputLabel htmlFor="grouped-native-select">Pedido Producción</InputLabel>
+                <Select
+                  style={{ borderRadius: '10px' }}
+                  label="PedidoProduccion"
+                />
               </FormControl>
             </Grid>
 
@@ -344,7 +428,7 @@ function MaquinaHistorialIndex() {
   );
 }
 
-export default MaquinaHistorialIndex;
+export default OrdenProcesosIndex;
 
 
 

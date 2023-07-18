@@ -94,24 +94,24 @@ BEGIN
 END
 GO
 --*****Eliminar*****--
-CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Eliminar
-@motr_Id					INT,
-@usua_UsuarioEliminacion	INT,
-@motr_FechaEliminacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
-		UPDATE Adua.tbModoTransporte
-		SET		motr_Estado		= 0,
-		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-		motr_FechaEliminacion	= @motr_FechaEliminacion
-		SELECT 1
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END
-GO
+--CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Eliminar
+--@motr_Id					INT,
+--@usua_UsuarioEliminacion	INT,
+--@motr_FechaEliminacion		DATETIME
+--AS
+--BEGIN
+--	BEGIN TRY
+--		UPDATE Adua.tbModoTransporte
+--		SET		motr_Estado		= 0,
+--		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+--		motr_FechaEliminacion	= @motr_FechaEliminacion
+--		SELECT 1
+--	END TRY
+--	BEGIN CATCH
+--		SELECT 0
+--	END CATCH
+--END
+--GO
 
 --*****Tipos de documento*****--
 
@@ -218,24 +218,24 @@ END
 GO
 
 --*****Eliminar*****--
-CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoDocumento_Eliminar
-@tido_Id						INT,
-@usua_UsuarioEliminacion		INT,
-@tido_FechaEliminacion			DATETIME
-AS
-BEGIN
-	BEGIN TRY
-		UPDATE Adua.tbTipoDocumento
-		SET tido_Estado = 0,
-		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-		tido_FechaEliminacion = tido_FechaEliminacion
-		WHERE tido_Id = @tido_Id
-	END TRY
-	BEGIN CATCH
-		SELECT 
-	END CATCH
-END
-GO
+--CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoDocumento_Eliminar
+--@tido_Id						INT,
+--@usua_UsuarioEliminacion		INT,
+--@tido_FechaEliminacion			DATETIME
+--AS
+--BEGIN
+--	BEGIN TRY
+--		UPDATE Adua.tbTipoDocumento
+--		SET tido_Estado = 0,
+--		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+--		tido_FechaEliminacion = tido_FechaEliminacion
+--		WHERE tido_Id = @tido_Id
+--	END TRY
+--	BEGIN CATCH
+--		SELECT 
+--	END CATCH
+--END
+--GO
 --*****Tipos de Liquidacion*****--
 
 --*****Vista*****--
@@ -770,25 +770,25 @@ GO
 
 --*****Eliminar*****--
 
-CREATE OR ALTER PROCEDURE Prod.UDP_tbTallas_Eliminar
-@tall_Id					INT,
-@usua_UsuarioEliminacion	INT,
-@tall_FechaEliminacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY 
-		UPDATE Prod.tbTallas 
-		SET tall_Estado = 0,
-		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-		tall_FechaEliminacion = @tall_FechaEliminacion
-		WHERE tall_Id = @tall_Id
-			SELECT 1
-	END TRY
-	BEGIN CATCH
-		SELECT 0 
-	END CATCH
-END
-GO
+--CREATE OR ALTER PROCEDURE Prod.UDP_tbTallas_Eliminar
+--@tall_Id					INT,
+--@usua_UsuarioEliminacion	INT,
+--@tall_FechaEliminacion		DATETIME
+--AS
+--BEGIN
+--	BEGIN TRY 
+--		UPDATE Prod.tbTallas 
+--		SET tall_Estado = 0,
+--		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+--		tall_FechaEliminacion = @tall_FechaEliminacion
+--		WHERE tall_Id = @tall_Id
+--			SELECT 1
+--	END TRY
+--	BEGIN CATCH
+--		SELECT 0 
+--	END CATCH
+--END
+--GO
 
 --*****Tipo Embalaje*****--
 

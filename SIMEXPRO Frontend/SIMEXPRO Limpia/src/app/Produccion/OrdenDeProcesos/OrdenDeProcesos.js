@@ -317,7 +317,7 @@ function OrdenProcesosIndex() {
               </FormControl>
             </Grid>
 
-            <Grid item xs={6} style={{ marginTop: '30px' }} >
+            <Grid item xs={6} >
               <FormControl
                 fullWidth
               >

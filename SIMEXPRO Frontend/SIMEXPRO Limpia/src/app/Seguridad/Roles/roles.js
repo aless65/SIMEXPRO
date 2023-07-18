@@ -345,7 +345,7 @@ function RolesIndex() {
         </Grid>
 
         <Grid container spacing={2} style={{ marginTop: '20px' }}>
-          <Grid item xs={3}></Grid>
+          <Grid item xs={7}></Grid>
           <Stack direction="row" spacing={1}>
             <Button
               startIcon={<Icon>checked</Icon>}
@@ -356,14 +356,12 @@ function RolesIndex() {
                 backgroundColor: '#634A9E', color: 'white',
                 "&:hover": { backgroundColor: '#6e52ae' },
               }}
-              onClick={(e) => {
-                Navigate("/Roles/RolesIndex");
-              }}
+              onClick={VisibilidadTabla}
             >
               Guardar
             </Button>
           </Stack>
-          <Grid item xs={1}></Grid>
+          <Grid item xs={0}></Grid>
           <Stack direction="row" spacing={1}>
             <Button
               startIcon={<Icon>close</Icon>}

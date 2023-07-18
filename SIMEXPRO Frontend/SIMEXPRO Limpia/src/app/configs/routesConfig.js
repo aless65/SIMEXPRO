@@ -51,6 +51,7 @@ import AldeaIndex from '../Ubicaciones/Aldeas/Aldeas';
 import FormaDeEnvioIndex from '../Generales/FormasEnvios';
 import ModelosIndex from '../Prendas/Modelos/Modelos';
 import UnidadesMedidaIndex from '../Generales/UnidadesMedida/UnidadesMedidas';
+import Revision_de_Calidad_Index from '../Produccion/Revisión de Calidad/RevisionCalidad';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -251,6 +252,10 @@ const routes = [
   {
     path: 'UnidadesMedida/Index',
     element: <UnidadesMedidaIndex />,
+  },
+  {
+    path: 'RevisionCalidad/Index',
+    element: <Revision_de_Calidad_Index />,
   },
 ];
 

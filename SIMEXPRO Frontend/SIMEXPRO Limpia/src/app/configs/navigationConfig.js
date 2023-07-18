@@ -564,7 +564,7 @@ const navigationConfig = [
             title: 'Revisión de Calidad',
             type: 'item',
             icon: 'material-outline:pageview',
-            url: '/Produccion/RevisionCalidad',
+            url: '/RevisionCalidad/Index',
           },
           {
             id: 'Produccion.RevisionModuloDia',

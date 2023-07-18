@@ -258,14 +258,14 @@ SELECT ofpr_Id AS oficioId,
 	   ofpr.usua_UsuarioModificacion AS usuarioModificacion, 
 	   usuaModifica.usua_Nombre AS usuarioModificacionNombre,
 	   ofpr_FechaModificacion AS fechaModificacion, 
-	   ofpr.usua_UsuarioEliminacion AS usuarioEliminacion, 
-	   usuaElimina.usua_Nombre AS usuarioEliminacionNombre,
-	   ofpr_FechaEliminacion AS fechaEliminacion, 
+	   --ofpr.usua_UsuarioEliminacion AS usuarioEliminacion, 
+	   --usuaElimina.usua_Nombre AS usuarioEliminacionNombre,
+	   --ofpr_FechaEliminacion AS fechaEliminacion, 
 	   ofpr_Estado AS oficioEstado
 FROM [Gral].[tbOficio_Profesiones] ofpr INNER JOIN [Acce].[tbUsuarios] usuaCrea
 ON ofpr.usua_UsuarioCreacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaModifica
-ON ofpr.usua_UsuarioModificacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaElimina
-ON ofpr.usua_UsuarioEliminacion = usuaCrea.usua_Id
+ON ofpr.usua_UsuarioModificacion = usuaCrea.usua_Id --LEFT JOIN [Acce].[tbUsuarios] usuaElimina
+--ON ofpr.usua_UsuarioEliminacion = usuaCrea.usua_Id
 GO
 
 
@@ -359,9 +359,9 @@ BEGIN
 			IF(@respuesta) = 1
 				BEGIN
 					UPDATE	[Gral].[tbOficio_Profesiones]
-					SET		[ofpr_Estado] = 0,
-							[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
-							[ofpr_FechaEliminacion] = @ofpr_FechaEliminacion
+					SET		[ofpr_Estado] = 0
+							--[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
+							--[ofpr_FechaEliminacion] = @ofpr_FechaEliminacion
 					WHERE	[ofpr_Id] = @ofpr_Id
 				END
 		END
@@ -555,23 +555,22 @@ BEGIN
 			BEGIN
 				IF EXISTS (SELECT * FROM [Gral].[tbColonias]
 						WHERE @colo_Nombre = [colo_Nombre]
-						AND alde_Id = @alde_Id
-						AND [colo_Estado] = 1)
+						AND alde_Id = @alde_Id)
 					BEGIN
 						SELECT 0
 					END
-				ELSE IF EXISTS (SELECT * FROM [Gral].[tbColonias]
-						WHERE @colo_Nombre = [colo_Nombre]
-						AND alde_Id = @alde_Id
-						AND [colo_Estado] = 0)
-					BEGIN
-						UPDATE [Gral].[tbColonias]
-						SET	   [colo_Estado] = 1
-						WHERE  [colo_Nombre] = @colo_Nombre
-						AND [alde_Id] = @alde_Id
+				--ELSE IF EXISTS (SELECT * FROM [Gral].[tbColonias]
+				--		WHERE @colo_Nombre = [colo_Nombre]
+				--		AND alde_Id = @alde_Id
+				--		AND [colo_Estado] = 0)
+				--	BEGIN
+				--		UPDATE [Gral].[tbColonias]
+				--		SET	   [colo_Estado] = 1
+				--		WHERE  [colo_Nombre] = @colo_Nombre
+				--		AND [alde_Id] = @alde_Id
 
-						SELECT 1
-					END
+				--		SELECT 1
+				--	END
 				ELSE
 					BEGIN
 						INSERT INTO [Gral].[tbColonias] (colo_Nombre, 
@@ -593,24 +592,23 @@ BEGIN
 			BEGIN
 				IF EXISTS (SELECT * FROM [Gral].[tbColonias]
 						WHERE @colo_Nombre = [colo_Nombre]
-						AND ciud_Id = @ciud_Id
-						AND [colo_Estado] = 1)
+						AND ciud_Id = @ciud_Id)
 					BEGIN
 						SELECT 0
 					END
-				ELSE IF EXISTS (SELECT * FROM [Gral].[tbColonias]
-						WHERE @colo_Nombre = [colo_Nombre]
-						AND ciud_Id = @ciud_Id
-						AND [colo_Estado] = 0)
-					BEGIN
-						UPDATE [Gral].[tbColonias]
-						SET	   [colo_Estado] = 1
-						WHERE  [colo_Nombre] = @colo_Nombre
-						AND ciud_Id = @ciud_Id
+				--ELSE IF EXISTS (SELECT * FROM [Gral].[tbColonias]
+				--		WHERE @colo_Nombre = [colo_Nombre]
+				--		AND ciud_Id = @ciud_Id
+				--		AND [colo_Estado] = 0)
+				--	BEGIN
+				--		UPDATE [Gral].[tbColonias]
+				--		SET	   [colo_Estado] = 1
+				--		WHERE  [colo_Nombre] = @colo_Nombre
+				--		AND ciud_Id = @ciud_Id
 
-						SELECT 1 
+				--		SELECT 1 
 			
-					END
+				--	END
 				ELSE
 					BEGIN
 						INSERT INTO [Gral].[tbColonias] (colo_Nombre, 
@@ -664,7 +662,8 @@ BEGIN
 			BEGIN
 				IF EXISTS (SELECT colo_Id FROM [Gral].[tbColonias]
 						   WHERE [colo_Nombre] = @colo_Nombre
-						   AND [alde_Id] = @alde_Id)
+						   AND [alde_Id] = @alde_Id
+						   AND colo_Id != @colo_Id)
 					BEGIN
 						SELECT 0
 					END
@@ -685,7 +684,9 @@ BEGIN
 			BEGIN
 				IF EXISTS (SELECT colo_Id FROM [Gral].[tbColonias]
 						   WHERE [colo_Nombre] = @colo_Nombre
-						   AND [ciud_Id] = @ciud_Id)
+						   AND [ciud_Id] = @ciud_Id
+						   AND colo_Id != @colo_Id
+						   )
 					BEGIN
 						SELECT 0
 					END
@@ -711,35 +712,35 @@ END
 GO
 
 /*Eliminar colonias*/
-CREATE OR ALTER PROCEDURE gral.UDP_tbColonias_Eliminar 
-	@colo_Id					INT,
-	@usua_UsuarioEliminacion	INT,
-	@colo_FechaEliminacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
+--CREATE OR ALTER PROCEDURE gral.UDP_tbColonias_Eliminar 2, 1, '2023-07-18 13:15:06'
+--	@colo_Id					INT,
+--	@usua_UsuarioEliminacion	INT,
+--	@colo_FechaEliminacion		DATETIME
+--AS
+--BEGIN
+--	BEGIN TRY
 
-		BEGIN
-			DECLARE @respuesta INT
-			EXEC dbo.UDP_ValidarReferencias 'colo_Id', @colo_Id, 'gral.tbColonias', @respuesta OUTPUT
+--		BEGIN
+--			DECLARE @respuesta INT
+--			EXEC dbo.UDP_ValidarReferencias 'colo_Id', @colo_Id, 'gral.tbColonias', @respuesta OUTPUT
 
-			SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
-				BEGIN
-					UPDATE	[Gral].[tbColonias]
-					SET		[colo_Estado] = 0,
-							[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
-							[colo_FechaEliminacion] = @colo_FechaEliminacion
-					WHERE	[colo_Id] = @colo_Id
-				END
-		END
+--			SELECT @respuesta AS Resultado
+--			IF(@respuesta) = 1
+--				BEGIN
+--					UPDATE	[Gral].[tbColonias]
+--					SET		[colo_Estado] = 0,
+--							[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
+--							[colo_FechaEliminacion] = @colo_FechaEliminacion
+--					WHERE	[colo_Id] = @colo_Id
+--				END
+--		END
 
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END
-GO
+--	END TRY
+--	BEGIN CATCH
+--		SELECT 0
+--	END CATCH
+--END
+--GO
 
 --**********MONEDAS**********--
 
@@ -747,6 +748,7 @@ GO
 CREATE OR ALTER VIEW gral.VW_tbMonedas
 AS
 SELECT mone_Id AS monedaId, 
+	   mone_Codigo AS monedaCodigo,
 	   mone_Descripcion AS monedaNombre, 
 	   mone.usua_UsuarioCreacion AS usuarioCreacion, 
 	   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
@@ -776,8 +778,8 @@ END
 GO
 
 /*Insertar monedas*/
-CREATE OR ALTER PROCEDURE gral.UDP_tbMonedas_Insertar
-	@mone_Id				CHAR(3),
+CREATE OR ALTER PROCEDURE gral.UDP_tbMonedas_Insertar 
+	@mone_Codigo			CHAR(3),
 	@mone_Descripcion		NVARCHAR(150),
 	@usua_UsuarioCreacion	INT,
 	@mone_FechaCreacion     DATETIME
@@ -786,43 +788,45 @@ BEGIN
 	
 	BEGIN TRY
 
-		IF EXISTS (SELECT * FROM [Gral].[tbMonedas]
-						WHERE ([mone_Descripcion] = @mone_Descripcion
-						OR [mone_Id] = @mone_Id)
-						AND [mone_Estado] = 0)
-		BEGIN
-			UPDATE [Gral].[tbMonedas]
-			SET	   [mone_Estado] = 1,
-				   [mone_Descripcion] = @mone_Descripcion,
-				   [mone_Id] = @mone_Id
-			WHERE  [mone_Descripcion] = @mone_Descripcion
+		--IF EXISTS (SELECT * FROM [Gral].[tbMonedas]
+		--				WHERE ([mone_Descripcion] = @mone_Descripcion
+		--				OR [mone_Codigo] = @mone_Codigo)
+		--				AND [mone_Estado] = 0)
+		--BEGIN
+		--	UPDATE [Gral].[tbMonedas]
+		--	SET	   [mone_Estado] = 1,
+		--		   [mone_Descripcion] = @mone_Descripcion,
+		--		   [mone_Codigo] = @mone_Codigo
+		--	WHERE  [mone_Descripcion] = @mone_Descripcion
+		--	OR	   [mone_Codigo] = @mone_Codigo
 
-			SELECT 1
-		END
-		ELSE 
-			BEGIN
-				INSERT INTO [Gral].[tbMonedas] ( mone_Id,
+		--	SELECT 1
+		--END
+		--ELSE 
+		--	BEGIN
+				INSERT INTO [Gral].[tbMonedas] ( mone_Codigo,
 												 mone_Descripcion, 
 											     usua_UsuarioCreacion, 
 											     mone_FechaCreacion)
-			VALUES(@mone_Id,
+			VALUES(@mone_Codigo,
 				   @mone_Descripcion,	
 				   @usua_UsuarioCreacion,
 				   @mone_FechaCreacion)
 
 
 			SELECT 1
-		END
+		--END
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error_Message: ' + ERROR_MESSAGE () 
 	END CATCH 
 END
 GO
 
 /*Editar monedas*/
 CREATE OR ALTER PROCEDURE gral.UDP_tbMonedas_Editar
-	@mone_Id					CHAR(3),
+	@mone_Id					INT,
+	@mone_Codigo				CHAR(3),
 	@mone_Descripcion			NVARCHAR(150),
 	@usua_UsuarioModificacion	INT,
 	@mone_FechaModificacion     DATETIME
@@ -831,6 +835,7 @@ BEGIN
 	BEGIN TRY
 		UPDATE  [Gral].[tbMonedas]
 		SET		[mone_Descripcion] = @mone_Descripcion,
+				[mone_Codigo] = @mone_Codigo,
 				[usua_UsuarioModificacion] = @usua_UsuarioModificacion,
 				[mone_FechaModificacion] = @mone_FechaModificacion
 		WHERE	[mone_Id] = @mone_Id
@@ -843,36 +848,36 @@ BEGIN
 END
 GO
 
-/*Eliminar monedas*/
-CREATE OR ALTER PROCEDURE gral.UDP_tbMonedas_Eliminar 
-	@mone_Id					CHAR(3),
-	@usua_UsuarioEliminacion	INT,
-	@mone_FechaEliminacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
+--/*Eliminar monedas*/
+--CREATE OR ALTER PROCEDURE gral.UDP_tbMonedas_Eliminar 
+--	@mone_Id					CHAR(3),
+--	@usua_UsuarioEliminacion	INT,
+--	@mone_FechaEliminacion		DATETIME
+--AS
+--BEGIN
+--	BEGIN TRY
 
-		BEGIN
-			DECLARE @respuesta INT
-			EXEC dbo.UDP_ValidarReferencias 'mone_Id', @mone_Id, 'gral.tbMonedas', @respuesta OUTPUT
+--		BEGIN
+--			DECLARE @respuesta INT
+--			EXEC dbo.UDP_ValidarReferencias 'mone_Id', @mone_Id, 'gral.tbMonedas', @respuesta OUTPUT
 
-			SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
-				BEGIN
-					UPDATE	[Gral].[tbMonedas]
-					SET		[mone_Estado] = 0,
-							[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
-							[mone_FechaEliminacion] = @mone_FechaEliminacion
-					WHERE	[mone_Id] = @mone_Id
-				END
-		END
+--			SELECT @respuesta AS Resultado
+--			IF(@respuesta) = 1
+--				BEGIN
+--					UPDATE	[Gral].[tbMonedas]
+--					SET		[mone_Estado] = 0,
+--							[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
+--							[mone_FechaEliminacion] = @mone_FechaEliminacion
+--					WHERE	[mone_Id] = @mone_Id
+--				END
+--		END
 
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END
-GO
+--	END TRY
+--	BEGIN CATCH
+--		SELECT 0
+--	END CATCH
+--END
+--GO
 
 --WITH AKT AS ( SELECT f.name AS ForeignKey
 --                    ,OBJECT_NAME(f.parent_object_id) AS TableName
@@ -1055,6 +1060,7 @@ GO
 CREATE OR ALTER VIEW adua.VW_tbIncoterm
 AS
 SELECT inco_Id AS incotermId, 
+	   inco_Codigo AS incotermCodigo,
 	   inco_Descripcion AS incotermNombre, 
 	   inco.usua_UsuarioCreacion AS usuarioCreacion, 
 	   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
@@ -1084,8 +1090,8 @@ END
 GO
 
 /*Insertar incoterm*/
-CREATE OR ALTER PROCEDURE adua.UDP_tbIncoterm_Insertar
-	@inco_Id				CHAR(3),
+CREATE OR ALTER PROCEDURE adua.UDP_tbIncoterm_Insertar 
+	@inco_Codigo			CHAR(3),
 	@inco_Descripcion		NVARCHAR(150),
 	@usua_UsuarioCreacion	INT,
 	@inco_FechaCreacion     DATETIME
@@ -1094,33 +1100,33 @@ BEGIN
 	
 	BEGIN TRY
 
-		IF EXISTS (SELECT * FROM [Adua].[tbIncoterm]
-						WHERE ([inco_Descripcion] = @inco_Descripcion
-						OR [inco_Id] = @inco_Id)
-						AND [inco_Estado] = 0)
-		BEGIN
-			UPDATE [Adua].[tbIncoterm]
-			SET	   [inco_Estado] = 1,
-				   [inco_Descripcion] = @inco_Descripcion,
-				   [inco_Id] = @inco_Id
-			WHERE  [inco_Descripcion] = @inco_Descripcion
+		--IF EXISTS (SELECT * FROM [Adua].[tbIncoterm]
+		--				WHERE ([inco_Descripcion] = @inco_Descripcion
+		--				OR [inco_Codigo] = @inco_Codigo)
+		--				AND [inco_Estado] = 0)
+		--BEGIN
+		--	UPDATE [Adua].[tbIncoterm]
+		--	SET	   [inco_Estado] = 1,
+		--		   [inco_Descripcion] = @inco_Descripcion,
+		--		   [inco_Codigo] = @inco_Codigo
+		--	WHERE  [inco_Descripcion] = @inco_Descripcion
 
-			SELECT 1
-		END
-		ELSE 
-			BEGIN
-				INSERT INTO [Adua].[tbIncoterm] (inco_Id,
+		--	SELECT 1
+		--END
+		--ELSE 
+		--	BEGIN
+				INSERT INTO [Adua].[tbIncoterm] (inco_Codigo,
 												 inco_Descripcion, 
 											     usua_UsuarioCreacion, 
 											     inco_FechaCreacion)
-			VALUES(@inco_Id,
+			VALUES(@inco_Codigo,
 				   @inco_Descripcion,	
 				   @usua_UsuarioCreacion,
 				   @inco_FechaCreacion)
 
 
 			SELECT 1
-		END
+		--END
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -1130,7 +1136,8 @@ GO
 
 /*Editar incoterm*/
 CREATE OR ALTER PROCEDURE adua.UDP_tbIncoterm_Editar
-	@inco_Id					CHAR(3),
+	@inco_Id					INT,
+	@inco_Codigo				CHAR(3),
 	@inco_Descripcion			NVARCHAR(150),
 	@usua_UsuarioModificacion	INT,
 	@inco_FechaModificacion     DATETIME
@@ -1139,7 +1146,8 @@ BEGIN
 	BEGIN TRY
 		UPDATE  [Adua].[tbIncoterm]
 		SET		[inco_Descripcion] = @inco_Descripcion,
-				[usua_UsuarioModificacion] = @usua_UsuarioModificacion,
+		        [inco_Codigo] = @inco_Codigo,
+ 				[usua_UsuarioModificacion] = @usua_UsuarioModificacion,
 				[inco_FechaModificacion] = @inco_FechaModificacion
 		WHERE	[inco_Id] = @inco_Id
 
@@ -1152,34 +1160,34 @@ END
 GO
 
 /*Eliminar incoterm*/
-CREATE OR ALTER PROCEDURE adua.UDP_tbIncoterm_Eliminar 
-	@inco_Id					CHAR(3),
-	@usua_UsuarioEliminacion	INT,
-	@inco_FechaEliminacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
+--CREATE OR ALTER PROCEDURE adua.UDP_tbIncoterm_Eliminar 
+--	@inco_Id					CHAR(3),
+--	@usua_UsuarioEliminacion	INT,
+--	@inco_FechaEliminacion		DATETIME
+--AS
+--BEGIN
+--	BEGIN TRY
 
-		BEGIN
-			DECLARE @respuesta INT
-			EXEC dbo.UDP_ValidarReferencias 'inco_Id', @inco_Id, 'adua.tbIncoterm', @respuesta OUTPUT
+--		BEGIN
+--			DECLARE @respuesta INT
+--			EXEC dbo.UDP_ValidarReferencias 'inco_Id', @inco_Id, 'adua.tbIncoterm', @respuesta OUTPUT
 
-			SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
-				BEGIN
-					UPDATE	[Adua].[tbIncoterm]
-					SET		[inco_Estado] = 0,
-							[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
-							[inco_FechaEliminacion] = @inco_FechaEliminacion
-					WHERE	[inco_Id] = @inco_Id
-				END
-		END
+--			SELECT @respuesta AS Resultado
+--			IF(@respuesta) = 1
+--				BEGIN
+--					UPDATE	[Adua].[tbIncoterm]
+--					SET		[inco_Estado] = 0,
+--							[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
+--							[inco_FechaEliminacion] = @inco_FechaEliminacion
+--					WHERE	[inco_Id] = @inco_Id
+--				END
+--		END
 
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END
-GO
+--	END TRY
+--	BEGIN CATCH
+--		SELECT 0
+--	END CATCH
+--END
+--GO
 
 -----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS MÓDULO PRODUCCIÓN

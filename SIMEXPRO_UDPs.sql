@@ -1,6 +1,6 @@
 -----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS MÓDULO ADUANERO
 
----***********VALIDACI�N DE ELIMINAR**************---
+---***********VALIDACIÓN DE ELIMINAR**************---
 
 GO
 CREATE OR ALTER PROCEDURE dbo.UDP_ValidarReferencias
@@ -102,7 +102,6 @@ AS
 BEGIN
 	SELECT *
     FROM acce.VW_tbUsuarios
-	WHERE usuarioEstado = 1
 END
 GO
 
@@ -459,14 +458,14 @@ SELECT ofpr_Id AS oficioId,
 	   ofpr.usua_UsuarioModificacion AS usuarioModificacion, 
 	   usuaModifica.usua_Nombre AS usuarioModificacionNombre,
 	   ofpr_FechaModificacion AS fechaModificacion, 
-	   ofpr.usua_UsuarioEliminacion AS usuarioEliminacion, 
-	   usuaElimina.usua_Nombre AS usuarioEliminacionNombre,
-	   ofpr_FechaEliminacion AS fechaEliminacion, 
+	   --ofpr.usua_UsuarioEliminacion AS usuarioEliminacion, 
+	   --usuaElimina.usua_Nombre AS usuarioEliminacionNombre,
+	   --ofpr_FechaEliminacion AS fechaEliminacion, 
 	   ofpr_Estado AS oficioEstado
 FROM [Gral].[tbOficio_Profesiones] ofpr INNER JOIN [Acce].[tbUsuarios] usuaCrea
 ON ofpr.usua_UsuarioCreacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaModifica
-ON ofpr.usua_UsuarioModificacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaElimina
-ON ofpr.usua_UsuarioEliminacion = usuaCrea.usua_Id
+ON ofpr.usua_UsuarioModificacion = usuaCrea.usua_Id --LEFT JOIN [Acce].[tbUsuarios] usuaElimina
+--ON ofpr.usua_UsuarioEliminacion = usuaCrea.usua_Id
 GO
 
 
@@ -491,19 +490,7 @@ BEGIN
 	
 	BEGIN TRY
 
-		IF EXISTS (SELECT * FROM [Gral].[tbOficio_Profesiones]
-						WHERE @ofpr_Nombre = [ofpr_Nombre]
-						AND [ofpr_Estado] = 0)
-		BEGIN
-			UPDATE [Gral].[tbOficio_Profesiones]
-			SET	   [ofpr_Estado] = 1
-			WHERE  [ofpr_Nombre] = @ofpr_Nombre
-
-			SELECT 1
-		END
-		ELSE 
-			BEGIN
-				INSERT INTO [Gral].[tbOficio_Profesiones] (ofpr_Nombre, 
+		INSERT INTO [Gral].[tbOficio_Profesiones] (ofpr_Nombre, 
 														   usua_UsuarioCreacion, 
 														   ofpr_FechaCreacion)
 			VALUES(@ofpr_Nombre,	
@@ -512,7 +499,6 @@ BEGIN
 
 
 			SELECT 1
-		END
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -536,36 +522,6 @@ BEGIN
 		WHERE	[ofpr_Id] = @ofpr_Id
 
 		SELECT 1
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END
-GO
-
-/*Eliminar oficio/profesión*/
-CREATE OR ALTER PROCEDURE gral.UDP_tbOficio_Profesiones_Eliminar 
-	@ofpr_Id					INT,
-	@usua_UsuarioEliminacion	INT,
-	@ofpr_FechaEliminacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
-		
-		BEGIN
-			DECLARE @respuesta INT
-			EXEC dbo.UDP_ValidarReferencias 'ofpr_Id', @ofpr_Id, 'gral.tbOficio_Profesiones', @respuesta OUTPUT
-
-			SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
-				BEGIN
-					UPDATE	[Gral].[tbOficio_Profesiones]
-					SET		[ofpr_Estado] = 0,
-							[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
-							[ofpr_FechaEliminacion] = @ofpr_FechaEliminacion
-					WHERE	[ofpr_Id] = @ofpr_Id
-				END
-		END
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -617,19 +573,7 @@ BEGIN
 	
 	BEGIN TRY
 
-		IF EXISTS (SELECT * FROM [Gral].[tbCargos]
-						WHERE @carg_Nombre = [carg_Nombre]
-						AND [carg_Estado] = 0)
-		BEGIN
-			UPDATE [Gral].[tbCargos]
-			SET	   [carg_Estado] = 1
-			WHERE  [carg_Nombre] = @carg_Nombre
-
-			SELECT 1
-		END
-		ELSE 
-			BEGIN
-				INSERT INTO [Gral].[tbCargos] (carg_Nombre, 
+		INSERT INTO [Gral].[tbCargos] (carg_Nombre, 
 											   usua_UsuarioCreacion, 
 											   carg_FechaCreacion)
 			VALUES(@carg_Nombre,	
@@ -638,7 +582,6 @@ BEGIN
 
 
 			SELECT 1
-		END
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -662,37 +605,6 @@ BEGIN
 		WHERE	[carg_Id] = @carg_Id
 
 		SELECT 1
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END
-GO
-
-/*Eliminar cargos*/
-CREATE OR ALTER PROCEDURE gral.UDP_tbCargos_Eliminar 
-	@carg_Id					INT,
-	@usua_UsuarioEliminacion	INT,
-	@carg_FechaEliminacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
-
-		BEGIN
-			DECLARE @respuesta INT
-			EXEC dbo.UDP_ValidarReferencias 'carg_Id', @carg_Id, 'gral.tbCargos', @respuesta OUTPUT
-
-			SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
-				BEGIN
-					UPDATE	[Gral].[tbCargos]
-					SET		[carg_Estado] = 0,
-							[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
-							[carg_FechaEliminacion] = @carg_FechaEliminacion
-					WHERE	[carg_Id] = @carg_Id
-				END
-		END
-
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -756,22 +668,9 @@ BEGIN
 			BEGIN
 				IF EXISTS (SELECT * FROM [Gral].[tbColonias]
 						WHERE @colo_Nombre = [colo_Nombre]
-						AND alde_Id = @alde_Id
-						AND [colo_Estado] = 1)
+						AND alde_Id = @alde_Id)
 					BEGIN
 						SELECT 0
-					END
-				ELSE IF EXISTS (SELECT * FROM [Gral].[tbColonias]
-						WHERE @colo_Nombre = [colo_Nombre]
-						AND alde_Id = @alde_Id
-						AND [colo_Estado] = 0)
-					BEGIN
-						UPDATE [Gral].[tbColonias]
-						SET	   [colo_Estado] = 1
-						WHERE  [colo_Nombre] = @colo_Nombre
-						AND [alde_Id] = @alde_Id
-
-						SELECT 1
 					END
 				ELSE
 					BEGIN
@@ -794,23 +693,9 @@ BEGIN
 			BEGIN
 				IF EXISTS (SELECT * FROM [Gral].[tbColonias]
 						WHERE @colo_Nombre = [colo_Nombre]
-						AND ciud_Id = @ciud_Id
-						AND [colo_Estado] = 1)
+						AND ciud_Id = @ciud_Id)
 					BEGIN
 						SELECT 0
-					END
-				ELSE IF EXISTS (SELECT * FROM [Gral].[tbColonias]
-						WHERE @colo_Nombre = [colo_Nombre]
-						AND ciud_Id = @ciud_Id
-						AND [colo_Estado] = 0)
-					BEGIN
-						UPDATE [Gral].[tbColonias]
-						SET	   [colo_Estado] = 1
-						WHERE  [colo_Nombre] = @colo_Nombre
-						AND ciud_Id = @ciud_Id
-
-						SELECT 1 
-			
 					END
 				ELSE
 					BEGIN
@@ -830,6 +715,70 @@ BEGIN
 	BEGIN CATCH
 		SELECT 0
 	END CATCH 
+END
+GO
+
+/*Editar colonias*/
+CREATE OR ALTER PROCEDURE gral.UDP_tbColonias_Editar 
+	@colo_Id					INT,
+	@colo_Nombre				NVARCHAR(150),
+	@alde_Id					INT,
+	@ciud_Id					INT,
+	@usua_UsuarioModificacion	INT,
+	@colo_FechaModificacion     DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		IF @alde_Id IS NOT NULL
+			BEGIN
+				IF EXISTS (SELECT colo_Id FROM [Gral].[tbColonias]
+						   WHERE [colo_Nombre] = @colo_Nombre
+						   AND [alde_Id] = @alde_Id
+						   AND colo_Id != @colo_Id)
+					BEGIN
+						SELECT 0
+					END
+				ELSE
+					BEGIN
+						UPDATE  [Gral].[tbColonias]
+						SET		[colo_Nombre] = @colo_Nombre,
+								[alde_Id] = @alde_Id,
+								[ciud_Id] = @ciud_Id,
+								[usua_UsuarioModificacion] = @usua_UsuarioModificacion,
+								[colo_FechaModificacion] = @colo_FechaModificacion
+						WHERE	[colo_Id] = @colo_Id
+
+						SELECT 1
+					END
+			END
+		ELSE
+			BEGIN
+				IF EXISTS (SELECT colo_Id FROM [Gral].[tbColonias]
+						   WHERE [colo_Nombre] = @colo_Nombre
+						   AND [ciud_Id] = @ciud_Id
+						   AND colo_Id != @colo_Id
+						   )
+					BEGIN
+						SELECT 0
+					END
+				ELSE
+					BEGIN
+						UPDATE  [Gral].[tbColonias]
+						SET		[colo_Nombre] = @colo_Nombre,
+								[ciud_Id] = @ciud_Id,
+								[alde_Id] = NULL,
+								[usua_UsuarioModificacion] = @usua_UsuarioModificacion,
+								[colo_FechaModificacion] = @colo_FechaModificacion
+						WHERE	[colo_Id] = @colo_Id
+
+						SELECT 1
+					END
+			END
+		
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
 END
 GO
 

@@ -28,15 +28,15 @@ FROM Gral.tbPaises pais
 END
 GO
 
---Se le hizo cambio, quite el parametro de fecha creación
+
 CREATE OR ALTER PROCEDURE Gral.UDP_tbPaises_Insertar
 	@pais_Codigo				CHAR(2), 
 	@pais_Nombre				NVARCHAR(150), 
-	@usua_UsuarioCreacion		INT
+	@usua_UsuarioCreacion		INT,
+	@pais_FechaCreacion			DATETIME
+
 AS
 BEGIN
-DECLARE @pais_FechaCreacion			DATETIME;
-	SET @pais_FechaCreacion = GETDATE();
 	BEGIN TRY 
 		IF EXISTS (SELECT * FROM Gral.tbPaises WHERE @pais_Nombre = pais_Nombre		
 				   AND pais_Estado = 0)
@@ -69,12 +69,12 @@ CREATE OR ALTER PROCEDURE Gral.UDP_tbPaises_Editar
 	@pais_Id						INT,
 	@pais_Codigo					CHAR(2),
 	@pais_Nombre					NVARCHAR(150), 
-	@usua_UsuarioModificacion		INT
+	@usua_UsuarioModificacion		INT,
+	@pais_FechaModificacion	DATETIME
 
 AS
 BEGIN
-	DECLARE @pais_FechaModificacion	DATETIME;
-	SET @pais_FechaModificacion = GETDATE();
+
 	BEGIN TRY		
 		UPDATE Gral.tbPaises
 		SET pais_Nombre = @pais_Nombre,pais_Codigo = @pais_Codigo, 
@@ -126,15 +126,15 @@ FROM [Gral].[tbCiudades] ciu
 END
 GO
 
---cambié el select 0 del catch por el mensaje de error, TAMBIÉN QUITÉ EL PARÁMETRO DE FECHA CREACIÓN
+--cambié el select 0 del catch por el mensaje de error
 CREATE OR ALTER PROCEDURE Gral.UDP_tbCiudades_Insertar
 	@ciud_Nombre				NVARCHAR(150), 
 	@pvin_Id					INT, 
-	@usua_UsuarioCreacion		INT
+	@usua_UsuarioCreacion		INT,
+	@ciud_FechaCreacion		    DATETIME
 AS
 BEGIN
-	DECLARE @ciud_FechaCreacion   DATETIME;
-	SET		@ciud_FechaCreacion = GETDATE();
+	
 	BEGIN TRY
 			IF EXISTS (SELECT*FROM [Gral].[tbCiudades] WHERE @ciud_Nombre = ciud_Nombre AND ciud_Estado = 0)
 			BEGIN
@@ -160,16 +160,16 @@ GO
 
 
 
---cambié el select 0 del catch por el mensaje de error y quite la fecha de modificación de los parametros
+--cambié el select 0 del catch por el mensaje de error
 CREATE OR ALTER PROCEDURE Gral.UDP_tbCiudades_Editar
 	@ciud_Id					INT,
 	@ciud_Nombre				NVARCHAR(150), 
 	@pvin_Id					INT, 
-	@usua_UsuarioModificacion	INT
+	@usua_UsuarioModificacion	INT,
+	@ciud_FechaModificacion		DATETIME
 AS
 BEGIN 
-	DECLARE @ciud_FechaModificacion	DATETIME;
-	SET @ciud_FechaModificacion = GETDATE();
+	
 	BEGIN TRY
 		UPDATE Gral.tbCiudades SET [ciud_Nombre] = @ciud_Nombre, pvin_Id = @pvin_Id,
 		 usua_UsuarioModificacion = @usua_UsuarioModificacion, ciud_FechaModificacion = @ciud_FechaModificacion
@@ -216,17 +216,17 @@ END
 GO
 
 
---MODIFIQUÉ EL PARÁMETRO DE Pais_Codigo a Pais_Id, QUITÉ TAMBIÉN EL PARÁMETRO  DE FECHA CREACIÓN 
+--MODIFIQUÉ EL PARÁMETRO DE Pais_Codigo a Pais_Id
 CREATE OR ALTER PROCEDURE GrAL.UDP_tbProvincias_Insertar
  @pvin_Nombre				NVARCHAR(150), 
  @pvin_Codigo				NVARCHAR(20), 
  @pais_Id					INT, 
- @usua_UsuarioCreacion		INT 
+ @usua_UsuarioCreacion		INT,
+ @pvin_FechaCreacion		DATETIME
 
 AS
 BEGIN
-	DECLARE  @pvin_FechaCreacion   DATETIME;
-	SET		 @pvin_FechaCreacion = GETDATE();
+	
 	BEGIN TRY
 		IF EXISTS (SELECT*FROM Gral.tbProvincias WHERE pvin_Nombre = @pvin_Nombre AND pvin_Estado = 0)
 		BEGIN
@@ -252,18 +252,18 @@ GO
 
 
 
---MODIFIQUÉ EL PARÁMETRO DE Pais_Codigo a Pais_Id, QUITÉ TAMBIÉN EL PARÁMETRO  DE FECHA MODIFICACIÓN 
+--MODIFIQUÉ EL PARÁMETRO DE Pais_Codigo a Pais_Id
 CREATE OR ALTER PROCEDURE Gral.UDP_tbProvinvias_Editar
  @pvin_Id						INT,
  @pvin_Nombre					NVARCHAR(150), 
  @pvin_Codigo					NVARCHAR(20), 
  @pais_Id						INT, 
- @usua_UsuarioModificacion		INT
+ @usua_UsuarioModificacion		INT,
+ @pvin_FechaModificacion		DATETIME
 
 AS
 BEGIN
-	DECLARE  @pvin_FechaModificacion   DATETIME;
-	SET		 @pvin_FechaModificacion = GETDATE();
+	
 	BEGIN TRY
     		UPDATE Gral.tbProvincias SET pvin_Nombre = @pvin_Nombre, pvin_Codigo = @pvin_Codigo, pais_Id = @pais_Id,
 			pvin_FechaModificacion = @pvin_FechaModificacion, usua_UsuarioModificacion = @usua_UsuarioModificacion
@@ -310,16 +310,15 @@ WHERE alde_Estado = 1
 END
 GO
 
---quite el parámetro de fecha_creeacion 
 CREATE OR ALTER PROCEDURE Gral.UDP_tbAldeas_Insertar
  @alde_Nombre				NVARCHAR(150), 
  @ciud_Id					INT, 
- @usua_UsuarioCreacion		INT
+ @usua_UsuarioCreacion		INT,
+ @alde_FechaCreacion		DATETIME
 
 AS
 BEGIN
-	DECLARE  @alde_FechaCreacion DATETIME;
-	SET @alde_FechaCreacion = GETDATE();
+	
 	BEGIN TRY
 		IF EXISTS (SELECT *FROM [Gral].[tbAldeas] WHERE [alde_Nombre] = @alde_Nombre AND alde_Estado = 0 )
 		BEGIN
@@ -345,17 +344,16 @@ GO
 
 
 
---quité el parámetro de fecha_modificación
 CREATE OR ALTER PROCEDURE Gral.UDP_tbAldeas_Editar
  @alde_Id						INT,
  @alde_Nombre					NVARCHAR(150), 
  @ciud_Id						INT, 
- @usua_UsuarioModificacion		INT
+ @usua_UsuarioModificacion		INT,
+ @alde_FechaModificacion		DATETIME
 
 AS
 BEGIN
-		DECLARE  @alde_FechaModificacion   DATETIME;
-		SET		 @alde_FechaModificacion = GETDATE();
+		
 	BEGIN TRY
 		UPDATE Gral.tbAldeas SET alde_Nombre = @alde_Nombre, ciud_Id = @ciud_Id, 
 		alde_FechaModificacion = @alde_FechaModificacion, usua_UsuarioModificacion = @usua_UsuarioModificacion
@@ -496,7 +494,6 @@ END
 GO
 
 
---QUITÉ  EL PARÁMETRO DE FECHA CREACIÓN 
 CREATE OR ALTER PROCEDURE Gral.UDP_tbProveedores_Insertar
 @prov_NombreCompania			NVARCHAR(200), 
 @prov_NombreContacto			NVARCHAR(200), 
@@ -506,11 +503,11 @@ CREATE OR ALTER PROCEDURE Gral.UDP_tbProveedores_Insertar
 @prov_DireccionExacta			NVARCHAR(350), 
 @prov_CorreoElectronico			NVARCHAR(250), 
 @prov_Fax						NVARCHAR(20), 
-@usua_UsuarioCreacion			INT
+@usua_UsuarioCreacion			INT,
+@prov_FechaCreacion				DATETIME
 AS
 BEGIN
-	DECLARE @prov_FechaCreacion	  DATETIME;
-	SET		@prov_FechaCreacion = GETDATE();
+	
 	BEGIN TRY
 		IF EXISTS (SELECT*FROM Gral.tbProveedores WHERE prov_NombreCompania = @prov_NombreCompania AND prov_Estado = 0)
 		BEGIN
@@ -535,7 +532,6 @@ GO
 
 
 
--- QUITÉ EN CAMPO DE FECHA MODIFICACIÓN 
 CREATE OR ALTER PROCEDURE Gral.UDP_tbProveedores_Editar
 @prov_Id						INT,
 @prov_NombreCompania			NVARCHAR(200), 
@@ -546,11 +542,11 @@ CREATE OR ALTER PROCEDURE Gral.UDP_tbProveedores_Editar
 @prov_DireccionExacta			NVARCHAR(350), 
 @prov_CorreoElectronico			NVARCHAR(250), 
 @prov_Fax						NVARCHAR(20), 
-@usua_UsuarioModificacion		INT
+@usua_UsuarioModificacion		INT,
+@prov_FechaModificacion			DATETIME
 AS
 BEGIN
-	DECLARE @prov_FechaModificacion	DATETIME;
-	SET @prov_FechaModificacion = GETDATE();
+	
 	BEGIN TRY
 		
 			UPDATE Gral.tbProveedores SET prov_NombreCompania = @prov_NombreCompania, prov_Ciudad = @prov_Ciudad, prov_CodigoPostal = @prov_CodigoPostal,
@@ -574,12 +570,12 @@ GO
 CREATE OR ALTER PROCEDURE Gral.UDP_tbProveedores_Eliminar
 (
 	@prov_Id					INT,
-	@usua_UsuarioEliminacion	INT
+	@usua_UsuarioEliminacion	INT,
+	@prov_FechaEliminacion		DATETIME
 )
 AS
 BEGIN
-	DECLARE @prov_FechaEliminacion	DATETIME;
-	SET @prov_FechaEliminacion = GETDATE();
+	
 	BEGIN TRY
 		DECLARE @respuesta INT
 		EXEC dbo.UDP_ValidarReferencias 'prov_Id', @prov_Id, 'Gral.tbProveedores', @respuesta OUTPUT
@@ -636,14 +632,13 @@ END
 GO
 
 
--- QUITÉ LA FECHA CREACIÓN DE LOS PARÁMETROS
 CREATE OR ALTER PROCEDURE Adua.UDP_tbNivelesComerciales_Insertar
 @nico_Descripcion				NVARCHAR(150), 
-@usua_UsuarioCreacion			INT
+@usua_UsuarioCreacion			INT,
+@nico_FechaCreacion				DATETIME
 AS
 BEGIN
-	DECLARE @nico_FechaCreacion	  DATETIME;
-	SET		@nico_FechaCreacion = GETDATE();
+	
 	BEGIN TRY
 		IF EXISTS(SELECT*FROM Adua.tbNivelesComerciales WHERE nico_Descripcion = @nico_Descripcion AND nico_Estado = 0 )
 		BEGIN
@@ -664,15 +659,14 @@ BEGIN
 END
 GO
 
--- QUITÉ LA FECHA MODIFICACIÓN DE LOS PARÁMETROS
+
 CREATE OR ALTER PROCEDURE Adua.UDP_tbNivelesComerciales_Editar
 @nico_Id						INT,
 @nico_Descripcion				NVARCHAR(150), 
-@usua_UsuarioModificacion		INT
+@usua_UsuarioModificacion		INT,
+@nico_FechaModificacion			DATETIME
 AS
 BEGIN
-	DECLARE @nico_FechaModificacion	DATETIME;
-	SET @nico_FechaModificacion =	GETDATE();
 	BEGIN TRY
 	UPDATE Adua.tbNivelesComerciales SET nico_Descripcion = @nico_Descripcion, usua_UsuarioModificacion = @usua_UsuarioModificacion,
 	nico_FechaModificacion = @nico_FechaModificacion WHERE nico_Id = @nico_Id
@@ -690,12 +684,11 @@ GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbNivelesComerciales_Eliminar
 (
 	@nico_Id					INT,
-	@usua_UsuarioEliminacion	INT
+	@usua_UsuarioEliminacion	INT,
+	@nico_FechaEliminacion	 DATETIME
 )
 AS
 BEGIN
-	DECLARE @nico_FechaEliminacion	 DATETIME;
-	SET		@nico_FechaEliminacion = GETDATE();
 	BEGIN TRY
 		DECLARE @respuesta INT
 		EXEC dbo.UDP_ValidarReferencias 'nico_Id', @nico_Id, 'Adua.tbNivelesComerciales', @respuesta OUTPUT

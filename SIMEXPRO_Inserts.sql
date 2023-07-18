@@ -896,3 +896,32 @@ VALUES	('CHEQUE BANCARIO/CHEQUE PERSONAL', 1, GETDATE()),
 		('PAGO ELECTRONICO', 1, GETDATE()),
 		('TRANSFERENCIA BANCARIA', 1, GETDATE()),
 		('TARJETA DE CREDITO', 1, GETDATE());
+
+
+
+INSERT INTO [Prod].[tbProcesos](proc_Descripcion, usua_UsuarioCreacion, proc_FechaCreacion)
+VALUES('pROCESO',1,'05-10-2021')
+
+
+INSERT INTO [Prod].[tbClientes](clie_Nombre_O_Razon_Social, clie_Direccion, clie_RTN, clie_Nombre_Contacto, clie_Numero_Contacto, clie_Correo_Electronico, clie_FAX, usua_UsuarioCreacion, clie_FechaCreacion)
+values('Miguel','Direccionando','054564','Josue','465465','sdkjssdasd','45454',1,'05-10-2021')
+
+INSERT INTO [Gral].[tbEmpleados](empl_Nombres, empl_Apellidos, empl_DNI, escv_Id, empl_Sexo, empl_FechaNacimiento, empl_Telefono, empl_DireccionExacta, pvin_Id, empl_CorreoElectronico, carg_Id, empl_EsAduana, usua_UsuarioCreacion, empl_FechaCreacion)
+values('Mario','Acasa','06412',1,'M','05-10-2022','97856222','A la orilla de mi casa',1,'La acasa',1,1,1,'05-06-2000')
+
+INSERT INTO [Prod].[tbMarcasMaquina](marq_Nombre, usua_UsuarioCreacion, marq_FechaCreacion)
+VALUES('Maquita',1,'05-10-2022')
+
+
+INSERT INTO [Prod].[tbFuncionesMaquina](func_Nombre, usua_UsuarioCreacion, func_FechaCreacion)
+VALUES('Funcionando',1,'05-11-2022')
+
+
+INSERT INTO [Prod].[tbModulos](modu_Nombre, proc_Id, empr_Id, usua_UsuarioCreacion, modu_FechaCreacion)
+VALUES('Nombrando',1,1,1,'05-10-2021')
+
+
+insert into [Prod].[tbModelosMaquina](mmaq_Nombre, marq_Id, func_Id, mmaq_Imagen, usua_UsuarioCreacion, mmaq_FechaCreacion)
+VALUES('Maquinaria',1,1,'https://www.google.com/url?sa=i&url=https%3A%2F%2Fes.wikipedia.org%2Fwiki%2FM%25C3%25A1quina_herramienta&psig=AOvVaw2Z7iOnlL73w4kM6faV6xVd&ust=1689787202888000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMC774LimIADFQAAAAAdAAAAABAE',1,'05-10-2021')
+
+

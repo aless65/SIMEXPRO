@@ -234,7 +234,7 @@ SELECT	esbo_Id								AS estadoBoletinId,
 		esbo_Estadoo 						AS estadoBoletinID			
 FROM	Adua.tbEstadoBoletin esbo 
 		INNER JOIN Acce.tbUsuarios crea		ON crea.usua_Id = esbo.usua_UsuarioCreacion 
-		INNER JOIN Acce.tbUsuarios modi		ON modi.usua_Id = esbo.usua_UsuarioModificacion 
+		LEFT JOIN Acce.tbUsuarios modi		ON modi.usua_Id = esbo.usua_UsuarioModificacion 
 WHERE	esbo_Estadoo = 1
 END 
 GO
@@ -300,8 +300,8 @@ SELECT	proc_Id								AS procesoId,
 		proc_Estado							AS procesoEstado	
 FROM	Prod.tbProcesos pro 
 		INNER JOIN Acce.tbUsuarios crea		ON crea.usua_Id = pro.usua_UsuarioCreacion 
-		INNER JOIN Acce.tbUsuarios modi		ON modi.usua_Id = pro.usua_UsuarioModificacion 
-		INNER JOIN Acce.tbUsuarios elim		ON elim.usua_Id = pro.usua_UsuarioEliminacion 
+		LEFT JOIN Acce.tbUsuarios modi		ON modi.usua_Id = pro.usua_UsuarioModificacion 
+		LEFT JOIN Acce.tbUsuarios elim		ON elim.usua_Id = pro.usua_UsuarioEliminacion 
 WHERE	proc_Estado = 1
 END
 GO
@@ -314,25 +314,13 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbProcesos_Insertar
 AS
 BEGIN
 	BEGIN TRY
-		IF EXISTS (SELECT * FROM Prod.tbProcesos WHERE proc_Descripcion = @proc_Descripcion AND proc_Estado = 0)
-			BEGIN
-				UPDATE Prod.tbProcesos
-				SET proc_Estado = 1,
-				usua_UsuarioModificacion = @usua_UsuarioCreacion,
-				proc_FechaModificacion = @proc_FechaCreacion
-				WHERE proc_Descripcion = @proc_Descripcion
-				SELECT 1
-			END
-		ELSE
-			BEGIN
-				INSERT INTO Prod.tbProcesos(proc_Descripcion,usua_UsuarioCreacion,proc_FechaCreacion)
-				VALUES (
-				@proc_Descripcion,		
-				@usua_UsuarioCreacion,	
-				@proc_FechaCreacion
-				)
-				SELECT 1
-			END
+			INSERT INTO Prod.tbProcesos(proc_Descripcion,usua_UsuarioCreacion,proc_FechaCreacion)
+			VALUES (
+			@proc_Descripcion,		
+			@usua_UsuarioCreacion,	
+			@proc_FechaCreacion
+			)
+			SELECT 1
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -349,24 +337,12 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbProcesos_Editar
 AS
 BEGIN
 	BEGIN TRY
-		IF EXISTS (SELECT * FROM Prod.tbProcesos WHERE proc_Descripcion = @proc_Descripcion AND proc_Estado = 0)
-			BEGIN
-				UPDATE Prod.tbProcesos
-				SET proc_Estado = 1,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				proc_FechaModificacion = @proc_FechaCreacion
-				WHERE proc_Descripcion = @proc_Descripcion
-				SELECT 1
-			END
-		ELSE
-			BEGIN
-				UPDATE Prod.tbProcesos
-				SET proc_Descripcion = @proc_Descripcion,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				proc_FechaModificacion = @proc_FechaCreacion
-				WHERE proc_ID = @proc_ID
-				SELECT 1
-			END
+			UPDATE Prod.tbProcesos
+			SET proc_Descripcion = @proc_Descripcion,
+			usua_UsuarioModificacion = @usua_UsuarioModificacion,
+			proc_FechaModificacion = @proc_FechaCreacion
+			WHERE proc_ID = @proc_ID
+			SELECT 1
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -414,8 +390,8 @@ SELECT	tipa_Id							AS areaId,
 FROM	Prod.tbArea area 
 		INNER JOIN Prod.tbProcesos pro	ON area.proc_Id = pro.proc_Id  
 		INNER JOIN Acce.tbUsuarios crea ON crea.usua_Id = area.usua_UsuarioCreacion 
-		INNER JOIN Acce.tbUsuarios modi ON modi.usua_Id = area.usua_UsuarioModificacion 
-		INNER JOIN Acce.tbUsuarios elim ON elim.usua_Id = area.usua_UsuarioEliminacion 
+		LEFT JOIN Acce.tbUsuarios modi ON modi.usua_Id = area.usua_UsuarioModificacion 
+		LEFT JOIN Acce.tbUsuarios elim ON elim.usua_Id = area.usua_UsuarioEliminacion 
 WHERE	tipa_Estado = 1
 END
 GO
@@ -429,26 +405,14 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbArea_Insertar
 AS
 BEGIN
 	BEGIN TRY
-		IF EXISTS (SELECT * FROM Prod.tbArea WHERE tipa_area = @tipa_area AND proc_Id = @proc_Id)
-			BEGIN 
-				UPDATE Prod.tbArea
-				SET tipa_Estado = 1,
-				usua_UsuarioModificacion = @usua_UsuarioCreacion,
-				tipa_FechaModificacion = @tipa_FechaCreacion
-				WHERE tipa_area = @tipa_area
-				SELECT 1
-			END
-		ELSE
-			BEGIN
-				INSERT INTO Prod.tbArea(tipa_area,proc_Id,usua_UsuarioCreacion,tipa_FechaCreacion)
-				VALUES (
-				@tipa_area,				
-				@proc_Id,				
-				@usua_UsuarioCreacion,	
-				@tipa_FechaCreacion				
-				)
-				SELECT 1
-			END
+		INSERT INTO Prod.tbArea(tipa_area,proc_Id,usua_UsuarioCreacion,tipa_FechaCreacion)
+		VALUES (
+		@tipa_area,				
+		@proc_Id,				
+		@usua_UsuarioCreacion,	
+		@tipa_FechaCreacion				
+		)
+		SELECT 1
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -467,25 +431,13 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbArea_Editar
 AS
 BEGIN
 	BEGIN TRY
-		IF EXISTS (SELECT * FROM Prod.tbArea WHERE tipa_area = @tipa_area AND proc_Id = @proc_Id)
-			BEGIN 
-				UPDATE Prod.tbArea
-				SET tipa_Estado = 1,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				tipa_FechaModificacion = @tipa_FechaModificacion
-				WHERE tipa_area = @tipa_area
-				SELECT 1
-			END
-		ELSE
-			BEGIN
-				UPDATE Prod.tbArea
-				SET tipa_area = @tipa_area,
-				proc_Id = @proc_Id,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				tipa_FechaModificacion = @tipa_FechaModificacion
-				WHERE tipa_Id = @tipa_Id	
-				SELECT 1
-			END
+			UPDATE Prod.tbArea
+			SET tipa_area = @tipa_area,
+			proc_Id = @proc_Id,
+			usua_UsuarioModificacion = @usua_UsuarioModificacion,
+			tipa_FechaModificacion = @tipa_FechaModificacion
+			WHERE tipa_Id = @tipa_Id	
+			SELECT 1
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -530,7 +482,7 @@ SELECT	tall_Id								AS tallaId,
 		tall_Estado							AS tallaEstado
 FROM	Prod.tbTallas tall 
 		INNER JOIN Acce.tbUsuarios crea		ON crea.usua_Id = tall.usua_UsuarioCreacion 
-		INNER JOIN Acce.tbUsuarios modi		ON modi.usua_Id = tall.usua_UsuarioModificacion 
+		LEFT JOIN Acce.tbUsuarios modi		ON modi.usua_Id = tall.usua_UsuarioModificacion 
 WHERE	tall_Estado = 1
 END
 GO
@@ -571,11 +523,11 @@ AS
 BEGIN
 BEGIN TRY  
 		UPDATE  Prod.tbTallas 
-		SET tall_Nombre = @tall_Nombre,
-		tall_Codigo = @tall_Codigo,
-		usua_UsuarioModificacion = @usua_UsuarioModificacion,
-		tall_FechaModificacion = @tall_FechaModificacion
-		WHERE tall_Id = @tall_Id
+		SET tall_Nombre				= @tall_Nombre,
+		tall_Codigo					= @tall_Codigo,
+		usua_UsuarioModificacion	= @usua_UsuarioModificacion,
+		tall_FechaModificacion		= @tall_FechaModificacion
+		WHERE tall_Id				= @tall_Id
 			SELECT 1
 END TRY
 BEGIN CATCH
@@ -605,8 +557,8 @@ SELECT	tiem_Id								AS tipoEmbalajeId,
 		tiem_Estado 						AS tipoEmbalajeEstado	
 FROM	Prod.tbTipoEmbalaje tiem 
 		INNER JOIN Acce.tbUsuarios crea		ON crea.usua_Id = tiem.usua_UsuarioCreacion 
-		INNER JOIN Acce.tbUsuarios modi		ON modi.usua_Id = tiem.usua_UsuarioModificacion 
-		INNER JOIN Acce.tbUsuarios elim		ON elim.usua_Id = tiem.usua_UsuarioEliminacion
+		LEFT JOIN Acce.tbUsuarios modi		ON modi.usua_Id = tiem.usua_UsuarioModificacion 
+		LEFT JOIN Acce.tbUsuarios elim		ON elim.usua_Id = tiem.usua_UsuarioEliminacion
 WHERE	tiem_Estado = 1
 END
 GO
@@ -619,25 +571,13 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbTipoEmbalaje_Insertar
 AS
 BEGIN
 	BEGIN TRY
-		IF EXISTS (SELECT * FROM Prod.tbTipoEmbalaje WHERE tiem_Descripcion = @tiem_Descripcion)
-		BEGIN 
-			UPDATE Prod.tbTipoEmbalaje
-			SET tiem_Estado = 1,
-			usua_UsuarioModificacion = @usua_UsuarioCreacion,
-			tiem_FechaModificacion = @tiem_FechaCreacion
-			WHERE tiem_Descripcion = @tiem_Descripcion
-			SELECT 1
-		END
-		ELSE
-		BEGIN 
-			INSERT INTO Prod.tbTipoEmbalaje (tiem_Descripcion, usua_UsuarioCreacion, tiem_FechaCreacion)
-			VALUES (
-			@tiem_Descripcion,
-			@usua_UsuarioCreacion,
-			@tiem_FechaCreacion
-			)
-			SELECT 1
-		END
+		INSERT INTO Prod.tbTipoEmbalaje (tiem_Descripcion, usua_UsuarioCreacion, tiem_FechaCreacion)
+		VALUES (
+		@tiem_Descripcion,
+		@usua_UsuarioCreacion,
+		@tiem_FechaCreacion
+		)
+		SELECT 1
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE() 
@@ -653,24 +593,12 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbTipoEmbalaje_Editar
 AS
 BEGIN
 	BEGIN TRY
-		IF EXISTS (SELECT * FROM Prod.tbTipoEmbalaje WHERE tiem_Descripcion = @tiem_Descripcion)
-			BEGIN 
-				UPDATE Prod.tbTipoEmbalaje
-				SET tiem_Estado = 1,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				tiem_FechaModificacion = @tiem_FechaModificacion
-				WHERE tiem_Id = @tiem_Id
-				SELECT 1
-			END
-		ELSE
-			BEGIN 
-				UPDATE Prod.tbTipoEmbalaje
-				SET tiem_Descripcion = @tiem_Descripcion,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				tiem_FechaModificacion = @tiem_FechaModificacion
-				WHERE tiem_Id = @tiem_Id
-				SELECT 1
-			END
+		UPDATE Prod.tbTipoEmbalaje
+		SET tiem_Descripcion = @tiem_Descripcion,
+		usua_UsuarioModificacion = @usua_UsuarioModificacion,
+		tiem_FechaModificacion = @tiem_FechaModificacion
+		WHERE tiem_Id = @tiem_Id
+		SELECT 1
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE() 

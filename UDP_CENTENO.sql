@@ -14,7 +14,7 @@ SELECT
 FROM [Adua].[tbAduanas] adu INNER JOIN [Acce].[tbUsuarios] usu
 ON adu.usua_UsuarioCreacion = usu.usua_Id INNER JOIN 
 [Acce].[tbUsuarios] usu2 ON usu2.usua_UsuarioModificacion = adu.usua_UsuarioModificacion 
-
+WHERE adu.adua_Estado = 1
 go
 
 /*Listar aduanas*/
@@ -36,7 +36,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Insertar
 AS 
 BEGIN 
      BEGIN TRY 
-		SET @adua_FechaCreacion = GETDATE();
+		
 		IF EXISTS (SELECT * FROM [Adua].[tbAduanas]     
 		  WHERE @adua_Nombre = adua_Nombre
 			AND adua_Estado = 0)
@@ -79,7 +79,7 @@ END
 go
 
 /*Aduanas Editar*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Editar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Editar 
  @adua_Id                   INT, 
  @adua_Nombre               NVARCHAR(MAX), 
  @adua_Direccion_Exacta     NVARCHAR(MAX),   
@@ -88,7 +88,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Editar
 AS
 BEGIN 
    BEGIN TRY   
-     SET @adua_FechaModificacion = GETDATE()
+     
 	   UPDATE  [Adua].[tbAduanas] 
 	   SET adua_Nombre = @adua_Nombre, 
 	       adua_Direccion_Exacta = @adua_Direccion_Exacta, 		   
@@ -105,7 +105,7 @@ END
 
 GO
 /*Aduana Eliminar*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Eliminar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Eliminar 
 	 @adua_Id					INT,
 	 @usua_UsuarioEliminacion	INT,
 	 @adua_FechaEliminacion		DATETIME
@@ -114,7 +114,7 @@ BEGIN
 	BEGIN TRY
 
 		BEGIN
-		   SET @adua_FechaEliminacion = GETDATE()
+		   
 			DECLARE @respuesta INT
 			EXEC dbo.UDP_ValidarReferencias 'adua_Id',  @adua_Id, 'Adua.tbAduanas', @respuesta OUTPUT
 
@@ -157,14 +157,13 @@ AS
   FROM [Adua].[tbFormasdePago] form INNER JOIN [Acce].[tbUsuarios] usu
   ON usu.usua_Id = form.usua_UsuarioCreacion INNER JOIN [Acce].[tbUsuarios] usu1
   ON usu1.usua_Id = form.usua_UsuarioModificacion   
-
+  WHERE fopa_Estado = 1
 GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbFormadePago_Listar
 AS
 BEGIN 
    SELECT *
    FROM Adua.VW_tbFormasdePago
-
 END
 
 
@@ -172,14 +171,14 @@ END
 
 /**************Crear Formas de pago**********************/
 GO
-CREATE OR ALTER PROCEDURE Adua.UDP_tbFormasdePago_Insertar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbFormasdePago_Insertar 
    @fopa_Descripcion        NVARCHAR(MAX), 
    @usua_UsuarioCreacion    INT, 
    @fopa_FechaCreacion      DATETIME
 AS
 BEGIN
      BEGIN TRY 
-	 SET @fopa_FechaCreacion = GETDATE()
+	 
 	    IF EXISTS(SELECT * FROM [Adua].[tbFormasdePago] WHERE fopa_Descripcion=@fopa_Descripcion 
 		 AND fopa_Estado = 0)	 
 		 BEGIN 
@@ -211,7 +210,7 @@ END
 
 GO
 /********************Editar Formas de pago************************/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbFormasdePago_Editar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbFormasdePago_Editar 
    @fopa_id    INT,
    @fopa_Descripcion  NVARCHAR(350),  
    @usua_UsuarioModificacion INT, 
@@ -219,7 +218,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbFormasdePago_Editar
 AS
 BEGIN 
       BEGIN TRY 
-	  SET @fopa_FechaModificacion = GETDATE()
+	  
 	      UPDATE [Adua].[tbFormasdePago]
 		  SET fopa_Descripcion = @fopa_Descripcion, 
 		      usua_UsuarioModificacion = @usua_UsuarioModificacion,
@@ -235,7 +234,7 @@ END
 go
 /****************Eliminar Formas de pago*******************/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbFormasdePago_Eliminar 
-	@fopa_id					INT
+	@fopa_id					INT,
 	@usua_UsuarioEliminacion	INT,
 	@fopa_FechaEliminacion		DATETIME
 AS
@@ -288,19 +287,19 @@ AS
 
 /*Crear Condiciones comerciales*/
 GO
-CREATE OR ALTER PROCEDURE Adua.UDP_tbCondicionesComerciales_Insertar  
+CREATE OR ALTER PROCEDURE Adua.UDP_tbCondicionesComerciales_Insertar 
  @coco_Descripcion    NVARCHAR(350), 
  @coco_UsuCreacion        INT, 
  @coco_FechaCreacion     DATETIME
 AS    
 BEGIN 
     BEGIN TRY 
-	  SET @coco_FechaCreacion= GETDATE()
-	  IF EXISTS(SELECT * FROM [Adua].[tbCondicionesComerciales] con 
-	        WHERE con.coco_Descripcion = @coco_Descripcion AND con.[coco_Estado] =0)
+	  IF EXISTS(SELECT * FROM [Adua].[tbCondicionesComerciales] 
+	        WHERE coco_Descripcion = @coco_Descripcion AND [coco_Estado]=0)
 			BEGIN 
 			   UPDATE [Adua].[tbCondicionesComerciales]
 			   SET [coco_Estado] = 1
+			   WHERE coco_Descripcion =@coco_Descripcion
 			   SELECT 1
 			END
 			ELSE 
@@ -326,7 +325,7 @@ END
 
 /*Editar Condiciones comerciales*/
 GO
-CREATE OR ALTER PROCEDURE Adua.UDP_tbCondicionesComerciales_Editar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbCondicionesComerciales_Editar 
    @coco_Id                  INT,
    @coco_Descripcion         NVARCHAR(150),
    @coco_UsuarioModificacion         INT,
@@ -334,7 +333,6 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbCondicionesComerciales_Editar
 AS
 BEGIN 
       BEGIN TRY
-	SET  @coco_FechaModi = GETDATE()
 	      UPDATE [Adua].[tbCondicionesComerciales]
 		  SET coco_Descripcion = @coco_Descripcion, 
 		      usua_UsuarioModificacion = @coco_UsuarioModificacion,
@@ -350,16 +348,15 @@ END
  /*Eliminar Condiciones Comerciales */
 GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbCondicionesComerciales_Eliminar
-	@coco_Id					INT
+	@coco_Id					INT,
 	@usua_UsuarioEliminacion	INT,
 	@coco_FechaEliminacion		DATETIME
 AS
 BEGIN
 	BEGIN TRY
-
 		BEGIN
 			DECLARE @respuesta INT
-			EXEC dbo.UDP_ValidarReferencias 'coco_Id', @coco_Id, 'Adua.tbFormasdePago', @respuesta OUTPUT
+			EXEC dbo.UDP_ValidarReferencias 'coco_Id', @coco_Id,'Adua.tbCondicionesComerciales',@respuesta OUTPUT
 
 			SELECT @respuesta AS Resultado
 			IF(@respuesta) = 1
@@ -370,8 +367,8 @@ BEGIN
 							coco_FechaEliminacion = @coco_FechaEliminacion
 						WHERE coco_Id = @coco_Id
 		SELECT 1
-				END
-		END
+		 END
+	END
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -380,7 +377,7 @@ END
 GO
 
 
-GO
+
 /************************UDP Tipos de Intermediarios*************************/
 CREATE OR ALTER VIEW Adua.VW_tbTipoIntermediario
 AS
@@ -394,6 +391,8 @@ AS
  FROM [Adua].[tbTipoIntermediario] tip INNER JOIN [Acce].[tbUsuarios] usu
  ON tip.usua_UsuarioCreacion = usu.usua_Id INNER JOIN [Acce].[tbUsuarios] usu1
  ON usu1.usua_UsuarioModificacion = tip.usua_UsuarioModificacion
+ WHERE tite_Estado = 1
+
 
 /*********************Listar Tipo intermediario***************************/
  GO
@@ -406,14 +405,13 @@ AS
  END 
  GO
  /********************Crear Tipo Intermediario******************************/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Insertar  
+CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Insertar
    @tite_Descripcion    NVARCHAR(150), 
    @tite_UsuCreacion        INT, 
    @tite_FechaCreacion     DATETIME
 AS    
 BEGIN 
    BEGIN TRY 
-   SET @tite_FechaCreacion= GETDATE();
       IF EXISTS(SELECT * FROM [Adua].[tbTipoIntermediario] WHERE tite_Descripcion = @tite_Descripcion AND tite_Estado = 0)
       BEGIN 
          UPDATE [Adua].[tbTipoIntermediario]
@@ -434,19 +432,18 @@ END
 
 GO
 /*************Editar Tipo de intermediario ************************/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Editar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Editar  
    @tite_Id                  INT,
    @tite_Descripcion         NVARCHAR(150),
    @tite_UsuarioModificacion         INT,
-   @tite_FechaModi           DATETIME
+   @tite_FechaModicacion           DATETIME
 AS
 BEGIN 
    BEGIN TRY 
-     SET @tite_FechaModi = GETDATE();
       UPDATE [Adua].[tbTipoIntermediario]
       SET tite_Descripcion = @tite_Descripcion, 
           usua_UsuarioModificacion = @tite_UsuarioModificacion,
-          tite_FechaModificacion = @tite_FechaModi
+          tite_FechaModificacion = @tite_FechaModicacion
       WHERE tite_Id = @tite_Id
 	  SELECT 1
    END TRY 
@@ -459,7 +456,7 @@ GO
 /*************************Eliminar tipo de intermediario*****************/
 GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Eliminar
-	@tite_Id					INT
+	@tite_Id					INT,
 	@usua_UsuarioEliminacion	INT,
 	@tite_FechaEliminacion	DATETIME
 AS
@@ -535,7 +532,6 @@ BEGIN
   BEGIN TRY
   IF EXISTS(SELECT * FROM [Prod].[tbClientes] cli WHERE cli.clie_Nombre_O_Razon_Social = @clie_Nombre_O_Razon_Social)    
 	BEGIN  
-		SET @clie_FechaCreacion = GETDATE();
 	    UPDATE [Prod].[tbClientes]
 		SET 
 		    clie_Nombre_O_Razon_Social=@clie_Nombre_O_Razon_Social, 
@@ -597,8 +593,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Editar
   @usua_UsuarioModificacion INT, 
   @clie_FechaModificacion DATETIME
 AS
-BEGIN 
-    SET @usua_UsuarioModificacion = GETDATE();     
+BEGIN   
     BEGIN TRY 
 	    UPDATE [Prod].[tbClientes]
 		SET clie_Nombre_O_Razon_Social =@clie_Nombre_O_Razon_Social, 
@@ -620,8 +615,8 @@ END
 
 /*Eliminar Clientes*/
 GO
-CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Eliminar  
-	@clie_Id					INT
+CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Eliminar 
+	@clie_Id					INT,
 	@usua_UsuarioEliminacion	INT,
 	@clie_FechaEliminacion	DATETIME
 AS
@@ -629,7 +624,6 @@ BEGIN
 	BEGIN TRY
 
 		BEGIN
-		  SET  @clie_FechaEliminacion = GETDATE()
 			DECLARE @respuesta INT
 			EXEC dbo.UDP_ValidarReferencias 'clie_Id', @clie_Id, 'Prod.tbClientes', @respuesta OUTPUT
 
@@ -650,9 +644,6 @@ BEGIN
 	END CATCH
 END
 GO
-
-
-
 
 GO
 /****************************************UDPs Estilos******************/
@@ -684,14 +675,13 @@ END
 GO
 
 /***Insertar estilos*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbEstilos_Insertar  
+CREATE OR ALTER PROCEDURE Prod.UDP_tbEstilos_Insertar 
    @esti_Descripcion    NVARCHAR(200), 
    @usua_UsuarioCreacion        INT, 
    @esti_FechaCreacion      DATETIME
 AS    
 BEGIN 
    BEGIN TRY 
-    SET @esti_FechaCreacion = GETDATE()
 	 IF EXISTS(SELECT * FROM [Prod].[tbEstilos] WHERE esti_Descripcion = @esti_Descripcion AND esti_Estado = 0)
       BEGIN 
          UPDATE [Prod].[tbEstilos]
@@ -710,11 +700,9 @@ BEGIN
    END CATCH  
 END
 
-
-
 /***Editar estilos*/
 GO
-CREATE OR ALTER PROCEDURE Adua.UDP_tbEstilos_Editar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbEstilos_Editar 
    @esti_Id                  INT,
    @esti_Descripcion         NVARCHAR(200),
    @usua_UsuarioModificacion INT,
@@ -722,8 +710,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbEstilos_Editar
 AS
 BEGIN 
    BEGIN TRY 
-   SET @esti_FechaModificacion = GETDATE()
-      UPDATE [Adua].[tbEstilos]
+      UPDATE [Prod].[tbEstilos]
       SET esti_Descripcion = @esti_Descripcion, 
           usua_UsuarioModificacion = @usua_UsuarioModificacion,
           esti_FechaModificacion = @esti_FechaModificacion
@@ -737,8 +724,8 @@ END
 
 /*Eliminar estilos*/
 GO
-CREATE OR ALTER PROCEDURE Prod.UDP_tbEstilos_Eliminar  
-	@esti_Id					INT
+CREATE OR ALTER PROCEDURE Prod.UDP_tbEstilos_Eliminar 1,1,'05-10-2021' 
+	@esti_Id					INT,
 	@usua_UsuarioEliminacion	INT,
 	@esti_FechaEliminacion	DATETIME
 AS
@@ -768,116 +755,113 @@ END
 
 GO
 /***************UDPs Modelos*********************/
-CREATE OR ALTER VIEW Prod.Vw_tbModelos
-AS
-SELECT 
-      mode.mode_Id  AS ModeloID, 
-	  mode.mode_Descripcion AS ModeloDescripcion , 
-	  usu.usua_Nombre AS UsuarioCreacion,
-	  mode.mode_FechaCreacion AS FechaCreacion,
-	  usu2.usua_Nombre AS UsuarioModificacion, 
-	  mode.mode_FechaModificacion AS FechaModificacion, 
-	  mode.mode_Estado AS ModeloEstado
-FROM [Prod].[tbModelos] mode INNER JOIN [Acce].[tbUsuarios] usu
-ON mode.usua_UsuarioCreacion = usu.usua_Id INNER JOIN 
-[Acce].[tbUsuarios] usu2 ON usu2.usua_UsuarioModificacion = mode.usua_UsuarioModificacion 
-go
+--CREATE OR ALTER VIEW Prod.Vw_tbModelos
+--AS
+--SELECT 
+--      mode.mode_Id  AS ModeloID, 
+--	  mode.mode_Descripcion AS ModeloDescripcion , 
+--	  usu.usua_Nombre AS UsuarioCreacion,
+--	  mode.mode_FechaCreacion AS FechaCreacion,
+--	  usu2.usua_Nombre AS UsuarioModificacion, 
+--	  mode.mode_FechaModificacion AS FechaModificacion, 
+--	  mode.mode_Estado AS ModeloEstado
+--FROM [Prod].[tbModelos] mode INNER JOIN [Acce].[tbUsuarios] usu
+--ON mode.usua_UsuarioCreacion = usu.usua_Id INNER JOIN 
+--[Acce].[tbUsuarios] usu2 ON usu2.usua_UsuarioModificacion = mode.usua_UsuarioModificacion 
+--go
 
-CREATE OR ALTER PROCEDURE Prod.UDP_tbModelos_Listar
-AS
-BEGIN
-   SELECT *
-   FROM Prod.Vw_tbModelos
-END 
-
-
-/*Insertar Modelos*/
--- Crear el procedimiento almacenado Prod.UDP_tbModelos_Insertar
-GO
-CREATE OR ALTER PROCEDURE Prod.UDP_tbModelos_Insertar  
-   @mode_Descripcion         INT,
-   @esti_Id                  INT,
-   @usua_UsuarioCreacion     INT,
-   @mode_FechaCreacion       DATETIME
-AS    
-BEGIN 
-   BEGIN TRY 
-    SET  @mode_FechaCreacion = GETDATE();
-	  IF EXISTS(SELECT * FROM [Prod].[tbModelos] WHERE mode_Descripcion = @mode_Descripcion AND mode_Estado = 0)
-      BEGIN 
-         UPDATE [Prod].[tbModelos]
-         SET mode_Estado = 1
-         SELECT 1
-      END
-      ELSE 
-      BEGIN 
-         INSERT INTO [Prod].[tbModelos] (mode_Descripcion, esti_Id, usua_UsuarioCreacion, mode_FechaCreacion)
-         VALUES (@mode_Descripcion, @esti_Id, @usua_UsuarioCreacion, @mode_FechaCreacion)			  
-         SELECT 1
-      END
-   END TRY
-   BEGIN CATCH
-      SELECT 0
-   END CATCH  
-END
+--CREATE OR ALTER PROCEDURE Prod.UDP_tbModelos_Listar
+--AS
+--BEGIN
+--   SELECT *
+--   FROM Prod.Vw_tbModelos
+--END 
 
 
-/*Editar Modelos*/
-GO
-CREATE OR ALTER PROCEDURE Adua.UDP_tbModelos_Editar
-   @mode_Id                  INT,
-   @mode_Descripcion         INT,
-   @esti_Id                  INT,
-   @usua_UsuarioModificacion INT,
-   @mode_FechaModificacion   DATETIME
-AS
-BEGIN 
-   BEGIN TRY 
-   SET  @mode_FechaModificacion = GETDATE();
-	 UPDATE [Adua].[tbModelos]
-      SET mode_Descripcion = @mode_Descripcion, 
-          esti_Id = @esti_Id,
-          usua_UsuarioModificacion = @usua_UsuarioModificacion,
-          mode_FechaModificacion = @mode_FechaModificacion
-      WHERE mode_Id = @mode_Id
-	  SELECT 1
-   END TRY 
-   BEGIN CATCH 
-       SELECT 0
-   END CATCH
-END
+--/*Insertar Modelos*/
+---- Crear el procedimiento almacenado Prod.UDP_tbModelos_Insertar
+--GO
+--CREATE OR ALTER PROCEDURE Prod.UDP_tbModelos_Insertar  
+--   @mode_Descripcion         INT,
+--   @esti_Id                  INT,
+--   @usua_UsuarioCreacion     INT,
+--   @mode_FechaCreacion       DATETIME
+--AS    
+--BEGIN 
+--   BEGIN TRY 
+--	  IF EXISTS(SELECT * FROM [Prod].[tbModelos] WHERE mode_Descripcion = @mode_Descripcion AND mode_Estado = 0)
+--      BEGIN 
+--         UPDATE [Prod].[tbModelos]
+--         SET mode_Estado = 1
+--         SELECT 1
+--      END
+--      ELSE 
+--      BEGIN 
+--         INSERT INTO [Prod].[tbModelos] (mode_Descripcion, esti_Id, usua_UsuarioCreacion, mode_FechaCreacion)
+--         VALUES (@mode_Descripcion, @esti_Id, @usua_UsuarioCreacion, @mode_FechaCreacion)			  
+--         SELECT 1
+--      END
+--   END TRY
+--   BEGIN CATCH
+--      SELECT 0
+--   END CATCH  
+--END
 
 
-/*Eliminar tbModelos*/
-GO
-CREATE OR ALTER PROCEDURE Prod.UDP_tbModelos_Eliminar  
-	@mode_Id					INT,
-	@usua_UsuarioEliminacion	INT,
-	@mode_FechaEliminacion	DATETIME
-AS
-BEGIN
-	BEGIN TRY
-		BEGIN
-		    @mode_FechaEliminacion = getdate()
-			DECLARE @respuesta INT
-			EXEC dbo.UDP_ValidarReferencias 'mode_Id', @mode_Id, 'Prod.tbModelos', @respuesta OUTPUT
+--/*Editar Modelos*/
+--GO
+--CREATE OR ALTER PROCEDURE Adua.UDP_tbModelos_Editar
+--   @mode_Id                  INT,
+--   @mode_Descripcion         INT,
+--   @esti_Id                  INT,
+--   @usua_UsuarioModificacion INT,
+--   @mode_FechaModificacion   DATETIME
+--AS
+--BEGIN 
+--   BEGIN TRY 
+--	 UPDATE [Adua].[tbModelos]
+--      SET mode_Descripcion = @mode_Descripcion, 
+--          esti_Id = @esti_Id,
+--          usua_UsuarioModificacion = @usua_UsuarioModificacion,
+--          mode_FechaModificacion = @mode_FechaModificacion
+--      WHERE mode_Id = @mode_Id
+--	  SELECT 1
+--   END TRY 
+--   BEGIN CATCH 
+--       SELECT 0
+--   END CATCH
+--END
 
-			SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
-				BEGIN
-					 UPDATE [Prod].[tbModelos]
-						SET mode_Estado = 0,
-						    usua_UsuarioEliminacion=@usua_UsuarioEliminacion,
-							mode_FechaEliminacion =@mode_FechaEliminacion
-						WHERE mode_Id = @mode_Id
-		    SELECT 1
-		  END
-		END
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END
+
+--/*Eliminar tbModelos*/
+--GO
+--CREATE OR ALTER PROCEDURE Prod.UDP_tbModelos_Eliminar  
+--	@mode_Id					INT,
+--	@usua_UsuarioEliminacion	INT,
+--	@mode_FechaEliminacion	DATETIME
+--AS
+--BEGIN
+--	BEGIN TRY
+--		BEGIN
+--			DECLARE @respuesta INT
+--			EXEC dbo.UDP_ValidarReferencias 'mode_Id', @mode_Id, 'Prod.tbModelos', @respuesta OUTPUT
+
+--			SELECT @respuesta AS Resultado
+--			IF(@respuesta) = 1
+--				BEGIN
+--					 UPDATE [Prod].[tbModelos]
+--						SET mode_Estado = 0,
+--						    usua_UsuarioEliminacion=@usua_UsuarioEliminacion,
+--							mode_FechaEliminacion =@mode_FechaEliminacion
+--						WHERE mode_Id = @mode_Id
+--		    SELECT 1
+--		  END
+--		END
+--	END TRY
+--	BEGIN CATCH
+--		SELECT 0
+--	END CATCH
+--END
 
 
 

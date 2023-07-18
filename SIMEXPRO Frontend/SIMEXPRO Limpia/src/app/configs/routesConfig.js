@@ -33,6 +33,7 @@ import Persona_Juridica_Index from '../Aduanas/Contratos_de_Adhesión/Persona_Ju
 import Persona_Juridica_Agregar from '../Aduanas/Contratos_de_Adhesión/Persona_Juridica/Persona_Juridica_Agregar';
 import SubcategoriaIndex from '../Inventario/Subcategoria/Subcategorias';
 import TipoEmbalajeIndex from '../Inventario/TipoDeEmbalaje/TipoEmbalaje';
+import AldeaIndex from '../Ubicaciones/Aldeas/Aldeas';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -180,6 +181,10 @@ const routes = [
   {
     path: 'TipoEmbalaje/Index',
     element: <TipoEmbalajeIndex />,
+  },
+  {
+    path: 'Aldea/Index',
+    element: <AldeaIndex />,
   },
 ];
 

@@ -137,7 +137,7 @@ const navigationConfig = [
                         title: 'Aldeas',
                         type: 'item',
                         icon: 'material-outline:cabin',
-                        url: '/Ubicaciones/Aldeas',
+                        url: '/Aldea/Index',
                     },
                     {
                         id: 'Ubicaciones.ciudades',

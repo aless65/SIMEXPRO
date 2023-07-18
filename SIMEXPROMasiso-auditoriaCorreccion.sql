@@ -142,7 +142,7 @@ GO
 --**************** SCHEMA GENERAL **************************--
 --**********************************************************--
 CREATE TABLE Adua.tbIncoterm(
-		inco_Id						INT 			IDENTITY(1,1)
+		inco_Id						INT 			IDENTITY(1,1),
 		inco_Codigo					CHAR(3),
 		inco_Descripcion			NVARCHAR(150) 	NOT NULL,
 
@@ -201,7 +201,7 @@ CREATE TABLE Gral.tbFormas_Envio(
 		foen_Estado					BIT 		NOT NULL DEFAULT 1,
 
 	CONSTRAINT PK_Gral_tbFormas_Envio_foen_Id 			PRIMARY KEY (foen_Id),
-	CONSTRAINT UQ_Gral_tbFormas_Envio_foen_Descripcion  UNIQUE (foen_Descripcion)
+	CONSTRAINT UQ_Gral_tbFormas_Envio_foen_Descripcion  UNIQUE (foen_Descripcion),
 	CONSTRAINT FK_Gral_tbFormas_Envio_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id 		FOREIGN KEY(usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbFormas_Envio_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id  FOREIGN KEY(usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbFormas_Envio_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id   FOREIGN KEY(usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios (usua_Id)
@@ -306,7 +306,7 @@ CREATE TABLE Gral.tbAldeas(
 GO
 
 CREATE TABLE Gral.tbColonias(
-		colo_Id						INT 		  		ENTITY(1,1),
+		colo_Id						INT IDENTITY(1,1),
 		colo_Nombre 				NVARCHAR(150) 		NULL,
 		alde_Id 					INT,
 		ciud_Id						INT,
@@ -401,10 +401,10 @@ CREATE TABLE Gral.tbUnidadMedidas
 		unme_Descripcion				NVARCHAR(500) 	NOT NULL,
 		usua_UsuarioCreacion			INT 			NOT NULL,
 		unme_FechaCreacion				DATETIME 		NOT NULL,
-		usua_UsuarioModificacion		INT
+		usua_UsuarioModificacion		INT,
 		unme_FechaModificacion		    DATETIME 		DEFAULT NULL,
 	
-		usua_UsuarioEliminacion 		INT
+		usua_UsuarioEliminacion 		INT,
 		unme_FechaEliminacion		    DATETIME 		DEFAULT NULL,
 		unme_Estado						BIT
 
@@ -594,7 +594,7 @@ CREATE TABLE Adua.tbTipoIntermediario(
 		tite_Estado						BIT 			NOT NULL DEFAULT 1,
 
    CONSTRAINT PK_Adua_tbNivelesComerciales PRIMARY KEY (tite_Id),
-   CONSTRAINT UQ_Adua.tbTipoIntermediario  UNIQUE(tite_Descripcion),
+   CONSTRAINT UQ_Adua_tbTipoIntermediario  UNIQUE(tite_Descripcion),
    CONSTRAINT FK_Acce_tbUsuarios_Adua_tbTipoIntermediario_inte_UsuarioCreacion 			FOREIGN KEY (usua_UsuarioCreacion) 	   REFERENCES Acce.tbUsuarios(usua_Id),
    CONSTRAINT FK_Acce_tbUsuarios_Adua_tbTipoIntermediario_inte_usua_UsuarioModificacion FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios(usua_Id),
    CONSTRAINT FK_Acce_tbUsuarios_Adua_tbTipoIntermediario_inte_usua_UsuarioEliminacion 	FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios(usua_Id)
@@ -660,7 +660,7 @@ CREATE TABLE Adua.tbDeclaraciones_Valor
 		prov_Id 						INT 				NOT NULL,
 		inte_Id 						INT 				NOT NULL,
 		deva_Lugar_Entrega 				NVARCHAR(800) 		NOT NULL,
-		inco_Id 						CHAR(3)				NOT NULL,
+		inco_Id 						INT					NOT NULL,
 		deva_numero_contrato 			NVARCHAR(200) 		NOT NULL,
 		deva_Fecha_Contrato 			DATETIME 			NOT NULL,
 		foen_Id 						INT 				NOT NULL,
@@ -672,7 +672,7 @@ CREATE TABLE Adua.tbDeclaraciones_Valor
 		pais_Embarque_Id 				INT 				NOT NULL,
 		pais_Exportacion_Id 			INT 				NOT NULL,
 		deva_Fecha_Exportacion  		DATETIME 			NOT NULL,
-		mone_Id 						CHAR(3)				NOT NULL,
+		mone_Id 						INT					NOT NULL,
 		mone_Otra 						NVARCHAR(200)		NOT NULL,
 		deva_Conversion_Dolares 		DECIMAL(18,2) 		NOT NULL,
 		deva_Condiciones 				NVARCHAR(MAX) 		NOT NULL,
@@ -715,7 +715,7 @@ CREATE TABLE Adua.tbDeclaraciones_ValorHistorial
 		prov_Id 						INT,
 		inte_Id 						INT,
 		deva_Lugar_Entrega 				NVARCHAR(800),
-		inco_Id 						CHAR(3),
+		inco_Id 						INT,
 		deva_numero_contrato 			NVARCHAR(200),
 		deva_Fecha_Contrato 			DATETIME,
 		foen_Id 						INT,
@@ -727,7 +727,7 @@ CREATE TABLE Adua.tbDeclaraciones_ValorHistorial
 		pais_Embarque_Id 				INT,
 		pais_Exportacion_Id 			INT,
 		deva_Fecha_Exportacion  		DATETIME,
-		mone_Id 						CHAR(3),
+		mone_Id 						INT,
 		mone_Otra 						NVARCHAR(200),
 		deva_Conversion_Dolares 		DECIMAL(18,2),
 		deva_Condiciones 				NVARCHAR(MAX),
@@ -1152,7 +1152,7 @@ CREATE TABLE Adua.tbItems(
 	CONSTRAINT FK_Adua_tbItems_unme_Id_Adua_tbUnidadesdeMedida_unme_Id				FOREIGN KEY (unme_Id)					REFERENCES gral.tbUnidadMedidas(unme_Id),
 	CONSTRAINT FK_Adua_tbItems_merc_Id_Adua_tbMercancias_merc_Id					FOREIGN KEY (merc_Id)					REFERENCES Adua.tbEstadoMercancias(merc_Id),
 	CONSTRAINT FK_Adua_tbItems_pais_IdOrigenMercancia_Adua_tbPais_pais_Id			FOREIGN KEY (pais_IdOrigenMercancia)	REFERENCES Gral.tbPaises(pais_Id),
-    CONSTRAINT FK_Adua_tbItems_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios(usua_Id),Masiso?
+    CONSTRAINT FK_Adua_tbItems_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios(usua_Id),
 	CONSTRAINT FK_Adua_tbItems_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios(usua_Id),
 	CONSTRAINT FK_Adua_tbItems_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioEliminacion)	REFERENCES Acce.tbUsuarios(usua_Id)
 );
@@ -1885,7 +1885,7 @@ CREATE TABLE Prod.tbAsignacionesOrdenDetalle(
 	adet_Id						INT IDENTITY(1,1), 
 	lote_Id						INT NOT NULL, 
 	adet_Cantidad				INT NOT NULL, 
-	adet_Estado					NVARCHAR(15),	
+	adet_EstadoAsig				NVARCHAR(15),	
 	
 	usua_UsuarioCreacion		INT NOT NULL,
 	adet_FechaCreacion			DATETIME NOT NULL,

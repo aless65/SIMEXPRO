@@ -1191,3 +1191,40 @@ GO
 --GO
 
 -----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS MÓDULO PRODUCCIÓN
+GO
+CREATE OR ALTER VIEW prod.VW_tbDeclaraciones_Valor
+AS
+SELECT [deva_Id] AS declaracionId, 
+	   [deva_Aduana_Ingreso_Id] AS aduanaIngreso, 
+	   [deva_Aduana_Despacho_Id] AS aduanaDespacho, 
+	   [deva_Declaracion_Mercancia] AS declaracionMercancia, 
+	   [deva_Fecha_Aceptacion] AS declaracionFechaAceptacion, 
+	   [impo_Id] AS importadorId, 
+	   [prov_Id] AS proveedorId, 
+	   [inte_Id] AS intermediarioId, 
+	   [deva_Lugar_Entrega] AS declaracionLugarEntrega, 
+	   [inco_Id] AS incotermId, 
+	   [deva_numero_contrato] AS declaracionNumContrato, 
+	   [deva_Fecha_Contrato] AS declaracionFechaContrato, 
+	   [foen_Id] AS formaEnvioId, 
+	   [deva_Forma_Envio_Otra] AS formaEnvioOtra, 
+	   [deva_Pago_Efectuado] AS declaracionPagoEfectuado, 
+	   [fopa_Id] AS formaPagoId, 
+	   [deva_Forma_Pago_Otra] AS formaPagoOtra, 
+	   [deva_Lugar_Embarque] AS declaracionLugarEmbarque, 
+	   [pais_Embarque_Id] AS paisEmbarqueId, 
+	   [pais_Exportacion_Id] paisExportacionId, 
+	   [deva_Fecha_Exportacion] declaracionFechaExportacion, 
+	   [mone_Id] AS monedaId, 
+	   [mone_Otra] AS monedaOtra, 
+	   [deva_Conversion_Dolares] AS conversionDolares, 
+	   [deva_Condiciones] AS declaracionCondiciones, 
+	   [usua_UsuarioCreacion] AS usuaCreacionId, 
+	   [deva_FechaCreacion] AS fechaCreacion, 
+	   [usua_UsuarioModificacion] AS usuarioModificacionId, 
+	   [deva_FechaModificacion] AS fechaModificacion, 
+	   [usua_UsuarioEliminacion] AS usuarioEliminacionId, 
+	   [deva_FechaEliminacion] AS fechaEliminacion, 
+	   [deva_Estado] AS declaracionEstado
+FROM [Adua].[tbDeclaraciones_Valor]
+

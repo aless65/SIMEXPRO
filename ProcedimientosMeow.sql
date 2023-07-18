@@ -3,48 +3,46 @@
 
 --**********************************************************************************************
 --********** TABLA PAISES / procedimientos tomando en cuenta los uniques ***********************
-CREATE OR ALTER VIEW Gral.VW_tbPaises
-AS
 
-SELECT 
- pais_Codigo Paiscodigo,
- pais_Nombre paisNombre, 
- pais.usua_UsuarioCreacion UsuarioCreadorId,
- usua.usua_Nombre UsuarioCreadorNombre,
- pais_FechaCreacion, 
- pais.usua_UsuarioModificacion UsuarioModificicadorId,
- usua2.usua_Nombre UsuarioModificadorNombre,
- pais_FechaModificacion,
- pais_Estado
- FROM Gral.tbPaises pais					 INNER JOIN Acce.tbUsuarios usua
- ON pais.usua_UsuarioCreacion = usua.usua_Id LEFT JOIN Acce.tbUsuarios usua2
- ON pais.usua_UsuarioModificacion = usua2.usua_Id
- GO
-
+--agregue lo de la vista en el listar
 
 CREATE OR ALTER PROCEDURE Gral.UDP_tbPaises_Listar
 AS
 BEGIN
-	SELECT * FROM  Gral.VW_tbPaises
+	
+SELECT 
+	 pais_Id						AS IdPais,
+	 pais_Codigo					AS Paiscodigo,
+	 pais_Nombre					AS  paisNombre, 
+	 pais.usua_UsuarioCreacion		AS UsuarioCreadorId,
+	 usua.usua_Nombre				AS UsuarioCreadorNombre,
+	 pais_FechaCreacion, 
+	 pais.usua_UsuarioModificacion  AS UsuarioModificicadorId,
+	 usua2.usua_Nombre				AS UsuarioModificadorNombre,
+	 pais_FechaModificacion,
+	 pais_Estado
+FROM Gral.tbPaises pais						 
+	INNER JOIN Acce.tbUsuarios usua		ON pais.usua_UsuarioCreacion = usua.usua_Id 
+	LEFT JOIN  Acce.tbUsuarios usua2	ON pais.usua_UsuarioModificacion = usua2.usua_Id
 	WHERE pais_Estado = 1
 END
 GO
 
- -- PREGUNTAR SI LA FECHA SE VA A MANEJAR COMO FORMATO DATETIME SIEMPRE, TAMBIEN LO DEL CODIGO
+--Se le hizo cambio, quite el parametro de fecha creación
 CREATE OR ALTER PROCEDURE Gral.UDP_tbPaises_Insertar
-@pais_Codigo				CHAR(2), 
-@pais_Nombre				NVARCHAR(150), 
-@usua_UsuarioCreacion		INT,
-@pais_FechaCreacion			DATETIME
+	@pais_Codigo				CHAR(2), 
+	@pais_Nombre				NVARCHAR(150), 
+	@usua_UsuarioCreacion		INT
 AS
 BEGIN
+DECLARE @pais_FechaCreacion			DATETIME;
 	SET @pais_FechaCreacion = GETDATE();
 	BEGIN TRY 
 		IF EXISTS (SELECT * FROM Gral.tbPaises WHERE @pais_Nombre = pais_Nombre		
 				   AND pais_Estado = 0)
 		BEGIN
 			UPDATE Gral.tbPaises
-			SET pais_Estado = 1
+			SET	  pais_Estado = 1
 			WHERE pais_Nombre = @pais_Nombre
 
 			SELECT 1
@@ -59,34 +57,37 @@ BEGIN
 	END TRY
 
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: '+ ERROR_MESSAGE();
 	END CATCH
 END
 GO
+--Gral.UDP_tbPaises_Insertar 'HN','Honduras',1
+--select*from Acce.tbUsuarios
 
+
+--Se le hizo cambio, quite el parametro de fecha modificacion y agregue el id del pais en los parametros.
 CREATE OR ALTER PROCEDURE Gral.UDP_tbPaises_Editar
-@pais_Codigo					CHAR(2),
-@pais_Nombre					NVARCHAR(150), 
-@usua_UsuarioModificacion		INT,
-@pais_FechaModificacion			DATETIME
+	@pais_Id						INT,
+	@pais_Codigo					CHAR(2),
+	@pais_Nombre					NVARCHAR(150), 
+	@usua_UsuarioModificacion		INT
+
 AS
 BEGIN
+	DECLARE @pais_FechaModificacion	DATETIME;
 	SET @pais_FechaModificacion = GETDATE();
 	BEGIN TRY		
 		UPDATE Gral.tbPaises
-		SET pais_Nombre = @pais_Nombre, usua_UsuarioModificacion = @usua_UsuarioModificacion
-		WHERE pais_Codigo = @pais_Codigo
+		SET pais_Nombre = @pais_Nombre,pais_Codigo = @pais_Codigo, 
+		usua_UsuarioModificacion = @usua_UsuarioModificacion, pais_FechaModificacion = @pais_FechaModificacion
+		WHERE pais_Id = @pais_Id
 		SELECT 1
 	END TRY
 BEGIN CATCH
-	SELECT 0
+		SELECT 'Error Message: '+ ERROR_MESSAGE();
 END CATCH
-
 END
-
-
 GO
-
 
 
 
@@ -96,43 +97,40 @@ GO
 --********** TABLA CIUDADES / procedimientos tomando en cuenta los uniques *********************
 
 
-CREATE OR ALTER VIEW Gral.VW_tbCiudades
-AS
-SELECT 
-	ciud_Id IdCiudad, 
-	ciud_Nombre CiudadNombre,
-	ciu.pvin_Id	IdProvincia,
-	provi.pvin_Nombre NombreProvincia,
-	provi.pvin_Codigo CodigoProvincia,
-	pais.pais_Codigo CodigoPais,
-	pais.pais_Nombre Pais,
-	ciu.usua_UsuarioCreacion IdUsuarioCreador,
-	usu1.usua_Nombre NombreaUsuaCrea,
-	ciud_FechaCreacion,
-	ciu.usua_UsuarioModificacion	IdUsuarioModificador,
-	usu2.usua_Nombre NombreUsuaModifica,
-    ciud_FechaModificacion, 
-	ciud_Estado
-FROM [Gral].[tbCiudades] ciu					INNER JOIN Acce.tbUsuarios usu1
-ON ciu.usua_UsuarioCreacion = usu1.usua_Id		LEFT JOIN Acce.tbUsuarios usu2
-ON ciu.usua_UsuarioModificacion = usu2.usua_Id	INNER JOIN Gral.tbProvincias provi
-ON ciu.pvin_Id = provi.pvin_Id					INNER JOIN Gral.tbPaises pais
-ON  provi.pais_Codigo = pais.pais_Codigo
-GO
-
+--agregue lo de la vista en el listar
 CREATE OR ALTER PROCEDURE Gral.UDP_tbCiudades_Listar
 AS
 BEGIN
-	SELECT*FROM Gral.VW_tbCiudades
+	SELECT 
+	ciud_Id								AS IdCiudad, 
+	ciud_Nombre							AS CiudadNombre,
+	ciu.pvin_Id							AS IdProvincia,
+	provi.pvin_Nombre					AS NombreProvincia,
+	provi.pvin_Codigo					AS CodigoProvincia,
+	pais.pais_Codigo					AS CodigoPais,
+	pais.pais_Nombre					AS Pais,
+	ciu.usua_UsuarioCreacion			AS IdUsuarioCreador,
+	usu1.usua_Nombre					AS NombreaUsuaCrea,
+	ciud_FechaCreacion,
+	ciu.usua_UsuarioModificacion		AS	IdUsuarioModificador,
+	usu2.usua_Nombre					AS NombreUsuaModifica,
+    ciud_FechaModificacion, 
+	ciud_Estado
+FROM [Gral].[tbCiudades] ciu					
+	INNER JOIN Acce.tbUsuarios usu1			ON ciu.usua_UsuarioCreacion = usu1.usua_Id		
+	LEFT JOIN  Acce.tbUsuarios  usu2		ON ciu.usua_UsuarioModificacion = usu2.usua_Id	
+	INNER JOIN Gral.tbProvincias provi		ON ciu.pvin_Id = provi.pvin_Id					
+	INNER JOIN Gral.tbPaises pais			ON provi.pais_Id = pais.pais_Id
 	WHERE ciud_Estado = 1
 END
 GO
 
+--cambié el select 0 del catch por el mensaje de error
 CREATE OR ALTER PROCEDURE Gral.UDP_tbCiudades_Insertar
-@ciud_Nombre				NVARCHAR(150), 
-@pvin_Id					INT, 
-@usua_UsuarioCreacion		INT, 
-@ciud_FechaCreacion			DATETIME
+	@ciud_Nombre				NVARCHAR(150), 
+	@pvin_Id					INT, 
+	@usua_UsuarioCreacion		INT, 
+	@ciud_FechaCreacion			DATETIME
 AS
 BEGIN
 	SET @ciud_FechaCreacion = GETDATE();
@@ -151,21 +149,22 @@ BEGIN
 	END TRY
 
 	BEGIN CATCH
-		SELECT 0
+			SELECT 'Error Message: '+ ERROR_MESSAGE();
 	END CATCH
 
 END
 GO
 
-
+--cambié el select 0 del catch por el mensaje de error y quite la fecha de modificación de los parametros
 CREATE OR ALTER PROCEDURE Gral.UDP_tbCiudades_Editar
-@ciud_Id					INT,
-@ciud_Nombre				NVARCHAR(150), 
-@pvin_Id					INT, 
-@usua_UsuarioModificacion	INT, 
-@ciud_FechaModificacion		DATETIME
+	@ciud_Id					INT,
+	@ciud_Nombre				NVARCHAR(150), 
+	@pvin_Id					INT, 
+	@usua_UsuarioModificacion	INT
+
 AS
 BEGIN 
+	DECLARE @ciud_FechaModificacion	DATETIME;
 	SET @ciud_FechaModificacion = GETDATE();
 	BEGIN TRY
 		UPDATE Gral.tbCiudades SET [ciud_Nombre] = @ciud_Nombre, pvin_Id = @pvin_Id,
@@ -175,7 +174,7 @@ BEGIN
 	END TRY
 
 	BEGIN CATCH
-		SELECT 0
+			SELECT 'Error Message: '+ ERROR_MESSAGE();
 	END CATCH
 END
 GO
@@ -189,9 +188,9 @@ GO
 CREATE OR ALTER VIEW Gral.VW_tbProvincias
 AS
 SELECT
-	pvin_Id ProvinciaId, 
-	pvin_Nombre ProvinciaNombre,
-	pvin_Codigo ProvinciaCodigo, 
+	pvin_Id AS ProvinciaId, 
+	pvin_Nombre AS ProvinciaNombre,
+	pvin_Codigo AS ProvinciaCodigo, 
 	provin.pais_Codigo, 
 	pais.pais_Nombre PaisNombre,
 	provin.usua_UsuarioCreacion IdUsuarioCreador,
@@ -240,7 +239,7 @@ BEGIN
 	END TRY
 
 	BEGIN CATCH 
-		SELECT 0
+			SELECT 'Error Message: '+ ERROR_MESSAGE();
 	END CATCH
 END
 GO
@@ -264,7 +263,7 @@ BEGIN
 	END TRY
 
 	BEGIN CATCH
-	SELECT 0
+		SELECT 'Error Message: '+ ERROR_MESSAGE();
 	END CATCH
 END
 GO
@@ -323,7 +322,7 @@ BEGIN
 	END TRY
 
 	BEGIN CATCH
-		SELECT 0
+			SELECT 'Error Message: '+ ERROR_MESSAGE();
 	END CATCH
 
 END
@@ -346,7 +345,7 @@ BEGIN
 	END TRY
 
 	BEGIN CATCH
-		SELECT 0
+			SELECT 'Error Message: '+ ERROR_MESSAGE();
 	END CATCH
 END
 GO
@@ -514,7 +513,7 @@ BEGIN
 	END TRY
 
 	BEGIN CATCH
-		SELECT 0
+			SELECT 'Error Message: '+ ERROR_MESSAGE();
 	END CATCH
 END
 GO
@@ -552,7 +551,7 @@ BEGIN
 	END TRY
 
 	BEGIN CATCH
-		SELECT 0
+			SELECT 'Error Message: '+ ERROR_MESSAGE();
 	END CATCH
 END
 GO
@@ -585,7 +584,7 @@ BEGIN
 		SELECT @respuesta AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0	
+			SELECT 'Error Message: '+ ERROR_MESSAGE();	
 	END CATCH
 END
 GO
@@ -642,7 +641,7 @@ BEGIN
 	END TRY
 
 	BEGIN CATCH
-		SELECT 0
+			SELECT 'Error Message: '+ ERROR_MESSAGE();
 	END CATCH
 END
 GO
@@ -662,7 +661,7 @@ BEGIN
 	END TRY
 
 	BEGIN CATCH
-		SELECT 0
+			SELECT 'Error Message: '+ ERROR_MESSAGE();
 	END CATCH
 END
 GO
@@ -697,7 +696,7 @@ BEGIN
 		SELECT @respuesta AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0	
+			SELECT 'Error Message: '+ ERROR_MESSAGE();
 	END CATCH
 END
 GO

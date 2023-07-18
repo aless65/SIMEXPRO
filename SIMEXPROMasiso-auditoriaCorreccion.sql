@@ -1273,15 +1273,12 @@ CREATE TABLE Adua.tbTipoLiquidacion (
     tipl_FechaCreacion         	DATETIME NOT NULL,
     usua_UsuarioModificacion   	INT DEFAULT NULL,
     tipl_FechaModificacion     	DATETIME DEFAULT NULL,
-	--usua_UsuarioEliminacion		INT DEFAULT NULL,
-	--tipl_FechaEliminacion		DATETIME DEFAULT NULL,
     tipl_Estado                	BIT DEFAULT 1,
 	
    	CONSTRAINT PK_Adua_tbTipoLiquidacion_tipl_Id PRIMARY KEY (tipl_Id),
 	CONSTRAINT UQ_Adua_tbTipoLiquidacion_tipl_Descripcion UNIQUE (tipl_Descripcion),
 	CONSTRAINT FK_Adua_tbTipoLiquidacion_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id FOREIGN KEY (usua_UsuarioCreacion) REFERENCES Acce.tbUsuarios (usua_Id),
-   	CONSTRAINT FK_Adua_tbTipoLiquidacion_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
-	--CONSTRAINT FK_Adua_tbTipoLiquidacion_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id FOREIGN KEY (usua_UsuarioEliminacion) REFERENCES Acce.tbUsuarios (usua_Id)
+   	CONSTRAINT FK_Adua_tbTipoLiquidacion_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id)
 );
 GO
 

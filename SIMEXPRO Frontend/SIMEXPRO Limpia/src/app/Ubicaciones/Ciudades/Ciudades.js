@@ -93,7 +93,7 @@ function UsuariosIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/CMvknvt/CIUDADES.png"
+        image="https://i.ibb.co/VqQ04b8/CIUDADES.png"
         alt="Encabezado de la carta"
       />
       <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>

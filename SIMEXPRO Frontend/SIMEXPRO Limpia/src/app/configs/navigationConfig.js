@@ -52,32 +52,21 @@ const navigationConfig = [
         type: 'collapse',
         icon: 'material-outline:content_cut',
         translate: 'Acceso',
-        children: [
+        children: [ 
           {
-            id: 'apps.ecommerce',
-            title: 'ECommerce',
-            type: 'collapse',
-            icon: 'material-outline:content_cut',
-            translate: 'Acceso',
-            children: [
-              {
-                id: 'Seguridad.Usuarios',
-                title: 'Usuarios',
-                type: 'item',
-                icon: 'material-outline:hail',
-                url: '/Usuarios/Index',
-              },
-              {
-                id: 'Seguridad.Roles',
-                title: 'Roles',
-                type: 'item',
-                icon: 'material-outline:manage_search',
-                url: '/Roles/RolesIndex',
-              },
-
-            ]
+            id: 'Seguridad.Usuarios',
+            title: 'Usuarios',
+            type: 'item',
+            icon: 'material-outline:hail',
+            url: '/Usuarios/Index',
           },
-
+          {
+            id: 'Seguridad.Roles',
+            title: 'Roles',
+            type: 'item',
+            icon: 'material-outline:manage_search',
+            url: '/Roles/RolesIndex',
+          },
         ],
       },
     ],
@@ -359,6 +348,22 @@ const navigationConfig = [
         ],
       },
       {
+        id: 'Duca',
+        title: 'DUCA',
+        type: 'collapse',
+        icon: 'heroicons-outline:briefcase',
+        translate: '',
+        children: [
+          {
+            id: 'Duca.Index',
+            title: 'Duca',
+            type: 'item',
+            icon: 'heroicons-outline:printer',
+            url: 'Duca/Index',
+          },
+        ],
+      },
+      {
         id: 'ContratoAdhesion',
         title: 'Contrato de Adhesión',
         type: 'collapse',
@@ -380,6 +385,13 @@ const navigationConfig = [
         type: 'item',
         icon: 'heroicons-outline:printer',
         url: 'Declaracion-de-Valor/Listado',
+      },
+      {
+        id: 'Documentos',
+        title: 'Subir Documentos',
+        type: 'item',
+        icon: 'heroicons-outline:printer',
+        url: 'Documentos/Subir',
       },
     ],
   },

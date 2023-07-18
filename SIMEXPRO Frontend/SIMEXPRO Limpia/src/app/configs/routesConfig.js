@@ -21,6 +21,9 @@ import BoletinDePagoIndex from '../Aduanas/Boletin_de_Pago/BoletinDePago';
 import ImpresionBoletinDePago from '../Aduanas/Boletin_de_Pago/ImpresionBoletinDePago'
 import RolesIndex from '../Seguridad/Roles/roles'
 import RolesCrear from '../Seguridad/Roles/roles_crear'
+import DucaIndex from '../Aduanas/DUCA/duca_Index';
+import DucaCrear from '../Aduanas/DUCA/duca_Crear';
+import Subir_Documentos from '../Aduanas/Documentacion/Subir_Documentos';
 
 
 import PersonaNatural_Index from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/PersonaNatural_Index';
@@ -115,7 +118,20 @@ const routes = [
   {
     path: 'Roles/RolesCrear',
     element: <RolesCrear />
-  }
+  },
+  {
+    path: 'Duca/Index',
+    element: <DucaIndex />
+  },
+  {
+    path: 'Duca/Crear',
+    element: <DucaCrear />
+  },
+  {
+    path: 'Documentos/Subir',
+    element: <Subir_Documentos />
+  },
+  
 ];
 
 export default routes;

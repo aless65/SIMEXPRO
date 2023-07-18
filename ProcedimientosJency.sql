@@ -249,7 +249,7 @@ GO
 /*Insertar transporte*/
 
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTransporte_Insert
-	 @pais_Id                      CHAR(2),
+	 @pais_Id                      INT,
 	 @tran_Chasis                  NVARCHAR(100) ,
 	 @marca_Id                     INT, 
 	 @tran_IdRemolque              NVARCHAR(50),
@@ -296,7 +296,7 @@ GO
 /*Editar transporte*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTransporte_Editar
 	@tran_Id                       INT,
-	@pais_Id                       CHAR(2),
+	@pais_Id                       INT,
 	@tran_Chasis                   NVARCHAR(100), 
 	@marca_Id                      INT, 
 	@tran_IdRemolque               NVARCHAR(50), 

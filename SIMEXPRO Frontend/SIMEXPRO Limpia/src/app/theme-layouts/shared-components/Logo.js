@@ -18,7 +18,7 @@ const Root = styled('div')(({ theme }) => ({
 function Logo() {
   return (
     <Root className="flex items-center">
-      <img className="logo-icon w-32 h-32"  src="https://i.ibb.co/Fsx6qjM/SIMEXPRO-V3-REVERSO-BLANCO.png" alt="logo" />
+      <img className="logo-icon w-32 h-32"  src="https://i.ibb.co/fSH2zGb/blue-and-teal-simple-and-minimalist-metaball-blockchain-solution-company-logo.png" alt="logo" />
 
       <div
         className="badge flex items-center py-4 px-8 mx-8 rounded"

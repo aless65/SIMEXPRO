@@ -27,7 +27,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 
-function UsuariosIndex() {
+function AldeaIndex() {
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
@@ -39,10 +39,9 @@ function UsuariosIndex() {
 
   {/* Columnas de la tabla */ }
   const columns = [
-    { field: 'id', headerName: 'Id', width: 10 },
-    { field: 'usuario', headerName: 'Usuario', flex: 1 },
-    { field: 'empleado', headerName: 'Empleado', flex: 1 },
-    { field: 'rol', headerName: 'Rol', flex: 1 },
+    { field: 'id', headerName: 'Id', flex: 2},
+    { field: 'aldea', headerName: 'Aldea', flex: 2,  },
+    { field: 'ciudad', headerName: 'Ciudad', flex: 2,  },
     {
       field: 'acciones',
       headerName: 'Acciones',
@@ -93,10 +92,11 @@ function UsuariosIndex() {
 
   {/* Datos de la tabla */ }
   const rows = [
-    { id: '1', usuario: 'IsHatake', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
-    { id: '2', usuario: 'Admin', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
-    { id: '3', usuario: 'Shogun', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
-
+    { id: '1', aldea: 'La Laguna', ciudad: 'Distrito Central' },
+    { id: '2', aldea: 'El Porvenir', ciudad: 'San Pedro Sula' },
+    { id: '3', aldea: 'El Tablón', ciudad: 'Juticalpa' },
+    { id: '4', aldea: 'Las Delicias', ciudad: 'La Ceiba' },
+    { id: '5', aldea: 'El Rosario', ciudad: 'Santa Bárbara' },
   ];
 
   {/* Función para mostrar la tabla y mostrar agregar */ }
@@ -111,16 +111,15 @@ function UsuariosIndex() {
 
   {/* Filtrado de datos */ }
   const filteredRows = rows.filter((row) =>
-    row.usuario.toLowerCase().includes(searchText.toLowerCase())
+    row.aldea.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/RgGNgZP/USUARIOS.png"
+        image="https://i.ibb.co/PQVXCCM/ALDEAS.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>
@@ -192,7 +191,7 @@ function UsuariosIndex() {
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <Typography variant="h5" gutterBottom>
-                Nuevo Usuario
+                Nueva Aldea
               </Typography>
             </Grid>
 
@@ -202,7 +201,7 @@ function UsuariosIndex() {
               >
                 <TextField
                   style={{ borderRadius: '10px' }}
-                  label="Usuario"
+                  label="Aldea"
                 />
               </FormControl>
             </Grid>
@@ -211,43 +210,10 @@ function UsuariosIndex() {
               <FormControl
                 fullWidth
               >
-                <TextField
+                <InputLabel htmlFor="grouped-native-select">Ciudad</InputLabel>
+                <Select
                   style={{ borderRadius: '10px' }}
-                  label="Contraseña"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <InputLabel htmlFor="grouped-native-select">Empleado</InputLabel>
-                <Select
-                  style={{ borderRadius: '3px' }}
-                  label="Empleado"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <InputLabel htmlFor="grouped-native-select">Rol</InputLabel>
-                <Select
-                  style={{ borderRadius: '3px' }}
-                  label="Rol"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <FormControl fullWidth>
-                <FormControlLabel
-                  control={<Switch sx={{ '&.Mui-checked': { color: '#634A9E' } }} />}
-                  label="Administrador"
-                  labelPlacement="bottom"
+                  label="Ciudad"
                 />
               </FormControl>
             </Grid>
@@ -339,7 +305,7 @@ function UsuariosIndex() {
   );
 }
 
-export default UsuariosIndex;
+export default AldeaIndex;
 
 
 

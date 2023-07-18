@@ -27,7 +27,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 import { useNavigate } from "react-router-dom";
 
-function Comerciante_Individual_Index() {
+function Persona_Juridica_Index() {
   const [searchText, setSearchText] = useState("");
   const [Eliminar, setEliminar] = useState(false);
   const Navigate = useNavigate();
@@ -130,7 +130,7 @@ function Comerciante_Individual_Index() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/FBTmyr7/CONTRATO-DE-ADHESI-N-COMERCIANTE-INDIVIDUAL.png"
+        image="https://i.ibb.co/cFBKy66/CONTRATO-DE-ADHESI-N-PERSONA-JURIDICA.png"
         alt="Encabezado de la carta"
       />
       <CardContent
@@ -153,7 +153,7 @@ function Comerciante_Individual_Index() {
               "&:hover": { backgroundColor: "#6e52ae" },
             }}
             onClick={(e) => {
-              Navigate("/ContratoDeAdhesionComercianteIndividual/Agregar");
+              Navigate("/ContratoDeAdhesionPersonaJuridica/Agregar");
             }}
           >
             Nuevo
@@ -261,4 +261,4 @@ function Comerciante_Individual_Index() {
   );
 }
 
-export default Comerciante_Individual_Index;
+export default Persona_Juridica_Index;

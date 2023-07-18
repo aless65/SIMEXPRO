@@ -107,7 +107,6 @@ const navigationConfig = [
             icon: 'material-outline:attach_money',
             url: '/Generales/Monedas',
           },
-
           {
             id: 'Generales.unidades_de_medida',
             title: 'Unidades de Medida',

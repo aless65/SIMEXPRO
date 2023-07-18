@@ -10,8 +10,6 @@ import { DataGrid, GridToolbar, esES } from '@mui/x-data-grid'
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 
-import Zoom from '@mui/material/Zoom';
-import Grow from '@mui/material/Grow';
 
 import Collapse from '@mui/material/Collapse';
 import Grid from '@mui/material/Grid';
@@ -27,7 +25,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 
-function UsuariosIndex() {
+function AreasIndex() {
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
@@ -40,10 +38,7 @@ function UsuariosIndex() {
   {/* Columnas de la tabla */ }
   const columns = [
     { field: 'id', headerName: 'Id', width: 10 },
-    { field: 'usuario', headerName: 'Usuario', flex: 1 },
-    { field: 'empleado', headerName: 'Empleado', flex: 1 },
-    { field: 'rol', headerName: 'Rol', flex: 1 },
-    {
+    { field: 'descripcion', headerName: 'Descripción', flex: 1 },    {
       field: 'acciones',
       headerName: 'Acciones',
       width: 400,
@@ -93,10 +88,10 @@ function UsuariosIndex() {
 
   {/* Datos de la tabla */ }
   const rows = [
-    { id: '1', usuario: 'IsHatake', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
-    { id: '2', usuario: 'Admin', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
-    { id: '3', usuario: 'Shogun', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
-
+    { id: '1', descripcion: 'Corte' },
+    { id: '2', descripcion: 'Ensamblaje'    },
+    { id: '3', descripcion: 'Acabado'   },
+    { id: '4', descripcion: 'Bordado'   },
   ];
 
   {/* Función para mostrar la tabla y mostrar agregar */ }
@@ -111,16 +106,15 @@ function UsuariosIndex() {
 
   {/* Filtrado de datos */ }
   const filteredRows = rows.filter((row) =>
-    row.usuario.toLowerCase().includes(searchText.toLowerCase())
+    row.descripcion.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/RgGNgZP/USUARIOS.png"
+        image="https://i.ibb.co/44NvHn3/REAS.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>
@@ -164,6 +158,11 @@ function UsuariosIndex() {
         </CardContent>
       </Collapse>
 
+
+
+
+
+
       {/* Tabla */}
       <Collapse in={mostrarIndex}>
         <div style={{ height: 400, width: '100%' }}>
@@ -186,6 +185,10 @@ function UsuariosIndex() {
       </Collapse>
 
 
+
+
+
+
       {/* Formulario Agregar */}
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -202,55 +205,16 @@ function UsuariosIndex() {
               >
                 <TextField
                   style={{ borderRadius: '10px' }}
-                  label="Usuario"
+                  label="Descripción"
                 />
               </FormControl>
             </Grid>
 
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Contraseña"
-                />
-              </FormControl>
-            </Grid>
 
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <InputLabel htmlFor="grouped-native-select">Empleado</InputLabel>
-                <Select
-                  style={{ borderRadius: '3px' }}
-                  label="Empleado"
-                />
-              </FormControl>
-            </Grid>
 
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <InputLabel htmlFor="grouped-native-select">Rol</InputLabel>
-                <Select
-                  style={{ borderRadius: '3px' }}
-                  label="Rol"
-                />
-              </FormControl>
-            </Grid>
 
-            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <FormControl fullWidth>
-                <FormControlLabel
-                  control={<Switch sx={{ '&.Mui-checked': { color: '#634A9E' } }} />}
-                  label="Administrador"
-                  labelPlacement="bottom"
-                />
-              </FormControl>
-            </Grid>
+
+
 
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
               <Button
@@ -339,7 +303,7 @@ function UsuariosIndex() {
   );
 }
 
-export default UsuariosIndex;
+export default AreasIndex;
 
 
 

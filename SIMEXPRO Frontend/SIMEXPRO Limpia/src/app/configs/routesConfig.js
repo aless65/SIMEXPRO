@@ -30,6 +30,24 @@ import PersonaNatural_Index from '../Aduanas/Contratos_de_Adhesión/Persona_Natu
 import PersonaNatural_Crear from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/PersonaNatural_Crear';
 import Declaracion_Valor_Index from '../Aduanas/Declaracion_De_Valor/Declaracion_Valor_Index';
 import Declaracion_Valor_Crear from '../Aduanas/Declaracion_De_Valor/Declaracion_Valor_Crear';
+import Comerciante_Individual_Index from '../Aduanas/Contratos_de_Adhesión/Comerciante_Individual/Comerciante_Individual_Index';
+import Comerciante_Individual_Agregar from '../Aduanas/Contratos_de_Adhesión/Comerciante_Individual/Comerciante_Individual_Agregrar';
+import CategoriaIndex from '../Inventario/Categoria/Categorias';
+import ColoresIndex from '../Prendas/Colores/Colores';
+import InspeccionesIndex from '../Produccion/Inspecciones/InspeccionesEstado';
+import MaquinaHistorialIndex from '../Maquinaria/MaquinaHistorial/MaquinaHistorial';
+import MaquinaModulosIndex from '../Maquinaria/MaquinaModulos/MaquinaModulos';
+import MaterialesIndex from '../Inventario/Materiales/Materiales';
+import AreasIndex from '../Inventario/Areas/Areas';
+import EstilosIndex from '../Prendas/Estilos/Estilos';
+import FuncionesMaquinaIndex from '../Maquinaria/FuncionesMaquina/FuncionesMaquina';
+import LotesIndex from '../Inventario/Lotes/Lotes';
+import MaquinasIndex from '../Maquinaria/Máquinas/Maquinas';
+import Persona_Juridica_Index from '../Aduanas/Contratos_de_Adhesión/Persona_Juridica/Persona_Juridica_Index';
+import Persona_Juridica_Agregar from '../Aduanas/Contratos_de_Adhesión/Persona_Juridica/Persona_Juridica_Agregar';
+import SubcategoriaIndex from '../Inventario/Subcategoria/Subcategorias';
+import TipoEmbalajeIndex from '../Inventario/TipoDeEmbalaje/TipoEmbalaje';
+import AldeaIndex from '../Ubicaciones/Aldeas/Aldeas';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -131,7 +149,94 @@ const routes = [
     path: 'Documentos/Subir',
     element: <Subir_Documentos />
   },
-  
+  {
+    path: 'Categoria/Index',
+    element: <CategoriaIndex/>
+  },
+  {
+    path: 'Colores/Index',
+    element: <ColoresIndex/>
+  },
+  {
+    path: 'Inspecciones/Index',
+    element: <InspeccionesIndex/>
+  },
+  {
+    path: 'MaquinaHistorial/Index',
+    element: <MaquinaHistorialIndex/>
+  },
+  {
+    path: 'MaquinaModulos/Index',
+    element: <MaquinaModulosIndex/>
+  },
+  {
+    path: 'ContratoDeAdhesionComercianteIndividual/Index',
+    element: <Comerciante_Individual_Index/> 
+  },
+  {
+    path: 'ContratoDeAdhesionComercianteIndividual/Agregar',
+    element: <Comerciante_Individual_Agregar/> 
+  },
+  {
+    path: 'ContratoDeAdhesionPersonaJuridica/Index',
+    element: <Persona_Juridica_Index/> 
+  },
+  {
+    path: 'ContratoDeAdhesionPersonaJuridica/Agregar',
+    element: <Persona_Juridica_Agregar/> 
+  },
+  {
+    path: 'Categoria/Index',
+    element: <CategoriaIndex/>
+  },
+  {
+    path: 'Colores/Index',
+    element: <ColoresIndex/>
+  },
+  {
+    path: 'Inspecciones/Index',
+    element: <InspeccionesIndex/>
+  },
+  {
+    path: 'MaquinaHistorial/Index',
+    element: <MaquinaHistorialIndex/>
+  },
+  {
+    path: 'Materiales/Index',
+    element: <MaterialesIndex/>
+  },
+  {
+    path: 'Areas/Index',
+    element: <AreasIndex />,
+  },
+  {
+    path: 'Estilos/Index',
+    element: <EstilosIndex />,
+  },
+  {
+    path: 'FuncionesMaquina/Index',
+    element: <FuncionesMaquinaIndex />,
+  },
+  {
+    path: 'Lotes/Index',
+    element: <LotesIndex />,
+  },
+  {
+    path: 'Maquinas/Index',
+    element: <MaquinasIndex />,
+  },
+  {
+    path: 'Subcategorias/Index',
+    element: <SubcategoriaIndex />,
+  },
+  {
+    path: 'TipoEmbalaje/Index',
+    element: <TipoEmbalajeIndex />,
+  },
+  {
+    path: 'Aldea/Index',
+    element: <AldeaIndex />,
+  },
 ];
 
 export default routes;

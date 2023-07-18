@@ -249,7 +249,7 @@ CREATE TABLE Gral.tbProvincias(
 		pvin_Estado					BIT				DEFAULT 1,
 	
 	CONSTRAINT PK_Gral_tbProvincias_pvin_Id 			  PRIMARY KEY (pvin_Id),
-	CONSTRAINT UQ_Gral_tbProvincias_pvin_Codigo 		  UNIQUE(pvin_Codigo),
+	--CONSTRAINT UQ_Gral_tbProvincias_pvin_Codigo 		  UNIQUE(pvin_Codigo),
 	CONSTRAINT FK_Gral_tbPaises_Gral_tbProvincias_pais_Id FOREIGN KEY (pais_Id) 	 REFERENCES Gral.tbPaises(pais_Id),
 
 	CONSTRAINT FK_Gral_tbProvincias_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id 	 FOREIGN KEY(usua_UsuarioCreacion) 		REFERENCES Acce.tbUsuarios (usua_Id),

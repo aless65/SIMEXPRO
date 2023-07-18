@@ -625,6 +625,23 @@ BEGIN
 						SELECT 1
 					END
 		END
+
+		--MERGE [Gral].[tbColonias] AS target
+		--USING (SELECT @colo_Nombre AS colo_Nombre, @alde_Id AS alde_Id, @ciud_Id AS ciud_Id) AS source
+		--ON target.[colo_Nombre] = source.[colo_Nombre]
+		--AND (target.[alde_Id] = source.[alde_Id] OR (target.[ciud_Id] = source.[ciud_Id] AND source.[alde_Id] IS NULL))
+		--WHEN MATCHED AND target.[colo_Estado] = 1 THEN
+		--	-- The record exists and is active, so return 0
+		--	OUTPUT 0
+		--WHEN MATCHED AND target.[colo_Estado] = 0 THEN
+		--	-- The record exists but is inactive, so update and return 1
+		--	UPDATE SET target.[colo_Estado] = 1
+		--	OUTPUT 1;
+		--WHEN NOT MATCHED THEN
+		--	-- The record doesn't exist, so insert and return 1
+		--	INSERT (colo_Nombre, alde_Id, ciud_Id, usua_UsuarioCreacion, colo_FechaCreacion)
+		--	VALUES (source.colo_Nombre, source.alde_Id, source.ciud_Id, @usua_UsuarioCreacion, @colo_FechaCreacion)
+		--	OUTPUT 1;
 	END TRY
 	BEGIN CATCH
 		SELECT 0

@@ -329,7 +329,7 @@ const navigationConfig = [
             title: 'Estilos',
             type: 'item',
             icon: 'material-outline:design_services',
-            url: '/Prendas/Estilos',
+            url: '/Estilos/Index',
           },
 
           {

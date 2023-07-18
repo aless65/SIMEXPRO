@@ -13,11 +13,15 @@ SELECT	modo.motr_Id						AS modoTransId,
 		modo.motr_Estado					AS modoTransEstado				
 FROM	Adua.tbModoTransporte modo 
 		INNER JOIN Acce.tbUsuarios crea		ON crea.usua_Id = modo.usua_UsuarioCreacion		
-		INNER JOIN Acce.tbUsuarios modi		ON modi.usua_Id = modo.usua_UsuarioModificacion 
+		LEFT JOIN Acce.tbUsuarios modi		ON modi.usua_Id = modo.usua_UsuarioModificacion 
 WHERE	motr_Estado = 1
 END
 GO
 --*****Insertar*****--
+
+--Adua.UDP_tbModoTransporte_Insertar 'Probando',1, '01-14-2003'
+--   SELECT*FROM Adua.tbModoTransporte
+
 CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Insertar
 @motr_Descripcion		NVARCHAR(75),
 @usua_UsuarioCreacion	INT,
@@ -38,6 +42,7 @@ BEGIN
 	END CATCH
 END
 GO
+
 --*****Editar*****--
 CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Editar
 @motr_Id					INT,
@@ -61,6 +66,9 @@ BEGIN
 	END CATCH
 END
 GO
+
+--  Adua.UDP_tbModoTransporte_Editar 1, 'pruebaaa',1,'07-18-2023'
+
 
 --*****Eliminar*****--
 --CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Eliminar
@@ -86,6 +94,9 @@ END
 GO
 
 --*****Insertar*****--
+--Adua.UDP_tbTipoDocumento_Insertar 'kl45', 'probandoo',1,'07-18-2023'
+--  select*from  Adua.tbTipoDocumento
+
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoDocumento_Insertar
 @tido_Codigo			CHAR(4),
 @tido_Descripcion		NVARCHAR(50),
@@ -110,6 +121,10 @@ END
 GO
 
 --*****Editar*****--
+--Adua.UDP_tbTipoDocumento_Editar 1, 'LL45', 'PRUEBA2',1, '07-18-2023'
+-- SELECT * FROM Adua.tbTipoDocumento
+
+
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoDocumento_Editar
 @tido_Id					INT,
 @tido_Codigo				CHAR(4),
@@ -137,6 +152,7 @@ GO
 --*****Tipos de Liquidacion*****--
 --CREATE OR ALTER VIEW VW_tbTipoLiquidacion
 --*****Listado*****--
+
 CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbTipoLiquidacion_Listar
 AS
 BEGIN
@@ -155,6 +171,8 @@ END
 GO
 
 --*****Insertar*****--
+--Adua.UDP_tbTipoLiquidacion_Insertar 'PROBANDOO', 1, '07-18-2023'
+
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoLiquidacion_Insertar
 @tipl_Descripcion		NVARCHAR(200),
 @usua_UsuarioCreacion	INT,

@@ -27,19 +27,21 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 
-function ContratoAdhesionPersonaNatural() {
+function ModelosIndex() {
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
   const [Eliminar, setEliminar] = useState(false);
 
-  const DialogEliminar = () => {setEliminar(!Eliminar);};
+  const DialogEliminar = () => {
+    setEliminar(!Eliminar);
+  };
 
   {/* Columnas de la tabla */ }
   const columns = [
-    { field: 'id', headerName: 'Id', width: 10 },
-    { field: 'codigo', headerName: 'Usuario', flex: 1 },
-    { field: 'empleado', headerName: 'Empleado', flex: 1 },
+    { field: 'id', headerName: 'Id', flex: 2 },
+    { field: 'modelo', headerName: 'Modelo', flex: 2 },
+    { field: 'estilo', headerName: 'Estilo', flex: 2 },
     {
       field: 'acciones',
       headerName: 'Acciones',
@@ -90,9 +92,10 @@ function ContratoAdhesionPersonaNatural() {
 
   {/* Datos de la tabla */ }
   const rows = [
-    { id: '1', usuario: 'IsHatake', empleado: 'Jafet Gomez'},
-    { id: '2', usuario: 'Admin', empleado: 'Jafet Gomez'},
-    { id: '3', usuario: 'Shogun', empleado: 'Jafet Gomez'},
+    { id: '1', modelo: 'Cuello mao', estilo: 'Manga larga' },
+    { id: '2', modelo: 'Cuello V', estilo: 'Manga corta' },
+    { id: '3', modelo: 'Cuello redondo', estilo: 'Manga 3/4' },
+
   ];
 
   {/* Función para mostrar la tabla y mostrar agregar */ }
@@ -107,7 +110,7 @@ function ContratoAdhesionPersonaNatural() {
 
   {/* Filtrado de datos */ }
   const filteredRows = rows.filter((row) =>
-    row.usuario.toLowerCase().includes(searchText.toLowerCase())
+    row.modelo.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
@@ -115,7 +118,7 @@ function ContratoAdhesionPersonaNatural() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/T4VqYmN/Headers-SIMEXPRO-3.png"
+        image="https://i.ibb.co/ncm5CzN/MOLEDOS.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>
@@ -180,6 +183,70 @@ function ContratoAdhesionPersonaNatural() {
         </div>
       </Collapse>
 
+
+      {/* Formulario Agregar */}
+      <Collapse in={mostrarAdd}>
+        <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <Grid container spacing={3}>
+            
+          <Grid item xs={6} style={{ marginTop: '30px' }} >
+              <FormControl
+                fullWidth
+              >
+                <TextField
+                  style={{ borderRadius: '10px' }}
+                  label="Modelo"
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6} style={{ marginTop: '30px' }} >
+              <FormControl
+                fullWidth
+              >
+                <InputLabel htmlFor="grouped-native-select">Estilo</InputLabel>
+                <Select
+                  style={{ borderRadius: '3px' }}
+                  label="Estilo"
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
+              <Button
+                startIcon={<Icon>checked</Icon>}
+                variant="contained"
+                color="primary"
+                style={{ borderRadius: '10px', marginRight: '10px' }}
+                sx={{
+                  backgroundColor: '#634A9E', color: 'white',
+                  "&:hover": { backgroundColor: '#6e52ae' },
+                }}
+                onClick={VisibilidadTabla}
+              >
+                Guardar
+              </Button>
+
+              <Button
+                startIcon={<Icon>close</Icon>}
+                variant="contained"
+                color="primary"
+                style={{ borderRadius: '10px' }}
+                sx={{
+                  backgroundColor: '#DAD8D8', color: 'black',
+                  "&:hover": { backgroundColor: '#BFBABA' },
+                }}
+                onClick={VisibilidadTabla}
+              >
+                Cancelar
+              </Button>
+            </Grid>
+
+          </Grid>
+        </CardContent>
+      </Collapse>
+
+
       <Dialog
         open={Eliminar}
         fullWidth="md"
@@ -192,39 +259,39 @@ function ContratoAdhesionPersonaNatural() {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-          ¿Está seguro(a) que desea eliminar este registro?
+            ¿Está seguro(a) que desea eliminar este registro?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
-              <Button
-                startIcon={<Icon>checked</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px', marginRight: '10px' }}
-                sx={{
-                  backgroundColor: '#634A9E', color: 'white',
-                  "&:hover": { backgroundColor: '#6e52ae' },
-                }}
-                onClick={DialogEliminar}
-              >
-                Eliminar
-              </Button>
+          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
+            <Button
+              startIcon={<Icon>checked</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px', marginRight: '10px' }}
+              sx={{
+                backgroundColor: '#634A9E', color: 'white',
+                "&:hover": { backgroundColor: '#6e52ae' },
+              }}
+              onClick={DialogEliminar}
+            >
+              Eliminar
+            </Button>
 
-              <Button
-                startIcon={<Icon>close</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px' }}
-                sx={{
-                  backgroundColor: '#DAD8D8', color: 'black',
-                  "&:hover": { backgroundColor: '#BFBABA' },
-                }}
-                onClick={DialogEliminar}
-              >
-                Cancelar
-              </Button>
-            </Grid>
+            <Button
+              startIcon={<Icon>close</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px' }}
+              sx={{
+                backgroundColor: '#DAD8D8', color: 'black',
+                "&:hover": { backgroundColor: '#BFBABA' },
+              }}
+              onClick={DialogEliminar}
+            >
+              Cancelar
+            </Button>
+          </Grid>
         </DialogActions>
       </Dialog>
 
@@ -232,7 +299,7 @@ function ContratoAdhesionPersonaNatural() {
   );
 }
 
-export default ContratoAdhesionPersonaNatural;
+export default ModelosIndex;
 
 
 

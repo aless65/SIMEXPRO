@@ -1,5 +1,3 @@
-/* eslint-disable no-lone-blocks */
-/* eslint-disable prettier/prettier */
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -9,7 +7,7 @@ import Stack from '@mui/material/Stack';
 import { DataGrid, GridToolbar, esES } from '@mui/x-data-grid'
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-
+import { useNavigate } from 'react-router-dom';
 import Zoom from '@mui/material/Zoom';
 import Grow from '@mui/material/Grow';
 
@@ -25,12 +23,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { DateTimePicker } from '@mui/x-date-pickers';
 
 
-function MaquinaHistorialIndex() {
+function DucaIndex() {
+  const navigate = useNavigate()
   const [searchText, setSearchText] = useState('');
-  const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
   const [Eliminar, setEliminar] = useState(false);
 
@@ -38,12 +35,12 @@ function MaquinaHistorialIndex() {
     setEliminar(!Eliminar);
   };
 
-  {/* Columnas de la tabla */ }
+  {/*Columnas de la tabla*/ }
   const columns = [
-    { field: 'id', headerName: 'Id', flex: 2},
-    { field: 'maquina', headerName: 'Máquina', flex: 2,  },
-    { field: 'fechaInicio', headerName: 'Fecha de Inicio', flex: 2,  },
-    { field: 'fechaFin', headerName: 'Fecha de Fin', flex: 2,  },
+    { field: 'id', headerName: 'ID', flex: 1 },
+    { field: 'aduanaIngreso', headerName: 'Aduana de Ingreso', flex: 1 },
+    { field: 'aduanaDestino', headerName: 'Aduana de Destino', flex: 1 },
+    { field: 'declarante', headerName: 'Declarante', flex: 1 },
     {
       field: 'acciones',
       headerName: 'Acciones',
@@ -62,6 +59,18 @@ function MaquinaHistorialIndex() {
             Editar
           </Button>
 
+          <Button
+            startIcon={<Icon>print</Icon>}
+            variant="contained"
+            color="primary"
+            style={{ borderRadius: '10px' }}
+            sx={{
+              backgroundColor: '#6f57de', color: 'white',
+              "&:hover": { backgroundColor: '#5136c9' },
+            }}
+          >
+            Imprimir
+          </Button>
           <Button
             startIcon={<Icon>visibility</Icon>}
             variant="contained"
@@ -92,28 +101,19 @@ function MaquinaHistorialIndex() {
     },
   ];
 
-  {/* Datos de la tabla */ }
+  {/*Datos de la tabla*/ }
   const rows = [
-    { id: '1', maquina: 'Máquina de coser industrial', fechaInicio: '10-12-2022', fechaFin: '11-12-2022'},
-    { id: '2', maquina: 'Máquina de corte automático', fechaInicio: '13-12-2022', fechaFin: '14-12-2022' },
-    { id: '3', maquina: 'Máquina de estampado', fechaInicio: '13-12-2022', fechaFin: '14-12-2022' },
-    { id: '4', maquina: 'Máquina de planchado y prensado', fechaInicio: '15-12-2022', fechaFin: '16-12-2022' },
-    { id: '5', maquina: 'Máquina de etiquetado', fechaInicio: '17-12-2022', fechaFin: '18-12-2022' },
+    { id: '5686464564', aduanaIngreso: 'Aduana de Puerto Cortes', aduanaDestino: 'Exportadora y importadora LA', declarante: 'Isaac Zepeda GOD'},
+
   ];
 
-  {/* Función para mostrar la tabla y mostrar agregar */ }
-  const VisibilidadTabla = () => {
-    setmostrarIndex(!mostrarIndex);
-    setmostrarAdd(!mostrarAdd);
-  };
-
   const handleSearchChange = (event) => {
-    setSearchText(event.target.value);
+    setSearchText(event.target.value); 
   };
 
-  {/* Filtrado de datos */ }
+  {/*Filtrado de datos*/ }
   const filteredRows = rows.filter((row) =>
-    row.maquina.toLowerCase().includes(searchText.toLowerCase())
+    row.id.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
@@ -121,13 +121,12 @@ function MaquinaHistorialIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/x3Dpksj/HISTORIAL-DE-M-QUINA.png"
+        image="https://i.ibb.co/6FZrCcv/DUCAS.png"
         alt="Encabezado de la carta"
       />
-      <Collapse in={mostrarIndex}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
 
-          {/* Botón de Nuevo */}
+          {/*Botón de Nuevo*/}
           <Stack direction="row" spacing={1}>
             <Button
               startIcon={<Icon>add</Icon>}
@@ -138,13 +137,15 @@ function MaquinaHistorialIndex() {
                 backgroundColor: '#634A9E', color: 'white',
                 "&:hover": { backgroundColor: '#6e52ae' },
               }}
-              onClick={VisibilidadTabla}
+              onClick={() => {
+                navigate('/Duca/Crear')
+              }}
             >
               Nuevo
             </Button>
           </Stack>
 
-          {/* Barra de Busqueda en la Tabla */}
+          {/*Barra de Busqueda en la Tabla*/}
           <TextField
             style={{ borderRadius: '10px' }}
             placeholder='Buscar'
@@ -163,10 +164,8 @@ function MaquinaHistorialIndex() {
             }}
           />
         </CardContent>
-      </Collapse>
 
-      {/* Tabla */}
-      <Collapse in={mostrarIndex}>
+      {/*Tabla*/}
         <div style={{ height: 400, width: '100%' }}>
           <DataGrid
             localeText={esES.components.MuiDataGrid.defaultProps.localeText}
@@ -184,123 +183,18 @@ function MaquinaHistorialIndex() {
             pageSizeOptions={[10, 20, 50]}
           />
         </div>
-      </Collapse>
 
-
-      {/* Formulario Agregar */}
-      <Collapse in={mostrarAdd}>
-        <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <Grid container spacing={3}>
-
-            <Grid item xs={6} style={{ marginTop: '30px' }} >
-              <FormControl
-                fullWidth
-              >
-                <InputLabel htmlFor="grouped-native-select">Máquina</InputLabel>
-                <Select
-                  style={{ borderRadius: '10px' }}
-                  label="Máquina"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6} style={{ marginTop: '30px' }} >
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Observaciones"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6}>
-            <InputLabel htmlFor="grouped-native-select">Fecha Inicio</InputLabel>
-              <FormControl
-                fullWidth
-              >
-                <DateTimePicker
-                dateFormat="dd/MM/yyyy"
-                onChange={(date) => {
-                    console.log(date);
-                  }}
-                renderInput={(_props) => (
-                  <TextField
-                    className="w-full"
-                    {..._props}
-                  />
-                )}
-                className="w-full"
-              />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6}>
-            <InputLabel htmlFor="grouped-native-select">Fecha Fin</InputLabel>
-              <FormControl
-                fullWidth
-              >
-                <DateTimePicker
-                dateFormat="dd/MM/yyyy"
-                onChange={(date) => {
-                    console.log(date);
-                  }}
-                renderInput={(_props) => (
-                  <TextField
-                    className="w-full"
-                    {..._props}
-                  />
-                )}
-                className="w-full"
-              />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
-              <Button
-                startIcon={<Icon>checked</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px', marginRight: '10px' }}
-                sx={{
-                  backgroundColor: '#634A9E', color: 'white',
-                  "&:hover": { backgroundColor: '#6e52ae' },
-                }}
-                onClick={VisibilidadTabla}
-              >
-                Guardar
-              </Button>
-
-              <Button
-                startIcon={<Icon>close</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px' }}
-                sx={{
-                  backgroundColor: '#DAD8D8', color: 'black',
-                  "&:hover": { backgroundColor: '#BFBABA' },
-                }}
-                onClick={VisibilidadTabla}
-              >
-                Cancelar
-              </Button>
-            </Grid>
-
-          </Grid>
-        </CardContent>
-      </Collapse>
-
+  
 
       <Dialog
         open={Eliminar}
-        fullWidth="md"
+        fullWidth={'md'}
         onClose={DialogEliminar}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          Confirmación de Eliminación
+          {"Confirmación de Eliminación"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
@@ -323,6 +217,8 @@ function MaquinaHistorialIndex() {
                 Eliminar
               </Button>
 
+          
+
               <Button
                 startIcon={<Icon>close</Icon>}
                 variant="contained"
@@ -344,7 +240,7 @@ function MaquinaHistorialIndex() {
   );
 }
 
-export default MaquinaHistorialIndex;
+export default DucaIndex;
 
 
 

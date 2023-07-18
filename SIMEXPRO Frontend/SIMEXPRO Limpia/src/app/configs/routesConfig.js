@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-pascal-case */
+/* eslint-disable camelcase */
 import FuseUtils from '@fuse/utils';
 import FuseLoading from '@fuse/core/FuseLoading';
 import { Navigate } from 'react-router-dom';
@@ -15,7 +17,19 @@ import CargosIndex from '../Personas/Cargos/Cargos';
 import OficinasIndex from '../Personas/Oficinas/Oficinas';
 import OficiosProfesiones from '../Personas/OficiosProfesiones/OficiosProfesiones';
 import UsuariosIndex from '../Seguridad/Usuarios/Usuarios';
-import ImpresionBoletindePago from '../BoletinDePago/ImpresionBoletinDePago';
+import BoletinDePagoIndex from '../Aduanas/Boletin_de_Pago/BoletinDePago';
+import ImpresionBoletinDePago from '../Aduanas/Boletin_de_Pago/ImpresionBoletinDePago'
+import RolesIndex from '../Seguridad/Roles/roles'
+import RolesCrear from '../Seguridad/Roles/roles_crear'
+import DucaIndex from '../Aduanas/DUCA/duca_Index';
+import DucaCrear from '../Aduanas/DUCA/duca_Crear';
+import Subir_Documentos from '../Aduanas/Documentacion/Subir_Documentos';
+
+
+import PersonaNatural_Index from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/PersonaNatural_Index';
+import PersonaNatural_Crear from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/PersonaNatural_Crear';
+import Declaracion_Valor_Index from '../Aduanas/Declaracion_De_Valor/Declaracion_Valor_Index';
+import Declaracion_Valor_Crear from '../Aduanas/Declaracion_De_Valor/Declaracion_Valor_Crear';
 import Comerciante_Individual_Index from '../Aduanas/Contratos_de_Adhesión/Comerciante_Individual/Comerciante_Individual_Index';
 import Comerciante_Individual_Agregar from '../Aduanas/Contratos_de_Adhesión/Comerciante_Individual/Comerciante_Individual_Agregrar';
 import CategoriaIndex from '../Inventario/Categoria/Categorias';
@@ -35,6 +49,12 @@ import TipoEmbalajeIndex from '../Inventario/TipoDeEmbalaje/TipoEmbalaje';
 import AldeaIndex from '../Ubicaciones/Aldeas/Aldeas';
 import MarcasIndex from '../Maquinaria/MarcasMaquina/MarcasMaquina';
 import CalendarApp from '../Produccion/Planificación/CalendarApp';
+/*import FormaDeEnvioIndex from '../Generales/FormasEnvios';*/
+import ModelosIndex from '../Prendas/Modelos/Modelos';
+/*import UnidadesMedidaIndex from '../Generales/UnidadesMedida/UnidadesMedidas';*/
+import Revision_de_Calidad_Index from '../Produccion/Revisión de Calidad/RevisionCalidad';
+import OrdenProcesosIndex from '../Produccion/OrdenDeProcesos/OrdenDeProcesos';
+
 const routeConfigs = [
   ...dashboardsConfigs,
   ...pagesConfigs,
@@ -90,9 +110,50 @@ const routes = [
     path: 'Usuarios/Index',
     element: <UsuariosIndex />,
   },
+
   {
-    path: 'BoletindePago/impresionBoletin',
-    element: <ImpresionBoletindePago/> 
+    path: 'BoletindePago/BoletinDePagoIndex',
+    element: <BoletinDePagoIndex />
+  },
+  {
+    path: 'BoletindePago/ImpresionBoletinDePago',
+    element: <ImpresionBoletinDePago />
+  },
+  {
+    path: 'Contrato-de-Adhesion/Persona-Natural',
+    element: <PersonaNatural_Index />,
+  },
+  {
+    path: 'Contrato-de-Adhesion/Persona-Natural-Crear',
+    element: <PersonaNatural_Crear />,
+  },
+  {
+    path: 'Declaracion-de-Valor/Listado',
+    element: <Declaracion_Valor_Index />,
+  },
+  {
+    path: 'Declaracion-de-Valor/Nueva-Declaracion',
+    element: <Declaracion_Valor_Crear />,
+  },
+  {
+    path: 'Roles/RolesIndex',
+    element: <RolesIndex />
+  },
+  {
+    path: 'Roles/RolesCrear',
+    element: <RolesCrear />
+  },
+  {
+    path: 'Duca/Index',
+    element: <DucaIndex />
+  },
+  {
+    path: 'Duca/Crear',
+    element: <DucaCrear />
+  },
+  {
+    path: 'Documentos/Subir',
+    element: <Subir_Documentos />
   },
   {
     path: 'Categoria/Index',
@@ -112,18 +173,23 @@ const routes = [
   },
   {
     path: 'ContratoDeAdhesionComercianteIndividual/Index',
+    path: 'MaquinaModulos/Index',
+    element: <MaquinaModulosIndex/>
+  },
+  {
+    path: 'Contrato-de-Adhesion-Comerciante-Individual/Index',
     element: <Comerciante_Individual_Index/> 
   },
   {
-    path: 'ContratoDeAdhesionComercianteIndividual/Agregar',
+    path: 'Contrato-de-Adhesion-Comerciante-Individual/Agregar',
     element: <Comerciante_Individual_Agregar/> 
   },
   {
-    path: 'ContratoDeAdhesionPersonaJuridica/Index',
+    path: 'Contrato-de-Adhesion-Persona-Juridica/Index',
     element: <Persona_Juridica_Index/> 
   },
   {
-    path: 'ContratoDeAdhesionPersonaJuridica/Agregar',
+    path: 'Contrato-de-Adhesion-Persona-Juridica/Agregar',
     element: <Persona_Juridica_Agregar/> 
   },
   {
@@ -185,6 +251,24 @@ const routes = [
   {
     path: 'Planificacion/Index',
     element: <CalendarApp />,
+    path: 'FormaDeEnvio/Index',
+    element: <FormaDeEnvioIndex />,
+  },
+  {
+    path: 'Modelos/Index',
+    element: <ModelosIndex />,
+  },
+  {
+    path: 'UnidadesMedida/Index',
+    element: <UnidadesMedidaIndex />,
+  },
+  {
+    path: 'RevisionCalidad/Index',
+    element: <Revision_de_Calidad_Index />,
+  },
+  {
+    path: 'OrdenProcesos/Index',
+    element: <OrdenProcesosIndex />,
   },
 ];
 

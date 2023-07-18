@@ -94,7 +94,7 @@ function UsuariosIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/hLK96dH/PAISES.png"
+        image="https://i.ibb.co/TMsGt9m/PAISES-1.png"
         alt="Encabezado de la carta"
       />
       <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>

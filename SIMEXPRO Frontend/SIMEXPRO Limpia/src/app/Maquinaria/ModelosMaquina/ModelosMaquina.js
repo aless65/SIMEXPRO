@@ -10,8 +10,6 @@ import { DataGrid, GridToolbar, esES } from '@mui/x-data-grid'
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 
-import Zoom from '@mui/material/Zoom';
-import Grow from '@mui/material/Grow';
 
 import Collapse from '@mui/material/Collapse';
 import Grid from '@mui/material/Grid';
@@ -25,10 +23,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { DateTimePicker } from '@mui/x-date-pickers';
 
 
-function MaquinaHistorialIndex() {
+function AreasIndex() {
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
@@ -40,10 +37,10 @@ function MaquinaHistorialIndex() {
 
   {/* Columnas de la tabla */ }
   const columns = [
-    { field: 'id', headerName: 'Id', flex: 2},
-    { field: 'maquina', headerName: 'Máquina', flex: 2,  },
-    { field: 'fechaInicio', headerName: 'Fecha de Inicio', flex: 2,  },
-    { field: 'fechaFin', headerName: 'Fecha de Fin', flex: 2,  },
+    { field: 'id', headerName: 'Id', width: 10 },
+    { field: 'descripcion', headerName: 'Descripción', flex: 1 },
+    { field: 'marca', headerName: 'Marca', flex: 1 },
+    { field: 'funcion', headerName: 'Funcion', flex: 1 },      
     {
       field: 'acciones',
       headerName: 'Acciones',
@@ -94,11 +91,10 @@ function MaquinaHistorialIndex() {
 
   {/* Datos de la tabla */ }
   const rows = [
-    { id: '1', maquina: 'Máquina de coser industrial', fechaInicio: '10-12-2022', fechaFin: '11-12-2022'},
-    { id: '2', maquina: 'Máquina de corte automático', fechaInicio: '13-12-2022', fechaFin: '14-12-2022' },
-    { id: '3', maquina: 'Máquina de estampado', fechaInicio: '13-12-2022', fechaFin: '14-12-2022' },
-    { id: '4', maquina: 'Máquina de planchado y prensado', fechaInicio: '15-12-2022', fechaFin: '16-12-2022' },
-    { id: '5', maquina: 'Máquina de etiquetado', fechaInicio: '17-12-2022', fechaFin: '18-12-2022' },
+    { id: '1', descripcion: 'Maquina de costura',marca: 'Sterling',funcion: 'Corte'},
+    { id: '2', descripcion: 'Maquina de costura',marca: 'Sterling',funcion: 'Ensamblaje'},
+    { id: '3', descripcion: 'Maquina de costura',marca: 'Sterling',funcion: 'Acabado'},
+    { id: '4', descripcion: 'Maquina de costura',marca: 'Sterling',funcion: 'Bordado'},
   ];
 
   {/* Función para mostrar la tabla y mostrar agregar */ }
@@ -113,7 +109,7 @@ function MaquinaHistorialIndex() {
 
   {/* Filtrado de datos */ }
   const filteredRows = rows.filter((row) =>
-    row.maquina.toLowerCase().includes(searchText.toLowerCase())
+    row.descripcion.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
@@ -121,7 +117,7 @@ function MaquinaHistorialIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/x3Dpksj/HISTORIAL-DE-M-QUINA.png"
+        image="https://i.ibb.co/gPt2nTM/MODELOS-DE-M-QUINA.png  "
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>
@@ -165,6 +161,11 @@ function MaquinaHistorialIndex() {
         </CardContent>
       </Collapse>
 
+
+
+
+
+
       {/* Tabla */}
       <Collapse in={mostrarIndex}>
         <div style={{ height: 400, width: '100%' }}>
@@ -187,75 +188,57 @@ function MaquinaHistorialIndex() {
       </Collapse>
 
 
+
+
+
+
       {/* Formulario Agregar */}
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
-
-            <Grid item xs={6} style={{ marginTop: '30px' }} >
-              <FormControl
-                fullWidth
-              >
-                <InputLabel htmlFor="grouped-native-select">Máquina</InputLabel>
-                <Select
-                  style={{ borderRadius: '10px' }}
-                  label="Máquina"
-                />
-              </FormControl>
+            <Grid item xs={12}>
+              <Typography variant="h5" gutterBottom>
+                Nuevo Modelo de Maquina 
+              </Typography>
             </Grid>
 
-            <Grid item xs={6} style={{ marginTop: '30px' }} >
+            <Grid item xs={6}>
               <FormControl
                 fullWidth
               >
                 <TextField
                   style={{ borderRadius: '10px' }}
-                  label="Observaciones"
+                  label="Nombre de la maquina"
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={6}>
+              <FormControl
+                fullWidth
+              >
+                <InputLabel htmlFor="grouped-native-select">Marca</InputLabel>
+                <Select
+                  style={{ borderRadius: '3px' }}
+                  label="Subcategoría"
+                />
+              </FormControl>
+            </Grid>
+            <br></br>
+            <Grid item xs={6}>
+              <FormControl
+                fullWidth
+              >
+                <InputLabel htmlFor="grouped-native-select">Función</InputLabel>
+                <Select
+                  style={{ borderRadius: '3px' }}
+                  label="Subcategoría"
                 />
               </FormControl>
             </Grid>
 
-            <Grid item xs={6}>
-            <InputLabel htmlFor="grouped-native-select">Fecha Inicio</InputLabel>
-              <FormControl
-                fullWidth
-              >
-                <DateTimePicker
-                dateFormat="dd/MM/yyyy"
-                onChange={(date) => {
-                    console.log(date);
-                  }}
-                renderInput={(_props) => (
-                  <TextField
-                    className="w-full"
-                    {..._props}
-                  />
-                )}
-                className="w-full"
-              />
-              </FormControl>
-            </Grid>
 
-            <Grid item xs={6}>
-            <InputLabel htmlFor="grouped-native-select">Fecha Fin</InputLabel>
-              <FormControl
-                fullWidth
-              >
-                <DateTimePicker
-                dateFormat="dd/MM/yyyy"
-                onChange={(date) => {
-                    console.log(date);
-                  }}
-                renderInput={(_props) => (
-                  <TextField
-                    className="w-full"
-                    {..._props}
-                  />
-                )}
-                className="w-full"
-              />
-              </FormControl>
-            </Grid>
+
+
 
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
               <Button
@@ -344,7 +327,7 @@ function MaquinaHistorialIndex() {
   );
 }
 
-export default MaquinaHistorialIndex;
+export default AreasIndex;
 
 
 

@@ -29,6 +29,9 @@ import EstilosIndex from '../Prendas/Estilos/Estilos';
 import FuncionesMaquinaIndex from '../Maquinaria/FuncionesMaquina/FuncionesMaquina';
 import LotesIndex from '../Inventario/Lotes/Lotes';
 import MaquinasIndex from '../Maquinaria/Máquinas/Maquinas';
+import Persona_Juridica_Index from '../Aduanas/Contratos_de_Adhesión/Persona_Juridica/Persona_Juridica_Index';
+import Persona_Juridica_Agregar from '../Aduanas/Contratos_de_Adhesión/Persona_Juridica/Persona_Juridica_Agregar';
+
 const routeConfigs = [
   ...dashboardsConfigs,
   ...pagesConfigs,
@@ -115,6 +118,14 @@ const routes = [
   {
     path: 'ContratoDeAdhesionComercianteIndividual/Agregar',
     element: <Comerciante_Individual_Agregar/> 
+  },
+  {
+    path: 'ContratoDeAdhesionPersonaJuridica/Index',
+    element: <Persona_Juridica_Index/> 
+  },
+  {
+    path: 'ContratoDeAdhesionPersonaJuridica/Agregar',
+    element: <Persona_Juridica_Agregar/> 
   },
   {
     path: 'Categoria/Index',

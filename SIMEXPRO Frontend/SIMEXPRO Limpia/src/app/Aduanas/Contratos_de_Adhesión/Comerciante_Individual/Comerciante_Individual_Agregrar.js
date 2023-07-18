@@ -98,11 +98,11 @@ function Comerciante_Individual_Agregar() {
             aria-label="full width tabs example"
             sx={{ backgroundColor: "#FFF7F7", color: black }}
           >
-            <Tab label="Datos Generales" {...a11yProps(0)} />
-            <Tab label="Domicilio del Comerciante" {...a11yProps(1)} />
-            <Tab label="Domicilio del Representante Legal" {...a11yProps(2)} />
-            <Tab label="Información de Contacto" {...a11yProps(3)} />
-            <Tab label="Documentos a Informar" {...a11yProps(4)} />
+            <Tab label="Datos Generales" sx={{fontSize:'16px'}} {...a11yProps(0)} />
+            <Tab label="Domicilio del Comerciante" sx={{fontSize:'16px'}}  {...a11yProps(1)} />
+            <Tab label="Domicilio del Representante Legal" sx={{fontSize:'16px'}}  {...a11yProps(2)} />
+            <Tab label="Información de Contacto" sx={{fontSize:'16px'}}  {...a11yProps(3)} />
+            <Tab label="Documentos a Informar" sx={{fontSize:'16px'}} {...a11yProps(4)} />
           </Tabs>
         </AppBar>
         <SwipeableViews
@@ -416,28 +416,42 @@ function Comerciante_Individual_Agregar() {
                   
               <Grid item xs={6}>
                 <FormControl fullWidth>
-                  <TextField style={{ borderRadius: "10px" }} required label="Aldea" />
+                  <TextField style={{ borderRadius: "10px" }} required label="Correo electrónico donde notificar " />
+                  <Typography
+            variant="body2"
+            gutterBottom
+            sx={{ textAlign: "justify",marginBottom:1,color:'#575757'}}
+          >
+          (para efectos de la recepción o envío de solicitudes, escritos, autos, notificaciones, requerimientos y cualquier otro proveído, comunicaciones, resoluciones y cualquier otra actuación ante la administración aduanera o emitido por esta)
+          </Typography>
                 </FormControl>
               </Grid>
 
               
               <Grid item xs={6}>
                 <FormControl fullWidth>
-                  <TextField style={{ borderRadius: "10px" }} required label="Aldea" />
+                  <TextField style={{ borderRadius: "10px" }} required label="Codigo de verificacion de correo electrónico donde notificar " />
+                  <Typography
+            variant="body2"
+            gutterBottom
+            sx={{ textAlign: "justify",marginBottom:1,color:'#575757'}}
+          >
+          (esto asegura que se ha informado un correo electrónico válido, accesible por la persona o personal de la empresa, y los correos de aduanas de honduras no se encuentren bloqueados por el proveedor/servidor de correo electrónico)
+          </Typography>
                 </FormControl>
               </Grid>
 
               
               <Grid item xs={6}>
                 <FormControl fullWidth>
-                  <TextField style={{ borderRadius: "10px" }} required label="Aldea" />
+                  <TextField style={{ borderRadius: "10px" }} required label="Correo electrónico alternativo" />
                 </FormControl>
               </Grid>
 
               
               <Grid item xs={6}>
                 <FormControl fullWidth>
-                  <TextField style={{ borderRadius: "10px" }} required label="Aldea" />
+                  <TextField style={{ borderRadius: "10px" }} required label="Codigo de verificacion de correo electrónico alternativo" />
                 </FormControl>
               </Grid>
 
@@ -484,7 +498,106 @@ function Comerciante_Individual_Agregar() {
             </Grid>
 
           </TabPanel>
-          <TabPanel value={value} index={4} dir={theme.direction}></TabPanel>
+          <TabPanel value={value} index={4} dir={theme.direction}>
+
+        
+
+          <Grid container spacing={3}>
+         
+          <Grid item xs={6}>
+                <FormControl fullWidth>
+                  <TextField style={{ borderRadius: "10px" }} required label="Registro Tributario Nacional (RTN) del comerciante individual" />
+                </FormControl>
+              </Grid>
+
+                  
+              <Grid item xs={6}>
+                <FormControl fullWidth>
+                  <TextField style={{ borderRadius: "10px" }} required label="Documento o Tarjeta de Identidad del comerciante individual" />
+                </FormControl>
+              </Grid>
+
+                  
+              <Grid item xs={6}>
+                <FormControl fullWidth>
+                  <TextField style={{ borderRadius: "10px" }} label="Registro Tributario Nacional (RTN) del representante legal" />
+                  <Typography
+            variant="body2"
+            gutterBottom
+            sx={{ textAlign: "justify",marginBottom:0,color:'#575757'}}
+          >
+          (si ha informado representación bajo representación legal)
+          </Typography>
+                </FormControl>
+              </Grid>
+
+              
+              <Grid item xs={6}>
+                <FormControl fullWidth>
+                  <TextField style={{ borderRadius: "10px" }} required label="Documento o Tarjeta de Identidad del representante legal" />
+                  <Typography
+            variant="body2"
+            gutterBottom
+            sx={{ textAlign: "justify",marginBottom:0,color:'#575757'}}
+          >
+          (si ha informado representación bajo representación legal)
+          </Typography>
+                </FormControl>
+              </Grid>
+
+              
+              <Grid item xs={6}>
+                <FormControl fullWidth>
+                  <TextField style={{ borderRadius: "10px" }} required label="Declaración de comerciante individual y sus modificaciones si las hubiera" />
+                </FormControl>
+              </Grid>
+
+              
+      
+
+              <Grid
+                item
+                xs={12}
+                sx={{
+                  display: "flex",
+                  justifyContent: "right",
+                  alignItems: "right",
+                }}
+              >
+                <Button
+                  startIcon={<Icon>checked</Icon>}
+                  variant="contained"
+                  color="primary"
+                  style={{ borderRadius: "10px", marginRight: "10px" }}
+                  sx={{
+                    backgroundColor: "#634A9E",
+                    color: "white",
+                    "&:hover": { backgroundColor: "#6e52ae" },
+                  }}
+                >
+                  Guardar
+                </Button>
+
+                <Button
+                  startIcon={<Icon>close</Icon>}
+                  variant="contained"
+                  color="primary"
+                  style={{ borderRadius: "10px" }}
+                  sx={{
+                    backgroundColor: "#DAD8D8",
+                    color: "black",
+                    "&:hover": { backgroundColor: "#BFBABA" },
+                  }}
+                  onClick={(e) => {
+                    Navigate("/ContratoDeAdhesionComercianteIndividual/Index");
+                  }}
+                >
+                  Cancelar
+                </Button>
+              </Grid>
+            </Grid>
+
+          </TabPanel>
         </SwipeableViews>
       </Box>
     </Card>

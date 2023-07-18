@@ -119,7 +119,7 @@ function UsuariosIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/T4VqYmN/Headers-SIMEXPRO-3.png"
+        image="https://i.ibb.co/RgGNgZP/USUARIOS.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>

@@ -269,10 +269,17 @@ const navigationConfig = [
                 children: [
                     {
                         id: 'BoletinPago.Impresión',
-                        title: 'Impresión Boletin de ',
+                        title: 'Comerciante Individual',
                         type: 'item',
                         icon: 'heroicons-outline:printer',
                         url: 'ContratoDeAdhesionComercianteIndividual/Index',
+                    },
+                    {
+                        id: 'BoletinPago.Impresión',
+                        title: 'Persona Juridica',
+                        type: 'item',
+                        icon: 'heroicons-outline:printer',
+                        url: 'ContratoDeAdhesionPersonaJuridica/Index',
                     },
                    
              

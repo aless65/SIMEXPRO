@@ -1,5 +1,7 @@
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+
 
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
@@ -12,6 +14,7 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import { FormControl, Icon, IconButton, InputAdornment, InputLabel, TextField } from '@mui/material';
 import Stack from '@mui/material/Stack';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 function not(a, b) {
@@ -25,12 +28,13 @@ function intersection(a, b) {
 function RolesCrear() {
 
     const [checked, setChecked] = React.useState([]);
-    const [left, setLeft] = React.useState([0, 1, 2, 3]);
-    const [right, setRight] = React.useState([4, 5, 6, 7]);
+    const [left, setLeft] = React.useState(['Usuarios', 'Roles', 'Boletin de Pago', 'Declaracion de Valor', 'Duca']);
+    const [right, setRight] = React.useState([]);
 
     const leftChecked = intersection(checked, left);
     const rightChecked = intersection(checked, right);
 
+    const Navigate = useNavigate();
 
     const handleToggle = (value) => () => {
         const currentIndex = checked.indexOf(value);
@@ -90,7 +94,7 @@ function RolesCrear() {
                                     }}
                                 />
                             </ListItemIcon>
-                            <ListItemText id={labelId} primary={`List item ${value + 1}`} />
+                            <ListItemText id={labelId} primary={` ${value}`} />
                         </ListItem>
                     );
                 })}
@@ -102,6 +106,12 @@ function RolesCrear() {
     return (
         <Card sx={{ minWidth: 275, margin: '40px' }}>
 
+            <CardMedia
+                component="img"
+                height="200"
+                image="https://i.ibb.co/gMjB52g/ROLES.png"
+                alt="Encabezado de la carta"
+            />
 
             <Grid container spacing={3} style={{ marginTop: '20px' }}>
                 <Grid item xs={3}></Grid>
@@ -171,7 +181,7 @@ function RolesCrear() {
                 <Grid item xs={3}></Grid>
                 <Stack direction="row" spacing={1}>
                     <Button
-                        startIcon={<Icon>add</Icon>}
+                        startIcon={<Icon>checked</Icon>}
                         variant="contained"
                         color="primary"
                         style={{ borderRadius: '10px' }}
@@ -179,7 +189,9 @@ function RolesCrear() {
                             backgroundColor: '#634A9E', color: 'white',
                             "&:hover": { backgroundColor: '#6e52ae' },
                         }}
-                        
+                        onClick={(e) => {
+                            Navigate("/Roles/RolesIndex");
+                        }}
                     >
                         Guardar
                     </Button>
@@ -187,15 +199,17 @@ function RolesCrear() {
                 <Grid item xs={1}></Grid>
                 <Stack direction="row" spacing={1}>
                     <Button
-                        startIcon={<Icon>add</Icon>}
+                        startIcon={<Icon>close</Icon>}
                         variant="contained"
                         color="primary"
                         style={{ borderRadius: '10px' }}
                         sx={{
-                            backgroundColor: '#634A9E', color: 'white',
-                            "&:hover": { backgroundColor: '#6e52ae' },
+                            backgroundColor: '#797979', color: 'white',
+                            "&:hover": { backgroundColor: '#b69999' },
                         }}
-                        
+                        onClick={(e) => {
+                            Navigate("/Roles/RolesIndex");
+                        }}
                     >
                         Cancelar
                     </Button>
@@ -203,7 +217,7 @@ function RolesCrear() {
             </Grid>
 
             <Grid container spacing={2} style={{ marginTop: '20px' }}>
-                
+
             </Grid>
 
 

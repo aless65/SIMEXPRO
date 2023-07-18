@@ -45,13 +45,14 @@ function RolesIndex() {
 
   {/*Columnas de la tabla*/ }
   const columns = [
-    { field: 'id', headerName: 'Id', width: 20 }, 
-    { field: 'Nombre', headerName: 'Nombre', flex: 1 },
+    { field: 'id', headerName: 'Id', flex: 3 }, 
+    { field: 'Nombre', headerName: 'Nombre', flex: 3 },
     
     {
+      
       field: 'acciones',
       headerName: 'Acciones',
-      width: 500,
+      width: 400,
       renderCell: (params) => (
         <Stack direction="row" spacing={1}>
           <Button
@@ -129,7 +130,7 @@ function RolesIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/T4VqYmN/Headers-SIMEXPRO-3.png"
+        image="https://i.ibb.co/gMjB52g/ROLES.png"
         alt="Encabezado de la carta"
       />
       

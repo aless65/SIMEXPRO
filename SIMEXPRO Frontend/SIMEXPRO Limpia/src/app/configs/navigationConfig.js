@@ -67,7 +67,7 @@ const navigationConfig = [
                         title: 'Roles',
                         type: 'item',
                         icon: 'material-outline:manage_search',
-                        url: '/Seguridad/Roles',
+                        url: '/Roles/RolesIndex',
                     },
 
                 ]

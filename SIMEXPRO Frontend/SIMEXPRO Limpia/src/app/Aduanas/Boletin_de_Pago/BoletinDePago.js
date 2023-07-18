@@ -141,7 +141,7 @@ function BoletinDePagoIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/T4VqYmN/Headers-SIMEXPRO-3.png"
+        image="https://i.ibb.co/0KkrNp4/IMPRESI-N-BOLET-N-DE-PAGO.png"
         alt="Encabezado de la carta"
       />
       

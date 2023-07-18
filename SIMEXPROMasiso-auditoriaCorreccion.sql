@@ -2495,3 +2495,15 @@ CREATE TABLE Adua.tbDocumentosDeSoporte(
 	CONSTRAINT FK_Adua_tbDocumentosDeSoporte_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id 		FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
+
+
+--**********************************************************************************************
+--********** TABLA PAISES / procedimientos tomando en cuenta los uniques ***********************
+ALTER TABLE Acce.tbUsuarios
+ADD CONSTRAINT FK_Acce_tbUsuarios_usua_UsuarioCreacion FOREIGN KEY(usua_UsuarioCreacion) REFERENCES Acce.tbUsuarios(usua_Id)
+GO
+ALTER TABLE Acce.tbUsuarios
+ADD CONSTRAINT FK_Acce_tbUsuarios_usua_UsuarioModificacion FOREIGN KEY(usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios(usua_Id)
+GO
+ALTER TABLE Acce.tbUsuarios
+ADD CONSTRAINT FK_Acce_tbUsuarios_usua_UsuarioEliminacion FOREIGN KEY(usua_UsuarioEliminacion) REFERENCES Acce.tbUsuarios(usua_Id)

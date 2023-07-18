@@ -49,12 +49,16 @@ BEGIN
 		   conduc.usua_UsuarioModificacion   AS usuarioModificacion, 
 		   usuModi.usua_Nombre               AS usuarioModificacionNombre,
 		   cont_FechaModificacion            AS usuarioFechaModificacion, 
+		   conduc.usua_UsuarioEliminacion	 AS usuarioEliminacion,
+		   usuElim.usua_Nombre				 AS usuarioEliminacionNombre,
+		   conduc.cont_FechaEliminacion		 AS usuarioFechaElimincaion,
 		   cont_Estado                       AS conductorEstado
 	FROM   Adua.tbConductor conduc 
 		   LEFT JOIN acce.tbUsuarios usuCrea ON conduc.usua_UsuarioCreacion = usuCrea.usua_Id
 		   LEFT JOIN acce.tbUsuarios usuModi ON conduc.usua_UsuarioModificacion = usuModi.usua_Id
+		   LEFT JOIN Acce.tbUsuarios usuElim ON conduc.usua_UsuarioEliminacion = usuElim.usua_Id
 		   LEFT JOIN Adua.tbTransporte trans ON conduc.tran_Id = trans.tran_Id
-		   LEFT JOIN Gral.tbPaises pais      ON conduc.pais_IdExpedicion = pais.pais_Id
+		   LEFT JOIN Gral.tbPaises		pais ON conduc.pais_IdExpedicion = pais.pais_Id
 	WHERE  cont_Estado = 1
 END
 GO
@@ -72,38 +76,23 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbConductor_Insert
 AS 
 BEGIN
 	BEGIN TRY
-		IF NOT EXISTS (SELECT * FROM Adua.tbConductor 
-						WHERE cont_Licencia  = @cont_Licencia)
-			BEGIN
-			INSERT INTO Adua.tbConductor(cont_Nombre, 
-			                             cont_Apellido, 
-										 cont_Licencia, 
-										 pais_IdExpedicion, 
-										 tran_Id, 
-										 usua_UsuarioCreacion, 
-										 cont_FechaCreacion)
-			VALUES(@cont_Nombre, @cont_Apellido, @cont_Licencia, @pais_IdExpedicion, @tran_Id, @usua_UsuarioCreacion, @cont_FechaCreacion);
-					
-			SELECT 1 as proceso
-
-			END
-		ELSE IF EXISTS (SELECT * FROM Adua.tbConductor  
-						WHERE cont_Licencia  = @cont_Licencia
-						AND cont_Estado = 0)
-			BEGIN
-				UPDATE Adua.tbConductor
-				SET cont_Estado        = 1,
-				cont_Nombre            = @cont_Nombre, 
-			    cont_Apellido          = @cont_Apellido, 
-				pais_IdExpedicion      = @pais_IdExpedicion, 
-				tran_Id                = @tran_Id, 
-				usua_UsuarioCreacion   = @usua_UsuarioCreacion, 
-				cont_FechaCreacion     = @cont_FechaCreacion
-				WHERE cont_Licencia    = @cont_Licencia
-				SELECT  1 as proceso
-			END
-		ELSE
-			SELECT  -2 as proceso
+		INSERT INTO Adua.tbConductor(cont_Nombre, 
+			                            cont_Apellido, 
+										cont_Licencia, 
+										pais_IdExpedicion, 
+										tran_Id, 
+										usua_UsuarioCreacion, 
+										cont_FechaCreacion)
+		VALUES(
+		@cont_Nombre, 
+		@cont_Apellido, 
+		@cont_Licencia, 
+		@pais_IdExpedicion, 
+		@tran_Id, 
+		@usua_UsuarioCreacion, 
+		@cont_FechaCreacion
+		);
+		SELECT 1
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -124,18 +113,17 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbConductor_Editar
 AS
 BEGIN
 	BEGIN TRY
-	
-			UPDATE Adua.tbConductor
-			SET cont_Licencia             = @cont_Licencia,
-				cont_Nombre               = @cont_Nombre, 
-			    cont_Apellido             = @cont_Apellido, 
-				pais_IdExpedicion         = @pais_IdExpedicion, 
-				tran_Id                   = @tran_Id, 
-				usua_UsuarioModificacion  = @usua_UsuarioModificacion, 
-				cont_FechaModificacion    = @cont_FechaModificacion
-			WHERE cont_Id                 = @cont_Id
+		UPDATE Adua.tbConductor
+		SET cont_Licencia             = @cont_Licencia,
+			cont_Nombre               = @cont_Nombre, 
+			cont_Apellido             = @cont_Apellido, 
+			pais_IdExpedicion         = @pais_IdExpedicion, 
+			tran_Id                   = @tran_Id, 
+			usua_UsuarioModificacion  = @usua_UsuarioModificacion, 
+			cont_FechaModificacion    = @cont_FechaModificacion
+		WHERE cont_Id                 = @cont_Id
 
-			SELECT 1
+		SELECT 1
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -152,21 +140,19 @@ AS
 BEGIN
 	BEGIN TRY
 
-		BEGIN
-			DECLARE @respuesta INT
-			EXEC dbo.UDP_ValidarReferencias 'cont_Id', @cont_Id, 'Adua.tbConductor', @respuesta OUTPUT
+		DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'cont_Id', @cont_Id, 'Adua.tbConductor', @respuesta OUTPUT
 
-			SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
-				BEGIN
-					 UPDATE Adua.tbConductor
-						SET cont_Estado = 0, 
-						     usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-							 cont_FechaEliminacion   = @cont_FechaEliminacion
-					   WHERE cont_Id = @cont_Id
-		SELECT 1
-				END
-		END
+		SELECT @respuesta AS Resultado
+		IF(@respuesta) = 1
+			BEGIN
+					UPDATE Adua.tbConductor
+				SET		cont_Estado = 0, 
+						usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+						cont_FechaEliminacion   = @cont_FechaEliminacion
+				WHERE cont_Id = @cont_Id
+				SELECT 1
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -196,35 +182,35 @@ GO
 /*Vista transporte*/
 --CREATE OR ALTER VIEW Adua.VW_tbTransporte
 --AS
---	SELECT t1.[tran_Id]                       AS transporteId, 
---	       t1.[pais_Id]                       AS paisId, 
+--	SELECT t1.tran_Id                       AS transporteId, 
+--	       t1.pais_Id                       AS paisId, 
 --		   t5.pais_Nombre                     AS paisNombre,
---		   t1.[tran_Chasis]                   AS transporteChasis, 
---		   t1.[marca_Id]                      AS marcaId, 
+--		   t1.tran_Chasis                   AS transporteChasis, 
+--		   t1.marca_Id                      AS marcaId, 
 --		   t6.marc_Descripcion                AS marcaDescripcion,
---		   t1.[tran_Remolque]                 AS transporteIdRemolque, 
---		   t1.[tran_CantCarga]                AS transporteCantCarga, 
---		   t1.[tran_NumDispositivoSeguridad]  AS transporteNumDispositivoSeguridad, 
---		   t1.[tran_Equipamiento]             AS transporteEquipamiento, 
---		   t1.[tran_TipoCarga]                AS transporteTipoCarga, 
---		   t1.[tran_IdContenedor]             AS transporteIdContenedor, 
---		   t1.[usua_UsuarioCreacio]           AS transporteUsuarioCreacio,
+--		   t1.tran_Remolque                 AS transporteIdRemolque, 
+--		   t1.tran_CantCarga                AS transporteCantCarga, 
+--		   t1.tran_NumDispositivoSeguridad  AS transporteNumDispositivoSeguridad, 
+--		   t1.tran_Equipamiento             AS transporteEquipamiento, 
+--		   t1.tran_TipoCarga                AS transporteTipoCarga, 
+--		   t1.tran_IdContenedor             AS transporteIdContenedor, 
+--		   t1.usua_UsuarioCreacio           AS transporteUsuarioCreacio,
 --		   t2.usua_Nombre                     AS usuarioCreacionNombre,
---		   t1.[tran_FechaCreacion]            AS transporteFechaCreacion, 
---		   t1.[usua_UsuarioModificacion]      AS transporteUsuarioModificacion,  
+--		   t1.tran_FechaCreacion            AS transporteFechaCreacion, 
+--		   t1.usua_UsuarioModificacion      AS transporteUsuarioModificacion,  
 --		   t3.usua_Nombre                     AS usuarioModificacionNombre,
---		   t1.[tran_FechaModificacion]        AS transporteFechaModificacion, 
---		   t1.[tran_Estado]                   AS transporteEstado
---		   FROM [Adua].[tbTransporte] t1 
+--		   t1.tran_FechaModificacion        AS transporteFechaModificacion, 
+--		   t1.tran_Estado                   AS transporteEstado
+--		   FROM Adua.tbTransporte t1 
 --		   LEFT JOIN acce.tbUsuarios t2
---		   ON t1.[usua_UsuarioCreacio] = T2.usua_Id
+--		   ON t1.usua_UsuarioCreacio = T2.usua_Id
 --		   LEFT JOIN acce.tbUsuarios t3
 --		   ON t1.usua_UsuarioModificacion = t3.usua_Id
 --		   LEFT JOIN Adua.tbTransporte t4 
 --		   ON t1.tran_Id = t4.tran_Id
 --		   LEFT JOIN Gral.tbPaises t5
 --		   ON t1.pais_Id = t5.pais_Codigo
---		   LEFT JOIN [Adua].[tbMarcas] t6
+--		   LEFT JOIN Adua.tbMarcas t6
 --		   ON t1.marca_Id = t6.marc_Id
 --GO
 
@@ -233,30 +219,34 @@ GO
 CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbTransporte_Listar
 AS
 BEGIN
-	SELECT trans.tran_Id                         AS transporteId, 
-	       trans.pais_Id                         AS paisId, 
-		   pais.pais_Nombre                      AS paisNombre,
-		   trans.tran_Chasis                     AS transporteChasis, 
-		   trans.marca_Id                        AS marcaId, 
-		   marc.marc_Descripcion                 AS marcaDescripcion,
-		   trans.tran_Remolque                   AS transporteRemolque, 
-		   trans.tran_CantCarga                  AS transporteCantCarga, 
-		   trans.tran_NumDispositivoSeguridad    AS transporteNumDispositivoSeguridad, 
-		   trans.tran_Equipamiento               AS transporteEquipamiento, 
-		   trans.tran_TipoCarga                  AS transporteTipoCarga, 
-		   trans.tran_IdContenedor               AS transporteIdContenedor, 
-		   trans.usua_UsuarioCreacio             AS transporteUsuarioCreacio,
-		   usuCrea.usua_Nombre                   AS usuarioCreacionNombre,
-		   trans.tran_FechaCreacion              AS transporteFechaCreacion, 
-		   trans.usua_UsuarioModificacion        AS transporteUsuarioModificacion,  
-		   usuModi.usua_Nombre                   AS usuarioModificacionNombre,
-		   trans.tran_FechaModificacion          AS transporteFechaModificacion, 
-		   trans.tran_Estado                     AS transporteEstado
+	SELECT trans.tran_Id                        AS transporteId, 
+	       trans.pais_Id                        AS paisId, 
+		   pais.pais_Nombre                     AS paisNombre,
+		   trans.tran_Chasis                    AS transporteChasis, 
+		   trans.marca_Id                       AS marcaId, 
+		   marc.marc_Descripcion                AS marcaDescripcion,
+		   trans.tran_Remolque                  AS transporteRemolque, 
+		   trans.tran_CantCarga                 AS transporteCantCarga, 
+		   trans.tran_NumDispositivoSeguridad   AS transporteNumDispositivoSeguridad, 
+		   trans.tran_Equipamiento              AS transporteEquipamiento, 
+		   trans.tran_TipoCarga                 AS transporteTipoCarga, 
+		   trans.tran_IdContenedor              AS transporteIdContenedor, 
+		   trans.usua_UsuarioCreacio            AS transporteUsuarioCreacio,
+		   usuCrea.usua_Nombre                  AS usuarioCreacionNombre,
+		   trans.tran_FechaCreacion             AS transporteFechaCreacion, 
+		   trans.usua_UsuarioModificacion       AS transporteUsuarioModificacion,  
+		   usuModi.usua_Nombre                  AS usuarioModificacionNombre,
+		   trans.tran_FechaModificacion         AS transporteFechaModificacion,
+		   trans.usua_UsuarioEliminacion		AS transporteUsuarioEliminacion,
+		   usuElim.usua_Nombre					AS usuarioEliminacionNombre,
+		   trans.trant_FechaEliminacion			AS transporteFechaEliminacion,
+		   trans.tran_Estado                    AS transporteEstado
 	 FROM  Adua.tbTransporte trans  
-		   LEFT JOIN acce.tbUsuarios usuCrea ON trans.[usua_UsuarioCreacio] = usuCrea.usua_Id
-		   LEFT JOIN acce.tbUsuarios usuModi ON trans.usua_UsuarioModificacion = usuModi.usua_Id
-		   LEFT JOIN Gral.tbPaises pais      ON trans.pais_Id = pais.pais_Codigo
-		   LEFT JOIN Adua.tbMarcas marc      ON trans.marca_Id = marc.marc_Id
+		   LEFT JOIN acce.tbUsuarios usuCrea	ON trans.usua_UsuarioCreacio = usuCrea.usua_Id
+		   LEFT JOIN acce.tbUsuarios usuModi	ON trans.usua_UsuarioModificacion = usuModi.usua_Id
+		   LEFT JOIN Acce.tbUsuarios usuElim	ON trans.usua_UsuarioEliminacion = usuElim.usua_Id		   
+		   LEFT JOIN Gral.tbPaises pais			ON trans.pais_Id = pais.pais_Codigo
+		   LEFT JOIN Adua.tbMarcas marc			ON trans.marca_Id = marc.marc_Id
 END
 GO
 
@@ -277,56 +267,29 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbTransporte_Insert
 AS 
 BEGIN
 	BEGIN TRY
-		IF NOT EXISTS (SELECT * FROM Adua.tbTransporte
-						WHERE tran_Chasis  = @tran_Chasis)
-			BEGIN
-			INSERT INTO Adua.tbTransporte([pais_Id],
-			                              [tran_Chasis], 
-										  [marca_Id], 
-										  [tran_Remolque], 
-										  [tran_CantCarga], 
-										  [tran_NumDispositivoSeguridad], 
-										  [tran_Equipamiento], 
-										  [tran_TipoCarga],
-										  [tran_IdContenedor], 
-										  [usua_UsuarioCreacio], 
-										  [tran_FechaCreacion])
-			VALUES(@pais_Id,
-			       @tran_Chasis, 
-				   @marca_Id, 
-				   @tran_IdRemolque, 
-				   @tran_CantCarga, 
-				   @tran_NumDispositivoSeguridad, 
-				   @tran_Equipamiento, 
-				   @tran_TipoCarga,
-				   @tran_IdContenedor, 
-				   @usua_UsuarioCreacio, 
-				   @tran_FechaCreacion);
-					
-			SELECT 1 as proceso
-
-			END
-		ELSE IF EXISTS (SELECT * FROM Adua.tbTransporte 
-						WHERE tran_Chasis  = @tran_Chasis
-						AND [tran_Estado] = 0)
-			BEGIN
-				UPDATE Adua.tbTransporte
-				SET tran_Estado                  = 1,
-				    pais_Id                      =  @pais_Id,
-				    marca_Id                     = @marca_Id, 
-				    tran_Remolque                = @tran_IdRemolque, 
-				    tran_CantCarga               = @tran_CantCarga, 
-				    tran_NumDispositivoSeguridad = @tran_NumDispositivoSeguridad, 
-				    tran_Equipamiento            = @tran_Equipamiento, 
-				    tran_TipoCarga               = @tran_TipoCarga,
-				    tran_IdContenedor            = @tran_IdContenedor, 
-				    usua_UsuarioCreacio          = @usua_UsuarioCreacio, 
-				    tran_FechaCreacion           = @tran_FechaCreacion
-				WHERE tran_Chasis                = @tran_Chasis
-				SELECT  1 as proceso
-			END
-		ELSE
-			SELECT  -2 as proceso
+		INSERT INTO Adua.tbTransporte(pais_Id,
+										tran_Chasis, 
+										marca_Id, 
+										tran_Remolque, 
+										tran_CantCarga, 
+										tran_NumDispositivoSeguridad, 
+										tran_Equipamiento, 
+										tran_TipoCarga,
+										tran_IdContenedor, 
+										usua_UsuarioCreacio, 
+										tran_FechaCreacion)
+		VALUES(@pais_Id,
+				@tran_Chasis, 
+				@marca_Id, 
+				@tran_IdRemolque, 
+				@tran_CantCarga, 
+				@tran_NumDispositivoSeguridad, 
+				@tran_Equipamiento, 
+				@tran_TipoCarga,
+				@tran_IdContenedor, 
+				@usua_UsuarioCreacio, 
+				@tran_FechaCreacion);	
+		SELECT 1		
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -351,22 +314,21 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbTransporte_Editar
 AS
 BEGIN
 	BEGIN TRY
-			
-			UPDATE Adua.tbTransporte
-			SET  pais_Id                      = @pais_Id, 
-				 marca_Id                     = @marca_Id, 
-				 tran_Chasis                  = @tran_Chasis,
-				 tran_Remolque                = @tran_IdRemolque, 
-				 tran_CantCarga               = @tran_CantCarga, 
-				 tran_NumDispositivoSeguridad = @tran_NumDispositivoSeguridad,
-				 tran_Equipamiento            = @tran_Equipamiento, 
-				 tran_TipoCarga               = @tran_TipoCarga, 
-				 tran_IdContenedor            = @tran_IdContenedor, 
-				 usua_UsuarioModificacion     = @usua_UsuarioModificacion, 
-				 tran_FechaModificacion       = @tran_FechaModificacion
-		   WHERE tran_Id                      = @tran_Id
+		UPDATE Adua.tbTransporte
+		SET  pais_Id                      = @pais_Id, 
+			 marca_Id                     = @marca_Id, 
+			 tran_Chasis                  = @tran_Chasis,
+			 tran_Remolque                = @tran_IdRemolque, 
+			 tran_CantCarga               = @tran_CantCarga, 
+			 tran_NumDispositivoSeguridad = @tran_NumDispositivoSeguridad,
+			 tran_Equipamiento            = @tran_Equipamiento, 
+			 tran_TipoCarga               = @tran_TipoCarga, 
+			 tran_IdContenedor            = @tran_IdContenedor, 
+			 usua_UsuarioModificacion     = @usua_UsuarioModificacion, 
+			 tran_FechaModificacion       = @tran_FechaModificacion
+		WHERE tran_Id                      = @tran_Id
 
-			SELECT 1
+		SELECT 1
 		
 	END TRY
 	BEGIN CATCH
@@ -413,7 +375,7 @@ GO
 --		   t1.marc_Estado              AS marcaEstado
 --		   FROM Adua.tbMarcas t1 
 --		   LEFT JOIN acce.tbUsuarios t2
---		   ON t1.[usua_UsuarioCreacion] = T2.usua_Id
+--		   ON t1.usua_UsuarioCreacion = T2.usua_Id
 --		   LEFT JOIN acce.tbUsuarios t3
 --		   ON t1.usua_UsuarioModificacion = t3.usua_Id
 		   
@@ -423,18 +385,18 @@ GO
 CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbMarcas_Listar
 AS
 BEGIN
-	SELECT marca.marc_Id                  AS marcaId, 
-	       marca.marc_Descripcion         AS marcaDescripcion, 
-		   marca.usua_UsuarioCreacion     AS marcaUsuarioCreacion, 
-		   usuCrea.usua_Nombre            AS usuarioCreacionNombre,
-		   marca.marc_FechaCreacion       AS marcaFechaCreacion, 
-		   marca.usua_UsuarioModificacion AS marcaModificacion, 
-		   usuModi.usua_Nombre            AS usuarioModificacionNombre,
-		   marca.marc_FechaModificacion   AS marcaFechaModificacion, 
-		   marca.marc_Estado              AS marcaEstado
+	SELECT marca.marc_Id						AS marcaId, 
+	       marca.marc_Descripcion				AS marcaDescripcion, 
+		   marca.usua_UsuarioCreacion			AS marcaUsuarioCreacion, 
+		   usuCrea.usua_Nombre					AS usuarioCreacionNombre,
+		   marca.marc_FechaCreacion				AS marcaFechaCreacion, 
+		   marca.usua_UsuarioModificacion		AS marcaModificacion, 
+		   usuModi.usua_Nombre					AS usuarioModificacionNombre,
+		   marca.marc_FechaModificacion			AS marcaFechaModificacion, 
+		   marca.marc_Estado					AS marcaEstado
 	 FROM  Adua.tbMarcas marca 
-		   LEFT JOIN acce.tbUsuarios usuCrea ON marca.[usua_UsuarioCreacion] = usuCrea.usua_Id
-		   LEFT JOIN acce.tbUsuarios usuModi ON marca.usua_UsuarioModificacion = usuModi.usua_Id
+		   LEFT JOIN acce.tbUsuarios usuCrea	ON marca.usua_UsuarioCreacion = usuCrea.usua_Id
+		   LEFT JOIN acce.tbUsuarios usuModi	ON marca.usua_UsuarioModificacion = usuModi.usua_Id
 	WHERE  marc_Estado = 1
 END
 GO
@@ -448,24 +410,10 @@ AS
 BEGIN
 	
 	BEGIN TRY
+		INSERT INTO Adua.tbMarcas (marc_Descripcion, usua_UsuarioCreacion, marc_FechaCreacion)
+		VALUES(@marc_Descripcion, @usua_UsuarioCreacion, @marc_FechaCreacion)
 
-		IF EXISTS (SELECT * FROM [Adua].[tbMarcas]
-						WHERE marc_Descripcion = @marc_Descripcion
-						AND marc_Estado = 0)
-		BEGIN
-			UPDATE [Adua].[tbMarcas]
-			SET	   marc_Estado = 1
-			WHERE  marc_Descripcion = @marc_Descripcion
-
-			SELECT 1
-		END
-		ELSE 
-			BEGIN
-				INSERT INTO [Adua].[tbMarcas] (marc_Descripcion, usua_UsuarioCreacion, marc_FechaCreacion)
-			VALUES(@marc_Descripcion, @usua_UsuarioCreacion, @marc_FechaCreacion)
-
-			SELECT 1
-		END
+		SELECT 1
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -482,7 +430,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbMarcas_Editar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE  [Adua].[tbMarcas]
+		UPDATE  Adua.tbMarcas
 		SET		marc_Descripcion = @marc_Descripcion
 		WHERE	marc_Id = @marc_Id
 
@@ -555,7 +503,7 @@ GO
 --		   t3.usua_Nombre              AS usuarioModificacionNombre,
 --		   t1.iden_FechaModificacion   AS IdentifiFechaModificacion,  
 --		   t1.iden_Estado              AS IdentifiEsatdo
---		   FROM [Adua].[tbTiposIdentificacion] t1 
+--		   FROM Adua.tbTiposIdentificacion t1 
 --		   LEFT JOIN acce.tbUsuarios t2
 --		   ON t1.usua_UsuarioCreacion	 = T2.usua_Id
 --		   LEFT JOIN acce.tbUsuarios t3
@@ -567,18 +515,18 @@ GO
 CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbTiposIdentificacion_Listar
 AS
 BEGIN
-	SELECT identi.iden_Id                  AS IdentifiID,
-	       identi.iden_Descripcion         AS IdentifiDescripcion, 
-		   identi.usua_UsuarioCreacion     AS IdentifiUsuarioCreacion, 
-		   usuCrea.usua_Nombre             AS usuarioCreacionNombre,
-		   identi.iden_FechaCreacion       AS IdentifiFechaCreacion, 
-		   identi.iden_FechaModificacion   AS IdentifiUsuarioModificacion, 
-		   usuModi.usua_Nombre             AS usuarioModificacionNombre,
-		   identi.iden_FechaModificacion   AS IdentifiFechaModificacion,  
-		   identi.iden_Estado              AS IdentifiEsatdo
+	SELECT identi.iden_Id						AS IdentifiID,
+	       identi.iden_Descripcion				AS IdentifiDescripcion, 
+		   identi.usua_UsuarioCreacion			AS IdentifiUsuarioCreacion, 
+		   usuCrea.usua_Nombre					AS usuarioCreacionNombre,
+		   identi.iden_FechaCreacion			AS IdentifiFechaCreacion, 
+		   identi.iden_FechaModificacion		AS IdentifiUsuarioModificacion, 
+		   usuModi.usua_Nombre					AS usuarioModificacionNombre,
+		   identi.iden_FechaModificacion		AS IdentifiFechaModificacion,  
+		   identi.iden_Estado					AS IdentifiEsatdo
 	  FROM Adua.tbTiposIdentificacion identi 
-		   LEFT JOIN acce.tbUsuarios usuCrea ON identi.usua_UsuarioCreacion	 = usuCrea.usua_Id
-		   LEFT JOIN acce.tbUsuarios usuModi ON identi.usua_UsuarioModificacion = usuModi.usua_Id
+		   LEFT JOIN acce.tbUsuarios usuCrea	ON identi.usua_UsuarioCreacion	 = usuCrea.usua_Id
+		   LEFT JOIN acce.tbUsuarios usuModi	ON identi.usua_UsuarioModificacion = usuModi.usua_Id
      WHERE iden_Estado = 1
 END
 GO
@@ -592,24 +540,10 @@ AS
 BEGIN
 	
 	BEGIN TRY
+		INSERT INTO Adua.tbTiposIdentificacion(iden_Descripcion, usua_UsuarioCreacion, iden_FechaCreacion)
+		VALUES(@iden_Descripcion, @iden_UsuCrea, @iden_FechaCrea)
 
-		IF EXISTS (SELECT * FROM [Adua].[tbTiposIdentificacion]
-						WHERE iden_Descripcion = @iden_Descripcion
-						AND   iden_Estado = 0)
-		BEGIN
-			UPDATE [Adua].[tbTiposIdentificacion]
-			SET	   iden_Estado = 1
-			WHERE  iden_Descripcion = @iden_Descripcion
-
-			SELECT 1
-		END
-		ELSE 
-			BEGIN
-				INSERT INTO [Adua].[tbTiposIdentificacion]([iden_Descripcion], usua_UsuarioCreacion, iden_FechaCreacion)
-			    VALUES(@iden_Descripcion, @iden_UsuCrea, @iden_FechaCrea)
-
-			SELECT 1
-		END
+		SELECT 1
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -627,7 +561,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbTiposIdentificacion_Editar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE  [Adua].[tbTiposIdentificacion]
+		UPDATE  Adua.tbTiposIdentificacion
 		SET		iden_Descripcion = @iden_Descripcion
 		WHERE	iden_Id = @iden_Id
 
@@ -710,18 +644,18 @@ GO
 CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbModoTransporte_Listar
 AS
 BEGIN
-	SELECT motran.motr_Id                   AS modoTranId,
-	       motran.motr_Descripcion          AS modoTranDescripcion, 
-		   motran.usua_UsuarioCreacion      AS modoTranUsuCrea ,  
-		   usuCrea.usua_Nombre              AS usuarioCreacionNombre,
-		   motran.motr_FechaCreacion        AS modoTranFechaCrea, 
-		   motran.usua_UsuarioModificacion  AS modoTranUsuModifica, 
-		   usuModi.usua_Nombre              AS usuarioModificacionNombre,
-		   motran.usua_UsuarioModificacion  AS modoTranFechaModi , 
-		   motran.motr_Estado               AS modoTranEstado 
+	SELECT motran.motr_Id						AS modoTranId,
+	       motran.motr_Descripcion				AS modoTranDescripcion, 
+		   motran.usua_UsuarioCreacion			AS modoTranUsuCrea ,  
+		   usuCrea.usua_Nombre					AS usuarioCreacionNombre,
+		   motran.motr_FechaCreacion			AS modoTranFechaCrea, 
+		   motran.usua_UsuarioModificacion		AS modoTranUsuModifica, 
+		   usuModi.usua_Nombre					AS usuarioModificacionNombre,
+		   motran.usua_UsuarioModificacion		AS modoTranFechaModi , 
+		   motran.motr_Estado					AS modoTranEstado 
 	 FROM  Adua.tbModoTransporte motran 
-		   LEFT JOIN acce.tbUsuarios usuCrea ON motran.usua_UsuarioCreacion	 = usuCrea.usua_Id
-		   LEFT JOIN acce.tbUsuarios usuModi ON motran.usua_UsuarioModificacion = usuModi.usua_Id
+		   LEFT JOIN acce.tbUsuarios usuCrea	ON motran.usua_UsuarioCreacion	 = usuCrea.usua_Id
+		   LEFT JOIN acce.tbUsuarios usuModi	ON motran.usua_UsuarioModificacion = usuModi.usua_Id
 	 WHERE motr_Estado = 1  
 END
 GO
@@ -735,24 +669,10 @@ AS
 BEGIN
 	
 	BEGIN TRY
+		INSERT INTO Adua.tbModoTransporte (motr_Descripcion, usua_UsuarioCreacion, motr_FechaCreacion)
+		VALUES(@motr_Descripcion, @motr_UsuCrea, @motr_FechaCrea)
 
-		IF EXISTS (SELECT * FROM [Adua].[tbModoTransporte]
-						WHERE motr_Descripcion = @motr_Descripcion
-						AND [motr_Estado] = 0)
-		BEGIN
-			UPDATE Adua.tbModoTransporte
-			SET	   motr_Estado = 1
-			WHERE  motr_Descripcion = @motr_Descripcion
-
-			SELECT 1
-		END
-		ELSE 
-			BEGIN
-				INSERT INTO Adua.tbModoTransporte (motr_Descripcion, usua_UsuarioCreacion, motr_FechaCreacion)
-			    VALUES(@motr_Descripcion, @motr_UsuCrea, @motr_FechaCrea)
-
-			SELECT 1
-		END
+		SELECT 1
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -769,7 +689,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Editar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE  [Adua].[tbModoTransporte]
+		UPDATE  Adua.tbModoTransporte
 		SET		motr_Descripcion = @motr_Descripcion,
 		        usua_UsuarioModificacion = @usua_UsuarioModificacion,
 				motr_FechaModificacion   = @usua_FechaModificacion
@@ -848,8 +768,8 @@ GO
 --	   usuaModifica.usua_Nombre        AS usuarioModificaNombre,
 --	   subc.subc_FechaModificacion     AS subcategoriaFechaModifica, 
 --	   subc.subc_Estado                AS subcategoriaEstado
---FROM Prod.tbSubcategoria subc INNER JOIN [Acce].[tbUsuarios] usuaCrea
---ON subc.usua_UsuarioCreacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaModifica
+--FROM Prod.tbSubcategoria subc INNER JOIN Acce.tbUsuarios usuaCrea
+--ON subc.usua_UsuarioCreacion = usuaCrea.usua_Id LEFT JOIN Acce.tbUsuarios usuaModifica
 --ON subc.usua_UsuarioModificacion = usuaCrea.usua_Id INNER JOIN Prod.tbCategoria cate
 --ON subc.cate_Id = cate.cate_Id
 --GO
@@ -858,17 +778,17 @@ GO
 CREATE OR ALTER PROCEDURE Prod.UDP_VW_tbSubcategoria_Listar
 AS
 BEGIN
-	SELECT subc.subc_Id                    AS subcategoriaId,
-           subc.cate_Id                    AS categoriaId, 
-	       cate.cate_Descripcion           AS categoriaDescripcion,
-	       subc.subc_Descripcion		   AS subcategoriaDescripcion, 
-	       subc.usua_UsuarioCreacion       As subcategoriaUsuarioCreacion,
-	       usuaCrea.usua_Nombre            AS usuarioCreacionNombre,
-	       subc.subc_FechaCreacion         AS subcategoriaFechaCrea, 
-	       subc.usua_UsuarioModificacion   AS subcategoriaUsuarioModificacion, 
-	       usuaModifica.usua_Nombre        AS usuarioModificaNombre,
-	       subc.subc_FechaModificacion     AS subcategoriaFechaModifica, 
-	       subc.subc_Estado                AS subcategoriaEstado
+	SELECT subc.subc_Id								AS subcategoriaId,
+           subc.cate_Id								AS categoriaId, 
+	       cate.cate_Descripcion					AS categoriaDescripcion,
+	       subc.subc_Descripcion					AS subcategoriaDescripcion, 
+	       subc.usua_UsuarioCreacion				As subcategoriaUsuarioCreacion,
+	       usuaCrea.usua_Nombre						AS usuarioCreacionNombre,
+	       subc.subc_FechaCreacion					AS subcategoriaFechaCrea, 
+	       subc.usua_UsuarioModificacion			AS subcategoriaUsuarioModificacion, 
+	       usuaModifica.usua_Nombre					AS usuarioModificaNombre,
+	       subc.subc_FechaModificacion				AS subcategoriaFechaModifica, 
+	       subc.subc_Estado							AS subcategoriaEstado
       FROM Prod.tbSubcategoria subc 
 	       INNER JOIN Acce.tbUsuarios usuaCrea      ON subc.usua_UsuarioCreacion = usuaCrea.usua_Id 
 		   LEFT JOIN Acce.tbUsuarios usuaModifica   ON subc.usua_UsuarioModificacion = usuaCrea.usua_Id 
@@ -887,28 +807,10 @@ AS
 BEGIN
 	
 	BEGIN TRY
-
-		IF EXISTS (SELECT * FROM Prod.tbSubcategoria
-						WHERE subc_Descripcion = @subc_Descripcion
-						AND subc_Estado = 0)
-		BEGIN
-			UPDATE Prod.tbSubcategoria
-			SET	   subc_Estado          = 1,
-			       cate_Id              = @cate_Id,
-				   usua_UsuarioCreacion = @usua_UsuarioCreacion,
-				   subc_FechaCreacion   = @usua_FechaCreacion
-			WHERE  subc_Descripcion     = @subc_Descripcion
-
-			SELECT 1
-		END
-		ELSE 
-			BEGIN
-				INSERT INTO Prod.tbSubcategoria (cate_Id, subc_Descripcion, usua_UsuarioCreacion, subc_FechaCreacion)
-			VALUES(@cate_Id, @subc_Descripcion, @usua_UsuarioCreacion, @usua_FechaCreacion)
-
-
-			SELECT 1
-		END
+		INSERT INTO Prod.tbSubcategoria (cate_Id, subc_Descripcion, usua_UsuarioCreacion, subc_FechaCreacion)
+		VALUES(@cate_Id, @subc_Descripcion, @usua_UsuarioCreacion, @usua_FechaCreacion)
+		
+		SELECT 1
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -950,7 +852,7 @@ GO
 --BEGIN
 --	BEGIN TRY
 --		UPDATE Prod.tbSubcategoria
---		SET	   [subc_Estado] = 0
+--		SET	   subc_Estado = 0
 --		WHERE  subc_Id = @subc_Id
 --		SELECT 1
 --	END TRY
@@ -1005,8 +907,8 @@ GO
 --	   usuaModifica.usua_Nombre        AS usuarioModificaNombre,
 --	   mate.mate_FechaModificacion     AS materialFechaModificacion, 
 --	   mate.mate_Estado                AS materialEstado
---FROM Prod.tbMateriales mate INNER JOIN [Acce].[tbUsuarios] usuaCrea
---ON mate.usua_UsuarioCreacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaModifica
+--FROM Prod.tbMateriales mate INNER JOIN Acce.tbUsuarios usuaCrea
+--ON mate.usua_UsuarioCreacion = usuaCrea.usua_Id LEFT JOIN Acce.tbUsuarios usuaModifica
 --ON mate.usua_UsuarioModificacion = usuaCrea.usua_Id INNER JOIN Prod.tbSubcategoria subc
 --ON mate.subc_Id = subc.subc_Id
 --GO
@@ -1016,22 +918,22 @@ GO
 CREATE OR ALTER PROCEDURE Prod.UDP_VW_tbMateriales_Listar
 AS
 BEGIN
-	SELECT mate.mate_Id                    AS materialId,
-           mate.mate_Descripcion           AS materialDescripcion, 
-	       mate.subc_Id                    AS subcategoriaId,
-	       subc.subc_Descripcion           AS subcategoriaDescripcion,
-	       mate.mate_Precio                AS materialPrecio, 
-	       mate.usua_UsuarioCreacion       AS usuarioCreacionId, 
-	       usuaCrea.usua_Nombre            AS usuarioCreacionNombre,
-	       mate.mate_FechaCreacion         AS materialFechaCreacion, 
-	       mate.usua_UsuarioModificacion   AS usuarioModificacionId, 
-	       usuaModifica.usua_Nombre        AS usuarioModificaNombre,
-	       mate.mate_FechaModificacion     AS materialFechaModificacion, 
-	       mate.mate_Estado                AS materialEstado
+	SELECT mate.mate_Id									AS materialId,
+           mate.mate_Descripcion						AS materialDescripcion, 
+	       mate.subc_Id									AS subcategoriaId,
+	       subc.subc_Descripcion						AS subcategoriaDescripcion,
+	       mate.mate_Precio								AS materialPrecio, 
+	       mate.usua_UsuarioCreacion					AS usuarioCreacionId, 
+	       usuaCrea.usua_Nombre							AS usuarioCreacionNombre,
+	       mate.mate_FechaCreacion						AS materialFechaCreacion, 
+	       mate.usua_UsuarioModificacion				AS usuarioModificacionId, 
+	       usuaModifica.usua_Nombre						AS usuarioModificaNombre,
+	       mate.mate_FechaModificacion					AS materialFechaModificacion, 
+	       mate.mate_Estado								AS materialEstado
       FROM Prod.tbMateriales mate 
-	       INNER JOIN [Acce].[tbUsuarios] usuaCrea    ON mate.usua_UsuarioCreacion = usuaCrea.usua_Id 
-	       LEFT JOIN [Acce].[tbUsuarios] usuaModifica ON mate.usua_UsuarioModificacion = usuaCrea.usua_Id 
-	       INNER JOIN Prod.tbSubcategoria subc        ON mate.subc_Id = subc.subc_Id
+	       INNER JOIN Acce.tbUsuarios usuaCrea			ON mate.usua_UsuarioCreacion = usuaCrea.usua_Id 
+	       LEFT JOIN Acce.tbUsuarios usuaModifica		ON mate.usua_UsuarioModificacion = usuaCrea.usua_Id 
+	       INNER JOIN Prod.tbSubcategoria subc			ON mate.subc_Id = subc.subc_Id
 	 WHERE mate_Estado = 1
 END
 GO
@@ -1048,27 +950,10 @@ AS
 BEGIN
 	
 	BEGIN TRY
-
-		IF EXISTS (SELECT * FROM Prod.tbMateriales
-						WHERE mate_Descripcion = @mate_Descripcion
-						AND mate_Estado = 0)
-		BEGIN
-			UPDATE Prod.tbMateriales
-			SET	   mate_Estado          = 1,
-			       subc_Id              = @subc_Id,
-				   mate_Precio          = @mate_Precio
-			WHERE  mate_Descripcion     = @mate_Descripcion
-
-			SELECT 1
-		END
-		ELSE 
-			BEGIN
-				INSERT INTO Prod.tbMateriales (mate_Descripcion, subc_Id, mate_Precio, usua_UsuarioCreacion, mate_FechaCreacion)
-			VALUES(@mate_Descripcion, @subc_Id, @mate_Precio, @usua_UsuarioCreacion, @mate_FechaCreacion)
-
-
-			SELECT 1
-		END
+		INSERT INTO Prod.tbMateriales (mate_Descripcion, subc_Id, mate_Precio, usua_UsuarioCreacion, mate_FechaCreacion)
+		VALUES(@mate_Descripcion, @subc_Id, @mate_Precio, @usua_UsuarioCreacion, @mate_FechaCreacion)
+		
+		SELECT 1
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -1159,8 +1044,8 @@ GO
 --	   usuaModifica.usua_Nombre      AS usuarioModificaNombre,
 --	   insp.ines_FechaModificacion   AS usuarioFechaModificacion, 
 --	   insp.ines_Estado              AS inspeccionEstado	   
---FROM [Prod].[tbInspeccionesEstado] insp INNER JOIN [Acce].[tbUsuarios] usuaCrea
---ON insp.usua_UsuarioCreacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaModifica
+--FROM Prod.tbInspeccionesEstado insp INNER JOIN Acce.tbUsuarios usuaCrea
+--ON insp.usua_UsuarioCreacion = usuaCrea.usua_Id LEFT JOIN Acce.tbUsuarios usuaModifica
 --ON insp.usua_UsuarioModificacion = usuaCrea.usua_Id INNER JOIN Prod.tbRevisionDeCalidad revi
 --ON insp.reca_Id = revi.reca_Id
 --GO
@@ -1170,20 +1055,20 @@ GO
 CREATE OR ALTER PROCEDURE Prod.UDP_VW_tbInspeccionesEstado_Listar
 AS
 BEGIN
-	SELECT insp.ines_Id                  AS inspeccionId,
-           insp.reca_Id                  AS  revisionId, 
-	       revi.reca_Descripcion         AS revisionDescripcion,
-	       insp.usua_UsuarioCreacion     AS usuarioCreacionId , 
-	       usuaCrea.usua_Nombre          AS usuarioCreacionNombre,
-	       insp.ines_FechaCreacion       AS inspeccionFechaCreacion, 
-	       insp.usua_UsuarioModificacion AS usuarioModificacionId, 
-	       usuaModifica.usua_Nombre      AS usuarioModificaNombre,
-	       insp.ines_FechaModificacion   AS usuarioFechaModificacion, 
-	       insp.ines_Estado              AS inspeccionEstado	   
+	SELECT insp.ines_Id									AS inspeccionId,
+           insp.reca_Id									AS  revisionId, 
+	       revi.reca_Descripcion						AS revisionDescripcion,
+	       insp.usua_UsuarioCreacion					AS usuarioCreacionId , 
+	       usuaCrea.usua_Nombre							AS usuarioCreacionNombre,
+	       insp.ines_FechaCreacion						AS inspeccionFechaCreacion, 
+	       insp.usua_UsuarioModificacion				AS usuarioModificacionId, 
+	       usuaModifica.usua_Nombre						AS usuarioModificaNombre,
+	       insp.ines_FechaModificacion					AS usuarioFechaModificacion, 
+	       insp.ines_Estado								AS inspeccionEstado	   
       FROM Prod.tbInspeccionesEstado insp 
-	       INNER JOIN [Acce].[tbUsuarios] usuaCrea    ON insp.usua_UsuarioCreacion = usuaCrea.usua_Id 
-		   LEFT JOIN [Acce].[tbUsuarios] usuaModifica ON insp.usua_UsuarioModificacion = usuaCrea.usua_Id 
-		   INNER JOIN Prod.tbRevisionDeCalidad revi   ON insp.reca_Id = revi.reca_Id
+	       INNER JOIN Acce.tbUsuarios usuaCrea			ON insp.usua_UsuarioCreacion = usuaCrea.usua_Id 
+		   LEFT JOIN  Acce.tbUsuarios usuaModifica		ON insp.usua_UsuarioModificacion = usuaCrea.usua_Id 
+		   INNER JOIN Prod.tbRevisionDeCalidad revi		ON insp.reca_Id = revi.reca_Id
 	 WHERE ines_Estado = 1
 END
 GO

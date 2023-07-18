@@ -88,7 +88,7 @@ SELECT	tido_Id								AS tipoDocId,
 		tido_Estado 						AS tipoDocEstado				
 FROM	Adua.tbTipoDocumento tido 
 		INNER JOIN Acce.tbUsuarios crea		ON crea.usua_Id = tido.usua_UsuarioCreacion 
-		INNER JOIN Acce.tbUsuarios modi		ON modi.usua_Id = tido.usua_UsuarioModificacion 
+		LEFT JOIN Acce.tbUsuarios modi		ON modi.usua_Id = tido.usua_UsuarioModificacion 
 WHERE	tido_Estado = 1
 END
 GO
@@ -135,11 +135,12 @@ AS
 BEGIN
 	BEGIN TRY
 		UPDATE Adua.tbTipoDocumento
-		SET @tido_Descripcion = @tido_Descripcion,
+		SET tido_Descripcion = @tido_Descripcion,
 		tido_Codigo = @tido_Codigo,
 		usua_UsuarioModificacion = @usua_UsuarioModificacion,
 		tido_FechaModificacion = @tido_FechaModificacion
 		WHERE tido_Id = @tido_Id
+		SELECT 1
 	END TRY
 BEGIN CATCH 
 	SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -165,7 +166,7 @@ SELECT	tipl_Id								AS tipoLiquidacId,
 		tipl_Estado 						AS tipoLiquidacEstado			
 FROM	Adua.tbTipoLiquidacion tilin 
 		INNER JOIN Acce.tbUsuarios crea		ON crea.usua_Id = tilin.usua_UsuarioCreacion 
-		INNER JOIN Acce.tbUsuarios modi		ON modi.usua_Id = tilin.usua_UsuarioModificacion
+		LEFT JOIN Acce.tbUsuarios modi		ON modi.usua_Id = tilin.usua_UsuarioModificacion
 WHERE	tipl_Estado = 1
 END
 GO
@@ -180,7 +181,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoLiquidacion_Insertar
 AS
 BEGIN
 	BEGIN TRY
-		INSERT INTO Adua.tbTipoLiquidacion (tipl_Descripcion,usua_UsuarioModificacion, tipl_FechaModificacion)
+		INSERT INTO Adua.tbTipoLiquidacion (tipl_Descripcion,usua_UsuarioCreacion, tipl_FechaCreacion)
 		VALUES (
 		@tipl_Descripcion,		
 		@usua_UsuarioCreacion,

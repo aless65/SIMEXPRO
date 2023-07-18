@@ -477,14 +477,14 @@ const navigationConfig = [
                         title: 'Subcategorías',
                         type: 'item',
                         icon: 'material-outline:apps',
-                        url: '/Inventario/Subcategorias',
+                        url: '/Subcategorias/Index',
                     },
                     {
                         id: 'Inventario.TipoEmbalaje',
                         title: 'Tipo de Embalaje',
                         type: 'item',
                         icon: 'material-outline:integration_instructions',
-                        url: '/Inventario/TipoEmbalaje',
+                        url: '/TipoEmbalaje/Index',
                     },
                 ]
             },

@@ -31,6 +31,8 @@ import LotesIndex from '../Inventario/Lotes/Lotes';
 import MaquinasIndex from '../Maquinaria/Máquinas/Maquinas';
 import Persona_Juridica_Index from '../Aduanas/Contratos_de_Adhesión/Persona_Juridica/Persona_Juridica_Index';
 import Persona_Juridica_Agregar from '../Aduanas/Contratos_de_Adhesión/Persona_Juridica/Persona_Juridica_Agregar';
+import SubcategoriaIndex from '../Inventario/Subcategoria/Subcategorias';
+import TipoEmbalajeIndex from '../Inventario/TipoDeEmbalaje/TipoEmbalaje';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -170,6 +172,14 @@ const routes = [
   {
     path: 'Maquinas/Index',
     element: <MaquinasIndex />,
+  },
+  {
+    path: 'Subcategorias/Index',
+    element: <SubcategoriaIndex />,
+  },
+  {
+    path: 'TipoEmbalaje/Index',
+    element: <TipoEmbalajeIndex />,
   },
 ];
 

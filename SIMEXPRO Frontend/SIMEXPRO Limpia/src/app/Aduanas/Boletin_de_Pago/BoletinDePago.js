@@ -54,17 +54,7 @@ function BoletinDePagoIndex() {
       width: 500,
       renderCell: (params) => (
         <Stack direction="row" spacing={1}>
-          <Button
-            startIcon={<Icon>edit</Icon>}
-            variant="contained"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#634A9E',
-              color: 'white',
-              "&:hover": { backgroundColor: '#6e52ae' },
-            }}>
-            Editar
-          </Button>
+          
 
           <Button
             startIcon={<Icon>visibility</Icon>}
@@ -147,22 +137,7 @@ function BoletinDePagoIndex() {
       
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
 
-          {/*Botón de Nuevo*/}
-          <Stack direction="row" spacing={1}>
-            <Button
-              startIcon={<Icon>add</Icon>}
-              variant="contained"
-              color="primary"
-              style={{ borderRadius: '10px' }}
-              sx={{
-                backgroundColor: '#634A9E', color: 'white',
-                "&:hover": { backgroundColor: '#6e52ae' },
-              }}
-              onClick={VisibilidadTabla}
-            >
-              Nuevo
-            </Button>
-          </Stack>
+          
 
           {/*Barra de Busqueda en la Tabla*/}
           <TextField

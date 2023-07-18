@@ -1,41 +1,27 @@
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
+/* eslint-disable camelcase */
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 
-import {
-  Button,
-  Chip,
-  Divider,
-  FormControl,
-  Icon,
-  InputLabel,
-  TextField,
-} from "@mui/material";
-import * as React from "react";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import Select from "@mui/material/Select";
-import Switch from "@mui/material/Switch";
-import FormControlLabel from "@mui/material/FormControlLabel";
+import { Button, Chip, Divider, FormControl, Icon, InputLabel, TextField } from '@mui/material';
+import * as React from 'react';
+import Typography from '@mui/material/Typography';
+import Select from '@mui/material/Select';
 
-import Grid from "@mui/material/Grid";
+import Grid from '@mui/material/Grid';
 
-import PropTypes from "prop-types";
-import SwipeableViews from "react-swipeable-views";
-import { useTheme } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
+import PropTypes from 'prop-types';
+import SwipeableViews from 'react-swipeable-views';
+import { useTheme } from '@mui/material/styles';
+import AppBar from '@mui/material/AppBar';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
 
-import { useNavigate } from "react-router-dom";
-import { black } from "tailwindcss/colors";
-import { height, margin, width } from "@mui/system";
-import { DataGrid, GridToolbar, esES } from '@mui/x-data-grid'
-import SearchIcon from '@mui/icons-material/Search';
-import { Input } from "postcss";
-import { useState } from "react";
-
+import { useNavigate } from 'react-router-dom';
+import { black } from 'tailwindcss/colors';
+import { Input } from 'postcss';
+import { useState } from 'react';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -66,7 +52,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`,
+    'aria-controls': `full-width-tabpanel-${index}`,
   };
 }
 
@@ -99,9 +85,28 @@ function PersonaNatural_Crear() {
     setValue(index);
   };
 
-  return (
-    <Card sx={{ minWidth: 275, margin: "40px" }}>
+  const validacion = (params, event) => {
+    if (event) {
+      event.preventDefault();
+    }
+    if (params === 1) {
+      settabsEstado({
+        tab1: false,
+        tab2: true,
+        tab3: true,
+        tab4: true,
+        tab5: true,
+      });
+      setValue(1);
+    }
+  };
 
+  const [tabsEstado, settabsEstado] = useState({
+    tab1: true,
+  });
+
+  return (
+    <Card sx={{ minWidth: 275, margin: '40px' }}>
       <CardMedia
         component="img"
         height="200"
@@ -109,8 +114,7 @@ function PersonaNatural_Crear() {
         alt="Encabezado de la carta"
       />
 
-    
-      <Box sx={{ bgcolor: "background.paper", width: "100%" }}>
+      <Box sx={{ bgcolor: 'background.paper', width: '100%' }}>
         <AppBar position="static">
           <Tabs
             value={value}
@@ -119,66 +123,77 @@ function PersonaNatural_Crear() {
             textColor="inherit"
             variant="fullWidth"
             aria-label="full width tabs example"
-            sx={{ backgroundColor: "#FFF7F7", color: black }}
+            sx={{ backgroundColor: '#FFF7F7', color: black }}
           >
             <Tab label="Datos Generales" {...a11yProps(0)} />
-            <Tab label="Datos a Informar" {...a11yProps(1)} />
+            <Tab label="Datos a Informar" {...a11yProps(1)} disabled={tabsEstado.tab1} />
           </Tabs>
         </AppBar>
         <SwipeableViews
-          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
           index={value}
           onChangeIndex={handleChangeIndex}
         >
           <TabPanel value={value} index={0} dir={theme.direction}>
-            <Card style={{ marginBottom: "25px" }}>
+            <Card style={{ marginBottom: '25px' }}>
               <CardContent>
                 <Grid container spacing={2}>
                   <Grid item xs={6}>
                     <FormControl fullWidth>
-                      <TextField style={{ borderRadius: "3px" }} label="RTN del Solicitante" />
+                      <TextField style={{ borderRadius: '3px' }} label="RTN del Solicitante" />
                     </FormControl>
                   </Grid>
                   <Grid item xs={6}>
                     <FormControl fullWidth>
-                      <TextField style={{ borderRadius: "3px" }} label="Archivo PDF" />
+                      <TextField style={{ borderRadius: '3px' }} label="Archivo PDF" />
                     </FormControl>
                   </Grid>
                   <Grid item xs={6}>
                     <FormControl fullWidth>
-                      <TextField style={{ borderRadius: "3px" }} label="Documento Nacional de Identificación (DNI)" />
+                      <TextField
+                        style={{ borderRadius: '3px' }}
+                        label="Documento Nacional de Identificación (DNI)"
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={6}>
                     <FormControl fullWidth>
-                      <TextField style={{ borderRadius: "3px" }} label="Archivo PDF" />
+                      <TextField style={{ borderRadius: '3px' }} label="Archivo PDF" />
                     </FormControl>
                   </Grid>
                   <Grid item xs={6}>
                     <FormControl fullWidth>
-                      <TextField style={{ borderRadius: "3px" }} label="Número Recibo de Servicio Público (ENEE, SANAA, etc.)" />
+                      <TextField
+                        style={{ borderRadius: '3px' }}
+                        label="Número Recibo de Servicio Público (ENEE, SANAA, etc.)"
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={6}>
                     <FormControl fullWidth>
-                      <TextField style={{ borderRadius: "3px" }} label="Archivo PDF" />
+                      <TextField style={{ borderRadius: '3px' }} label="Archivo PDF" />
                     </FormControl>
                   </Grid>
                 </Grid>
               </CardContent>
             </Card>
 
-            <Grid item xs={12} sx={{ display: "flex", justifyContent: "right", alignItems: "right" }}>
+            <Grid
+              item
+              xs={12}
+              sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }}
+            >
               <Button
                 startIcon={<Icon>checked</Icon>}
                 variant="contained"
                 color="primary"
-                style={{ borderRadius: "10px", marginRight: "10px" }}
+                style={{ borderRadius: '10px', marginRight: '10px' }}
                 sx={{
-                  backgroundColor: "#634A9E",
-                  color: "white",
-                  "&:hover": { backgroundColor: "#6e52ae" },
+                  backgroundColor: '#634A9E',
+                  color: 'white',
+                  '&:hover': { backgroundColor: '#6e52ae' },
                 }}
+                onClick={() => validacion(1)}
               >
                 Guardar
               </Button>
@@ -187,47 +202,52 @@ function PersonaNatural_Crear() {
                 startIcon={<Icon>close</Icon>}
                 variant="contained"
                 color="primary"
-                style={{ borderRadius: "10px" }}
+                style={{ borderRadius: '10px' }}
                 sx={{
-                  backgroundColor: "#DAD8D8",
-                  color: "black",
-                  "&:hover": { backgroundColor: "#BFBABA" },
+                  backgroundColor: '#DAD8D8',
+                  color: 'black',
+                  '&:hover': { backgroundColor: '#BFBABA' },
                 }}
-                onClick={(e) => {
-                  navigate("");
+                onClick={() => {
+                  navigate('/Contrato-de-Adhesion/Persona-Natural');
                 }}
               >
                 Cancelar
               </Button>
             </Grid>
-
           </TabPanel>
 
           <TabPanel value={value} index={1} dir={theme.direction}>
-            <Card style={{ marginBottom: "25px" }}>
+            <Card style={{ marginBottom: '25px' }}>
               <CardContent>
                 <Grid container spacing={2}>
                   <Grid item xs={4}>
                     <FormControl fullWidth>
-                      <InputLabel>Oficina Regional  de Aduanas más cercana</InputLabel>
-                      <Select style={{ borderRadius: "10px" }} label="Oficina Regional de Aduanas más cercana" />
+                      <InputLabel>Oficina Regional de Aduanas más cercana</InputLabel>
+                      <Select
+                        style={{ borderRadius: '10px' }}
+                        label="Oficina Regional de Aduanas más cercana"
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={4}>
                     <FormControl fullWidth>
                       <InputLabel>Estado Civil de la Persona</InputLabel>
-                      <Select style={{ borderRadius: "10px" }} label="Estado Civil de la Persona" />
+                      <Select style={{ borderRadius: '10px' }} label="Estado Civil de la Persona" />
                     </FormControl>
                   </Grid>
                   <Grid item xs={4}>
                     <FormControl fullWidth>
                       <InputLabel>Profesión u Oficio de la Persona</InputLabel>
-                      <Select style={{ borderRadius: "10px" }} label="Profesión u Oficio de la Persona" />
+                      <Select
+                        style={{ borderRadius: '10px' }}
+                        label="Profesión u Oficio de la Persona"
+                      />
                     </FormControl>
                   </Grid>
                 </Grid>
 
-                <Divider style={{ marginTop: "30px", marginBottom: "15px" }}>
+                <Divider style={{ marginTop: '30px', marginBottom: '15px' }}>
                   <Chip label="DOMICILIO DE LA PERSONA" />
                 </Divider>
 
@@ -235,55 +255,71 @@ function PersonaNatural_Crear() {
                   <Grid item xs={4}>
                     <FormControl fullWidth>
                       <InputLabel>Departamento y Municipio</InputLabel>
-                      <Select style={{ borderRadius: "10px" }} label="Departamento y Municipio" />
+                      <Select style={{ borderRadius: '10px' }} label="Departamento y Municipio" />
                     </FormControl>
                   </Grid>
                   <Grid item xs={4}>
                     <FormControl fullWidth>
-                      <TextField style={{ borderRadius: "10px" }} label="Ciudad" />
+                      <TextField style={{ borderRadius: '10px' }} label="Ciudad" />
                     </FormControl>
                   </Grid>
                   <Grid item xs={4}>
                     <FormControl fullWidth>
-                      <TextField style={{ borderRadius: "10px" }} label="Dirección Completa" />
+                      <TextField style={{ borderRadius: '10px' }} label="Dirección Completa" />
                     </FormControl>
                   </Grid>
                 </Grid>
 
-                <Divider style={{ marginTop: "30px", marginBottom: "15px" }}>
+                <Divider style={{ marginTop: '30px', marginBottom: '15px' }}>
                   <Chip label="INFORMACIÓN DE CONTACTO" />
                 </Divider>
 
                 <Grid container spacing={2}>
                   <Grid item xs={4}>
                     <FormControl fullWidth>
-                      <TextField style={{ borderRadius: "10px" }} label="Número de Teléfono Fijo de la Persona" />
+                      <TextField
+                        style={{ borderRadius: '10px' }}
+                        label="Número de Teléfono Fijo de la Persona"
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={4}>
                     <FormControl fullWidth>
-                      <TextField style={{ borderRadius: "10px" }} label="Número de Teléfono Celular de la Persona" />
+                      <TextField
+                        style={{ borderRadius: '10px' }}
+                        label="Número de Teléfono Celular de la Persona"
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={4}>
                     <FormControl fullWidth>
-                      <TextField style={{ borderRadius: "10px" }} label="Correo Electrónico donde Notificar" />
+                      <TextField
+                        style={{ borderRadius: '10px' }}
+                        label="Correo Electrónico donde Notificar"
+                      />
                     </FormControl>
                   </Grid>
                 </Grid>
               </CardContent>
             </Card>
 
-            <Grid item xs={12} sx={{ display: "flex", justifyContent: "right", alignItems: "right" }}>
+            <Grid
+              item
+              xs={12}
+              sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }}
+            >
               <Button
                 startIcon={<Icon>checked</Icon>}
                 variant="contained"
                 color="primary"
-                style={{ borderRadius: "10px", marginRight: "10px" }}
+                style={{ borderRadius: '10px', marginRight: '10px' }}
                 sx={{
-                  backgroundColor: "#634A9E",
-                  color: "white",
-                  "&:hover": { backgroundColor: "#6e52ae" },
+                  backgroundColor: '#634A9E',
+                  color: 'white',
+                  '&:hover': { backgroundColor: '#6e52ae' },
+                }}
+                onClick={() => {
+                  navigate('/Contrato-de-Adhesion/Persona-Natural');
                 }}
               >
                 Guardar
@@ -293,21 +329,20 @@ function PersonaNatural_Crear() {
                 startIcon={<Icon>close</Icon>}
                 variant="contained"
                 color="primary"
-                style={{ borderRadius: "10px" }}
+                style={{ borderRadius: '10px' }}
                 sx={{
-                  backgroundColor: "#DAD8D8",
-                  color: "black",
-                  "&:hover": { backgroundColor: "#BFBABA" },
+                  backgroundColor: '#DAD8D8',
+                  color: 'black',
+                  '&:hover': { backgroundColor: '#BFBABA' },
                 }}
-                onClick={(e) => {
-                  navigate("/ContratoDeAdhesionComercianteIndividual/Index");
+                onClick={() => {
+                  navigate('/Contrato-de-Adhesion/Persona-Natural');
                 }}
               >
                 Cancelar
               </Button>
             </Grid>
           </TabPanel>
-
         </SwipeableViews>
       </Box>
     </Card>

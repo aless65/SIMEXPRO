@@ -18,13 +18,12 @@ import OficinasIndex from '../Personas/Oficinas/Oficinas';
 import OficiosProfesiones from '../Personas/OficiosProfesiones/OficiosProfesiones';
 import UsuariosIndex from '../Seguridad/Usuarios/Usuarios';
 import BoletinDePagoIndex from '../Aduanas/Boletin_de_Pago/BoletinDePago';
-import ImpresionBoletinDePago from '../Aduanas/Boletin_de_Pago/ImpresionBoletinDePago'
-import RolesIndex from '../Seguridad/Roles/roles'
-import RolesCrear from '../Seguridad/Roles/roles_crear'
+import ImpresionBoletinDePago from '../Aduanas/Boletin_de_Pago/ImpresionBoletinDePago';
+import RolesIndex from '../Seguridad/Roles/roles';
+import RolesCrear from '../Seguridad/Roles/roles_crear';
 import DucaIndex from '../Aduanas/DUCA/duca_Index';
 import DucaCrear from '../Aduanas/DUCA/duca_Crear';
 import Subir_Documentos from '../Aduanas/Documentacion/Subir_Documentos';
-
 
 import PersonaNatural_Index from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/PersonaNatural_Index';
 import PersonaNatural_Crear from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/PersonaNatural_Crear';
@@ -107,11 +106,11 @@ const routes = [
 
   {
     path: 'BoletindePago/BoletinDePagoIndex',
-    element: <BoletinDePagoIndex />
+    element: <BoletinDePagoIndex />,
   },
   {
     path: 'BoletindePago/ImpresionBoletinDePago',
-    element: <ImpresionBoletinDePago />
+    element: <ImpresionBoletinDePago />,
   },
   {
     path: 'Contrato-de-Adhesion/Persona-Natural',
@@ -131,79 +130,79 @@ const routes = [
   },
   {
     path: 'Roles/RolesIndex',
-    element: <RolesIndex />
+    element: <RolesIndex />,
   },
   {
     path: 'Roles/RolesCrear',
-    element: <RolesCrear />
+    element: <RolesCrear />,
   },
   {
     path: 'Duca/Index',
-    element: <DucaIndex />
+    element: <DucaIndex />,
   },
   {
     path: 'Duca/Crear',
-    element: <DucaCrear />
+    element: <DucaCrear />,
   },
   {
     path: 'Documentos/Subir',
-    element: <Subir_Documentos />
+    element: <Subir_Documentos />,
   },
   {
     path: 'Categoria/Index',
-    element: <CategoriaIndex/>
+    element: <CategoriaIndex />,
   },
   {
     path: 'Colores/Index',
-    element: <ColoresIndex/>
+    element: <ColoresIndex />,
   },
   {
     path: 'Inspecciones/Index',
-    element: <InspeccionesIndex/>
+    element: <InspeccionesIndex />,
   },
   {
     path: 'MaquinaHistorial/Index',
-    element: <MaquinaHistorialIndex/>
+    element: <MaquinaHistorialIndex />,
   },
   {
     path: 'MaquinaModulos/Index',
-    element: <MaquinaModulosIndex/>
+    element: <MaquinaModulosIndex />,
   },
   {
     path: 'ContratoDeAdhesionComercianteIndividual/Index',
-    element: <Comerciante_Individual_Index/> 
+    element: <Comerciante_Individual_Index />,
   },
   {
     path: 'ContratoDeAdhesionComercianteIndividual/Agregar',
-    element: <Comerciante_Individual_Agregar/> 
+    element: <Comerciante_Individual_Agregar />,
   },
   {
     path: 'ContratoDeAdhesionPersonaJuridica/Index',
-    element: <Persona_Juridica_Index/> 
+    element: <Persona_Juridica_Index />,
   },
   {
     path: 'ContratoDeAdhesionPersonaJuridica/Agregar',
-    element: <Persona_Juridica_Agregar/> 
+    element: <Persona_Juridica_Agregar />,
   },
   {
     path: 'Categoria/Index',
-    element: <CategoriaIndex/>
+    element: <CategoriaIndex />,
   },
   {
     path: 'Colores/Index',
-    element: <ColoresIndex/>
+    element: <ColoresIndex />,
   },
   {
     path: 'Inspecciones/Index',
-    element: <InspeccionesIndex/>
+    element: <InspeccionesIndex />,
   },
   {
     path: 'MaquinaHistorial/Index',
-    element: <MaquinaHistorialIndex/>
+    element: <MaquinaHistorialIndex />,
   },
   {
     path: 'Materiales/Index',
-    element: <MaterialesIndex/>
+    element: <MaterialesIndex />,
   },
   {
     path: 'Areas/Index',

@@ -435,8 +435,8 @@ function Declaracion_Valor_Crear() {
                   color: 'black',
                   '&:hover': { backgroundColor: '#BFBABA' },
                 }}
-                onClick={(e) => {
-                  navigate('/ContratoDeAdhesionComercianteIndividual/Index');
+                onClick={() => {
+                  navigate('/Declaracion-de-Valor/Listado');
                 }}
               >
                 Cancelar
@@ -626,8 +626,8 @@ function Declaracion_Valor_Crear() {
                   color: 'black',
                   '&:hover': { backgroundColor: '#BFBABA' },
                 }}
-                onClick={(e) => {
-                  navigate('/ContratoDeAdhesionComercianteIndividual/Index');
+                onClick={() => {
+                  navigate('/Declaracion-de-Valor/Listado');
                 }}
               >
                 Cancelar
@@ -829,8 +829,8 @@ function Declaracion_Valor_Crear() {
                   color: 'black',
                   '&:hover': { backgroundColor: '#BFBABA' },
                 }}
-                onClick={(e) => {
-                  navigate('/ContratoDeAdhesionComercianteIndividual/Index');
+                onClick={() => {
+                  navigate('/Declaracion-de-Valor/Listado');
                 }}
               >
                 Cancelar
@@ -1482,8 +1482,8 @@ function Declaracion_Valor_Crear() {
                   color: 'black',
                   '&:hover': { backgroundColor: '#BFBABA' },
                 }}
-                onClick={(e) => {
-                  navigate('/ContratoDeAdhesionComercianteIndividual/Index');
+                onClick={() => {
+                  navigate('/Declaracion-de-Valor/Listado');
                 }}
               >
                 Cancelar
@@ -2319,8 +2319,8 @@ function Declaracion_Valor_Crear() {
                   color: 'black',
                   '&:hover': { backgroundColor: '#BFBABA' },
                 }}
-                onClick={(e) => {
-                  navigate('/ContratoDeAdhesionComercianteIndividual/Index');
+                onClick={() => {
+                  navigate('/Declaracion-de-Valor/Listado');
                 }}
               >
                 Cancelar

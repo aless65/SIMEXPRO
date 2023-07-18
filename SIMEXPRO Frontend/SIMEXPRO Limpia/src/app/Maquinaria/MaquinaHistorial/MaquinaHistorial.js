@@ -192,7 +192,7 @@ function MaquinaHistorialIndex() {
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
 
-            <Grid item xs={6} style={{ marginTop: '30px' }}>
+            <Grid item xs={6} style={{ marginTop: '30px' }} >
               <FormControl
                 fullWidth
               >
@@ -204,7 +204,7 @@ function MaquinaHistorialIndex() {
               </FormControl>
             </Grid>
 
-            <Grid item xs={6} style={{ marginTop: '30px' }}>
+            <Grid item xs={6} style={{ marginTop: '30px' }} >
               <FormControl
                 fullWidth
               >
@@ -216,24 +216,36 @@ function MaquinaHistorialIndex() {
             </Grid>
 
             <Grid item xs={6}>
+            <InputLabel htmlFor="grouped-native-select">Fecha Inicio</InputLabel>
               <FormControl
                 fullWidth
               >
-                <Date
-                  style={{ borderRadius: '10px' }}
-                  label="Fecha de Inicio"
-                />
+                <DateTimePicker
+                renderInput={(_props) => (
+                  <TextField
+                    className="w-full"
+                    {..._props}
+                  />
+                )}
+                className="w-full"
+              />
               </FormControl>
             </Grid>
 
             <Grid item xs={6}>
+            <InputLabel htmlFor="grouped-native-select">Fecha Fin</InputLabel>
               <FormControl
                 fullWidth
               >
-                <Date
-                  style={{ borderRadius: '10px' }}
-                  label="Fecha de Fin"
-                />
+                <DateTimePicker
+                renderInput={(_props) => (
+                  <TextField
+                    className="w-full"
+                    {..._props}
+                  />
+                )}
+                className="w-full"
+              />
               </FormControl>
             </Grid>
 

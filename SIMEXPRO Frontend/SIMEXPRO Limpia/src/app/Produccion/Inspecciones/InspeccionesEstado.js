@@ -91,11 +91,11 @@ function InspeccionesIndex() {
 
   {/* Datos de la tabla */ }
   const rows = [
-    { id: '1', inspeccion: 'Morado' },
-    { id: '2', inspeccion: 'Azul' },
-    { id: '3', inspeccion: 'Rosa' },
-    { id: '4', inspeccion: 'Amarillo' },
-    { id: '5', inspeccion: 'Rojo' },
+    { id: '1', inspeccion: 'KJS847' },
+    { id: '2', inspeccion: 'LAS837' },
+    { id: '3', inspeccion: 'PDU982' },
+    { id: '4', inspeccion: 'CHH261' },
+    { id: '5', inspeccion: 'KAE638' },
   ];
 
   {/* Función para mostrar la tabla y mostrar agregar */ }
@@ -188,21 +188,15 @@ function InspeccionesIndex() {
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Typography variant="h5" gutterBottom>
-                Nueva Inspeccion
-              </Typography>
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Inspeccion"
-                />
-              </FormControl>
+            
+          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}
+                 style={{ marginTop: '30px' }}>
+                <FormControl>
+                    <TextField
+                        style={{ borderRadius: '10px', width: '500px' }}
+                        label="Código de revisión"
+                    />
+                </FormControl>
             </Grid>
 
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >

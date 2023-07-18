@@ -31,7 +31,7 @@ SELECT	adu.adua_Id							AS AduanaID,
 		adu.adua_Estado						AS AduanaEstado
 FROM	Adua.tbAduanas adu 
 		INNER JOIN Acce.tbUsuarios usu		ON adu.usua_UsuarioCreacion = usu.usua_Id 
-		INNER JOIN Acce.tbUsuarios usu2		ON usu2.usua_UsuarioModificacion = adu.usua_UsuarioModificacion 
+		LEFT JOIN Acce.tbUsuarios usu2		ON usu2.usua_UsuarioModificacion = adu.usua_UsuarioModificacion 
 WHERE	adu.adua_Estado = 1
 END 
 
@@ -180,7 +180,7 @@ SELECT	fopa_Id							AS FormadePago,
 		fopa_Estado						AS Estado 
 FROM	Adua.tbFormasdePago form 
 		INNER JOIN Acce.tbUsuarios usu	ON usu.usua_Id = form.usua_UsuarioCreacion 
-		INNER JOIN Acce.tbUsuarios usu1	ON usu1.usua_Id = form.usua_UsuarioModificacion   
+		LEFT JOIN Acce.tbUsuarios usu1	ON usu1.usua_Id = form.usua_UsuarioModificacion   
 WHERE	fopa_Estado = 1
 END
 
@@ -306,7 +306,7 @@ SELECT	condi.coco_Id					AS CondicionesComercialesID,
 		condi.coco_Estado				AS Estado
 FROM	Adua.tbCondicionesComerciales condi 
 		INNER JOIN Acce.tbUsuarios usu	ON condi.usua_UsuarioCreacion = usu.usua_Id 
-		INNER JOIN Acce.tbUsuarios usu1	ON usu1.usua_Id = condi.usua_UsuarioModificacion
+		LEFT JOIN Acce.tbUsuarios usu1	ON usu1.usua_Id = condi.usua_UsuarioModificacion
 WHERE	coco_Estado = 1
 
 
@@ -432,7 +432,7 @@ SELECT	tite_Descripcion				AS Descripcion,
 		tite_Estado						AS Estados
 FROM	Adua.tbTipoIntermediario tip 
 		INNER JOIN Acce.tbUsuarios usu	ON tip.usua_UsuarioCreacion = usu.usua_Id 
-		INNER JOIN Acce.tbUsuarios usu1	ON usu1.usua_UsuarioModificacion = tip.usua_UsuarioModificacion
+		LEFT JOIN Acce.tbUsuarios usu1	ON usu1.usua_UsuarioModificacion = tip.usua_UsuarioModificacion
 WHERE	tite_Estado = 1
 
  END 
@@ -557,7 +557,7 @@ SELECT	clie.clie_Id					AS ClienteID,
 		clie.clie_Estado				AS Estado
 FROM	Prod.tbClientes clie 
 		INNER JOIN Acce.tbUsuarios usu	ON usu.usua_Id = clie.usua_UsuarioCreacion 
-		INNER JOIN Acce.tbUsuarios usu1	ON usu1.usua_Id = clie.usua_UsuarioModificacion
+		LEFT JOIN Acce.tbUsuarios usu1	ON usu1.usua_Id = clie.usua_UsuarioModificacion
 WHERE	clie_Estado = 1
 END
 
@@ -723,7 +723,7 @@ SELECT	est.esti_Id						AS EstiloID,
 		est.esti_Estado					AS EstilosEstado
 FROM	Prod.tbEstilos est 
 		INNER JOIN Acce.tbUsuarios usu	ON est.usua_UsuarioCreacion = usu.usua_Id 
-		INNER JOIN Acce.tbUsuarios usu2 ON usu2.usua_UsuarioModificacion = est.usua_UsuarioModificacion 
+		LEFT JOIN Acce.tbUsuarios usu2 ON usu2.usua_UsuarioModificacion = est.usua_UsuarioModificacion 
 WHERE	esti_Estado = 1
 END 
 

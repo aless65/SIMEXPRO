@@ -305,10 +305,10 @@ const navigationConfig = [
                     
                     {
                         id: 'Produccion.AsignacionesModulo',
-                        title: 'Asignaciones de Módulo',
+                        title: 'Planificación',
                         type: 'item',
-                        icon: 'material-outline:hail',
-                        url: '/Produccion/AsignacionesModulo',
+                        icon: 'material-outline:add_alert',
+                        url: '/Planificacion/Index',
                     },
                     {
                         id: 'Produccion.Inspecciones',
@@ -385,7 +385,7 @@ const navigationConfig = [
                     },
                     {
                         id: 'Maquinaria.MaquinaHistorial',
-                        title: 'Historial de Máquina',
+                        title: 'Historial de Máquinas',
                         type: 'item',
                         icon: 'material-outline:all_inbox',
                         url: '/Maquinaria/MaquinaHistorial',
@@ -395,7 +395,7 @@ const navigationConfig = [
                         title: 'Marcas de Máquinas',
                         type: 'item',
                         icon: 'material-outline:auto_stories',
-                        url: '/Maquinaria/MarcasMaquina',
+                        url: '/Marcas/Index',
                     },
                     {
                         id: 'Maquinaria.MarcasMaquina',

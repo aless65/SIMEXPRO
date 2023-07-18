@@ -22,7 +22,6 @@ import CategoriaIndex from '../Inventario/Categoria/Categorias';
 import ColoresIndex from '../Prendas/Colores/Colores';
 import InspeccionesIndex from '../Produccion/Inspecciones/InspeccionesEstado';
 import MaquinaHistorialIndex from '../Maquinaria/MaquinaHistorial/MaquinaHistorial';
-import MaquinaModulosIndex from '../Maquinaria/MaquinaModulos/MaquinaModulos';
 import MaterialesIndex from '../Inventario/Materiales/Materiales';
 import AreasIndex from '../Inventario/Areas/Areas';
 import EstilosIndex from '../Prendas/Estilos/Estilos';
@@ -34,7 +33,8 @@ import Persona_Juridica_Agregar from '../Aduanas/Contratos_de_Adhesión/Persona_
 import SubcategoriaIndex from '../Inventario/Subcategoria/Subcategorias';
 import TipoEmbalajeIndex from '../Inventario/TipoDeEmbalaje/TipoEmbalaje';
 import AldeaIndex from '../Ubicaciones/Aldeas/Aldeas';
-
+import MarcasIndex from '../Maquinaria/MarcasMaquina/MarcasMaquina';
+import CalendarApp from '../Produccion/Planificación/CalendarApp';
 const routeConfigs = [
   ...dashboardsConfigs,
   ...pagesConfigs,
@@ -111,10 +111,6 @@ const routes = [
     element: <MaquinaHistorialIndex/>
   },
   {
-    path: 'MaquinaModulos/Index',
-    element: <MaquinaModulosIndex/>
-  },
-  {
     path: 'ContratoDeAdhesionComercianteIndividual/Index',
     element: <Comerciante_Individual_Index/> 
   },
@@ -181,6 +177,14 @@ const routes = [
   {
     path: 'Aldea/Index',
     element: <AldeaIndex />,
+  },
+  {
+    path: 'Marcas/Index',
+    element: <MarcasIndex />,
+  },
+  {
+    path: 'Planificacion/Index',
+    element: <CalendarApp />,
   },
 ];
 

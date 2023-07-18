@@ -1,33 +1,29 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-lone-blocks */
 /* eslint-disable prettier/prettier */
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { Button, FormControl, Icon, IconButton, InputAdornment, InputLabel, TextField } from '@mui/material';
-import * as React from 'react';
+import { Button, Icon, IconButton, InputAdornment, TextField } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import { DataGrid, GridToolbar, esES } from '@mui/x-data-grid'
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 
-import Zoom from '@mui/material/Zoom';
-import Grow from '@mui/material/Grow';
 
 import Collapse from '@mui/material/Collapse';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Select from '@mui/material/Select';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { useNavigate } from 'react-router-dom';
 
 
-function ContratoAdhesionPersonaNatural() {
+function PersonaNatural_Index() {
+  const navigate = useNavigate();
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
@@ -37,13 +33,14 @@ function ContratoAdhesionPersonaNatural() {
 
   {/* Columnas de la tabla */ }
   const columns = [
-    { field: 'id', headerName: 'Id', width: 10 },
-    { field: 'codigo', headerName: 'Usuario', flex: 1 },
-    { field: 'empleado', headerName: 'Empleado', flex: 1 },
+    { field: 'id', headerName: 'ID', width: 10 },
+    { field: 'rtn_solicitante', headerName: 'RTN Solicitante', flex: 1},
+    { field: 'telefono', headerName: 'Teléfono', flex: 1, },
+    { field: 'email', headerName: 'Email', flex: 1 },
     {
       field: 'acciones',
       headerName: 'Acciones',
-      width: 400,
+      width: 380,
       renderCell: (params) => (
         <Stack direction="row" spacing={1}>
           <Button
@@ -90,9 +87,9 @@ function ContratoAdhesionPersonaNatural() {
 
   {/* Datos de la tabla */ }
   const rows = [
-    { id: '1', usuario: 'IsHatake', empleado: 'Jafet Gomez'},
-    { id: '2', usuario: 'Admin', empleado: 'Jafet Gomez'},
-    { id: '3', usuario: 'Shogun', empleado: 'Jafet Gomez'},
+    { id: '1', rtn_solicitante: '01052003124739', telefono: '88045547', email: 'zepedadaniel2003@gmail.com'},    
+    { id: '2', rtn_solicitante: '05031999344349', telefono: '90969567', email: 'dasfInvert1999@gmail.com'},    
+    { id: '3', rtn_solicitante: '04042001233436', telefono: '88095574', email: 'gotyProMaster@hotmail.com'},    
   ];
 
   {/* Función para mostrar la tabla y mostrar agregar */ }
@@ -107,7 +104,7 @@ function ContratoAdhesionPersonaNatural() {
 
   {/* Filtrado de datos */ }
   const filteredRows = rows.filter((row) =>
-    row.usuario.toLowerCase().includes(searchText.toLowerCase())
+    row.id.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
@@ -132,9 +129,12 @@ function ContratoAdhesionPersonaNatural() {
                 backgroundColor: '#634A9E', color: 'white',
                 "&:hover": { backgroundColor: '#6e52ae' },
               }}
-              onClick={VisibilidadTabla}
+              onClick={() => {
+                navigate('/Contrato-de-Adhesion/Persona-Natural-Crear')
+              }}              
             >
               Nuevo
+                            
             </Button>
           </Stack>
 
@@ -232,7 +232,7 @@ function ContratoAdhesionPersonaNatural() {
   );
 }
 
-export default ContratoAdhesionPersonaNatural;
+export default PersonaNatural_Index;
 
 
 

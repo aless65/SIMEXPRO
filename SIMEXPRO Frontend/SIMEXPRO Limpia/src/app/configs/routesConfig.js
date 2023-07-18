@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-pascal-case */
+/* eslint-disable camelcase */
 import FuseUtils from '@fuse/utils';
 import FuseLoading from '@fuse/core/FuseLoading';
 import { Navigate } from 'react-router-dom';
@@ -15,11 +17,16 @@ import CargosIndex from '../Personas/Cargos/Cargos';
 import OficinasIndex from '../Personas/Oficinas/Oficinas';
 import OficiosProfesiones from '../Personas/OficiosProfesiones/OficiosProfesiones';
 import UsuariosIndex from '../Seguridad/Usuarios/Usuarios';
-import BoletinDePagoIndex from '../Aduanas/Boletin_de_Pago/BoletinDePago';  
+import BoletinDePagoIndex from '../Aduanas/Boletin_de_Pago/BoletinDePago';
 import ImpresionBoletinDePago from '../Aduanas/Boletin_de_Pago/ImpresionBoletinDePago'
 import RolesIndex from '../Seguridad/Roles/roles'
 import RolesCrear from '../Seguridad/Roles/roles_crear'
 
+
+import PersonaNatural_Index from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/PersonaNatural_Index';
+import PersonaNatural_Crear from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/PersonaNatural_Crear';
+import Declaracion_Valor_Index from '../Aduanas/Declaracion_De_Valor/Declaracion_Valor_Index';
+import Declaracion_Valor_Crear from '../Aduanas/Declaracion_De_Valor/Declaracion_Valor_Crear';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -76,22 +83,38 @@ const routes = [
     path: 'Usuarios/Index',
     element: <UsuariosIndex />,
   },
- 
+
   {
     path: 'BoletindePago/BoletinDePagoIndex',
-    element: <BoletinDePagoIndex/> 
+    element: <BoletinDePagoIndex />
   },
   {
     path: 'BoletindePago/ImpresionBoletinDePago',
-    element: <ImpresionBoletinDePago/> 
+    element: <ImpresionBoletinDePago />
+  },
+  {
+    path: 'Contrato-de-Adhesion/Persona-Natural',
+    element: <PersonaNatural_Index />,
+  },
+  {
+    path: 'Contrato-de-Adhesion/Persona-Natural-Crear',
+    element: <PersonaNatural_Crear />,
+  },
+  {
+    path: 'Declaracion-de-Valor/Listado',
+    element: <Declaracion_Valor_Index />,
+  },
+  {
+    path: 'Declaracion-de-Valor/Nueva-Declaracion',
+    element: <Declaracion_Valor_Crear />,
   },
   {
     path: 'Roles/RolesIndex',
-    element: <RolesIndex/>
+    element: <RolesIndex />
   },
   {
     path: 'Roles/RolesCrear',
-    element: <RolesCrear/>
+    element: <RolesCrear />
   }
 ];
 

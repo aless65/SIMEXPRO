@@ -17,6 +17,8 @@ import OficiosProfesiones from '../Personas/OficiosProfesiones/OficiosProfesione
 import UsuariosIndex from '../Seguridad/Usuarios/Usuarios';
 import BoletinDePagoIndex from '../Aduanas/Boletin_de_Pago/BoletinDePago';  
 import ImpresionBoletinDePago from '../Aduanas/Boletin_de_Pago/ImpresionBoletinDePago'
+import RolesIndex from '../Seguridad/Roles/roles'
+import RolesCrear from '../Seguridad/Roles/roles_crear'
 
 
 const routeConfigs = [
@@ -83,6 +85,14 @@ const routes = [
     path: 'BoletindePago/ImpresionBoletinDePago',
     element: <ImpresionBoletinDePago/> 
   },
+  {
+    path: 'Roles/RolesIndex',
+    element: <RolesIndex/>
+  },
+  {
+    path: 'Roles/RolesCrear',
+    element: <RolesCrear/>
+  }
 ];
 
 export default routes;

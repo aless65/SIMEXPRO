@@ -189,13 +189,8 @@ function MaterialesIndex() {
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Typography variant="h5" gutterBottom>
-                Nuevo Material
-              </Typography>
-            </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={6} style={{ marginTop: '30px' }}>
               <FormControl
                 fullWidth
               >
@@ -206,7 +201,7 @@ function MaterialesIndex() {
               </FormControl>
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={6} style={{ marginTop: '30px' }}>
               <FormControl
                 fullWidth
               >

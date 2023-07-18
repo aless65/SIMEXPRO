@@ -106,7 +106,7 @@ const navigationConfig = [
                         title: 'Formas de envío',
                         type: 'item',
                         icon: 'material-outline:taxi_alert',
-                        url: '/Generales/FormasEnvio',
+                        url: '/FormaDeEnvio/index',
                     },
                     {
                         id: 'Generales.monedas',
@@ -121,7 +121,7 @@ const navigationConfig = [
                         title: 'Unidades de Medida',
                         type: 'item',
                         icon: 'material-outline:device_thermostat',
-                        url: '/Generales/UnidadesMedidas',
+                        url: '/UnidadesMedida/Index',
                     }
                 ],
             },
@@ -388,7 +388,7 @@ const navigationConfig = [
                         title: 'Historial de Máquina',
                         type: 'item',
                         icon: 'material-outline:all_inbox',
-                        url: '/Maquinaria/MaquinaHistorial',
+                        url: '/MaquinaHistorial/Index',
                     },               
                     {
                         id: 'Maquinaria.MarcasMaquina',

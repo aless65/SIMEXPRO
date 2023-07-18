@@ -25,10 +25,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { DateTimePicker } from '@mui/x-date-pickers';
 
 
-function MaquinaHistorialIndex() {
+function ModelosIndex() {
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
@@ -40,10 +39,9 @@ function MaquinaHistorialIndex() {
 
   {/* Columnas de la tabla */ }
   const columns = [
-    { field: 'id', headerName: 'Id', flex: 2},
-    { field: 'maquina', headerName: 'Máquina', flex: 2,  },
-    { field: 'fechaInicio', headerName: 'Fecha de Inicio', flex: 2,  },
-    { field: 'fechaFin', headerName: 'Fecha de Fin', flex: 2,  },
+    { field: 'id', headerName: 'Id', flex: 2 },
+    { field: 'modelo', headerName: 'Modelo', flex: 2 },
+    { field: 'estilo', headerName: 'Estilo', flex: 2 },
     {
       field: 'acciones',
       headerName: 'Acciones',
@@ -94,11 +92,10 @@ function MaquinaHistorialIndex() {
 
   {/* Datos de la tabla */ }
   const rows = [
-    { id: '1', maquina: 'Máquina de coser industrial', fechaInicio: '10-12-2022', fechaFin: '11-12-2022'},
-    { id: '2', maquina: 'Máquina de corte automático', fechaInicio: '13-12-2022', fechaFin: '14-12-2022' },
-    { id: '3', maquina: 'Máquina de estampado', fechaInicio: '13-12-2022', fechaFin: '14-12-2022' },
-    { id: '4', maquina: 'Máquina de planchado y prensado', fechaInicio: '15-12-2022', fechaFin: '16-12-2022' },
-    { id: '5', maquina: 'Máquina de etiquetado', fechaInicio: '17-12-2022', fechaFin: '18-12-2022' },
+    { id: '1', modelo: 'Cuello mao', estilo: 'Manga larga' },
+    { id: '2', modelo: 'Cuello V', estilo: 'Manga corta' },
+    { id: '3', modelo: 'Cuello redondo', estilo: 'Manga 3/4' },
+
   ];
 
   {/* Función para mostrar la tabla y mostrar agregar */ }
@@ -113,7 +110,7 @@ function MaquinaHistorialIndex() {
 
   {/* Filtrado de datos */ }
   const filteredRows = rows.filter((row) =>
-    row.maquina.toLowerCase().includes(searchText.toLowerCase())
+    row.modelo.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
@@ -121,7 +118,7 @@ function MaquinaHistorialIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/x3Dpksj/HISTORIAL-DE-M-QUINA.png"
+        image="https://i.ibb.co/ncm5CzN/MOLEDOS.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>
@@ -191,48 +188,26 @@ function MaquinaHistorialIndex() {
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
-
-            <Grid item xs={6} style={{ marginTop: '30px' }}>
-              <FormControl
-                fullWidth
-              >
-                <InputLabel htmlFor="grouped-native-select">Máquina</InputLabel>
-                <Select
-                  style={{ borderRadius: '10px' }}
-                  label="Máquina"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6} style={{ marginTop: '30px' }}>
+            
+          <Grid item xs={6} style={{ marginTop: '30px' }} >
               <FormControl
                 fullWidth
               >
                 <TextField
                   style={{ borderRadius: '10px' }}
-                  label="Observaciones"
+                  label="Modelo"
                 />
               </FormControl>
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={6} style={{ marginTop: '30px' }} >
               <FormControl
                 fullWidth
               >
-                <Date
-                  style={{ borderRadius: '10px' }}
-                  label="Fecha de Inicio"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <Date
-                  style={{ borderRadius: '10px' }}
-                  label="Fecha de Fin"
+                <InputLabel htmlFor="grouped-native-select">Estilo</InputLabel>
+                <Select
+                  style={{ borderRadius: '3px' }}
+                  label="Estilo"
                 />
               </FormControl>
             </Grid>
@@ -284,39 +259,39 @@ function MaquinaHistorialIndex() {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-          ¿Está seguro(a) que desea eliminar este registro?
+            ¿Está seguro(a) que desea eliminar este registro?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
-              <Button
-                startIcon={<Icon>checked</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px', marginRight: '10px' }}
-                sx={{
-                  backgroundColor: '#634A9E', color: 'white',
-                  "&:hover": { backgroundColor: '#6e52ae' },
-                }}
-                onClick={DialogEliminar}
-              >
-                Eliminar
-              </Button>
+          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
+            <Button
+              startIcon={<Icon>checked</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px', marginRight: '10px' }}
+              sx={{
+                backgroundColor: '#634A9E', color: 'white',
+                "&:hover": { backgroundColor: '#6e52ae' },
+              }}
+              onClick={DialogEliminar}
+            >
+              Eliminar
+            </Button>
 
-              <Button
-                startIcon={<Icon>close</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px' }}
-                sx={{
-                  backgroundColor: '#DAD8D8', color: 'black',
-                  "&:hover": { backgroundColor: '#BFBABA' },
-                }}
-                onClick={DialogEliminar}
-              >
-                Cancelar
-              </Button>
-            </Grid>
+            <Button
+              startIcon={<Icon>close</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px' }}
+              sx={{
+                backgroundColor: '#DAD8D8', color: 'black',
+                "&:hover": { backgroundColor: '#BFBABA' },
+              }}
+              onClick={DialogEliminar}
+            >
+              Cancelar
+            </Button>
+          </Grid>
         </DialogActions>
       </Dialog>
 
@@ -324,7 +299,7 @@ function MaquinaHistorialIndex() {
   );
 }
 
-export default MaquinaHistorialIndex;
+export default ModelosIndex;
 
 
 

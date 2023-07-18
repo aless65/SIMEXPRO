@@ -1,53 +1,46 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-lone-blocks */
 /* eslint-disable prettier/prettier */
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { Button, FormControl, Icon, IconButton, InputAdornment, InputLabel, TextField } from '@mui/material';
-import * as React from 'react';
+import { Button, Icon, IconButton, InputAdornment, TextField } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import { DataGrid, GridToolbar, esES } from '@mui/x-data-grid'
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 
-import Zoom from '@mui/material/Zoom';
-import Grow from '@mui/material/Grow';
 
 import Collapse from '@mui/material/Collapse';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Select from '@mui/material/Select';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { DateTimePicker } from '@mui/x-date-pickers';
+import { useNavigate } from 'react-router-dom';
 
 
-function MaquinaHistorialIndex() {
+function PersonaNatural_Index() {
+  const navigate = useNavigate();
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
   const [Eliminar, setEliminar] = useState(false);
 
-  const DialogEliminar = () => {
-    setEliminar(!Eliminar);
-  };
+  const DialogEliminar = () => {setEliminar(!Eliminar);};
 
   {/* Columnas de la tabla */ }
   const columns = [
-    { field: 'id', headerName: 'Id', flex: 2},
-    { field: 'maquina', headerName: 'Máquina', flex: 2,  },
-    { field: 'fechaInicio', headerName: 'Fecha de Inicio', flex: 2,  },
-    { field: 'fechaFin', headerName: 'Fecha de Fin', flex: 2,  },
+    { field: 'id', headerName: 'ID', width: 10 },
+    { field: 'rtn_solicitante', headerName: 'RTN Solicitante', flex: 1},
+    { field: 'telefono', headerName: 'Teléfono', flex: 1, },
+    { field: 'email', headerName: 'Email', flex: 1 },
     {
       field: 'acciones',
       headerName: 'Acciones',
-      width: 400,
+      width: 380,
       renderCell: (params) => (
         <Stack direction="row" spacing={1}>
           <Button
@@ -94,11 +87,9 @@ function MaquinaHistorialIndex() {
 
   {/* Datos de la tabla */ }
   const rows = [
-    { id: '1', maquina: 'Máquina de coser industrial', fechaInicio: '10-12-2022', fechaFin: '11-12-2022'},
-    { id: '2', maquina: 'Máquina de corte automático', fechaInicio: '13-12-2022', fechaFin: '14-12-2022' },
-    { id: '3', maquina: 'Máquina de estampado', fechaInicio: '13-12-2022', fechaFin: '14-12-2022' },
-    { id: '4', maquina: 'Máquina de planchado y prensado', fechaInicio: '15-12-2022', fechaFin: '16-12-2022' },
-    { id: '5', maquina: 'Máquina de etiquetado', fechaInicio: '17-12-2022', fechaFin: '18-12-2022' },
+    { id: '1', rtn_solicitante: '01052003124739', telefono: '88045547', email: 'zepedadaniel2003@gmail.com'},    
+    { id: '2', rtn_solicitante: '05031999344349', telefono: '90969567', email: 'dasfInvert1999@gmail.com'},    
+    { id: '3', rtn_solicitante: '04042001233436', telefono: '88095574', email: 'gotyProMaster@hotmail.com'},    
   ];
 
   {/* Función para mostrar la tabla y mostrar agregar */ }
@@ -113,7 +104,7 @@ function MaquinaHistorialIndex() {
 
   {/* Filtrado de datos */ }
   const filteredRows = rows.filter((row) =>
-    row.maquina.toLowerCase().includes(searchText.toLowerCase())
+    row.id.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
@@ -121,7 +112,7 @@ function MaquinaHistorialIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/x3Dpksj/HISTORIAL-DE-M-QUINA.png"
+        image="https://i.ibb.co/T4VqYmN/Headers-SIMEXPRO-3.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>
@@ -138,9 +129,12 @@ function MaquinaHistorialIndex() {
                 backgroundColor: '#634A9E', color: 'white',
                 "&:hover": { backgroundColor: '#6e52ae' },
               }}
-              onClick={VisibilidadTabla}
+              onClick={() => {
+                navigate('/Contrato-de-Adhesion/Persona-Natural-Crear')
+              }}              
             >
               Nuevo
+                            
             </Button>
           </Stack>
 
@@ -185,92 +179,6 @@ function MaquinaHistorialIndex() {
           />
         </div>
       </Collapse>
-
-
-      {/* Formulario Agregar */}
-      <Collapse in={mostrarAdd}>
-        <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <Grid container spacing={3}>
-
-            <Grid item xs={6} style={{ marginTop: '30px' }}>
-              <FormControl
-                fullWidth
-              >
-                <InputLabel htmlFor="grouped-native-select">Máquina</InputLabel>
-                <Select
-                  style={{ borderRadius: '10px' }}
-                  label="Máquina"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6} style={{ marginTop: '30px' }}>
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Observaciones"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <Date
-                  style={{ borderRadius: '10px' }}
-                  label="Fecha de Inicio"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <Date
-                  style={{ borderRadius: '10px' }}
-                  label="Fecha de Fin"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
-              <Button
-                startIcon={<Icon>checked</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px', marginRight: '10px' }}
-                sx={{
-                  backgroundColor: '#634A9E', color: 'white',
-                  "&:hover": { backgroundColor: '#6e52ae' },
-                }}
-                onClick={VisibilidadTabla}
-              >
-                Guardar
-              </Button>
-
-              <Button
-                startIcon={<Icon>close</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px' }}
-                sx={{
-                  backgroundColor: '#DAD8D8', color: 'black',
-                  "&:hover": { backgroundColor: '#BFBABA' },
-                }}
-                onClick={VisibilidadTabla}
-              >
-                Cancelar
-              </Button>
-            </Grid>
-
-          </Grid>
-        </CardContent>
-      </Collapse>
-
 
       <Dialog
         open={Eliminar}
@@ -324,7 +232,7 @@ function MaquinaHistorialIndex() {
   );
 }
 
-export default MaquinaHistorialIndex;
+export default PersonaNatural_Index;
 
 
 

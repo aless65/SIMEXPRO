@@ -114,6 +114,7 @@ function UsuariosIndex() {
     row.usuario.toLowerCase().includes(searchText.toLowerCase())
   );
 
+  
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
       <CardMedia

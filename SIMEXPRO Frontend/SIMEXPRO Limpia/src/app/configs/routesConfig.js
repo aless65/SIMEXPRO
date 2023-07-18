@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-pascal-case */
+/* eslint-disable camelcase */
 import FuseUtils from '@fuse/utils';
 import FuseLoading from '@fuse/core/FuseLoading';
 import { Navigate } from 'react-router-dom';
@@ -15,7 +17,19 @@ import CargosIndex from '../Personas/Cargos/Cargos';
 import OficinasIndex from '../Personas/Oficinas/Oficinas';
 import OficiosProfesiones from '../Personas/OficiosProfesiones/OficiosProfesiones';
 import UsuariosIndex from '../Seguridad/Usuarios/Usuarios';
-import ImpresionBoletindePago from '../BoletinDePago/ImpresionBoletinDePago';
+import BoletinDePagoIndex from '../Aduanas/Boletin_de_Pago/BoletinDePago';
+import ImpresionBoletinDePago from '../Aduanas/Boletin_de_Pago/ImpresionBoletinDePago'
+import RolesIndex from '../Seguridad/Roles/roles'
+import RolesCrear from '../Seguridad/Roles/roles_crear'
+import DucaIndex from '../Aduanas/DUCA/duca_Index';
+import DucaCrear from '../Aduanas/DUCA/duca_Crear';
+import Subir_Documentos from '../Aduanas/Documentacion/Subir_Documentos';
+
+
+import PersonaNatural_Index from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/PersonaNatural_Index';
+import PersonaNatural_Crear from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/PersonaNatural_Crear';
+import Declaracion_Valor_Index from '../Aduanas/Declaracion_De_Valor/Declaracion_Valor_Index';
+import Declaracion_Valor_Crear from '../Aduanas/Declaracion_De_Valor/Declaracion_Valor_Crear';
 import Comerciante_Individual_Index from '../Aduanas/Contratos_de_Adhesión/Comerciante_Individual/Comerciante_Individual_Index';
 import Comerciante_Individual_Agregar from '../Aduanas/Contratos_de_Adhesión/Comerciante_Individual/Comerciante_Individual_Agregrar';
 import CategoriaIndex from '../Inventario/Categoria/Categorias';
@@ -23,7 +37,6 @@ import ColoresIndex from '../Prendas/Colores/Colores';
 import InspeccionesIndex from '../Produccion/Inspecciones/InspeccionesEstado';
 import MaquinaHistorialIndex from '../Maquinaria/MaquinaHistorial/MaquinaHistorial';
 import MaquinaModulosIndex from '../Maquinaria/MaquinaModulos/MaquinaModulos';
-import ModelosMaquinaIndex from '../Maquinaria/ModelosMaquina/ModelosMaquina';
 import MaterialesIndex from '../Inventario/Materiales/Materiales';
 import AreasIndex from '../Inventario/Areas/Areas';
 import EstilosIndex from '../Prendas/Estilos/Estilos';
@@ -35,6 +48,10 @@ import Persona_Juridica_Agregar from '../Aduanas/Contratos_de_Adhesión/Persona_
 import SubcategoriaIndex from '../Inventario/Subcategoria/Subcategorias';
 import TipoEmbalajeIndex from '../Inventario/TipoDeEmbalaje/TipoEmbalaje';
 import AldeaIndex from '../Ubicaciones/Aldeas/Aldeas';
+import FormaDeEnvioIndex from '../Generales/FormasEnvios';
+import ModelosIndex from '../Prendas/Modelos/Modelos';
+import UnidadesMedidaIndex from '../Generales/UnidadesMedida/UnidadesMedidas';
+
 const routeConfigs = [
   ...dashboardsConfigs,
   ...pagesConfigs,
@@ -90,9 +107,50 @@ const routes = [
     path: 'Usuarios/Index',
     element: <UsuariosIndex />,
   },
+
   {
-    path: 'BoletindePago/impresionBoletin',
-    element: <ImpresionBoletindePago/> 
+    path: 'BoletindePago/BoletinDePagoIndex',
+    element: <BoletinDePagoIndex />
+  },
+  {
+    path: 'BoletindePago/ImpresionBoletinDePago',
+    element: <ImpresionBoletinDePago />
+  },
+  {
+    path: 'Contrato-de-Adhesion/Persona-Natural',
+    element: <PersonaNatural_Index />,
+  },
+  {
+    path: 'Contrato-de-Adhesion/Persona-Natural-Crear',
+    element: <PersonaNatural_Crear />,
+  },
+  {
+    path: 'Declaracion-de-Valor/Listado',
+    element: <Declaracion_Valor_Index />,
+  },
+  {
+    path: 'Declaracion-de-Valor/Nueva-Declaracion',
+    element: <Declaracion_Valor_Crear />,
+  },
+  {
+    path: 'Roles/RolesIndex',
+    element: <RolesIndex />
+  },
+  {
+    path: 'Roles/RolesCrear',
+    element: <RolesCrear />
+  },
+  {
+    path: 'Duca/Index',
+    element: <DucaIndex />
+  },
+  {
+    path: 'Duca/Crear',
+    element: <DucaCrear />
+  },
+  {
+    path: 'Documentos/Subir',
+    element: <Subir_Documentos />
   },
   {
     path: 'Categoria/Index',
@@ -113,10 +171,6 @@ const routes = [
   {
     path: 'MaquinaModulos/Index',
     element: <MaquinaModulosIndex/>
-  },
-  {
-    path: 'ModelosMaquina/Index',
-    element: <ModelosMaquinaIndex/>
   },
   {
     path: 'ContratoDeAdhesionComercianteIndividual/Index',
@@ -185,6 +239,18 @@ const routes = [
   {
     path: 'Aldea/Index',
     element: <AldeaIndex />,
+  },
+  {
+    path: 'FormaDeEnvio/Index',
+    element: <FormaDeEnvioIndex />,
+  },
+  {
+    path: 'Modelos/Index',
+    element: <ModelosIndex />,
+  },
+  {
+    path: 'UnidadesMedida/Index',
+    element: <UnidadesMedidaIndex />,
   },
 ];
 

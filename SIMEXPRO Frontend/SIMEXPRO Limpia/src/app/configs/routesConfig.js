@@ -9,13 +9,19 @@ import SignUpConfig from '../main/sign-up/SignUpConfig';
 import SignOutConfig from '../main/sign-out/SignOutConfig';
 import dashboardsConfigs from '../main/dashboards/dashboardsConfigs';
 import pagesConfigs from '../main/pages/pagesConfigs';
+
 import CiudadesIndex from '../Ubicaciones/Ciudades/Ciudades';
 import ProvinciasIndex from '../Ubicaciones/Provincias/Provincias';
 import PaisesIndex from '../Ubicaciones/Paises/Paises';
+import ColoniasIndex from '../Ubicaciones/Colonias/Colonias';
 import EstadosCivilesIndex from '../Personas/EstadosCiviles/EstadosCiviles';
 import CargosIndex from '../Personas/Cargos/Cargos';
 import OficinasIndex from '../Personas/Oficinas/Oficinas';
 import OficiosProfesiones from '../Personas/OficiosProfesiones/OficiosProfesiones';
+import MonedasIndex from '../generales/Monedas/monedas';
+
+import EmpleadosIndex from '../Personas/Empleados/Empleados';
+
 import UsuariosIndex from '../Seguridad/Usuarios/Usuarios';
 import BoletinDePagoIndex from '../Aduanas/Boletin_de_Pago/BoletinDePago';
 import ImpresionBoletinDePago from '../Aduanas/Boletin_de_Pago/ImpresionBoletinDePago'
@@ -38,6 +44,10 @@ import InspeccionesIndex from '../Produccion/Inspecciones/InspeccionesEstado';
 import MaquinaHistorialIndex from '../Maquinaria/MaquinaHistorial/MaquinaHistorial';
 import MaquinaModulosIndex from '../Maquinaria/MaquinaModulos/MaquinaModulos';
 import MaterialesIndex from '../Inventario/Materiales/Materiales';
+import ModelosMaquinaIndex from '../Maquinaria/ModelosMaquina/ModelosMaquina';
+import ModulosIndex from '../Produccion/Modulos/Modulos';
+import ProcesosIndex from '../Produccion/Procesos/Procesos';
+import TallasIndex from '../Prendas/Tallas/Tallas';
 import AreasIndex from '../Inventario/Areas/Areas';
 import EstilosIndex from '../Prendas/Estilos/Estilos';
 import FuncionesMaquinaIndex from '../Maquinaria/FuncionesMaquina/FuncionesMaquina';
@@ -48,9 +58,9 @@ import Persona_Juridica_Agregar from '../Aduanas/Contratos_de_Adhesión/Persona_
 import SubcategoriaIndex from '../Inventario/Subcategoria/Subcategorias';
 import TipoEmbalajeIndex from '../Inventario/TipoDeEmbalaje/TipoEmbalaje';
 import AldeaIndex from '../Ubicaciones/Aldeas/Aldeas';
-import FormaDeEnvioIndex from '../Generales/FormasEnvios';
+import FormaDeEnvioIndex from '../generales/FormasEnvios';
 import ModelosIndex from '../Prendas/Modelos/Modelos';
-import UnidadesMedidaIndex from '../Generales/UnidadesMedida/UnidadesMedidas';
+import UnidadesMedidaIndex from '../generales/UnidadesMedida/UnidadesMedidas';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -88,6 +98,10 @@ const routes = [
     element: <PaisesIndex />,
   },
   {
+    path: 'Colonias/Index',
+    element: <ColoniasIndex />,
+  },
+  {
     path: 'Cargos/Index',
     element: <CargosIndex />,
   },
@@ -102,6 +116,14 @@ const routes = [
   {
     path: 'OficiosProfesiones/Index',
     element: <OficiosProfesiones />,
+  },
+  {
+    path: 'Monedas/Index',
+    element: <MonedasIndex />,
+  },
+  {
+    path: 'Empleados/Index',
+    element: <EmpleadosIndex />,
   },
   {
     path: 'Usuarios/Index',
@@ -173,6 +195,14 @@ const routes = [
     element: <MaquinaModulosIndex/>
   },
   {
+    path: 'Modulos/Index',
+    element: <ModulosIndex/>
+  },
+  {
+    path: 'ModelosMaquina/Index',
+    element: <ModelosMaquinaIndex/>
+  },
+  {
     path: 'Contrato-de-Adhesion-Comerciante-Individual/Index',
     element: <Comerciante_Individual_Index/> 
   },
@@ -217,8 +247,16 @@ const routes = [
     element: <EstilosIndex />,
   },
   {
+    path: 'Tallas/Index',
+    element: <TallasIndex />,
+  },
+  {
     path: 'FuncionesMaquina/Index',
     element: <FuncionesMaquinaIndex />,
+  },
+  {
+    path: 'Procesos/Index',
+    element: <ProcesosIndex />,
   },
   {
     path: 'Lotes/Index',

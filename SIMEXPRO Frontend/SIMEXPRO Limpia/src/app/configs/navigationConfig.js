@@ -105,7 +105,7 @@ const navigationConfig = [
             title: 'Monedas',
             type: 'item',
             icon: 'material-outline:attach_money',
-            url: '/Generales/Monedas',
+            url: 'Monedas/Index',
           },
           {
             id: 'Generales.unidades_de_medida',
@@ -187,7 +187,7 @@ const navigationConfig = [
             title: 'Empleados',
             type: 'item',
             icon: 'material-outline:nature_people',
-            url: '/Personas/Empleados',
+            url: 'Empleados/Index',
           },
 
           {
@@ -224,7 +224,7 @@ const navigationConfig = [
                         title: 'Monedas',
                         type: 'item',
                         icon: 'material-outline:attach_money',
-                        url: '/Generales/Monedas',
+                        url: 'Monedas/Index',
                     },
 
                     {
@@ -262,7 +262,7 @@ const navigationConfig = [
                         title: 'Colonias',
                         type: 'item',
                         icon: 'material-outline:holiday_village',
-                        url: '/Ubicaciones/Colonias',
+                        url: 'Colonias/Index',
                     },
                     {
                         id: 'Ubicaciones.paises',
@@ -344,7 +344,7 @@ const navigationConfig = [
             title: 'Tallas',
             type: 'item',
             icon: 'material-outline:dry_cleaning',
-            url: '/Prendas/Tallas',
+            url: 'Tallas/Index',
           },
         ],
       },
@@ -609,7 +609,7 @@ const navigationConfig = [
                         title: 'Módulos',
                         type: 'item',
                         icon: 'material-outline:iron',
-                        url: '/Produccion/Modulos',
+                        url: '/Modulos/Index',
                     },
                     {
                         id: 'Produccion.Multifuncional',
@@ -637,7 +637,7 @@ const navigationConfig = [
                         title: 'Procesos',
                         type: 'item',
                         icon: 'material-outline:mediation',
-                        url: '/Produccion/Procesos',
+                        url: '/Procesos/Index',
                     },
                     {
                         id: 'Produccion.RevisionCalidad',
@@ -789,7 +789,6 @@ const navigationConfig = [
                         icon: 'material-outline:design_services',
                         url: '/Estilos/Index',
                     },
-
                     {
                         id: 'Prendas.Modelos',
                         title: 'Modelos',

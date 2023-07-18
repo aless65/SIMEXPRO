@@ -48,9 +48,8 @@ function AreasIndex() {
   {/* Columnas de la tabla */ }
   const columns = [
     { field: 'id', headerName: 'Id', width: 10 },
-    { field: 'descripcion', headerName: 'Descripción', flex: 1 },
-    { field: 'marca', headerName: 'Marca', flex: 1 },
-    { field: 'funcion', headerName: 'Funcion', flex: 1 },      
+    { field: 'codigo', headerName: 'Code', flex: 1 },   
+    { field: 'descripcion', headerName: 'Talla', flex: 1 },     
     {
       field: 'acciones',
       headerName: 'Acciones',
@@ -101,10 +100,11 @@ function AreasIndex() {
 
   {/* Datos de la tabla */ }
   const rows = [
-    { id: '1', descripcion: 'Maquina de costura',marca: 'Sterling',funcion: 'Corte'},
-    { id: '2', descripcion: 'Maquina de costura',marca: 'Sterling',funcion: 'Ensamblaje'},
-    { id: '3', descripcion: 'Maquina de costura',marca: 'Sterling',funcion: 'Acabado'},
-    { id: '4', descripcion: 'Maquina de costura',marca: 'Sterling',funcion: 'Bordado'},
+    { id: '1', codigo:'ASD54',descripcion: 'Talla XL',},
+    { id: '2', codigo:'ASDA4',descripcion: 'Talla X'},
+    { id: '3', codigo:'54123',descripcion: 'Talla S'},
+    { id: '4', codigo:'DASD4',descripcion: 'Talla XXL'},
+    { id: '5', codigo:'FDF45',descripcion: 'Talla M'},
   ];
 
   {/* Función para mostrar la tabla y mostrar agregar */ }
@@ -127,7 +127,7 @@ function AreasIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/gPt2nTM/MODELOS-DE-M-QUINA.png  "
+        image="https://i.ibb.co/MVRv3Gg/TALLAS.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>
@@ -209,62 +209,27 @@ function AreasIndex() {
             <Grid item xs={12}>
               <Typography variant="h5" gutterBottom>
               </Typography>
-            </Grid>
-            <Grid item xs={12} sm={12} md={12}
-          >
-            <div class="flex items-center justify-center w-full" >
-              <label
-                for="dropzone-file"
-                class="flex flex-col items-center justify-center w-full h-full border-2 border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-              >
-                <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                  <Avatar
-                    alt="Remy Sharp"
-                    src="https://i.ibb.co/vVxwVTh/subir.png"
-                    sx={{ height: "70px", width: "70px" }}
-                    variant="rounded"
-                  />  
-
-                  <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                    <span class="font-semibold">Subir una imagen de la maquina</span>
-                  </p>
-                </div>
-                <input id="dropzone-file" type="file" class="hidden" />
-              </label>
-            </div>
-          </Grid>
+            </Grid> 
             <Grid item xs={6}>
               <FormControl
                 fullWidth
               >
                 <TextField
                   style={{ borderRadius: '10px' }}
-                  label="Nombre de la maquina"
+                  label="Codigo talla"
                 />
               </FormControl>
-            </Grid>
+            </Grid>   
             <Grid item xs={6}>
               <FormControl
                 fullWidth
               >
-                <InputLabel htmlFor="grouped-native-select">Marca</InputLabel>
-                <Select
-                  style={{ borderRadius: '3px' }}
-                  label="Subcategoría"
+                <TextField
+                  style={{ borderRadius: '10px' }}
+                  label="Talla"
                 />
               </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-              <FormControl
-                fullWidth
-              >
-                <InputLabel htmlFor="grouped-native-select">Función</InputLabel>
-                <Select
-                  style={{ borderRadius: '3px' }}
-                  label="Subcategoría"
-                />
-              </FormControl>
-            </Grid>
+            </Grid>        
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
               <Button
                 startIcon={<Icon>checked</Icon>}

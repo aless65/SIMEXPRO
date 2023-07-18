@@ -90,7 +90,7 @@ function Subir_Documentos() {
             </div>
           </Grid>
 
-<Grid item xs={3}
+      <Grid item xs={3}
           >
             <div class="flex items-center justify-center w-full">
               <label

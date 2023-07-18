@@ -3,33 +3,30 @@ GO
 
 ----------------------------------------------UDPS tbEstadoMercancias----------------------------------------------
 
-/*******************************Vista*************************************/
-CREATE OR ALTER VIEW Adua.VW_tbEstadoMercancias
+/*******************************Listado*************************************/
+CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbEstadoMercancias_Listado
 AS
-	SELECT merc_Id	AS estadoMercanciaId,
-		   merc_Descripcion AS estadoMercanciaDescripcion,
-		   estadoMercancia.usua_UsuarioCreacion AS usuarioCreacionId,
-		   usuarioCreacion.usua_Nombre AS usuarioCreacionNombre,
-		   merc_FechaCreacion AS fechaCreacion,
+BEGIN
+	SELECT merc_Id									AS estadoMercanciaId,
+		   merc_Descripcion							AS estadoMercanciaDescripcion,
+		   estadoMercancia.usua_UsuarioCreacion		AS usuarioCreacionId,
+		   usuarioCreacion.usua_Nombre				AS usuarioCreacionNombre,
+		   merc_FechaCreacion						AS fechaCreacion,
 		   estadoMercancia.usua_UsuarioModificacion AS usuarioModificacionId,
-		   usuarioModificacion.usua_Nombre AS usuarioModificacionNombre,
-		   merc_FechaModificacion AS fechaModificacion,
-		   merc_Estado estadoMercanciaEstado
+		   usuarioModificacion.usua_Nombre			AS usuarioModificacionNombre,
+		   merc_FechaModificacion					AS fechaModificacion,
+		   merc_Estado								AS estadoMercanciaEstado
 	  FROM Adua.tbEstadoMercancias estadoMercancia
 INNER JOIN Acce.tbUsuarios usuarioCreacion
 		ON estadoMercancia.usua_UsuarioCreacion = usuarioCreacion.usua_Id
  LEFT JOIN Acce.tbUsuarios usuarioModificacion
 		ON estadoMercancia.usua_UsuarioModificacion = usuarioModificacion.usua_Id
+	 WHERE merc_Estado = 1
+END
 GO
 
-/*******************************Listado*************************************/
-CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbEstadoMercancias_Listado
-AS
-BEGIN
-	SELECT * 
-	  FROM Adua.VW_tbEstadoMercancias 
-	 WHERE estadoMercanciaEstado = 1
-END
+/**************************Ejecución UDP Listado**************************/
+EXEC Adua.UDP_VW_tbEstadoMercancias_Listado
 GO
 
 /*******************************Insertar*************************************/
@@ -46,7 +43,7 @@ BEGIN
 					 FROM Adua.tbEstadoMercancias 
 					WHERE merc_Descripcion = @merc_Descripcion 
 					  AND merc_Estado = 0)
-		BEGIN 
+		BEGIN 			
 			UPDATE Adua.tbEstadoMercancias
 			   SET merc_Estado = 1
 			 WHERE merc_Descripcion = @merc_Descripcion 
@@ -57,12 +54,19 @@ BEGIN
 			VALUES (@merc_Descripcion, @usua_UsuarioCreacion, @merc_FechaCreacion)
 		END
 
-		SELECT 1
+		SELECT 1 AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0	
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
 END
+GO
+
+/**************************Ejecución UDP Insertar**************************/
+DECLARE @FechaActual DATETIME
+SET @FechaActual = GETDATE();
+
+EXEC Adua.UDP_tbEstadoMercancias_Insertar 'Líquido', 1, @FechaActual
 GO
 
 /*******************************Editar*************************************/
@@ -83,12 +87,19 @@ BEGIN
 			WHERE merc_Id = @merc_Id 
 			  AND merc_Estado = 1
 
-		SELECT 1
+		SELECT 1 AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0	
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
 END
+GO
+
+/************************Ejecución UDP Editar************************/
+DECLARE @FechaActual DATETIME
+SET @FechaActual = GETDATE();
+
+EXEC Adua.UDP_tbEstadoMercancias_Editar 1, 'Gaseoso', 1, @FechaActual
 GO
 
 /*******************************Eliminar*************************************/
@@ -104,7 +115,6 @@ BEGIN
 		DECLARE @respuesta INT
 		EXEC dbo.UDP_ValidarReferencias 'merc_Id', @merc_Id, 'Adua.tbEstadoMercancias', @respuesta OUTPUT
 
-		
 		IF(@respuesta) = 1
 			BEGIN
 				 UPDATE Adua.tbEstadoMercancias
@@ -118,56 +128,46 @@ BEGIN
 		SELECT @respuesta AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0	
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
 END
 GO
 
-/*******************************Buscar por Id*************************************/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbEstadoMercancias_BuscarPorId
-(
-	@merc_Id	INT
-)
-AS
-BEGIN
-	SELECT * 
-	  FROM Adua.VW_tbEstadoMercancias 
-	 WHERE estadoMercanciaId = @merc_Id
-	   AND estadoMercanciaEstado = 1
-END
+/************************Ejecución UDP Eliminar************************/
+DECLARE @FechaActual DATETIME
+SET @FechaActual = GETDATE();
+
+EXEC Adua.UDP_tbEstadoMercancias_Eliminar 2, 1, @FechaActual
 GO
 
 ---------------------------------------------/UDPS tbEstadoMercancias----------------------------------------------
 
 ------------------------------------------------UDPS tbUnidadMedidas-----------------------------------------------
 
-/*******************************Vista*************************************/
-CREATE OR ALTER VIEW Gral.VW_tbUnidadMedidas
+/*******************************Listado*************************************/
+CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_Listado
 AS
-	SELECT unme_Id AS unidadMedidasId, 
-		   unme_Descripcion AS unidadMedidasDescripcion, 
-		   unidadMedidas.usua_UsuarioCreacion AS usuarioCreacionId, 
-		   usuarioCreacion.usua_Nombre AS usuarioCreacionNombre,
-		   unme_FechaCreacion AS fechaCreacion, 
-		   unidadMedidas.usua_UsuarioModificacion AS usuarioModificacionId, 
-		   usuarioModificacion.usua_Nombre AS usuarioModificacionNombre,
-		   unme_FechaModificacion AS fechaModificacion, 
-		   unme_Estado AS unidadMedidasEstado
+BEGIN
+	SELECT unme_Id									AS unidadMedidasId, 
+		   unme_Descripcion							AS unidadMedidasDescripcion, 
+		   unidadMedidas.usua_UsuarioCreacion		AS usuarioCreacionId, 
+		   usuarioCreacion.usua_Nombre				AS usuarioCreacionNombre,
+		   unme_FechaCreacion						AS fechaCreacion, 
+		   unidadMedidas.usua_UsuarioModificacion	AS usuarioModificacionId, 
+		   usuarioModificacion.usua_Nombre			AS usuarioModificacionNombre,
+		   unme_FechaModificacion					AS fechaModificacion, 
+		   unme_Estado								AS unidadMedidasEstado
 	  FROM Gral.tbUnidadMedidas unidadMedidas
 INNER JOIN Acce.tbUsuarios usuarioCreacion
 		ON unidadMedidas.usua_UsuarioCreacion = usuarioCreacion.usua_Id
  LEFT JOIN Acce.tbUsuarios usuarioModificacion
 		ON unidadMedidas.usua_UsuarioModificacion = usuarioModificacion.usua_Id
+	 WHERE unme_Estado = 1
+END
 GO
 
-/*******************************Listado*************************************/
-CREATE OR ALTER PROCEDURE Gral.UDP_VW_tbUnidadMedidas_Listado
-AS
-BEGIN
-	SELECT * 
-	  FROM Gral.VW_tbUnidadMedidas
-	 WHERE unidadMedidasEstado = 1
-END
+/************************Ejecución UDP Listado************************/
+EXEC Gral.UDP_tbUnidadMedidas_Listado
 GO
 
 /*******************************Insertar*************************************/
@@ -180,15 +180,35 @@ CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_Insertar
 AS
 BEGIN 
 	BEGIN TRY
-		INSERT INTO Gral.tbUnidadMedidas (unme_Descripcion, usua_UsuarioCreacion, unme_FechaCreacion)
-		VALUES (@unme_Descripcion, @usua_UsuarioCreacion, @unme_FechaCreacion)
+		IF EXISTS (SELECT *
+					 FROM [Gral].[tbUnidadMedidas]
+					WHERE [unme_Descripcion] = @unme_Descripcion
+					  AND [unme_Estado] = 0) 
+		BEGIN
+			UPDATE [Gral].[tbUnidadMedidas]
+			   SET [unme_Estado] = 1
+			 WHERE [unme_Descripcion] = @unme_Descripcion
+			   AND [unme_Estado] = 0
+		END
+		ELSE
+		BEGIN
+			INSERT INTO Gral.tbUnidadMedidas (unme_Descripcion, usua_UsuarioCreacion, unme_FechaCreacion)
+			VALUES (@unme_Descripcion, @usua_UsuarioCreacion, @unme_FechaCreacion)
+		END
 
-		SELECT 1
+		SELECT 1 AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Mensaje de error: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
 END
+GO
+
+/************************Ejecución UDP Insertar************************/
+DECLARE @FechaActual DATETIME
+SET @FechaActual = GETDATE();
+
+EXEC Gral.UDP_tbUnidadMedidas_Insertar 'Lbs', 1, @FechaActual
 GO
 
 /*******************************Editar*************************************/
@@ -209,13 +229,21 @@ BEGIN
 		 WHERE unme_Id = @unme_Id
 		   AND unme_Estado = 1
 			
-		SELECT 1
+		SELECT 1 AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
 END
 GO
+
+/************************Ejecución UDP Editar************************/
+DECLARE @FechaActual DATETIME
+SET @FechaActual = GETDATE();
+
+EXEC Gral.UDP_tbUnidadMedidas_Editar 1, 'kgs', 1, @FechaActual
+GO
+
 
 /*******************************Eliminar*************************************/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_Eliminar
@@ -243,68 +271,58 @@ BEGIN
 		SELECT @respuesta AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
 END
 GO
 
-/*******************************Buscar por Id*************************************/
-CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_BuscarPorId
-(
-	@unme_Id INT
-)
-AS
-BEGIN 
-	SELECT * 
-	  FROM Gral.VW_tbUnidadMedidas
-	 WHERE unidadMedidasId = @unme_Id
-	   AND unidadMedidasEstado = 1
-END
+/************************Ejecución UDP Eliminar************************/
+DECLARE @FechaActual DATETIME
+SET @FechaActual = GETDATE();
+
+EXEC Gral.UDP_tbUnidadMedidas_Eliminar 1, 1, @FechaActual
 GO
 
 -----------------------------------------------/UDPS tbUnidadMedidas------------------------------------------------
 
 -------------------------------------------------UDPS tbCondiciones-------------------------------------------------
 
-/*******************************Vista*************************************/
-CREATE OR ALTER VIEW Adua.VW_tbCondiciones
+/*******************************Listado*************************************/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Listado
 AS
-	SELECT codi_Id AS condicionesId,
-		   deva_Id AS declaracionValorId,
-		   codi_Restricciones_Utilizacion AS restriccionesUtilizacion,
-		   codi_Indicar_Restricciones_Utilizacion AS indicarRestricciones,
-		   codi_Depende_Precio_Condicion AS dependePrecioCondicion,
-		   codi_Indicar_Existe_Condicion AS indicarExisteCondicion,
-		   codi_Condicionada_Revertir AS condicionadaRevertir,
-		   codi_Vinculacion_Comprador_Vendedor AS vinculacionCompradorVendedor,
-           codi_Tipo_Vinculacion AS tipoVinculacion,
-		   codi_Vinculacion_Influye_Precio AS vinculacionInfluyePrecio,
-		   codi_Pagos_Descuentos_Indirectos AS pagosDescuentosIndirectos,
-		   codi_Concepto_Monto_Declarado AS conceptoMontoDeclarado,
-		   codi_Existen_Canones	AS existenCanones,
-		   codi_Indicar_Canones AS indicarCanones,
-		   condiciones.usua_UsuarioCreacion AS usuarioCreacionId, 
-		   usuarioCreacion.usua_Nombre AS usuarioCreacionNombre,
-		   codi_FechaCreacion AS fechaCreacion, 
-		   condiciones.usua_UsuarioModificacion AS usuarioModificacionId, 
-		   usuarioModificacion.usua_Nombre AS usuarioModificacionNombre,
-		   codi_FechaModificacion AS fechaModificacion, 
-		   codi_Estado AS condicionesEstado
+BEGIN
+	SELECT codi_Id									AS condicionesId,
+		   deva_Id									AS declaracionValorId,
+		   codi_Restricciones_Utilizacion			AS restriccionesUtilizacion,
+		   codi_Indicar_Restricciones_Utilizacion	AS indicarRestricciones,
+		   codi_Depende_Precio_Condicion			AS dependePrecioCondicion,
+		   codi_Indicar_Existe_Condicion			AS indicarExisteCondicion,
+		   codi_Condicionada_Revertir				AS condicionadaRevertir,
+		   codi_Vinculacion_Comprador_Vendedor		AS vinculacionCompradorVendedor,
+           codi_Tipo_Vinculacion					AS tipoVinculacion,
+		   codi_Vinculacion_Influye_Precio			AS vinculacionInfluyePrecio,
+		   codi_Pagos_Descuentos_Indirectos			AS pagosDescuentosIndirectos,
+		   codi_Concepto_Monto_Declarado			AS conceptoMontoDeclarado,
+		   codi_Existen_Canones						AS existenCanones,
+		   codi_Indicar_Canones						AS indicarCanones,
+		   condiciones.usua_UsuarioCreacion			AS usuarioCreacionId, 
+		   usuarioCreacion.usua_Nombre				AS usuarioCreacionNombre,
+		   codi_FechaCreacion						AS fechaCreacion, 
+		   condiciones.usua_UsuarioModificacion		AS usuarioModificacionId, 
+		   usuarioModificacion.usua_Nombre			AS usuarioModificacionNombre,
+		   codi_FechaModificacion					AS fechaModificacion, 
+		   codi_Estado								AS condicionesEstado
 	  FROM Adua.tbCondiciones condiciones
 INNER JOIN Acce.tbUsuarios usuarioCreacion
 		ON condiciones.usua_UsuarioCreacion = usuarioCreacion.usua_Id
  LEFT JOIN Acce.tbUsuarios usuarioModificacion
 		ON condiciones.usua_UsuarioModificacion = usuarioModificacion.usua_Id
+	 WHERE codi_Estado = 1
+END
 GO
 
-/*******************************Listado*************************************/
-CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbCondiciones_Listado
-AS
-BEGIN
-	SELECT * 
-	  FROM Adua.VW_tbCondiciones
-	 WHERE condicionesEstado = 1
-END
+/************************Ejecución UDP Listado************************/
+EXEC Adua.UDP_tbCondiciones_Listado
 GO
 
 /*******************************Insertar*************************************/
@@ -361,12 +379,19 @@ BEGIN
 					@usua_UsuarioCreacion,
 					@codi_FechaCreacion)
 
-		SELECT 1
+		SELECT 1 AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
 END
+GO
+
+/************************Ejecución UDP Insertar************************/
+DECLARE @FechaActual DATETIME
+SET @FechaActual = GETDATE();
+
+EXEC Adua.UDP_tbCondiciones_Insertar 1, 1, 'Pos algo ¿No?', 1, 'Pos algo ¿No?', 1, 1, 'Pos algo ¿No?', 0, 0, '150000', 1, 'Algo', 1, @FechaActual
 GO
 
 /*******************************Editar*************************************/
@@ -411,45 +436,49 @@ BEGIN
 		 WHERE codi_Id = @codi_Id
 		   AND codi_Estado = 1
 
-		SELECT 1
+		SELECT 1 AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
 END
+GO
+
+/************************Ejecución UDP Editar************************/
+DECLARE @FechaActual DATETIME
+SET @FechaActual = GETDATE();
+
+EXEC Adua.UDP_tbCondiciones_Editar 1, 0, 0, 'Pos algo ¿No?', 1, 'Pos algo ¿No?', 0, 0, 'Pos algo ¿No?', 0, 0, '150000', 1, 'Algo', 1, @FechaActual
 GO
 
 ------------------------------------------------/UDPS tbCondiciones-------------------------------------------------
 
 ------------------------------------------------UDPS tbFormas_Envio-------------------------------------------------
 
-/*******************************Vista*************************************/
-CREATE OR ALTER VIEW Gral.VW_tbFormas_Envio
+/*******************************Listado*************************************/
+CREATE OR ALTER PROCEDURE Gral.UDP_tbFormas_Envio_Listado
 AS
-	SELECT foen_Id AS formasEnvioId,
-		   foen_Descripcion AS formasEnvioDescripcion,
-		   formasEnvio.usua_UsuarioCreacion	AS usuarioCreacionId,
-		   usuarioCreacion.usua_Nombre AS usuarioCreacionNombre,
-		   foen_FechaCreacion AS fechaCreacion,
+BEGIN
+	SELECT foen_Id								AS formasEnvioId,
+		   foen_Descripcion						AS formasEnvioDescripcion,
+		   formasEnvio.usua_UsuarioCreacion		AS usuarioCreacionId,
+		   usuarioCreacion.usua_Nombre			AS usuarioCreacionNombre,
+		   foen_FechaCreacion					AS fechaCreacion,
 		   formasEnvio.usua_UsuarioModificacion AS usuarioModificacionId,
-		   usuarioModificacion.usua_Nombre AS usuarioModificacionNombre,
-		   foen_FechaModificacion AS fechaModificacion,
-		   foen_Estado formasEnvioEstado
+		   usuarioModificacion.usua_Nombre		AS usuarioModificacionNombre,
+		   foen_FechaModificacion				AS fechaModificacion,
+		   foen_Estado							AS formasEnvioEstado
 	  FROM Gral.tbFormas_Envio formasEnvio
 INNER JOIN Acce.tbUsuarios usuarioCreacion
 		ON formasEnvio.usua_UsuarioCreacion = usuarioCreacion.usua_Id
  LEFT JOIN Acce.tbUsuarios usuarioModificacion
 		ON formasEnvio.usua_UsuarioModificacion = usuarioModificacion.usua_Id
+	 WHERE foen_Estado = 1
+END
 GO
 
-/*******************************Listado*************************************/
-CREATE OR ALTER PROCEDURE Gral.UDP_VW_tbFormas_Envio_Listado
-AS
-BEGIN
-	SELECT * 
-	  FROM Gral.VW_tbFormas_Envio
-	 WHERE formasEnvioEstado = 1
-END
+/************************Ejecución UDP Listado************************/
+EXEC Gral.UDP_tbFormas_Envio_Listado
 GO
 
 /*******************************Insertar*************************************/
@@ -462,16 +491,36 @@ CREATE OR ALTER PROCEDURE Gral.UDP_tbFormas_Envio_Insertar
 AS
 BEGIN
 	BEGIN TRY
-		INSERT INTO Gral.tbFormas_Envio (foen_Descripcion, usua_UsuarioCreacion, foen_FechaCreacion)
-		VALUES (@foen_Descripcion, @usua_UsuarioCreacion, @foen_FechaCreacion)
-
-		SELECT 1
+		IF EXISTS (SELECT * 
+					 FROM [Gral].[tbFormas_Envio]
+					WHERE [foen_Descripcion] = @foen_Descripcion
+					  AND [foen_Estado] = 0)
+		BEGIN
+			UPDATE [Gral].[tbFormas_Envio]
+			   SET [foen_Estado] = 1
+			 WHERE [foen_Descripcion] = @foen_Descripcion
+		END
+		ELSE
+		BEGIN
+			INSERT INTO Gral.tbFormas_Envio (foen_Descripcion, usua_UsuarioCreacion, foen_FechaCreacion)
+			VALUES (@foen_Descripcion, @usua_UsuarioCreacion, @foen_FechaCreacion)
+		END
+		
+		SELECT 1 AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
 END
 GO
+
+/************************Ejecución UDP Insertar************************/
+DECLARE @FechaActual DATETIME
+SET @FechaActual = GETDATE();
+
+EXEC Gral.UDP_tbFormas_Envio_Insertar 'En Burro', 1, @FechaActual
+GO
+
 
 /*******************************Editar*************************************/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbFormas_Envio_Editar
@@ -491,13 +540,21 @@ BEGIN
 		 WHERE foen_Id = @foen_Id
 		   AND foen_Estado = 1
 
-		SELECT 1
+		SELECT 1 AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
 END
 GO
+
+/************************Ejecución UDP Editar************************/
+DECLARE @FechaActual DATETIME
+SET @FechaActual = GETDATE();
+
+EXEC Gral.UDP_tbFormas_Envio_Editar 1, 'En Yegua', 1, @FechaActual
+GO
+
 
 /*******************************Eliminar*************************************/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbFormas_Envio_Eliminar
@@ -509,7 +566,6 @@ CREATE OR ALTER PROCEDURE Gral.UDP_tbFormas_Envio_Eliminar
 AS
 BEGIN
 	BEGIN TRY
-
 		DECLARE @respuesta INT
 		EXEC dbo.UDP_ValidarReferencias 'foen_Id', @foen_Id, 'Gral.tbFormas_Envio', @respuesta OUTPUT
 		
@@ -526,83 +582,81 @@ BEGIN
 		SELECT @respuesta AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
 END
 GO
 
-/*******************************Buscar por Id*************************************/
-CREATE OR ALTER PROCEDURE Gral.UDP_tbFormas_Envio_BuscarPorId
-(
-	@foen_Id	INT
-)
-AS
-BEGIN
-	SELECT * 
-	  FROM Gral.VW_tbFormas_Envio
-	 WHERE formasEnvioEstado = 1
-	   AND formasEnvioId = @foen_Id
-END
+/************************Ejecución UDP Eliminar************************/
+DECLARE @FechaActual DATETIME
+SET @FechaActual = GETDATE();
+
+EXEC Gral.UDP_tbFormas_Envio_Eliminar 1, 1, @FechaActual
 GO
+
 -----------------------------------------------/UDPS tbFormas_Envio-------------------------------------------------
 
 -------------------------------------------------UDPS tbEmpleados---------------------------------------------------
 
-/*Vista empleados*/
-CREATE OR ALTER VIEW gral.VW_tbEmpleados
-AS
-SELECT empl.empl_Id AS empleadoId, 
-	   empl_Nombres AS empleadoNombres, 
-	   empl_Apellidos AS empleadoApellidos,
-	   empl_DNI AS empleadoDNI,
-	   empl.escv_Id AS estadoCivilId,
-	   escv.escv_Nombre AS estadoCivilNombre,
-	   CASE WHEN [empl_Sexo] = 'F' THEN 'Femenino'
-			ELSE 'Masculino'
-		END AS empleadoSexo,
-	   empl_FechaNacimiento AS empleadoNacimiento,
-	   empl_Telefono AS empleadoTelefono,
-	   empl_DireccionExacta AS empleadoDireccion,
-	   empl.pvin_Id AS provinciaId,
-	   pvin.pvin_Nombre AS provinciaNombre,
-	   pais.pais_Codigo AS paisCodigo,
-	   pais.pais_Nombre AS paisNombre,
-	   empl_CorreoElectronico AS empleadoCorreo,
-	   empl.carg_Id AS cargoId,
-	   carg.carg_Nombre AS cargoNombre,
-	   empl_EsAduana AS empleadoAduana,
-	   empl.usua_UsuarioCreacion AS usuarioCreacion, 
-	   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
-	   empl_FechaCreacion AS fechaCreacion, 
-	   empl.usua_UsuarioModificacion AS usuarioModificacion, 
-	   usuaModifica.usua_Nombre AS usuarioModificacionNombre,
-	   empl_FechaModificacion AS fechaModificacion, 
-	   empl.usua_UsuarioEliminacion AS usuarioEliminacion, 
-	   usuaElimina.usua_Nombre AS usuarioEliminacionNombre,
-	   empl_FechaEliminacion AS fechaEliminacion, 
-	   empl_Estado AS empleadoEstado
-FROM [Gral].[tbEmpleados] empl INNER JOIN [Acce].[tbUsuarios] usuaCrea
-ON empl.usua_UsuarioCreacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaModifica
-ON empl.usua_UsuarioModificacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaElimina
-ON empl.usua_UsuarioEliminacion = usuaCrea.usua_Id INNER JOIN [Gral].[tbEstadosCiviles] escv
-ON empl.escv_Id = escv.escv_Id INNER JOIN [Gral].[tbProvincias] pvin
-ON empl.pvin_Id = pvin.pvin_Id INNER JOIN [Gral].[tbPaises] pais
-ON pvin.pais_Codigo = pais.pais_Codigo INNER JOIN [Gral].[tbCargos] carg
-ON empl.carg_Id = carg.carg_Id
-GO
-
-
-/*Listar empleados*/
-CREATE OR ALTER PROCEDURE gral.UDP_VW_tbEmpleados_Listar
+/*******************************Listado*************************************/
+CREATE OR ALTER PROCEDURE Gral.UDP_tbEmpleados_Listar
 AS
 BEGIN
-	SELECT *
-    FROM gral.VW_tbEmpleados
-	WHERE empleadoEstado = 1
+	SELECT empl.empl_Id								AS empleadoId, 
+		   empl_Nombres								AS empleadoNombres, 
+		   empl_Apellidos							AS empleadoApellidos,
+		   empl_DNI									AS empleadoDNI,
+		   empl.escv_Id								AS estadoCivilId,
+		   escv.escv_Nombre							AS estadoCivilNombre,
+		   CASE 
+			WHEN [empl_Sexo] = 'F' THEN 'Femenino'
+		   	ELSE 'Masculino'
+		   END										AS empleadoSexo,
+		   empl_FechaNacimiento						AS empleadoNacimiento,
+		   empl_Telefono							AS empleadoTelefono,
+		   empl_DireccionExacta						AS empleadoDireccion,
+		   empl.pvin_Id								AS provinciaId,
+		   pvin.pvin_Nombre							AS provinciaNombre,
+		   pais.pais_Codigo							AS paisCodigo,
+		   pais.pais_Nombre							AS paisNombre,
+		   empl_CorreoElectronico					AS empleadoCorreo,
+		   empl.carg_Id								AS cargoId,
+		   carg.carg_Nombre							AS cargoNombre,
+		   empl_EsAduana							AS empleadoAduana,
+		   empl.usua_UsuarioCreacion				AS usuarioCreacion, 
+		   usuaCrea.usua_Nombre						AS usuarioCreacionNombre,
+		   empl_FechaCreacion						AS fechaCreacion, 
+		   empl.usua_UsuarioModificacion			AS usuarioModificacion, 
+		   usuaModifica.usua_Nombre					AS usuarioModificacionNombre,
+		   empl_FechaModificacion					AS fechaModificacion, 
+		   empl.usua_UsuarioEliminacion				AS usuarioEliminacion, 
+		   usuaElimina.usua_Nombre					AS usuarioEliminacionNombre,
+		   empl_FechaEliminacion					AS fechaEliminacion, 
+		   empl_Estado								AS empleadoEstado
+	  FROM [Gral].[tbEmpleados] empl 
+INNER JOIN [Acce].[tbUsuarios] usuaCrea
+		ON empl.usua_UsuarioCreacion = usuaCrea.usua_Id 
+ LEFT JOIN [Acce].[tbUsuarios] usuaModifica
+		ON empl.usua_UsuarioModificacion = usuaCrea.usua_Id 
+ LEFT JOIN [Acce].[tbUsuarios] usuaElimina
+		ON empl.usua_UsuarioEliminacion = usuaCrea.usua_Id 
+INNER JOIN [Gral].[tbEstadosCiviles] escv
+		ON empl.escv_Id = escv.escv_Id 
+INNER JOIN [Gral].[tbProvincias] pvin
+		ON empl.pvin_Id = pvin.pvin_Id 
+INNER JOIN [Gral].[tbPaises] pais
+		ON pvin.pais_Id = pais.pais_Id 
+INNER JOIN [Gral].[tbCargos] carg
+		ON empl.carg_Id = carg.carg_Id
+	 WHERE empl_Estado = 1
 END
 GO
 
-/*Insertar empleados*/
+/************************Ejecución UDP Listado************************/
+EXEC  Gral.UDP_tbEmpleados_Listar
+GO
+
+/*******************************Insertar*************************************/
 CREATE OR ALTER PROCEDURE gral.UDP_tbEmpleados_Insertar
 	@empl_Nombres			NVARCHAR(150),
 	@empl_Apellidos			NVARCHAR(150),
@@ -620,95 +674,130 @@ CREATE OR ALTER PROCEDURE gral.UDP_tbEmpleados_Insertar
 	@empl_FechaCreacion     DATETIME
 AS 
 BEGIN
-	
 	BEGIN TRY
+		--IF EXISTS (SELECT * FROM [Gral].[tbEmpleados]
+		--				WHERE [empl_DNI] = @empl_DNI AND [empl_Telefono] = @empl_Telefono
+		--				AND [empl_Estado] = 0)
+		--BEGIN
+		--	UPDATE [Gral].[tbEmpleados]
+		--	SET	   [empl_Estado] = 1,
+		--		   empl_Nombres = @empl_Nombres, 
+		--		   empl_Apellidos = @empl_Apellidos, 
+		--		   empl_DNI = @empl_DNI, 
+		--		   escv_Id = @escv_Id, 
+		--		   empl_Sexo = @empl_Sexo, 
+		--		   empl_FechaNacimiento = @empl_FechaNacimiento, 
+		--		   empl_Telefono = @empl_Telefono, 
+		--		   empl_DireccionExacta = @empl_DireccionExacta, 
+		--		   pvin_Id = @pvin_Id, 
+		--		   empl_CorreoElectronico = @empl_CorreoElectronico, 
+		--		   carg_Id = @carg_Id, 
+		--		   empl_EsAduana = @empl_EsAduana
+		--	WHERE  [empl_DNI] = @empl_DNI
 
-		IF EXISTS (SELECT * FROM [Gral].[tbEmpleados]
-						WHERE [empl_DNI] = @empl_DNI AND [empl_Telefono] = @empl_Telefono
-						AND [empl_Estado] = 0)
-		BEGIN
-			UPDATE [Gral].[tbEmpleados]
-			SET	   [empl_Estado] = 1,
-				   empl_Nombres = @empl_Nombres, 
-				   empl_Apellidos = @empl_Apellidos, 
-				   empl_DNI = @empl_DNI, 
-				   escv_Id = @escv_Id, 
-				   empl_Sexo = @empl_Sexo, 
-				   empl_FechaNacimiento = @empl_FechaNacimiento, 
-				   empl_Telefono = @empl_Telefono, 
-				   empl_DireccionExacta = @empl_DireccionExacta, 
-				   pvin_Id = @pvin_Id, 
-				   empl_CorreoElectronico = @empl_CorreoElectronico, 
-				   carg_Id = @carg_Id, 
-				   empl_EsAduana = @empl_EsAduana
-			WHERE  [empl_DNI] = @empl_DNI
-
-			SELECT 1
-		END
-		ELSE 
-			BEGIN
-				INSERT INTO  [Gral].[tbEmpleados](empl_Nombres, 
-												  empl_Apellidos, 
-												  empl_DNI, 
-												  escv_Id, 
-												  empl_Sexo, 
-												  empl_FechaNacimiento, 
-												  empl_Telefono, 
-												  empl_DireccionExacta, 
-												  pvin_Id, 
-												  empl_CorreoElectronico, 
-												  carg_Id, 
-												  empl_EsAduana, 
-												  usua_UsuarioCreacion, 
-												  empl_FechaCreacion)
-			VALUES(@empl_Nombres,
-				   @empl_Apellidos,
-				   @empl_DNI, 
-				   @escv_Id,
-				   @empl_Sexo,				
-				   @empl_FechaNacimiento,	
-				   @empl_Telefono, 
-				   @empl_DireccionExacta, 
-				   @pvin_Id,
-				   @empl_CorreoElectronico, 
-				   @carg_Id,
-				   @empl_EsAduana,		
-				   @usua_UsuarioCreacion,	
-				   @empl_FechaCreacion)
+		--	SELECT 1
+		--END
+		--ELSE 
+		--	BEGIN
+		--		INSERT INTO  [Gral].[tbEmpleados](empl_Nombres, 
+		--										  empl_Apellidos, 
+		--										  empl_DNI, 
+		--										  escv_Id, 
+		--										  empl_Sexo, 
+		--										  empl_FechaNacimiento, 
+		--										  empl_Telefono, 
+		--										  empl_DireccionExacta, 
+		--										  pvin_Id, 
+		--										  empl_CorreoElectronico, 
+		--										  carg_Id, 
+		--										  empl_EsAduana, 
+		--										  usua_UsuarioCreacion, 
+		--										  empl_FechaCreacion)
+		--	VALUES(@empl_Nombres,
+		--		   @empl_Apellidos,
+		--		   @empl_DNI, 
+		--		   @escv_Id,
+		--		   @empl_Sexo,				
+		--		   @empl_FechaNacimiento,	
+		--		   @empl_Telefono, 
+		--		   @empl_DireccionExacta, 
+		--		   @pvin_Id,
+		--		   @empl_CorreoElectronico, 
+		--		   @carg_Id,
+		--		   @empl_EsAduana,		
+		--		   @usua_UsuarioCreacion,	
+		--		   @empl_FechaCreacion)
 
 
-			SELECT 1
-		END
+		--	SELECT 1
+		--END
+			INSERT INTO [Gral].[tbEmpleados]
+						(empl_Nombres, 
+						 empl_Apellidos, 
+						 empl_DNI, 
+						 escv_Id, 
+						 empl_Sexo, 
+						 empl_FechaNacimiento, 
+						 empl_Telefono, 
+						 empl_DireccionExacta, 
+						 pvin_Id, 
+						 empl_CorreoElectronico, 
+						 carg_Id, 
+						 empl_EsAduana, 
+						 usua_UsuarioCreacion, 
+						 empl_FechaCreacion)
+				  VALUES (@empl_Nombres,
+				  	      @empl_Apellidos,
+				  	      @empl_DNI, 
+				  	      @escv_Id,
+				  	      @empl_Sexo,				
+				  	      @empl_FechaNacimiento,	
+				  	      @empl_Telefono, 
+				  	      @empl_DireccionExacta, 
+				  	      @pvin_Id,
+				  	      @empl_CorreoElectronico, 
+				  	      @carg_Id,
+				  	      @empl_EsAduana,		
+				  	      @usua_UsuarioCreacion,	
+				  	      @empl_FechaCreacion)
+		
+		SELECT 1 AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH 
 END
 GO
 
-/*Editar empleados*/
+/************************Ejecución UDP Insertar************************/
+DECLARE @FechaActual DATETIME
+SET @FechaActual = GETDATE();
+
+EXEC gral.UDP_tbEmpleados_Insertar 'Eder Jesús', 'Sánchez Martínez', '0501200206702', 1, 'M', '04-22-2002', '9617-8153', 'A la par de un lado', 1, 'ederjsanchez22@gmail.com', 1, 1, 1, @FechaActual
+GO
+
+/*******************************Editar*************************************/
 CREATE OR ALTER PROCEDURE gral.UDP_tbEmpleados_Editar
 	@empl_Id					INT,
-	@empl_Nombres			NVARCHAR(150),
-	@empl_Apellidos			NVARCHAR(150),
-	@empl_DNI				NVARCHAR(20), 
-	@escv_Id				INT, 
-	@empl_Sexo				CHAR, 
-	@empl_FechaNacimiento	DATE, 
-	@empl_Telefono			NVARCHAR(20), 
-	@empl_DireccionExacta	NVARCHAR(500), 
-	@pvin_Id				INT, 
-	@empl_CorreoElectronico	NVARCHAR(150), 
-	@carg_Id				INT, 
-	@empl_EsAduana			BIT, 
+	@empl_Nombres				NVARCHAR(150),
+	@empl_Apellidos				NVARCHAR(150),
+	@empl_DNI					NVARCHAR(20), 
+	@escv_Id					INT, 
+	@empl_Sexo					CHAR, 
+	@empl_FechaNacimiento		DATE, 
+	@empl_Telefono				NVARCHAR(20), 
+	@empl_DireccionExacta		NVARCHAR(500), 
+	@pvin_Id					INT, 
+	@empl_CorreoElectronico		NVARCHAR(150), 
+	@carg_Id					INT, 
+	@empl_EsAduana				BIT, 
 	@usua_UsuarioModificacion	INT,
 	@empl_FechaModificacion     DATETIME
 AS
 BEGIN
 	BEGIN TRY
-		
-		UPDATE  [Gral].[tbEmpleados]
-		SET		empl_Nombres = @empl_Nombres, 
+		 UPDATE [Gral].[tbEmpleados]
+		    SET empl_Nombres = @empl_Nombres, 
 				empl_Apellidos = @empl_Apellidos, 
 				empl_DNI = @empl_DNI, 
 				escv_Id = @escv_Id, 
@@ -722,17 +811,24 @@ BEGIN
 				empl_EsAduana = @empl_EsAduana,
 				[usua_UsuarioModificacion] = @usua_UsuarioModificacion,
 				[empl_FechaModificacion] = @empl_FechaModificacion
-		WHERE	[empl_Id] = @empl_Id
+		  WHERE [empl_Id] = @empl_Id
 
-		SELECT 1
+		SELECT 1 AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
 END
 GO
 
-/*Eliminar empleados*/
+/************************Ejecución UDP Editar************************/
+DECLARE @FechaActual DATETIME
+SET @FechaActual = GETDATE();
+
+EXEC gral.UDP_tbEmpleados_Editar 1, 'Phineas', 'Fletcher', '0604200509874', 1, 'M', '08-13-2005', '8154-9487', 'A la par del otro lado', 1, 'phineasFletcher@gmail.com', 1, 1, 1, @FechaActual
+GO
+
+/*******************************Eliminar*************************************/
 CREATE OR ALTER PROCEDURE gral.UDP_tbEmpleados_Eliminar 
 	@empl_Id					INT,
 	@usua_UsuarioEliminacion	INT,
@@ -740,105 +836,107 @@ CREATE OR ALTER PROCEDURE gral.UDP_tbEmpleados_Eliminar
 AS
 BEGIN
 	BEGIN TRY
+		DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'empl_Id', @empl_Id, 'gral.tbEmpleados', @respuesta OUTPUT
 
+		IF(@respuesta) = 1
 		BEGIN
-			DECLARE @respuesta INT
-			EXEC dbo.UDP_ValidarReferencias 'empl_Id', @empl_Id, 'gral.tbEmpleados', @respuesta OUTPUT
-
-			SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
-				BEGIN
-					UPDATE	[Gral].[tbEmpleados]
-					SET		[empl_Estado] = 0,
-							[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
-							[empl_FechaEliminacion] = @empl_FechaEliminacion
-					WHERE	[empl_Id] = @empl_Id
-				END
+			UPDATE [Gral].[tbEmpleados]
+			   SET [empl_Estado] = 0,
+				   [usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
+				   [empl_FechaEliminacion] = @empl_FechaEliminacion
+			 WHERE [empl_Id] = @empl_Id
 		END
-
+		
+		SELECT @respuesta AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
 END
 GO
 
+/************************Ejecución UDP Eliminar************************/
+DECLARE @FechaActual DATETIME
+SET @FechaActual = GETDATE();
+
+EXEC gral.UDP_tbEmpleados_Eliminar 1, 1, @FechaActual
+GO
 ------------------------------------------------/UDPS tbEmpleados---------------------------------------------------
 
 ---------------------------------------------UDPS tbFuncionesMaquina------------------------------------------------
-/*Vista funciones maquina*/
-CREATE OR ALTER VIEW prod.VW_tbFuncionesMaquina
-AS
-SELECT func_Id AS funcionId, 
-	   func_Nombre AS funcionNombre, 
-	   func.usua_UsuarioCreacion AS usuarioCreacion, 
-	   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
-	   func_FechaCreacion AS fechaCreacion, 
-	   func.usua_UsuarioModificacion AS usuarioModificacion, 
-	   usuaModifica.usua_Nombre AS usuarioModificacionNombre,
-	   func_FechaModificacion AS fechaModificacion,
-	   func.usua_UsuarioEliminacion AS usuarioEliminacion, 
-	   usuaElimina.usua_Nombre AS usuarioEliminacionNombre,
-	   func_FechaEliminacion AS fechaEliminacion, 
-	   func_Estado AS funcionEstado
-FROM [Prod].[tbFuncionesMaquina] func INNER JOIN [Acce].[tbUsuarios] usuaCrea
-ON func.usua_UsuarioCreacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaModifica
-ON func.usua_UsuarioModificacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaElimina
-ON func.usua_UsuarioEliminacion = usuaCrea.usua_Id 
-GO
 
-
-/*Listar funciones maquina*/
-CREATE OR ALTER PROCEDURE prod.UDP_VW_tbFuncionesMaquina_Listar
+/*******************************Listado*************************************/
+CREATE OR ALTER PROCEDURE prod.UDP_tbFuncionesMaquina_Listar
 AS
 BEGIN
-	SELECT *
-    FROM prod.VW_tbFuncionesMaquina
-	WHERE funcionEstado = 1
+	SELECT func_Id							AS funcionId, 
+		   func_Nombre						AS funcionNombre, 
+		   func.usua_UsuarioCreacion		AS usuarioCreacion, 
+		   usuaCrea.usua_Nombre				AS usuarioCreacionNombre,
+		   func_FechaCreacion				AS fechaCreacion, 
+		   func.usua_UsuarioModificacion	AS usuarioModificacion, 
+		   usuaModifica.usua_Nombre			AS usuarioModificacionNombre,
+		   func_FechaModificacion			AS fechaModificacion,
+		   func.usua_UsuarioEliminacion		AS usuarioEliminacion, 
+		   usuaElimina.usua_Nombre			AS usuarioEliminacionNombre,
+		   func_FechaEliminacion			AS fechaEliminacion, 
+		   func_Estado						AS funcionEstado
+	  FROM [Prod].[tbFuncionesMaquina] func 
+INNER JOIN [Acce].[tbUsuarios] usuaCrea
+		ON func.usua_UsuarioCreacion = usuaCrea.usua_Id 
+ LEFT JOIN [Acce].[tbUsuarios] usuaModifica
+		ON func.usua_UsuarioModificacion = usuaCrea.usua_Id 
+ LEFT JOIN [Acce].[tbUsuarios] usuaElimina
+		ON func.usua_UsuarioEliminacion = usuaCrea.usua_Id 
+	 WHERE func_Estado = 1
 END
 GO
 
-/*Insertar funciones maquina*/
-CREATE OR ALTER PROCEDURE gral.UDP_tbFuncionesMaquina_Insertar
+/************************Ejecución UDP Listado************************/
+EXEC prod.UDP_tbFuncionesMaquina_Listar
+GO
+
+/*******************************Insertar*************************************/
+CREATE OR ALTER PROCEDURE prod.UDP_tbFuncionesMaquina_Insertar
 	@func_Nombre			NVARCHAR(150),
 	@usua_UsuarioCreacion	INT,
 	@func_FechaCreacion     DATETIME
 AS 
 BEGIN
-	
 	BEGIN TRY
-
-		IF EXISTS (SELECT * FROM [Prod].[tbFuncionesMaquina]
-						WHERE @func_Nombre = [func_Nombre]
-						AND [func_Estado] = 0)
+		IF EXISTS (SELECT * 
+					 FROM [Prod].[tbFuncionesMaquina]
+					WHERE @func_Nombre = [func_Nombre]
+					  AND [func_Estado] = 0)
 		BEGIN
 			UPDATE [Prod].[tbFuncionesMaquina]
-			SET	   [func_Estado] = 1
-			WHERE  [func_Nombre] = @func_Nombre
-
-			SELECT 1
+			   SET [func_Estado] = 1
+			 WHERE [func_Nombre] = @func_Nombre
 		END
 		ELSE 
-			BEGIN
-				INSERT INTO [Prod].[tbFuncionesMaquina] (func_Nombre, 
-													     usua_UsuarioCreacion, 
-													     func_FechaCreacion)
-			VALUES(@func_Nombre,	
-				   @usua_UsuarioCreacion,
-				   @func_FechaCreacion)
-
-
-			SELECT 1
+		BEGIN
+			INSERT INTO [Prod].[tbFuncionesMaquina] (func_Nombre, usua_UsuarioCreacion, func_FechaCreacion)
+			VALUES(@func_Nombre, @usua_UsuarioCreacion, @func_FechaCreacion)
 		END
+
+		SELECT 1 AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH 
 END
 GO
 
-/*Editar funciones maquina*/
-CREATE OR ALTER PROCEDURE gral.UDP_tbFuncionesMaquina_Editar
+/************************Ejecución UDP Insertar************************/
+DECLARE @FechaActual DATETIME
+SET @FechaActual = GETDATE();
+
+EXEC prod.UDP_tbFuncionesMaquina_Insertar 'La super cortadora 2.0', 1, @FechaActual
+GO
+
+/*******************************Editar*************************************/
+CREATE OR ALTER PROCEDURE prod.UDP_tbFuncionesMaquina_Editar
 	@func_Id					INT,
 	@func_Nombre				NVARCHAR(150),
 	@usua_UsuarioModificacion	INT,
@@ -846,124 +944,134 @@ CREATE OR ALTER PROCEDURE gral.UDP_tbFuncionesMaquina_Editar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE  [Prod].[tbFuncionesMaquina]
-		SET		[func_Nombre] = @func_Nombre,
-				[usua_UsuarioModificacion] = @usua_UsuarioModificacion,
-				[func_FechaModificacion] = @func_FechaModificacion
-		WHERE	[func_Id] = @func_Id
+	   UPDATE [Prod].[tbFuncionesMaquina]
+		  SET [func_Nombre] = @func_Nombre,
+			  [usua_UsuarioModificacion] = @usua_UsuarioModificacion,
+			  [func_FechaModificacion] = @func_FechaModificacion
+		WHERE [func_Id] = @func_Id
 
-		SELECT 1
+		SELECT 1 AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
 END
 GO
 
-/*Eliminar funciones maquina*/
-CREATE OR ALTER PROCEDURE gral.UDP_tbFuncionesMaquina_Eliminar 
-	@func_Id					INT
+/************************Ejecución UDP Editar************************/
+DECLARE @FechaActual DATETIME
+SET @FechaActual = GETDATE();
+
+EXEC prod.UDP_tbFuncionesMaquina_Editar 1, 'La mega hiper ultra cortadora 2.0', 1, @FechaActual
+GO
+
+/*******************************Eliminar*************************************/
+CREATE OR ALTER PROCEDURE prod.UDP_tbFuncionesMaquina_Eliminar 
+	@func_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@func_FechaEliminacion		DATETIME
 AS
 BEGIN
 	BEGIN TRY
-		
+		DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'func_Id', @func_Id, 'prod.tbFuncionesMaquina', @respuesta OUTPUT
+
+		IF(@respuesta) = 1
 		BEGIN
-			DECLARE @respuesta INT
-			EXEC dbo.UDP_ValidarReferencias 'func_Id', @func_Id, 'prod.tbFuncionesMaquina', @respuesta OUTPUT
-
-			SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
-				BEGIN
-					UPDATE	[Prod].[tbFuncionesMaquina]
-					SET		[func_Estado] = 0
-					WHERE	[func_Id] = @func_Id
-
-				END
+			UPDATE [Prod].[tbFuncionesMaquina]
+			   SET [func_Estado] = 0
+			 WHERE [func_Id] = @func_Id
 		END
+
+		SELECT @respuesta AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
 END
 GO
 
+/************************Ejecución UDP Eliminar************************/
+DECLARE @FechaActual DATETIME
+SET @FechaActual = GETDATE();
+
+EXEC prod.UDP_tbFuncionesMaquina_Eliminar 1, 1, @FechaActual
+GO
 
 --------------------------------------------/UDPS tbFuncionesMaquina------------------------------------------------
 
 -------------------------------------------------UDPS tbCategoria---------------------------------------------------
 
-/*Vista categoria*/
-CREATE OR ALTER VIEW prod.VW_tbCategoria
-AS
-SELECT cate_Id AS categoriaId, 
-	   cate_Descripcion AS categoriaDescripcion, 
-	   cate.usua_UsuarioCreacion AS usuarioCreacion, 
-	   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
-	   cate_FechaCreacion AS fechaCreacion, 
-	   cate.usua_UsuarioModificacion AS usuarioModificacion, 
-	   usuaModifica.usua_Nombre AS usuarioModificacionNombre,
-	   cate_FechaModificacion AS fechaModificacion,
-	   cate.usua_UsuarioEliminacion AS usuarioEliminacion, 
-	   usuaElimina.usua_Nombre AS usuarioEliminacionNombre,
-	   cate_FechaEliminacion AS fechaEliminacion, 
-	   cate_Estado AS categoriaEstado
-FROM [Prod].[tbCategoria] cate INNER JOIN [Acce].[tbUsuarios] usuaCrea
-ON cate.usua_UsuarioCreacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaModifica
-ON cate.usua_UsuarioModificacion = usuaCrea.usua_Id LEFT JOIN [Acce].[tbUsuarios] usuaElimina
-ON cate.usua_UsuarioEliminacion = usuaCrea.usua_Id 
-GO
-
-
-/*Listar categoria*/
-CREATE OR ALTER PROCEDURE prod.UDP_VW_tbCategoria_Listar
+/*******************************Listado*************************************/
+CREATE OR ALTER PROCEDURE prod.UDP_tbCategoria_Listar
 AS
 BEGIN
-	SELECT *
-    FROM prod.VW_tbCategoria
-	WHERE categoriaEstado = 1
+	SELECT cate_Id							AS categoriaId, 
+		   cate_Descripcion					AS categoriaDescripcion, 
+		   cate.usua_UsuarioCreacion		AS usuarioCreacion, 
+		   usuaCrea.usua_Nombre				AS usuarioCreacionNombre,
+		   cate_FechaCreacion				AS fechaCreacion, 
+		   cate.usua_UsuarioModificacion	AS usuarioModificacion, 
+		   usuaModifica.usua_Nombre			AS usuarioModificacionNombre,
+		   cate_FechaModificacion			AS fechaModificacion,
+		   cate.usua_UsuarioEliminacion		AS usuarioEliminacion, 
+		   usuaElimina.usua_Nombre			AS usuarioEliminacionNombre,
+		   cate_FechaEliminacion			AS fechaEliminacion, 
+		   cate_Estado						AS categoriaEstado
+	  FROM [Prod].[tbCategoria] cate 
+INNER JOIN [Acce].[tbUsuarios] usuaCrea
+		ON cate.usua_UsuarioCreacion = usuaCrea.usua_Id 
+ LEFT JOIN [Acce].[tbUsuarios] usuaModifica
+		ON cate.usua_UsuarioModificacion = usuaCrea.usua_Id 
+ LEFT JOIN [Acce].[tbUsuarios] usuaElimina
+		ON cate.usua_UsuarioEliminacion = usuaCrea.usua_Id 
+	 WHERE cate_Estado = 1
 END
 GO
 
-/*Insertar categoria*/
+/************************Ejecución UDP Listado************************/
+EXEC prod.UDP_tbCategoria_Listar
+GO
+
+/*******************************Insertar*************************************/
 CREATE OR ALTER PROCEDURE prod.UDP_tbCategoria_Insertar
 	@cate_Descripcion		NVARCHAR(150),
 	@usua_UsuarioCreacion	INT,
 	@cate_FechaCreacion     DATETIME
 AS 
 BEGIN
-	
 	BEGIN TRY
-
-		IF EXISTS (SELECT * FROM [Prod].[tbCategoria]
-						WHERE [cate_Descripcion] = @cate_Descripcion
-						AND [cate_Estado] = 0)
+		IF EXISTS (SELECT * 
+					 FROM [Prod].[tbCategoria]
+					WHERE [cate_Descripcion] = @cate_Descripcion
+					  AND [cate_Estado] = 0)
 		BEGIN
 			UPDATE [Prod].[tbCategoria]
 			SET	   [cate_Estado] = 1
 			WHERE  [cate_Descripcion] = @cate_Descripcion
-
-			SELECT 1
 		END
 		ELSE 
-			BEGIN
-				INSERT INTO [Prod].[tbCategoria] (cate_Descripcion, 
-											      usua_UsuarioCreacion, 
-											      cate_FechaCreacion)
-			VALUES(@cate_Descripcion,	
-				   @usua_UsuarioCreacion,
-				   @cate_FechaCreacion)
-
-
-			SELECT 1
+		BEGIN
+			INSERT INTO [Prod].[tbCategoria] (cate_Descripcion, usua_UsuarioCreacion, cate_FechaCreacion)
+			VALUES(@cate_Descripcion, @usua_UsuarioCreacion, @cate_FechaCreacion)
 		END
+
+		SELECT 1 AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH 
 END
 GO
 
-/*Editar categoria*/
+/************************Ejecución UDP Insertar************************/
+DECLARE @FechaActual DATETIME
+SET @FechaActual = GETDATE();
+
+EXEC prod.UDP_tbCategoria_Insertar 'Tela', 1, @FechaActual
+GO
+
+/*******************************Editar*************************************/
 CREATE OR ALTER PROCEDURE prod.UDP_tbCategoria_Editar
 	@cate_Id					INT,
 	@cate_Descripcion			NVARCHAR(150),
@@ -972,21 +1080,28 @@ CREATE OR ALTER PROCEDURE prod.UDP_tbCategoria_Editar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE  [Prod].[tbCategoria]
-		SET		[cate_Descripcion] = @cate_Descripcion,
-				[usua_UsuarioModificacion] = @usua_UsuarioModificacion,
-				[cate_FechaModificacion] = @cate_FechaModificacion
-		WHERE	[cate_Id] = @cate_Id
+		UPDATE [Prod].[tbCategoria]
+		   SET [cate_Descripcion] = @cate_Descripcion,
+			   [usua_UsuarioModificacion] = @usua_UsuarioModificacion,
+			   [cate_FechaModificacion] = @cate_FechaModificacion
+		 WHERE [cate_Id] = @cate_Id
 
-		SELECT 1
+		SELECT 1 AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
 END
 GO
 
-/*Eliminar categoria*/
+/************************Ejecución UDP Editar************************/
+DECLARE @FechaActual DATETIME
+SET @FechaActual = GETDATE();
+
+EXEC prod.UDP_tbCategoria_Editar 1, 'Hilo', 1, @FechaActual
+GO
+
+/*******************************Eliminar*************************************/
 CREATE OR ALTER PROCEDURE prod.UDP_tbCategoria_Eliminar 
 	@cate_Id					INT,
 	@usua_UsuarioEliminacion	INT,
@@ -994,28 +1109,30 @@ CREATE OR ALTER PROCEDURE prod.UDP_tbCategoria_Eliminar
 AS
 BEGIN
 	BEGIN TRY
+		DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'cate_Id', @cate_Id, 'prod.tbCategoria', @respuesta OUTPUT
 
+		IF(@respuesta) = 1
 		BEGIN
-			DECLARE @respuesta INT
-			EXEC dbo.UDP_ValidarReferencias 'cate_Id', @cate_Id, 'prod.tbCategoria', @respuesta OUTPUT
-
-			SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
-				BEGIN
-					UPDATE	[Prod].[tbCategoria]
-					SET		[cate_Estado] = 0,
-							[usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
-							[cate_FechaEliminacion] = @cate_FechaEliminacion
-					WHERE	[cate_Id] = @cate_Id
-				END
+			UPDATE [Prod].[tbCategoria]
+			   SET [cate_Estado] = 0,
+				   [usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
+				   [cate_FechaEliminacion] = @cate_FechaEliminacion
+			 WHERE [cate_Id] = @cate_Id
 		END
 
+		SELECT 1 AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
 END
 GO
 
+/************************Ejecución UDP Eliminar************************/
+DECLARE @FechaActual DATETIME
+SET @FechaActual = GETDATE();
 
+EXEC prod.UDP_tbCategoria_Eliminar 1, 1, @FechaActual
+GO
 ------------------------------------------------/UDPS tbCategoria---------------------------------------------------

@@ -410,7 +410,7 @@ const navigationConfig = [
                         title: 'Modelos de Máquinas',
                         type: 'item',
                         icon: 'material-outline:biotech',
-                        url: '/Maquinaria/ModelosMaquina',
+                        url: '/ModelosMaquina/Index',
                     },
 
                 ]

@@ -23,6 +23,7 @@ import ColoresIndex from '../Prendas/Colores/Colores';
 import InspeccionesIndex from '../Produccion/Inspecciones/InspeccionesEstado';
 import MaquinaHistorialIndex from '../Maquinaria/MaquinaHistorial/MaquinaHistorial';
 import MaquinaModulosIndex from '../Maquinaria/MaquinaModulos/MaquinaModulos';
+import ModelosMaquinaIndex from '../Maquinaria/ModelosMaquina/ModelosMaquina';
 import MaterialesIndex from '../Inventario/Materiales/Materiales';
 import AreasIndex from '../Inventario/Areas/Areas';
 import EstilosIndex from '../Prendas/Estilos/Estilos';
@@ -34,7 +35,6 @@ import Persona_Juridica_Agregar from '../Aduanas/Contratos_de_Adhesión/Persona_
 import SubcategoriaIndex from '../Inventario/Subcategoria/Subcategorias';
 import TipoEmbalajeIndex from '../Inventario/TipoDeEmbalaje/TipoEmbalaje';
 import AldeaIndex from '../Ubicaciones/Aldeas/Aldeas';
-
 const routeConfigs = [
   ...dashboardsConfigs,
   ...pagesConfigs,
@@ -113,6 +113,10 @@ const routes = [
   {
     path: 'MaquinaModulos/Index',
     element: <MaquinaModulosIndex/>
+  },
+  {
+    path: 'ModelosMaquina/Index',
+    element: <ModelosMaquinaIndex/>
   },
   {
     path: 'ContratoDeAdhesionComercianteIndividual/Index',

@@ -642,8 +642,8 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbNivelesComerciales_Insertar
 @usua_UsuarioCreacion			INT
 AS
 BEGIN
-	DECLARE @nico_FechaCreacion	DATETIME;
-	SET @nico_FechaCreacion =	GETDATE();
+	DECLARE @nico_FechaCreacion	  DATETIME;
+	SET		@nico_FechaCreacion = GETDATE();
 	BEGIN TRY
 		IF EXISTS(SELECT*FROM Adua.tbNivelesComerciales WHERE nico_Descripcion = @nico_Descripcion AND nico_Estado = 0 )
 		BEGIN
@@ -690,12 +690,12 @@ GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbNivelesComerciales_Eliminar
 (
 	@nico_Id					INT,
-	@usua_UsuarioEliminacion	INT,
-	@nico_FechaEliminacion		DATETIME
+	@usua_UsuarioEliminacion	INT
 )
 AS
 BEGIN
-	SET @nico_FechaEliminacion = GETDATE();
+	DECLARE @nico_FechaEliminacion	 DATETIME;
+	SET		@nico_FechaEliminacion = GETDATE();
 	BEGIN TRY
 		DECLARE @respuesta INT
 		EXEC dbo.UDP_ValidarReferencias 'nico_Id', @nico_Id, 'Adua.tbNivelesComerciales', @respuesta OUTPUT

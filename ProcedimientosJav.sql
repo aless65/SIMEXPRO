@@ -4,17 +4,17 @@
 CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbModoTransporte_Listar
 AS
 BEGIN
-SELECT	modo.motr_Id,
-		modo.motr_Descripcion,
-		crea.usua_Nombre usua_UsuarioCreacion,
-		modo.motr_FechaCreacion,
-		modi.usua_Nombre usua_UsuarioModificacion,
-		modo.motr_FechaModificacion,
-		modo.motr_Estado
-FROM Adua.tbModoTransporte modo INNER JOIN Acce.tbUsuarios crea 
-ON crea.usua_Id = modo.usua_UsuarioCreacion		INNER JOIN  Acce.tbUsuarios modi 
-ON modi.usua_Id = modo.usua_UsuarioModificacion 
-WHERE usua_Estado = 1
+SELECT	modo.motr_Id						AS modoTransId,
+		modo.motr_Descripcion				AS modoTransD,
+		crea.usua_Nombre					AS usarioCreacion,
+		modo.motr_FechaCreacion				AS fechaCreacion,
+		modi.usua_Nombre					AS usuarioModificacion,
+		modo.motr_FechaModificacion			AS fechModificacion,
+		modo.motr_Estado					AS modoTransEstado				
+FROM	Adua.tbModoTransporte modo 
+		INNER JOIN Acce.tbUsuarios crea		ON crea.usua_Id = modo.usua_UsuarioCreacion		
+		INNER JOIN Acce.tbUsuarios modi		ON modi.usua_Id = modo.usua_UsuarioModificacion 
+WHERE	motr_Estado = 1
 END
 GO
 --*****Insertar*****--
@@ -70,24 +70,24 @@ GO
 CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbTipoDocumento_Listar
 AS
 BEGIN
-SELECT	tido_Id, 
-		tido_Codigo,
-		tido_Descripcion, 
-		crea.usua_Nombre usua_UsuarioCreacion, 
-		tido_FechaCreacion, 
-		modi.usua_Nombre usua_UsuarioModificacion, 
-		tido_FechaModificacion, 
-		tido_Estado 
-FROM	Adua.tbTipoDocumento tido INNER JOIN Acce.tbUsuarios crea 
-ON crea.usua_Id = tido.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
-ON modi.usua_Id = tido.usua_UsuarioModificacion 
-WHERE usua_Estado = 1
+SELECT	tido_Id								AS tipoDocId, 
+		tido_Codigo							AS tipoDocCodigo,
+		tido_Descripcion					AS tipoDocDescripcion, 
+		crea.usua_Nombre					AS usarioCreacion,
+		tido_FechaCreacion					AS fechaCreacion,
+		modi.usua_Nombre					AS usuarioModificacion,
+		tido_FechaModificacion				AS fechModificacion,
+		tido_Estado 						AS tipoDocEstado				
+FROM	Adua.tbTipoDocumento tido 
+		INNER JOIN Acce.tbUsuarios crea		ON crea.usua_Id = tido.usua_UsuarioCreacion 
+		INNER JOIN Acce.tbUsuarios modi		ON modi.usua_Id = tido.usua_UsuarioModificacion 
+WHERE	tido_Estado = 1
 END
 GO
 
 --*****Insertar*****--
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoDocumento_Insertar
-@tido_Codigo				CHAR(4),
+@tido_Codigo			CHAR(4),
 @tido_Descripcion		NVARCHAR(50),
 @usua_UsuarioCreacion	INT,
 @tido_FechaCrea			DATETIME
@@ -140,17 +140,17 @@ GO
 CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbTipoLiquidacion_Listar
 AS
 BEGIN
-SELECT	tipl_Id, 
-		tipl_Descripcion, 
-		crea.usua_Nombre usua_UsuarioCreacion, 
-		tipl_FechaCreacion, 
-		modi.usua_Nombre usua_UsuarioModificacion, 
-		tipl_FechaModificacion,
-		tipl_Estado 
-FROM	Adua.tbTipoLiquidacion tilin INNER JOIN Acce.tbUsuarios crea 
-ON crea.usua_Id = tilin.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
-ON modi.usua_Id = tilin.usua_UsuarioModificacion
-WHERE usua_Estado = 1
+SELECT	tipl_Id								AS tipoLiquidacId, 
+		tipl_Descripcion					AS tipoLiquidacDescripcion, 
+		crea.usua_Nombre					AS usarioCreacion, 
+		tipl_FechaCreacion					AS fechaCreacion,	 
+		modi.usua_Nombre					AS usuarioModificacion, 
+		tipl_FechaModificacion				AS fechModificacion,
+		tipl_Estado 						AS tipoLiquidacEstado			
+FROM	Adua.tbTipoLiquidacion tilin 
+		INNER JOIN Acce.tbUsuarios crea		ON crea.usua_Id = tilin.usua_UsuarioCreacion 
+		INNER JOIN Acce.tbUsuarios modi		ON modi.usua_Id = tilin.usua_UsuarioModificacion
+WHERE	tipl_Estado = 1
 END
 GO
 
@@ -206,15 +206,17 @@ GO
 CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbEstadoBoletin_Listar
 AS
 BEGIN
-SELECT	esbo_Id, 
-		esbo_Descripcion, 
-		crea.usua_Nombre usua_UsuarioCreacion, 
-		esbo_FechaCreacion, 
-		esbo_Estadoo 
-FROM	Adua.tbEstadoBoletin esbo INNER JOIN Acce.tbUsuarios crea 
-ON crea.usua_Id = esbo.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
-ON modi.usua_Id = esbo.usua_UsuarioModificacion 
-WHERE usua_Estado = 1
+SELECT	esbo_Id								AS estadoBoletinId, 
+		esbo_Descripcion					AS estadoBoletinDescripcion, 
+		crea.usua_Nombre					AS usarioCreacion,		
+		esbo_FechaCreacion					AS fechaCreacion,
+		modi.usua_Nombre					AS usuarioModificacion,
+		esbo_FechaModificacion				AS fechModificacion,
+		esbo_Estadoo 						AS estadoBoletinID			
+FROM	Adua.tbEstadoBoletin esbo 
+		INNER JOIN Acce.tbUsuarios crea		ON crea.usua_Id = esbo.usua_UsuarioCreacion 
+		INNER JOIN Acce.tbUsuarios modi		ON modi.usua_Id = esbo.usua_UsuarioModificacion 
+WHERE	esbo_Estadoo = 1
 END 
 GO
 --*****Insertar*****--
@@ -268,20 +270,20 @@ GO
 CREATE OR ALTER PROCEDURE Prod.UDP_VW_tbProcesos_Listar
 AS
 BEGIN
-SELECT	proc_Id, 
-		proc_Descripcion, 
-		crea.usua_Nombre usua_UsuarioCreacion, 
-		proc_FechaCreacion, 
-		modi.usua_Nombre usua_UsuarioModificacion, 
-		proc_FechaModificacion, 
-		elim.usua_Nombre usua_UsuarioEliminacion,
-		proc_FechaEliminacion,
-		proc_Estado 
-FROM	Prod.tbProcesos pro INNER JOIN Acce.tbUsuarios crea 
-ON crea.usua_Id = pro.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
-ON modi.usua_Id = pro.usua_UsuarioModificacion INNER JOIN Acce.tbUsuarios elim
-ON elim.usua_Id = pro.usua_UsuarioEliminacion 
-WHERE usua_Estado = 1
+SELECT	proc_Id								AS procesoId, 
+		proc_Descripcion					AS procesoDescripcion, 
+		crea.usua_Nombre					AS usarioCreacion,			 
+		proc_FechaCreacion					AS fechaCreacion,
+		modi.usua_Nombre  					AS usuarioModificacion,
+		proc_FechaModificacion				AS fechaModificacion,
+		elim.usua_Nombre 					AS usuarioEliminacion,
+		proc_FechaEliminacion				AS fechaEliminacion,
+		proc_Estado							AS procesoEstado	
+FROM	Prod.tbProcesos pro 
+		INNER JOIN Acce.tbUsuarios crea		ON crea.usua_Id = pro.usua_UsuarioCreacion 
+		INNER JOIN Acce.tbUsuarios modi		ON modi.usua_Id = pro.usua_UsuarioModificacion 
+		INNER JOIN Acce.tbUsuarios elim		ON elim.usua_Id = pro.usua_UsuarioEliminacion 
+WHERE	proc_Estado = 1
 END
 GO
 
@@ -321,10 +323,10 @@ GO
 
 --*****Editar*****--
 CREATE OR ALTER PROCEDURE Prod.UDP_tbProcesos_Editar
-@proc_ID				INT,
-@proc_Descripcion		NVARCHAR(200),
+@proc_ID					INT,
+@proc_Descripcion			NVARCHAR(200),
 @usua_UsuarioModificacion	INT,
-@proc_FechaCreacion		DATETIME
+@proc_FechaCreacion			DATETIME
 AS
 BEGIN
 	BEGIN TRY
@@ -355,9 +357,9 @@ GO
 
 --*****Eliminar*****--
 CREATE OR ALTER PROCEDURE Prod.UDP_tbProcesos_Eliminar
-@proc_ID				INT,
+@proc_ID					INT,
 @usua_UsuarioEliminacion	INT,
-@proc_FechaEliminacion	DATETIME
+@proc_FechaEliminacion		DATETIME
 AS
 BEGIN
 	BEGIN TRY
@@ -379,23 +381,23 @@ GO
 CREATE OR ALTER PROCEDURE Prod.UDP_VW_tbArea_Listar
 AS
 BEGIN
-SELECT	tipa_Id, 
-		tipa_area, 
-		pro.proc_Id, 
-		pro.proc_Descripcion,
-		crea.usua_Nombre usua_UsuarioCreacion, 
-		tipa_FechaCreacion, 
-		modi.usua_Nombre usua_UsuarioModificacion , 
-		tipa_FechaModificacion, 
-		elim.usua_Nombre usua_UsuarioEliminacion,
-		tipa_FechaEliminacion
-		tipa_Estado 
-FROM Prod.tbArea area INNER JOIN Prod.tbProcesos pro 
-ON area.proc_Id = pro.proc_Id  INNER JOIN Acce.tbUsuarios crea 
-ON crea.usua_Id = area.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
-ON modi.usua_Id = area.usua_UsuarioModificacion INNER JOIN Acce.tbUsuarios elim
-ON elim.usua_Id = area.usua_UsuarioEliminacion 
-WHERE usua_Estado = 1
+SELECT	tipa_Id							AS areaId, 
+		tipa_area						AS areaDescripcion, 
+		pro.proc_Id						AS procesoId, 
+		pro.proc_Descripcion			AS procesoDescripcion, 
+		crea.usua_Nombre 				AS usarioCreacion,		
+		tipa_FechaCreacion				AS fechaCreacion,
+		modi.usua_Nombre  				AS usuarioModificacion,
+		tipa_FechaModificacion			AS fechaModificacion,
+		elim.usua_Nombre 				AS usuarioEliminacion,
+		tipa_FechaEliminacion			AS fechaEliminacion,
+		tipa_Estado 					AS areaEstado	
+FROM	Prod.tbArea area 
+		INNER JOIN Prod.tbProcesos pro	ON area.proc_Id = pro.proc_Id  
+		INNER JOIN Acce.tbUsuarios crea ON crea.usua_Id = area.usua_UsuarioCreacion 
+		INNER JOIN Acce.tbUsuarios modi ON modi.usua_Id = area.usua_UsuarioModificacion 
+		INNER JOIN Acce.tbUsuarios elim ON elim.usua_Id = area.usua_UsuarioEliminacion 
+WHERE	tipa_Estado = 1
 END
 GO
 
@@ -499,18 +501,18 @@ GO
 CREATE OR ALTER PROCEDURE Prod.UDP_VW_tbTallas_Listar
 AS
 BEGIN
-SELECT	tall_Id, 
-		tall_Codigo,
-		tall_Nombre, 
-		crea.usua_Nombre usua_UsuarioCreacion , 
-		tall_FechaCreacion, 
-		modi.usua_Nombre usua_UsuarioModificacion, 
-		tall_FechaModificacion, 
-		tall_Estado 
-FROM Prod.tbTallas tall INNER JOIN Acce.tbUsuarios crea 
-ON crea.usua_Id = tall.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
-ON modi.usua_Id = tall.usua_UsuarioModificacion 
-WHERE usua_Estado = 1
+SELECT	tall_Id								AS tallaId, 
+		tall_Codigo							AS tallaCodigo,
+		tall_Nombre							AS tallaNombre, 
+		crea.usua_Nombre					AS usarioCreacion,		
+		tall_FechaCreacion					AS fechaCreacion,
+		modi.usua_Nombre 					AS usuarioModificacion,
+		tall_FechaModificacion 				AS fechaModificacion,
+		tall_Estado							AS tallaEstado
+FROM	Prod.tbTallas tall 
+		INNER JOIN Acce.tbUsuarios crea		ON crea.usua_Id = tall.usua_UsuarioCreacion 
+		INNER JOIN Acce.tbUsuarios modi		ON modi.usua_Id = tall.usua_UsuarioModificacion 
+WHERE	tall_Estado = 1
 END
 GO
 
@@ -573,20 +575,20 @@ GO
 CREATE OR ALTER PROCEDURE Prod.UDP_VW_tbTipoEmbalaje_Listar
 AS
 BEGIN
-SELECT	tiem_Id, 
-		tiem_Descripcion, 
-		crea.usua_Nombre usua_UsuarioCreacion , 
-		tiem_FechaCreacion, 
-		modi.usua_Nombre usua_UsuarioModificacion, 
-		tiem_FechaModificacion, 
-		elim.usua_Nombre usua_UsuarioEliminacion, 
-		tiem_FechaEliminacion, 
-		tiem_Estado 
-FROM	Prod.tbTipoEmbalaje tiem INNER JOIN Acce.tbUsuarios crea 
-ON crea.usua_Id = tiem.usua_UsuarioCreacion INNER JOIN  Acce.tbUsuarios modi 
-ON modi.usua_Id = tiem.usua_UsuarioModificacion INNER JOIN Acce.tbUsuarios elim
-ON elim.usua_Id = tiem.usua_UsuarioEliminacion
-WHERE usua_Estado = 1
+SELECT	tiem_Id								AS tipoEmbalajeId, 
+		tiem_Descripcion					AS tipoEmbalajeDescipcion,	
+		crea.usua_Nombre					AS usarioCreacion,		
+		tiem_FechaCreacion					AS fechaCreacion,
+		modi.usua_Nombre 					AS usuarioModificacion,
+		tiem_FechaModificacion				AS fechaModificacion,
+		elim.usua_Nombre 					AS usuarioEliminacion,
+		tiem_FechaEliminacion				AS fechaEliminacion,
+		tiem_Estado 						AS tipoEmbalajeEstado	
+FROM	Prod.tbTipoEmbalaje tiem 
+		INNER JOIN Acce.tbUsuarios crea		ON crea.usua_Id = tiem.usua_UsuarioCreacion 
+		INNER JOIN Acce.tbUsuarios modi		ON modi.usua_Id = tiem.usua_UsuarioModificacion 
+		INNER JOIN Acce.tbUsuarios elim		ON elim.usua_Id = tiem.usua_UsuarioEliminacion
+WHERE	tiem_Estado = 1
 END
 GO
 
@@ -625,8 +627,8 @@ END
 GO
 --*****Editar*****--
 CREATE OR ALTER PROCEDURE Prod.UDP_tbTipoEmbalaje_Editar
-@tiem_Id				INT,
-@tiem_Descripcion		NVARCHAR(200),
+@tiem_Id					INT,
+@tiem_Descripcion			NVARCHAR(200),
 @usua_UsuarioModificacion	INT,
 @tiem_FechaModificacion		DATETIME
 AS
@@ -658,9 +660,9 @@ END
 GO
 --*****Eliminar*****--
 CREATE OR ALTER PROCEDURE Prod.UDP_tbTipoEmbalaje_Eliminar
-@tiem_Id				INT,
-@usua_UsuarioEliminacion INT,
-@tiem_FechaEliminacion	DATETIME
+@tiem_Id					INT,
+@usua_UsuarioEliminacion	INT,
+@tiem_FechaEliminacion		DATETIME
 AS
 BEGIN
 	BEGIN TRY

@@ -147,10 +147,6 @@ const routes = [
     element: <MaquinaHistorialIndex/>
   },
   {
-    path: 'MaquinaModulos/Index',
-    element: <MaquinaModulosIndex/>
-  },
-  {
     path: 'Materiales/Index',
     element: <MaterialesIndex/>
   },

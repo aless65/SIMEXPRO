@@ -390,14 +390,6 @@ const navigationConfig = [
                         icon: 'material-outline:all_inbox',
                         url: '/Maquinaria/MaquinaHistorial',
                     },               
-                    
-                    {
-                        id: 'Maquinaria.MaquinaModulos',
-                        title: 'Módulo de Máquina',
-                        type: 'item',
-                        icon: 'material-outline:animation',
-                        url: '/MaquinaModulos/Index',
-                    },
                     {
                         id: 'Maquinaria.MarcasMaquina',
                         title: 'Marcas de Máquinas',

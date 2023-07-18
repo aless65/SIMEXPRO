@@ -1,3 +1,6 @@
+
+-- ************************************* KARLA ESTUVO AQUÍ ******************************************************
+
 --*****Modo Transporte*****--
 --CREATE OR ALTER VIEW VW_tbModoTransporte
 --*****Listado*****--
@@ -196,6 +199,7 @@ END
 GO
 
 --*****Editar*****--
+
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoLiquidacion_Editar
 @tipl_Id					INT,
 @tipl_Descripcion			NVARCHAR(200),
@@ -216,6 +220,8 @@ BEGIN
 	END CATCH
 END
 GO
+--Adua.UDP_tbTipoLiquidacion_Editar 3,'CAMBIOS',1, '07-18-2023'
+
 
 --*****Eliminar*****--
 --CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoLiquidacion_Eliminar
@@ -239,9 +245,10 @@ WHERE	esbo_Estadoo = 1
 END 
 GO
 --*****Insertar*****--
+
 CREATE OR ALTER PROCEDURE Adua.UDP_tbEstadoBoletin_Insertar
-@esbo_Descripcion		INT,
-@usua_UsuarioCreacion	NVARCHAR(200),
+@esbo_Descripcion		NVARCHAR(200),
+@usua_UsuarioCreacion	INT,
 @esbo_FechaCreacion		DATETIME
 AS
 BEGIN
@@ -259,6 +266,9 @@ BEGIN
 	END CATCH
 END
 GO
+-- Adua.UDP_tbEstadoBoletin_Insertar 'PRUEBA', 1, '07-18-2023'
+
+
 --*****Editar*****--
 CREATE OR ALTER PROCEDURE Adua.UDP_tbEstadoBoletin_Editar
 @esbo_Id					INT,
@@ -280,7 +290,7 @@ BEGIN
 	END CATCH
 END
 GO
-
+ --Adua.UDP_tbEstadoBoletin_Editar 1,'prueba',1,'07-18-2023'
 --*****Eliminar*****--
 --CREATE OR ALTER PROCEDURE Prod.UDP_tbEstadoBoletin_Eliminar
 --*****Procesos*****--
@@ -327,6 +337,7 @@ BEGIN
 	END CATCH
 END
 GO
+--   Prod.UDP_tbProcesos_Insertar 'probando', 1, '07-18-2023'
 
 --*****Editar*****--
 CREATE OR ALTER PROCEDURE Prod.UDP_tbProcesos_Editar
@@ -350,6 +361,8 @@ BEGIN
 END
 GO
 
+-- Prod.UDP_tbProcesos_Insertar 'probando', 1, '07-18-2023'
+
 --*****Eliminar*****--
 CREATE OR ALTER PROCEDURE Prod.UDP_tbProcesos_Eliminar
 @proc_ID					INT,
@@ -369,9 +382,13 @@ BEGIN
 	END CATCH
 END
 GO
+-- Prod.UDP_tbProcesos_Eliminar 1,1,'07-18-2023'
+-- SELECT*FROM Prod.tbProcesos
 
 --*****AREA*****--
 --CREATE OR ALTER VIEW VW_tbArea
+
+
 --*****Listado*****--
 CREATE OR ALTER PROCEDURE Prod.UDP_VW_tbArea_Listar
 AS
@@ -397,6 +414,7 @@ END
 GO
 
 --*****Insertar*****--
+Prod.UDP_tbArea_Insertar 
 CREATE OR ALTER PROCEDURE Prod.UDP_tbArea_Insertar
 @tipa_area				NVARCHAR(200),
 @proc_Id				INT,

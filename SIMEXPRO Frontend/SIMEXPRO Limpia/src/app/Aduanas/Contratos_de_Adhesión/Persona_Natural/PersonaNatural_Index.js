@@ -112,7 +112,7 @@ function PersonaNatural_Index() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/T4VqYmN/Headers-SIMEXPRO-3.png"
+        image="https://i.ibb.co/CVq5FNt/CONTRATO-DE-ADHESI-N-PERSONA-NATURAL.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>

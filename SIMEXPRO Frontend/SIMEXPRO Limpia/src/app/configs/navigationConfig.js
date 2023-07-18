@@ -464,6 +464,20 @@ const navigationConfig = [
             icon: 'heroicons-outline:printer',
             url: '/Contrato-de-Adhesion/Persona-Natural',
           },
+          {
+            id: 'ContratoAdhesion.Comerciante Individual',
+            title: 'Comerciante Individual',
+            type: 'item',
+            icon: 'heroicons-outline:printer',
+            url: '/Contrato-de-Adhesion-Comerciante-Individual/Index',
+          },
+          {
+            id: 'ContratoAdhesion.PersonaJuridica',
+            title: 'Persona Juridica',
+            type: 'item',
+            icon: 'heroicons-outline:printer',
+            url: '/Contrato-de-Adhesion-Persona-Juridica/Index',
+          },
         ],
       },
       {

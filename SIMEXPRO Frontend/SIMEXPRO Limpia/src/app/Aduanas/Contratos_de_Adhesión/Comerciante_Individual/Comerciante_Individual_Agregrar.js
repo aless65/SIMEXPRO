@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import Select from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import CardMedia from "@mui/material/CardMedia";
 
 import Grid from "@mui/material/Grid";
 
@@ -129,16 +130,14 @@ function Comerciante_Individual_Agregar() {
 
   return (
     <Card sx={{ minWidth: 275, margin: "40px" }}>
+         <CardMedia
+        component="img"
+        height="200"
+        image="https://i.ibb.co/FBTmyr7/CONTRATO-DE-ADHESI-N-COMERCIANTE-INDIVIDUAL.png"
+        alt="Encabezado de la carta"
+      />
       <CardContent sx={{ textAlign: "center" }}>
-        <Grid item xs={12}>
-          <Typography
-            variant="h5"
-            gutterBottom
-            sx={{ textTransform: "uppercase" }}
-          >
-            Contrato De Adhesión Comerciante Individual
-          </Typography>
-        </Grid>
+      
       </CardContent>
 
       <Box sx={{ bgcolor: "background.paper", width: "100%" }}>
@@ -316,7 +315,7 @@ function Comerciante_Individual_Agregar() {
                     "&:hover": { backgroundColor: "#BFBABA" },
                   }}
                   onClick={(e) => {
-                    Navigate("/ContratoDeAdhesionComercianteIndividual/Index");
+                    Navigate("/Contrato-de-Adhesion-Comerciante-Individual/Index");
                   }}
                 >
                   Cancelar
@@ -418,7 +417,7 @@ function Comerciante_Individual_Agregar() {
                     "&:hover": { backgroundColor: "#BFBABA" },
                   }}
                   onClick={(e) => {
-                    Navigate("/ContratoDeAdhesionComercianteIndividual/Index");
+                    Navigate("/Contrato-de-Adhesion-Comerciante-Individual/Index");
                   }}
                 >
                   Cancelar
@@ -519,7 +518,7 @@ function Comerciante_Individual_Agregar() {
                     "&:hover": { backgroundColor: "#BFBABA" },
                   }}
                   onClick={(e) => {
-                    Navigate("/ContratoDeAdhesionComercianteIndividual/Index");
+                    Navigate("/Contrato-de-Adhesion-Comerciante-Individual/Index");
                   }}
                 >
                   Cancelar
@@ -664,7 +663,7 @@ function Comerciante_Individual_Agregar() {
                     "&:hover": { backgroundColor: "#BFBABA" },
                   }}
                   onClick={(e) => {
-                    Navigate("/ContratoDeAdhesionComercianteIndividual/Index");
+                    Navigate("/Contrato-de-Adhesion-Comerciante-Individual/Index");
                   }}
                 >
                   Cancelar
@@ -780,7 +779,7 @@ function Comerciante_Individual_Agregar() {
                     "&:hover": { backgroundColor: "#BFBABA" },
                   }}
                   onClick={(e) => {
-                    Navigate("/ContratoDeAdhesionComercianteIndividual/Index");
+                    Navigate("/Contrato-de-Adhesion-Persona-Juridica/Index");
                   }}
                 >
                   Cancelar

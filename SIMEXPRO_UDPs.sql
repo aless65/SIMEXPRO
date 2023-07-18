@@ -12,7 +12,7 @@ AS BEGIN
 	DECLARE @QUERY NVARCHAR(MAX);
 	SET @Id_Valor = CONCAT('=', @Id_Valor);
 
-	/*En esta secci�n se consiguen las tablas que est� referenciadas al campo*/
+	/*En esta sección se consiguen las tablas que está referenciadas al campo*/
 
 	WITH AKT AS ( SELECT ROW_NUMBER() OVER (ORDER BY f.name) RN, f.name AS ForeignKey
 						,OBJECT_NAME(f.parent_object_id) AS TableName
@@ -65,34 +65,34 @@ GO
 /*Vista usuarios*/
 CREATE OR ALTER VIEW acce.VW_tbUsuarios
 AS
-	SELECT t1.usua_Id AS usuarioId, 
-		   t1.usua_Nombre AS usuarioNombre, 
-		   t1.usua_Contrasenia AS usuarioContrasenia, 
-		   t1.usua_Correo AS usuarioCorreo, 
-		   t1.role_Id AS rolId,
-		   t2.role_Descripcion AS rolDescripcion, 
-		   t1.usua_EsAdmin,
-		   t1.empl_Id AS empleadoId,
-		   (SELECT t3.empl_Nombres + ' ' + empl_Apellidos) AS empleadoNombreCompleto, 
-		   t1.usua_UsuarioCreacion AS usuarioCreacion, 
-		   t4.usua_Nombre AS usuarioCreacionNombre,
-		   t1.usua_FechaCreacion AS usuarioFechaCreacion, 
-	       t1.usua_UsuarioModificacion AS usuarioModificacion, 
-		   t5.usua_Nombre AS usuarioModificacionNombre, 
-		   t1.usua_FechaModificacion AS usuarioFechaModificacion,
-		   t6.usua_Nombre AS usuarioEliminacionNombre, 
-		   t1.usua_FechaEliminacion AS usuarioFechaEliminacion,
-		   t1.usua_Estado AS usuarioEstado,
-		   t3.empl_CorreoElectronico AS empleadoCorreoElectronico	
-		   FROM Acce.tbUsuarios t1 LEFT JOIN Acce.tbRoles t2
-		   ON t1.role_Id = t2.role_Id
-		   LEFT JOIN Gral.tbEmpleados t3
-		   ON t3.empl_Id = t1.empl_Id 
-		   LEFT JOIN acce.tbUsuarios t4
-		   ON t1.usua_UsuarioCreacion = T4.usua_Id
-		   LEFT JOIN acce.tbUsuarios t5
-		   ON t1.usua_UsuarioModificacion = t5.usua_Id LEFT JOIN acce.tbUsuarios t6
-		   ON t1.usua_UsuarioEliminacion = t6.usua_Id
+	SELECT usua.usua_Id AS usuarioId, 
+		   usua.usua_Nombre AS usuarioNombre, 
+		   usua.usua_Contrasenia AS usuarioContrasenia, 
+		   usua.usua_Correo AS usuarioCorreo, 
+		   usua.role_Id AS rolId,
+		   rol.role_Descripcion AS rolDescripcion, 
+		   usua.usua_EsAdmin,
+		   usua.empl_Id AS empleadoId,
+		   (empl_Nombres + ' ' + empl_Apellidos) AS empleadoNombreCompleto, 
+		   usua.usua_UsuarioCreacion AS usuarioCreacion, 
+		   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
+		   usua.usua_FechaCreacion AS usuarioFechaCreacion, 
+	       usua.usua_UsuarioModificacion AS usuarioModificacion, 
+		   usuaModifica.usua_Nombre AS usuarioModificacionNombre, 
+		   usua.usua_FechaModificacion AS usuarioFechaModificacion,
+		   usuaElimina.usua_Nombre AS usuarioEliminacionNombre, 
+		   usua.usua_FechaEliminacion AS usuarioFechaEliminacion,
+		   usua.usua_Estado AS usuarioEstado,
+		   empl.empl_CorreoElectronico AS empleadoCorreoElectronico	
+		   FROM Acce.tbUsuarios usua LEFT JOIN Acce.tbRoles rol
+		   ON usua.role_Id = rol.role_Id
+		   LEFT JOIN Gral.tbEmpleados empl
+		   ON empl.empl_Id = usua.empl_Id 
+		   LEFT JOIN acce.tbUsuarios usuaCrea
+		   ON usua.usua_UsuarioCreacion = usuaCrea.usua_Id
+		   LEFT JOIN acce.tbUsuarios usuaModifica
+		   ON usua.usua_UsuarioModificacion = usuaModifica.usua_Id LEFT JOIN acce.tbUsuarios usuaElimina
+		   ON usua.usua_UsuarioEliminacion = usuaElimina.usua_Id
 		   
 GO
 

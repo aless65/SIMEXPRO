@@ -12,7 +12,7 @@
 		GO
 	*/
 
-	--CREATE DATABASE SIMEXPRO
+	CREATE DATABASE SIMEXPRO
 	GO
 	USE SIMEXPRO
 	GO
@@ -737,8 +737,6 @@ CREATE TABLE Adua.tbDeclaraciones_ValorHistorial
 		hdev_Accion						NVARCHAR(100)
 
 )
-
-
 CREATE TABLE Adua.tbFacturas
 (
 		fact_Id							INT 			IDENTITY(1,1),
@@ -1693,8 +1691,8 @@ CREATE TABLE Prod.tbModulos(
 	modu_FechaCreacion         	DATETIME NOT NULL,
 	usua_UsuarioModificacion   	INT DEFAULT NULL,
 	modu_FechaModificacion     	DATETIME DEFAULT NULL,
-	--usua_UsuarioEliminacion		INT DEFAULT NULL,
-	--modu_FechaEliminacion		DATETIME DEFAULT NULL,
+	usua_UsuarioEliminacion		INT DEFAULT NULL,
+	modu_FechaEliminacion		DATETIME DEFAULT NULL,
 	modu_Estado                	BIT DEFAULT 1,
 
 	CONSTRAINT PK_Prod_tbModulos_modu_Id 									 PRIMARY KEY (modu_Id),
@@ -1703,7 +1701,7 @@ CREATE TABLE Prod.tbModulos(
 	
 	CONSTRAINT FK_Prod_tbModulos_modu_UsuarioCreacion_Acce_tbUsuarios_usua_Id				FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbModulos_modu_UsuarioModificacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
-	--CONSTRAINT FK_Prod_tbModulos_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
+	CONSTRAINT FK_Prod_tbModulos_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO	
 
@@ -2258,6 +2256,9 @@ CREATE TABLE Prod.tbRevisionDeCalidad(
 	reca_Descripcion			NVARCHAR(200) NOT NULL,
 	reca_Segunda				INT NOT NULL,
 	reca_Scrap					INT NOT NULL,
+	reca_FechaInicio            DATETIME,
+	reca_FechaFinal             DATETIME,
+
 
 	usua_UsuarioCreacion		INT NOT NULL,
 	reca_FechaCreacion			DATETIME NOT NULL,
@@ -2494,3 +2495,15 @@ CREATE TABLE Adua.tbDocumentosDeSoporte(
 	CONSTRAINT FK_Adua_tbDocumentosDeSoporte_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id 		FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
+
+
+--**********************************************************************************************
+--********** TABLA PAISES / procedimientos tomando en cuenta los uniques ***********************
+ALTER TABLE Acce.tbUsuarios
+ADD CONSTRAINT FK_Acce_tbUsuarios_usua_UsuarioCreacion FOREIGN KEY(usua_UsuarioCreacion) REFERENCES Acce.tbUsuarios(usua_Id)
+GO
+ALTER TABLE Acce.tbUsuarios
+ADD CONSTRAINT FK_Acce_tbUsuarios_usua_UsuarioModificacion FOREIGN KEY(usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios(usua_Id)
+GO
+ALTER TABLE Acce.tbUsuarios
+ADD CONSTRAINT FK_Acce_tbUsuarios_usua_UsuarioEliminacion FOREIGN KEY(usua_UsuarioEliminacion) REFERENCES Acce.tbUsuarios(usua_Id)

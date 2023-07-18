@@ -221,6 +221,10 @@ function MaquinaHistorialIndex() {
                 fullWidth
               >
                 <DateTimePicker
+                dateFormat="dd/MM/yyyy"
+                onChange={(date) => {
+                    console.log(date);
+                  }}
                 renderInput={(_props) => (
                   <TextField
                     className="w-full"
@@ -238,6 +242,10 @@ function MaquinaHistorialIndex() {
                 fullWidth
               >
                 <DateTimePicker
+                dateFormat="dd/MM/yyyy"
+                onChange={(date) => {
+                    console.log(date);
+                  }}
                 renderInput={(_props) => (
                   <TextField
                     className="w-full"

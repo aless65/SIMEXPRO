@@ -52,6 +52,7 @@ import FormaDeEnvioIndex from '../Generales/FormasEnvios';
 import ModelosIndex from '../Prendas/Modelos/Modelos';
 import UnidadesMedidaIndex from '../Generales/UnidadesMedida/UnidadesMedidas';
 import Revision_de_Calidad_Index from '../Produccion/Revisión de Calidad/RevisionCalidad';
+import OrdenProcesosIndex from '../Produccion/OrdenDeProcesos/OrdenDeProcesos';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -256,6 +257,10 @@ const routes = [
   {
     path: 'RevisionCalidad/Index',
     element: <Revision_de_Calidad_Index />,
+  },
+  {
+    path: 'OrdenProcesos/Index',
+    element: <OrdenProcesosIndex />,
   },
 ];
 

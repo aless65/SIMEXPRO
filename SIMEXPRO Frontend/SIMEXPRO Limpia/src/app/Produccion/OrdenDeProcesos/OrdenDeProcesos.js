@@ -25,9 +25,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { DateTimePicker } from '@mui/x-date-pickers';
+import NumberFormat from 'react-number-format';
 
 
-function CategoriaIndex() {
+function OrdenProcesosIndex() {
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
@@ -39,8 +41,9 @@ function CategoriaIndex() {
 
   {/* Columnas de la tabla */ }
   const columns = [
-    { field: 'id', headerName: 'Id', flex: 2},
-    { field: 'categoria', headerName: 'Categoría', flex: 3,  },
+    { field: 'id', headerName: 'Id', flex: 1},
+    { field: 'npo', headerName: 'Máquina', flex: 2,  },
+    { field: 'empleado', headerName: 'Fecha de Inicio', flex: 2,  },
     {
       field: 'acciones',
       headerName: 'Acciones',
@@ -91,11 +94,9 @@ function CategoriaIndex() {
 
   {/* Datos de la tabla */ }
   const rows = [
-    { id: '1', categoria: 'Tela' },
-    { id: '2', categoria: 'Boton' },
-    { id: '3', categoria: 'Aguja' },
-    { id: '4', categoria: 'Hilo' },
-    { id: '5', categoria: 'Zipper' },
+    { id: '1', npo: 'CW22-103/72898', empleado: 'Alberto Laínez' },
+    { id: '2', npo: 'CW22-103/72899', empleado: 'Daniel Pineda' },
+    { id: '3', npo: 'CW22-89/723541', empleado: 'Denia McCarthy' },
   ];
 
   {/* Función para mostrar la tabla y mostrar agregar */ }
@@ -110,7 +111,7 @@ function CategoriaIndex() {
 
   {/* Filtrado de datos */ }
   const filteredRows = rows.filter((row) =>
-    row.categoria.toLowerCase().includes(searchText.toLowerCase())
+    row.npo.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
@@ -118,7 +119,7 @@ function CategoriaIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/xM7RJcZ/CATEGORIAS.png"
+        image="https://i.ibb.co/TtV62Xs/RDEN-DE-PROCESOS.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>
@@ -188,15 +189,144 @@ function CategoriaIndex() {
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
-              
-            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}
-                 style={{ marginTop: '30px' }}>
-                <FormControl>
-                    <TextField
-                        style={{ borderRadius: '10px', width: '500px' }}
-                        label="Categoría"
-                    />
-                </FormControl>
+
+            <Grid item xs={6} style={{ marginTop: '30px' }} >
+              <FormControl
+                fullWidth
+              >
+                <TextField
+                  style={{ borderRadius: '10px' }}
+                  label="# Detalle de P.O"
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6} style={{ marginTop: '30px' }} >
+              <FormControl
+                fullWidth
+              >
+                <TextField 
+                  disabled="true"
+                  style={{ borderRadius: '10px' }}
+                  label="Color"
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6} >
+              <FormControl
+                fullWidth
+              >
+                <TextField
+                  disabled="true"
+                  style={{ borderRadius: '10px' }}
+                  label="Estilo"
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6} >
+              <FormControl
+                fullWidth
+              >
+                <TextField
+                  disabled="true"
+                  style={{ borderRadius: '10px' }}
+                  label="Talla"
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6} >
+              <FormControl
+                fullWidth
+              >
+                <TextField
+                  style={{ borderRadius: '10px' }}
+                  label="Módulo Asignado"
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6} >
+              <FormControl
+                fullWidth
+              >
+                <InputLabel htmlFor="grouped-native-select">Proceso</InputLabel>
+                <Select
+                  style={{ borderRadius: '10px' }}
+                  label="Proceso"
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6} >
+              <FormControl
+                fullWidth
+              >
+                <InputLabel htmlFor="grouped-native-select">Empleado</InputLabel>
+                <Select
+                  style={{ borderRadius: '10px' }}
+                  label="Empleado"
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6} >
+              <FormControl
+                fullWidth
+              >
+                <TextField
+                  style={{ borderRadius: '10px' }}
+                  label="Cantidad"
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6}>
+            <InputLabel htmlFor="grouped-native-select">Fecha Inicio</InputLabel>
+              <FormControl
+                fullWidth
+              >
+                <DateTimePicker
+                renderInput={(_props) => (
+                  <TextField
+                    className="w-full"
+                    {..._props}
+                  />
+                )}
+                className="w-full"
+              />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6}>
+                <InputLabel htmlFor="grouped-native-select">Fecha Límite</InputLabel>
+              <FormControl
+                fullWidth
+              >
+                <DateTimePicker
+                renderInput={(_props) => (
+                  <TextField
+                    className="w-full"
+                    {..._props}
+                  />
+                )}
+                className="w-full"
+              />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6} style={{ marginTop: '30px' }} >
+              <FormControl
+                fullWidth
+              >
+                <InputLabel htmlFor="grouped-native-select">Pedido Producción</InputLabel>
+                <Select
+                  style={{ borderRadius: '10px' }}
+                  label="PedidoProduccion"
+                />
+              </FormControl>
             </Grid>
 
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
@@ -286,7 +416,7 @@ function CategoriaIndex() {
   );
 }
 
-export default CategoriaIndex;
+export default OrdenProcesosIndex;
 
 
 

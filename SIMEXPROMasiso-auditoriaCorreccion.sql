@@ -1790,7 +1790,7 @@ CREATE TABLE Prod.tbModelosMaquina(
 	mmaq_Estado					BIT DEFAULT 1,
 	
 	CONSTRAINT PK_Prod_tbModelosMaquina_mmaq_Id 								PRIMARY KEY(mmaq_Id),
-	CONSTRAINT FK_Prod_tbModelosMaquina_Prod_tbMarcasMaquina_marq_Id 			FOREIGN KEY(mmaq_Id) 				REFERENCES Prod.tbMarcasMaquina(marq_Id),
+	CONSTRAINT FK_Prod_tbModelosMaquina_Prod_tbMarcasMaquina_marq_Id 			FOREIGN KEY(marq_Id) 				REFERENCES Prod.tbMarcasMaquina(marq_Id),
 	CONSTRAINT FK_Prod_tbModelosMaquina_Prod_tbFunciones_func_Id 				FOREIGN KEY(func_Id) 				REFERENCES Prod.tbFuncionesMaquina(func_Id),
 	CONSTRAINT FK_Prod_tbModelosMaquina_tbUsuarios_usua_UsuaCreaciaon			FOREIGN KEY (usua_UsuarioCreacion)     	REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbModelosMaquina_tbUsuarios_usua_UsuaModificacion		FOREIGN KEY (usua_UsuarioModificacion) 	REFERENCES Acce.tbUsuarios (usua_Id),

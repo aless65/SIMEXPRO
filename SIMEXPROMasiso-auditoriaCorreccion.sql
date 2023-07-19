@@ -2167,7 +2167,7 @@ CREATE TABLE Adua.tbDuca(
 	duca_Estado 					BIT DEFAULT 1
 	
 	CONSTRAINT PK_Adua_tbDuca_duca_No_Duca PRIMARY KEY(duca_No_Duca),
-	CONSTRAINT FK_Adua_tbConductor_cont_Id_Adua_tbDuca_duca_Id                 	FOREIGN KEY(duca_Conductor_Id) 		REFERENCES Adua.tbConductor(cont_Id),
+	CONSTRAINT FK_Adua_tbConductor_cont_Id_Adua_tbDuca_duca_Conductor_Id        FOREIGN KEY(duca_Conductor_Id) 		REFERENCES Adua.tbConductor(cont_Id),
 	CONSTRAINT FK_Adua_tbDuca_duca_Pais_Procedencia_tbPaises_pais_codigo		FOREIGN KEY(duca_Pais_Procedencia) 	REFERENCES Gral.tbPaises (pais_Codigo),
 	CONSTRAINT FK_Adua_tbDuca_duca_Pais_Exportacion_tbPaises_pais_codigo		FOREIGN KEY(duca_Pais_Exportacion) 	REFERENCES Gral.tbPaises (pais_Codigo),
 	CONSTRAINT FK_Adua_tbDuca_duca_Pais_Destino_tbPaises_pais_codigo			FOREIGN KEY(duca_Pais_Destino) 		REFERENCES Gral.tbPaises (pais_Codigo),

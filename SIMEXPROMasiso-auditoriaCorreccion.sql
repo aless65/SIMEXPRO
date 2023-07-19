@@ -566,7 +566,7 @@ CREATE TABLE Adua.tbImportadores(
 		decl_Id							INT				NOT NULL,
 		impo_NivelComercial_Otro		NVARCHAR(300)	NOT NULL,
 		impo_RTN                 		INT 			NOT NULL,
-		impo_NumRegistro         		INT 			NOT NULL,
+		impo_NumRegistro         		NVARCHAR(40) 	NOT NULL,
 		usua_UsuarioCreacion     		INT 			NOT NULL,
 		impo_FechaCreacion				DATETIME 		NOT NULL,
 		usua_UsuarioModificacion		INT,

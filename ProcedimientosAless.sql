@@ -1,4 +1,4 @@
------------------PROCEDIMIENTOS ALMACENADOS Y VISTAS GENERAL
+ -----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS GENERAL
 
 --**********ESTADOS CIVILES**********--
 
@@ -1284,7 +1284,7 @@ GO
 /*Vista que trae todos los campos de la parte  1 del formulario de la declaración de valor, incluso los que están en 
   otras tablas conectadas a tbDeclaraciones_Valor (no se incluyen las facturas ni las condiciones)*/
 GO
-CREATE OR ALTER PROCEDURE prod.UDP_tbDeclaraciones_ValorCompleto
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_ValorCompleto
 AS
 BEGIN
 	SELECT [deva_Id]							--AS declaracionId, 
@@ -1370,7 +1370,138 @@ BEGIN
 		   LEFT JOIN  [Adua].[tbIncoterm] inco					ON inco.inco_Id = deva.inco_Id
 		   LEFT JOIN  [Gral].[tbFormas_Envio] foen				ON foen.foen_Id = deva.foen_Id
 END
+GO
+
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclarantes_Insert
+	@decl_Nombre_Raso				NVARCHAR(250),
+	@decl_Direccion_Exacta			NVARCHAR(250),
+	@ciud_Id						INT,
+	@decl_Correo_Electronico		NVARCHAR(150),
+	@decl_Telefono					NVARCHAR(50),
+	@decl_Fax						NVARCHAR(50),
+	@usua_UsuarioCreacion			INT,
+	@decl_FechaCreacion				DATETIME,
+	@decl_Id						INT OUTPUT
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO [Adua].[tbDeclarantes](decl_Nombre_Raso, 
+										   decl_Direccion_Exacta, 
+										   ciud_Id, 
+										   decl_Correo_Electronico, 
+										   decl_Telefono, 
+										   decl_Fax, 
+										   usua_UsuarioCreacion, 
+										   decl_FechaCreacion)
+		VALUES(@decl_Nombre_Raso,
+			   @decl_Direccion_Exacta,
+			   @ciud_Id,
+			   @decl_Correo_Electronico,
+			   @decl_Telefono,
+			   @decl_Fax,
+			   @usua_UsuarioCreacion,
+			   @decl_FechaCreacion)
+
+		SET @decl_Id = SCOPE_IDENTITY()
+
+		RETURN @decl_Id
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab1_Insert
+	@deva_Aduana_Ingreso_Id				INT,
+	@deva_Aduana_Despacho_Id			INT,
+	@deva_Fecha_Aceptacion				DATETIME,
+	@decl_Nombre_Raso					NVARCHAR(250),
+	@impo_RTN							NVARCHAR(40),
+	@impo_NumRegistro					NVARCHAR(40),
+	@decl_Direccion_Exacta				NVARCHAR(250),
+	@ciud_Id							INT,
+	@decl_Correo_Electronico			NVARCHAR(150),
+	@decl_Telefono						NVARCHAR(50),
+	@decl_Fax							NVARCHAR(50),
+	@nico_Id							INT,
+	@impo_NivelComercial_Otro			INT,
+	@usua_UsuarioCreacion				INT,
+	@deva_FechaCreacion					DATETIME
+AS
+BEGIN
+	BEGIN TRANSACTION 
+	BEGIN TRY
+		
+		DECLARE @decl_Id INT;
+
+		EXEC adua.UDP_tbDeclarantes_Insert @decl_Nombre_Raso,
+										   @decl_Direccion_Exacta,
+										   @ciud_Id,
+										   @decl_Correo_Electronico,
+										   @decl_Telefono,
+										   @decl_Fax,
+										   @usua_UsuarioCreacion,
+										   @deva_FechaCreacion,
+										   @decl_Id OUTPUT
+
+		INSERT INTO [Adua].[tbImportadores](nico_Id, 
+											decl_Id, 
+											impo_NivelComercial_Otro, 
+											impo_RTN, 
+											impo_NumRegistro, 
+											usua_UsuarioCreacion, 
+											impo_FechaCreacion)
+		VALUES(@nico_Id, 
+			   @decl_Id,
+			   @impo_NivelComercial_Otro,
+			   @impo_RTN,
+			   @impo_NumRegistro,
+			   @usua_UsuarioCreacion,
+			   @deva_FechaCreacion)
+
+		DECLARE @impo_Id INT = SCOPE_IDENTITY()
+
+		INSERT INTO [Adua].[tbDeclaraciones_Valor](deva_Aduana_Ingreso_Id, 
+												   deva_Aduana_Despacho_Id, 
+												   deva_Fecha_Aceptacion, 
+												   impo_Id, 
+												   usua_UsuarioCreacion, 
+												   deva_FechaCreacion)
+		VALUES(@deva_Aduana_Ingreso_Id,
+			   @deva_Aduana_Despacho_Id,
+			   @deva_Fecha_Aceptacion,
+			   @impo_Id,
+			   @usua_UsuarioCreacion,
+			   @deva_FechaCreacion)
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRAN
+
+	END CATCH
+END
 
 
+--CREATE OR ALTER PROCEDURE prueba
+--	@id			INT,
+--	@response   INT OUTPUT
+--AS
+--BEGIN
+--	SET @response =  2 + @id 
+
+--	RETURN @response
+--END
+--GO
+
+--CREATE OR ALTER PROCEDURE OUTER_prueba 
+--	@id2			INT
+--AS
+--BEGIN
+--	DECLARE @response INT;
+--	EXEC prueba @id2, @response OUTPUT
+
+--	SELECT CONCAT(@response, ' outer procedure') 
+--END
 
 

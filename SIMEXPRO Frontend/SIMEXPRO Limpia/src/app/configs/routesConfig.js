@@ -53,6 +53,8 @@ import DocumentosDeSanciones from '../Aduanas/DocumentosDeSanciones/DocumentosDe
 import FormaDeEnvioIndex from '../Generales/FormasEnvio/FormasEnvio';
 import MonedasIndex from '../Generales/Monedas/monedas';
 
+import OrdenCompraIndex from '../Produccion/OrdenCompra/OrdenCompra';
+import OrdenCompra_Crear from '../Produccion/OrdenCompra/OrdenCompra_Crear';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -256,6 +258,14 @@ const routes = [
   {
     path: 'Aldea/Index',
     element: <AldeaIndex />,
+  },
+  {
+    path: 'OrdenCompra/Index',
+    element: <OrdenCompraIndex />,
+  },
+  {
+    path: 'OrdenCompra/Crear',
+    element: <OrdenCompra_Crear />,
   },
  
 ];

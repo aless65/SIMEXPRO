@@ -44,7 +44,7 @@ function DucaIndex() {
     {
       field: 'acciones',
       headerName: 'Acciones',
-      width: 500,
+      width: 600,
       renderCell: (params) => (
         <Stack direction="row" spacing={1}>
           <Button
@@ -96,6 +96,21 @@ function DucaIndex() {
             }}
           >
             Imprimir
+          </Button>
+          <Button
+            startIcon={<Icon>Pay</Icon>}
+            variant="contained"
+            color="info"     
+            style={{ borderRadius: '10px' }}
+            sx={{
+              backgroundColor: 'oran', color: 'white',
+              "&:hover": { backgroundColor: '#c3cbe0' },
+            }}
+            onClick={() => {
+              navigate('/BoletindePago/ImpresionBoletinDePago')
+            }}
+          >
+            Boletin
           </Button>
         </Stack>
       ),

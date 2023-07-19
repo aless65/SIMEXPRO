@@ -1026,6 +1026,7 @@ const rows2 = [
               }}
               onClick={(e) => {
                 setmostrarAddFD(!mostrarAddFD)
+                setmostrarAddF(!mostrarAddF)
               }}
             >
               Agregar Item
@@ -1054,24 +1055,7 @@ const rows2 = [
 
 
 
-                <Dialog
-        open={mostrarAddFD}
-        fullWidth="md"
-         maxWidth="md"           
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-        <Divider style={{ marginTop: '5px', marginBottom: '5px' }}>
-                  <Chip label="AÑADIR ITEMS A LA FACTURA" />
-                </Divider>
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-         
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
+                <Collapse in={mostrarAddFD}>
         <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
        
                 <Grid container spacing={3}>
@@ -1191,6 +1175,8 @@ const rows2 = [
                 }}
                 onClick={(e) => {
                   setmostrarAddFD(!mostrarAddFD)
+                  setmostrarAddF(!mostrarAddF)
+
                 }}
               >
                 Confirmar Adición de Item
@@ -1209,6 +1195,7 @@ const rows2 = [
                 onClick={(e) => {
               
                   setmostrarAddFD(false)
+                  setmostrarAddF(!mostrarAddF)
                 }}
               >
                     Cancelar Adición de Item
@@ -1216,8 +1203,7 @@ const rows2 = [
                     </Grid>
                 </Grid>
             </Grid>
-        </DialogActions>
-      </Dialog>
+            </Collapse>
              
 
            

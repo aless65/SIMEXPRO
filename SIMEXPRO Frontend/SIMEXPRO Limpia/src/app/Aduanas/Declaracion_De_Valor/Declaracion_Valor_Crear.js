@@ -987,6 +987,36 @@ const rows2 = [
                 Guardar Adición Factura
               </Button>
               </Collapse>
+
+
+
+              <Collapse in={mostrarBoton}>
+                  <Button
+                startIcon={<Icon>checked</Icon>}
+                variant="contained"
+                color="primary"
+                style={{ borderRadius: '10px', marginLeft: '-230px' }}
+                sx={{
+                  backgroundColor: '#634A9E',
+                  color: 'white',
+                  '&:hover': { backgroundColor: '#6e52ae' },
+                }}
+                onClick={(e) => {
+                  setmostrarAddH(!mostrarAddH )
+                  setmostrarAddF(!mostrarAddF)
+                  setmostrarAddFD(false)
+                  setmostrarBoton(false)
+                }}
+                
+              >
+                Guardar Factura
+              </Button>
+              </Collapse>
+
+
+
+
+              
               <Button
                 startIcon={<Icon>close</Icon>}
                 variant="contained"

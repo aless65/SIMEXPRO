@@ -2030,6 +2030,37 @@ CREATE TABLE Adua.tbConductor(
 );
 GO
 
+
+--CREATE TABLE Adua.tbTransportista
+--(  
+--    tras_Id                         INT IDENTITY(1,1),
+--    tras_Codigo                     NVARCHAR(150),
+--    tras_Nombre                     NVARCHAR(350),
+
+--    usua_UsuarioCreacion			INT NOT NULL,
+--	tras_FechaCreacion				DATETIME NOT NULL,
+--	usua_UsuarioModificacion 		INT DEFAULT NULL,
+--	tras_FechaModificacion			DATETIME DEFAULT NULL,
+--	usua_UsuarioEliminacion			INT DEFAULT NULL, 
+--	tras_FechaEliminacion			DATETIME DEFAULT NULL,
+--	tras_Estado 					BIT	NOT NULL DEFAULT 1,
+
+--	CONSTRAINT 	PK_Adua_tbTransportista_tras_Id  PRIMARY KEY(tras_Id),
+--	CONSTRAINT FK_Adua_tbTransportista_tbUsuarios_cont_UsuarioCreacion					FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios 	(usua_Id),
+--	CONSTRAINT FK_Adua_tbTransportista_tbUsuarios_cont_UsuarioModificacion				FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios 	(usua_Id),
+--	CONSTRAINT FK_Adua_tbTransportista_tbUsuarios_cont_UsuarioEliminacion				FOREIGN KEY (usua_UsuarioEliminacion) REFERENCES Acce.tbUsuarios 	(usua_Id),
+	    
+--)
+
+
+
+
+
+
+
+
+
+
 CREATE TABLE Prod.tbPedidosProduccion(
 	ppro_Id              			INT IDENTITY(1,1),
 	empr_Id              			INT NOT NULL,
@@ -2155,8 +2186,6 @@ CREATE TABLE Adua.tbDuca(
 	duca_Transportista_Nombre		NVARCHAR(MAX) NULL,
 	duca_Conductor_Id				INT NULL,
 	duca_Codigo_Tipo_Documento		CHAR(3) NOT NULL,
-
-
 	usua_UsuarioCreacion			INT NOT NULL,
 	duca_FechaCreacion				DATETIME NOT NULL,
 	usua_UsuarioModificacion		INT DEFAULT NULL,

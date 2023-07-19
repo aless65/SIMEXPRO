@@ -543,7 +543,7 @@ CREATE TABLE Adua.tbFormasdePago(
    		ciud_Id                  		INT NOT NULL,
    		decl_Correo_Electronico  		NVARCHAR(150) 	NOT NULL,
    		decl_Telefono            		NVARCHAR(50) 	NOT NULL,
-   		decl_Fax                 		NVARCHAR(50)	NOT NULL, 
+   		decl_Fax                 		NVARCHAR(50), 
    		usua_UsuarioCreacion            INT 			NOT NULL,
    		decl_FechaCreacion				DATETIME 		NOT NULL,
    		usua_UsuarioModificacion		INT,
@@ -564,8 +564,8 @@ CREATE TABLE Adua.tbImportadores(
 		impo_Id                  		INT 			IDENTITY(1,1),
 		nico_Id                  		INT 			NOT NULL,
 		decl_Id							INT				NOT NULL,
-		impo_NivelComercial_Otro		NVARCHAR(300)	NOT NULL,
-		impo_RTN                 		INT 			NOT NULL,
+		impo_NivelComercial_Otro		NVARCHAR(300),
+		impo_RTN                 		NVARCHAR(40) 	NOT NULL,
 		impo_NumRegistro         		INT 			NOT NULL,
 		usua_UsuarioCreacion     		INT 			NOT NULL,
 		impo_FechaCreacion				DATETIME 		NOT NULL,
@@ -679,30 +679,30 @@ CREATE TABLE Adua.tbDeclaraciones_Valor
 		deva_Id 						INT 				IDENTITY(1,1),
 		deva_Aduana_Ingreso_Id 			INT 				NOT NULL, 
 		deva_Aduana_Despacho_Id 		INT 				NOT NULL,
-		deva_Declaracion_Mercancia 		NVARCHAR(500) 		NOT NULL,
-		deva_Fecha_Aceptacion 			DATETIME 			NOT NULL,
-		impo_Id 						INT 				NOT NULL,
-		pvde_Id 						INT 				NOT NULL,
-		inte_Id 						INT 				NOT NULL,
-		deva_Lugar_Entrega 				NVARCHAR(800) 		NOT NULL,
-		inco_Id 						INT					NOT NULL,
-		deva_numero_contrato 			NVARCHAR(200) 		NOT NULL,
-		deva_Fecha_Contrato 			DATETIME 			NOT NULL,
-		foen_Id 						INT 				NOT NULL,
-		deva_Forma_Envio_Otra 			NVARCHAR(500) 		NOT NULL,
-		deva_Pago_Efectuado 			BIT 				NOT NULL,
-		fopa_Id 						INT 				NOT NULL,
-		deva_Forma_Pago_Otra 			NVARCHAR(200) 		NOT NULL,
-		deva_Lugar_Embarque 			NVARCHAR(500) 		NOT NULL,
-		pais_Embarque_Id 				INT 				NOT NULL,
-		pais_Exportacion_Id 			INT 				NOT NULL,
-		deva_Fecha_Exportacion  		DATETIME 			NOT NULL,
-		mone_Id 						INT					NOT NULL,
-		mone_Otra 						NVARCHAR(200)		NOT NULL,
-		deva_Conversion_Dolares 		DECIMAL(18,2) 		NOT NULL,
-		deva_Condiciones 				NVARCHAR(MAX) 		NOT NULL,
-		usua_UsuarioCreacion 			INT 				NOT NULL,
-		deva_FechaCreacion  			DATETIME 			NOT NULL,
+		deva_Declaracion_Mercancia 		NVARCHAR(500),
+		deva_Fecha_Aceptacion 			DATETIME,
+		impo_Id 						INT,
+		pvde_Id 						INT,
+		inte_Id 						INT,
+		deva_Lugar_Entrega 				NVARCHAR(800),
+		inco_Id 						INT,
+		deva_numero_contrato 			NVARCHAR(200),
+		deva_Fecha_Contrato 			DATETIME,
+		foen_Id 						INT,
+		deva_Forma_Envio_Otra 			NVARCHAR(500),
+		deva_Pago_Efectuado 			BIT,
+		fopa_Id 						INT,
+		deva_Forma_Pago_Otra 			NVARCHAR(200),
+		deva_Lugar_Embarque 			NVARCHAR(500),
+		pais_Embarque_Id 				INT,
+		pais_Exportacion_Id 			INT,
+		deva_Fecha_Exportacion  		DATETIME,
+		mone_Id 						INT,
+		mone_Otra 						NVARCHAR(200),
+		deva_Conversion_Dolares 		DECIMAL(18,2),
+		deva_Condiciones 				NVARCHAR(MAX),
+		usua_UsuarioCreacion 			INT,
+		deva_FechaCreacion  			DATETIME,
 		usua_UsuarioModificacion		INT,
 		deva_FechaModificacion  		DATETIME,
 		usua_UsuarioEliminacion 		INT					DEFAULT NULL,
@@ -1347,7 +1347,7 @@ CREATE TABLE Prod.tbClientes(
 	clie_Id						INT IDENTITY(1,1),
 	clie_Nombre_O_Razon_Social	NVARCHAR(200)NOT NULL,
 	clie_Direccion				NVARCHAR(250)NOT NULL,
-	clie_RTN					CHAR(13)NOT NULL,
+	clie_RTN					NVARCHAR(40)NOT NULL,
 	clie_Nombre_Contacto		NVARCHAR(200)NOT NULL,
 	clie_Numero_Contacto		CHAR(50)NOT NULL,
 	clie_Correo_Electronico		NVARCHAR(200)NOT NULL,
@@ -1430,7 +1430,7 @@ GO
 
 CREATE TABLE Adua.tbPersonas (
 	pers_Id 					INT IDENTITY(1,1),
-	pers_RTN 					VARCHAR(20) NOT NULL,
+	pers_RTN 					NVARCHAR(40) NOT NULL,
 	ofic_Id 					INT NOT NULL,
 	escv_Id 					INT NOT NULL,
 	ofpr_Id 					INT NOT NULL,
@@ -1473,16 +1473,6 @@ CREATE TABLE Adua.tbComercianteIndividual (
   	coin_TelefonoFijo				    NVARCHAR(20) NOT NULL,
   	coin_CorreoElectronico		    	NVARCHAR(30) NOT NULL,
   	coin_CorreoElectronicoAlternativo 	NVARCHAR(30),
-  	coin_ComercainteRTN			    	VARCHAR(30) NOT NULL,
-  	coin_ArchivoRTNComerciante			NVARCHAR(MAX) NOT NULL,
-  	coin_ComercainteDNI					VARCHAR(30) NOT NULL,
-  	coin_ArchivoDNIComerciante			NVARCHAR(MAX) NOT NULL,
-  	coin_RepresentanteRTN				VARCHAR(30) NOT NULL,
-  	coin_ArchivoRTNRepresentante	    NVARCHAR(MAX) NOT NULL,
-  	coin_RepresentanteDNI				VARCHAR(30) NOT NULL,
-  	coin_ArchivoDNIRepresentante		NVARCHAR(MAX) NOT NULL,
-  	coin_Declaracion					NVARCHAR(50) NOT NULL,
-  	coin_ArchivoDeclaracion				NVARCHAR(MAX) NOT NULL,
  
   	usua_UsuarioCreacion       			INT NOT NULL,
   	coin_FechaCreacion         			DATETIME NOT NULL,
@@ -1514,9 +1504,9 @@ CREATE TABLE Adua.tbPersonaNatural (
   	pena_TelefonoCelular		NVARCHAR(20),
   	pena_CorreoElectronico		NVARCHAR(50) NOT NULL,
   	pena_CorreoAlternativo		NVARCHAR(50),
-  	pena_RTN					VARCHAR(20) NOT NULL,
+  	pena_RTN					NVARCHAR(40) NOT NULL,
   	pena_ArchivoRTN				NVARCHAR(MAX) NOT NULL,
-  	pena_DNI					VARCHAR(20) NOT NULL,
+  	pena_DNI					NVARCHAR(40) NOT NULL,
   	pena_ArchivoDNI				NVARCHAR(MAX) NOT NULL,
   	pena_NumeroRecibo			VARCHAR(100) NOT NULL,
   	pena_ArchivoNumeroRecibo	NVARCHAR(MAX) NOT NULL,
@@ -1554,10 +1544,6 @@ CREATE TABLE Adua.tbPersonaJuridica (
 	peju_TelefonoRepresentanteLegal	  				NVARCHAR(200) NOT NULL,
 	peju_CorreoElectronico              			NVARCHAR(200) NOT NULL,
 	peju_CorreoElectronicoAlternativo   			NVARCHAR(200) NOT NULL,
-	peju_Rtn_sociedad_mercantil		  				NVARCHAR(200) NOT NULL,
-	peju_Rtn_representante_legal        			NVARCHAR(200) NOT NULL,
-	peju_Documento_identidad_representante 			NVARCHAR(200) NOT NULL,
-	peju_escritura_constitucional_modificaciones 	NVARCHAR(200) NOT NULL,
   
 	usua_UsuarioCreacion       						INT NOT NULL,
 	peju_FechaCreacion         						DATETIME NOT NULL,
@@ -1579,6 +1565,37 @@ CREATE TABLE Adua.tbPersonaJuridica (
 );
 
 GO
+
+--Se identificarán los tipos de documentos según acortaciones
+--RTN-CI:  REGISTRO TRIBUTARIO NACIONAL (RTN) DEL COMERCIANTE INDIVIDUAL
+--DNI-CI:  DOCUMENTO O TARJETA DE IDENTIDAD DEL COMERCIANTE INDIVIDUAL
+--RTN-RL:  REGISTRO TRIBUTARIO NACIONAL (RTN) DEL REPRESENTANTE LEGAL (SI HA INFORMADO REPRESENTACION BAJO REPRESENTANTE LEGAL)
+--DNI-RL:  DOCUMENTO O TARJETA DE IDENTIDAD DEL REPRESENTANTE LEGAL (SI HA INFORMADO REPRESENTACION BAJO REPRESENTANTE LEGAL)
+--DECL-CI: DECLARACIÓN DE COMERCIANTE INDIVIDUAL Y SUS MODIFICACIONES SI LAS HUBIERA
+--RTN-SM:  REGISTRO TRIBUTARIO NACIONAL (RTN) DE LA SOCIEDAD MERCANTIL
+--EPC-SM:  ESCRITURA PUBLICA DE CONSTITUCIÓN Y SUS MODIFICACIONES SI LAS HUBIERA (DE LA SOCIEDAD MERCANTIL)
+
+CREATE TABLE Adua.tbDocumentosContratos(
+	doci_Id								INT IDENTITY(1,1),
+	coin_Id								INT,
+	peju_Id								INT,
+	doci_Numero_O_Referencia			NVARCHAR(50) NOT NULL,
+	doci_TipoDocumento					NVARCHAR(6),
+
+	usua_UsuarioCreacion       			INT NOT NULL,
+  	doci_FechaCreacion         			DATETIME NOT NULL,
+  	usua_UsuarioModificacion   			INT DEFAULT NULL,
+  	doci_FechaModificacion     			DATETIME DEFAULT NULL,	
+  	doci_Estado                			BIT DEFAULT 1,
+
+	CONSTRAINT PK_Adua_tbDocumentosContratos_doci_Id PRIMARY KEY(doci_Id),
+	CONSTRAINT CK_Adua_tbDocumentosContratos_doci_TipoDocumento CHECK(doci_TipoDocumento IN('RTN-CI', 'DNI-CI', 'RTN-RL', 'DNI-RL', 'DECL-CI', 'RTN-SM', 'EPC-SM')),
+	CONSTRAINT FK_Adua_tbDocumentosContratos_tbComercianteIndividual_coin_Id						  FOREIGN KEY(coin_Id)					 REFERENCES Adua.tbComercianteIndividual(coin_Id),
+	CONSTRAINT FK_Adua_tbDocumentosContratos_tbPersonaJuridica_peju_Id								  FOREIGN KEY(peju_Id)					 REFERENCES Adua.tbPersonaJuridica(peju_Id),
+	CONSTRAINT FK_Adua_tbDocumentosContratos_coin_UsuarioCreacion_Acce_tbUsuarios_usua_Id		   	  FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
+  	CONSTRAINT FK_Adua_tbDocumentosContratos_coin_UsuarioModificacion_Acce_tbUsuarios_usua_Id		  FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id)
+);
+
 -----------------------------------------------------------
 
 
@@ -1853,7 +1870,8 @@ CREATE TABLE Prod.tbAsignacionesOrden(
 	asor_OrdenDetId				INT NOT NULL,
 	asor_FechaInicio			DATETIME NOT NULL,
 	asor_FechaLimite			DATETIME NOT NULL,
-	asor_EstadoDet				NVARCHAR NOT NULL,
+	--asor_EstadoDet				NVARCHAR NOT NULL,
+	asor_Cantidad				INT NOT NULL,
 	proc_Id						INT NOT NULL,
 	empl_Id						INT NOT NULL,
 
@@ -1883,7 +1901,6 @@ CREATE TABLE Prod.tbLotes(
 	lote_CantIngresada			INT NOT NULL,
 	lote_Observaciones			NVARCHAR(500),
 	tipa_Id						INT NOT NULL,
-	lote_Est					BIT NOT NULL,
 
 	usua_UsuarioCreacion		INT NOT NULL,
 	lote_FechaCreacion			DATETIME NOT NULL,
@@ -1907,7 +1924,6 @@ CREATE TABLE Prod.tbAsignacionesOrdenDetalle(
 	adet_Id						INT IDENTITY(1,1), 
 	lote_Id						INT NOT NULL, 
 	adet_Cantidad				INT NOT NULL, 
-	adet_EstadoAsig				NVARCHAR(15),	
 	
 	usua_UsuarioCreacion		INT NOT NULL,
 	adet_FechaCreacion			DATETIME NOT NULL,
@@ -2494,17 +2510,18 @@ GO
 CREATE TABLE Adua.tbBoletinPago(
     boen_Id                        INT IDENTITY(1,1),
     liqu_Id                        INT NOT NULL,
+	duca_No_Duca				   NVARCHAR(100),
     tipl_Id                        INT NOT NULL,
     boen_FechaEmision              DATE NOT NULL,
     esbo_Id                        INT NOT NULL,
     boen_Observaciones	           NVARCHAR(200) NOT NULL,
     boen_NDeclaracion	           NVARCHAR(200) NOT NULL,
-    pena_RTN                       VARCHAR(20) NOT NULL,
+    pena_RTN                       NVARCHAR(40) NOT NULL,
     boen_Preimpreso                NVARCHAR(MAX) NOT NULL,
     boen_Declarante                NVARCHAR(200) NOT NULL,
     boen_TotalPagar                DECIMAL(18,2) NULL,
     boen_TotalGarantizar           DECIMAL(18,2) NULL,
-    boen_RTN                       NVARCHAR(100) NOT NULL,
+    boen_RTN                       NVARCHAR(40) NOT NULL,
     boen_TipoEncabezado            NVARCHAR(200) NOT NULL,
     coim_Id                        INT NOT NULL,
     copa_Id                        INT NOT NULL,
@@ -2513,17 +2530,18 @@ CREATE TABLE Adua.tbBoletinPago(
     boen_FechaCreacion             DATETIME NOT NULL,
     usua_UsuarioModificacion       INT DEFAULT NULL,
     boen_FechaModificacion         DATETIME DEFAULT NULL,
-	usua_UsuarioEliminacion	    INT	DEFAULT NULL,
-	boen_FechaEliminacion		DATETIME DEFAULT NULL,
+	usua_UsuarioEliminacion		   INT	DEFAULT NULL,
+	boen_FechaEliminacion		   DATETIME DEFAULT NULL,
     boen_Estado                    BIT NOT NULL,
     CONSTRAINT PK_Adua_tbBoletinPago_boen_Id 									      PRIMARY KEY (boen_Id),
     CONSTRAINT FK_Adua_tbBoletinPago_lige_Id_Adua_tbLiquidacionGeneral_lige_Id 		  FOREIGN KEY (liqu_Id)                  REFERENCES Adua.tbLiquidacionGeneral(lige_Id),
+	CONSTRAINT FK_Adua_tbBoletinPago_tbDuca_duca_No_Duca							  FOREIGN KEY (duca_No_Duca)			 REFERENCES Adua.tbDuca(duca_No_Duca),
     CONSTRAINT FK_Adua_tbBoletinPago_tipl_Id_Adua_tbTipoLiquidacion_tipl_Id 		  FOREIGN KEY (tipl_Id)                  REFERENCES Adua.tbTipoLiquidacion(tipl_Id),
     CONSTRAINT FK_Adua_tbBoletinPago_esbo_Id_Adua_tbEstadoBoletin_esbo_Id 			  FOREIGN KEY (esbo_Id)                  REFERENCES Adua.tbEstadoBoletin(esbo_Id),
     CONSTRAINT FK_Adua_tbBoletinPago_coim_Id_Adua_tbCodigoImpuesto_coim_Id 			  FOREIGN KEY (coim_Id)                  REFERENCES Adua.tbCodigoImpuesto(coim_Id),
 	CONSTRAINT FK_Adua_tbBoletinPago_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id     FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
     CONSTRAINT FK_Adua_tbBoletinPago_Acce_tbUsuarios_usua_UsuModificacion_usua_Id     FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Adua_tbBoletinPago_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
+	CONSTRAINT FK_Adua_tbBoletinPago_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios (usua_Id)
 );
 GO
 

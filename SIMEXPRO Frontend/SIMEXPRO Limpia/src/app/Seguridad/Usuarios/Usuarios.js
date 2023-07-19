@@ -1,3 +1,5 @@
+/* eslint-disable no-lone-blocks */
+/* eslint-disable prettier/prettier */
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -35,7 +37,7 @@ function UsuariosIndex() {
     setEliminar(!Eliminar);
   };
 
-  {/*Columnas de la tabla*/ }
+  {/* Columnas de la tabla */ }
   const columns = [
     { field: 'id', headerName: 'Id', width: 10 },
     { field: 'usuario', headerName: 'Usuario', flex: 1 },
@@ -89,8 +91,7 @@ function UsuariosIndex() {
     },
   ];
 
-
-  {/*Datos de la tabla*/ }
+  {/* Datos de la tabla */ }
   const rows = [
     { id: '1', usuario: 'IsHatake', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
     { id: '2', usuario: 'Admin', empleado: 'Jafet Gomez', rol: 'Administrador de Seguridad' },
@@ -98,35 +99,34 @@ function UsuariosIndex() {
 
   ];
 
-  {/*Función para mostrar la tabla y mostrar agregar*/ }
+  {/* Función para mostrar la tabla y mostrar agregar */ }
   const VisibilidadTabla = () => {
     setmostrarIndex(!mostrarIndex);
     setmostrarAdd(!mostrarAdd);
   };
 
-
-
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
   };
 
-  {/*Filtrado de datos*/ }
+  {/* Filtrado de datos */ }
   const filteredRows = rows.filter((row) =>
     row.usuario.toLowerCase().includes(searchText.toLowerCase())
   );
 
+  
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/T4VqYmN/Headers-SIMEXPRO-3.png"
+        image="https://i.ibb.co/RgGNgZP/USUARIOS.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
 
-          {/*Botón de Nuevo*/}
+          {/* Botón de Nuevo */}
           <Stack direction="row" spacing={1}>
             <Button
               startIcon={<Icon>add</Icon>}
@@ -143,7 +143,7 @@ function UsuariosIndex() {
             </Button>
           </Stack>
 
-          {/*Barra de Busqueda en la Tabla*/}
+          {/* Barra de Busqueda en la Tabla */}
           <TextField
             style={{ borderRadius: '10px' }}
             placeholder='Buscar'
@@ -164,7 +164,7 @@ function UsuariosIndex() {
         </CardContent>
       </Collapse>
 
-      {/*Tabla*/}
+      {/* Tabla */}
       <Collapse in={mostrarIndex}>
         <div style={{ height: 400, width: '100%' }}>
           <DataGrid
@@ -186,7 +186,7 @@ function UsuariosIndex() {
       </Collapse>
 
 
-      {/*Formulario Agregar*/}
+      {/* Formulario Agregar */}
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
@@ -224,7 +224,7 @@ function UsuariosIndex() {
               >
                 <InputLabel htmlFor="grouped-native-select">Empleado</InputLabel>
                 <Select
-                  style={{ borderRadius: '10px' }}
+                  style={{ borderRadius: '3px' }}
                   label="Empleado"
                 />
               </FormControl>
@@ -236,7 +236,7 @@ function UsuariosIndex() {
               >
                 <InputLabel htmlFor="grouped-native-select">Rol</InputLabel>
                 <Select
-                  style={{ borderRadius: '10px' }}
+                  style={{ borderRadius: '3px' }}
                   label="Rol"
                 />
               </FormControl>
@@ -289,13 +289,13 @@ function UsuariosIndex() {
 
       <Dialog
         open={Eliminar}
-        fullWidth={'md'}
+        fullWidth="md"
         onClose={DialogEliminar}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Confirmación de Eliminación"}
+          Confirmación de Eliminación
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">

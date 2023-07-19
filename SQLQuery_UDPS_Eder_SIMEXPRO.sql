@@ -594,7 +594,7 @@ GO
 CREATE OR ALTER PROCEDURE Gral.UDP_tbEmpleados_Listar
 AS
 BEGIN
-<<<<<<< Updated upstream
+
 SELECT empl.empl_Id									,
 		empl_Nombres								,
 		empl_Apellidos								,
@@ -635,7 +635,7 @@ FROM	[Gral].[tbEmpleados] empl
 		INNER JOIN [Gral].[tbPaises] pais			ON pvin.pais_Id = pais.pais_Id 
 		INNER JOIN [Gral].[tbCargos] carg			ON empl.carg_Id = carg.carg_Id
 WHERE	empl_Estado = 1
-=======
+
 	SELECT empl.empl_Id								AS empleadoId, 
 		   empl_Nombres								AS empleadoNombres, 
 		   empl_Apellidos							AS empleadoApellidos,
@@ -683,7 +683,7 @@ INNER JOIN Gral.tbPaises pais
 INNER JOIN Gral.tbCargos carg
 		ON empl.carg_Id = carg.carg_Id
 	 WHERE empl_Estado = 1
->>>>>>> Stashed changes
+
 END
 GO
 
@@ -905,7 +905,7 @@ GO
 CREATE OR ALTER PROCEDURE prod.UDP_tbFuncionesMaquina_Listar
 AS
 BEGIN
-<<<<<<< Updated upstream
+
 SELECT func_Id										,
 		func_Nombre									,
 		func.usua_UsuarioCreacion					,
@@ -923,7 +923,7 @@ FROM	[Prod].[tbFuncionesMaquina] func
 		LEFT JOIN [Acce].[tbUsuarios] usuaModifica	ON func.usua_UsuarioModificacion = usuaCrea.usua_Id 
 		LEFT JOIN [Acce].[tbUsuarios] usuaElimina	ON func.usua_UsuarioEliminacion = usuaCrea.usua_Id 
 WHERE	func_Estado = 1
-=======
+
 	SELECT func_Id							AS funcionId, 
 		   func_Nombre						AS funcionNombre, 
 		   func.usua_UsuarioCreacion		AS usuarioCreacion, 
@@ -944,7 +944,7 @@ INNER JOIN Acce.tbUsuarios usuaCrea
  LEFT JOIN Acce.tbUsuarios usuaElimina
 		ON func.usua_UsuarioEliminacion = usuaCrea.usua_Id 
 	 WHERE func_Estado = 1
->>>>>>> Stashed changes
+
 END
 GO
 
@@ -1061,7 +1061,7 @@ GO
 CREATE OR ALTER PROCEDURE prod.UDP_tbCategoria_Listar
 AS
 BEGIN
-<<<<<<< Updated upstream
+
 SELECT	cate_Id										,
 		cate_Descripcion							,
 		cate.usua_UsuarioCreacion					,
@@ -1079,7 +1079,7 @@ FROM	[Prod].[tbCategoria] cate
 		LEFT JOIN [Acce].[tbUsuarios] usuaModifica	ON cate.usua_UsuarioModificacion = usuaCrea.usua_Id 
 		LEFT JOIN [Acce].[tbUsuarios] usuaElimina	ON cate.usua_UsuarioEliminacion = usuaCrea.usua_Id 
 WHERE cate_Estado = 1
-=======
+
 	SELECT cate_Id							AS categoriaId, 
 		   cate_Descripcion					AS categoriaDescripcion, 
 		   cate.usua_UsuarioCreacion		AS usuarioCreacion, 
@@ -1100,7 +1100,7 @@ INNER JOIN Acce.tbUsuarios usuaCrea
  LEFT JOIN Acce.tbUsuarios usuaElimina
 		ON cate.usua_UsuarioEliminacion = usuaCrea.usua_Id 
 	 WHERE cate_Estado = 1
->>>>>>> Stashed changes
+
 END
 GO
 

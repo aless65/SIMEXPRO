@@ -895,3 +895,51 @@ BEGIN
 	END CATCH
 END
 GO
+
+--************************************** DUCA ******************************************--
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbDuca_Listar
+AS
+BEGIN
+	SELECT 
+		duca_No_Duca, 
+		duca_No_Correlativo_Referencia, 
+		deva_Id, duca_AduanaRegistro, 
+		duca_AduanaSalida, 
+		duca_DomicilioFiscal_Exportador, 
+		duca_Tipo_Iden_Exportador, 
+		duca_Pais_Emision_Exportador, 
+		duca_Numero_Id_Importador, 
+		duca_Pais_Emision_Importador,
+		duca_DomicilioFiscal_Importador, 
+		duca_Regimen_Aduanero, duca_Modalidad, 
+		duca_Clase, duca_Codigo_Declarante,
+		duca_Numero_Id_Declarante, 
+		duca_NombreSocial_Declarante,
+		duca_DomicilioFiscal_Declarante, 
+		duca_Pais_Procedencia, 
+		duca_Pais_Exportacion, 
+		duca_Pais_Destino, 
+		duca_Deposito_Aduanero,
+		duca_Lugar_Embarque,
+		duca_Lugar_Desembarque, 
+		duca_Manifiesto, 
+		duca_Titulo, 
+		duca_Codigo_Transportista,
+		motr_id, 
+		duca_Transportista_Nombre,
+		duca_Conductor_Id, 
+		duca_Codigo_Tipo_Documento, 
+		usua_UsuarioCreacion, 
+		duca_FechaCreacion, 
+		usua_UsuarioModificacion, 
+		duca_FechaModificacion, 
+		duca_Estado
+	FROM Adua.tbDuca duca 
+		INNER JOIN Acce.tbUsuarios usu1				ON duca.usua_UsuarioCreacion = usu1.usua_Id
+		LEFT JOIN  Acce.tbUsuarios usu2				ON duca.usua_UsuarioModificacion = usu2.usua_Id
+		LEFT JOIN  Adua.tbConductor cond			ON duca.duca_Conductor_Id = cond.cont_Id
+		INNER JOIN Adua.tbDeclaraciones_Valor deva	ON duca.deva_Id = deva.deva_Id
+		INNER JOIN 
+END
+GO

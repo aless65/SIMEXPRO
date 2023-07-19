@@ -724,7 +724,6 @@ CREATE TABLE Adua.tbDeclaraciones_Valor
 	CONSTRAINT FK_Acce_tbUsuarios_Adua_tbDeclaraciones_Valor_deva_UsuarioCreacion FOREIGN KEY (usua_UsuarioCreacion) REFERENCES Acce.tbUsuarios(usua_Id),
 	CONSTRAINT FK_Acce_tbUsuarios_Adua_tbDeclaraciones_Valor_deva_usua_UsuarioModificacion FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios(usua_Id),
 	CONSTRAINT FK_Acce_tbUsuarios_Adua_tbDeclaraciones_Valor_deva_usua_UsuarioEliminacion  FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios(usua_Id)
-
 )
 
 
@@ -2132,9 +2131,9 @@ CREATE TABLE Adua.tbDuca(
 	duca_AduanaSalida				INT NOT NULL,
 	duca_DomicilioFiscal_Exportador NVARCHAR(MAX) NOT NULL,
 	duca_Tipo_Iden_Exportador		NVARCHAR(100) NOT NULL,
-	duca_Pais_Emision_Exportador	CHAR(2) NOT NULL,
+	duca_Pais_Emision_Exportador	INT NOT NULL,
 	duca_Numero_Id_Importador		NVARCHAR(100) NOT NULL,
-	duca_Pais_Emision_Importador	CHAR(2) NOT NULL,
+	duca_Pais_Emision_Importador	INT NOT NULL,
 	duca_DomicilioFiscal_Importador NVARCHAR(MAX) NOT NULL,
 	duca_Regimen_Aduanero			NVARCHAR(MAX) NOT NULL,
 	duca_Modalidad					NVARCHAR(MAX) NOT NULL,
@@ -2143,9 +2142,9 @@ CREATE TABLE Adua.tbDuca(
 	duca_Numero_Id_Declarante		NVARCHAR(200) NOT NULL,
 	duca_NombreSocial_Declarante	NVARCHAR(MAX) NOT NULL,
 	duca_DomicilioFiscal_Declarante NVARCHAR(MAX) NOT NULL,
-	duca_Pais_Procedencia			CHAR(2) NOT NULL,
-	duca_Pais_Exportacion			CHAR(2) NOT NULL,
-	duca_Pais_Destino				CHAR(2) NOT NULL,
+	duca_Pais_Procedencia			INT NOT NULL,
+	duca_Pais_Exportacion			INT NOT NULL,
+	duca_Pais_Destino				INT NOT NULL,
 	duca_Deposito_Aduanero			NVARCHAR(MAX) NOT NULL,
 	duca_Lugar_Embarque				NVARCHAR(MAX) NOT NULL,
 	duca_Lugar_Desembarque			NVARCHAR(MAX) NOT NULL,
@@ -2167,16 +2166,18 @@ CREATE TABLE Adua.tbDuca(
 	duca_Estado 					BIT DEFAULT 1
 	
 	CONSTRAINT PK_Adua_tbDuca_duca_No_Duca PRIMARY KEY(duca_No_Duca),
-	CONSTRAINT FK_Adua_tbConductor_cont_Id_Adua_tbDuca_duca_Conductor_Id        FOREIGN KEY(duca_Conductor_Id) 		REFERENCES Adua.tbConductor(cont_Id),
-	CONSTRAINT FK_Adua_tbDuca_duca_Pais_Procedencia_tbPaises_pais_codigo		FOREIGN KEY(duca_Pais_Procedencia) 	REFERENCES Gral.tbPaises (pais_Codigo),
-	CONSTRAINT FK_Adua_tbDuca_duca_Pais_Exportacion_tbPaises_pais_codigo		FOREIGN KEY(duca_Pais_Exportacion) 	REFERENCES Gral.tbPaises (pais_Codigo),
-	CONSTRAINT FK_Adua_tbDuca_duca_Pais_Destino_tbPaises_pais_codigo			FOREIGN KEY(duca_Pais_Destino) 		REFERENCES Gral.tbPaises (pais_Codigo),
-	CONSTRAINT FK_Adua_tbDuca_duca_Pais_Emision_Exportador_tbPaises_pais_codigo	FOREIGN KEY(duca_Pais_Emision_Exportador) 		REFERENCES Gral.tbPaises (pais_Codigo),
-	CONSTRAINT FK_Adua_tbDuca_duca_Pais_Emision_Importador_tbPaises_pais_codigo	FOREIGN KEY(duca_Pais_Emision_Importador) 		REFERENCES Gral.tbPaises (pais_Codigo),
-	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_deva_Id_Adua_tbDeclaraciondeValor 	FOREIGN KEY (deva_Id) 				REFERENCES Adua.tbDeclaraciones_Valor(deva_Id),
-	CONSTRAINT FK_Adua_tbDuca_tbUsuarios_duca_UsuCrea			               	FOREIGN KEY (usua_UsuarioCreacion)     		REFERENCES Acce.tbUsuarios 	(usua_Id),
-	CONSTRAINT FK_Prod_tbDuca_tbUsuarios_duca_UsuModifica		               	FOREIGN KEY (usua_UsuarioModificacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id),
-	CONSTRAINT FK_Adua_tbDuca_tbTipoTransporte_motr_Id			                FOREIGN KEY (motr_id)            REFERENCES Adua.tbModoTransporte(motr_id),
+	CONSTRAINT FK_Adua_tbConductor_cont_Id_Adua_tbDuca_duca_Conductor_Id        FOREIGN KEY(duca_Conductor_Id) 		            REFERENCES Adua.tbConductor(cont_Id),
+	CONSTRAINT FK_Adua_tbDuca_duca_Pais_Procedencia_tbPaises_pais_Id			FOREIGN KEY(duca_Pais_Procedencia) 	            REFERENCES Gral.tbPaises (pais_Id),
+	CONSTRAINT FK_Adua_tbDuca_duca_Pais_Exportacion_tbPaises_pais_Id			FOREIGN KEY(duca_Pais_Exportacion) 	            REFERENCES Gral.tbPaises (pais_Id),
+	CONSTRAINT FK_Adua_tbDuca_duca_Pais_Destino_tbPaises_pais_Id				FOREIGN KEY(duca_Pais_Destino) 		            REFERENCES Gral.tbPaises (pais_Id),
+	CONSTRAINT FK_Adua_tbDuca_duca_Pais_Emision_Exportador_tbPaises_pais_Id		FOREIGN KEY(duca_Pais_Emision_Exportador) 		REFERENCES Gral.tbPaises (pais_Id),
+	CONSTRAINT FK_Adua_tbDuca_duca_Pais_Emision_Importador_tbPaises_pais_Id		FOREIGN KEY(duca_Pais_Emision_Importador) 		REFERENCES Gral.tbPaises (pais_Id),
+	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_deva_Id_Adua_tbDuca_deva_Id		FOREIGN KEY (deva_Id) 							REFERENCES Adua.tbDeclaraciones_Valor(deva_Id),
+	CONSTRAINT FK_Adua_tbDuca_tbUsuarios_duca_UsuCrea			               	FOREIGN KEY (usua_UsuarioCreacion)     			REFERENCES Acce.tbUsuarios 	(usua_Id),
+	CONSTRAINT FK_Prod_tbDuca_tbUsuarios_duca_UsuModifica		               	FOREIGN KEY (usua_UsuarioModificacion) 			REFERENCES Acce.tbUsuarios 	(usua_Id),
+	CONSTRAINT FK_Adua_tbDuca_motr_id_tbModoTransporte_motr_Id			        FOREIGN KEY (motr_id)							REFERENCES Adua.tbModoTransporte(motr_id),
+	CONSTRAINT FK_Adua_tbDuca_duca_AduanaRegistro_tbAduana_adua_Id              FOREIGN KEY (duca_AduanaRegistro)               REFERENCES Adua.tbAduanas(adua_Id),
+	CONSTRAINT FK_Adua_tbDuca_duca_AduanaSalida_tbAduana_adua_Id              FOREIGN KEY (duca_AduanaSalida)                   REFERENCES Adua.tbAduanas(adua_Id)
 	--CONSTRAINT FK_Adua_tbDuca__Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO

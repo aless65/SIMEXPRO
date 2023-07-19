@@ -1281,10 +1281,10 @@ GO
 --GO
 
 -----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS MÓDULO PRODUCCIÓN
-/*Vista que trae todos los campos de la parte  1 del formulario de la declaración de valor, incluso los que están en 
+/*Vista que trae todos los campos de la parte 1 (información general) del formulario de la declaración de valor, incluso los que están en 
   otras tablas conectadas a tbDeclaraciones_Valor (no se incluyen las facturas ni las condiciones)*/
 GO
-CREATE OR ALTER PROCEDURE prod.UDP_tbDeclaraciones_ValorCompleto
+CREATE OR ALTER PROCEDURE prod.UDP_tbDeclaraciones_Valor_InformacíonGeneral
 AS
 BEGIN
 	SELECT [deva_Id]							--AS declaracionId, 
@@ -1373,4 +1373,9 @@ END
 
 
 
-
+CREATE OR ALTER PROCEDURE Adua.UDP_tbDeclaraciones_Valor_Tab1
+	@deva_Aduana_Ingreso_Id				INT,
+	@deva_Aduana_Despacho_Id			INT,
+    @deva_Fecha_Aceptacion				DATETIME,
+	@decl_Nombre_Raso					NVARCHAR(250),
+	@impo_RTN							INT,

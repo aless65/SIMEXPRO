@@ -54,6 +54,7 @@ import FormaDeEnvioIndex from '../Generales/FormasEnvio/FormasEnvio';
 import MonedasIndex from '../Generales/Monedas/monedas';
 import OrdenProcesosIndex from '../Produccion/OrdenDeProcesos/OrdenDeProcesos';
 import CalendarApp from '../Produccion/Planificación/CalendarApp';
+import MaquinasIndex from '../Maquinaria/Máquinas/Maquinas';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -265,6 +266,10 @@ const routes = [
   {
     path: 'Planificacion/Index',
     element: <CalendarApp />,
+  },
+  {
+    path: 'Maquinas/Index',
+    element: <MaquinasIndex />,
   },
 ];
 

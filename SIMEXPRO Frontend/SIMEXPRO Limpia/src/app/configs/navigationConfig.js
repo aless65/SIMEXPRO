@@ -377,7 +377,7 @@ const navigationConfig = [
             url: '/Maquinaria/MarcasMaquina',
           },
           {
-            id: 'Maquinaria.MarcasMaquina',
+            id: 'Maquinaria.Maquina',
             title: 'Máquinas',
             type: 'item',
             icon: 'material-outline:precision_manufacturing',

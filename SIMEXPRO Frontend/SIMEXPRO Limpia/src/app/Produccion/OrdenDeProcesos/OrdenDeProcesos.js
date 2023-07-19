@@ -30,39 +30,26 @@ import { DateTimePicker } from '@mui/x-date-pickers';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
+
+{/*relajo para los DatePicker parte 1*/}
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-{/*relajo para los DatePicker parte 1*/}
 let renderCount = 0;
 
 const defaultValues = {
-  Native: '',
-  TextField: '',
-  Select: '',
-  Autocomplete: [],
-  Checkbox: false,
-  Switch: false,
-  RadioGroup: '',
   DateTimePicker1: '',
   DateTimePicker2: '',
 };
 
-/**
- * Form Validation Schema
- */
 const schema = yup.object().shape({
-  TextField: yup.string().required('You must enter a value'),
-  Native: yup.string().required('You must enter a value'),
-  Select: yup.string().required('You must select a value').oneOf(['20', '30'], 'Select 20 or 30.'),
-  Checkbox: yup.boolean().oneOf([true], 'You must check.'),
-  Switch: yup.boolean().oneOf([true], 'You must turn it on.'),
-  RadioGroup: yup.string().oneOf(['female'], 'You must select female.'),
-  Autocomplete: yup.array().min(2, ''),
   DateTimePicker1: yup.string().nullable().required(''),
   DateTimePicker2: yup.string().nullable().required(''),
 });
+{/*fin de relajo para los DatePicker parte 1*/}
+
+
 
 function OrdenProcesosIndex() {
   const [searchText, setSearchText] = useState('');
@@ -77,7 +64,6 @@ function OrdenProcesosIndex() {
 
 
   {/*Relajo para los DatePicker parte 2*/}
- 
   const { handleSubmit, register, reset, control, watch, formState } = useForm({
     defaultValues,
     mode: 'all',
@@ -88,7 +74,6 @@ function OrdenProcesosIndex() {
 
   renderCount += 1;
 
-  const data = watch();
 
   {/* Columnas de la tabla */ }
   const columns = [
@@ -388,25 +373,32 @@ function OrdenProcesosIndex() {
               >
               </FormControl>
             </Grid>
-
             <Grid item xs={6}>
                 <InputLabel htmlFor="grouped-native-select">Fecha Límite</InputLabel>
+                <Controller
+                  name="DateTimePicker2"
+                  control={control}
+                  render={({ field: { onChange, value, onBlur } }) => (
+                    <DateTimePicker
+                      value={value}
+                      onChange={onChange}
+                      required
+                      renderInput={(_props) => (
+                        <TextField
+                          className="w-full"
+                          {..._props}
+                          onBlur={onBlur}
+                          error={!!errors.DateTimePicker2}
+                          helperText={errors?.DateTimePicker2?.message}
+                        />
+                      )}
+                      className="w-full"
+                    />
+                  )}
+                />
               <FormControl
                 fullWidth
               >
-                <DateTimePicker
-                dateFormat="dd/MM/yyyy"
-                onChange={(date) => {
-                    console.log(date);
-                  }}
-                renderInput={(_props) => (
-                  <TextField
-                    className="w-full"
-                    {..._props}
-                  />
-                )}
-                className="w-full"
-              />
               </FormControl>
             </Grid>
 

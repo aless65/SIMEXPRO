@@ -2033,7 +2033,7 @@ GO
 
 CREATE TABLE Prod.tbPedidosProduccion(
 	ppro_Id              			INT IDENTITY(1,1),
-	empr_Id              			INT NOT NULL,
+	empl_Id              			INT NOT NULL,
 	ppro_Fecha           			DATETIME NOT NULL,
 	ppro_Estados          			NVARCHAR(150) NOT NULL,
 	ppro_Observaciones   			NVARCHAR(MAX) NOT NULL,
@@ -2047,7 +2047,7 @@ CREATE TABLE Prod.tbPedidosProduccion(
 	ppro_Estado						BIT DEFAULT 1
 
    	CONSTRAINT PK_prod_tbPedidosProduccion PRIMARY KEY (ppro_Id),
-   	CONSTRAINT FK_prod_tbPedidosProduccion_Prod_tbEmpleadosProduccion_empr_Id 	FOREIGN KEY (empr_Id)					REFERENCES Gral.tbEmpleados(empl_Id),
+   	CONSTRAINT FK_prod_tbPedidosProduccion_Prod_tbEmpleadosProduccion_empl_Id 	FOREIGN KEY (empl_Id)					REFERENCES Gral.tbEmpleados(empl_Id),
 	CONSTRAINT FK_Prod_tbPedidosProduccion_tbUsuarios_ppro_UsuCrea				FOREIGN KEY (usua_UsuarioCreacion)     	REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbPedidosProduccion_tbUsuarios_ppro_UsuModifica			FOREIGN KEY (usua_UsuarioModificacion) 	REFERENCES Acce.tbUsuarios (usua_Id),   
 	--CONSTRAINT FK_Prod_tbPedidosProduccion_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
@@ -2058,13 +2058,13 @@ GO
 CREATE TABLE Prod.tbOrde_Ensa_Acab_Etiq(
 	ensa_Id						INT IDENTITY(1,1),
 	ensa_Cantidad				INT NOT NULL,
-	empr_Id						INT NOT NULL,
+	empl_Id						INT NOT NULL,
 	code_Id						INT NOT NULL,
 	ensa_FechaInicio			DATE NOT NULL,
 	ensa_FechaLimite			DATE NOT NULL, 
 	ppro_Id						INT NOT NULL,
 
-	usua_UsurioCreacion			INT NOT NULL,
+	usua_UsuarioCreacion		INT NOT NULL,
 	ensa_FechaCreacion			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT DEFAULT NULL,
 	ensa_FechaModificacion		DATETIME DEFAULT NULL,
@@ -2072,16 +2072,15 @@ CREATE TABLE Prod.tbOrde_Ensa_Acab_Etiq(
 	--ensa_FechaEliminacion		DATETIME DEFAULT NULL,
 	ensa_Estado					BIT DEFAULT 1  
 
-	CONSTRAINT PK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_orde_Id								PRIMARY KEY (ensa_Id)
-	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_tbEmpleados_empr_Id					FOREIGN KEY (empr_Id)					REFERENCES Gral.tbEmpleados					(empl_Id),
-	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_tbOrdenCompraDetalle_code_Id			FOREIGN KEY (code_Id)					REFERENCES Prod.tbOrdenCompraDetalles		(code_Id),
-	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_tbPedidoProduccion_ppro_Id			FOREIGN KEY (ppro_Id)					REFERENCES Prod.tbPedidosProduccion			(ppro_Id),
-	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_tbUsuario_orde_UsuarioCreacion		FOREIGN KEY (usua_UsurioCreacion)		REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_tbUsuario_orde_UsuarioModificacion	FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT PK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_orde_Id											PRIMARY KEY (ensa_Id)
+	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_empl_Id_Gral_tbEmpleados_empl_Id					FOREIGN KEY (empl_Id)					REFERENCES Gral.tbEmpleados					(empl_Id),
+	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_code_Id_Prod_tbOrdenCompraDetalle_code_Id			FOREIGN KEY (code_Id)					REFERENCES Prod.tbOrdenCompraDetalles		(code_Id),
+	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_ppro_Id_Prod_tbPedidoProduccion_ppro_Id			FOREIGN KEY (ppro_Id)					REFERENCES Prod.tbPedidosProduccion			(ppro_Id),
+	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_usua_UsuarioCreacion_Acce_tbUsuario_usua_Id		FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_usua_UsuarioModificacion_Acce_tbUsuario_usua_Id	FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios (usua_Id),
 	--CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
-GO
-
+GO--ewqeeeqw
 CREATE TABLE Prod.tbPedidosProduccionDetalles(
 	ppde_Id               			INT IDENTITY(1,1),
 	ppro_Id               			INT NOT NULL,

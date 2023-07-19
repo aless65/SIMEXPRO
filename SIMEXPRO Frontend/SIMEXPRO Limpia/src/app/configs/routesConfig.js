@@ -52,6 +52,7 @@ import AldeaIndex from '../Ubicaciones/Aldeas/Aldeas';
 import DocumentosDeSanciones from '../Aduanas/DocumentosDeSanciones/DocumentosDeSanciones';
 import FormaDeEnvioIndex from '../generales/FormasEnvio/FormasEnvio';
 import MonedasIndex from '../generales/Monedas/monedas';
+import CalendarApp from '../Produccion/Planificación/CalendarApp';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -255,6 +256,10 @@ const routes = [
   {
     path: 'Aldea/Index',
     element: <AldeaIndex />,
+  },
+  {
+    path: 'Planificacion/Index',
+    element: <CalendarApp />,
   },
 ];
 

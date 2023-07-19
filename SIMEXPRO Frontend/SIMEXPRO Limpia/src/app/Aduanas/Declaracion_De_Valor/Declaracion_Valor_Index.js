@@ -107,7 +107,7 @@ function Declaracion_Valor_Index() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/T4VqYmN/Headers-SIMEXPRO-3.png"
+        image="https://i.ibb.co/Trhd4rH/DECLARACI-N-DE-VALOR.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>

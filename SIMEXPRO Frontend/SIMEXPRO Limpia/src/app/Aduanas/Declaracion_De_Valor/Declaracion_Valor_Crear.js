@@ -22,6 +22,10 @@ import { useNavigate } from 'react-router-dom';
 import { black } from 'tailwindcss/colors';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState } from 'react';
+import { DateTimePicker } from '@mui/x-date-pickers';
+import { CardMedia } from '@material-ui/core';
+
+import CondicionesTransaccion from './Crear/TAB6_CondicionesTransaccion';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -208,13 +212,12 @@ function Declaracion_Valor_Crear() {
 
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
-      <CardContent sx={{ textAlign: 'center' }}>
-        <Grid item xs={12}>
-          <Typography variant="h5" gutterBottom sx={{ textTransform: 'uppercase' }}>
-            NUEVA DECLARACIÓN DE VALOR
-          </Typography>
-        </Grid>
-      </CardContent>
+      <CardMedia
+        component="img"
+        height="200"
+        image="https://i.ibb.co/Trhd4rH/DECLARACI-N-DE-VALOR.png"
+        alt="Encabezado de la carta"
+      />
 
       <Box sx={{ bgcolor: 'background.paper', width: '100%' }}>
         <AppBar position="static">
@@ -875,7 +878,7 @@ function Declaracion_Valor_Crear() {
                   </Grid>
                   <Grid item xs={2} />
                 </Grid>
-                <Grid item xs={12}>
+                {/* <Grid item xs={12}>
                   <Typography variant="" color="rgb(55, 188, 155)">
                     DESCRIPCIÓN DE LAS MERCANCÍAS (ITEMS)
                   </Typography>
@@ -892,7 +895,7 @@ function Declaracion_Valor_Crear() {
                     }}
                     pageSizeOptions={[3, 6, 9]}
                   />
-                </div>
+                </div> */}
                 <Divider style={{ marginTop: '30px', marginBottom: '15px' }}>
                   <Chip label="AÑADIR ITEMS A LA FACTURA" />
                 </Divider>
@@ -1055,7 +1058,7 @@ function Declaracion_Valor_Crear() {
             <Grid
               container
               spacing={1}
-              sx={{ backgroundColor: 'rgb(218,216,216)' }}
+              sx={{ backgroundColor: 'rgb(255, 247, 247)' }}
               style={{ marginTop: '15px', marginBottom: '15px' }}
             >
               <Grid item xs={1} sx={{ border: '12px' }}>
@@ -1112,7 +1115,7 @@ function Declaracion_Valor_Crear() {
             <Grid
               container
               spacing={1}
-              sx={{ backgroundColor: 'rgb(218,216,216)' }}
+              sx={{ backgroundColor: 'rgb(255, 247, 247)' }}
               style={{ marginBottom: '15px' }}
             >
               <Grid item xs={1} sx={{ border: '12px' }}>
@@ -1173,7 +1176,7 @@ function Declaracion_Valor_Crear() {
             <Grid
               container
               spacing={1}
-              sx={{ backgroundColor: 'rgb(218,216,216)' }}
+              sx={{ backgroundColor: 'rgb(255, 247, 247)' }}
               style={{ marginBottom: '15px' }}
             >
               <Grid item xs={1} sx={{ border: '12px' }}>
@@ -1241,7 +1244,7 @@ function Declaracion_Valor_Crear() {
             <Grid
               container
               spacing={1}
-              sx={{ backgroundColor: 'rgb(218,216,216)' }}
+              sx={{ backgroundColor: 'rgb(255, 247, 247)' }}
               style={{ marginBottom: '15px' }}
             >
               <Grid item xs={1} sx={{ border: '12px' }}>
@@ -1300,7 +1303,7 @@ function Declaracion_Valor_Crear() {
             <Grid
               container
               spacing={1}
-              sx={{ backgroundColor: 'rgb(218,216,216)' }}
+              sx={{ backgroundColor: 'rgb(255, 247, 247)' }}
               style={{ marginBottom: '15px' }}
             >
               <Grid item xs={1} sx={{ border: '12px' }}>
@@ -1360,7 +1363,7 @@ function Declaracion_Valor_Crear() {
             <Grid
               container
               spacing={1}
-              sx={{ backgroundColor: 'rgb(218,216,216)' }}
+              sx={{ backgroundColor: 'rgb(255, 247, 247)' }}
               style={{ marginBottom: '15px' }}
             >
               <Grid item xs={1} sx={{ border: '12px' }}>
@@ -1424,7 +1427,7 @@ function Declaracion_Valor_Crear() {
             <Grid
               container
               spacing={1}
-              sx={{ backgroundColor: 'rgb(218,216,216)' }}
+              sx={{ backgroundColor: 'rgb(255, 247, 247)' }}
               style={{ marginBottom: '15px' }}
             >
               <Grid item xs={1} sx={{ border: '12px' }}>
@@ -1504,7 +1507,7 @@ function Declaracion_Valor_Crear() {
             <Grid
               container
               spacing={1}
-              sx={{ backgroundColor: 'rgb(218,216,216)' }}
+              sx={{ backgroundColor: 'rgb(255, 247, 247)' }}
               style={{ marginTop: '15px', marginBottom: '15px' }}
             >
               <Grid item xs={1} sx={{ border: '12px' }}>
@@ -1557,7 +1560,7 @@ function Declaracion_Valor_Crear() {
             <Grid
               container
               spacing={1}
-              sx={{ backgroundColor: 'rgb(218,216,216)' }}
+              sx={{ backgroundColor: 'rgb(255, 247, 247)' }}
               style={{ marginBottom: '15px' }}
             >
               <Grid item xs={1} sx={{ border: '12px' }}>
@@ -1617,7 +1620,7 @@ function Declaracion_Valor_Crear() {
             <Grid
               container
               spacing={1}
-              sx={{ backgroundColor: 'rgb(218,216,216)' }}
+              sx={{ backgroundColor: 'rgb(255, 247, 247)' }}
               style={{ marginBottom: '15px' }}
             >
               <Grid item xs={1} sx={{ border: '12px' }}>
@@ -1679,7 +1682,7 @@ function Declaracion_Valor_Crear() {
             <Grid
               container
               spacing={1}
-              sx={{ backgroundColor: 'rgb(218,216,216)' }}
+              sx={{ backgroundColor: 'rgb(255, 247, 247)' }}
               style={{ marginBottom: '15px' }}
             >
               <Grid item xs={1} sx={{ border: '12px' }}>
@@ -1739,7 +1742,7 @@ function Declaracion_Valor_Crear() {
             <Grid
               container
               spacing={1}
-              sx={{ backgroundColor: 'rgb(218,216,216)' }}
+              sx={{ backgroundColor: 'rgb(255, 247, 247)' }}
               style={{ marginBottom: '15px' }}
             >
               <Grid item xs={1} sx={{ border: '12px' }}>
@@ -1799,7 +1802,7 @@ function Declaracion_Valor_Crear() {
             <Grid
               container
               spacing={1}
-              sx={{ backgroundColor: 'rgb(218,216,216)' }}
+              sx={{ backgroundColor: 'rgb(255, 247, 247)' }}
               style={{ marginBottom: '15px' }}
             >
               <Grid item xs={1} sx={{ border: '12px' }}>
@@ -1862,7 +1865,7 @@ function Declaracion_Valor_Crear() {
             <Grid
               container
               spacing={1}
-              sx={{ backgroundColor: 'rgb(218,216,216)' }}
+              sx={{ backgroundColor: 'rgb(255, 247, 247)' }}
               style={{ marginBottom: '15px' }}
             >
               <Grid item xs={1} sx={{ border: '12px' }}>
@@ -1926,7 +1929,7 @@ function Declaracion_Valor_Crear() {
             <Grid
               container
               spacing={1}
-              sx={{ backgroundColor: 'rgb(218,216,216)' }}
+              sx={{ backgroundColor: 'rgb(255, 247, 247)' }}
               style={{ marginBottom: '15px' }}
             >
               <Grid item xs={1} sx={{ border: '12px' }}>
@@ -1990,7 +1993,7 @@ function Declaracion_Valor_Crear() {
             <Grid
               container
               spacing={1}
-              sx={{ backgroundColor: 'rgb(218,216,216)' }}
+              sx={{ backgroundColor: 'rgb(255, 247, 247)' }}
               style={{ marginBottom: '15px' }}
             >
               <Grid item xs={1} sx={{ border: '12px' }}>
@@ -2051,7 +2054,7 @@ function Declaracion_Valor_Crear() {
             <Grid
               container
               spacing={1}
-              sx={{ backgroundColor: 'rgb(218,216,216)' }}
+              sx={{ backgroundColor: 'rgb(255, 247, 247)' }}
               style={{ marginBottom: '15px' }}
             >
               <Grid item xs={1} sx={{ border: '12px' }}>
@@ -2114,7 +2117,7 @@ function Declaracion_Valor_Crear() {
             <Grid
               container
               spacing={1}
-              sx={{ backgroundColor: 'rgb(218,216,216)' }}
+              sx={{ backgroundColor: 'rgb(255, 247, 247)' }}
               style={{ marginBottom: '15px' }}
             >
               <Grid item xs={1} sx={{ border: '12px' }}>
@@ -2174,7 +2177,7 @@ function Declaracion_Valor_Crear() {
             <Grid
               container
               spacing={1}
-              sx={{ backgroundColor: 'rgb(218,216,216)' }}
+              sx={{ backgroundColor: 'rgb(255, 247, 247)' }}
               style={{ marginBottom: '15px' }}
             >
               <Grid item xs={1} sx={{ border: '12px' }}>
@@ -2232,7 +2235,7 @@ function Declaracion_Valor_Crear() {
             <Grid
               container
               spacing={1}
-              sx={{ backgroundColor: 'rgb(218,216,216)' }}
+              sx={{ backgroundColor: 'rgb(255, 247, 247)' }}
               style={{ marginBottom: '15px' }}
             >
               <Grid item xs={1} sx={{ border: '12px' }}>

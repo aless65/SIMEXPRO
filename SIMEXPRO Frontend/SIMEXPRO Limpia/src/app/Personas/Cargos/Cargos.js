@@ -33,7 +33,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { height } from '@mui/system';
+import { height, margin } from '@mui/system';
 
 
 function CargosIndex() {
@@ -178,7 +178,7 @@ function CargosIndex() {
 
       {/* Tabla */}
       <Collapse in={mostrarIndex}>
-        <div style={{ height: 400, width: '100%' }}>
+        <div style={{ height: 400, width: '100%', marginLeft: '20px', marginRight: '20px' }}>
           <DataGrid
             localeText={esES.components.MuiDataGrid.defaultProps.localeText}
             components={{
@@ -198,10 +198,6 @@ function CargosIndex() {
       </Collapse>
 
 
-
-
-
-
       {/* Formulario Agregar */}
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -210,16 +206,17 @@ function CargosIndex() {
               <Typography variant="h5" gutterBottom>
               </Typography>
             </Grid>
-            <Grid item xs={12}>
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Nombre del cargo"
-                />
-              </FormControl>
-            </Grid>           
+
+            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+                <FormControl>
+                    <TextField
+                        defaultValue=" "
+                        style={{ borderRadius: '10px', width: '500px' }}
+                        label="Nombre del cargo"
+                    />
+                </FormControl>
+            </Grid>      
+
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
               <Button
                 startIcon={<Icon>checked</Icon>}

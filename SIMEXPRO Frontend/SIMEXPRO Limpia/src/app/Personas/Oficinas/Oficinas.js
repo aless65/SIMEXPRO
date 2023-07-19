@@ -125,7 +125,7 @@ function OficinasIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/Sv580Kn/OFICINAS.png"
+        image="https://i.ibb.co/h91HXjj/OFICINAS.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>
@@ -176,7 +176,7 @@ function OficinasIndex() {
 
       {/* Tabla */}
       <Collapse in={mostrarIndex}>
-        <div style={{ height: 400, width: '100%' }}>
+        <div style={{ height: 400, width: '100%', marginLeft: '13px', marginRight: '10px' }}>
           <DataGrid
             localeText={esES.components.MuiDataGrid.defaultProps.localeText}
             components={{
@@ -196,10 +196,6 @@ function OficinasIndex() {
       </Collapse>
 
 
-
-
-
-
       {/* Formulario Agregar */}
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -208,10 +204,10 @@ function OficinasIndex() {
               <Typography variant="h5" gutterBottom>
               </Typography>
             </Grid>
-            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}
-                 style={{ marginTop: '30px' }}>
+            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }} >
                 <FormControl>
                     <TextField
+                        defaultValue=" "
                         style={{ borderRadius: '10px', width: '500px' }}
                         label="Nombre de la oficina"
                     />

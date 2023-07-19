@@ -50,8 +50,9 @@ import SubcategoriaIndex from '../Inventario/Subcategoria/Subcategorias';
 import TipoEmbalajeIndex from '../Inventario/TipoDeEmbalaje/TipoEmbalaje';
 import AldeaIndex from '../Ubicaciones/Aldeas/Aldeas';
 import DocumentosDeSanciones from '../Aduanas/DocumentosDeSanciones/DocumentosDeSanciones';
-import FormaDeEnvioIndex from '../generales/FormasEnvio/FormasEnvio';
-import MonedasIndex from '../generales/Monedas/monedas';
+import FormaDeEnvioIndex from '../Generales/FormasEnvio/FormasEnvio';
+import MonedasIndex from '../Generales/Monedas/monedas';
+import OrdenProcesosIndex from '../Produccion/OrdenDeProcesos/OrdenDeProcesos';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -255,6 +256,10 @@ const routes = [
   {
     path: 'Aldea/Index',
     element: <AldeaIndex />,
+  },
+  {
+    path: 'OrdenProcesos/Index',
+    element: <OrdenProcesosIndex />,
   },
 ];
 

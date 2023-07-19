@@ -11,6 +11,8 @@ import appsConfigs from '../main/apps/appsConfigs';
 import pagesConfigs from '../main/pages/pagesConfigs';
 import authRoleExamplesConfigs from '../main/auth/authRoleExamplesConfigs';
 import DocumentationConfig from '../main/documentation/DocumentationConfig';
+import CompactInvoicePage from '../main/pages/invoice/printable/CompactInvoicePage';
+import Clientes from '../main/pages/phynomo/lamao';
 
 const routeConfigs = [
   ...appsConfigs,
@@ -38,6 +40,14 @@ const routes = [
   {
     path: '*',
     element: <Navigate to="pages/error/404" />,
+  },
+  {
+    path: 'hola',
+    element: <CompactInvoicePage />,
+  },
+  {
+    path: 'phymo',
+    element: <Clientes />,
   },
 ];
 

@@ -21,7 +21,7 @@ mock.onGet('/api/auth/sign-in').reply(async (config) => {
   if (!user) {
     error.push({
       type: 'email',
-      message: 'Check your email address',
+      message: '',
     });
   }
 

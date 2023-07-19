@@ -127,7 +127,6 @@ function VisitorsOverviewWidget() {
             <Typography className="mr-16 text-2xl md:text-3xl font-semibold tracking-tight leading-7">
               Gráfica
             </Typography>
-      
           </div>
           <div className="mt-12 sm:mt-0 sm:ml-8">
             <Tabs

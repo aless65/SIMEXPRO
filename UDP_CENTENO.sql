@@ -21,14 +21,14 @@
 CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Listar
 AS
 BEGIN
-SELECT	adu.adua_Id							AS AduanaID, 
-		adu.adua_Nombre						AS NombreAduana , 
-		adu.adua_Direccion_Exacta			AS DireccionExacta,
-		usu.usua_Nombre						AS UsuarioCreacion,
-		adu.adua_FechaCreacion				AS FechaCreacion,
-		usu2.usua_Nombre					AS UsuarioModificacion, 
-		adu.adua_FechaModificacion			AS FechaModificacion, 
-		adu.adua_Estado						AS AduanaEstado
+SELECT	adu.adua_Id							,
+		adu.adua_Nombre						,
+		adu.adua_Direccion_Exacta			,
+		usu.usua_Nombre						AS usarioCreacion,
+		adu.adua_FechaCreacion				,
+		usu2.usua_Nombre					AS usuarioModificacion,
+		adu.adua_FechaModificacion			,
+		adu.adua_Estado						
 FROM	Adua.tbAduanas adu 
 		INNER JOIN Acce.tbUsuarios usu		ON adu.usua_UsuarioCreacion = usu.usua_Id 
 		LEFT JOIN Acce.tbUsuarios usu2		ON usu2.usua_UsuarioModificacion = adu.usua_UsuarioModificacion 
@@ -171,13 +171,13 @@ GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbFormadePago_Listar
 AS
 BEGIN 
-SELECT	fopa_Id							AS FormadePago, 
-        fopa_Descripcion				AS FormaPago,
-		usu.usua_Nombre					AS UsuarioCreador,
-		fopa_FechaCreacion				AS FechaCreacion,
-		usu1.usua_Nombre				AS UsuarioModificacion,
-		fopa_FechaModificacion			AS FechaModificacion,
-		fopa_Estado						AS Estado 
+SELECT	fopa_Id							,
+        fopa_Descripcion				,
+		usu.usua_Nombre					AS usarioCreacion,
+		fopa_FechaCreacion				,
+		usu1.usua_Nombre				AS usuarioModificacion,
+		fopa_FechaModificacion			,
+		fopa_Estado						
 FROM	Adua.tbFormasdePago form 
 		INNER JOIN Acce.tbUsuarios usu	ON usu.usua_Id = form.usua_UsuarioCreacion 
 		LEFT JOIN Acce.tbUsuarios usu1	ON usu1.usua_Id = form.usua_UsuarioModificacion   
@@ -299,11 +299,13 @@ GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbCondicionesComerciales_Listar
 AS
 
-SELECT	condi.coco_Id					AS CondicionesComercialesID, 
-        condi.coco_Descripcion			AS Descripcion, 
+SELECT	condi.coco_Id					,
+        condi.coco_Descripcion			,
 		usu.usua_Nombre					AS UsuarioCreacion,
+		coco_FechaCreacion				,
 		usu1.usua_Nombre				AS UsuarioModificacion ,
-		condi.coco_Estado				AS Estado
+		coco_FechaModificacion			,
+		condi.coco_Estado				
 FROM	Adua.tbCondicionesComerciales condi 
 		INNER JOIN Acce.tbUsuarios usu	ON condi.usua_UsuarioCreacion = usu.usua_Id 
 		LEFT JOIN Acce.tbUsuarios usu1	ON usu1.usua_Id = condi.usua_UsuarioModificacion
@@ -424,12 +426,13 @@ GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Listar
 AS
 BEGIN 
-SELECT	tite_Descripcion				AS Descripcion, 
-		usu.usua_Nombre					AS UsuarioCreador, 
-		tite_FechaCreacion				AS FechaCreacion,
-		usu1.usua_Nombre				AS UsuarioModificacion,
-		tite_FechaModificacion			AS FechaModificacion,
-		tite_Estado						AS Estados
+SELECT	tite_Id							,
+		tite_Descripcion				, 
+		usu.usua_Nombre					AS usarioCreacion,
+		tite_FechaCreacion				,
+		usu1.usua_Nombre				AS usuarioModificacion,
+		tite_FechaModificacion			,
+		tite_Estado						
 FROM	Adua.tbTipoIntermediario tip 
 		INNER JOIN Acce.tbUsuarios usu	ON tip.usua_UsuarioCreacion = usu.usua_Id 
 		LEFT JOIN Acce.tbUsuarios usu1	ON usu1.usua_UsuarioModificacion = tip.usua_UsuarioModificacion
@@ -543,18 +546,18 @@ GO
 CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Listar
 AS
 BEGIN 
-SELECT	clie.clie_Id					AS ClienteID,
-		clie.clie_Numero_Contacto		AS NumeroContacto,
-		clie.clie_Nombre_Contacto		AS NombreContacto,
-		clie.clie_Correo_Electronico	AS CorreoElectronico,
-		clie.clie_Direccion				AS Direccion,
-		clie.clie_FAX					AS FAX,
-		clie.clie_RTN					AS RTN,
-		usu.usua_Nombre					AS UsuarioCreacion,
-		clie.clie_FechaCreacion			AS FechaCreacion,
-		usu1.usua_Nombre				AS UsuarioModificacion,
-		clie.clie_FechaModificacion		AS FechaModificacion,
-		clie.clie_Estado				AS Estado
+SELECT	clie.clie_Id					,
+		clie.clie_Numero_Contacto		,
+		clie.clie_Nombre_Contacto		,
+		clie.clie_Correo_Electronico	,
+		clie.clie_Direccion				,
+		clie.clie_FAX					,
+		clie.clie_RTN					,
+		usu.usua_Nombre					AS usarioCreacion,
+		clie.clie_FechaCreacion			,
+		usu1.usua_Nombre				AS usuarioModificacion,
+		clie.clie_FechaModificacion		,
+		clie.clie_Estado				
 FROM	Prod.tbClientes clie 
 		INNER JOIN Acce.tbUsuarios usu	ON usu.usua_Id = clie.usua_UsuarioCreacion 
 		LEFT JOIN Acce.tbUsuarios usu1	ON usu1.usua_Id = clie.usua_UsuarioModificacion
@@ -714,13 +717,13 @@ GO
 CREATE OR ALTER PROCEDURE Prod.UDP_tbEstilos_Listar
 AS
 BEGIN
-SELECT	est.esti_Id						AS EstiloID, 
-		est.esti_Descripcion			AS EstiloDescripcion , 
-		usu.usua_Nombre					AS UsuarioCreacion,
-		est.esti_FechaCreacion			AS FechaCreacion,
-		usu2.usua_Nombre				AS UsuarioModificacion, 
-		est.esti_FechaModificacion		AS FechaModificacion, 
-		est.esti_Estado					AS EstilosEstado
+SELECT	est.esti_Id						,
+		est.esti_Descripcion			,
+		usu.usua_Nombre					AS usarioCreacion,
+		est.esti_FechaCreacion			,
+		usu2.usua_Nombre				AS usuarioModificacion,
+		est.esti_FechaModificacion		,
+		est.esti_Estado					
 FROM	Prod.tbEstilos est 
 		INNER JOIN Acce.tbUsuarios usu	ON est.usua_UsuarioCreacion = usu.usua_Id 
 		LEFT JOIN Acce.tbUsuarios usu2 ON usu2.usua_UsuarioModificacion = est.usua_UsuarioModificacion 

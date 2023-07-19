@@ -165,7 +165,7 @@ function AreasIndex() {
 
       {/* Tabla */}
       <Collapse in={mostrarIndex}>
-        <div style={{ height: 400, width: '100%' }}>
+        <div style={{ height: 400, width: '100%', marginLeft: '13px', marginRight: '10px' }}>
           <DataGrid
             localeText={esES.components.MuiDataGrid.defaultProps.localeText}
             components={{
@@ -185,34 +185,23 @@ function AreasIndex() {
       </Collapse>
 
 
-
-
-
-
       {/* Formulario Agregar */}
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
-            <Grid item xs={12}>
+          <Grid item xs={12}>
               <Typography variant="h5" gutterBottom>
-                Nuevo Usuario
               </Typography>
             </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Descripción"
-                />
-              </FormControl>
-            </Grid>
-
-
-
-
+            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+                <FormControl>
+                    <TextField
+                        defaultValue=" "
+                        style={{ borderRadius: '10px', width: '500px' }}
+                        label="Área"
+                    />
+                </FormControl>
+            </Grid>  
 
 
 

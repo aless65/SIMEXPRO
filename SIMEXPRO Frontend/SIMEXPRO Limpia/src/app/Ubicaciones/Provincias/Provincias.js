@@ -49,10 +49,10 @@ function ProvinciasIndex() {
 
   {/* Columnas de la tabla */ }
   const columns = [
-    { field: 'id', headerName: 'Código', width: 200 },
-    { field: 'ProvinciaCodigo', headerName: 'Provincia codigo', width: 200 },
-    { field: 'descripcion', headerName: 'Provincia nombre', width: 300 },
-    { field: 'Pais', headerName: 'País', width: 300 },
+    { field: 'id', headerName: 'Código', width: 100 },
+    { field: 'ProvinciaCodigo', headerName: 'Provincia codigo', width: 150 },
+    { field: 'descripcion', headerName: 'Provincia nombre', width: 200 },
+    { field: 'Pais', headerName: 'País', width: 150 },
     {
       field: 'acciones',
       headerName: 'Acciones',
@@ -187,14 +187,9 @@ function ProvinciasIndex() {
         </CardContent>
       </Collapse>
 
-
-
-
-
-
       {/* Tabla */}
       <Collapse in={mostrarIndex}>
-        <div style={{ height: 400, width: '100%' }}>
+        <div style={{ height: 400, width: '100%', marginLeft: '13px', marginRight: '10px' }}>
           <DataGrid
             localeText={esES.components.MuiDataGrid.defaultProps.localeText}
             components={{
@@ -214,10 +209,6 @@ function ProvinciasIndex() {
       </Collapse>
 
 
-
-
-
-
       {/* Formulario Agregar */}
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -232,6 +223,7 @@ function ProvinciasIndex() {
               >
                 <InputLabel htmlFor="grouped-native-select">País</InputLabel>
                 <Select
+                  defaultValue=" "
                   style={{ borderRadius: '3px' }}
                   label="País"
                 />
@@ -242,6 +234,7 @@ function ProvinciasIndex() {
                 fullWidth
               >
                 <TextField
+                  defaultValue=" "
                   style={{ borderRadius: '10px' }}
                   label="Codigo de la provincia"
                 />
@@ -252,6 +245,7 @@ function ProvinciasIndex() {
                 fullWidth
               >
                 <TextField
+                  defaultValue=" "
                   style={{ borderRadius: '10px' }}
                   label="Nombre de la provincia"
                 />

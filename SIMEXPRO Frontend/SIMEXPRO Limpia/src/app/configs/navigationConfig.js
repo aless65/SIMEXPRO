@@ -3,171 +3,148 @@ import '@material-ui/icons';
 import ar from './navigation-i18n/ar';
 import en from './navigation-i18n/en';
 import tr from './navigation-i18n/tr';
-import LocationCityOutlinedIcon from '@mui/icons-material/LocationCityOutlined';
 
 i18next.addResourceBundle('en', 'navigation', en);
 i18next.addResourceBundle('tr', 'navigation', tr);
 i18next.addResourceBundle('ar', 'navigation', ar);
 
 const navigationConfig = [
-    {
-        id: 'Inicio',
+  {
+    id: 'Inicio',
+    title: 'Inicio',
+    type: 'group',
+    icon: 'heroicons-outline:home',
+    translate: 'INICIO',
+    children: [
+      {
+        id: 'Inicio.Inicio',
         title: 'Inicio',
-        type: 'group',
-        icon: 'heroicons-outline:home',
-        translate: 'INICIO',
+        type: 'item',
+        icon: 'heroicons-outline:clipboard-check',
+        url: '/dashboards/analytics',
+      },    
+    ],
+  },
+  {
+    id: 'Seguridad',
+    title: 'Seguridad',
+    type: 'group',
+    icon: 'material-outline:content_cut',
+    translate: 'SEGURIDAD',
+    children: [
+      {
+        id: 'apps.ecommerce',
+        title: 'ECommerce',
+        type: 'collapse',
+        icon: 'material-outline:content_cut',
+        translate: 'Acceso',
+        children: [ 
+          {
+            id: 'Seguridad.Usuarios',
+            title: 'Usuarios',
+            type: 'item',
+            icon: 'material-outline:hail',
+            url: '/Usuarios/Index',
+          },
+          {
+            id: 'Seguridad.Roles',
+            title: 'Roles',
+            type: 'item',
+            icon: 'material-outline:manage_search',
+            url: '/Roles/RolesIndex',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'Generales',
+    title: 'Generales',
+    type: 'group',
+    icon: 'heroicons-outline:home',
+    translate: 'GENERALES',
+    children: [
+      {
+        id: 'Generales.Generales',
+        title: 'ECommerce',
+        type: 'collapse',
+        icon: 'heroicons-outline:bookmark-alt',
+        translate: 'Generales',
         children: [
           {
-            id: 'Inicio.Inicio',
-            title: 'Inicio',
+            id: 'Generales.formas_envio',
+            title: 'Formas de envío',
             type: 'item',
-            icon: 'heroicons-outline:clipboard-check',
-            url: '/Inicio/project',
+            icon: 'material-outline:taxi_alert',
+            url: '/FormaDeEnvio/Index',
           },
           {
-            id: 'Inicio.Graficas',
-            title: 'Gráficas',
+            id: 'Generales.monedas',
+            title: 'Monedas',
             type: 'item',
-            icon: 'heroicons-outline:chart-pie',
-            url: '/Inicio/Graficas',
+            icon: 'material-outline:attach_money',
+            url: 'Monedas/Index',
           },
           {
-            id: 'Inicio.Reportes',
-            title: 'Reportes',
+            id: 'Personas.oficinas',
+            title: 'Oficinas',
             type: 'item',
-            icon: 'heroicons-outline:cash',
-            url: '/Inicio/Reportes',
+            icon: 'material-outline:computer',
+            url: 'Oficinas/Index',
           },
-          
+          {
+            id: 'Personas.oficios_profesiones',
+            title: 'Oficios y Profesiones',
+            type: 'item',
+            icon: 'heroicons-outline:academic-cap',
+            url: 'OficiosProfesiones/Index',
+          },        
         ],
       },
       {
-        id: 'Seguridad',
-        title: 'Seguridad',
-        type: 'group',
-        icon: 'material-outline:content_cut',
-        translate: 'SEGURIDAD',
+        id: 'general.ubicaciones',
+        title: 'Ubicaciones',
+        type: 'collapse',
+        icon: 'material-outline:public',
+        translate: 'Ubicaciones',
         children: [
-            {
-                id: 'apps.ecommerce',
-                title: 'ECommerce',
-                type: 'collapse',
-                icon: 'material-outline:content_cut',
-                translate: 'Acceso',
-                children: [
-                    {
-                        id: 'Seguridad.Usuarios',
-                        title: 'Usuarios',
-                        type: 'item',
-                        icon: 'material-outline:hail',
-                        url: '/Usuarios/Index',
-                    },
-                    {
-                        id: 'Seguridad.Roles',
-                        title: 'Roles',
-                        type: 'item',
-                        icon: 'material-outline:manage_search',
-                        url: '/Seguridad/Roles',
-                    },
-             
-                ]
-            },
-  
+          {
+            id: 'Ubicaciones.paises',
+            title: 'Países',
+            type: 'item',
+            icon: 'material-outline:map',
+            url: 'Paises/Index',
+          },
+          {
+            id: 'Ubicaciones.provincias',
+            title: 'Provincias',
+            type: 'item',
+            icon: 'material-outline:house',
+            url: 'Provincias/Index',
+          },
+          {
+            id: 'Ubicaciones.ciudades',
+            title: 'Ciudades',
+            type: 'item',
+            icon: 'material-outline:business',
+            url: 'Ciudades/Index',
+          },
+          {
+            id: 'Ubicaciones.aldeas',
+            title: 'Aldeas',
+            type: 'item',
+            icon: 'material-outline:cabin',
+            url: '/Aldea/Index',
+          },
+          {
+            id: 'Ubicaciones.colonias',
+            title: 'Colonias',
+            type: 'item',
+            icon: 'material-outline:holiday_village',
+            url: '/Colonias/Index',
+          }, 
         ],
-    },
-    {
-
-        id: 'Generales',
-        title: 'Generales',
-        type: 'group',
-        icon: 'heroicons-outline:home',
-        translate: 'GENERALES',
-        children: [
-            {
-                id: 'Generales.Generales',
-                title: 'ECommerce',
-                type: 'collapse',
-                icon: 'heroicons-outline:bookmark-alt',
-                translate: 'Generales',
-                children: [
-
-
-                    {
-                        id: 'Generales.documentos',
-                        title: 'Documentos',
-                        type: 'item',
-                        icon: 'material-outline:feed',
-                        url: '/Generales/Documentos',
-                    },
-
-
-                    {
-                        id: 'Generales.formas_envio',
-                        title: 'Formas de envío',
-                        type: 'item',
-                        icon: 'material-outline:taxi_alert',
-                        url: '/Generales/FormasEnvio',
-                    },
-                    {
-                        id: 'Generales.monedas',
-                        title: 'Monedas',
-                        type: 'item',
-                        icon: 'material-outline:attach_money',
-                        url: '/Generales/Monedas',
-                    },
-
-                    {
-                        id: 'Generales.unidades_de_medida',
-                        title: 'Unidades de Medida',
-                        type: 'item',
-                        icon: 'material-outline:device_thermostat',
-                        url: '/Generales/UnidadesMedidas',
-                    }
-                ],
-            },
-            {
-                id: 'general.ubicaciones',
-                title: 'Ubicaciones',
-                type: 'collapse',
-                icon: 'material-outline:public',
-                translate: 'Ubicaciones',
-                children: [
-                    {
-                        id: 'Ubicaciones.aldeas',
-                        title: 'Aldeas',
-                        type: 'item',
-                        icon: 'material-outline:cabin',
-                        url: '/Ubicaciones/Aldeas',
-                    },
-                    {
-                        id: 'Ubicaciones.ciudades',
-                        title: 'Ciudades',
-                        type: 'item',
-                        icon: 'material-outline:business',
-                        url: 'Ciudades/Index',
-                    },
-                    {
-                        id: 'Ubicaciones.colonias',
-                        title: 'Colonias',
-                        type: 'item',
-                        icon: 'material-outline:holiday_village',
-                        url: '/Ubicaciones/Colonias',
-                    },
-                    {
-                        id: 'Ubicaciones.paises',
-                        title: 'Países',
-                        type: 'item',
-                        icon: 'material-outline:map',
-                        url: 'Paises/Index',
-                    }, {
-                        id: 'Ubicaciones.provincias',
-                        title: 'Provincias',
-                        type: 'item',
-                        icon: 'material-outline:house',
-                        url: 'Provincias/Index',
-                    },
-                ],
-            },
+      },   
             {
                 id: 'general.Personas',
                 title: 'Personas',
@@ -183,280 +160,115 @@ const navigationConfig = [
                         url: 'Cargos/Index',
                     },
                     {
-                        id: 'Personas.Clientes',
-                        title: 'Clientes',
-                        type: 'item',
-                        icon: 'material-outline:groups',
-                        url: '/Personas/Clientes',
-                    },
-
-                    {
-                        id: 'Personas.empleados',
-                        title: 'Empleados',
-                        type: 'item',
-                        icon: 'material-outline:nature_people',
-                        url: '/Personas/Empleados',
-                    },
-
-                    {
-                        id: 'Personas.estados_civiles',
-                        title: 'Estados Civiles',
-                        type: 'item',
-                        icon: 'material-outline:male',
-                        url: 'EstadosCiviles/Index',
-                    }, {
-                        id: 'Personas.oficinas',
-                        title: 'Oficinas',
-                        type: 'item',
-                        icon: 'material-outline:computer',
-                        url: 'Oficinas/Index',
+                      id: 'Personas.estados_civiles',
+                      title: 'Estados Civiles',
+                      type: 'item',
+                      icon: 'material-outline:male',
+                      url: 'EstadosCiviles/Index',
                     },
                     {
-                        id: 'Personas.oficios_profesiones',
-                        title: 'Oficios y Profesiones',
-                        type: 'item',
-                        icon: 'heroicons-outline:academic-cap',
-                        url: 'OficiosProfesiones/Index',
-                    },
-
+                      id: 'Personas.empleados',
+                      title: 'Empleados ',
+                      type: 'item',
+                      icon: 'material-outline:groups',
+                      url: 'Empleados/Index',
+                    },  
                     {
-                        id: 'Personas.proveedores',
-                        title: 'Proveedores ',
-                        type: 'item',
-                        icon: 'material-outline:local_shipping',
-                        url: '/Personas/Proveedores',
-                    },
-
-                ],
-            },
-            {
-                id: 'general.prendas',
-                title: 'Prendas',
-                type: 'collapse',
-                icon: 'material-outline:checkroom',
-                translate: 'Prendas',
-                children: [
-                    {
-                        id: 'Prendas.Colores',
-                        title: 'Colores',
-                        type: 'item',
-                        icon: 'material-outline:format_color_fill'  ,
-                        url: '/Prendas/Colores',
-                    },
-
-                    {
-                        id: 'Prendas.Estilos',
-                        title: 'Estilos',
-                        type: 'item',
-                        icon: 'material-outline:design_services',
-                        url: '/Prendas/Estilos',
-                    },
-
-                    {
-                        id: 'Prendas.Modelos',
-                        title: 'Modelos',
-                        type: 'item',
-                        icon: 'material-outline:document_scanner',
-                        url: '/Prendas/Modelos',
-                    }, {
-                        id: 'Prendas.Tallas',
-                        title: 'Tallas',
-                        type: 'item',
-                        icon: 'material-outline:dry_cleaning',
-                        url: '/Prendas/Tallas',
-                    }
-                ],
-            }
-
-
-        ]
-    },
-    {
-        id: 'Produccion',
-        title: 'Produccion',
-        type: 'group',
-        icon: 'material-outline:content_cut',
-        translate: 'PRODUCCIÓN',
-        children: [
-            {
-                id: 'apps.ecommerce',
-                title: 'ECommerce',
-                type: 'collapse',
-                icon: 'material-outline:content_cut',
-                translate: 'Producción',
-                children: [
-                    {
-                        id: 'Produccion.AsignacionesModulo',
-                        title: 'Asignaciones de Módulo',
-                        type: 'item',
-                        icon: 'material-outline:hail',
-                        url: '/Produccion/AsignacionesModulo',
-                    },
-                    {
-                        id: 'Produccion.Inspecciones',
-                        title: 'Inspecciones',
-                        type: 'item',
-                        icon: 'material-outline:manage_search',
-                        url: '/Produccion/Inspecciones',
-                    },
-                    {
-                        id: 'Produccion.Modulos',
-                        title: 'Módulos',
-                        type: 'item',
-                        icon: 'material-outline:iron',
-                        url: '/Produccion/Modulos',
-                    },
-                    {
-                        id: 'Produccion.Multifuncional',
-                        title: 'Multifuncional',
-                        type: 'item',
-                        icon: 'material-outline:insights',
-                        url: '/Produccion/Multifuncional',
-                    },
-                    {
-                        id: 'Produccion.OrdenCompra',
-                        title: 'Órden de Compra',
-                        type: 'item',
-                        icon: 'material-outline:library_books',
-                        url: '/Produccion/OrdenCompra',
-                    },
-                    {
-                        id: 'Produccion.PedidosProduccion',
-                        title: 'Pedidos de Producción',
-                        type: 'item',
-                        icon: 'material-outline:local_mall',
-                        url: '/Produccion/PedidosProduccion',
-                    },
-                    {
-                        id: 'Produccion.Procesos',
-                        title: 'Procesos',
-                        type: 'item',
-                        icon: 'material-outline:mediation',
-                        url: '/Produccion/Procesos',
-                    },
-                    {
-                        id: 'Produccion.RevisionCalidad',
-                        title: 'Revisión de Calidad',
-                        type: 'item',
-                        icon: 'material-outline:pageview',
-                        url: '/Produccion/RevisionCalidad',
-                    },
-                    {
-                        id: 'Produccion.RevisionModuloDia',
-                        title: 'Revision de Módulo',
-                        type: 'item',
-                        icon: 'material-outline:recycling',
-                        url: '/Produccion/RevisionModuloDia',
-                    },
-                ]
-            },
-            {
-                id: 'Produccion.Maquinaria',
-                title: 'Maquinaria',
-                type: 'collapse',
-                icon: 'material-outline:account_tree   ',
-                translate: 'Maquinaria',
-                children: [
-                    {
-                        id: 'Maquinaria.MaquinaHistorial',
-                        title: 'Historial de Máquina',
-                        type: 'item',
-                        icon: 'material-outline:all_inbox',
-                        url: '/Maquinaria/MaquinaHistorial',
-                    },
-                    {
-                        id: 'Maquinaria.MaquinaModulos',
-                        title: 'Módulo de Máquina',
-                        type: 'item',
-                        icon: 'material-outline:animation',
-                        url: '/Maquinaria/MaquinaModulos',
-                    },
-                    {
-                        id: 'Maquinaria.MarcasMaquina',
-                        title: 'Marcas de Máquinas',
-                        type: 'item',
-                        icon: 'material-outline:auto_stories',
-                        url: '/Maquinaria/MarcasMaquina',
-                    },
-                    {
-                        id: 'Maquinaria.ModelosMaquina',
-                        title: 'Modelos de Máquinas',
-                        type: 'item',
-                        icon: 'material-outline:biotech',
-                        url: '/Maquinaria/ModelosMaquina',
-                    },
-                    {
-                        id: 'Maquinaria.FuncionesMaquina',
-                        title: 'Funciones de Máquinas',
-                        type: 'item',
-                        icon: 'material-outline:bike_scooter',
-                        url: '/Maquinaria/FuncionesMaquina',
-                    },
-                ]
-            },
-            {
-                id: 'Produccion.Inventario',
-                title: 'Inventario',
-                type: 'collapse',
-                icon: 'material-outline:store',
-                translate: 'Inventario',
-                children: [
-                    {
-                        id: 'Inventario.Categorias',
-                        title: 'Categorías',
-                        type: 'item',
-                        icon: 'material-outline:category',
-                        url: '/Inventario/Categorias',
-                    },
-                    {
-                        id: 'Inventario.Lotes',
-                        title: 'Lotes',
-                        type: 'item',
-                        icon: 'material-outline:card_membership',
-                        url: '/Inventario/Lotes',
-                    },
-                    {
-                        id: 'Inventario.Materiales',
-                        title: 'Materiales',
-                        type: 'item',
-                        icon: 'material-outline:bakery_dining',
-                        url: '/Inventario/Materiales',
-                    },
-                    {
-                        id: 'Inventario.MaterialesBrindar',
-                        title: 'Materiales a Brindar',
-                        type: 'item',
-                        icon: 'material-outline:business_center',
-                        url: '/Inventario/MaterialesBrindar',
-                    },
-                    {
-                        id: 'Inventario.PedidosOrden',
-                        title: 'Órden de Pedido',
-                        type: 'item',
-                        icon: 'material-outline:fact_check',
-                        url: '/Inventario/PedidosOrden',
-                    },
-                    {
-                        id: 'Inventario.Subcategorias',
-                        title: 'Subcategorías',
-                        type: 'item',
-                        icon: 'material-outline:apps',
-                        url: '/Inventario/Subcategorias',
-                    },
-                    {
-                        id: 'Inventario.TipoEmbalaje',
-                        title: 'Tipo de Embalaje',
-                        type: 'item',
-                        icon: 'material-outline:integration_instructions',
-                        url: '/Inventario/TipoEmbalaje',
-                    },
-                ]
-            }
+                      id: 'Personas.proveedores',
+                      title: 'Proveedores ',
+                      type: 'item',
+                      icon: 'heroicons-solid:user',
+                      url: '/Proveedores/Index',
+                    },            
         ],
-    },
-
-
-
+      },
+    ],
+  },
+  {
+    id: 'Aduanas',
+    title: 'Aduanas',
+    type: 'group',
+    icon: 'material-outline:content_cut',
+    translate: 'ADUANAS',
+    children: [
+      {
+        id: 'ContratoAdhesion',
+        title: 'Contrato de Adhesión',
+        type: 'collapse',
+        icon: 'material-outline:contact_mail',
+        translate: '',
+        children: [
+          {
+            id: 'ContratoAdhesion.PersonaNatural',
+            title: 'Persona Natural',
+            type: 'item',
+            icon: 'heroicons-solid:user',
+            url: '/Contrato-de-Adhesion-Persona-Natural/Index',
+          },
+          {
+            id: 'ContratoAdhesion.Comerciante Individual',
+            title: 'Comerciante Individual',
+            type: 'item',
+            icon: 'heroicons-solid:user',
+            url: '/Contrato-de-Adhesion-Comerciante-Individual/Index',
+          },
+          {
+            id: 'ContratoAdhesion.PersonaJuridica',
+            title: 'Persona Juridica',
+            type: 'item',
+            icon: 'heroicons-solid:user',
+            url: '/Contrato-de-Adhesion-Persona-Juridica/Index',
+          },
+        ],
+      },
+      {
+        id: 'DeclaracionValor',
+        title: 'Declaración de Valor',
+        type: 'item',
+        icon: 'material-outline:fact_check',
+        url: 'Declaracion-de-Valor/Listado',
+      },   
+      {
+        id: 'Duca',
+        title: 'DUCA',
+        type: 'collapse',
+        icon: 'heroicons-outline:briefcase',
+        translate: '',
+        children: [
+          {
+            id: 'Duca.Index',
+            title: 'Duca',
+            type: 'item',
+            icon: 'material-outline:article',
+            url: 'Duca/Index',
+          },
+        ],
+      },
+      {
+        id: 'BoletinPago',
+        title: 'Boletin de Pago',
+        type: 'collapse',
+        icon: 'material-outline:point_of_sale',
+        translate: '',
+        children: [
+          {
+            id: 'BoletinPago.Index',
+            title: 'Boletin de Pago',
+            type: 'item',
+            icon: 'material-outline:price_check',
+            url: 'BoletindePago/BoletinDePagoIndex',
+          },
+        ],
+      },
+      {
+        id: 'DocumentoSanciones',
+        title: 'Documento de Sanciones',
+        type: 'item',
+        icon: 'material-twotone:find_in_page',
+        url: 'Documentos/Sanciones',
+      },         
+    ],
+  },
 ];
 
 export default navigationConfig;

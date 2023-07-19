@@ -1,90 +1,134 @@
+
+/* eslint-disable no-lone-blocks */
+/* eslint-disable prettier/prettier */
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { Button, Icon, IconButton, InputAdornment, TextField } from '@mui/material';
+import {
+  Button,
+  ButtonBase,
+  FormControl,
+  Icon,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  TextField,
+  Avatar,
+} from "@mui/material";
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
-import { purple } from '@mui/material/colors';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar, esES } from '@mui/x-data-grid'
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import Collapse from '@mui/material/Collapse';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Select from '@mui/material/Select';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Box from '@mui/material/Box'
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { height } from '@mui/system';
 
-const columns = [
-  { field: 'id', headerName: 'Código', width: 200 },
-  { field: 'descripcion', headerName: 'Descripción', width: 300 },
-  {
-    field: 'acciones',
-    headerName: 'Acciones',
-    width: 400,
-    renderCell: (params) => (
-      <Stack direction="row" spacing={1}>
-        <Button
-          startIcon={<Icon>edit</Icon>}
-          variant="contained"
-          sx={{ backgroundColor: '#634A9E', color: 'white', borderRadius: '10px', }}
-        >
-          Editar
-        </Button>
-        <Button
-          startIcon={<Icon>visibility</Icon>}
-          variant="contained"
-          color="primary"
-          sx={{ backgroundColor: '#797979', color: 'white',  borderRadius: '10px' }}
-        >
-          Detalles
-        </Button>
-        <Button
-          startIcon={<Icon>delete</Icon>}
-          variant="contained"
-          color="primary"
-          sx={{ backgroundColor: '#E40F00', color: 'white',  borderRadius: '10px' }}
-        >
-          Eliminar
-        </Button>
-      </Stack>
-    ),
-  },
-];
 
-const ColorButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText(purple[500]),
-  borderRadius: '10px',
-  backgroundColor: '#634A9E',
-  '&:hover': {
-    backgroundColor: purple[700],
-  },
-  '& .MuiButton-startIcon': {
-    marginRight: theme.spacing(0.5),
-  },
-}));
-
-const rows = [
-  { id: 'HN', descripcion: 'Honduras' },
-  { id: 'MX', descripcion: 'Mexico' },
-  { id: 'EU', descripcion: 'Estados Unidos' },
-  { id: 'AR', descripcion: 'Argentina' },
-  { id: 'AW', descripcion: 'Aruba' },
-  { id: 'BB', descripcion: 'Barbados' },
-  { id: 'BZ', descripcion: 'Belize' },
-  { id: 'BM', descripcion: 'Bermuda' },
-  { id: 'BO', descripcion: 'Bolivia' },
-  { id: 'BR', descripcion: 'Brazil' },
-  { id: 'CA', descripcion: 'Canada' },
-  { id: 'KY', descripcion: 'Islas caimanes' },
-  { id: 'CL', descripcion: 'Chile' },
-  { id: 'CO', descripcion: 'Colombia' },
-  { id: 'CR', descripcion: 'Costa Rica' },
-];
-
-function UsuariosIndex() {
+function PaisesIndex() {
   const [searchText, setSearchText] = useState('');
+  const [mostrarIndex, setmostrarIndex] = useState(true);
+  const [mostrarAdd, setmostrarAdd] = useState(false);
+  const [Eliminar, setEliminar] = useState(false);
+
+  const DialogEliminar = () => {
+    setEliminar(!Eliminar);
+  };
+
+  {/* Columnas de la tabla */ }
+  const columns = [
+  { field: 'id', headerName: 'Id', width: 200 },
+  { field: 'code', headerName: 'Código', width: 200 },
+  { field: 'descripcion', headerName: 'Nombre País', width: 300 },
+    {
+      field: 'acciones',
+      headerName: 'Acciones',
+      width: 400,
+      renderCell: (params) => (
+        <Stack direction="row" spacing={1}>
+          <Button
+            startIcon={<Icon>edit</Icon>}
+            variant="contained"
+            style={{ borderRadius: '10px' }}
+            sx={{
+              backgroundColor: '#634A9E',
+              color: 'white',
+              "&:hover": { backgroundColor: '#6e52ae' },
+            }}>
+            Editar
+          </Button>
+
+          <Button
+            startIcon={<Icon>visibility</Icon>}
+            variant="contained"
+            color="primary"
+            style={{ borderRadius: '10px' }}
+            sx={{
+              backgroundColor: '#797979', color: 'white',
+              "&:hover": { backgroundColor: '#b69999' },
+            }}
+          >
+            Detalles
+          </Button>
+          <Button
+            startIcon={<Icon>delete</Icon>}
+            variant="contained"
+            color="primary"
+            style={{ borderRadius: '10px' }}
+            sx={{
+              backgroundColor: '#E40F00', color: 'white',
+              "&:hover": { backgroundColor: '#eb5f56' },
+            }}
+            onClick={DialogEliminar}
+          >
+            Eliminar
+          </Button>
+        </Stack>
+      ),
+    },
+  ];
+
+  {/* Datos de la tabla */ }
+  const rows = [
+    { id: '1',code: 'MX', descripcion: 'Mexico' },
+    { id: '2',code: 'EU', descripcion: 'Estados Unidos' },
+    { id: '3',code: 'HN', descripcion: 'Honduras' },
+    { id: '4',code: 'AR', descripcion: 'Argentina' },
+    { id: '5',code: 'AW', descripcion: 'Aruba' },
+    { id: '6',code: 'BB', descripcion: 'Barbados' },
+    { id: '7',code: 'BZ', descripcion: 'Belize' },
+    { id: '8',code: 'BM', descripcion: 'Bermuda' },
+    { id: '9',code: 'BO', descripcion: 'Bolivia' },
+    { id: '10',code: 'BR', descripcion: 'Brazil' },
+    { id: '11',code: 'CA', descripcion: 'Canada' },
+    { id: '12',code: 'KY', descripcion: 'Islas caimanes' },
+    { id: '13',code: 'CL', descripcion: 'Chile' },
+    { id: '14',code: 'CO', descripcion: 'Colombia' },
+    { id: '15',code: 'CR', descripcion: 'Costa Rica' },
+  ];
+
+  {/* Función para mostrar la tabla y mostrar agregar */ }
+  const VisibilidadTabla = () => {
+    setmostrarIndex(!mostrarIndex);
+    setmostrarAdd(!mostrarAdd);
+  };
 
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
   };
 
+  {/* Filtrado de datos */ }
   const filteredRows = rows.filter((row) =>
     row.descripcion.toLowerCase().includes(searchText.toLowerCase())
   );
@@ -94,53 +138,199 @@ function UsuariosIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/hLK96dH/PAISES.png"
+        image="https://i.ibb.co/TMsGt9m/PAISES-1.png"
         alt="Encabezado de la carta"
       />
-      <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-      <Stack direction="row" spacing={1}>
-      <Button
-          startIcon={<Icon>add</Icon>}
-          variant="contained"
-          color="primary"
-          sx={{ backgroundColor: '#634A9E', color: 'white',  borderRadius: '10px' }}
-        >
-          Nuevo
-        </Button>
-        </Stack>
+      <Collapse in={mostrarIndex}>
+        <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
 
-        <TextField
-       placeholder='Buscar'
-       borderRadius= '100px'
-          value={searchText}
-          onChange={handleSearchChange}
-          size="small"
-          variant="outlined"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <IconButton edge="start">
-                  <SearchIcon />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-      </CardContent>
-      <div style={{ height: 400, width: '100%' }}>
-        <DataGrid
-          rows={filteredRows}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 10 },
-            },
-          }}
-          pageSizeOptions={[5, 10]}
-        />
-      </div>
+          {/* Botón de Nuevo */}
+          <Stack direction="row" spacing={1}>
+            <Button
+              startIcon={<Icon>add</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px' }}
+              sx={{
+                backgroundColor: '#634A9E', color: 'white',
+                "&:hover": { backgroundColor: '#6e52ae' },
+              }}
+              onClick={VisibilidadTabla}
+            >
+              Nuevo
+            </Button>
+          </Stack>
+
+          {/* Barra de Busqueda en la Tabla */}
+          <TextField
+            style={{ borderRadius: '10px' }}
+            placeholder='Buscar'
+            value={searchText}
+            onChange={handleSearchChange}
+            size="small"
+            variant="outlined"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <IconButton edge="start">
+                    <SearchIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </CardContent>
+      </Collapse>
+
+
+
+
+
+
+      {/* Tabla */}
+      <Collapse in={mostrarIndex}>
+        <div style={{ height: 400, width: '100%' }}>
+          <DataGrid
+            localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+            components={{
+              Toolbar: GridToolbar,
+              Search: SearchIcon,
+            }}
+            rows={filteredRows}
+            columns={columns}
+            initialState={{
+              pagination: {
+                paginationModel: { page: 0, pageSize: 10 },
+              },
+            }}
+            pageSizeOptions={[10, 20, 50]}
+          />
+        </div>
+      </Collapse>
+
+
+
+
+
+
+      {/* Formulario Agregar */}
+      <Collapse in={mostrarAdd}>
+        <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Typography variant="h5" gutterBottom>
+              </Typography>
+            </Grid> 
+            <Grid item xs={6}>
+              <FormControl
+                fullWidth
+              >
+                <TextField
+                  style={{ borderRadius: '10px' }}
+                  label="Codigo del País"
+                />
+              </FormControl>
+            </Grid> 
+            <Grid item xs={6}>
+              <FormControl
+                fullWidth
+              >
+                <TextField
+                  style={{ borderRadius: '10px' }}
+                  label="Nombre del País"
+                />
+              </FormControl>
+            </Grid>          
+            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
+              <Button
+                startIcon={<Icon>checked</Icon>}
+                variant="contained"
+                color="primary"
+                style={{ borderRadius: '10px', marginRight: '10px' }}
+                sx={{
+                  backgroundColor: '#634A9E', color: 'white',
+                  "&:hover": { backgroundColor: '#6e52ae' },
+                }}
+                onClick={VisibilidadTabla}
+              >
+                Guardar
+              </Button>
+
+              <Button
+                startIcon={<Icon>close</Icon>}
+                variant="contained"
+                color="primary"
+                style={{ borderRadius: '10px' }}
+                sx={{
+                  backgroundColor: '#DAD8D8', color: 'black',
+                  "&:hover": { backgroundColor: '#BFBABA' },
+                }}
+                onClick={VisibilidadTabla}
+              >
+                Cancelar
+              </Button>
+            </Grid>
+
+          </Grid>
+        </CardContent>
+      </Collapse>
+
+
+      <Dialog
+        open={Eliminar}
+        fullWidth="md"
+        onClose={DialogEliminar}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          Confirmación de Eliminación
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+          ¿Está seguro(a) que desea eliminar este registro?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
+              <Button
+                startIcon={<Icon>checked</Icon>}
+                variant="contained"
+                color="primary"
+                style={{ borderRadius: '10px', marginRight: '10px' }}
+                sx={{
+                  backgroundColor: '#634A9E', color: 'white',
+                  "&:hover": { backgroundColor: '#6e52ae' },
+                }}
+                onClick={DialogEliminar}
+              >
+                Eliminar
+              </Button>
+
+              <Button
+                startIcon={<Icon>close</Icon>}
+                variant="contained"
+                color="primary"
+                style={{ borderRadius: '10px' }}
+                sx={{
+                  backgroundColor: '#DAD8D8', color: 'black',
+                  "&:hover": { backgroundColor: '#BFBABA' },
+                }}
+                onClick={DialogEliminar}
+              >
+                Cancelar
+              </Button>
+            </Grid>
+        </DialogActions>
+      </Dialog>
+
     </Card>
   );
 }
 
-export default UsuariosIndex;
+export default PaisesIndex;
+
+
+
+
+

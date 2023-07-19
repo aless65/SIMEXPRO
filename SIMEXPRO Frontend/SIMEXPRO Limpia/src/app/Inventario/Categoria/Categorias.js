@@ -188,16 +188,17 @@ function CategoriaIndex() {
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
-              
-            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}
+
+            <Grid item xs={6} 
                  style={{ marginTop: '30px' }}>
-                <FormControl>
-                    <TextField
-                        style={{ borderRadius: '10px', width: '500px' }}
-                        label="Categoría"
-                    />
-                </FormControl>
-            </Grid>
+              <FormControl>
+                  <TextField
+                  id="outlined-disabled"
+                  label="Categoría"
+                  defaultValue=" "
+                  />
+              </FormControl>
+              </Grid>
 
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
               <Button

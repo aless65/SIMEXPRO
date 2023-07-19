@@ -22,7 +22,7 @@ const navigationConfig = [
         type: 'item',
         icon: 'heroicons-outline:clipboard-check',
         url: '/dashboards/analytics',
-      },    
+      },
     ],
   },
   {
@@ -38,7 +38,7 @@ const navigationConfig = [
         type: 'collapse',
         icon: 'material-outline:content_cut',
         translate: 'Acceso',
-        children: [ 
+        children: [
           {
             id: 'Seguridad.Usuarios',
             title: 'Usuarios',
@@ -98,7 +98,7 @@ const navigationConfig = [
             type: 'item',
             icon: 'heroicons-outline:academic-cap',
             url: 'OficiosProfesiones/Index',
-          },        
+          },
         ],
       },
       {
@@ -142,44 +142,44 @@ const navigationConfig = [
             type: 'item',
             icon: 'material-outline:holiday_village',
             url: '/Colonias/Index',
-          }, 
+          },
         ],
-      },   
-            {
-                id: 'general.Personas',
-                title: 'Personas',
-                type: 'collapse',
-                icon: 'material-outline:emoji_people',
-                translate: 'Personas',
-                children: [
-                    {
-                        id: 'Personas.cargos',
-                        title: 'Cargos',
-                        type: 'item',
-                        icon: 'material-outline:cleaning_services',
-                        url: 'Cargos/Index',
-                    },
-                    {
-                      id: 'Personas.estados_civiles',
-                      title: 'Estados Civiles',
-                      type: 'item',
-                      icon: 'material-outline:male',
-                      url: 'EstadosCiviles/Index',
-                    },
-                    {
-                      id: 'Personas.empleados',
-                      title: 'Empleados ',
-                      type: 'item',
-                      icon: 'material-outline:groups',
-                      url: 'Empleados/Index',
-                    },  
-                    {
-                      id: 'Personas.proveedores',
-                      title: 'Proveedores ',
-                      type: 'item',
-                      icon: 'heroicons-solid:user',
-                      url: '/Proveedores/Index',
-                    },            
+      },
+      {
+        id: 'general.Personas',
+        title: 'Personas',
+        type: 'collapse',
+        icon: 'material-outline:emoji_people',
+        translate: 'Personas',
+        children: [
+          {
+            id: 'Personas.cargos',
+            title: 'Cargos',
+            type: 'item',
+            icon: 'material-outline:cleaning_services',
+            url: 'Cargos/Index',
+          },
+          {
+            id: 'Personas.estados_civiles',
+            title: 'Estados Civiles',
+            type: 'item',
+            icon: 'material-outline:male',
+            url: 'EstadosCiviles/Index',
+          },
+          {
+            id: 'Personas.empleados',
+            title: 'Empleados ',
+            type: 'item',
+            icon: 'material-outline:groups',
+            url: 'Empleados/Index',
+          },
+          {
+            id: 'Personas.proveedores',
+            title: 'Proveedores ',
+            type: 'item',
+            icon: 'heroicons-solid:user',
+            url: '/Proveedores/Index',
+          },
         ],
       },
     ],
@@ -227,7 +227,7 @@ const navigationConfig = [
         type: 'item',
         icon: 'material-outline:fact_check',
         url: 'Declaracion-de-Valor/Listado',
-      },   
+      },
       {
         id: 'Duca',
         title: 'DUCA',
@@ -266,9 +266,242 @@ const navigationConfig = [
         type: 'item',
         icon: 'material-twotone:find_in_page',
         url: 'Documentos/Sanciones',
-      },         
+      },
+    ],
+  },
+  {
+    id: 'Produccion',
+    title: 'Produccion',
+    type: 'group',
+    icon: 'material-outline:content_cut',
+    translate: 'PRODUCCIÓN',
+    children: [
+      {
+        id: 'apps.ecommerce',
+        title: 'ECommerce',
+        type: 'collapse',
+        icon: 'material-outline:content_cut',
+        translate: 'Producción',
+        children: [
+          {
+            id: 'Produccion.AsignacionesModulo',
+            title: 'Asignaciones de Módulo',
+            type: 'item',
+            icon: 'material-outline:hail',
+            url: '/Produccion/AsignacionesModulo',
+          },
+          {
+            id: 'Produccion.Inspecciones',
+            title: 'Inspecciones',
+            type: 'item',
+            icon: 'material-outline:manage_search',
+            url: '/Inspecciones/Index',
+          },
+          {
+            id: 'Produccion.Modulos',
+            title: 'Módulos',
+            type: 'item',
+            icon: 'material-outline:iron',
+            url: '/Produccion/Modulos',
+          },
+          {
+            id: 'Produccion.OrdenProcesos',
+            title: 'Orden de Procesos',
+            type: 'item',
+            icon: 'material-outline:insights',
+            url: '/OrdenProcesos/Index',
+          },
+          {
+            id: 'Produccion.OrdenCompra',
+            title: 'Órden de Compra',
+            type: 'item',
+            icon: 'material-outline:library_books',
+            url: '/Produccion/OrdenCompra',
+          },
+          {
+            id: 'Produccion.PedidosProduccion',
+            title: 'Pedidos de Producción',
+            type: 'item',
+            icon: 'material-outline:local_mall',
+            url: '/Produccion/PedidosProduccion',
+          },
+          {
+            id: 'Produccion.Procesos',
+            title: 'Procesos',
+            type: 'item',
+            icon: 'material-outline:mediation',
+            url: '/Produccion/Procesos',
+          },
+          {
+            id: 'Produccion.RevisionCalidad',
+            title: 'Revisión de Calidad',
+            type: 'item',
+            icon: 'material-outline:pageview',
+            url: '/RevisionCalidad/Index',
+          },
+          {
+            id: 'Produccion.RevisionModuloDia',
+            title: 'Revision de Módulo',
+            type: 'item',
+            icon: 'material-outline:recycling',
+            url: '/Produccion/RevisionModuloDia',
+          },
+        ],
+      },
+      {
+        id: 'Produccion.Maquinaria',
+        title: 'Maquinaria',
+        type: 'collapse',
+        icon: 'material-outline:account_tree   ',
+        translate: 'Maquinaria',
+        children: [
+          {
+            id: 'Maquinaria.FuncionesMaquina',
+            title: 'Funciones de Máquinas',
+            type: 'item',
+            icon: 'material-outline:bike_scooter',
+            url: '/FuncionesMaquina/Index',
+          },
+          {
+            id: 'Maquinaria.MaquinaHistorial',
+            title: 'Historial de Máquina',
+            type: 'item',
+            icon: 'material-outline:all_inbox',
+            url: '/MaquinaHistorial/Index',
+          },
+          {
+            id: 'Maquinaria.MarcasMaquina',
+            title: 'Marcas de Máquinas',
+            type: 'item',
+            icon: 'material-outline:auto_stories',
+            url: '/Maquinaria/MarcasMaquina',
+          },
+          {
+            id: 'Maquinaria.MarcasMaquina',
+            title: 'Máquinas',
+            type: 'item',
+            icon: 'material-outline:precision_manufacturing',
+            url: '/Maquinas/Index',
+          },
+
+          {
+            id: 'Maquinaria.ModelosMaquina',
+            title: 'Modelos de Máquinas',
+            type: 'item',
+            icon: 'material-outline:biotech',
+            url: '/ModelosMaquina/Index',
+          },
+
+        ],
+      },
+      
+      {
+        id: 'Produccion.Inventario',
+        title: 'Inventario',
+        type: 'collapse',
+        icon: 'material-outline:store',
+        translate: 'Inventario',
+        children: [
+          {
+            id: 'Inventario.Areas',
+            title: 'Áreas',
+            type: 'item',
+            icon: 'material-outline:all_inbox',
+            url: '/Areas/Index',
+          },
+          {
+            id: 'Inventario.Categorias',
+            title: 'Categorías',
+            type: 'item',
+            icon: 'material-outline:category',
+            url: '/Categoria/Index',
+          },
+          {
+            id: 'Inventario.Lotes',
+            title: 'Lotes',
+            type: 'item',
+            icon: 'material-outline:card_membership',
+            url: '/Lotes/Index',
+          },
+          {
+            id: 'Inventario.Materiales',
+            title: 'Materiales',
+            type: 'item',
+            icon: 'material-outline:bakery_dining',
+            url: '/Materiales/Index',
+          },
+          {
+            id: 'Inventario.MaterialesBrindar',
+            title: 'Materiales a Brindar',
+            type: 'item',
+            icon: 'material-outline:business_center',
+            url: '/Inventario/MaterialesBrindar',
+          },
+          {
+            id: 'Inventario.PedidosOrden',
+            title: 'Órden de Pedido',
+            type: 'item',
+            icon: 'material-outline:fact_check',
+            url: '/Inventario/PedidosOrden',
+          },
+          {
+            id: 'Inventario.Subcategorias',
+            title: 'Subcategorías',
+            type: 'item',
+            icon: 'material-outline:apps',
+            url: '/Subcategorias/Index',
+          },
+          {
+            id: 'Inventario.TipoEmbalaje',
+            title: 'Tipo de Embalaje',
+            type: 'item',
+            icon: 'material-outline:integration_instructions',
+            url: '/TipoEmbalaje/Index',
+          },
+        ]
+      },
+      {
+        id: 'produccion.prendas',
+        title: 'Prendas',
+        type: 'collapse',
+        icon: 'material-outline:checkroom',
+        translate: 'Prendas',
+        children: [
+          {
+            id: 'Prendas.Colores',
+            title: 'Colores',
+            type: 'item',
+            icon: 'material-outline:format_color_fill',
+            url: '/Colores/Index',
+          },
+
+          {
+            id: 'Prendas.Estilos',
+            title: 'Estilos',
+            type: 'item',
+            icon: 'material-outline:design_services',
+            url: '/Estilos/Index',
+          },
+          {
+            id: 'Prendas.Modelos',
+            title: 'Modelos',
+            type: 'item',
+            icon: 'material-outline:document_scanner',
+            url: '/Modelos/Index',
+          }, {
+            id: 'Prendas.Tallas',
+            title: 'Tallas',
+            type: 'item',
+            icon: 'material-outline:dry_cleaning',
+            url: '/Tallas/Index',
+          }
+        ],
+      },
     ],
   },
 ];
+
+
+
 
 export default navigationConfig;

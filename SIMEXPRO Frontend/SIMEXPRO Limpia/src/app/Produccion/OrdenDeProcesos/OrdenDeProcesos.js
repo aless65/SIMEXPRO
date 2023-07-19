@@ -194,16 +194,13 @@ function OrdenProcesosIndex() {
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
 
-            <Grid item xs={6} style={{ marginTop: '30px' }} >
-              <FormControl
-                fullWidth
-              >
+            <Grid item xs={6} style={{ marginTop: '30px' }} width={'400px'} >
                 <TextField
-                  style={{ borderRadius: '10px' }}
+                  id="outlined-disabled"
                   label="# Detalle de P.O"
-                />
-              </FormControl>
-            </Grid>
+                  defaultValue=" "
+                ></TextField>
+              </Grid>
 
             <Grid item xs={6} style={{ marginTop: '30px' }} >
               <FormControl

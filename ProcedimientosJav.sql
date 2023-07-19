@@ -1,10 +1,10 @@
 
--- ************************************* KARLA ESTUVO AQUÍ ******************************************************
+-- ************************************* KARLA ESTUVO AQUÍ e ******************************************************
 
 --*****Modo Transporte*****--
---CREATE OR ALTER VIEW VW_tbModoTransporte
+--CREATE OR ALTER VIEW tbModoTransporte
 --*****Listado*****--
-CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbModoTransporte_Listar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Listar
 AS
 BEGIN
 SELECT	modo.motr_Id						,
@@ -76,9 +76,9 @@ GO
 --*****Eliminar*****--
 --CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Eliminar
 --*****Tipos de documento*****--
---CREATE OR ALTER VIEW VW_tbTipoDocumento
+--CREATE OR ALTER VIEW tbTipoDocumento
 --*****Listado*****--
-CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbTipoDocumento_Listar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoDocumento_Listar
 AS
 BEGIN
 SELECT	tido_Id								, 
@@ -154,10 +154,10 @@ GO
 --*****Eliminar*****--
 --CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoDocumento_Eliminar
 --*****Tipos de Liquidacion*****--
---CREATE OR ALTER VIEW VW_tbTipoLiquidacion
+--CREATE OR ALTER VIEW tbTipoLiquidacion
 --*****Listado*****--
 
-CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbTipoLiquidacion_Listar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoLiquidacion_Listar
 AS
 BEGIN
 SELECT	tipl_Id								,
@@ -226,9 +226,9 @@ GO
 --*****Eliminar*****--
 --CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoLiquidacion_Eliminar
 --*****Estado Boletin*****--
---CREATE OR ALTER VIEW VW_tbEstadoBoletin
+--CREATE OR ALTER VIEW tbEstadoBoletin
 --*****Listado*****--
-CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbEstadoBoletin_Listar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbEstadoBoletin_Listar
 AS
 BEGIN
 SELECT	esbo_Id								,
@@ -294,9 +294,9 @@ GO
 --*****Eliminar*****--
 --CREATE OR ALTER PROCEDURE Prod.UDP_tbEstadoBoletin_Eliminar
 --*****Procesos*****--
---CREATE OR ALTER VIEW VW_tbProcesos
+--CREATE OR ALTER VIEW tbProcesos
 --*****Listado*****--
-CREATE OR ALTER PROCEDURE Prod.UDP_VW_tbProcesos_Listar
+CREATE OR ALTER PROCEDURE Prod.UDP_tbProcesos_Listar
 AS
 BEGIN
 SELECT	proc_Id								,
@@ -386,11 +386,11 @@ GO
 -- SELECT*FROM Prod.tbProcesos
 
 --*****AREA*****--
---CREATE OR ALTER VIEW VW_tbArea
+--CREATE OR ALTER VIEW tbArea
 
 
 --*****Listado*****--
-CREATE OR ALTER PROCEDURE Prod.UDP_VW_tbArea_Listar
+CREATE OR ALTER PROCEDURE Prod.UDP_tbArea_Listar
 AS
 BEGIN
 SELECT	tipa_Id							,
@@ -486,9 +486,9 @@ END
 GO
 
 --*****Talla*****--
---CREATE OR ALTER VIEW VW_tbTallas
+--CREATE OR ALTER VIEW tbTallas
 --*****Listado*****--
-CREATE OR ALTER PROCEDURE Prod.UDP_VW_tbTallas_Listar
+CREATE OR ALTER PROCEDURE Prod.UDP_tbTallas_Listar
 AS
 BEGIN
 SELECT	tall_Id								,
@@ -559,10 +559,10 @@ GO
 --CREATE OR ALTER PROCEDURE Prod.UDP_tbTallas_Eliminar
 
 --*****Tipo Embalaje*****-
---CREATE OR ALTER VIEW VW_tbTipoEmbalaje
+--CREATE OR ALTER VIEW tbTipoEmbalaje
 --*****Listado*****--
 
-CREATE OR ALTER PROCEDURE Prod.UDP_VW_tbTipoEmbalaje_Listar
+CREATE OR ALTER PROCEDURE Prod.UDP_tbTipoEmbalaje_Listar
 AS
 BEGIN
 SELECT	tiem_Id								,
@@ -639,6 +639,104 @@ BEGIN
 		WHERE tiem_Id = @tiem_Id
 		SELECT 1
 	END TRY 
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() 
+	END CATCH
+END
+GO
+
+--*****ORDEN ENSABLAJE ACBADO ETIQUEDATO*****-
+--*****Listado*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbOrde_Ensa_Acab_Etiq_Listar
+AS
+BEGIN
+SELECT	ensa_Id, 
+		ensa_Cantidad, 
+		emp.empl_Id, 
+		CONCAT(emp.empl_Nombres ,' ',emp.empl_Apellidos) AS empl_NombreCompleto,
+		ocd.code_Id, 
+		ocd.code_Sexo,
+		est.esti_Id,
+		est.esti_Descripcion,
+		ensa_FechaInicio, 
+		ensa_FechaLimite, 
+		pp.ppro_Id, 
+		crea.usua_Nombre							AS usua_UsurioCreacion, 
+		ensa_FechaCreacion,							
+		modi.usua_Nombre							AS usua_UsuarioModificacion, 
+		ensa_FechaModificacion, 
+		ensa_Estado
+FROM	Prod.tbOrde_Ensa_Acab_Etiq ensa
+		INNER JOIN Gral.tbEmpleados emp				ON emp.empl_Id  = ensa.empl_Id
+		INNER JOIN Prod.tbOrdenCompraDetalles ocd	ON ocd.code_Id  = ensa.code_Id
+		INNER JOIN Prod.tbEstilos est				ON est.esti_Id	= ocd.esti_Id
+		INNER JOIN Prod.tbPedidosProduccion pp		ON pp.ppro_Id   = ensa.ppro_Id
+		INNER JOIN Acce.tbUsuarios crea				ON crea.usua_Id = ensa.usua_UsuarioCreacion 
+		LEFT JOIN  Acce.tbUsuarios modi				ON modi.usua_Id = ensa.usua_UsuarioModificacion 
+
+END
+GO
+--*****Insertar*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbOrde_Ensa_Acab_Etiq_Insertar
+@ensa_Cantidad			INT,
+@empl_Id				INT,
+@code_Id				INT,
+@ensa_FechaInicio		DATE,	
+@ensa_FechaLimite		DATE,
+@ppro_Id				INT,
+@usua_UsuarioCreacion	INT,
+@ensa_FechaCreacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Prod.tbOrde_Ensa_Acab_Etiq (ensa_Cantidad,			empl_Id, 
+												code_Id,				ensa_FechaInicio, 
+												ensa_FechaLimite,		ppro_Id, 
+												usua_UsuarioCreacion,	ensa_FechaCreacion)
+		VALUES (
+		@ensa_Cantidad,			
+		@empl_Id, 
+		@code_Id,				
+		@ensa_FechaInicio, 
+		@ensa_FechaLimite,		
+		@ppro_Id, 
+		@usua_UsuarioCreacion,	
+		@ensa_FechaCreacion
+		)
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() 
+	END CATCH
+END
+GO
+--*****Editar*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbOrde_Ensa_Acab_Etiq_Editar
+@ensa_Id					INT,
+@ensa_Cantidad				INT,
+@empl_Id					INT,
+@code_Id					INT,
+@ensa_FechaInicio			DATE,	
+@ensa_FechaLimite			DATE,
+@ppro_Id					INT,
+@usua_UsuarioModificacion	INT,
+@ensa_FechaModificacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE Prod.tbOrde_Ensa_Acab_Etiq
+		SET		ensa_Cantidad			= @ensa_Cantidad,			
+				empl_Id					= @empl_Id, 
+				code_Id					= @code_Id,				
+				ensa_FechaInicio		= @ensa_FechaInicio, 
+				ensa_FechaLimite		= @ensa_FechaLimite,		
+				ppro_Id					= @ppro_Id, 
+				usua_UsuarioCreacion	= @usua_UsuarioModificacion,	
+				ensa_FechaCreacion		= @ensa_FechaModificacion
+		WHERE	ensa_Id					= @ensa_Id
+
+		SELECT 1
+	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE() 
 	END CATCH

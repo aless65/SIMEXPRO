@@ -10,21 +10,20 @@ CREATE OR ALTER PROCEDURE Gral.UDP_tbPaises_Listar
 AS
 BEGIN
 	
-SELECT 
-	 pais_Id						AS IdPais,
-	 pais_Codigo					AS Paiscodigo,
-	 pais_Nombre					AS  paisNombre, 
-	 pais.usua_UsuarioCreacion		AS UsuarioCreadorId,
-	 usua.usua_Nombre				AS UsuarioCreadorNombre,
-	 pais_FechaCreacion, 
-	 pais.usua_UsuarioModificacion  AS UsuarioModificicadorId,
-	 usua2.usua_Nombre				AS UsuarioModificadorNombre,
-	 pais_FechaModificacion,
-	 pais_Estado
-FROM Gral.tbPaises pais						 
-	INNER JOIN Acce.tbUsuarios usua		ON pais.usua_UsuarioCreacion = usua.usua_Id 
-	LEFT JOIN  Acce.tbUsuarios usua2	ON pais.usua_UsuarioModificacion = usua2.usua_Id
-	WHERE pais_Estado = 1
+SELECT	pais_Id								,
+		pais_Codigo							,
+		pais_Nombre							,
+		pais.usua_UsuarioCreacion			,
+		usua.usua_Nombre					AS UsuarioCreacionNombre,
+		pais_FechaCreacion					, 
+		pais.usua_UsuarioModificacion		,
+		usua2.usua_Nombre					AS UsuarioModificadorNombre,
+		pais_FechaModificacion				,
+		pais_Estado							
+FROM	Gral.tbPaises pais						 
+		INNER JOIN Acce.tbUsuarios usua		ON pais.usua_UsuarioCreacion = usua.usua_Id 
+		LEFT JOIN  Acce.tbUsuarios usua2	ON pais.usua_UsuarioModificacion = usua2.usua_Id
+WHERE	pais_Estado = 1
 END
 GO
 
@@ -102,27 +101,26 @@ GO
 CREATE OR ALTER PROCEDURE Gral.UDP_tbCiudades_Listar
 AS
 BEGIN
-	SELECT 
-	ciud_Id								AS IdCiudad, 
-	ciud_Nombre							AS CiudadNombre,
-	ciu.pvin_Id							AS IdProvincia,
-	provi.pvin_Nombre					AS NombreProvincia,
-	provi.pvin_Codigo					AS CodigoProvincia,
-	pais.pais_Codigo					AS CodigoPais,
-	pais.pais_Nombre					AS Pais,
-	ciu.usua_UsuarioCreacion			AS IdUsuarioCreador,
-	usu1.usua_Nombre					AS NombreaUsuaCrea,
-	ciud_FechaCreacion,
-	ciu.usua_UsuarioModificacion		AS	IdUsuarioModificador,
-	usu2.usua_Nombre					AS NombreUsuaModifica,
-    ciud_FechaModificacion, 
-	ciud_Estado
-FROM [Gral].[tbCiudades] ciu					
-	INNER JOIN Acce.tbUsuarios usu1			ON ciu.usua_UsuarioCreacion = usu1.usua_Id		
-	LEFT JOIN  Acce.tbUsuarios  usu2		ON ciu.usua_UsuarioModificacion = usu2.usua_Id	
-	INNER JOIN Gral.tbProvincias provi		ON ciu.pvin_Id = provi.pvin_Id					
-	INNER JOIN Gral.tbPaises pais			ON provi.pais_Id = pais.pais_Id
-	WHERE ciud_Estado = 1
+SELECT	ciud_Id								,
+		ciud_Nombre							,
+		ciu.pvin_Id							,
+		provi.pvin_Nombre					,
+		provi.pvin_Codigo					,
+		pais.pais_Codigo					,
+		pais.pais_Nombre					,
+		ciu.usua_UsuarioCreacion			,
+		usu1.usua_Nombre					AS UsuarioCreacionNombre,
+		ciud_FechaCreacion					, 
+		ciu.usua_UsuarioModificacion		,
+		usu2.usua_Nombre					AS UsuarioModificadorNombre,
+		ciud_FechaModificacion				,
+		ciud_Estado
+FROM	[Gral].[tbCiudades] ciu					
+		INNER JOIN Acce.tbUsuarios usu1			ON ciu.usua_UsuarioCreacion = usu1.usua_Id		
+		LEFT JOIN  Acce.tbUsuarios  usu2		ON ciu.usua_UsuarioModificacion = usu2.usua_Id	
+		INNER JOIN Gral.tbProvincias provi		ON ciu.pvin_Id = provi.pvin_Id					
+		INNER JOIN Gral.tbPaises pais			ON provi.pais_Id = pais.pais_Id
+WHERE	ciud_Estado = 1
 END
 GO
 
@@ -194,24 +192,23 @@ GO
 CREATE OR ALTER PROCEDURE Gral.UDP_tbProvincias_Listar
 AS
 BEGIN
-	SELECT
-	pvin_Id							AS ProvinciaId, 
-	pvin_Nombre						AS ProvinciaNombre,
-	pvin_Codigo						AS ProvinciaCodigo, 
-	provin.pais_Id, 
-	pais.pais_Nombre				AS PaisNombre,
-	provin.usua_UsuarioCreacion		AS IdUsuarioCreador,
-	usua1.usua_Nombre				AS NombreUsuaraioCreador, 
-	pvin_FechaCreacion, 
-	provin.usua_UsuarioModificacion AS IdUsuarioModificador, 
-	usua2.usua_Nombre				AS NombreUsuarioModificador,
-	pvin_FechaModificacion, 
-	pvin_Estado
-FROM [Gral].[tbProvincias] provin				
-	INNER JOIN Gral.tbPaises pais		ON provin.pais_Id =  pais.pais_Id		
-	INNER JOIN Acce.tbUsuarios usua1	ON provin.usua_UsuarioCreacion = usua1.usua_Id	
-	LEFT JOIN Acce.tbUsuarios usua2		ON provin.usua_UsuarioModificacion = usua2.usua_Id 
-	WHERE pvin_Estado = 1
+SELECT	pvin_Id								,
+		pvin_Nombre							,
+		pvin_Codigo							,
+		provin.pais_Id 						,
+		pais.pais_Nombre					,
+		provin.usua_UsuarioCreacion			,
+		usua1.usua_Nombre					AS UsuarioCreacionNombre,
+		pvin_FechaCreacion	 				, 
+		provin.usua_UsuarioModificacion		,
+		usua2.usua_Nombre					AS UsuarioModificadorNombre,
+		pvin_FechaModificacion				,
+		pvin_Estado
+FROM	[Gral].[tbProvincias] provin				
+		INNER JOIN Gral.tbPaises pais		ON provin.pais_Id =  pais.pais_Id		
+		INNER JOIN Acce.tbUsuarios usua1	ON provin.usua_UsuarioCreacion = usua1.usua_Id	
+		LEFT JOIN Acce.tbUsuarios usua2		ON provin.usua_UsuarioModificacion = usua2.usua_Id 
+WHERE	pvin_Estado = 1
 END
 GO
 
@@ -289,23 +286,22 @@ GO
 CREATE OR ALTER PROCEDURE Gral.UDP_tbAldeas_Listar
 AS
 BEGIN
-	SELECT
-	alde_Id							AS AldeaId, 
-	alde_Nombre						AS AldeaNombre, 
-	alde.ciud_Id					AS IdCiudad, 
-	ciu.ciud_Nombre					AS NombreCiudad,
-	alde.usua_UsuarioCreacion		AS IdUsuarioCreador,
-	usu1.usua_Nombre				AS NombreUsarioCreador, 
-	alde_FechaCreacion, 
-	alde.usua_UsuarioModificacion	AS IdUsuarioModificador,
-	usu2.usua_Nombre				AS NombreUsuarioModifica, 
-	alde_FechaModificacion, 
-	alde_Estado
-FROM [Gral].[tbAldeas] alde					
-	INNER JOIN Gral.tbCiudades ciu		ON alde.ciud_Id = ciu.ciud_Id				
-	INNER JOIN Acce.tbUsuarios usu1		ON alde.usua_UsuarioCreacion = usu1.usua_Id 
-	LEFT JOIN Acce.tbUsuarios usu2		ON alde.usua_UsuarioCreacion = usu2.usua_Id
-WHERE alde_Estado = 1
+SELECT	alde_Id								,
+		alde_Nombre							,
+		alde.ciud_Id						,
+		ciu.ciud_Nombre						,
+		alde.usua_UsuarioCreacion			,
+		usu1.usua_Nombre					AS UsuarioCreacionNombre,
+		alde_FechaCreacion	 				, 
+		alde.usua_UsuarioModificacion		,
+		usu2.usua_Nombre					AS UsuarioModificadorNombre,
+		alde_FechaModificacion	 			,
+		alde_Estado
+FROM	[Gral].[tbAldeas] alde					
+		INNER JOIN Gral.tbCiudades ciu		ON alde.ciud_Id = ciu.ciud_Id				
+		INNER JOIN Acce.tbUsuarios usu1		ON alde.usua_UsuarioCreacion = usu1.usua_Id 
+		LEFT JOIN Acce.tbUsuarios usu2		ON alde.usua_UsuarioCreacion = usu2.usua_Id
+WHERE	alde_Estado = 1
 
 END
 GO
@@ -461,35 +457,34 @@ GO
 
 --PUSE TODO LO QUE TENÍA EN LA VISTA
 CREATE OR ALTER PROCEDURE Gral.UDP_tbProveedores_Listar
-	AS
-	BEGIN
-	SELECT 
-	prov_Id							AS IdProveedor, 
-	prov_NombreCompania, 
-	prov_NombreContacto, 
-	prov_Telefono					AS NumeroTelefonico, 
-	prov_CodigoPostal, 
-	prov_Ciudad						AS IdCiudadProveedor, 
-	ciu.ciud_Nombre					AS NombreCiudad,
-	provi.pvin_Nombre				AS NombreProvincia,
-	pais.pais_Nombre				AS NombrePais,
-	prov_DireccionExacta, 
-	prov_CorreoElectronico, 
-	prov_Fax, 
-	prov.usua_UsuarioCreacion		AS IdUusuarioCreador, 
-	usu1.usua_Nombre				AS NombreUsuarioCreador,
-	prov_FechaCreacion, 
-	prov.usua_UsuarioModificacion	AS IdUsuarioModificador, 
-	usu2.usua_Nombre				AS NombreUusuarioCreador,
-	prov_FechaModificacion, 
-	prov_Estado
-FROM Gral.tbProveedores prov					
-	INNER JOIN [Gral].[tbCiudades] ciu ON prov.prov_Ciudad = ciu.ciud_Id				
-	INNER JOIN Acce.tbUsuarios usu1    ON prov.usua_UsuarioCreacion = usu1.usua_Id		
-	LEFT JOIN  Acce.tbUsuarios usu2	   ON prov.usua_UsuarioModificacion = usu2.usua_Id 
-	INNER JOIN Gral.tbProvincias provi ON ciu.pvin_Id = provi.pvin_Id					
-	INNER JOIN Gral.tbPaises pais      ON provi.pais_Id = pais.pais_Id
-	WHERE [prov_Estado] = 1
+AS
+BEGIN
+SELECT	prov_Id								,
+		prov_NombreCompania 				,
+		prov_NombreContacto 				,
+		prov_Telefono						,
+		prov_CodigoPostal 					,
+		prov_Ciudad							,
+		ciu.ciud_Nombre						,
+		provi.pvin_Nombre					,
+		pais.pais_Nombre					,
+		prov_DireccionExacta 				,
+		prov_CorreoElectronico				,
+		prov_Fax 							,
+		prov.usua_UsuarioCreacion			,
+		usu1.usua_Nombre					AS UsuarioCreacionNombre,
+		prov_FechaCreacion	 				, 
+		prov.usua_UsuarioModificacion		,
+		usu2.usua_Nombre					AS UsuarioModificadorNombre,
+		prov_FechaModificacion	 			,
+		prov_Estado
+FROM	Gral.tbProveedores prov					
+		INNER JOIN [Gral].[tbCiudades] ciu	ON prov.prov_Ciudad = ciu.ciud_Id				
+		INNER JOIN Acce.tbUsuarios usu1		ON prov.usua_UsuarioCreacion = usu1.usua_Id		
+		LEFT JOIN  Acce.tbUsuarios usu2		ON prov.usua_UsuarioModificacion = usu2.usua_Id 
+		INNER JOIN Gral.tbProvincias provi	ON ciu.pvin_Id = provi.pvin_Id					
+		INNER JOIN Gral.tbPaises pais		ON provi.pais_Id = pais.pais_Id
+WHERE	[prov_Estado] = 1
 END
 GO
 
@@ -605,29 +600,24 @@ GO
 --********** TABLA NIVELES COMERCIALES / procedimientos tomando en cuenta los uniques **********
 
 --PUSE TODO LO QUE TENÍA EN LA VISTA (DEL SELECT)
-CREATE OR ALTER VIEW Adua.VW_tbNivelesComerciales
-AS
-SELECT 
-	nico_Id							AS NivelComercialId, 
-	nico_Descripcion				AS NivelComercialDescripcion, 
-	nco.usua_UsuarioCreacion		AS IdUsuarioCreador, 
-	usu1.usua_Nombre				AS NombreUsuarioCreador,
-	nico_FechaCreacion, 
-	nco.usua_UsuarioModificacion	AS IdUsuarioModificador, 
-	usu2.usua_Nombre				AS NombreUsuarioModificador,
-	nico_FechaModificacion, 
-	nico_Estado
-FROM [Adua].[tbNivelesComerciales] nco			
-	INNER JOIN Acce.tbUsuarios usu1			ON nco.usua_UsuarioCreacion = usu1.usua_Id		
-	LEFT JOIN Acce.tbUsuarios usu2			ON nco.usua_UsuarioModificacion = usu2.usua_Id
-GO
 
 
 CREATE OR ALTER PROCEDURE Adua.UDP_tbNivelesComerciales_Listar
 AS
 BEGIN
-	SELECT*FROM Adua.VW_tbNivelesComerciales
-	WHERE nico_Estado = 1
+SELECT	nico_Id								,
+		nico_Descripcion					,
+		nco.usua_UsuarioCreacion			,
+		usu1.usua_Nombre					AS UsuarioCreacionNombre,
+		nico_FechaCreacion 					, 
+		nco.usua_UsuarioModificacion		,
+		usu2.usua_Nombre					AS UsuarioModificadorNombre,
+		nico_FechaModificacion 				,
+		nico_Estado
+FROM	[Adua].[tbNivelesComerciales] nco			
+		INNER JOIN Acce.tbUsuarios usu1		ON nco.usua_UsuarioCreacion = usu1.usua_Id		
+		LEFT JOIN Acce.tbUsuarios usu2		ON nco.usua_UsuarioModificacion = usu2.usua_Id
+WHERE	nico_Estado = 1
 END
 GO
 

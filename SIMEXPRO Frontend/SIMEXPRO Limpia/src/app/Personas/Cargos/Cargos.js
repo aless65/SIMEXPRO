@@ -252,4 +252,4 @@ function CargosIndex() {
   );
 }
 
-export default UsuariosIndex;
+export default CargosIndex;

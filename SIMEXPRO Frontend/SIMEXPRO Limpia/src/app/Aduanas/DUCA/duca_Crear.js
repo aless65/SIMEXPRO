@@ -1,5 +1,6 @@
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
+import CardMedia from '@mui/material/CardMedia';
 import {
   Button,
   FormControl,
@@ -62,7 +63,7 @@ function a11yProps(index) {
 }
 
 function DucaCrear() {
-  const Navigate = useNavigate();
+  const navigate = useNavigate()
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const [tabsEstado, settabsEstado] = useState({
@@ -127,17 +128,12 @@ function DucaCrear() {
 
   return (
     <Card sx={{ minWidth: 275, margin: "40px" }}>
-      <CardContent sx={{ textAlign: "center" }}>
-        <Grid item xs={12}>
-          <Typography
-            variant="h5"
-            gutterBottom
-            sx={{ textTransform: "uppercase" }}
-          >
-            NUEVA DECLARACION UNICA CENTROAMERICANA (DUCA)
-          </Typography>
-        </Grid>
-      </CardContent>
+      <CardMedia
+        component="img"
+        height="200"
+        image="https://i.ibb.co/6FZrCcv/DUCAS.png"
+        alt="Encabezado de la carta"
+      />
 
       <Box sx={{ bgcolor: "background.paper", width: "100%" }}>
         <AppBar position="static">
@@ -439,7 +435,7 @@ function DucaCrear() {
                   "&:hover": { backgroundColor: "#BFBABA" },
                 }}
                 onClick={(e) => {
-                  navigate("");
+                  navigate("/Duca/Index");
                 }}
               >
                 Cancelar
@@ -684,7 +680,7 @@ function DucaCrear() {
                     "&:hover": { backgroundColor: "#BFBABA" },
                   }}
                   onClick={(e) => {
-                    navigate("");
+                    navigate("/Duca/Index");
                   }}
                 >
                   Cancelar
@@ -1118,7 +1114,7 @@ function DucaCrear() {
                         "&:hover": { backgroundColor: "#BFBABA" },
                       }}
                       onClick={(e) => {
-                        navigate("");
+                        navigate("/Duca/Index");
                       }}
                     >
                       Cancelar

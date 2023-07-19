@@ -17,7 +17,7 @@ function ImpresionBoletinDePago() {
 
 
 
-    // Se le agrega una imagen el documento
+    // Se le agrega una imagen el documento 
     doc.addImage('https://i.ibb.co/JCWWQkJ/imagen-2023-07-18-074808012.png', 'JPEG', 10, 10, 190, 300);
 
     const pdfUrl = doc.output('dataurl');
@@ -29,7 +29,7 @@ function ImpresionBoletinDePago() {
                 <Grid item xs={1}></Grid>
                 <Stack direction="row" spacing={1}>
                     <Button
-                        startIcon={<Icon>close</Icon>}
+                        startIcon={<Icon>arrow_back</Icon>}
                         variant="contained"
                         color="primary"
                         style={{ borderRadius: '10px' }}

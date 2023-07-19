@@ -7,6 +7,7 @@ import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Select from '@mui/material/Select';
+import CardMedia from '@mui/material/CardMedia';
 
 import Grid from '@mui/material/Grid';
 
@@ -17,15 +18,18 @@ import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import Collapse from '@mui/material/Collapse';
 
 import { useNavigate } from 'react-router-dom';
 import { black } from 'tailwindcss/colors';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState } from 'react';
-import { DateTimePicker } from '@mui/x-date-pickers';
-import { CardMedia } from '@material-ui/core';
 
-import CondicionesTransaccion from './Crear/TAB6_CondicionesTransaccion';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -60,71 +64,6 @@ function a11yProps(index) {
   };
 }
 
-{
-  /* Columnas de la tabla */
-}
-const columns = [
-  { field: 'id', headerName: 'N° Factura', flex: 1 },
-  { field: 'fecha', headerName: 'Fecha', flex: 1 },
-  {
-    field: 'acciones',
-    headerName: 'Acciones',
-    width: 380,
-    renderCell: (params) => (
-      <Stack direction="row" spacing={1}>
-        <Button
-          startIcon={<Icon>edit</Icon>}
-          variant="contained"
-          style={{ borderRadius: '10px' }}
-          sx={{
-            backgroundColor: '#634A9E',
-            color: 'white',
-            '&:hover': { backgroundColor: '#6e52ae' },
-          }}
-        >
-          Editar
-        </Button>
-
-        <Button
-          startIcon={<Icon>visibility</Icon>}
-          variant="contained"
-          color="primary"
-          style={{ borderRadius: '10px' }}
-          sx={{
-            backgroundColor: '#797979',
-            color: 'white',
-            '&:hover': { backgroundColor: '#b69999' },
-          }}
-        >
-          Detalles
-        </Button>
-        <Button
-          startIcon={<Icon>delete</Icon>}
-          variant="contained"
-          color="primary"
-          style={{ borderRadius: '10px' }}
-          sx={{
-            backgroundColor: '#E40F00',
-            color: 'white',
-            '&:hover': { backgroundColor: '#eb5f56' },
-          }}
-        >
-          Eliminar
-        </Button>
-      </Stack>
-    ),
-  },
-];
-
-{
-  /* Datos de la tabla */
-}
-const rows = [
-  { id: '1', fecha: '17/07/2023' },
-  { id: '2', fecha: '14/07/2023' },
-  { id: '3', fecha: '11/07/2023' },
-];
-
 const getRowClassName = (params) => {
   return params.rowIndex % 2 === 0 ? '#f2f2f2' : '#ffffff';
 };
@@ -133,6 +72,76 @@ function Declaracion_Valor_Crear() {
   const navigate = useNavigate();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+
+  {
+    /* Columnas de la tabla */
+  }
+  const columns = [
+    { field: 'id', headerName: 'N° Factura', flex: 1 },
+    { field: 'fecha', headerName: 'Fecha', flex: 1 },
+    {
+      field: 'acciones',
+      headerName: 'Acciones',
+      width: 380,
+      renderCell: (params) => (
+        <Stack direction="row" spacing={1}>
+          <Button
+            startIcon={<Icon>edit</Icon>}
+            variant="contained"
+            style={{ borderRadius: '10px' }}
+            sx={{
+              backgroundColor: '#634A9E',
+              color: 'white',
+              '&:hover': { backgroundColor: '#6e52ae' },
+            }}
+          >
+            Editar
+          </Button>
+
+          <Button
+            startIcon={<Icon>visibility</Icon>}
+            variant="contained"
+            color="primary"
+            style={{ borderRadius: '10px' }}
+            sx={{
+              backgroundColor: '#797979',
+              color: 'white',
+              '&:hover': { backgroundColor: '#b69999' },
+            }}
+            onClick={(e) => {
+              setmostrarAddH(!mostrarAddH), setmostrarDetalles(!mostrarDetalles);
+            }}
+          >
+            Detalles
+          </Button>
+          <Button
+            startIcon={<Icon>delete</Icon>}
+            variant="contained"
+            color="primary"
+            style={{ borderRadius: '10px' }}
+            sx={{
+              backgroundColor: '#E40F00',
+              color: 'white',
+              '&:hover': { backgroundColor: '#eb5f56' },
+            }}
+          >
+            Eliminar
+          </Button>
+        </Stack>
+      ),
+    },
+  ];
+
+  {
+    /* Datos de la tabla */
+  }
+  const rows = [
+    { id: '1', fecha: '17/07/2023' },
+    { id: '2', fecha: '14/07/2023' },
+    { id: '3', fecha: '11/07/2023' },
+  ];
+
+  const rows2 = [];
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -210,6 +219,13 @@ function Declaracion_Valor_Crear() {
     tab5: true,
   });
 
+  const [mostrarAddH, setmostrarAddH] = useState(true);
+  const [mostrarAddD, setmostrarAddD] = useState(false);
+  const [mostrarAddF, setmostrarAddF] = useState(false);
+  const [mostrarAddFD, setmostrarAddFD] = useState(false);
+  const [mostrarBoton, setmostrarBoton] = useState(false);
+  const [mostrarDetalles, setmostrarDetalles] = useState(false);
+
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
       <CardMedia
@@ -241,7 +257,7 @@ function Declaracion_Valor_Crear() {
               {...a11yProps(2)}
               disabled={tabsEstado.tab2}
             />
-            <Tab label="Facturas" {...a11yProps(3)} disabled={tabsEstado.tab3} />
+            <Tab label="Facturas" {...a11yProps(3)} disabled={tabsEstado.tab4} />
             <Tab
               label="II. Condiciones de la transacción"
               {...a11yProps(4)}
@@ -844,166 +860,353 @@ function Declaracion_Valor_Crear() {
           <TabPanel value={value} index={3} dir={theme.direction}>
             <Card style={{ marginTop: '10px', marginBottom: '10px' }}>
               <CardContent>
-                <div style={{ height: 300, width: '100%' }}>
-                  <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    getRowClassName={getRowClassName}
-                    initialState={{
-                      pagination: {
-                        paginationModel: { page: 0, pageSize: 3 },
-                      },
-                    }}
-                    pageSizeOptions={[3, 6, 9]}
-                  />
-                </div>
-                <Divider style={{ marginTop: '30px', marginBottom: '15px' }}>
-                  <Chip label="FACTURA" />
-                </Divider>
-                <Grid container spacing={3}>
-                  <Grid item xs={2} />
-                  <Grid item xs={4}>
-                    <FormControl fullWidth>
-                      <TextField
+                <Collapse in={mostrarAddH}>
+                  <div style={{ height: 300, width: '100%' }}>
+                    <Button
+                      startIcon={<Icon>add</Icon>}
+                      variant="contained"
+                      color="primary"
+                      style={{ borderRadius: '10px' }}
+                      sx={{
+                        backgroundColor: '#634A9E',
+                        color: 'white',
+                        marginBottom: 4,
+                        '&:hover': { backgroundColor: '#6e52ae' },
+                      }}
+                      onClick={(e) => {
+                        setmostrarAddH(!mostrarAddH);
+                        setmostrarAddF(!mostrarAddF);
+                      }}
+                    >
+                      Nueva Factura
+                    </Button>
+                    <DataGrid
+                      rows={rows}
+                      columns={columns}
+                      getRowClassName={getRowClassName}
+                      initialState={{
+                        pagination: {
+                          paginationModel: { page: 0, pageSize: 3 },
+                        },
+                      }}
+                      pageSizeOptions={[3, 6, 9]}
+                    />
+                  </div>
+                </Collapse>
+
+                <Collapse in={mostrarDetalles}>
+                  <div style={{ height: 300, width: '100%' }}>
+                    <Button
+                      startIcon={<Icon>close</Icon>}
+                      variant="contained"
+                      color="primary"
+                      style={{ borderRadius: '10px' }}
+                      sx={{
+                        backgroundColor: '#DAD8D8',
+                        color: 'black',
+                        '&:hover': { backgroundColor: '#BFBABA' },
+                      }}
+                      onClick={(e) => {
+                        setmostrarAddH(!mostrarAddH);
+                        setmostrarDetalles(!mostrarDetalles);
+                      }}
+                    >
+                      Cerrar
+                    </Button>
+                    <DataGrid
+                      rows={rows}
+                      columns={columns}
+                      getRowClassName={getRowClassName}
+                      initialState={{
+                        pagination: {
+                          paginationModel: { page: 0, pageSize: 3 },
+                        },
+                      }}
+                      pageSizeOptions={[3, 6, 9]}
+                    />
+                  </div>
+                </Collapse>
+
+                <Collapse in={mostrarAddF}>
+                  <Divider style={{ marginTop: '30px', marginBottom: '15px' }}>
+                    <Chip label="NUEVA FACTURA " />
+                  </Divider>
+                  <Grid container spacing={3}>
+                    <Grid item xs={2} />
+                    <Grid item xs={4}>
+                      <FormControl fullWidth>
+                        <TextField
+                          style={{ borderRadius: '10px' }}
+                          label="Número de Factura"
+                          size="small"
+                        />
+                      </FormControl>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <FormControl fullWidth>
+                        <TextField style={{ borderRadius: '10px' }} label="Fecha" size="small" />
+                      </FormControl>
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                    >
+                      <Collapse in={!mostrarBoton}>
+                        <Button
+                          startIcon={<Icon>checked</Icon>}
+                          variant="contained"
+                          color="primary"
+                          style={{ borderRadius: '10px', marginRight: '10px' }}
+                          sx={{
+                            backgroundColor: '#634A9E',
+                            color: 'white',
+                            '&:hover': { backgroundColor: '#6e52ae' },
+                          }}
+                          onClick={(e) => {
+                            setmostrarBoton(!mostrarBoton);
+                          }}
+                        >
+                          Guardar Adición Factura
+                        </Button>
+                      </Collapse>
+                      <Button
+                        startIcon={<Icon>close</Icon>}
+                        variant="contained"
+                        color="primary"
                         style={{ borderRadius: '10px' }}
-                        label="Numero de Factura"
-                        size="small"
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <FormControl fullWidth>
-                      <TextField style={{ borderRadius: '10px' }} label="Fecha" size="small" />
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={2} />
-                </Grid>
-                {/* <Grid item xs={12}>
-                  <Typography variant="" color="rgb(55, 188, 155)">
-                    DESCRIPCIÓN DE LAS MERCANCÍAS (ITEMS)
-                  </Typography>
-                </Grid>
-                <div style={{ height: 300, width: '100%' }}>
-                  <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    getRowClassName={getRowClassName}
-                    initialState={{
-                      pagination: {
-                        paginationModel: { page: 0, pageSize: 3 },
-                      },
-                    }}
-                    pageSizeOptions={[3, 6, 9]}
-                  />
-                </div> */}
-                <Divider style={{ marginTop: '30px', marginBottom: '15px' }}>
-                  <Chip label="AÑADIR ITEMS A LA FACTURA" />
-                </Divider>
-                <Grid container spacing={3}>
-                  <Grid item xs={3}>
-                    <FormControl fullWidth>
-                      <TextField
+                        sx={{
+                          backgroundColor: '#DAD8D8',
+                          color: 'black',
+                          '&:hover': { backgroundColor: '#BFBABA' },
+                        }}
+                        onClick={(e) => {
+                          setmostrarAddH(!mostrarAddH);
+                          setmostrarAddF(!mostrarAddF);
+                          setmostrarAddFD(false);
+                          setmostrarBoton(false);
+                        }}
+                      >
+                        Cancelar Adición Factura
+                      </Button>
+                    </Grid>
+
+                    <Grid item xs={12} sx={{ marginBottom: 4 }}>
+                      <Typography variant="" color="rgb(55, 188, 155)">
+                        DESCRIPCIÓN DE LAS MERCANCÍAS (ITEMS)
+                      </Typography>
+                    </Grid>
+                    <Collapse in={mostrarBoton}>
+                      <Button
+                        startIcon={<Icon>add</Icon>}
+                        variant="contained"
+                        color="primary"
                         style={{ borderRadius: '10px' }}
-                        label="Numero de Item"
-                        size="small"
+                        sx={{
+                          backgroundColor: '#634A9E',
+                          color: 'white',
+                          marginBottom: 4,
+                          '&:hover': { backgroundColor: '#6e52ae' },
+                        }}
+                        onClick={(e) => {
+                          setmostrarAddFD(!mostrarAddFD);
+                        }}
+                      >
+                        Agregar Item
+                      </Button>
+                    </Collapse>
+                    <div style={{ height: 300, width: '100%' }}>
+                      <DataGrid
+                        rows={rows2}
+                        columns={columns}
+                        getRowClassName={getRowClassName}
+                        initialState={{
+                          pagination: {
+                            paginationModel: { page: 0, pageSize: 3 },
+                          },
+                        }}
+                        pageSizeOptions={[3, 6, 9]}
                       />
-                    </FormControl>
+                    </div>
                   </Grid>
-                  <Grid item xs={4}>
-                    <FormControl fullWidth>
-                      <TextField style={{ borderRadius: '10px' }} label="Cantidad" size="small" />
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={5}>
-                    <FormControl fullWidth>
-                      <TextField
-                        style={{ borderRadius: '10px' }}
-                        label="Unidad de Medida"
-                        size="small"
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <FormControl fullWidth>
-                      <TextField
-                        style={{ borderRadius: '10px' }}
-                        label="Designación o Identificación Comercial de las Mercancías"
-                        size="small"
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <FormControl fullWidth>
-                      <TextField
-                        style={{ borderRadius: '10px' }}
-                        label="Características de la Mercancía"
-                        size="small"
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <FormControl fullWidth>
-                      <TextField style={{ borderRadius: '10px' }} label="Marca" size="small" />
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <FormControl fullWidth>
-                      <TextField
-                        style={{ borderRadius: '10px' }}
-                        label="Modelo y/o Estilo"
-                        size="small"
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <FormControl fullWidth>
-                      <InputLabel>Estado de las Mercancías</InputLabel>
-                      <Select
-                        style={{ borderRadius: '10px' }}
-                        label="Estado de las Mercancías"
-                        size="small"
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <FormControl fullWidth>
-                      <InputLabel>Orígen de las Mercancías</InputLabel>
-                      <Select
-                        style={{ borderRadius: '10px' }}
-                        label="Orígen de las Mercancías"
-                        size="small"
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <FormControl fullWidth>
-                      <TextField
-                        style={{ borderRadius: '10px' }}
-                        label="Clasificación Arancelaria"
-                        size="small"
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <FormControl fullWidth>
-                      <InputLabel>Valor Unitario</InputLabel>
-                      <Select
-                        style={{ borderRadius: '10px' }}
-                        label="Valor Unitario"
-                        size="small"
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <FormControl fullWidth>
-                      <TextField
-                        style={{ borderRadius: '10px' }}
-                        label="Total Factura Unitario"
-                        size="small"
-                      />
-                    </FormControl>
-                  </Grid>
-                </Grid>
+                </Collapse>
+
+                <Dialog
+                  open={mostrarAddFD}
+                  fullWidth="md"
+                  maxWidth="md"
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                    <Divider style={{ marginTop: '5px', marginBottom: '5px' }}>
+                      <Chip label="AÑADIR ITEMS A LA FACTURA" />
+                    </Divider>
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-description" />
+                  </DialogContent>
+                  <DialogActions>
+                    <Grid
+                      item
+                      xs={12}
+                      sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }}
+                    >
+                      <Grid container spacing={3}>
+                        <Grid item xs={4}>
+                          <FormControl fullWidth>
+                            <TextField
+                              style={{ borderRadius: '10px' }}
+                              label="Numero de Item"
+                              size="small"
+                            />
+                          </FormControl>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <FormControl fullWidth>
+                            <TextField
+                              style={{ borderRadius: '10px' }}
+                              label="Cantidad"
+                              size="small"
+                            />
+                          </FormControl>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <FormControl fullWidth>
+                            <TextField
+                              style={{ borderRadius: '10px' }}
+                              label="Unidad de Medida"
+                              size="small"
+                            />
+                          </FormControl>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <FormControl fullWidth>
+                            <TextField
+                              style={{ borderRadius: '10px' }}
+                              label="Designación o Identificación Comercial de las Mercancías"
+                              size="small"
+                            />
+                          </FormControl>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <FormControl fullWidth>
+                            <TextField
+                              style={{ borderRadius: '10px' }}
+                              label="Características de la Mercancía"
+                              size="small"
+                            />
+                          </FormControl>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <FormControl fullWidth>
+                            <TextField
+                              style={{ borderRadius: '10px' }}
+                              label="Marca"
+                              size="small"
+                            />
+                          </FormControl>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <FormControl fullWidth>
+                            <TextField
+                              style={{ borderRadius: '10px' }}
+                              label="Modelo y/o Estilo"
+                              size="small"
+                            />
+                          </FormControl>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <FormControl fullWidth>
+                            <InputLabel>Estado de las Mercancías</InputLabel>
+                            <Select
+                              style={{ borderRadius: '10px' }}
+                              label="Estado de las Mercancías"
+                              size="small"
+                            />
+                          </FormControl>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <FormControl fullWidth>
+                            <InputLabel>Orígen de las Mercancías</InputLabel>
+                            <Select
+                              style={{ borderRadius: '10px' }}
+                              label="Orígen de las Mercancías"
+                              size="small"
+                            />
+                          </FormControl>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <FormControl fullWidth>
+                            <TextField
+                              style={{ borderRadius: '10px' }}
+                              label="Clasificación Arancelaria"
+                              size="small"
+                            />
+                          </FormControl>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <FormControl fullWidth>
+                            <InputLabel>Valor Unitario</InputLabel>
+                            <Select
+                              style={{ borderRadius: '10px' }}
+                              label="Valor Unitario"
+                              size="small"
+                            />
+                          </FormControl>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <FormControl fullWidth>
+                            <TextField
+                              style={{ borderRadius: '10px' }}
+                              label="Total Factura Unitario"
+                              size="small"
+                            />
+                          </FormControl>
+                        </Grid>
+                        <Grid
+                          item
+                          xs={12}
+                          sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                        >
+                          <Button
+                            startIcon={<Icon>checked</Icon>}
+                            variant="contained"
+                            color="primary"
+                            style={{ borderRadius: '10px', marginRight: '10px' }}
+                            sx={{
+                              backgroundColor: '#634A9E',
+                              color: 'white',
+                              '&:hover': { backgroundColor: '#6e52ae' },
+                            }}
+                            onClick={(e) => {
+                              setmostrarAddFD(!mostrarAddFD);
+                            }}
+                          >
+                            Confirmar Adición de Item
+                          </Button>
+
+                          <Button
+                            startIcon={<Icon>close</Icon>}
+                            variant="contained"
+                            color="primary"
+                            style={{ borderRadius: '10px' }}
+                            sx={{
+                              backgroundColor: '#DAD8D8',
+                              color: 'black',
+                              '&:hover': { backgroundColor: '#BFBABA' },
+                            }}
+                            onClick={(e) => {
+                              setmostrarAddFD(false);
+                            }}
+                          >
+                            Cancelar Adición de Item
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </DialogActions>
+                </Dialog>
               </CardContent>
             </Card>
             <Grid
@@ -1485,7 +1688,7 @@ function Declaracion_Valor_Crear() {
                   color: 'black',
                   '&:hover': { backgroundColor: '#BFBABA' },
                 }}
-                onClick={() => {
+                onClick={(e) => {
                   navigate('/Declaracion-de-Valor/Listado');
                 }}
               >
@@ -2322,7 +2525,7 @@ function Declaracion_Valor_Crear() {
                   color: 'black',
                   '&:hover': { backgroundColor: '#BFBABA' },
                 }}
-                onClick={() => {
+                onClick={(e) => {
                   navigate('/Declaracion-de-Valor/Listado');
                 }}
               >

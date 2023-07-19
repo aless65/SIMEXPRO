@@ -33,14 +33,14 @@ function Declaracion_Valor_Index() {
 
   {/* Columnas de la tabla */ }
   const columns = [
-    { field: 'id', headerName: 'ID', width: 10 },
+    { field: 'id', headerName: 'ID', width: 10},
     { field: 'dua_numero', headerName: 'DUA N°', flex: 1, },
     { field: 'rtn_importador', headerName: 'RTN Importador', flex: 1},
     { field: 'nombre_importador', headerName: 'Nombre Importador', flex: 1 },
     {
       field: 'acciones',
       headerName: 'Acciones',
-      width: 380,
+      width: 550,
       renderCell: (params) => (
         <Stack direction="row" spacing={1}>
           <Button
@@ -79,6 +79,21 @@ function Declaracion_Valor_Index() {
             onClick={DialogEliminar}
           >
             Eliminar
+          </Button>
+          <Button
+            startIcon={<Icon>insert_drive_file</Icon>}
+            variant="contained"
+            style={{ borderRadius: "10px" }}
+            sx={{
+              backgroundColor: "#C4BADD",
+              color: "white",
+              "&:hover": { backgroundColor: "#A9A2BB" },
+            }}
+            onClick={() => {
+              navigate('/Documentos/Subir')
+            }}
+          >
+            Adjuntar Archivos
           </Button>
         </Stack>
       ),

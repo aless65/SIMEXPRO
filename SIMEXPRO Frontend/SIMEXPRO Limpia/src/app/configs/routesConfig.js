@@ -12,6 +12,7 @@ import pagesConfigs from '../main/pages/pagesConfigs';
 import CiudadesIndex from '../Ubicaciones/Ciudades/Ciudades';
 import ProvinciasIndex from '../Ubicaciones/Provincias/Provincias';
 import PaisesIndex from '../Ubicaciones/Paises/Paises';
+import ColoniasIndex from '../Ubicaciones/Colonias/Colonias';
 import EstadosCivilesIndex from '../Personas/EstadosCiviles/EstadosCiviles';
 import CargosIndex from '../Personas/Cargos/Cargos';
 import OficinasIndex from '../Personas/Oficinas/Oficinas';
@@ -25,6 +26,9 @@ import DucaIndex from '../Aduanas/DUCA/duca_Index';
 import DucaCrear from '../Aduanas/DUCA/duca_Crear';
 import Subir_Documentos from '../Aduanas/Documentacion/Subir_Documentos';
 
+import EmpleadosIndex from '../Personas/Empleados/Empleados';
+import ProveedoresIndex from '../Personas/Proveedores/Proveedores';
+
 import PersonaNatural_Index from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/PersonaNatural_Index';
 import PersonaNatural_Crear from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/PersonaNatural_Crear';
 import Declaracion_Valor_Index from '../Aduanas/Declaracion_De_Valor/Declaracion_Valor_Index';
@@ -35,18 +39,19 @@ import CategoriaIndex from '../Inventario/Categoria/Categorias';
 import ColoresIndex from '../Prendas/Colores/Colores';
 import InspeccionesIndex from '../Produccion/Inspecciones/InspeccionesEstado';
 import MaquinaHistorialIndex from '../Maquinaria/MaquinaHistorial/MaquinaHistorial';
-import MaquinaModulosIndex from '../Maquinaria/MaquinaModulos/MaquinaModulos';
 import MaterialesIndex from '../Inventario/Materiales/Materiales';
 import AreasIndex from '../Inventario/Areas/Areas';
 import EstilosIndex from '../Prendas/Estilos/Estilos';
 import FuncionesMaquinaIndex from '../Maquinaria/FuncionesMaquina/FuncionesMaquina';
 import LotesIndex from '../Inventario/Lotes/Lotes';
-import MaquinasIndex from '../Maquinaria/Máquinas/Maquinas';
 import Persona_Juridica_Index from '../Aduanas/Contratos_de_Adhesión/Persona_Juridica/Persona_Juridica_Index';
 import Persona_Juridica_Agregar from '../Aduanas/Contratos_de_Adhesión/Persona_Juridica/Persona_Juridica_Agregar';
 import SubcategoriaIndex from '../Inventario/Subcategoria/Subcategorias';
 import TipoEmbalajeIndex from '../Inventario/TipoDeEmbalaje/TipoEmbalaje';
 import AldeaIndex from '../Ubicaciones/Aldeas/Aldeas';
+import DocumentosDeSanciones from '../Aduanas/DocumentosDeSanciones/DocumentosDeSanciones';
+import FormaDeEnvioIndex from '../Generales/FormasEnvio/FormasEnvio';
+import MonedasIndex from '../Generales/Monedas/monedas';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -84,6 +89,18 @@ const routes = [
     element: <PaisesIndex />,
   },
   {
+    path: 'Colonias/Index',
+    element: <ColoniasIndex />,
+  },
+  {
+    path: 'FormaDeEnvio/Index',
+    element: <FormaDeEnvioIndex />,
+  },
+  {
+    path: 'Monedas/Index',
+    element: <MonedasIndex />,
+  },
+  {
     path: 'Cargos/Index',
     element: <CargosIndex />,
   },
@@ -103,7 +120,14 @@ const routes = [
     path: 'Usuarios/Index',
     element: <UsuariosIndex />,
   },
-
+  {
+    path: 'Empleados/Index',
+    element: <EmpleadosIndex />,
+  },
+  {
+    path: 'Proveedores/Index',
+    element: <ProveedoresIndex />,
+  },
   {
     path: 'BoletindePago/BoletinDePagoIndex',
     element: <BoletinDePagoIndex />,
@@ -113,7 +137,7 @@ const routes = [
     element: <ImpresionBoletinDePago />,
   },
   {
-    path: 'Contrato-de-Adhesion/Persona-Natural',
+    path: '/Contrato-de-Adhesion-Persona-Natural/Index',
     element: <PersonaNatural_Index />,
   },
   {
@@ -149,6 +173,10 @@ const routes = [
     element: <Subir_Documentos />,
   },
   {
+    path: 'Documentos/Sanciones',
+    element: <DocumentosDeSanciones />,
+  },
+  {
     path: 'Categoria/Index',
     element: <CategoriaIndex />,
   },
@@ -163,10 +191,6 @@ const routes = [
   {
     path: 'MaquinaHistorial/Index',
     element: <MaquinaHistorialIndex />,
-  },
-  {
-    path: 'MaquinaModulos/Index',
-    element: <MaquinaModulosIndex />,
   },
   {
     path: 'ContratoDeAdhesionComercianteIndividual/Index',
@@ -219,10 +243,6 @@ const routes = [
   {
     path: 'Lotes/Index',
     element: <LotesIndex />,
-  },
-  {
-    path: 'Maquinas/Index',
-    element: <MaquinasIndex />,
   },
   {
     path: 'Subcategorias/Index',

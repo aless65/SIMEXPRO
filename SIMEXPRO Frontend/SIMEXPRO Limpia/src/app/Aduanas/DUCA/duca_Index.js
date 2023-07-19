@@ -44,7 +44,7 @@ function DucaIndex() {
     {
       field: 'acciones',
       headerName: 'Acciones',
-      width: 400,
+      width: 500,
       renderCell: (params) => (
         <Stack direction="row" spacing={1}>
           <Button
@@ -59,18 +59,7 @@ function DucaIndex() {
             Editar
           </Button>
 
-          <Button
-            startIcon={<Icon>print</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#6f57de', color: 'white',
-              "&:hover": { backgroundColor: '#5136c9' },
-            }}
-          >
-            Imprimir
-          </Button>
+       
           <Button
             startIcon={<Icon>visibility</Icon>}
             variant="contained"
@@ -95,6 +84,18 @@ function DucaIndex() {
             onClick={DialogEliminar}
           >
             Eliminar
+          </Button>
+          <Button
+            startIcon={<Icon>print</Icon>}
+            variant="contained"
+            color="primary"     
+            style={{ borderRadius: '10px' }}
+            sx={{
+              backgroundColor: '#C4BADD', color: 'white',
+              "&:hover": { backgroundColor: '#c3cbe0' },
+            }}
+          >
+            Imprimir
           </Button>
         </Stack>
       ),

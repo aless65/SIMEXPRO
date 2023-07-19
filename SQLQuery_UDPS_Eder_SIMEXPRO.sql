@@ -1257,37 +1257,351 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER PROCEDURE Adua.UDP_tbComercianteIndividual_Insertar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbPersonas_Editar
 (
-	@pers_Id								INT, 
-	@fopr_Id								BIT, 
-	@colo_Id								INT, 
-	@coin_PuntoReferencia					NVARCHAR(200), 
-	@coin_ColoniaRepresentante				INT, 
-	@coin_NumeroLocalReprentante			NVARCHAR(200), 
-	@coin_PuntoReferenciaReprentante		NVARCHAR(200), 
-	@coin_TelefonoCelular					NVARCHAR(20), 
-	@coin_TelefonoFijo						NVARCHAR(20), 
-	@coin_CorreoElectronico					NVARCHAR(30), 
-	@coin_CorreoElectronicoAlternativo		NVARCHAR(30), 
-	@coin_ComercianteRTN					VARCHAR(30), 
-	@coin_ArchivoRTNComerciante				NVARCHAR(MAX), 
-	@coin_ComercainteDNI					VARCHAR(30), 
-	@coin_ArchivoDNIComerciante				NVARCHAR(MAX), 
-	@coin_RepresentanteRTN					VARCHAR(30), 
-	@coin_ArchivoRTNRepresentante			NVARCHAR(MAX), 
-	@coin_RepresentanteDNI					VARCHAR(30), 
-	@coin_ArchivoDNIRepresentante			NVARCHAR(MAX), 
-	@coin_Declaracion						NVARCHAR(50), 
-	@coin_ArchivoDeclaracion				NVARCHAR(MAX),	 
-	@usua_UsuarioCreacion					INT, 
-	@coin_FechaCreacion						DATETIME
+	@pers_Id 					INT,
+	@pers_RTN					VARCHAR(20),
+	@ofic_Id					INT,
+	@escv_Id					INT,
+	@ofpr_Id					INT,
+	@fopr_Id					BIT,
+	@pers_escvRepresentante		INT,
+	@pers_OfprRepresentante		INT,
+	@usua_UsuarioCreacion		INT,
+	@pers_FechaCreacion			DATETIME
 )
 AS
 BEGIN
+	BEGIN TRY
+			UPDATE Adua.tbPersonas 
+			   SET pers_RTN = @pers_RTN, 					
+				   ofic_Id = @ofic_Id, 					
+				   escv_Id = @escv_Id, 					
+				   ofpr_Id = @ofpr_Id, 					
+				   fopr_Id = @fopr_Id, 					
+				   pers_escvRepresentante = @pers_escvRepresentante, 		
+				   pers_OfprRepresentante = @pers_OfprRepresentante, 		
+				   usua_UsuarioCreacion = @usua_UsuarioCreacion,      	
+				   pers_FechaCreacion = @pers_FechaCreacion
+			 WHERE pers_Id = @pers_Id
 
+		SELECT 1 AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
 END
 GO
 
+CREATE OR ALTER PROCEDURE Adua.UDP_tbComercianteIndividual_Insertar
+(
+  	@pers_Id                           	INT,
+  	@fopr_Id                           	BIT,
+  	@colo_Id                           	INT,
+  	@coin_PuntoReferencia			  	NVARCHAR(200),
+  	@coin_ColoniaRepresentante		  	INT,
+  	@coin_NumeroLocalReprentante	    NVARCHAR(200),
+  	@coin_PuntoReferenciaReprentante   	NVARCHAR(200),
+  	@coin_TelefonoCelular			    NVARCHAR(20),
+  	@coin_TelefonoFijo				    NVARCHAR(20),
+  	@coin_CorreoElectronico		    	NVARCHAR(30),
+  	@coin_CorreoElectronicoAlternativo 	NVARCHAR(30),
+  	@usua_UsuarioCreacion       		INT,
+  	@coin_FechaCreacion         		DATETIME 
+)
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Adua.tbComercianteIndividual 
+					(pers_Id,                           	
+					fopr_Id,                           	
+					colo_Id,                           	
+					coin_PuntoReferencia,			  	
+					coin_ColoniaRepresentante,		  	
+					coin_NumeroLocalReprentante,	    
+					coin_PuntoReferenciaReprentante,   	
+					coin_TelefonoCelular,			    
+					coin_TelefonoFijo,				    
+					coin_CorreoElectronico,		    	
+					coin_CorreoElectronicoAlternativo, 	
+					usua_UsuarioCreacion,       		
+					coin_FechaCreacion)
+			 VALUES (@pers_Id,                           	
+					 @fopr_Id,                           	
+					 @colo_Id,                           	
+					 @coin_PuntoReferencia,			  	
+					 @coin_ColoniaRepresentante,		  	
+					 @coin_NumeroLocalReprentante,	    
+					 @coin_PuntoReferenciaReprentante,   	
+					 @coin_TelefonoCelular,			    
+					 @coin_TelefonoFijo,				    
+					 @coin_CorreoElectronico,		    	
+					 @coin_CorreoElectronicoAlternativo, 	
+					 @usua_UsuarioCreacion,       		
+					 @coin_FechaCreacion)
 
+		SELECT SCOPE_IDENTITY() AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbComercianteIndividual_Editar
+(
+	@coin_Id							INT,
+  	@pers_Id                           	INT,
+  	@fopr_Id                           	BIT,
+  	@colo_Id                           	INT,
+  	@coin_PuntoReferencia			  	NVARCHAR(200),
+  	@coin_ColoniaRepresentante		  	INT,
+  	@coin_NumeroLocalReprentante	    NVARCHAR(200),
+  	@coin_PuntoReferenciaReprentante   	NVARCHAR(200),
+  	@coin_TelefonoCelular			    NVARCHAR(20),
+  	@coin_TelefonoFijo				    NVARCHAR(20),
+  	@coin_CorreoElectronico		    	NVARCHAR(30),
+  	@coin_CorreoElectronicoAlternativo 	NVARCHAR(30),
+  	@usua_UsuarioModificacion   		INT,
+  	@coin_FechaModificacion     		DATETIME 
+)
+AS
+BEGIN
+	BEGIN TRY
+		 UPDATE Adua.tbComercianteIndividual 
+			SET pers_Id = @pers_Id,                           	
+				fopr_Id = @fopr_Id,                           	
+				colo_Id = @colo_Id,                           	
+				coin_PuntoReferencia = @coin_PuntoReferencia,			  	
+				coin_ColoniaRepresentante = @coin_ColoniaRepresentante,		  	
+				coin_NumeroLocalReprentante = @coin_NumeroLocalReprentante,	    
+				coin_PuntoReferenciaReprentante = @coin_PuntoReferenciaReprentante,   	
+				coin_TelefonoCelular = @coin_TelefonoCelular,			    
+				coin_TelefonoFijo = @coin_TelefonoFijo,				    
+				coin_CorreoElectronico = @coin_CorreoElectronico,		    	
+				coin_CorreoElectronicoAlternativo = @coin_CorreoElectronicoAlternativo, 	
+				usua_UsuarioCreacion = @usua_UsuarioCreacion,       		
+				coin_FechaCreacion = @coin_FechaCreacion
+		  WHERE coin_Id = @coin_Id
+
+		SELECT 1 AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbPersonaNatural_Insertar
+(
+	@pers_Id					INT,
+	@pena_DireccionExacta		NVARCHAR(200),
+	@ciud_Id					INT,
+	@pena_TelefonoFijo			NVARCHAR(20),
+	@pena_TelefonoCelular		NVARCHAR(20),
+	@pena_CorreoElectronico		NVARCHAR(50),
+	@pena_CorreoAlternativo		NVARCHAR(50),
+	@pena_RTN					NVARCHAR(40),
+	@pena_ArchivoRTN			NVARCHAR(MAX),
+	@pena_DNI					NVARCHAR(40),
+	@pena_ArchivoDNI			NVARCHAR(MAX),
+	@pena_NumeroRecibo			VARCHAR(100),
+	@pena_ArchivoNumeroRecibo	NVARCHAR(MAX),
+	@usua_UsuarioCreacion       INT,
+	@pena_FechaCreacion         DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Adua.tbPersonaNatural
+					(pers_Id,						
+					pena_DireccionExacta,		
+					ciud_Id,						
+					pena_TelefonoFijo,			
+					pena_TelefonoCelular,		
+					pena_CorreoElectronico,		
+					pena_CorreoAlternativo,		
+					pena_RTN,					
+					pena_ArchivoRTN,				
+					pena_DNI,					
+					pena_ArchivoDNI,				
+					pena_NumeroRecibo,			
+					pena_ArchivoNumeroRecibo,	
+					usua_UsuarioCreacion,       	
+					pena_FechaCreacion)
+			VALUES (@pers_Id,					
+					@pena_DireccionExacta,		
+					@ciud_Id,					
+					@pena_TelefonoFijo,			
+					@pena_TelefonoCelular,		
+					@pena_CorreoElectronico,		
+					@pena_CorreoAlternativo,		
+					@pena_RTN,					
+					@pena_ArchivoRTN,			
+					@pena_DNI,					
+					@pena_ArchivoDNI,			
+					@pena_NumeroRecibo,			
+					@pena_ArchivoNumeroRecibo,	
+					@usua_UsuarioCreacion,      
+					@pena_FechaCreacion)
+
+		SELECT SCOPE_IDENTITY() AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbPersonaNatural_Editar
+(
+	@pena_Id					INT,
+	@pers_Id					INT,
+	@pena_DireccionExacta		NVARCHAR(200),
+	@ciud_Id					INT,
+	@pena_TelefonoFijo			NVARCHAR(20),
+	@pena_TelefonoCelular		NVARCHAR(20),
+	@pena_CorreoElectronico		NVARCHAR(50),
+	@pena_CorreoAlternativo		NVARCHAR(50),
+	@pena_RTN					NVARCHAR(40),
+	@pena_ArchivoRTN			NVARCHAR(MAX),
+	@pena_DNI					NVARCHAR(40),
+	@pena_ArchivoDNI			NVARCHAR(MAX),
+	@pena_NumeroRecibo			VARCHAR(100),
+	@pena_ArchivoNumeroRecibo	NVARCHAR(MAX),
+	@usua_UsuarioModificacion   INT,
+	@pena_FechaModificacion     DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		 UPDATE Adua.tbPersonaNatural
+			SET pers_Id = @pers_Id,						
+				pena_DireccionExacta = @pena_DireccionExacta,		
+				ciud_Id = @ciud_Id,						
+				pena_TelefonoFijo = @pena_TelefonoFijo,			
+				pena_TelefonoCelular = @pena_TelefonoCelular,		
+				pena_CorreoElectronico = @pena_CorreoElectronico,		
+				pena_CorreoAlternativo = @pena_CorreoAlternativo,		
+				pena_RTN = @pena_RTN,					
+				pena_ArchivoRTN = @pena_ArchivoRTN,				
+				pena_DNI = @pena_DNI,					
+				pena_ArchivoDNI = @pena_ArchivoDNI,				
+				pena_NumeroRecibo = @pena_NumeroRecibo,			
+				pena_ArchivoNumeroRecibo = @pena_ArchivoNumeroRecibo,	  	
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,   	
+				pena_FechaModificacion = @pena_FechaModificacion     	
+		  WHERE pena_Id = @pena_Id
+
+		SELECT 1 AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbPersonaJuridica_Insertar
+(
+	@pers_Id							  	INT,
+	@peju_EstadoRepresentante				INT,
+	@colo_Id							  	INT,
+	@peju_PuntoReferencia					NVARCHAR(200),
+	@peju_ColoniaRepresentante				INT,
+	@peju_NumeroLocalReprentante		  	NVARCHAR(200),
+	@peju_PuntoReferenciaReprentante	  	NVARCHAR(200),
+	@peju_TelefonoEmpresa					NVARCHAR(200),
+	@peju_TelefonoFijoRepresentanteLegal 	NVARCHAR(200),
+	@peju_TelefonoRepresentanteLegal	  	NVARCHAR(200),
+	@peju_CorreoElectronico              	NVARCHAR(200),
+	@peju_CorreoElectronicoAlternativo   	NVARCHAR(200),
+	@usua_UsuarioCreacion       			INT,
+	@peju_FechaCreacion         			DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Adua.tbPersonaJuridica 
+					(pers_Id,							  	
+					peju_EstadoRepresentante,				
+					colo_Id,							  	
+					peju_PuntoReferencia,					
+					peju_ColoniaRepresentante,				
+					peju_NumeroLocalReprentante,		  	
+					peju_PuntoReferenciaReprentante,	  	
+					peju_TelefonoEmpresa,					
+					peju_TelefonoFijoRepresentanteLegal, 	
+					peju_TelefonoRepresentanteLegal,	  	
+					peju_CorreoElectronico,              	
+					peju_CorreoElectronicoAlternativo,   	
+					usua_UsuarioCreacion,       			
+					peju_FechaCreacion)
+			VALUES (@pers_Id,							  	
+					@peju_EstadoRepresentante,				
+					@colo_Id,							  	
+					@peju_PuntoReferencia,					
+					@peju_ColoniaRepresentante,				
+					@peju_NumeroLocalReprentante,		  	
+					@peju_PuntoReferenciaReprentante,	  	
+					@peju_TelefonoEmpresa,					
+					@peju_TelefonoFijoRepresentanteLegal, 	
+					@peju_TelefonoRepresentanteLegal,	  	
+					@peju_CorreoElectronico,                 	
+					@peju_CorreoElectronicoAlternativo,   	
+					@usua_UsuarioCreacion,       			
+					@peju_FechaCreacion)
+
+		SELECT SCOPE_IDENTITY() AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbPersonaJuridica_Editar
+(
+	@peju_Id								INT,
+	@pers_Id							  	INT,
+	@peju_EstadoRepresentante				INT,
+	@colo_Id							  	INT,
+	@peju_PuntoReferencia					NVARCHAR(200),
+	@peju_ColoniaRepresentante				INT,
+	@peju_NumeroLocalRepresentante		  	NVARCHAR(200),
+	@peju_PuntoReferenciaReprentante	  	NVARCHAR(200),
+	@peju_TelefonoEmpresa					NVARCHAR(200),
+	@peju_TelefonoFijoRepresentanteLegal 	NVARCHAR(200),
+	@peju_TelefonoRepresentanteLegal	  	NVARCHAR(200),
+	@peju_CorreoElectronico              	NVARCHAR(200),
+	@peju_CorreoElectronicoAlternativo   	NVARCHAR(200),
+	@usua_UsuarioModificacion       		INT,
+	@peju_FechaModificacion         		DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		 UPDATE Adua.tbPersonaJuridica
+			SET pers_Id = @pers_Id,							  	
+				peju_EstadoRepresentante = @peju_EstadoRepresentante,				
+				colo_Id = @colo_Id,							  	
+				peju_PuntoReferencia = @peju_PuntoReferencia,					
+				peju_ColoniaRepresentante = @peju_ColoniaRepresentante,				
+				peju_NumeroLocalRepresentante = @peju_NumeroLocalRepresentante,		  	
+				peju_PuntoReferenciaRepresentante = @peju_PuntoReferenciaRepresentante,	  	
+				peju_TelefonoEmpresa = @peju_TelefonoRepresentanteLegal,					
+				peju_TelefonoFijoRepresentanteLegal = @peju_TelefonoFijoRepresentanteLegal, 	
+				peju_TelefonoRepresentanteLegal = @peju_TelefonoRepresentanteLegal,	  	
+				peju_CorreoElectronico = @peju_CorreoElectronico,              	
+				peju_CorreoElectronicoAlternativo = @peju_CorreoElectronicoAlternativo,   	
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,       			
+				peju_FechaModificacion =  @peju_FechaModificacion
+		  WHERE peju_Id = @peju_Id
+
+		  SELECT 1 AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
 --------------------------------------------/UDPS Para contrato de adhesión-------------------------------------------

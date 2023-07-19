@@ -53,6 +53,7 @@ import DocumentosDeSanciones from '../Aduanas/DocumentosDeSanciones/DocumentosDe
 import FormaDeEnvioIndex from '../Generales/FormasEnvio/FormasEnvio';
 import MonedasIndex from '../Generales/Monedas/monedas';
 import OrdenProcesosIndex from '../Produccion/OrdenDeProcesos/OrdenDeProcesos';
+import CalendarApp from '../Produccion/Planificación/CalendarApp';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -260,6 +261,10 @@ const routes = [
   {
     path: 'OrdenProcesos/Index',
     element: <OrdenProcesosIndex />,
+  },
+  {
+    path: 'Planificacion/Index',
+    element: <CalendarApp />,
   },
 ];
 

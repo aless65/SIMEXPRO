@@ -285,10 +285,10 @@ const navigationConfig = [
         children: [
           {
             id: 'Produccion.AsignacionesModulo',
-            title: 'Asignaciones de Módulo',
+            title: 'Planificación',
             type: 'item',
             icon: 'material-outline:hail',
-            url: '/Produccion/AsignacionesModulo',
+            url: '/Planificacion/Index',
           },
           {
             id: 'Produccion.Inspecciones',

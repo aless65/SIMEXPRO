@@ -12,6 +12,7 @@ import pagesConfigs from '../main/pages/pagesConfigs';
 import CiudadesIndex from '../Ubicaciones/Ciudades/Ciudades';
 import ProvinciasIndex from '../Ubicaciones/Provincias/Provincias';
 import PaisesIndex from '../Ubicaciones/Paises/Paises';
+import ColoniasIndex from '../Ubicaciones/Colonias/Colonias';
 import EstadosCivilesIndex from '../Personas/EstadosCiviles/EstadosCiviles';
 import CargosIndex from '../Personas/Cargos/Cargos';
 import OficinasIndex from '../Personas/Oficinas/Oficinas';
@@ -24,6 +25,9 @@ import RolesCrear from '../Seguridad/Roles/roles_crear';
 import DucaIndex from '../Aduanas/DUCA/duca_Index';
 import DucaCrear from '../Aduanas/DUCA/duca_Crear';
 import Subir_Documentos from '../Aduanas/Documentacion/Subir_Documentos';
+
+import EmpleadosIndex from '../Personas/Empleados/Empleados';
+import ProveedoresIndex from '../Personas/Proveedores/Proveedores';
 
 import PersonaNatural_Index from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/PersonaNatural_Index';
 import PersonaNatural_Crear from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/PersonaNatural_Crear';
@@ -85,6 +89,10 @@ const routes = [
     element: <PaisesIndex />,
   },
   {
+    path: 'Colonias/Index',
+    element: <ColoniasIndex />,
+  },
+  {
     path: 'FormaDeEnvio/Index',
     element: <FormaDeEnvioIndex />,
  },
@@ -112,7 +120,14 @@ const routes = [
     path: 'Usuarios/Index',
     element: <UsuariosIndex />,
   },
-
+  {
+    path: 'Empleados/Index',
+    element: <EmpleadosIndex />,
+  },
+  {
+    path: 'Proveedores/Index',
+    element: <ProveedoresIndex />,
+  },
   {
     path: 'BoletindePago/BoletinDePagoIndex',
     element: <BoletinDePagoIndex />,

@@ -189,19 +189,7 @@ function AldeaIndex() {
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
-
-            <Grid item xs={6} style={{ marginTop: '30px' }} >
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Aldea"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6} style={{ marginTop: '30px' }} >
+          <Grid item xs={6} style={{ marginTop: '30px' }} >
               <FormControl
                 fullWidth
               >
@@ -212,7 +200,16 @@ function AldeaIndex() {
                 />
               </FormControl>
             </Grid>
-
+            <Grid item xs={6} style={{ marginTop: '30px' }} >
+              <FormControl
+                fullWidth
+              >
+                <TextField
+                  style={{ borderRadius: '10px' }}
+                  label="Aldea"
+                />
+              </FormControl>
+            </Grid>
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
               <Button
                 startIcon={<Icon>checked</Icon>}

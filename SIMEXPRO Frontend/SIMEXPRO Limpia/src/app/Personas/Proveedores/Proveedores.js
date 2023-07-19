@@ -1,3 +1,4 @@
+
 /* eslint-disable no-lone-blocks */
 /* eslint-disable prettier/prettier */
 import Card from '@mui/material/Card';
@@ -33,9 +34,11 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { height } from '@mui/system';
+import RadioGroup from '@mui/material/RadioGroup'
+import Radio from '@mui/material/Radio'
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
-
-function ColoniasIndex() {
+function ProveedoresIndex() {
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
@@ -48,9 +51,10 @@ function ColoniasIndex() {
   {/* Columnas de la tabla */ }
   const columns = [
     { field: 'id', headerName: 'Id', width: 10 },
-    { field: 'descripcion', headerName: 'Colonia', flex: 1 },
-    { field: 'aldea', headerName: 'Aldea', flex: 1 }, 
-    { field: 'ciudad', headerName: 'Ciudad', flex: 1 },       
+    { field: 'nombres', headerName: 'NombreCompañia', flex: 1 },
+    { field: 'contacto', headerName: 'NombreContacto', flex: 1 },
+    { field: 'telefono', headerName: 'Telefono', flex: 1 }, 
+    { field: 'ciudad', headerName: 'Ciudad', flex: 1 }, 
     {
       field: 'acciones',
       headerName: 'Acciones',
@@ -101,11 +105,11 @@ function ColoniasIndex() {
 
   {/* Datos de la tabla */ }
   const rows = [
-    { id: '1', descripcion: 'Colonia los Andes',aldea:'Aldea juanito ventura',ciudad:'Choloma'},
-    { id: '2', descripcion: 'Colonia BuenaVentura',aldea:'Aldea juanito ventura',ciudad:'Choloma'},
-    { id: '3', descripcion: 'Colonia Prado Alto',aldea:'Aldea juanito ventura',ciudad:'Choloma'},
-    { id: '4', descripcion: 'Colonia Montes',aldea:'Aldea juanito ventura',ciudad:'Choloma'},
-    { id: '5', descripcion: 'Colonia Pedro Lopez',aldea:'Aldea juanito ventura',ciudad:'Choloma'},
+    { id: '1', nombres:'TELMEX',      contacto: 'Daniel Isaac Zepeda'          ,telefono:'46456456456456',ciudad:'San Pedro Sula'},
+    { id: '2', nombres:'Sony',        contacto: 'Esdra Cerna'                  ,telefono:'75675675634223',ciudad:'Choloma'},
+    { id: '3', nombres:'Nvidia',      contacto: 'Eder Jesus Sanchez Martínez'  ,telefono:'90345343676575',ciudad:'La Lima'},
+    { id: '4', nombres:'Razor',       contacto: 'Karla Alejandro '             ,telefono:'75679808908234',ciudad:'Choloma'},
+    { id: '5', nombres:'Mclaren',     contacto: 'Sarai uintanilla'             ,telefono:'89797894534534',ciudad:'Choloma'},
   ];
 
   {/* Función para mostrar la tabla y mostrar agregar */ }
@@ -120,7 +124,7 @@ function ColoniasIndex() {
 
   {/* Filtrado de datos */ }
   const filteredRows = rows.filter((row) =>
-    row.descripcion.toLowerCase().includes(searchText.toLowerCase())
+    row.nombres.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
@@ -128,7 +132,7 @@ function ColoniasIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/18Z8NFC/COLONIAS.pngv"
+        image="https://i.ibb.co/JxTYhwv/PROVEEDORES.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>
@@ -215,10 +219,50 @@ function ColoniasIndex() {
               <FormControl
                 fullWidth
               >
-                <InputLabel htmlFor="grouped-native-select">Ciudades</InputLabel>
+                <TextField
+                  style={{ borderRadius: '10px' }}
+                  label="Nombre de la compañia"
+                />
+              </FormControl>
+            </Grid>  
+            <Grid item xs={6}>
+              <FormControl
+                fullWidth
+              >
+                <TextField
+                  style={{ borderRadius: '10px' }}
+                  label="Nombre de contacto"
+                />
+              </FormControl>
+            </Grid> 
+            <Grid item xs={6}>
+              <FormControl
+                fullWidth
+              >
+                <TextField
+                  style={{ borderRadius: '10px' }}
+                  label="Teléfono"
+                />
+              </FormControl>
+            </Grid> 
+            <Grid item xs={6}>
+              <FormControl
+                fullWidth
+              >
+                <TextField
+                  style={{ borderRadius: '10px' }}
+                  label="Codigo postal"
+                />
+              </FormControl>
+            </Grid> 
+            <Grid item xs={6}>
+              <FormControl
+                fullWidth
+              >
+                <InputLabel htmlFor="grouped-native-select">País</InputLabel>
                 <Select
                   style={{ borderRadius: '3px' }}
-                  label="Subcategoría"
+                  label="País"
                 />
               </FormControl>
             </Grid>
@@ -226,23 +270,54 @@ function ColoniasIndex() {
               <FormControl
                 fullWidth
               >
-                <InputLabel htmlFor="grouped-native-select">Aldeas</InputLabel>
+                <InputLabel htmlFor="grouped-native-select">Provincias</InputLabel>
                 <Select
                   style={{ borderRadius: '3px' }}
-                  label="Subcategoría"
+                  label="Provincias"
                 />
               </FormControl>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
+              <FormControl
+                fullWidth
+              >
+                <InputLabel htmlFor="grouped-native-select">Ciudades</InputLabel>
+                <Select
+                  style={{ borderRadius: '3px' }}
+                  label="Ciudades"
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={6}>
               <FormControl
                 fullWidth
               >
                 <TextField
                   style={{ borderRadius: '10px' }}
-                  label="Nombre Colonia"
+                  label="Dirección exacta"
                 />
               </FormControl>
-            </Grid>        
+            </Grid>
+            <Grid item xs={6}>
+              <FormControl
+                fullWidth
+              >
+                <TextField
+                  style={{ borderRadius: '10px' }}
+                  label="Fax"
+                />
+              </FormControl>
+            </Grid>      
+            <Grid item xs={6}>
+              <FormControl
+                fullWidth
+              >
+                <TextField
+                  style={{ borderRadius: '10px' }}
+                  label="Correo electrónico"
+                />
+              </FormControl>
+            </Grid>  
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
               <Button
                 startIcon={<Icon>checked</Icon>}
@@ -330,7 +405,12 @@ function ColoniasIndex() {
   );
 }
 
-export default ColoniasIndex;
+export default ProveedoresIndex;
+
+
+
+
+
 
 
 

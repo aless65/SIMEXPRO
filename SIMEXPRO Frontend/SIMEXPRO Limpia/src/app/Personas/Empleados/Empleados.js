@@ -1,3 +1,4 @@
+
 /* eslint-disable no-lone-blocks */
 /* eslint-disable prettier/prettier */
 import Card from '@mui/material/Card';
@@ -33,9 +34,11 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { height } from '@mui/system';
+import RadioGroup from '@mui/material/RadioGroup'
+import Radio from '@mui/material/Radio'
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
-
-function AreasIndex() {
+function EmpleadosIndex() {
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
@@ -123,7 +126,7 @@ function AreasIndex() {
 
   {/* Filtrado de datos */ }
   const filteredRows = rows.filter((row) =>
-    row.descripcion.toLowerCase().includes(searchText.toLowerCase())
+    row.nombres.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
@@ -131,7 +134,7 @@ function AreasIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/tD9Rjwz/EMPLEADOS.png   "
+        image="https://i.ibb.co/tD9Rjwz/EMPLEADOS.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>
@@ -220,7 +223,17 @@ function AreasIndex() {
               >
                 <TextField
                   style={{ borderRadius: '10px' }}
-                  label="Codigo Moneda"
+                  label="Nombres"
+                />
+              </FormControl>
+            </Grid>  
+            <Grid item xs={6}>
+              <FormControl
+                fullWidth
+              >
+                <TextField
+                  style={{ borderRadius: '10px' }}
+                  label="Apellidos"
                 />
               </FormControl>
             </Grid> 
@@ -230,10 +243,100 @@ function AreasIndex() {
               >
                 <TextField
                   style={{ borderRadius: '10px' }}
-                  label="Nombre Moneda"
+                  label="DNI"
                 />
               </FormControl>
-            </Grid>        
+            </Grid> 
+            <Grid item xs={6}>
+              <FormControl fullWidth>           
+                    <RadioGroup
+                      row
+                      name='simple-radio'
+                      aria-label='simple-radio'
+                    >
+                      <FormControlLabel value='F' control={<Radio />} label='Femenino' />
+                      <FormControlLabel value='M' control={<Radio />} label='Masculino' />
+                    </RadioGroup>
+              </FormControl>
+            </Grid>
+            <Grid item xs={6}>
+              <FormControl
+                fullWidth
+              >
+                <InputLabel htmlFor="grouped-native-select">Estados Civiles</InputLabel>
+                <Select
+                  style={{ borderRadius: '3px' }}
+                  label="Estado Civil"
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={6}>
+              <FormControl>
+                <DateTimePicker
+                  renderInput={(_props) => (
+
+                    <TextField
+                      style={{ borderRadius: '10px', width: '168px', marginLeft: '15px' }}
+                      className="w-full"
+                      {..._props}
+                      label="Fecha de nacimiento"
+                       />
+                  )}
+                  className="w-full" />
+              </FormControl>
+            </Grid>
+            <Grid item xs={6}>
+              <FormControl
+                fullWidth
+              >
+                <TextField
+                  style={{ borderRadius: '10px' }}
+                  label="Teléfono"
+                />
+              </FormControl>
+            </Grid> 
+            <Grid item xs={6}>
+              <FormControl
+                fullWidth
+              >
+                <TextField
+                  style={{ borderRadius: '10px' }}
+                  label="Dirección exacta"
+                />
+              </FormControl>
+            </Grid> 
+            <Grid item xs={6}>
+              <FormControl
+                fullWidth
+              >
+                <InputLabel htmlFor="grouped-native-select">Provincias</InputLabel>
+                <Select
+                  style={{ borderRadius: '3px' }}
+                  label="Provincias"
+                />
+              </FormControl>
+            </Grid> 
+            <Grid item xs={6}>
+              <FormControl
+                fullWidth
+              >
+                <InputLabel htmlFor="grouped-native-select">Cargo que desempeña</InputLabel>
+                <Select
+                  style={{ borderRadius: '3px' }}
+                  label="Cargo"
+                />
+              </FormControl>
+            </Grid> 
+            <Grid item xs={12}>
+              <FormControl
+                fullWidth
+              >
+                <TextField
+                  style={{ borderRadius: '10px' }}
+                  label="Correo electrónico"
+                />
+              </FormControl>
+            </Grid>  
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
               <Button
                 startIcon={<Icon>checked</Icon>}
@@ -321,7 +424,12 @@ function AreasIndex() {
   );
 }
 
-export default AreasIndex;
+export default EmpleadosIndex;
+
+
+
+
+
 
 
 

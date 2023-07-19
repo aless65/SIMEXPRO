@@ -25,6 +25,12 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 
+
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+
+
+
 function DucaIndex() {
   const navigate = useNavigate()
   const [searchText, setSearchText] = useState('');
@@ -44,63 +50,79 @@ function DucaIndex() {
     {
       field: 'acciones',
       headerName: 'Acciones',
-      width: 500,
-      renderCell: (params) => (
-        <Stack direction="row" spacing={1}>
-          <Button
-            startIcon={<Icon>edit</Icon>}
-            variant="contained"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#634A9E',
-              color: 'white',
-              "&:hover": { backgroundColor: '#6e52ae' },
-            }}>
-            Editar
-          </Button>
-
-       
-          <Button
-            startIcon={<Icon>visibility</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#797979', color: 'white',
-              "&:hover": { backgroundColor: '#b69999' },
-            }}
-          >
-            Detalles
-          </Button>
-          <Button
-            startIcon={<Icon>delete</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#E40F00', color: 'white',
-              "&:hover": { backgroundColor: '#eb5f56' },
-            }}
-            onClick={DialogEliminar}
-          >
-            Eliminar
-          </Button>
-          <Button
-            startIcon={<Icon>print</Icon>}
-            variant="contained"
-            color="primary"     
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#C4BADD', color: 'white',
-              "&:hover": { backgroundColor: '#c3cbe0' },
-            }}
-          >
-            Imprimir
-          </Button>
-        </Stack>
-      ),
+      flex:1,
+      renderCell: (params) => {
+        const [anchorEl, setAnchorEl] = React.useState(null);
+  
+        const handleClick = (event) => {
+          setAnchorEl(event.currentTarget);
+        };
+  
+        const handleClose = () => {
+          setAnchorEl(null);
+        };
+  
+        const handleEdit = () => {
+          // Implementa la función para editar aquí
+          handleClose();
+        };
+  
+        const handleDetails = () => {
+          // Implementa la función para detalles aquí
+          handleClose();
+        };
+  
+        const handleDelete = () => {
+          // Implementa la función para eliminar aquí
+          handleClose();
+        };
+  
+        const handlePrint = () => {
+          // Implementa la función para imprimir aquí
+          handleClose();
+        };
+  
+        return (
+          <Stack direction="row" spacing={1}>
+            <Button
+              aria-controls={`menu-${params.id}`}
+              aria-haspopup="true"
+              onClick={handleClick}
+              variant="contained"
+              style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+              startIcon={<Icon>menu</Icon>}
+            >
+              Opciones
+            </Button>
+            <Menu
+              id={`menu-${params.id}`}
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleEdit}>
+                <Icon>edit</Icon> Editar
+              </MenuItem>
+              <MenuItem onClick={handleDetails}>
+                <Icon>visibility</Icon> Detalles
+              </MenuItem>
+              <MenuItem onClick={handleDelete}>
+                <Icon>delete</Icon> Eliminar
+              </MenuItem>
+              <MenuItem onClick={handlePrint}>
+                <Icon>print</Icon> Imprimir
+              </MenuItem>
+              <MenuItem onClick={handlePrint}>
+                <Icon>insert_drive_file</Icon> Boletin
+              </MenuItem>
+            </Menu>
+          </Stack>
+        );
+      },
     },
   ];
+   
 
   {/*Datos de la tabla*/ }
   const rows = [
@@ -164,6 +186,8 @@ function DucaIndex() {
               ),
             }}
           />
+
+          
         </CardContent>
 
       {/*Tabla*/}

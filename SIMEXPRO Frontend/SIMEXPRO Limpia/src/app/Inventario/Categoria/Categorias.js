@@ -69,10 +69,7 @@ function CategoriaIndex() {
           handleClose();
         };
   
-        const handleDelete = () => {
-          // Implementa la función para eliminar aquí
-          handleClose();
-        };
+
 
   
         return (

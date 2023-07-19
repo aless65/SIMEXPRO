@@ -17,6 +17,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Select from '@mui/material/Select';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 
 function MarcasIndex() {
@@ -31,54 +33,73 @@ function MarcasIndex() {
 
     {/* Columnas de la tabla */ }
     const columns = [
-        { field: 'id', headerName: 'Id', width: 100, alignItems: 'center' },
+        { field: 'id', headerName: 'Id', width: 200, alignItems: 'center' },
         { field: 'marca', headerName: 'Marca', width: 250 },
         {
             field: 'acciones',
             headerName: 'Acciones',
             width: 400,
-            renderCell: (params) => (
-                <Stack direction="row" spacing={1}>
-                    <Button
-                        startIcon={<Icon>edit</Icon>}
-                        variant="contained"
-                        style={{ borderRadius: '10px' }}
-                        sx={{
-                            backgroundColor: '#634A9E',
-                            color: 'white',
-                            "&:hover": { backgroundColor: '#6e52ae' },
-                        }}>
-                        Editar
-                    </Button>
+            renderCell: (params) => {
+                const [anchorEl, setAnchorEl] = React.useState(null);
 
-                    <Button
-                        startIcon={<Icon>visibility</Icon>}
-                        variant="contained"
-                        color="primary"
-                        style={{ borderRadius: '10px' }}
-                        sx={{
-                            backgroundColor: '#797979', color: 'white',
-                            "&:hover": { backgroundColor: '#b69999' },
-                        }}
-                    >
-                        Detalles
-                    </Button>
-                    <Button
-                        startIcon={<Icon>delete</Icon>}
-                        variant="contained"
-                        color="primary"
-                        style={{ borderRadius: '10px' }}
-                        sx={{
-                            backgroundColor: '#E40F00', color: 'white',
-                            "&:hover": { backgroundColor: '#eb5f56' },
-                        }}
-                        onClick={DialogEliminar}
-                    >
-                        Eliminar
-                    </Button>
-                </Stack>
-            ),
+                const handleClick = (event) => {
+                    setAnchorEl(event.currentTarget);
+                };
+
+                const handleClose = () => {
+                    setAnchorEl(null);
+                };
+
+                const handleEdit = () => {
+                    // Implementa la función para editar aquí
+                    handleClose();
+                };
+
+                const handleDetails = () => {
+                    // Implementa la función para detalles aquí
+                    handleClose();
+                };
+
+                const handleDelete = () => {
+                    // Implementa la función para eliminar aquí
+                    handleClose();
+                };
+
+
+                return (
+                    <Stack direction="row" spacing={1}>
+                        <Button
+                            aria-controls={`menu-${params.id}`}
+                            aria-haspopup="true"
+                            onClick={handleClick}
+                            variant="contained"
+                            style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+                            startIcon={<Icon>menu</Icon>}
+                        >
+                            Opciones
+                        </Button>
+                        <Menu
+                            id={`menu-${params.id}`}
+                            anchorEl={anchorEl}
+                            keepMounted
+                            open={Boolean(anchorEl)}
+                            onClose={handleClose}
+                        >
+                            <MenuItem onClick={handleEdit}>
+                                <Icon>edit</Icon> Editar
+                            </MenuItem>
+                            <MenuItem onClick={handleDetails}>
+                                <Icon>visibility</Icon> Detalles
+                            </MenuItem>
+                            <MenuItem onClick={DialogEliminar}>
+                                <Icon>delete</Icon> Eliminar
+                            </MenuItem>
+                        </Menu>
+                    </Stack>
+                );
+            },
         },
+
     ];
 
     {/* Datos de la tabla */ }
@@ -160,7 +181,7 @@ function MarcasIndex() {
 
             {/* Tabla */}
             <Collapse in={mostrarIndex}>
-                <div style={{ height: 400, width: '100%', marginLeft: '30px', marginRight: '30px' }}>
+                <div style={{ height: 400, width: '100%', marginLeft: '13px', marginRight: '10px' }}>
                     <DataGrid
                         localeText={esES.components.MuiDataGrid.defaultProps.localeText}
                         components={{
@@ -190,13 +211,15 @@ function MarcasIndex() {
                     <Grid container spacing={3}>
 
 
-                    <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}
-                             style={{ marginTop: '30px' }}>
+                        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}
+                            style={{ marginTop: '30px' }}>
 
                             <FormControl>
                                 <TextField
                                     style={{ borderRadius: '10px', width: '500px' }}
-                                    label="Descripción"
+                                    label="Marca"
+                                    defaultValue={' '}
+
                                 />
                             </FormControl>
                         </Grid>

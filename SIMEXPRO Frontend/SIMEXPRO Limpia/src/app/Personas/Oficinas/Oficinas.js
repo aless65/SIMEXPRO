@@ -125,7 +125,7 @@ function OficinasIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/h91HXjj/OFICINAS.png"
+        image="https://i.ibb.co/BqmXTJV/OFICINAS.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>

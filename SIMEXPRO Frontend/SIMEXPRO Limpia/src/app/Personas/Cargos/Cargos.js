@@ -229,7 +229,8 @@ function CargosIndex() {
                     <TextField
                         defaultValue=" "
                         style={{ borderRadius: '10px', width: '500px' }}
-                        label="Nombre del cargo"
+                        label="Cargo"
+                        placeholder='Descripción del cargo'
                     />
                 </FormControl>
             </Grid>      

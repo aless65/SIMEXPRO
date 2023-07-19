@@ -34,6 +34,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { height } from '@mui/system';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 
 function OficionesProfesionesIndex() {
@@ -49,53 +51,72 @@ function OficionesProfesionesIndex() {
   {/* Columnas de la tabla */ }
   const columns = [
     { field: 'id', headerName: 'Código', width: 200 },
-    { field: 'descripcion', headerName: 'Descripción', width: 300 }, 
+    { field: 'descripcion', headerName: 'Descripción', width: 550 }, 
     {
       field: 'acciones',
       headerName: 'Acciones',
       width: 400,
-      renderCell: (params) => (
-        <Stack direction="row" spacing={1}>
-          <Button
-            startIcon={<Icon>edit</Icon>}
-            variant="contained"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#634A9E',
-              color: 'white',
-              "&:hover": { backgroundColor: '#6e52ae' },
-            }}>
-            Editar
-          </Button>
+      renderCell: (params) => {
+        const [anchorEl, setAnchorEl] = React.useState(null);
+  
+        const handleClick = (event) => {
+          setAnchorEl(event.currentTarget);
+        };
+  
+        const handleClose = () => {
+          setAnchorEl(null);
+        };
+  
+        const handleEdit = () => {
+          // Implementa la función para editar aquí
+          handleClose();
+        };
+  
+        const handleDetails = () => {
+          // Implementa la función para detalles aquí
+          handleClose();
+        };
+  
+        const handleDelete = () => {
+          // Implementa la función para eliminar aquí
+          handleClose();
+        };
 
-          <Button
-            startIcon={<Icon>visibility</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#797979', color: 'white',
-              "&:hover": { backgroundColor: '#b69999' },
-            }}
-          >
-            Detalles
-          </Button>
-          <Button
-            startIcon={<Icon>delete</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#E40F00', color: 'white',
-              "&:hover": { backgroundColor: '#eb5f56' },
-            }}
-            onClick={DialogEliminar}
-          >
-            Eliminar
-          </Button>
-        </Stack>
-      ),
+  
+        return (
+          <Stack direction="row" spacing={1}>
+            <Button
+              aria-controls={`menu-${params.id}`}
+              aria-haspopup="true"
+              onClick={handleClick}
+              variant="contained"
+              style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+              startIcon={<Icon>menu</Icon>}
+            >
+              Opciones
+            </Button>
+            <Menu
+              id={`menu-${params.id}`}
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleEdit}>
+                <Icon>edit</Icon> Editar
+              </MenuItem>
+              <MenuItem onClick={handleDetails}>
+                <Icon>visibility</Icon> Detalles
+              </MenuItem>
+              <MenuItem onClick={DialogEliminar}>
+                <Icon>delete</Icon> Eliminar
+              </MenuItem>
+            </Menu>
+          </Stack>
+        );
+      },
     },
+
   ];
 
 
@@ -135,7 +156,7 @@ function OficionesProfesionesIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/tsqtDVX/OFICIOS-PROFESIONES.png"
+        image="https://i.ibb.co/K0h73Hw/OFICIO-PROFESIONES-1.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>
@@ -186,7 +207,7 @@ function OficionesProfesionesIndex() {
 
       {/* Tabla */}
       <Collapse in={mostrarIndex}>
-        <div style={{ height: 400, width: '100%' }}>
+      <div style={{ height: 400, width: '100%', marginLeft: '20px', marginRight: '20px' }}>
           <DataGrid
             localeText={esES.components.MuiDataGrid.defaultProps.localeText}
             components={{

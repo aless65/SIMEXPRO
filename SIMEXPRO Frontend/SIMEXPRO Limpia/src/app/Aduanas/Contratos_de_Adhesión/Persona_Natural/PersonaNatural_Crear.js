@@ -1,33 +1,30 @@
 /* eslint-disable camelcase */
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import {
+  CardMedia,
+  CardContent,
+  Card,
   Button,
   Chip,
   Divider,
   FormControl,
   Icon,
-  InputLabel,
   TextField,
   Typography,
-  Select,
   Grid,
   AppBar,
   Tabs,
   Tab,
   Box,
   Avatar,
+  InputAdornment,
 } from '@mui/material';
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
-
 import { useNavigate } from 'react-router-dom';
 import { black } from 'tailwindcss/colors';
 import { useState } from 'react';
-
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -107,22 +104,11 @@ function PersonaNatural_Crear() {
 
   const { handleSubmit, reset, control, formState } = useForm({
     tab1Fields,
-    mode: 'all',
-    resolver: yupResolver(schemaTab1Fields),
-  });
-  const { isValid, dirtyFields, errors } = formState;
-
-  const {
-    handleSubmitTab2,
-    resetTab2,
-    controlTab2,
-    formStateTab2 = {},
-  } = useForm({
     tab2Fields,
     mode: 'all',
-    resolver: yupResolver(schemaTab2Fields),
+    resolver: yupResolver(schemaTab1Fields || schemaTab2Fields),
   });
-  const { isValidTab2, dirtyFieldsTab2, errorsTab2 } = formStateTab2;
+  const { isValid, dirtyFields, errors } = formState;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -197,6 +183,10 @@ function PersonaNatural_Crear() {
                             fullWidth
                             error={!!errors.rtn_solicitante}
                             style={{ borderRadius: '3px' }}
+                            placeholder="RTN del Solicitante"
+                            InputProps={{
+                              startAdornment: <InputAdornment position="start" />,
+                            }}
                           />
                         )}
                         name="rtn_solicitante"
@@ -231,10 +221,14 @@ function PersonaNatural_Crear() {
                           <TextField
                             {...field}
                             label="Documento Nacional de Identificación (DNI)"
-                            variant="outlined"
                             fullWidth
                             error={!!errors.dni}
                             style={{ borderRadius: '3px' }}
+                            variant="outlined"
+                            placeholder="Documento Nacional de Identificación (DNI)"
+                            InputProps={{
+                              startAdornment: <InputAdornment position="start" />,
+                            }}
                           />
                         )}
                         name="dni"
@@ -273,6 +267,10 @@ function PersonaNatural_Crear() {
                             fullWidth
                             error={!!errors.numero_recibo_servicio_publico}
                             style={{ borderRadius: '3px' }}
+                            placeholder="Número Recibo de Servicio Público (ENEE, SANAA, etc.)"
+                            InputProps={{
+                              startAdornment: <InputAdornment position="start" />,
+                            }}
                           />
                         )}
                         name="numero_recibo_servicio_publico"
@@ -347,80 +345,111 @@ function PersonaNatural_Crear() {
           </TabPanel>
 
           <TabPanel value={value} index={1} dir={theme.direction}>
-            <form onSubmit={handleSubmitTab2}>
+            <form onSubmit={handleSubmit}>
               <Card style={{ marginBottom: '25px' }}>
                 <CardContent>
                   <Grid container spacing={2}>
                     <Grid item xs={4}>
-                      <FormControl fullWidth>
-                        <InputLabel>Oficina Regional de Aduanas más cercana</InputLabel>
-                        <Select
-                          style={{ borderRadius: '10px' }}
-                          label="Oficina Regional de Aduanas más cercana"
-                        />
-                      </FormControl>
-                      {/* <Controller
+                      <Controller
                         render={({ field }) => (
-                          <FormControl error={!!errorsTab2.oficina_regional_aduanas} fullWidth>
-                            <InputLabel className="font-medium text-14" component="legend">
-                              Oficina Regional de Aduanas más cercana
-                            </InputLabel>
-                            <Select
-                              {...field}
-                              variant="outlined"
-                              fullWidth
-                              style={{ borderRadius: '3px' }}
-                            />
-                          </FormControl>
+                          <TextField
+                            {...field}
+                            label="Oficina Regional de Aduanas más cercana"
+                            style={{ borderRadius: '10px' }}
+                            select
+                            fullWidth
+                            variant="outlined"
+                            placeholder="Oficina Regional de Aduanas más cercana"
+                            InputProps={{
+                              startAdornment: <InputAdornment position="start" />,
+                            }}
+                            error={!!errors.oficina_regional_aduanas}
+                          />
                         )}
                         name="oficina_regional_aduanas"
-                        control={controlTab2}
-                      /> */}
+                        control={control}
+                      />
                     </Grid>
                     <Grid item xs={4}>
                       <FormControl fullWidth>
-                        <InputLabel>Estado Civil de la Persona</InputLabel>
-                        <Select
-                          style={{ borderRadius: '10px' }}
+                        <TextField
                           label="Estado Civil de la Persona"
+                          style={{ borderRadius: '10px' }}
+                          select
+                          variant="outlined"
+                          placeholder="Estado Civil de la Persona"
+                          InputProps={{
+                            startAdornment: <InputAdornment position="start" />,
+                          }}
                         />
                       </FormControl>
                     </Grid>
                     <Grid item xs={4}>
                       <FormControl fullWidth>
-                        <InputLabel>Profesión u Oficio de la Persona</InputLabel>
-                        <Select
-                          style={{ borderRadius: '10px' }}
+                        <TextField
                           label="Profesión u Oficio de la Persona"
+                          style={{ borderRadius: '10px' }}
+                          select
+                          variant="outlined"
+                          placeholder="Profesión u Oficio de la persona"
+                          InputProps={{
+                            startAdornment: <InputAdornment position="start" />,
+                          }}
                         />
                       </FormControl>
                     </Grid>
                   </Grid>
 
-                  <Divider style={{ marginTop: '30px', marginBottom: '15px' }}>
+                  <Divider style={{ marginTop: '30px', marginBottom: '20px' }}>
                     <Chip label="DOMICILIO DE LA PERSONA" />
                   </Divider>
 
                   <Grid container spacing={2}>
                     <Grid item xs={4}>
                       <FormControl fullWidth>
-                        <InputLabel>Departamento y Municipio</InputLabel>
-                        <Select style={{ borderRadius: '10px' }} label="Departamento y Municipio" />
+                        <FormControl fullWidth>
+                          <TextField
+                            label="Departamento y Municipio"
+                            style={{ borderRadius: '10px' }}
+                            select
+                            variant="outlined"
+                            placeholder="Departamento y Municipio"
+                            InputProps={{
+                              startAdornment: <InputAdornment position="start" />,
+                            }}
+                          />
+                        </FormControl>
                       </FormControl>
                     </Grid>
                     <Grid item xs={4}>
                       <FormControl fullWidth>
-                        <TextField style={{ borderRadius: '10px' }} label="Ciudad" />
+                        <TextField
+                          style={{ borderRadius: '10px' }}
+                          label="Ciudad"
+                          variant="outlined"
+                          placeholder="Ciudad"
+                          InputProps={{
+                            startAdornment: <InputAdornment position="start" />,
+                          }}
+                        />
                       </FormControl>
                     </Grid>
                     <Grid item xs={4}>
                       <FormControl fullWidth>
-                        <TextField style={{ borderRadius: '10px' }} label="Dirección Completa" />
+                        <TextField
+                          style={{ borderRadius: '10px' }}
+                          label="Dirección Completa"
+                          variant="outlined"
+                          placeholder="Dirección Completa"
+                          InputProps={{
+                            startAdornment: <InputAdornment position="start" />,
+                          }}
+                        />
                       </FormControl>
                     </Grid>
                   </Grid>
 
-                  <Divider style={{ marginTop: '30px', marginBottom: '15px' }}>
+                  <Divider style={{ marginTop: '30px', marginBottom: '20px' }}>
                     <Chip label="INFORMACIÓN DE CONTACTO" />
                   </Divider>
 
@@ -430,6 +459,11 @@ function PersonaNatural_Crear() {
                         <TextField
                           style={{ borderRadius: '10px' }}
                           label="Número de Teléfono Fijo de la Persona"
+                          variant="outlined"
+                          placeholder="Número de Teléfono Fijo de la Persona"
+                          InputProps={{
+                            startAdornment: <InputAdornment position="start" />,
+                          }}
                         />
                       </FormControl>
                     </Grid>
@@ -438,6 +472,11 @@ function PersonaNatural_Crear() {
                         <TextField
                           style={{ borderRadius: '10px' }}
                           label="Número de Teléfono Celular de la Persona"
+                          variant="outlined"
+                          placeholder="Número de Teléfono Celular de la Persona"
+                          InputProps={{
+                            startAdornment: <InputAdornment position="start" />,
+                          }}
                         />
                       </FormControl>
                     </Grid>
@@ -446,6 +485,11 @@ function PersonaNatural_Crear() {
                         <TextField
                           style={{ borderRadius: '10px' }}
                           label="Correo Electrónico donde Notificar"
+                          variant="outlined"
+                          placeholder="Correo Electrónico donde Notificar"
+                          InputProps={{
+                            startAdornment: <InputAdornment position="start" />,
+                          }}
                         />
                       </FormControl>
                     </Grid>

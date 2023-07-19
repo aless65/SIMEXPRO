@@ -11,7 +11,6 @@ GO
 
 
 
---Listar Modulos
 CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Listar
 AS
 BEGIN
@@ -45,7 +44,7 @@ END
 
 GO
 
---Insertar Modulos
+/*Insertar Modulos*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Insertar 
 	@modu_Nombre			NVARCHAR(200),
 	@proc_Id				INT,
@@ -76,7 +75,7 @@ END
 
 GO
 
---Editar Modulos
+/*Editar Modulos*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Editar  
 	@modu_Id					INT,
 	@modu_Nombre				NVARCHAR(200),
@@ -103,9 +102,7 @@ END
 
 GO
 
-
-
---Eliminar Modulos
+/*Eliminar Modulos*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Eliminar    
 	@modu_Id					INT,
 	@usua_UsuarioEliminacion	INT,
@@ -134,7 +131,7 @@ END
 GO
 --************************************************************************   Tabla Maquinas inicio   ***********************************************************************************************
 
---Listar Maquinas
+/*Listar Maquinas*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinas_Listar
 AS
 BEGIN
@@ -160,7 +157,7 @@ BEGIN
 END
 GO
 
---Insertar Maquinas
+/*Insertar Maquinas*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinas_Insertar 
 	@maqu_NumeroSerie		NVARCHAR(100),
 	@modu_Id                INT,
@@ -191,7 +188,7 @@ END
 
 GO
 
---Editar Maquinas
+/*Editar Maquinas*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinas_Editar
 	@maqu_Id				    INT,
 	@maqu_NumeroSerie		    NVARCHAR(100),
@@ -218,7 +215,7 @@ END
 
 GO
 
---Eliminar Maquinas
+/*Eliminar Maquinas*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinas_Eliminar  
 	@maqu_Id						INT,
 	@usua_UsuarioEliminacion		INT,
@@ -244,18 +241,18 @@ BEGIN
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
-
+GO
 --************************************************************************   Tabla Maquinas fin   ***********************************************************************************************
 GO
 --************************************************************************   Tabla Marcas maquinas inicio   ***********************************************************************************************
 
 --Listar Marcas Maquina
-CREATE OR ALTER VIEW Prod.VW_tbMarcasMaquina
-AS
+--CREATE OR ALTER VIEW Prod.VW_tbMarcasMaquina
+--AS
 
-GO
+--GO
 
---Ejecutar procedimiento de listar MarcasMaquina
+/*Listar procedimiento de listar MarcasMaquina*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMarcasMaquinas_Listar
 AS
 BEGIN
@@ -279,10 +276,7 @@ BEGIN
 END
 GO
 
-
-
-
---Insertar Marcas Maquina
+/*Insertar procedimiento de listar MarcasMaquina*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMarcasMaquina_Insertar 
 	@marq_Nombre			NVARCHAR(250),
 	@usua_UsuarioCreacion	INT,
@@ -311,10 +305,7 @@ END
 
 GO
 
-
-
-
---Editar Marcas Maquina
+/*Editar procedimiento de listar MarcasMaquina*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMarcasMaquina_Editar 
 	@marq_Id					INT,
 	@marq_Nombre				NVARCHAR(250),
@@ -337,7 +328,7 @@ END
 
 GO
 
---Eliminar Marcas Maquina
+/*Eliminar procedimiento de listar MarcasMaquina*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMarcasMaquina_Eliminar 
 	@marq_Id					INT,
 	@usua_UsuarioEliminacion	INT,
@@ -363,14 +354,14 @@ BEGIN
 		SELECT 'Error Message: ' + ERROR_MESSAGE()	
 	END CATCH
 END
-
+GO
 --************************************************************************   Tabla Marcas maquinas fin   ***********************************************************************************************
 GO
 --************************************************************************   Tabla Modelos maquinas inicio   ***********************************************************************************************
 
 --Listar Modelos Maquina
 
---Ejecutar procedimiento de listar ModelosMaquina
+/*Ejecutar procedimiento de listar ModelosMaquina*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbModelosMaquina_Listar
 AS
 BEGIN
@@ -401,7 +392,7 @@ BEGIN
 END
 GO
 
---Insertar Modelos Maquinas
+/*Insertar procedimiento de listar ModelosMaquina*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbModelosMaquina_Insertar 
 	@mmaq_Nombre				NVARCHAR(250),
 	@marq_Id					INT,
@@ -435,7 +426,7 @@ END
 
 GO
 
---Editar Modelos Maquinas
+/*Editar procedimiento de listar ModelosMaquina*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbModelosMaquina_Editar 
 	@mmaq_Id					INT,
 	@mmaq_Nombre				NVARCHAR(250),
@@ -465,7 +456,7 @@ END
 
 GO
 
---Eliminar Modelos Maquinas
+/*Eliminar procedimiento de listar ModelosMaquina*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbModelosMaquina_Eliminar 
 	@mmaq_Id					INT,
 	@usua_UsuarioEliminacion	INT,
@@ -500,7 +491,7 @@ GO
 --************************************************************************   Tabla Aranceles inicio   ***********************************************************************************************
 
 --Listar Aranceles
---Ejecutar procedimiento de listar Aranceles
+/*Listar procedimiento de listar Aranceles*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbAranceles_Listar
 AS
 BEGIN
@@ -527,7 +518,7 @@ END
 
 GO
 
---Insertar Aranceles
+/*Insertar procedimiento de listar Aranceles*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbAranceles_Insertar 
 	@aran_Codigo				NVARCHAR(100),
 	@aran_Descripcion			NVARCHAR(150),
@@ -560,9 +551,7 @@ END
 
 GO
 
-
-
---Editar Aranceles
+/*Editar procedimiento de listar Aranceles*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbAranceles_Editar 
 	@aran_Id					INT,
 	@aran_Codigo				NVARCHAR(100),
@@ -588,8 +577,7 @@ END
 
 GO
 
-go
---Eliminar Aranceles
+/*Eliminar procedimiento de listar Aranceles*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbAranceles_Eliminar 
 	@aran_Id					INT,
 	@usua_UsuarioEliminacion	INT,
@@ -615,20 +603,20 @@ BEGIN
 		SELECT 0
 	END CATCH
 END
-
+GO
 --************************************************************************   Tabla Aranceles FIN   ***********************************************************************************************
 GO
 --************************************************************************   Tabla Declaratntes inicio   ***********************************************************************************************
 
 --Listar Declarantes
---Ejecutar procedimiento de listar Declarantes
+/* listar Declarantes*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDeclarantes_Listar
 AS
 BEGIN
 	SELECT	decl.decl_Id AS idDeclarante, 
 		decl.decl_Nombre_Raso  AS NombreDeclarante, 
 		decl.decl_Direccion_Exacta AS DireccionExacta, 
-		decl.pvin_Id  AS idProvincia,
+		decl.ciud_Id  AS idProvincia,
 		
 		prvi.pvin_Codigo AS CodigoProvincia,
 		prvi.pvin_Nombre  AS NombreProvincia,
@@ -650,7 +638,7 @@ BEGIN
 		decl.decl_Estado
 		 
 FROM    Adua.tbDeclarantes decl 
-         INNER JOIN Gral.tbProvincias prvi ON		decl.pvin_Id = prvi.pvin_Id 
+         INNER JOIN Gral.tbProvincias prvi ON		decl.ciud_Id = prvi.ciud_Id 
          INNER JOIN Gral.tbPaises  pais    ON		prvi.pvin_Codigo = pais.pais_Codigo
 		 INNER JOIN Acce.tbUsuarios usu    ON       usu.usua_UsuarioCreacion = decl.usua_UsuarioCreacion 
 		 LEFT JOIN Acce.tbUsuarios usu1   ON       usu1.usua_UsuarioModificacion = decl.usua_UsuarioModificacion
@@ -658,12 +646,11 @@ END
 
 GO
 
-
---Insertar Declarantes
+/* Insertar Declarantes*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDeclarantes_Insertar 
 	@decl_Nombre_Raso			NVARCHAR(250), 
 	@decl_Direccion_Exacta		NVARCHAR(250), 
-	@pvin_Id					INT, 
+	@ciud_Id					INT, 
 	@decl_Correo_Electronico	NVARCHAR(150), 
 	@decl_Telefono				NVARCHAR(50), 
 	@decl_Fax					NVARCHAR(50), 
@@ -673,18 +660,18 @@ AS
 BEGIN
 	SET @decl_FechaCreacion = GETDATE();
 	BEGIN TRY
-		IF EXISTS(SELECT decl_Id FROM Adua.tbDeclarantes WHERE decl_Nombre_Raso = @decl_Nombre_Raso AND decl_Direccion_Exacta = @decl_Direccion_Exacta AND pvin_Id = @pvin_Id AND decl_Correo_Electronico = @decl_Correo_Electronico AND decl_Telefono = @decl_Telefono AND decl_Fax = @decl_Fax  AND decl_Estado = 0)
+		IF EXISTS(SELECT decl_Id FROM Adua.tbDeclarantes WHERE decl_Nombre_Raso = @decl_Nombre_Raso AND decl_Direccion_Exacta = @decl_Direccion_Exacta AND ciud_Id = @ciud_Id AND decl_Correo_Electronico = @decl_Correo_Electronico AND decl_Telefono = @decl_Telefono AND decl_Fax = @decl_Fax  AND decl_Estado = 0)
 			BEGIN
 				UPDATE	Adua.tbDeclarantes
 				SET		decl_Estado = 1
-				WHERE decl_Nombre_Raso = @decl_Nombre_Raso AND decl_Direccion_Exacta = @decl_Direccion_Exacta AND pvin_Id = @pvin_Id AND decl_Correo_Electronico = @decl_Correo_Electronico AND decl_Telefono = @decl_Telefono AND decl_Fax = @decl_Fax 
+				WHERE decl_Nombre_Raso = @decl_Nombre_Raso AND decl_Direccion_Exacta = @decl_Direccion_Exacta AND ciud_Id = @ciud_Id AND decl_Correo_Electronico = @decl_Correo_Electronico AND decl_Telefono = @decl_Telefono AND decl_Fax = @decl_Fax 
 				
 				SELECT 1
 			END
 		ELSE
 			BEGIN
-				INSERT INTO Adua.tbDeclarantes ([decl_Nombre_Raso], [decl_Direccion_Exacta], [pvin_Id], [decl_Correo_Electronico], [decl_Telefono], [decl_Fax], [usua_UsuarioCreacion], [decl_FechaCreacion], [usua_UsuarioModificacion], [decl_FechaModificacion], [decl_Estado])
-				VALUES (@decl_Nombre_Raso,@decl_Direccion_Exacta,@pvin_Id,@decl_Correo_Electronico,@decl_Telefono,@decl_Fax,@usua_UsuarioCreacion,@decl_FechaCreacion,NULL,NULL,1);
+				INSERT INTO Adua.tbDeclarantes ([decl_Nombre_Raso], [decl_Direccion_Exacta], [ciud_Id], [decl_Correo_Electronico], [decl_Telefono], [decl_Fax], [usua_UsuarioCreacion], [decl_FechaCreacion], [usua_UsuarioModificacion], [decl_FechaModificacion], [decl_Estado])
+				VALUES (@decl_Nombre_Raso,@decl_Direccion_Exacta,@ciud_Id,@decl_Correo_Electronico,@decl_Telefono,@decl_Fax,@usua_UsuarioCreacion,@decl_FechaCreacion,NULL,NULL,1);
 				
 				SELECT 1
 			END
@@ -696,12 +683,12 @@ END
 
 GO
 
---Editar Declarantes
+/* Editar Declarantes*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDeclarantes_Editar 
 	@decl_Id					INT,
 	@decl_Nombre_Raso			NVARCHAR(250), 
 	@decl_Direccion_Exacta		NVARCHAR(250), 
-	@pvin_Id					INT, 
+	@ciud_Id					INT, 
 	@decl_Correo_Electronico	NVARCHAR(150), 
 	@decl_Telefono				NVARCHAR(50), 
 	@decl_Fax					NVARCHAR(50), 
@@ -714,7 +701,7 @@ BEGIN
 		UPDATE [Adua].[tbDeclarantes]
 		   SET [decl_Nombre_Raso] = @decl_Nombre_Raso
 			  ,[decl_Direccion_Exacta] = @decl_Direccion_Exacta
-			  ,[pvin_Id] = @pvin_Id
+			  ,[ciud_Id] = @ciud_Id
 			  ,[decl_Correo_Electronico] = @decl_Correo_Electronico
 			  ,[decl_Telefono] = @decl_Telefono
 			  ,[decl_Fax] = @decl_Fax
@@ -731,9 +718,8 @@ END
 
 GO
 
-
---Eliminar Declarantes
-CREATE OR ALTER PROCEDURE Adua.UDP_tbAranceles_Eliminar 
+/* Eliminar Declarantes*/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbDeclarantes_Eliminar 
 	@decl_Id					INT,
 	@usua_UsuarioEliminacion	INT,
 	@decl_FechaEliminacion		DATETIME

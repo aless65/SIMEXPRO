@@ -177,14 +177,14 @@ AS
 BEGIN 
 	BEGIN TRY
 		IF EXISTS (SELECT *
-					 FROM [Gral].[tbUnidadMedidas]
-					WHERE [unme_Descripcion] = @unme_Descripcion
-					  AND [unme_Estado] = 0) 
+					 FROM Gral.tbUnidadMedidas
+					WHERE unme_Descripcion = @unme_Descripcion
+					  AND unme_Estado = 0) 
 		BEGIN
-			UPDATE [Gral].[tbUnidadMedidas]
-			   SET [unme_Estado] = 1
-			 WHERE [unme_Descripcion] = @unme_Descripcion
-			   AND [unme_Estado] = 0
+			UPDATE Gral.tbUnidadMedidas
+			   SET unme_Estado = 1
+			 WHERE unme_Descripcion = @unme_Descripcion
+			   AND unme_Estado = 0
 		END
 		ELSE
 		BEGIN
@@ -484,13 +484,13 @@ AS
 BEGIN
 	BEGIN TRY
 		IF EXISTS (SELECT * 
-					 FROM [Gral].[tbFormas_Envio]
-					WHERE [foen_Descripcion] = @foen_Descripcion
-					  AND [foen_Estado] = 0)
+					 FROM Gral.tbFormas_Envio
+					WHERE foen_Descripcion = @foen_Descripcion
+					  AND foen_Estado = 0)
 		BEGIN
-			UPDATE [Gral].[tbFormas_Envio]
-			   SET [foen_Estado] = 1
-			 WHERE [foen_Descripcion] = @foen_Descripcion
+			UPDATE Gral.tbFormas_Envio
+			   SET foen_Estado = 1
+			 WHERE foen_Descripcion = @foen_Descripcion
 		END
 		ELSE
 		BEGIN
@@ -594,6 +594,7 @@ GO
 CREATE OR ALTER PROCEDURE Gral.UDP_tbEmpleados_Listar
 AS
 BEGIN
+<<<<<<< Updated upstream
 SELECT empl.empl_Id									,
 		empl_Nombres								,
 		empl_Apellidos								,
@@ -634,6 +635,55 @@ FROM	[Gral].[tbEmpleados] empl
 		INNER JOIN [Gral].[tbPaises] pais			ON pvin.pais_Id = pais.pais_Id 
 		INNER JOIN [Gral].[tbCargos] carg			ON empl.carg_Id = carg.carg_Id
 WHERE	empl_Estado = 1
+=======
+	SELECT empl.empl_Id								AS empleadoId, 
+		   empl_Nombres								AS empleadoNombres, 
+		   empl_Apellidos							AS empleadoApellidos,
+		   empl_DNI									AS empleadoDNI,
+		   empl.escv_Id								AS estadoCivilId,
+		   escv.escv_Nombre							AS estadoCivilNombre,
+		   CASE 
+			WHEN empl_Sexo = 'F' THEN 'Femenino'
+		   	ELSE 'Masculino'
+		   END										AS empleadoSexo,
+		   empl_FechaNacimiento						AS empleadoNacimiento,
+		   empl_Telefono							AS empleadoTelefono,
+		   empl_DireccionExacta						AS empleadoDireccion,
+		   empl.pvin_Id								AS provinciaId,
+		   pvin.pvin_Nombre							AS provinciaNombre,
+		   pais.pais_Codigo							AS paisCodigo,
+		   pais.pais_Nombre							AS paisNombre,
+		   empl_CorreoElectronico					AS empleadoCorreo,
+		   empl.carg_Id								AS cargoId,
+		   carg.carg_Nombre							AS cargoNombre,
+		   empl_EsAduana							AS empleadoAduana,
+		   empl.usua_UsuarioCreacion				AS usuarioCreacion, 
+		   usuaCrea.usua_Nombre						AS usuarioCreacionNombre,
+		   empl_FechaCreacion						AS fechaCreacion, 
+		   empl.usua_UsuarioModificacion			AS usuarioModificacion, 
+		   usuaModifica.usua_Nombre					AS usuarioModificacionNombre,
+		   empl_FechaModificacion					AS fechaModificacion, 
+		   empl.usua_UsuarioEliminacion				AS usuarioEliminacion, 
+		   usuaElimina.usua_Nombre					AS usuarioEliminacionNombre,
+		   empl_FechaEliminacion					AS fechaEliminacion, 
+		   empl_Estado								AS empleadoEstado
+	  FROM Gral.tbEmpleados empl 
+INNER JOIN Acce.tbUsuarios usuaCrea
+		ON empl.usua_UsuarioCreacion = usuaCrea.usua_Id 
+ LEFT JOIN Acce.tbUsuarios usuaModifica
+		ON empl.usua_UsuarioModificacion = usuaCrea.usua_Id 
+ LEFT JOIN Acce.tbUsuarios usuaElimina
+		ON empl.usua_UsuarioEliminacion = usuaCrea.usua_Id 
+INNER JOIN Gral.tbEstadosCiviles escv
+		ON empl.escv_Id = escv.escv_Id 
+INNER JOIN Gral.tbProvincias pvin
+		ON empl.pvin_Id = pvin.pvin_Id 
+INNER JOIN Gral.tbPaises pais
+		ON pvin.pais_Id = pais.pais_Id 
+INNER JOIN Gral.tbCargos carg
+		ON empl.carg_Id = carg.carg_Id
+	 WHERE empl_Estado = 1
+>>>>>>> Stashed changes
 END
 GO
 
@@ -660,12 +710,12 @@ CREATE OR ALTER PROCEDURE gral.UDP_tbEmpleados_Insertar
 AS 
 BEGIN
 	BEGIN TRY
-		--IF EXISTS (SELECT * FROM [Gral].[tbEmpleados]
-		--				WHERE [empl_DNI] = @empl_DNI AND [empl_Telefono] = @empl_Telefono
-		--				AND [empl_Estado] = 0)
+		--IF EXISTS (SELECT * FROM Gral.tbEmpleados
+		--				WHERE empl_DNI = @empl_DNI AND empl_Telefono = @empl_Telefono
+		--				AND empl_Estado = 0)
 		--BEGIN
-		--	UPDATE [Gral].[tbEmpleados]
-		--	SET	   [empl_Estado] = 1,
+		--	UPDATE Gral.tbEmpleados
+		--	SET	   empl_Estado = 1,
 		--		   empl_Nombres = @empl_Nombres, 
 		--		   empl_Apellidos = @empl_Apellidos, 
 		--		   empl_DNI = @empl_DNI, 
@@ -678,13 +728,13 @@ BEGIN
 		--		   empl_CorreoElectronico = @empl_CorreoElectronico, 
 		--		   carg_Id = @carg_Id, 
 		--		   empl_EsAduana = @empl_EsAduana
-		--	WHERE  [empl_DNI] = @empl_DNI
+		--	WHERE  empl_DNI = @empl_DNI
 
 		--	SELECT 1
 		--END
 		--ELSE 
 		--	BEGIN
-		--		INSERT INTO  [Gral].[tbEmpleados](empl_Nombres, 
+		--		INSERT INTO  Gral.tbEmpleados(empl_Nombres, 
 		--										  empl_Apellidos, 
 		--										  empl_DNI, 
 		--										  escv_Id, 
@@ -716,7 +766,7 @@ BEGIN
 
 		--	SELECT 1
 		--END
-			INSERT INTO [Gral].[tbEmpleados]
+			INSERT INTO Gral.tbEmpleados
 						(empl_Nombres, 
 						 empl_Apellidos, 
 						 empl_DNI, 
@@ -781,7 +831,7 @@ CREATE OR ALTER PROCEDURE gral.UDP_tbEmpleados_Editar
 AS
 BEGIN
 	BEGIN TRY
-		 UPDATE [Gral].[tbEmpleados]
+		 UPDATE Gral.tbEmpleados
 		    SET empl_Nombres = @empl_Nombres, 
 				empl_Apellidos = @empl_Apellidos, 
 				empl_DNI = @empl_DNI, 
@@ -794,9 +844,9 @@ BEGIN
 				empl_CorreoElectronico = @empl_CorreoElectronico, 
 				carg_Id = @carg_Id, 
 				empl_EsAduana = @empl_EsAduana,
-				[usua_UsuarioModificacion] = @usua_UsuarioModificacion,
-				[empl_FechaModificacion] = @empl_FechaModificacion
-		  WHERE [empl_Id] = @empl_Id
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				empl_FechaModificacion = @empl_FechaModificacion
+		  WHERE empl_Id = @empl_Id
 
 		SELECT 1 AS Resultado
 	END TRY
@@ -826,11 +876,11 @@ BEGIN
 
 		IF(@respuesta) = 1
 		BEGIN
-			UPDATE [Gral].[tbEmpleados]
-			   SET [empl_Estado] = 0,
-				   [usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
-				   [empl_FechaEliminacion] = @empl_FechaEliminacion
-			 WHERE [empl_Id] = @empl_Id
+			UPDATE Gral.tbEmpleados
+			   SET empl_Estado = 0,
+				   usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+				   empl_FechaEliminacion = @empl_FechaEliminacion
+			 WHERE empl_Id = @empl_Id
 		END
 		
 		SELECT @respuesta AS Resultado
@@ -855,6 +905,7 @@ GO
 CREATE OR ALTER PROCEDURE prod.UDP_tbFuncionesMaquina_Listar
 AS
 BEGIN
+<<<<<<< Updated upstream
 SELECT func_Id										,
 		func_Nombre									,
 		func.usua_UsuarioCreacion					,
@@ -872,6 +923,28 @@ FROM	[Prod].[tbFuncionesMaquina] func
 		LEFT JOIN [Acce].[tbUsuarios] usuaModifica	ON func.usua_UsuarioModificacion = usuaCrea.usua_Id 
 		LEFT JOIN [Acce].[tbUsuarios] usuaElimina	ON func.usua_UsuarioEliminacion = usuaCrea.usua_Id 
 WHERE	func_Estado = 1
+=======
+	SELECT func_Id							AS funcionId, 
+		   func_Nombre						AS funcionNombre, 
+		   func.usua_UsuarioCreacion		AS usuarioCreacion, 
+		   usuaCrea.usua_Nombre				AS usuarioCreacionNombre,
+		   func_FechaCreacion				AS fechaCreacion, 
+		   func.usua_UsuarioModificacion	AS usuarioModificacion, 
+		   usuaModifica.usua_Nombre			AS usuarioModificacionNombre,
+		   func_FechaModificacion			AS fechaModificacion,
+		   func.usua_UsuarioEliminacion		AS usuarioEliminacion, 
+		   usuaElimina.usua_Nombre			AS usuarioEliminacionNombre,
+		   func_FechaEliminacion			AS fechaEliminacion, 
+		   func_Estado						AS funcionEstado
+	  FROM Prod.tbFuncionesMaquina func 
+INNER JOIN Acce.tbUsuarios usuaCrea
+		ON func.usua_UsuarioCreacion = usuaCrea.usua_Id 
+ LEFT JOIN Acce.tbUsuarios usuaModifica
+		ON func.usua_UsuarioModificacion = usuaCrea.usua_Id 
+ LEFT JOIN Acce.tbUsuarios usuaElimina
+		ON func.usua_UsuarioEliminacion = usuaCrea.usua_Id 
+	 WHERE func_Estado = 1
+>>>>>>> Stashed changes
 END
 GO
 
@@ -888,17 +961,17 @@ AS
 BEGIN
 	BEGIN TRY
 		IF EXISTS (SELECT * 
-					 FROM [Prod].[tbFuncionesMaquina]
-					WHERE @func_Nombre = [func_Nombre]
-					  AND [func_Estado] = 0)
+					 FROM Prod.tbFuncionesMaquina
+					WHERE @func_Nombre = func_Nombre
+					  AND func_Estado = 0)
 		BEGIN
-			UPDATE [Prod].[tbFuncionesMaquina]
-			   SET [func_Estado] = 1
-			 WHERE [func_Nombre] = @func_Nombre
+			UPDATE Prod.tbFuncionesMaquina
+			   SET func_Estado = 1
+			 WHERE func_Nombre = @func_Nombre
 		END
 		ELSE 
 		BEGIN
-			INSERT INTO [Prod].[tbFuncionesMaquina] (func_Nombre, usua_UsuarioCreacion, func_FechaCreacion)
+			INSERT INTO Prod.tbFuncionesMaquina (func_Nombre, usua_UsuarioCreacion, func_FechaCreacion)
 			VALUES(@func_Nombre, @usua_UsuarioCreacion, @func_FechaCreacion)
 		END
 
@@ -926,11 +999,11 @@ CREATE OR ALTER PROCEDURE prod.UDP_tbFuncionesMaquina_Editar
 AS
 BEGIN
 	BEGIN TRY
-	   UPDATE [Prod].[tbFuncionesMaquina]
-		  SET [func_Nombre] = @func_Nombre,
-			  [usua_UsuarioModificacion] = @usua_UsuarioModificacion,
-			  [func_FechaModificacion] = @func_FechaModificacion
-		WHERE [func_Id] = @func_Id
+	   UPDATE Prod.tbFuncionesMaquina
+		  SET func_Nombre = @func_Nombre,
+			  usua_UsuarioModificacion = @usua_UsuarioModificacion,
+			  func_FechaModificacion = @func_FechaModificacion
+		WHERE func_Id = @func_Id
 
 		SELECT 1 AS Resultado
 	END TRY
@@ -960,9 +1033,9 @@ BEGIN
 
 		IF(@respuesta) = 1
 		BEGIN
-			UPDATE [Prod].[tbFuncionesMaquina]
-			   SET [func_Estado] = 0
-			 WHERE [func_Id] = @func_Id
+			UPDATE Prod.tbFuncionesMaquina
+			   SET func_Estado = 0
+			 WHERE func_Id = @func_Id
 		END
 
 		SELECT @respuesta AS Resultado
@@ -988,6 +1061,7 @@ GO
 CREATE OR ALTER PROCEDURE prod.UDP_tbCategoria_Listar
 AS
 BEGIN
+<<<<<<< Updated upstream
 SELECT	cate_Id										,
 		cate_Descripcion							,
 		cate.usua_UsuarioCreacion					,
@@ -1005,6 +1079,28 @@ FROM	[Prod].[tbCategoria] cate
 		LEFT JOIN [Acce].[tbUsuarios] usuaModifica	ON cate.usua_UsuarioModificacion = usuaCrea.usua_Id 
 		LEFT JOIN [Acce].[tbUsuarios] usuaElimina	ON cate.usua_UsuarioEliminacion = usuaCrea.usua_Id 
 WHERE cate_Estado = 1
+=======
+	SELECT cate_Id							AS categoriaId, 
+		   cate_Descripcion					AS categoriaDescripcion, 
+		   cate.usua_UsuarioCreacion		AS usuarioCreacion, 
+		   usuaCrea.usua_Nombre				AS usuarioCreacionNombre,
+		   cate_FechaCreacion				AS fechaCreacion, 
+		   cate.usua_UsuarioModificacion	AS usuarioModificacion, 
+		   usuaModifica.usua_Nombre			AS usuarioModificacionNombre,
+		   cate_FechaModificacion			AS fechaModificacion,
+		   cate.usua_UsuarioEliminacion		AS usuarioEliminacion, 
+		   usuaElimina.usua_Nombre			AS usuarioEliminacionNombre,
+		   cate_FechaEliminacion			AS fechaEliminacion, 
+		   cate_Estado						AS categoriaEstado
+	  FROM Prod.tbCategoria cate 
+INNER JOIN Acce.tbUsuarios usuaCrea
+		ON cate.usua_UsuarioCreacion = usuaCrea.usua_Id 
+ LEFT JOIN Acce.tbUsuarios usuaModifica
+		ON cate.usua_UsuarioModificacion = usuaCrea.usua_Id 
+ LEFT JOIN Acce.tbUsuarios usuaElimina
+		ON cate.usua_UsuarioEliminacion = usuaCrea.usua_Id 
+	 WHERE cate_Estado = 1
+>>>>>>> Stashed changes
 END
 GO
 
@@ -1021,17 +1117,17 @@ AS
 BEGIN
 	BEGIN TRY
 		IF EXISTS (SELECT * 
-					 FROM [Prod].[tbCategoria]
-					WHERE [cate_Descripcion] = @cate_Descripcion
-					  AND [cate_Estado] = 0)
+					 FROM Prod.tbCategoria
+					WHERE cate_Descripcion = @cate_Descripcion
+					  AND cate_Estado = 0)
 		BEGIN
-			UPDATE [Prod].[tbCategoria]
-			SET	   [cate_Estado] = 1
-			WHERE  [cate_Descripcion] = @cate_Descripcion
+			UPDATE Prod.tbCategoria
+			SET	   cate_Estado = 1
+			WHERE  cate_Descripcion = @cate_Descripcion
 		END
 		ELSE 
 		BEGIN
-			INSERT INTO [Prod].[tbCategoria] (cate_Descripcion, usua_UsuarioCreacion, cate_FechaCreacion)
+			INSERT INTO Prod.tbCategoria (cate_Descripcion, usua_UsuarioCreacion, cate_FechaCreacion)
 			VALUES(@cate_Descripcion, @usua_UsuarioCreacion, @cate_FechaCreacion)
 		END
 
@@ -1059,11 +1155,11 @@ CREATE OR ALTER PROCEDURE prod.UDP_tbCategoria_Editar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE [Prod].[tbCategoria]
-		   SET [cate_Descripcion] = @cate_Descripcion,
-			   [usua_UsuarioModificacion] = @usua_UsuarioModificacion,
-			   [cate_FechaModificacion] = @cate_FechaModificacion
-		 WHERE [cate_Id] = @cate_Id
+		UPDATE Prod.tbCategoria
+		   SET cate_Descripcion = @cate_Descripcion,
+			   usua_UsuarioModificacion = @usua_UsuarioModificacion,
+			   cate_FechaModificacion = @cate_FechaModificacion
+		 WHERE cate_Id = @cate_Id
 
 		SELECT 1 AS Resultado
 	END TRY
@@ -1093,11 +1189,11 @@ BEGIN
 
 		IF(@respuesta) = 1
 		BEGIN
-			UPDATE [Prod].[tbCategoria]
-			   SET [cate_Estado] = 0,
-				   [usua_UsuarioEliminacion] = @usua_UsuarioEliminacion,
-				   [cate_FechaEliminacion] = @cate_FechaEliminacion
-			 WHERE [cate_Id] = @cate_Id
+			UPDATE Prod.tbCategoria
+			   SET cate_Estado = 0,
+				   usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+				   cate_FechaEliminacion = @cate_FechaEliminacion
+			 WHERE cate_Id = @cate_Id
 		END
 
 		SELECT 1 AS Resultado
@@ -1115,3 +1211,83 @@ SET @FechaActual = GETDATE();
 EXEC prod.UDP_tbCategoria_Eliminar 1, 1, @FechaActual
 GO
 ------------------------------------------------/UDPS tbCategoria---------------------------------------------------
+
+--------------------------------------------UDPS Para contrato de adhesión-------------------------------------------
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbPersonas_Insertar
+(
+	@pers_RTN					VARCHAR(20),
+	@ofic_Id					INT,
+	@escv_Id					INT,
+	@ofpr_Id					INT,
+	@fopr_Id					BIT,
+	@pers_escvRepresentante		INT,
+	@pers_OfprRepresentante		INT,
+	@usua_UsuarioCreacion		INT,
+	@pers_FechaCreacion			DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Adua.tbPersonas 
+					(pers_RTN, 
+					ofic_Id, 
+					escv_Id, 
+					ofpr_Id, 
+					fopr_Id, 
+					pers_escvRepresentante, 
+					pers_OfprRepresentante, 
+					usua_UsuarioCreacion, 
+					pers_FechaCreacion)
+			 VALUES (@pers_RTN,
+					@ofic_Id,
+					@escv_Id,
+					@ofpr_Id,
+					@fopr_Id,
+					@pers_escvRepresentante,
+					@pers_OfprRepresentante,
+					@usua_UsuarioCreacion,
+					@pers_FechaCreacion)
+
+		SELECT SCOPE_IDENTITY() AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbComercianteIndividual_Insertar
+(
+	@pers_Id								INT, 
+	@fopr_Id								BIT, 
+	@colo_Id								INT, 
+	@coin_PuntoReferencia					NVARCHAR(200), 
+	@coin_ColoniaRepresentante				INT, 
+	@coin_NumeroLocalReprentante			NVARCHAR(200), 
+	@coin_PuntoReferenciaReprentante		NVARCHAR(200), 
+	@coin_TelefonoCelular					NVARCHAR(20), 
+	@coin_TelefonoFijo						NVARCHAR(20), 
+	@coin_CorreoElectronico					NVARCHAR(30), 
+	@coin_CorreoElectronicoAlternativo		NVARCHAR(30), 
+	@coin_ComercianteRTN					VARCHAR(30), 
+	@coin_ArchivoRTNComerciante				NVARCHAR(MAX), 
+	@coin_ComercainteDNI					VARCHAR(30), 
+	@coin_ArchivoDNIComerciante				NVARCHAR(MAX), 
+	@coin_RepresentanteRTN					VARCHAR(30), 
+	@coin_ArchivoRTNRepresentante			NVARCHAR(MAX), 
+	@coin_RepresentanteDNI					VARCHAR(30), 
+	@coin_ArchivoDNIRepresentante			NVARCHAR(MAX), 
+	@coin_Declaracion						NVARCHAR(50), 
+	@coin_ArchivoDeclaracion				NVARCHAR(MAX),	 
+	@usua_UsuarioCreacion					INT, 
+	@coin_FechaCreacion						DATETIME
+)
+AS
+BEGIN
+
+END
+GO
+
+
+--------------------------------------------/UDPS Para contrato de adhesión-------------------------------------------

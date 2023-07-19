@@ -41,6 +41,8 @@ function DucaIndex() {
     setEliminar(!Eliminar);
   };
 
+  const [showBoletin, setShowBoletin] = useState(true); 
+
   {/*Columnas de la tabla*/ }
   const columns = [
     { field: 'id', headerName: 'ID', flex: 1 },
@@ -79,6 +81,12 @@ function DucaIndex() {
   
         const handlePrint = () => {
           // Implementa la función para imprimir aquí
+
+          handleClose();
+        };
+
+        const handleBoletin = () => {
+          // Implementa la función para imprimir aquí
           handleClose();
         };
   
@@ -113,9 +121,11 @@ function DucaIndex() {
               <MenuItem onClick={handlePrint}>
                 <Icon>print</Icon> Imprimir
               </MenuItem>
-              <MenuItem onClick={handlePrint}>
-                <Icon>insert_drive_file</Icon> Boletin
-              </MenuItem>
+              {true && (
+                <MenuItem onClick={handleBoletin}>
+                <Icon>insert_drive_file</Icon> Generar Boletin
+                </MenuItem>
+                )}
             </Menu>
           </Stack>
         );

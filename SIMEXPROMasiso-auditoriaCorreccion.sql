@@ -1447,6 +1447,7 @@ CREATE TABLE Adua.tbPersonas (
 	pers_Estado               	BIT	DEFAULT 1,
 
 	CONSTRAINT PK_Adua_tbPersonas_pers_Id PRIMARY KEY (pers_Id),
+	CONSTRAINT UQ_Adua_tbPersonas_pers_RTN UNIQUE (pers_RTN),
 	CONSTRAINT FK_Adua_Personas_ofic_Id_Gral_Oficina_ofic_Id FOREIGN KEY (ofic_Id) REFERENCES Gral.tbOficinas(ofic_Id),
 	CONSTRAINT FK_Adua_Personas_escv_Id_Gral_EstadoCivil_escv_Id FOREIGN KEY (escv_Id) REFERENCES Gral.tbEstadosCiviles(escv_Id),
 	CONSTRAINT FK_Adua_Personas_ofpr_Id_Gral_OficioProfesion_ofpr_Id FOREIGN KEY (ofpr_Id) REFERENCES Gral.tbOficio_Profesiones(ofpr_Id),

@@ -148,18 +148,18 @@
 CREATE OR ALTER PROCEDURE gral.UDP_tbOficinas_Listar
 AS
 BEGIN
-	SELECT	ofic_Id							AS oficinaId, 
-			ofic_Nombre						AS oficinaNombre, 
-			ofic.usua_UsuarioCreacion		AS usuarioCreacion, 
-			usuaCrea.usua_Nombre			AS usuarioCreacionNombre,
-			ofic_FechaCreacion				AS fechaCreacion, 
-			ofic.usua_UsuarioModificacion	AS usuarioModificacion, 
-			usuaModifica.usua_Nombre		AS usuarioModificacionNombre,
-			ofic_FechaModificacion			AS fechaModificacion, 
-			ofic.usua_UsuarioEliminacion	AS usuarioEliminacion, 
-			usuaElimina.usua_Nombre			AS usuarioEliminacionNombre,
-			ofic_FechaEliminacion			AS fechaEliminacion, 
-			ofic_Estado						AS oficinaEstado
+	SELECT	ofic_Id							--AS oficinaId, 
+			,ofic_Nombre						--AS oficinaNombre, 
+			,ofic.usua_UsuarioCreacion		--AS usuarioCreacion, 
+			,usuaCrea.usua_Nombre			--AS usuarioCreacionNombre,
+			,ofic_FechaCreacion				--AS fechaCreacion, 
+			,ofic.usua_UsuarioModificacion	--AS usuarioModificacion, 
+			,usuaModifica.usua_Nombre		--AS usuarioModificacionNombre,
+			,ofic_FechaModificacion			--AS fechaModificacion, 
+			,ofic.usua_UsuarioEliminacion	--AS usuarioEliminacion, 
+			,usuaElimina.usua_Nombre			--AS usuarioEliminacionNombre,
+			,ofic_FechaEliminacion			--AS fechaEliminacion, 
+			,ofic_Estado						--AS oficinaEstado
 	FROM [Gral].[tbOficinas] ofic 
 	INNER JOIN [Acce].[tbUsuarios] usuaCrea		ON ofic.usua_UsuarioCreacion = usuaCrea.usua_Id 
 	LEFT JOIN [Acce].[tbUsuarios] usuaModifica  ON ofic.usua_UsuarioModificacion = usuaCrea.usua_Id 
@@ -288,15 +288,15 @@ GO
 CREATE OR ALTER PROCEDURE gral.UDP_tbOficio_Profesiones_Listar
 AS
 BEGIN
-	SELECT ofpr_Id							AS oficioId, 
-			ofpr_Nombre						AS oficioNombre, 
-			ofpr.usua_UsuarioCreacion		AS usuarioCreacion, 
-			usuaCrea.usua_Nombre			AS usuarioCreacionNombre,
-			ofpr_FechaCreacion				AS fechaCreacion, 
-			ofpr.usua_UsuarioModificacion	AS usuarioModificacion, 
-			usuaModifica.usua_Nombre		AS usuarioModificacionNombre,
-			ofpr_FechaModificacion			AS fechaModificacion, 
-			ofpr_Estado						AS oficioEstado
+	SELECT ofpr_Id							--AS oficioId, 
+			,ofpr_Nombre					--	AS oficioNombre, 
+			,ofpr.usua_UsuarioCreacion		--AS usuarioCreacion, 
+			,usuaCrea.usua_Nombre			AS usuarioCreacionNombre
+			,ofpr_FechaCreacion				--AS fechaCreacion, 
+			,ofpr.usua_UsuarioModificacion	--AS usuarioModificacion, 
+			,usuaModifica.usua_Nombre		AS usuarioModificacionNombre
+			,ofpr_FechaModificacion			--AS fechaModificacion, 
+			,ofpr_Estado					--	AS oficioEstado
 	FROM [Gral].[tbOficio_Profesiones] ofpr 
 	INNER JOIN [Acce].[tbUsuarios] usuaCrea		ON ofpr.usua_UsuarioCreacion = usuaCrea.usua_Id 
 	LEFT JOIN [Acce].[tbUsuarios] usuaModifica	ON ofpr.usua_UsuarioModificacion = usuaCrea.usua_Id 
@@ -425,18 +425,18 @@ GO
 CREATE OR ALTER PROCEDURE gral.UDP_tbCargos_Listar
 AS
 BEGIN
-	SELECT carg_Id							AS cargoId, 
-		   carg_Nombre						AS cargoNombre, 
-	       carg.usua_UsuarioCreacion		AS usuarioCreacion, 
-	       usuaCrea.usua_Nombre				AS usuarioCreacionNombre,
-	       carg_FechaCreacion				AS fechaCreacion, 
-	       carg.usua_UsuarioModificacion	AS usuarioModificacion, 
-	       usuaModifica.usua_Nombre			AS usuarioModificacionNombre,
-	       carg_FechaModificacion			AS fechaModificacion, 
-	       carg.usua_UsuarioEliminacion		AS usuarioEliminacion, 
-	       usuaElimina.usua_Nombre			AS usuarioEliminacionNombre,
-	       carg_FechaEliminacion			AS fechaEliminacion, 
-	       carg_Estado						AS cargoEstado
+	SELECT carg_Id							--AS cargoId, 
+		   ,carg_Nombre						--AS cargoNombre, 
+	       ,carg.usua_UsuarioCreacion		--AS usuarioCreacion, 
+	       ,usuaCrea.usua_Nombre			--	AS usuarioCreacionNombre,
+	       ,carg_FechaCreacion				--AS fechaCreacion, 
+	       ,carg.usua_UsuarioModificacion	--AS usuarioModificacion, 
+	       ,usuaModifica.usua_Nombre		--	AS usuarioModificacionNombre,
+	       ,carg_FechaModificacion			--AS fechaModificacion, 
+	       ,carg.usua_UsuarioEliminacion	--	AS usuarioEliminacion, 
+	       ,usuaElimina.usua_Nombre			--AS usuarioEliminacionNombre,
+	       ,carg_FechaEliminacion			--AS fechaEliminacion, 
+	       ,carg_Estado						--AS cargoEstado
     FROM [Gral].[tbCargos] carg 
 	INNER JOIN [Acce].[tbUsuarios] usuaCrea		ON carg.usua_UsuarioCreacion = usuaCrea.usua_Id 
 	LEFT JOIN [Acce].[tbUsuarios] usuaModifica	ON carg.usua_UsuarioModificacion = usuaCrea.usua_Id 
@@ -572,22 +572,22 @@ GO
 CREATE OR ALTER PROCEDURE gral.UDP_tbColonias_Listar
 AS
 BEGIN
-	SELECT colo_Id								AS coloniaId, 
-	       colo_Nombre							AS coloniaNombre, 
-	       colo.alde_Id							AS aldeaId,
-	       alde.alde_Nombre						AS aldeaNombre,
-	       colo.ciud_Id							AS ciudadId,
-	       ciud.ciud_Nombre						AS ciudadNombre,
-	       colo.usua_UsuarioCreacion			AS usuarioCreacion, 
-	       usuaCrea.usua_Nombre					AS usuarioCreacionNombre,
-	       colo_FechaCreacion					AS fechaCreacion, 
-	       colo.usua_UsuarioModificacion		AS usuarioModificacion, 
-	       usuaModifica.usua_Nombre				AS usuarioModificacionNombre,
-	       colo_FechaModificacion				AS fechaModificacion, 
-	       colo.usua_UsuarioEliminacion			AS usuarioEliminacion, 
-	       usuaElimina.usua_Nombre				AS usuarioEliminacionNombre,
-	       colo_FechaEliminacion				AS fechaEliminacion, 
-	       colo_Estado							AS coloniaEstado
+	SELECT colo_Id								--AS coloniaId, 
+	       ,colo_Nombre							--AS coloniaNombre, 
+	       ,colo.alde_Id						--	AS aldeaId,
+	       ,alde.alde_Nombre					--	AS aldeaNombre,
+	       ,colo.ciud_Id						--	AS ciudadId,
+	       ,ciud.ciud_Nombre					--	AS ciudadNombre,
+	       ,colo.usua_UsuarioCreacion			--AS usuarioCreacion, 
+	       ,usuaCrea.usua_Nombre				--	AS usuarioCreacionNombre,
+	       ,colo_FechaCreacion					--AS fechaCreacion, 
+	       ,colo.usua_UsuarioModificacion		--AS usuarioModificacion, 
+	       ,usuaModifica.usua_Nombre			--	AS usuarioModificacionNombre,
+	       ,colo_FechaModificacion				--AS fechaModificacion, 
+	       ,colo.usua_UsuarioEliminacion		--	AS usuarioEliminacion, 
+	       ,usuaElimina.usua_Nombre				--AS usuarioEliminacionNombre,
+	       ,colo_FechaEliminacion				--AS fechaEliminacion, 
+	       ,colo_Estado							--AS coloniaEstado
    FROM [Gral].[tbColonias] colo 
    LEFT JOIN [Gral].[tbAldeas] alde				ON colo.alde_Id = alde.alde_Id 
    LEFT JOIN [Gral].[tbCiudades] ciud			ON colo.ciud_Id = ciud.ciud_Id 
@@ -830,19 +830,19 @@ GO
 CREATE OR ALTER PROCEDURE gral.UDP_tbMonedas_Listar
 AS
 BEGIN
-	SELECT mone_Id								AS monedaId, 
-	       mone_Codigo							AS monedaCodigo,
-	       mone_Descripcion						AS monedaNombre, 
-	       mone.usua_UsuarioCreacion			AS usuarioCreacion, 
-	       usuaCrea.usua_Nombre					AS usuarioCreacionNombre,
-	       mone_FechaCreacion					AS fechaCreacion, 
-	       mone.usua_UsuarioModificacion		AS usuarioModificacion, 
-	       usuaModifica.usua_Nombre				AS usuarioModificacionNombre,
-	       mone_FechaModificacion				AS fechaModificacion, 
-	       mone.usua_UsuarioEliminacion			AS usuarioEliminacion, 
-	       usuaElimina.usua_Nombre				AS usuarioEliminacionNombre,
-	       mone_FechaEliminacion				AS fechaEliminacion, 
-	       mone_Estado							AS monedaEstado
+	SELECT mone_Id								--AS monedaId, 
+	       ,mone_Codigo							--AS monedaCodigo,
+	       ,mone_Descripcion					--	AS monedaNombre, 
+	       ,mone.usua_UsuarioCreacion			--AS usuarioCreacion, 
+	       ,usuaCrea.usua_Nombre				--	AS usuarioCreacionNombre,
+	       ,mone_FechaCreacion					--AS fechaCreacion, 
+	       ,mone.usua_UsuarioModificacion		--AS usuarioModificacion, 
+	       ,usuaModifica.usua_Nombre			--	AS usuarioModificacionNombre,
+	       ,mone_FechaModificacion				--AS fechaModificacion, 
+	       ,mone.usua_UsuarioEliminacion		--	AS usuarioEliminacion, 
+	       ,usuaElimina.usua_Nombre				--AS usuarioEliminacionNombre,
+	       ,mone_FechaEliminacion				--AS fechaEliminacion, 
+	       ,mone_Estado							--AS monedaEstado
    FROM [Gral].[tbMonedas] mone 
    INNER JOIN [Acce].[tbUsuarios] usuaCrea		ON mone.usua_UsuarioCreacion = usuaCrea.usua_Id 
    LEFT JOIN [Acce].[tbUsuarios] usuaModifica   ON mone.usua_UsuarioModificacion = usuaCrea.usua_Id 
@@ -1158,19 +1158,19 @@ GO
 CREATE OR ALTER PROCEDURE adua.UDP_tbIncoterm_Listar
 AS
 BEGIN
-	SELECT inco_Id								AS incotermId, 
-		   inco_Codigo							AS incotermCodigo,
-		   inco_Descripcion						AS incotermNombre, 
-		   inco.usua_UsuarioCreacion			AS usuarioCreacion, 
-		   usuaCrea.usua_Nombre					AS usuarioCreacionNombre,
-		   inco_FechaCreacion					AS fechaCreacion, 
-		   inco.usua_UsuarioModificacion		AS usuarioModificacion, 
-		   usuaModifica.usua_Nombre				AS usuarioModificacionNombre,
-		   inco_FechaModificacion				AS fechaModificacion, 
-		   inco.usua_UsuarioEliminacion			AS usuarioEliminacion, 
-		   usuaElimina.usua_Nombre				AS usuarioEliminacionNombre,
-		   inco_FechaEliminacion				AS fechaEliminacion, 
-		   inco_Estado							AS incotermEstado
+	SELECT inco_Id								--AS incotermId, 
+		   ,inco_Codigo							--AS incotermCodigo,
+		   ,inco_Descripcion						--AS incotermNombre, 
+		   ,inco.usua_UsuarioCreacion			--AS usuarioCreacion, 
+		   ,usuaCrea.usua_Nombre					--AS usuarioCreacionNombre,
+		   ,inco_FechaCreacion					--AS fechaCreacion, 
+		   ,inco.usua_UsuarioModificacion		--AS usuarioModificacion, 
+		   ,usuaModifica.usua_Nombre				--AS usuarioModificacionNombre,
+		   ,inco_FechaModificacion				--AS fechaModificacion, 
+		   ,inco.usua_UsuarioEliminacion			--AS usuarioEliminacion, 
+		   ,usuaElimina.usua_Nombre				--AS usuarioEliminacionNombre,
+		   ,inco_FechaEliminacion				--AS fechaEliminacion, 
+		   ,inco_Estado							--AS incotermEstado
 	FROM [Adua].[tbIncoterm] inco 
 	INNER JOIN [Acce].[tbUsuarios] usuaCrea		ON inco.usua_UsuarioCreacion = usuaCrea.usua_Id 
 	LEFT JOIN [Acce].[tbUsuarios] usuaModifica	ON inco.usua_UsuarioModificacion = usuaCrea.usua_Id 
@@ -1287,72 +1287,74 @@ GO
 CREATE OR ALTER PROCEDURE prod.UDP_tbDeclaraciones_ValorCompleto
 AS
 BEGIN
-	SELECT [deva_Id]							AS declaracionId, 
-		   [deva_Aduana_Ingreso_Id]				AS aduanaIngresoId, 
-		   aduaIngreso.adua_Nombre				AS aduanaIngresoNombre,
-		   [deva_Aduana_Despacho_Id]			AS aduanaDespachoId, 
-		   aduaDespacho.adua_Nombre				AS aduanaDespachoNombre,
-		   [deva_Declaracion_Mercancia]			AS declaracionMercancia, 
-		   [deva_Fecha_Aceptacion]				AS declaracionFechaAceptacion, 
+	SELECT [deva_Id]							--AS declaracionId, 
+		   ,[deva_Aduana_Ingreso_Id]				--AS aduanaIngresoId, 
+		   ,aduaIngreso.adua_Nombre				--AS aduanaIngresoNombre,
+		   ,[deva_Aduana_Despacho_Id]			--AS aduanaDespachoId, 
+		   ,aduaDespacho.adua_Nombre				--AS aduanaDespachoNombre,
+		   ,[deva_Declaracion_Mercancia]			--AS declaracionMercancia, 
+		   ,[deva_Fecha_Aceptacion]				--AS declaracionFechaAceptacion, 
 
-		   deva.[impo_Id]						AS importadorId, 
-		   declaImpo.decl_Nombre_Raso			AS importadorNombreRazonSocial,
-		   impo.impo_RTN						AS importadorRTN,
-		   impo.impo_NumRegistro				AS importadorNumeroRegistro,
-		   declaImpo.decl_Direccion_Exacta		AS importadorDireccionExacta,
-		   declaImpo.decl_Correo_Electronico	AS importadorCorreo,	
-		   declaImpo.decl_Telefono				AS importadorTelefono,
-		   declaImpo.decl_Fax					AS importadorFax,
-		   declaImpo.ciud_Id					AS importadorCiudad,
-		   impo.nico_Id							AS nivelComercialId,
-		   nico.nico_Descripcion				AS nivelComercialDescripcion,
-		   impo.impo_NivelComercial_Otro		AS nivelComercialOtro,
+		   ,deva.[impo_Id]						--AS importadorId, 
+		   ,declaImpo.decl_Nombre_Raso			AS importadorNombreRazonSocial
+		   ,impo.impo_RTN						AS importadorRTN
+		   ,impo.impo_NumRegistro				AS importadorNumeroRegistro
+		   ,declaImpo.decl_Direccion_Exacta		AS importadorDireccionExacta
+		   ,declaImpo.decl_Correo_Electronico	AS importadorCorreo
+		   ,declaImpo.decl_Telefono				AS importadorTelefono
+		   ,declaImpo.decl_Fax					AS importadorFax
+		   ,declaImpo.ciud_Id					AS importadorCiudad
+		   ,impo.nico_Id							
+		   ,nico.nico_Descripcion				
+		   ,impo.impo_NivelComercial_Otro		
 
-		   deva.[pvde_Id]						AS proveedorId, 
-		   declaProv.decl_Nombre_Raso			AS proveedorNombreRazonSocial,
-		   declaProv.decl_Direccion_Exacta		AS proveedorDireccionExacta,
-		   declaProv.decl_Correo_Electronico	AS proveedorCorreo,	
-		   declaProv.decl_Telefono				AS proveedorTelefono,
-		   declaProv.decl_Fax					AS proveedorFax,
-		   declaProv.ciud_Id					AS proveedorCiudad,
-		   prov.coco_Id							AS proveedorCondicionComercialId,
-		   coco.coco_Descripcion				AS proveedorCondicionComercialDescripcion,
-		   prov.pvde_Condicion_Otra				AS proveedorCondicionComercialOtra,
+		   ,deva.[pvde_Id]						--AS proveedorId, 
+		   ,declaProv.decl_Nombre_Raso			AS proveedorNombreRazonSocial
+		   ,declaProv.decl_Direccion_Exacta		AS proveedorDireccionExacta
+		   ,declaProv.decl_Correo_Electronico	AS proveedorCorreo
+		   ,declaProv.decl_Telefono				AS proveedorTelefono
+		   ,declaProv.decl_Fax					AS proveedorFax
+		   ,declaProv.ciud_Id					AS proveedorCiudad
+		   ,prov.coco_Id						--AS proveedorCondicionComercialId,
+		   ,coco.coco_Descripcion				--AS proveedorCondicionComercialDescripcion,
+		   ,prov.pvde_Condicion_Otra			--AS proveedorCondicionComercialOtra,
 
-		   deva.[inte_Id]						AS intermediarioId, 
-		   declaInte.decl_Nombre_Raso			AS intermediarioNombreRazonSocial,
-		   declaInte.decl_Direccion_Exacta		AS intermediarioDireccionExacta,
-		   declaInte.decl_Correo_Electronico	AS intermediarioCorreo,	
-		   declaInte.decl_Telefono				AS intermediarioTelefono,
-		   declaInte.decl_Fax					AS intermediarioFax,
-		   declaInte.ciud_Id					AS intermediarioCiudad,
-		   inte.tite_Id							AS tipoIntermediarioId,
-		   tite.tite_Descripcion				AS tipoIntermediarioDescripcion,
+		   ,deva.[inte_Id]						--AS intermediarioId, 
+		   ,declaInte.decl_Nombre_Raso			AS intermediarioNombreRazonSocial
+		   ,declaInte.decl_Direccion_Exacta		AS intermediarioDireccionExacta
+		   ,declaInte.decl_Correo_Electronico	AS intermediarioCorreo
+		   ,declaInte.decl_Telefono				AS intermediarioTelefono
+		   ,declaInte.decl_Fax					AS intermediarioFax
+		   ,declaInte.ciud_Id					AS intermediarioCiudad
+		   ,inte.tite_Id						--AS tipoIntermediarioId,
+		   ,tite.tite_Descripcion				--AS tipoIntermediarioDescripcion,
 
-		   [deva_Lugar_Entrega]					AS declaracionLugarEntrega, 
-		   [inco_Id]							AS incotermId, 
-		   [deva_numero_contrato]				AS declaracionNumContrato, 
-		   [deva_Fecha_Contrato]				AS declaracionFechaContrato, 
-		   [foen_Id]							AS formaEnvioId, 
-		   [deva_Forma_Envio_Otra]				AS formaEnvioOtra, 
-		   [deva_Pago_Efectuado]				AS declaracionPagoEfectuado, 
-		   [fopa_Id]							AS formaPagoId, 
-		   [deva_Forma_Pago_Otra]				AS formaPagoOtra, 
-		   [deva_Lugar_Embarque]				AS declaracionLugarEmbarque, 
-		   [pais_Embarque_Id]					AS paisEmbarqueId, 
-		   [pais_Exportacion_Id]				AS paisExportacionId, 
-		   [deva_Fecha_Exportacion]				AS declaracionFechaExportacion, 
-		   [mone_Id]							AS monedaId, 
-		   [mone_Otra]							AS monedaOtra, 
-		   [deva_Conversion_Dolares]			AS conversionDolares, 
-		   [deva_Condiciones]					AS declaracionCondiciones, 
-		   deva.[usua_UsuarioCreacion]			AS usuaCreacionId, 
-		   [deva_FechaCreacion]					AS fechaCreacion, 
-		   deva.[usua_UsuarioModificacion]		AS usuarioModificacionId, 
-		   [deva_FechaModificacion]				AS fechaModificacion, 
-		   deva.[usua_UsuarioEliminacion]		AS usuarioEliminacionId, 
-		   [deva_FechaEliminacion]				AS fechaEliminacion, 
-		   [deva_Estado]						AS declaracionEstado
+		   ,[deva_Lugar_Entrega]					--AS declaracionLugarEntrega, 
+		   ,deva.[inco_Id]							--AS incotermId, 
+		   ,inco.inco_Descripcion
+		   ,[deva_numero_contrato]				--AS declaracionNumContrato, 
+		   ,[deva_Fecha_Contrato]				--AS declaracionFechaContrato, 
+		   ,deva.[foen_Id]							--AS formaEnvioId, 
+		   ,foen.foen_Descripcion
+		   ,[deva_Forma_Envio_Otra]				--AS formaEnvioOtra, 
+		   ,[deva_Pago_Efectuado]				--AS declaracionPagoEfectuado, 
+		   ,[fopa_Id]							--AS formaPagoId, 
+		   ,[deva_Forma_Pago_Otra]				--AS formaPagoOtra, 
+		   ,[deva_Lugar_Embarque]				--AS declaracionLugarEmbarque, 
+		   ,[pais_Embarque_Id]					--AS paisEmbarqueId, 
+		   ,[pais_Exportacion_Id]				--AS paisExportacionId, 
+		   ,[deva_Fecha_Exportacion]			--	AS declaracionFechaExportacion, 
+		   ,[mone_Id]							--AS monedaId, 
+		   ,[mone_Otra]							--AS monedaOtra, 
+		   ,[deva_Conversion_Dolares]			--AS conversionDolares, 
+		   ,[deva_Condiciones]					--AS declaracionCondiciones, 
+		   ,deva.[usua_UsuarioCreacion]			--AS usuaCreacionId, 
+		   ,[deva_FechaCreacion]				--AS fechaCreacion, 
+		   ,deva.[usua_UsuarioModificacion]		--AS usuarioModificacionId, 
+		   ,[deva_FechaModificacion]			--AS fechaModificacion, 
+		   ,deva.[usua_UsuarioEliminacion]		--AS usuarioEliminacionId, 
+		   ,[deva_FechaEliminacion]				--AS fechaEliminacion, 
+		   ,[deva_Estado]						--AS declaracionEstado
 	FROM   [Adua].[tbDeclaraciones_Valor] deva 
 		   INNER JOIN [Adua].[tbAduanas] aduaIngreso			ON deva.deva_Aduana_Ingreso_Id = aduaIngreso.adua_Id
 		   INNER JOIN [Adua].[tbAduanas] aduaDespacho			ON deva.deva_Aduana_Despacho_Id = aduaDespacho.adua_Id
@@ -1362,9 +1364,11 @@ BEGIN
 		   INNER JOIN [Adua].[tbProveedoresDeclaracion] prov	ON prov.pvde_Id = deva.pvde_Id
 		   INNER JOIN [Adua].[tbDeclarantes] declaProv			ON prov.decl_Id = declaProv.decl_Id
 		   INNER JOIN [Adua].[tbCondicionesComerciales] coco	ON prov.coco_Id = coco.coco_Id
-		   INNER JOIN [Adua].[tbIntermediarios] inte			ON inte.inte_Id = deva.inte_Id
-		   INNER JOIN [Adua].[tbDeclarantes] declaInte			ON declaInte.decl_Id = inte.decl_Id
-		   INNER JOIN [Adua].[tbTipoIntermediario] tite			ON inte.tite_Id = tite.tite_Id
+		   LEFT JOIN  [Adua].[tbIntermediarios] inte			ON inte.inte_Id = deva.inte_Id
+		   LEFT JOIN  [Adua].[tbDeclarantes] declaInte			ON declaInte.decl_Id = inte.decl_Id
+		   LEFT JOIN  [Adua].[tbTipoIntermediario] tite			ON inte.tite_Id = tite.tite_Id
+		   LEFT JOIN  [Adua].[tbIncoterm] inco					ON inco.inco_Id = deva.inco_Id
+		   LEFT JOIN  [Gral].[tbFormas_Envio] foen				ON foen.foen_Id = deva.foen_Id
 END
 
 

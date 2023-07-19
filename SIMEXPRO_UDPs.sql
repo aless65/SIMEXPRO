@@ -325,18 +325,18 @@ GO
 CREATE OR ALTER PROCEDURE gral.UDP_tbOficinas_Listar
 AS
 BEGIN
-	SELECT	ofic_Id							AS oficinaId, 
-			ofic_Nombre						AS oficinaNombre, 
-			ofic.usua_UsuarioCreacion		AS usuarioCreacion, 
-			usuaCrea.usua_Nombre			AS usuarioCreacionNombre,
-			ofic_FechaCreacion				AS fechaCreacion, 
-			ofic.usua_UsuarioModificacion	AS usuarioModificacion, 
-			usuaModifica.usua_Nombre		AS usuarioModificacionNombre,
-			ofic_FechaModificacion			AS fechaModificacion, 
-			ofic.usua_UsuarioEliminacion	AS usuarioEliminacion, 
-			usuaElimina.usua_Nombre			AS usuarioEliminacionNombre,
-			ofic_FechaEliminacion			AS fechaEliminacion, 
-			ofic_Estado						AS oficinaEstado
+	SELECT	ofic_Id							
+			,ofic_Nombre					
+			,ofic.usua_UsuarioCreacion		
+			,usuaCrea.usua_Nombre			AS usuarioCreacionNombre
+			,ofic_FechaCreacion				
+			,ofic.usua_UsuarioModificacion	 
+			,usuaModifica.usua_Nombre		AS usuarioModificacionNombre
+			,ofic_FechaModificacion			
+			,ofic.usua_UsuarioEliminacion	 
+			,usuaElimina.usua_Nombre		AS usuarioEliminacionNombre
+			,ofic_FechaEliminacion			 
+			,ofic_Estado						
 	FROM [Gral].[tbOficinas] ofic 
 	INNER JOIN [Acce].[tbUsuarios] usuaCrea		ON ofic.usua_UsuarioCreacion = usuaCrea.usua_Id 
 	LEFT JOIN [Acce].[tbUsuarios] usuaModifica  ON ofic.usua_UsuarioModificacion = usuaCrea.usua_Id 
@@ -443,15 +443,15 @@ GO
 CREATE OR ALTER PROCEDURE gral.UDP_tbOficio_Profesiones_Listar
 AS
 BEGIN
-	SELECT  ofpr_Id							AS oficioId, 
-			ofpr_Nombre						AS oficioNombre, 
-			ofpr.usua_UsuarioCreacion		AS usuarioCreacion, 
-			usuaCrea.usua_Nombre			AS usuarioCreacionNombre,
-			ofpr_FechaCreacion				AS fechaCreacion, 
-			ofpr.usua_UsuarioModificacion	AS usuarioModificacion, 
-			usuaModifica.usua_Nombre		AS usuarioModificacionNombre,
-			ofpr_FechaModificacion			AS fechaModificacion, 
-			ofpr_Estado						AS oficioEstado
+	SELECT ofpr_Id							
+			,ofpr_Nombre					
+			,ofpr.usua_UsuarioCreacion		 
+			,usuaCrea.usua_Nombre			AS usuarioCreacionNombre
+			,ofpr_FechaCreacion				 
+			,ofpr.usua_UsuarioModificacion	 
+			,usuaModifica.usua_Nombre		AS usuarioModificacionNombre
+			,ofpr_FechaModificacion			
+			,ofpr_Estado					
 	FROM [Gral].[tbOficio_Profesiones] ofpr 
 	INNER JOIN [Acce].[tbUsuarios] usuaCrea		ON ofpr.usua_UsuarioCreacion = usuaCrea.usua_Id 
 	LEFT JOIN [Acce].[tbUsuarios] usuaModifica	ON ofpr.usua_UsuarioModificacion = usuaCrea.usua_Id 
@@ -514,18 +514,18 @@ GO
 CREATE OR ALTER PROCEDURE gral.UDP_tbCargos_Listar
 AS
 BEGIN
-	SELECT carg_Id							AS cargoId, 
-		   carg_Nombre						AS cargoNombre, 
-	       carg.usua_UsuarioCreacion		AS usuarioCreacion, 
-	       usuaCrea.usua_Nombre				AS usuarioCreacionNombre,
-	       carg_FechaCreacion				AS fechaCreacion, 
-	       carg.usua_UsuarioModificacion	AS usuarioModificacion, 
-	       usuaModifica.usua_Nombre			AS usuarioModificacionNombre,
-	       carg_FechaModificacion			AS fechaModificacion, 
-	       carg.usua_UsuarioEliminacion		AS usuarioEliminacion, 
-	       usuaElimina.usua_Nombre			AS usuarioEliminacionNombre,
-	       carg_FechaEliminacion			AS fechaEliminacion, 
-	       carg_Estado						AS cargoEstado
+	SELECT carg_Id							
+		   ,carg_Nombre						
+	       ,carg.usua_UsuarioCreacion		
+	       ,usuaCrea.usua_Nombre			AS usuarioCreacionNombre
+	       ,carg_FechaCreacion				
+	       ,carg.usua_UsuarioModificacion	
+	       ,usuaModifica.usua_Nombre		AS usuarioModificacionNombre
+	       ,carg_FechaModificacion			
+	       ,carg.usua_UsuarioEliminacion	
+	       ,usuaElimina.usua_Nombre			AS usuarioEliminacionNombre
+	       ,carg_FechaEliminacion			
+	       ,carg_Estado						
     FROM [Gral].[tbCargos] carg 
 	INNER JOIN [Acce].[tbUsuarios] usuaCrea		ON carg.usua_UsuarioCreacion = usuaCrea.usua_Id 
 	LEFT JOIN [Acce].[tbUsuarios] usuaModifica	ON carg.usua_UsuarioModificacion = usuaCrea.usua_Id 
@@ -589,28 +589,24 @@ GO
 CREATE OR ALTER PROCEDURE gral.UDP_tbColonias_Listar
 AS
 BEGIN
-	SELECT colo_Id								AS coloniaId, 
-	       colo_Nombre							AS coloniaNombre, 
-	       colo.alde_Id							AS aldeaId,
-	       alde.alde_Nombre						AS aldeaNombre,
-	       colo.ciud_Id							AS ciudadId,
-	       ciud.ciud_Nombre						AS ciudadNombre,
-	       colo.usua_UsuarioCreacion			AS usuarioCreacion, 
-	       usuaCrea.usua_Nombre					AS usuarioCreacionNombre,
-	       colo_FechaCreacion					AS fechaCreacion, 
-	       colo.usua_UsuarioModificacion		AS usuarioModificacion, 
-	       usuaModifica.usua_Nombre				AS usuarioModificacionNombre,
-	       colo_FechaModificacion				AS fechaModificacion, 
-	       colo.usua_UsuarioEliminacion			AS usuarioEliminacion, 
-	       usuaElimina.usua_Nombre				AS usuarioEliminacionNombre,
-	       colo_FechaEliminacion				AS fechaEliminacion, 
-	       colo_Estado							AS coloniaEstado
+	SELECT colo_Id								
+	       ,colo_Nombre							
+	       ,colo.alde_Id						
+	       ,alde.alde_Nombre					
+	       ,colo.ciud_Id						
+	       ,ciud.ciud_Nombre					
+	       ,colo.usua_UsuarioCreacion			
+	       ,usuaCrea.usua_Nombre				AS usuarioCreacionNombre
+	       ,colo_FechaCreacion					
+	       ,colo.usua_UsuarioModificacion		
+	       ,usuaModifica.usua_Nombre			AS usuarioModificacionNombre
+	       ,colo_FechaModificacion				
+	       ,colo_Estado							
    FROM [Gral].[tbColonias] colo 
    LEFT JOIN [Gral].[tbAldeas] alde				ON colo.alde_Id = alde.alde_Id 
    LEFT JOIN [Gral].[tbCiudades] ciud			ON colo.ciud_Id = ciud.ciud_Id 
    INNER JOIN [Acce].[tbUsuarios] usuaCrea		ON colo.usua_UsuarioCreacion = usuaCrea.usua_Id 
    LEFT JOIN [Acce].[tbUsuarios] usuaModifica	ON colo.usua_UsuarioModificacion = usuaCrea.usua_Id 
-   LEFT JOIN [Acce].[tbUsuarios] usuaElimina	ON colo.usua_UsuarioEliminacion = usuaCrea.usua_Id
    WHERE colo_Estado = 1
 END
 GO
@@ -751,19 +747,19 @@ GO
 CREATE OR ALTER PROCEDURE gral.UDP_tbMonedas_Listar
 AS
 BEGIN
-	SELECT mone_Id								AS monedaId, 
-	       mone_Codigo							AS monedaCodigo,
-	       mone_Descripcion						AS monedaNombre, 
-	       mone.usua_UsuarioCreacion			AS usuarioCreacion, 
-	       usuaCrea.usua_Nombre					AS usuarioCreacionNombre,
-	       mone_FechaCreacion					AS fechaCreacion, 
-	       mone.usua_UsuarioModificacion		AS usuarioModificacion, 
-	       usuaModifica.usua_Nombre				AS usuarioModificacionNombre,
-	       mone_FechaModificacion				AS fechaModificacion, 
-	       mone.usua_UsuarioEliminacion			AS usuarioEliminacion, 
-	       usuaElimina.usua_Nombre				AS usuarioEliminacionNombre,
-	       mone_FechaEliminacion				AS fechaEliminacion, 
-	       mone_Estado							AS monedaEstado
+	SELECT mone_Id								
+	       ,mone_Codigo							
+	       ,mone_Descripcion					
+	       ,mone.usua_UsuarioCreacion			
+	       ,usuaCrea.usua_Nombre				AS usuarioCreacionNombre
+	       ,mone_FechaCreacion					
+	       ,mone.usua_UsuarioModificacion		
+	       ,usuaModifica.usua_Nombre			AS usuarioModificacionNombre
+	       ,mone_FechaModificacion				
+	       ,mone.usua_UsuarioEliminacion		
+	       ,usuaElimina.usua_Nombre				AS usuarioEliminacionNombre
+	       ,mone_FechaEliminacion				
+	       ,mone_Estado							
    FROM [Gral].[tbMonedas] mone 
    INNER JOIN [Acce].[tbUsuarios] usuaCrea		ON mone.usua_UsuarioCreacion = usuaCrea.usua_Id 
    LEFT JOIN [Acce].[tbUsuarios] usuaModifica   ON mone.usua_UsuarioModificacion = usuaCrea.usua_Id 
@@ -830,23 +826,19 @@ GO
 CREATE OR ALTER PROCEDURE adua.UDP_tbIncoterm_Listar
 AS
 BEGIN
-	SELECT inco_Id								AS incotermId, 
-		   inco_Codigo							AS incotermCodigo,
-		   inco_Descripcion						AS incotermNombre, 
-		   inco.usua_UsuarioCreacion			AS usuarioCreacion, 
-		   usuaCrea.usua_Nombre					AS usuarioCreacionNombre,
-		   inco_FechaCreacion					AS fechaCreacion, 
-		   inco.usua_UsuarioModificacion		AS usuarioModificacion, 
-		   usuaModifica.usua_Nombre				AS usuarioModificacionNombre,
-		   inco_FechaModificacion				AS fechaModificacion, 
-		   inco.usua_UsuarioEliminacion			AS usuarioEliminacion, 
-		   usuaElimina.usua_Nombre				AS usuarioEliminacionNombre,
-		   inco_FechaEliminacion				AS fechaEliminacion, 
-		   inco_Estado							AS incotermEstado
+	SELECT inco_Id								
+		   ,inco_Codigo							
+		   ,inco_Descripcion					
+		   ,inco.usua_UsuarioCreacion			
+		   ,usuaCrea.usua_Nombre				AS usuarioCreacionNombre
+		   ,inco_FechaCreacion					
+		   ,inco.usua_UsuarioModificacion		
+		   ,usuaModifica.usua_Nombre			AS usuarioModificacionNombre
+		   ,inco_FechaModificacion				
+		   ,inco_Estado							
 	FROM [Adua].[tbIncoterm] inco 
 	INNER JOIN [Acce].[tbUsuarios] usuaCrea		ON inco.usua_UsuarioCreacion = usuaCrea.usua_Id 
 	LEFT JOIN [Acce].[tbUsuarios] usuaModifica	ON inco.usua_UsuarioModificacion = usuaCrea.usua_Id 
-	LEFT JOIN [Acce].[tbUsuarios] usuaElimina	ON inco.usua_UsuarioEliminacion = usuaCrea.usua_Id
 	WHERE inco_Estado = 1
 END
 GO

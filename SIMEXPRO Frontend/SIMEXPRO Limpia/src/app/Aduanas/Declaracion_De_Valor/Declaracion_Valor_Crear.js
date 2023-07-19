@@ -7,6 +7,7 @@ import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Select from '@mui/material/Select';
+import CardMedia from '@mui/material/CardMedia';
 
 import Grid from '@mui/material/Grid';
 
@@ -17,11 +18,19 @@ import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import Collapse from '@mui/material/Collapse';
+
 
 import { useNavigate } from 'react-router-dom';
 import { black } from 'tailwindcss/colors';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState } from 'react';
+
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -56,6 +65,18 @@ function a11yProps(index) {
   };
 }
 
+const getRowClassName = (params) => {
+  return params.rowIndex % 2 === 0 ? '#f2f2f2' : '#ffffff';
+};
+
+function Declaracion_Valor_Crear() {
+  const navigate = useNavigate();
+  const theme = useTheme();
+  const [value, setValue] = React.useState(0);
+
+
+
+  
 {
   /* Columnas de la tabla */
 }
@@ -91,6 +112,10 @@ const columns = [
             color: 'white',
             '&:hover': { backgroundColor: '#b69999' },
           }}
+          onClick={(e) => {
+            setmostrarAddH(!mostrarAddH),
+            setmostrarDetalles(!mostrarDetalles)
+          }}
         >
           Detalles
         </Button>
@@ -121,14 +146,10 @@ const rows = [
   { id: '3', fecha: '11/07/2023' },
 ];
 
-const getRowClassName = (params) => {
-  return params.rowIndex % 2 === 0 ? '#f2f2f2' : '#ffffff';
-};
+const rows2 = [
 
-function Declaracion_Valor_Crear() {
-  const navigate = useNavigate();
-  const theme = useTheme();
-  const [value, setValue] = React.useState(0);
+];
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -206,14 +227,27 @@ function Declaracion_Valor_Crear() {
     tab5: true,
   });
 
+  const [mostrarAddH, setmostrarAddH] = useState(true);
+  const [mostrarAddD, setmostrarAddD] = useState(false);
+  const [mostrarAddF, setmostrarAddF] = useState(false);
+  const [mostrarAddFD, setmostrarAddFD] = useState(false);
+  const [mostrarBoton, setmostrarBoton] = useState(false);
+  const [mostrarDetalles, setmostrarDetalles] = useState(false);
+
+
+
+
+
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
+            <CardMedia
+        component="img"
+        height="200"
+        image="https://i.ibb.co/rdxDGbL/DECLARACION.png"
+        alt="Encabezado de la carta"
+      />
       <CardContent sx={{ textAlign: 'center' }}>
-        <Grid item xs={12}>
-          <Typography variant="h5" gutterBottom sx={{ textTransform: 'uppercase' }}>
-            NUEVA DECLARACIÓN DE VALOR
-          </Typography>
-        </Grid>
+      
       </CardContent>
 
       <Box sx={{ bgcolor: 'background.paper', width: '100%' }}>
@@ -238,7 +272,8 @@ function Declaracion_Valor_Crear() {
               {...a11yProps(2)}
               disabled={tabsEstado.tab2}
             />
-            <Tab label="Facturas" {...a11yProps(3)} disabled={tabsEstado.tab3} />
+            <Tab label="Facturas" {...a11yProps(3)}  
+            disabled={tabsEstado.tab4}/>
             <Tab
               label="II. Condiciones de la transacción"
               {...a11yProps(4)}
@@ -436,7 +471,7 @@ function Declaracion_Valor_Crear() {
                   '&:hover': { backgroundColor: '#BFBABA' },
                 }}
                 onClick={(e) => {
-                  navigate('/ContratoDeAdhesionComercianteIndividual/Index');
+                  navigate('/Declaracion-de-Valor/Listado');
                 }}
               >
                 Cancelar
@@ -627,7 +662,7 @@ function Declaracion_Valor_Crear() {
                   '&:hover': { backgroundColor: '#BFBABA' },
                 }}
                 onClick={(e) => {
-                  navigate('/ContratoDeAdhesionComercianteIndividual/Index');
+                   navigate('/Declaracion-de-Valor/Listado');
                 }}
               >
                 Cancelar
@@ -830,7 +865,7 @@ function Declaracion_Valor_Crear() {
                   '&:hover': { backgroundColor: '#BFBABA' },
                 }}
                 onClick={(e) => {
-                  navigate('/ContratoDeAdhesionComercianteIndividual/Index');
+                   navigate('/Declaracion-de-Valor/Listado');
                 }}
               >
                 Cancelar
@@ -841,7 +876,27 @@ function Declaracion_Valor_Crear() {
           <TabPanel value={value} index={3} dir={theme.direction}>
             <Card style={{ marginTop: '10px', marginBottom: '10px' }}>
               <CardContent>
+                  
+
+            <Collapse in={mostrarAddH}>
                 <div style={{ height: 300, width: '100%' }}>
+                <Button
+              startIcon={<Icon>add</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px' }}
+              sx={{
+                backgroundColor: '#634A9E', color: 'white',
+                marginBottom:4,
+                "&:hover": { backgroundColor: '#6e52ae' },
+              }}
+              onClick={(e) => {
+                setmostrarAddH(!mostrarAddH )
+                setmostrarAddF(!mostrarAddF)
+              }}
+            >
+              Nueva Factura
+            </Button>
                   <DataGrid
                     rows={rows}
                     columns={columns}
@@ -854,8 +909,46 @@ function Declaracion_Valor_Crear() {
                     pageSizeOptions={[3, 6, 9]}
                   />
                 </div>
+            </Collapse>
+            
+
+            <Collapse in={mostrarDetalles}>
+                <div style={{ height: 300, width: '100%' }}>
+                <Button
+              startIcon={<Icon>close</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px' }}
+              sx={{
+                backgroundColor: '#DAD8D8',
+                color: 'black',
+                '&:hover': { backgroundColor: '#BFBABA' },
+              }}
+              onClick={(e) => {
+                setmostrarAddH(!mostrarAddH )
+                setmostrarDetalles(!mostrarDetalles)
+              }}
+            >
+              Cerrar
+            </Button>
+                  <DataGrid
+                    rows={rows}
+                    columns={columns}
+                    getRowClassName={getRowClassName}
+                    initialState={{
+                      pagination: {
+                        paginationModel: { page: 0, pageSize: 3 },
+                      },
+                    }}
+                    pageSizeOptions={[3, 6, 9]}
+                  />
+                </div>
+            </Collapse>
+
+
+            <Collapse in={mostrarAddF}>
                 <Divider style={{ marginTop: '30px', marginBottom: '15px' }}>
-                  <Chip label="FACTURA" />
+                  <Chip label="NUEVA FACTURA " />
                 </Divider>
                 <Grid container spacing={3}>
                   <Grid item xs={2} />
@@ -863,7 +956,7 @@ function Declaracion_Valor_Crear() {
                     <FormControl fullWidth>
                       <TextField
                         style={{ borderRadius: '10px' }}
-                        label="Numero de Factura"
+                        label="Número de Factura"
                         size="small"
                       />
                     </FormControl>
@@ -873,16 +966,76 @@ function Declaracion_Valor_Crear() {
                       <TextField style={{ borderRadius: '10px' }} label="Fecha" size="small" />
                     </FormControl>
                   </Grid>
-                  <Grid item xs={2} />
-                </Grid>
-                <Grid item xs={12}>
+                  <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                 <Collapse in={!mostrarBoton}>
+                  <Button
+                startIcon={<Icon>checked</Icon>}
+                variant="contained"
+                color="primary"
+                style={{ borderRadius: '10px', marginRight: '10px' }}
+                sx={{
+                  backgroundColor: '#634A9E',
+                  color: 'white',
+                  '&:hover': { backgroundColor: '#6e52ae' },
+                }}
+                onClick={(e) => {
+              
+                  setmostrarBoton(!mostrarBoton)
+                }}
+                
+              >
+                Guardar Adición Factura
+              </Button>
+              </Collapse>
+              <Button
+                startIcon={<Icon>close</Icon>}
+                variant="contained"
+                color="primary"
+                style={{ borderRadius: '10px' }}
+                sx={{
+                  backgroundColor: '#DAD8D8',
+                  color: 'black',
+                  '&:hover': { backgroundColor: '#BFBABA' },
+                }}
+                onClick={(e) => {
+                  setmostrarAddH(!mostrarAddH )
+                  setmostrarAddF(!mostrarAddF)
+                  setmostrarAddFD(false)
+                  setmostrarBoton(false)
+                }}
+              >
+                Cancelar Adición Factura
+              </Button>
+                    </Grid>
+
+                    <Grid item xs={12} sx={{marginBottom:4}}>
                   <Typography variant="" color="rgb(55, 188, 155)">
                     DESCRIPCIÓN DE LAS MERCANCÍAS (ITEMS)
                   </Typography>
                 </Grid>
+<Collapse in={mostrarBoton}>
+                <Button
+              startIcon={<Icon>add</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px' }}
+              sx={{
+                backgroundColor: '#634A9E', color: 'white',
+                marginBottom:4,
+                "&:hover": { backgroundColor: '#6e52ae' },
+              }}
+              onClick={(e) => {
+                setmostrarAddFD(!mostrarAddFD)
+                setmostrarAddF(!mostrarAddF)
+              }}
+            >
+              Agregar Item
+            </Button>
+            </Collapse>
                 <div style={{ height: 300, width: '100%' }}>
+               
                   <DataGrid
-                    rows={rows}
+                    rows={rows2}
                     columns={columns}
                     getRowClassName={getRowClassName}
                     initialState={{
@@ -893,11 +1046,20 @@ function Declaracion_Valor_Crear() {
                     pageSizeOptions={[3, 6, 9]}
                   />
                 </div>
-                <Divider style={{ marginTop: '30px', marginBottom: '15px' }}>
-                  <Chip label="AÑADIR ITEMS A LA FACTURA" />
-                </Divider>
+                </Grid>
+
+
+
+                </Collapse>
+
+
+
+
+                <Collapse in={mostrarAddFD}>
+        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
+       
                 <Grid container spacing={3}>
-                  <Grid item xs={3}>
+                  <Grid item xs={4}>
                     <FormControl fullWidth>
                       <TextField
                         style={{ borderRadius: '10px' }}
@@ -911,7 +1073,7 @@ function Declaracion_Valor_Crear() {
                       <TextField style={{ borderRadius: '10px' }} label="Cantidad" size="small" />
                     </FormControl>
                   </Grid>
-                  <Grid item xs={5}>
+                  <Grid item xs={4}>
                     <FormControl fullWidth>
                       <TextField
                         style={{ borderRadius: '10px' }}
@@ -1000,7 +1162,53 @@ function Declaracion_Valor_Crear() {
                       />
                     </FormControl>
                   </Grid>
+                  <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <Button
+                startIcon={<Icon>checked</Icon>}
+                variant="contained"
+                color="primary"
+                style={{ borderRadius: '10px', marginRight: '10px' }}
+                sx={{
+                  backgroundColor: '#634A9E',
+                  color: 'white',
+                  '&:hover': { backgroundColor: '#6e52ae' },
+                }}
+                onClick={(e) => {
+                  setmostrarAddFD(!mostrarAddFD)
+                  setmostrarAddF(!mostrarAddF)
+
+                }}
+              >
+                Confirmar Adición de Item
+              </Button>
+
+              <Button
+                startIcon={<Icon>close</Icon>}
+                variant="contained"
+                color="primary"
+                style={{ borderRadius: '10px' }}
+                sx={{
+                  backgroundColor: '#DAD8D8',
+                  color: 'black',
+                  '&:hover': { backgroundColor: '#BFBABA' },
+                }}
+                onClick={(e) => {
+              
+                  setmostrarAddFD(false)
+                  setmostrarAddF(!mostrarAddF)
+                }}
+              >
+                    Cancelar Adición de Item
+              </Button>
+                    </Grid>
                 </Grid>
+            </Grid>
+            </Collapse>
+             
+
+           
+                
+
               </CardContent>
             </Card>
             <Grid
@@ -1483,7 +1691,7 @@ function Declaracion_Valor_Crear() {
                   '&:hover': { backgroundColor: '#BFBABA' },
                 }}
                 onClick={(e) => {
-                  navigate('/ContratoDeAdhesionComercianteIndividual/Index');
+                   navigate('/Declaracion-de-Valor/Listado');
                 }}
               >
                 Cancelar
@@ -2320,7 +2528,7 @@ function Declaracion_Valor_Crear() {
                   '&:hover': { backgroundColor: '#BFBABA' },
                 }}
                 onClick={(e) => {
-                  navigate('/ContratoDeAdhesionComercianteIndividual/Index');
+                   navigate('/Declaracion-de-Valor/Listado');
                 }}
               >
                 Cancelar

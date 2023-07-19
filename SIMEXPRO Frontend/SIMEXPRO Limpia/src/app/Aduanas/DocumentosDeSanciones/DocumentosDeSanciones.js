@@ -7,10 +7,12 @@ import { Navigate, useNavigate } from 'react-router-dom';
 function DocumentosDeSanciones() {
     // creamos el documento PDF
     const doc = new jsPDF();
-    const Navigate = useNavigate();
+
+    const Logo = 'https://i.ibb.co/GPcBkjV/Capturadfdf.png'
+
 
     // Se le agrega una imagen el documento
-    doc.addImage('', 'JPEG', 10, 10, 190, 300);
+    doc.addImage(Logo, 'JPEG', 10, 10, 190, 200);
 
     const pdfUrl = doc.output('dataurl');
     // mostramos el documento PDF en un iframe

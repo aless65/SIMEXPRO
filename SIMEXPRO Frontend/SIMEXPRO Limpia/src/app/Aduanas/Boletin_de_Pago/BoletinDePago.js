@@ -37,8 +37,8 @@ function BoletinDePagoIndex() {
 
   {/*Columnas de la tabla*/ }
   const columns = [
-    { field: 'id', headerName: 'Id', width: 20 }, 
-    { field: 'identificador', headerName: 'Identificador', flex: 1 },
+    { field: 'id', headerName: 'Id', flex:3 }, 
+    { field: 'identificador', headerName: 'Identificador', flex: 3 },
     
     {
       field: 'acciones',
@@ -80,7 +80,7 @@ function BoletinDePagoIndex() {
             style={{ borderRadius: '10px' }}
             sx={{
               backgroundColor: '#C4BADD', color: 'white',
-              "&:hover": { backgroundColor: '#DCE4F9' },
+              "&:hover": { backgroundColor: '#c3cbe0' },
             }}
             onClick={Imprimir}
           >
@@ -126,9 +126,27 @@ function BoletinDePagoIndex() {
         alt="Encabezado de la carta"
       />
       
+      <Collapse in={mostrarIndex}>
+
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
 
-          
+
+ {/* Botón de Nuevo */}
+ <Stack direction="row" spacing={1}>
+            <Button
+              startIcon={<Icon>add</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px' }}
+              sx={{
+                backgroundColor: '#634A9E', color: 'white',
+                "&:hover": { backgroundColor: '#6e52ae' },
+              }}
+              onClick={VisibilidadTabla}
+            >
+              Nuevo
+            </Button>
+          </Stack>          
 
           {/*Barra de Busqueda en la Tabla*/}
           <TextField
@@ -149,10 +167,11 @@ function BoletinDePagoIndex() {
             }}
           />
         </CardContent>
-      
+      </Collapse>
 
       {/*Tabla*/}
-      
+      <Collapse in={mostrarIndex}>
+
         <div style={{ height: 400, width: '100%' }}>
           <DataGrid
             localeText={esES.components.MuiDataGrid.defaultProps.localeText}
@@ -170,7 +189,57 @@ function BoletinDePagoIndex() {
             pageSizeOptions={[10, 20, 50]}
           />
         </div>
-      
+      </Collapse>
+
+      <Collapse in={mostrarAdd}>
+      <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <Grid container spacing={3}>
+            
+          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}
+                 style={{ marginTop: '30px' }}>
+                <FormControl>
+                    <TextField
+                        style={{ borderRadius: '10px', width: '500px' }}
+                        label="Idetificador"
+                    />
+                </FormControl>
+            </Grid>
+
+            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
+              <Button
+                startIcon={<Icon>checked</Icon>}
+                variant="contained"
+                color="primary"
+                style={{ borderRadius: '10px', marginRight: '10px' }}
+                sx={{
+                  backgroundColor: '#634A9E', color: 'white',
+                  "&:hover": { backgroundColor: '#6e52ae' },
+                }}
+                onClick={VisibilidadTabla}
+              >
+                Guardar
+              </Button>
+
+              <Button
+                startIcon={<Icon>close</Icon>}
+                variant="contained"
+                color="primary"
+                style={{ borderRadius: '10px' }}
+                sx={{
+                  backgroundColor: '#DAD8D8', color: 'black',
+                  "&:hover": { backgroundColor: '#BFBABA' },
+                }}
+                onClick={VisibilidadTabla}
+              >
+                Cancelar
+              </Button>
+            </Grid>
+
+          </Grid>
+        </CardContent>
+      </Collapse>
+
+
       <Dialog
         open={Eliminar}
         fullWidth={'md'}

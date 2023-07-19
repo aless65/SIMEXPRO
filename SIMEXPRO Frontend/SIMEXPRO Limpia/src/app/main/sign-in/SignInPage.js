@@ -71,17 +71,17 @@ function SignInPage() {
   }
 
   return (
+    
     <div className="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-1 min-w-0">
-      <Paper className="h-full sm:h-auto md:flex md:items-center md:justify-center w-full sm:w-auto md:h-full md:w-1/2 py-8 px-16 sm:p-48 md:p-64 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none ltr:border-r-1 rtl:border-l-1">
-        <div className="w-full max-w-320 sm:w-320 mx-auto sm:mx-0">
+      <Paper className="h-full sm:h-auto md:flex md:items-center md:justify-center w-full sm:w-auto md:h-full md:w-1/2 py-8 px-16 sm:p-48 md:p-64 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none ltr:border-r-1 rtl:border-l-1 ">   
+       <div className="w-full max-w-320 sm:w-320 mx-auto sm:mx-0">
 
-
-          <Typography style={{ textAlign: 'center', color: '#9452F9' }} className="mt-32 text-4xl font-extrabold tracking-tight leading-tight">
-            INICIO DE SESION
+          <Typography style={{ textAlign: 'center', color: '#9452F9', fontSize:'40px' }} className="mt-32 text-4xl font-extrabold tracking-tight leading-tight">
+            INICIO DE SESIÓN
           </Typography>
 
           <div style={{ textAlign: 'center' }} className="flex items-baseline mt-2 font-medium" >
-            <Typography>Ingrese su usuario y contraseña para inicar sesión</Typography>
+            <Typography style={{ fontSize:'20px'}}>Ingrese su usuario y contraseña para iniciar sesión</Typography>
           </div>
 
           <form
@@ -144,17 +144,21 @@ function SignInPage() {
                 />
               )}
             />
-
-            <Button
-              style={{ color: '#9452F9', borderRadius: '5px' }}
-              variant="outlined"
+              <Button
+              variant="contained"
 
               aria-label=" Inicar Sesion"
               disabled={_.isEmpty(dirtyFields) || !isValid}
               type="submit"
               size="large"
+              sx={{
+                backgroundColor: '#9452F9',
+                color: 'white',
+                borderRadius: '5px',
+                '&:hover': { backgroundColor: '#7b4ac6'},
+              }}
             >
-              Inicar Sesion
+              Inicar Sesión
             </Button>
 
 

@@ -153,7 +153,7 @@ function Persona_Juridica_Index() {
               "&:hover": { backgroundColor: "#6e52ae" },
             }}
             onClick={(e) => {
-              Navigate("/ContratoDeAdhesionPersonaJuridica/Agregar");
+              Navigate("/Contrato-de-Adhesion-Persona-Juridica/Agregar");
             }}
           >
             Nuevo

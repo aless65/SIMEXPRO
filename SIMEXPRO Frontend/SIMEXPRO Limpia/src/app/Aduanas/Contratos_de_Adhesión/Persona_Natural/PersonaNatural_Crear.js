@@ -2,9 +2,22 @@
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { Button, Chip, Divider, FormControl, 
-        Icon, InputLabel, TextField, Typography,
-        Select, Grid, AppBar, Tabs, Tab, Box, Avatar
+import {
+  Button,
+  Chip,
+  Divider,
+  FormControl,
+  Icon,
+  InputLabel,
+  TextField,
+  Typography,
+  Select,
+  Grid,
+  AppBar,
+  Tabs,
+  Tab,
+  Box,
+  Avatar,
 } from '@mui/material';
 import * as React from 'react';
 import PropTypes from 'prop-types';
@@ -20,34 +33,18 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import _ from '@lodash';
 
-import Checkbox from '@mui/material/Checkbox';
-import MenuItem from '@mui/material/MenuItem';
-import Switch from '@mui/material/Switch';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Radio from '@mui/material/Radio';
-import Autocomplete from '@mui/material/Autocomplete';
-
-import clsx from 'clsx';
-import FormLabel from '@mui/material/FormLabel';
-import FormHelperText from '@mui/material/FormHelperText';
-import { DateTimePicker } from '@mui/x-date-pickers';
-import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
-
-
-
-const tab1Fields ={
+const tab1Fields = {
   rtn_solicitante: '',
   dni: '',
   numero_recibo_servicio_publico: '',
-}
+};
 const schemaTab1Fields = yup.object().shape({
   rtn_solicitante: yup.string().required(),
   dni: yup.string().required(),
   numero_recibo_servicio_publico: yup.string().required(),
 });
 
-const tab2Fields ={
+const tab2Fields = {
   oficina_regional_aduanas: '',
   estado_civil: '',
   profesion_oficio: '',
@@ -57,7 +54,7 @@ const tab2Fields ={
   telefono_fijo: '',
   telefono_celular: '',
   correo_electronico: '',
-}
+};
 const schemaTab2Fields = yup.object().shape({
   oficina_regional_aduanas: yup.string().required(),
   estado_civil: yup.string().required(),
@@ -111,18 +108,21 @@ function PersonaNatural_Crear() {
   const { handleSubmit, reset, control, formState } = useForm({
     tab1Fields,
     mode: 'all',
-    resolver: yupResolver(schemaTab1Fields),    
-  })
+    resolver: yupResolver(schemaTab1Fields),
+  });
   const { isValid, dirtyFields, errors } = formState;
 
-
-  const { handleSubmitTab2, resetTab2, controlTab2, formStateTab2 = {} } = useForm({
+  const {
+    handleSubmitTab2,
+    resetTab2,
+    controlTab2,
+    formStateTab2 = {},
+  } = useForm({
     tab2Fields,
     mode: 'all',
     resolver: yupResolver(schemaTab2Fields),
   });
-  const { isValidTab2, dirtyFieldsTab2, errorsTab2} = formStateTab2;
-
+  const { isValidTab2, dirtyFieldsTab2, errorsTab2 } = formStateTab2;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -184,125 +184,121 @@ function PersonaNatural_Crear() {
         >
           <TabPanel value={value} index={0} dir={theme.direction}>
             <form onSubmit={handleSubmit()}>
-
               <Card style={{ marginBottom: '25px' }}>
                 <CardContent>
                   <Grid container spacing={2}>
+                    <Grid item xs={6}>
+                      <Controller
+                        render={({ field }) => (
+                          <TextField
+                            {...field}
+                            label="RTN del Solicitante"
+                            variant="outlined"
+                            fullWidth
+                            error={!!errors.rtn_solicitante}
+                            style={{ borderRadius: '3px' }}
+                          />
+                        )}
+                        name="rtn_solicitante"
+                        control={control}
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <div className="flex w-full h-48">
+                        <label
+                          htmlFor="dropzone-file"
+                          className="flex flex-col  w-full border-2 border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                        >
+                          <div className="flex flex-col ml-5 pt-5 pb-6">
+                            <Avatar
+                              alt="PDF Img"
+                              src="https://i.ibb.co/7Wfzw5H/pdf.png"
+                              sx={{ height: '25px', width: '25px' }}
+                              variant="rounded"
+                            />
+                            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                              <span className="font-semibold">Subir Archivo PDF</span>
+                            </p>
+                          </div>
+                          <input id="dropzone-file" type="file" className="hidden" />
+                        </label>
+                      </div>
+                    </Grid>
 
                     <Grid item xs={6}>
                       <Controller
-                        render={({ field }) => (                          
-                            <TextField
-                              {...field}
-                              label="RTN del Solicitante"
-                              variant='outlined'
-                              fullWidth
-                              error={!!errors.rtn_solicitante}
-                              style={{ borderRadius: '3px' }} 
-                              />                          
+                        render={({ field }) => (
+                          <TextField
+                            {...field}
+                            label="Documento Nacional de Identificación (DNI)"
+                            variant="outlined"
+                            fullWidth
+                            error={!!errors.dni}
+                            style={{ borderRadius: '3px' }}
+                          />
                         )}
-                        name='rtn_solicitante'
+                        name="dni"
                         control={control}
                       />
                     </Grid>
                     <Grid item xs={6}>
-                        <div class="flex w-full h-48">
-                          <label
-                            for="dropzone-file"
-                            class="flex flex-col  w-full border-2 border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                          >
-                            <div class="flex flex-col ml-5 pt-5 pb-6">
-                              <Avatar
-                                alt="PDF Img"
-                                src="https://i.ibb.co/7Wfzw5H/pdf.png"
-                                sx={{ height: "25px", width: "25px" }}
-                                variant="rounded"
-                              />
-                              <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                <span class="font-semibold">Subir Archivo PDF</span>
-                              </p>
-                            </div>
-                            <input id="dropzone-file" type="file" class="hidden" />
-                          </label>
-                        </div>
+                      <div className="flex w-full h-48">
+                        <label
+                          htmlFor="dropzone-file"
+                          className="flex flex-col  w-full border-2 border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                        >
+                          <div className="flex flex-col ml-5 pt-5 pb-6">
+                            <Avatar
+                              alt="PDF Img"
+                              src="https://i.ibb.co/7Wfzw5H/pdf.png"
+                              sx={{ height: '25px', width: '25px' }}
+                              variant="rounded"
+                            />
+                            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                              <span className="font-semibold">Subir Archivo PDF</span>
+                            </p>
+                          </div>
+                          <input id="dropzone-file" type="file" className="hidden" />
+                        </label>
+                      </div>
                     </Grid>
 
-
                     <Grid item xs={6}>
-                    <Controller
-                        render={({ field }) => (                          
-                            <TextField 
-                              {...field}
-                              label="Documento Nacional de Identificación (DNI)"                              
-                              variant='outlined'
-                              fullWidth
-                              error={!!errors.dni}
-                              style={{ borderRadius: '3px' }} 
-                              />                          
+                      <Controller
+                        render={({ field }) => (
+                          <TextField
+                            {...field}
+                            label="Número Recibo de Servicio Público (ENEE, SANAA, etc.)"
+                            variant="outlined"
+                            fullWidth
+                            error={!!errors.numero_recibo_servicio_publico}
+                            style={{ borderRadius: '3px' }}
+                          />
                         )}
-                        name='dni'
+                        name="numero_recibo_servicio_publico"
                         control={control}
                       />
                     </Grid>
                     <Grid item xs={6}>
-                        <div class="flex w-full h-48">
-                          <label
-                            for="dropzone-file"
-                            class="flex flex-col  w-full border-2 border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                          >
-                            <div class="flex flex-col ml-5 pt-5 pb-6">
-                              <Avatar
-                                alt="PDF Img"
-                                src="https://i.ibb.co/7Wfzw5H/pdf.png"
-                                sx={{ height: "25px", width: "25px" }}
-                                variant="rounded"
-                              />
-                              <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                <span class="font-semibold">Subir Archivo PDF</span>
-                              </p>
-                            </div>
-                            <input id="dropzone-file" type="file" class="hidden" />
-                          </label>
-                        </div>
-                    </Grid>
-
-
-                    <Grid item xs={6}>
-                    <Controller
-                        render={({ field }) => (                          
-                          <TextField 
-                              {...field}
-                              label="Número Recibo de Servicio Público (ENEE, SANAA, etc.)"
-                              variant='outlined'
-                              fullWidth
-                              error={!!errors.numero_recibo_servicio_publico}
-                              style={{ borderRadius: '3px' }} 
-                              />                          
-                        )}
-                        name='numero_recibo_servicio_publico'
-                        control={control}
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <div class="flex w-full h-48">
-                          <label
-                            for="dropzone-file"
-                            class="flex flex-col  w-full border-2 border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                          >
-                            <div class="flex flex-col ml-5 pt-5 pb-6">
-                              <Avatar
-                                alt="PDF Img"
-                                src="https://i.ibb.co/7Wfzw5H/pdf.png"
-                                sx={{ height: "25px", width: "25px" }}
-                                variant="rounded"
-                              />
-                              <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                <span class="font-semibold">Subir Archivo PDF</span>
-                              </p>
-                            </div>
-                            <input id="dropzone-file" type="file" class="hidden" />
-                          </label>
-                        </div>
+                      <div className="flex w-full h-48">
+                        <label
+                          htmlFor="dropzone-file"
+                          className="flex flex-col  w-full border-2 border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                        >
+                          <div className="flex flex-col ml-5 pt-5 pb-6">
+                            <Avatar
+                              alt="PDF Img"
+                              src="https://i.ibb.co/7Wfzw5H/pdf.png"
+                              sx={{ height: '25px', width: '25px' }}
+                              variant="rounded"
+                            />
+                            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                              <span className="font-semibold">Subir Archivo PDF</span>
+                            </p>
+                          </div>
+                          <input id="dropzone-file" type="file" className="hidden" />
+                        </label>
+                      </div>
                     </Grid>
                   </Grid>
                 </CardContent>
@@ -324,7 +320,7 @@ function PersonaNatural_Crear() {
                     '&:hover': { backgroundColor: '#6e52ae' },
                   }}
                   onClick={() => validacion(1)}
-                  type='button'
+                  type="button"
                   disabled={_.isEmpty(dirtyFields) || !isValid}
                 >
                   Guardar
@@ -347,43 +343,47 @@ function PersonaNatural_Crear() {
                   Cancelar
                 </Button>
               </Grid>
-            
             </form>
-
           </TabPanel>
 
           <TabPanel value={value} index={1} dir={theme.direction}>
-            
             <form onSubmit={handleSubmitTab2}>
-
               <Card style={{ marginBottom: '25px' }}>
                 <CardContent>
                   <Grid container spacing={2}>
                     <Grid item xs={4}>
-                      
-                        <Controller
-                          render={({ field }) => (
-                            <FormControl error={!!errorsTab2.oficina_regional_aduanas} required fullWidth>
-                              <FormLabel className="font-medium text-14" component="legend">
-                                Oficina Regional de Aduanas más cercana
-                              </FormLabel>
-                              <Select {...field} variant='outlined' fullWidth>
-                                <MenuItem value="Aduana de Puerto Cortés">Aduana de Puerto Cortés</MenuItem>
-                              </Select>
-
-                            </FormControl>
-                          )}
-                          name='oficina_regional_aduanas'
-                          control={controlTab2}
+                      <FormControl fullWidth>
+                        <InputLabel>Oficina Regional de Aduanas más cercana</InputLabel>
+                        <Select
+                          style={{ borderRadius: '10px' }}
+                          label="Oficina Regional de Aduanas más cercana"
                         />
-                      
-                        
-                        
+                      </FormControl>
+                      {/* <Controller
+                        render={({ field }) => (
+                          <FormControl error={!!errorsTab2.oficina_regional_aduanas} fullWidth>
+                            <InputLabel className="font-medium text-14" component="legend">
+                              Oficina Regional de Aduanas más cercana
+                            </InputLabel>
+                            <Select
+                              {...field}
+                              variant="outlined"
+                              fullWidth
+                              style={{ borderRadius: '3px' }}
+                            />
+                          </FormControl>
+                        )}
+                        name="oficina_regional_aduanas"
+                        control={controlTab2}
+                      /> */}
                     </Grid>
                     <Grid item xs={4}>
                       <FormControl fullWidth>
                         <InputLabel>Estado Civil de la Persona</InputLabel>
-                        <Select style={{ borderRadius: '10px' }} label="Estado Civil de la Persona" />
+                        <Select
+                          style={{ borderRadius: '10px' }}
+                          label="Estado Civil de la Persona"
+                        />
                       </FormControl>
                     </Grid>
                     <Grid item xs={4}>
@@ -471,7 +471,7 @@ function PersonaNatural_Crear() {
                   onClick={() => {
                     navigate('/Contrato-de-Adhesion/Persona-Natural');
                   }}
-                  type='button'
+                  type="button"
                   disabled={_.isEmpty(dirtyFields) || !isValid}
                 >
                   Guardar
@@ -493,12 +493,9 @@ function PersonaNatural_Crear() {
                 >
                   Cancelar
                 </Button>
-              </Grid>     
-
+              </Grid>
             </form>
-
           </TabPanel>
-
         </SwipeableViews>
       </Box>
     </Card>

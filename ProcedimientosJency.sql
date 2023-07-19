@@ -3,7 +3,7 @@
 --************CONDUCTOR******************--
 
 /*Vista conductor*/
---CREATE OR ALTER VIEW Adua.VW_tbConductor
+--CREATE OR ALTER VIEW Adua.tbConductor
 --AS
 --	SELECT cont_Id                     AS conductorId,
 --	       cont_Nombre                 AS conductorNombre, 
@@ -32,7 +32,7 @@
 --GO
 
 /*Listar Conductor*/
-CREATE OR ALTER PROCEDURE adua.UDP_VW_tbConductor_Listar
+CREATE OR ALTER PROCEDURE adua.UDP_tbConductor_Listar
 AS
 BEGIN
 	SELECT cont_Id,
@@ -64,9 +64,7 @@ END
 GO
 
 
-
 /*Insertar Conductor*/
-
 CREATE OR ALTER PROCEDURE Adua.UDP_tbConductor_Insert 
 	@cont_Nombre           NVARCHAR(200), 
 	@cont_Apellido         NVARCHAR(200), 
@@ -178,7 +176,7 @@ GO
 --************TRANSPORTE******************--
 
 /*Vista transporte*/
---CREATE OR ALTER VIEW Adua.VW_tbTransporte
+--CREATE OR ALTER VIEW Adua.tbTransporte
 --AS
 --	SELECT t1.tran_Id                       AS transporteId, 
 --	       t1.pais_Id                       AS paisId, 
@@ -214,7 +212,7 @@ GO
 
 
 /*Listar transporte*/
-CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbTransporte_Listar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbTransporte_Listar
 AS
 BEGIN
 	SELECT trans.tran_Id, 
@@ -249,7 +247,6 @@ END
 GO
 
 /*Insertar transporte*/
-
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTransporte_Insert 
 	 @pais_Id                      INT,
 	 @tran_Chasis                  NVARCHAR(100) ,
@@ -360,7 +357,7 @@ GO
 --************MARCAS******************--
 
 /*Vista marcas*/
---CREATE OR ALTER VIEW Adua.VW_tbMarcas
+--CREATE OR ALTER VIEW Adua.tbMarcas
 --AS
 --	SELECT t1.marc_Id                  AS marcaId, 
 --	       t1.marc_Descripcion         AS marcaDescripcion, 
@@ -380,7 +377,7 @@ GO
 --GO
 
 /*Listar marcas*/
-CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbMarcas_Listar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbMarcas_Listar
 AS
 BEGIN
 	SELECT marca.marc_Id, 
@@ -492,7 +489,7 @@ GO
 --************TIPOS IDENTIFICACION******************--
 
 /*Vista Tipos Identificacion*/
---CREATE OR ALTER VIEW Adua.VW_tbTiposIdentificacion
+--CREATE OR ALTER VIEW Adua.tbTiposIdentificacion
 --AS
 --	SELECT t1.iden_Id                  AS IdentifiID,
 --	       t1.iden_Descripcion         AS IdentifiDescripcion, 
@@ -512,7 +509,7 @@ GO
 --GO
 
 /*Listar Tipos Identificacion*/
-CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbTiposIdentificacion_Listar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbTiposIdentificacion_Listar
 AS
 BEGIN
 	SELECT identi.iden_Id,
@@ -627,7 +624,7 @@ GO
 ----************MODO TRANSPORTE******************--
 
 --/*Vista Modo Transporte*/
-----CREATE OR ALTER VIEW Adua.VW_tbModoTransporte
+----CREATE OR ALTER VIEW Adua.tbModoTransporte
 ----AS
 ----	SELECT motran.motr_Id                   AS modoTranId,
 ----	       motran.motr_Descripcion          AS modoTranDescripcion, 
@@ -645,7 +642,7 @@ GO
 ----GO
 
 --/*Listar Modo Transporte*/
---CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbModoTransporte_Listar
+--CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Listar
 --AS
 --BEGIN
 --	SELECT motran.motr_Id						AS modoTranId,
@@ -759,7 +756,7 @@ GO
 --**********SUBCATEGORIAS**********--
 
 /*Vista subcategoria*/
---CREATE OR ALTER VIEW Prod.VW_tbSubcategoria
+--CREATE OR ALTER VIEW Prod.tbSubcategoria
 --AS
 --SELECT subc.subc_Id                    AS subcategoriaId,
 --       subc.cate_Id                    AS categoriaId, 
@@ -779,7 +776,7 @@ GO
 --GO
 
 /*Listar subcategoria*/
-CREATE OR ALTER PROCEDURE Prod.UDP_VW_tbSubcategoria_Listar
+CREATE OR ALTER PROCEDURE Prod.UDP_tbSubcategoria_Listar
 AS
 BEGIN
 	SELECT subc.subc_Id,
@@ -901,7 +898,7 @@ GO
 --**********MATERIALES**********--
 
 /*Vista materiales*/
---CREATE OR ALTER VIEW Prod.VW_tbMateriales
+--CREATE OR ALTER VIEW Prod.tbMateriales
 --AS
 --SELECT mate.mate_Id                    AS materialId,
 --       mate.mate_Descripcion           AS materialDescripcion, 
@@ -923,7 +920,7 @@ GO
 
 
 /*Listar materiales*/
-CREATE OR ALTER PROCEDURE Prod.UDP_VW_tbMateriales_Listar
+CREATE OR ALTER PROCEDURE Prod.UDP_tbMateriales_Listar
 AS
 BEGIN
 	SELECT mate.mate_Id,
@@ -944,7 +941,6 @@ BEGIN
 	 WHERE mate_Estado = 1
 END
 GO
-
 
 /*Insertar materiales*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMateriales_Insertar
@@ -967,7 +963,6 @@ BEGIN
 	END CATCH 
 END
 GO
-
 
 /*Editar material*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMateriales_Editar
@@ -1039,7 +1034,7 @@ GO
 --**********INSPECCIONES ESTADO**********--
 
 /*Vista inspeccion estado*/
---CREATE OR ALTER VIEW Prod.VW_tbInspeccionesEstado
+--CREATE OR ALTER VIEW Prod.tbInspeccionesEstado
 --AS
 --SELECT insp.ines_Id                  AS inspeccionId,
 --       insp.reca_Id                  AS  revisionId, 
@@ -1059,7 +1054,7 @@ GO
 
 
 /*Listar inspecciones estado*/
-CREATE OR ALTER PROCEDURE Prod.UDP_VW_tbInspeccionesEstado_Listar
+CREATE OR ALTER PROCEDURE Prod.UDP_tbInspeccionesEstado_Listar
 AS
 BEGIN
 	SELECT insp.ines_Id,
@@ -1083,7 +1078,6 @@ BEGIN
 	 WHERE ines_Estado = 1
 END
 GO
-
 
 /*Insertar inspecciones estado*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbInspeccionesEstado_Insertar
@@ -1173,24 +1167,4 @@ END
 GO
 
 
---Insert Tipo Liquidacion
-INSERT INTO Adua.tbTipoLiquidacion(tipl_Descripcion, usua_UsuarioCreacion, tipl_FechaCreacion)
-VALUES	('Liquidación de derechos de importación',1,GETDATE()),
-		('Liquidación de tributos internos',1,GETDATE()),
-		('Liquidación de multas y recargos',1,GETDATE()),
-		('Liquidación de gastos administrativos',1,GETDATE()),
-		('Liquidación de tasas de servicio',1,GETDATE()),
-		('Liquidación de impuestos especiales',1,GETDATE()),
-        ('Liquidación de tasas de registro',1,GETDATE()),
-		('Liquidación de pagos anticipados',1,GETDATE())
-GO
-
---Insert Estado Boletín
-INSERT INTO Adua.tbEstadoBoletin(esbo_Descripcion, usua_UsuarioCreacion, esbo_FechaCreacion)
-VALUES	('Estado de Tránsito Aduanero',1,GETDATE()),
-        ('Estado de Despacho Aduanero',1,GETDATE()),
-		('Estado de Liquidación Aduanera',1,GETDATE()),
-		('Estado de Autorización Aduanera',1,GETDATE())
-		
-GO
-
+--FALTA ESTADO BOLETIN

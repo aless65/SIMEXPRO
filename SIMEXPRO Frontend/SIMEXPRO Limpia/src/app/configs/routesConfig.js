@@ -24,7 +24,7 @@ import RolesCrear from '../Seguridad/Roles/roles_crear'
 import DucaIndex from '../Aduanas/DUCA/duca_Index';
 import DucaCrear from '../Aduanas/DUCA/duca_Crear';
 import Subir_Documentos from '../Aduanas/Documentacion/Subir_Documentos';
-
+import DocumentosDeSanciones from '../Aduanas/DocumentosDeSanciones/DocumentosDeSanciones';
 
 import PersonaNatural_Index from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/PersonaNatural_Index';
 import PersonaNatural_Crear from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/PersonaNatural_Crear';
@@ -48,6 +48,7 @@ import Persona_Juridica_Agregar from '../Aduanas/Contratos_de_Adhesión/Persona_
 import SubcategoriaIndex from '../Inventario/Subcategoria/Subcategorias';
 import TipoEmbalajeIndex from '../Inventario/TipoDeEmbalaje/TipoEmbalaje';
 import AldeaIndex from '../Ubicaciones/Aldeas/Aldeas';
+
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -236,6 +237,10 @@ const routes = [
   {
     path: 'Aldea/Index',
     element: <AldeaIndex />,
+  },
+  {
+    path: 'DocumentosDeSanciones/Index',
+    element: <DocumentosDeSanciones />,
   },
 ];
 

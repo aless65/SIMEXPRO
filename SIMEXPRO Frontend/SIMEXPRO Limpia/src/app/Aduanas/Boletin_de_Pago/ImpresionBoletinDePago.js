@@ -29,7 +29,7 @@ function ImpresionBoletinDePago() {
                 <Grid item xs={1}></Grid>
                 <Stack direction="row" spacing={1}>
                     <Button
-                        startIcon={<Icon>close</Icon>}
+                       startIcon={<Icon>arrow_back</Icon>}
                         variant="contained"
                         color="primary"
                         style={{ borderRadius: '10px' }}

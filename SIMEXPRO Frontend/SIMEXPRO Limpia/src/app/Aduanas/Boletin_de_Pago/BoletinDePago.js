@@ -10,15 +10,7 @@ import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { Navigate, useNavigate } from 'react-router-dom';
 
-import Zoom from '@mui/material/Zoom';
-import Grow from '@mui/material/Grow';
-
-import Collapse from '@mui/material/Collapse';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Select from '@mui/material/Select';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -55,7 +47,6 @@ function BoletinDePagoIndex() {
       renderCell: (params) => (
         <Stack direction="row" spacing={1}>
           
-
           <Button
             startIcon={<Icon>visibility</Icon>}
             variant="contained"
@@ -89,7 +80,7 @@ function BoletinDePagoIndex() {
             style={{ borderRadius: '10px' }}
             sx={{
               backgroundColor: '#C4BADD', color: 'white',
-              "&:hover": { backgroundColor: '#eb5f56' },
+              "&:hover": { backgroundColor: '#DCE4F9' },
             }}
             onClick={Imprimir}
           >

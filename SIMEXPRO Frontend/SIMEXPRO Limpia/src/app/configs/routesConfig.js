@@ -45,6 +45,9 @@ import Persona_Juridica_Agregar from '../Aduanas/Contratos_de_Adhesión/Persona_
 import SubcategoriaIndex from '../Inventario/Subcategoria/Subcategorias';
 import TipoEmbalajeIndex from '../Inventario/TipoDeEmbalaje/TipoEmbalaje';
 import AldeaIndex from '../Ubicaciones/Aldeas/Aldeas';
+import DocumentosDeSanciones from '../Aduanas/DocumentosDeSanciones/DocumentosDeSanciones';
+import FormaDeEnvioIndex from '../Generales/FormasEnvio/FormasEnvio';
+import MonedasIndex from '../Generales/Monedas/monedas';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -82,6 +85,14 @@ const routes = [
     element: <PaisesIndex />,
   },
   {
+    path: 'FormaDeEnvio/Index',
+    element: <FormaDeEnvioIndex />,
+ },
+ {
+  path: 'Monedas/Index',
+  element: <MonedasIndex />,
+},
+  {
     path: 'Cargos/Index',
     element: <CargosIndex />,
   },
@@ -111,7 +122,7 @@ const routes = [
     element: <ImpresionBoletinDePago />,
   },
   {
-    path: 'Contrato-de-Adhesion/Persona-Natural',
+    path: '/Contrato-de-Adhesion-Persona-Natural/Index',
     element: <PersonaNatural_Index />,
   },
   {
@@ -145,6 +156,10 @@ const routes = [
   {
     path: 'Documentos/Subir',
     element: <Subir_Documentos />,
+  },
+  {
+    path: 'Documentos/Sanciones',
+    element: <DocumentosDeSanciones />,
   },
   {
     path: 'Categoria/Index',

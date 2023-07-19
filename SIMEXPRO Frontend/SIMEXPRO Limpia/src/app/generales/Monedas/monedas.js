@@ -35,7 +35,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { height } from '@mui/system';
 
 
-function AreasIndex() {
+function MonedasIndex() {
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
@@ -317,7 +317,7 @@ function AreasIndex() {
   );
 }
 
-export default AreasIndex;
+export default MonedasIndex;
 
 
 

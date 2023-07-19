@@ -35,6 +35,8 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 function Subir_Documentos() {
+  const navigate = useNavigate();  
+
   return (
     <>
       <Card variant="outlined" sx={{ minWidth: 275, margin: "40px" }}>
@@ -142,7 +144,7 @@ function Subir_Documentos() {
                         "&:hover": { backgroundColor: "#BFBABA" },
                       }}
                       onClick={(e) => {
-                        navigate("");
+                        navigate("/Declaracion-de-Valor/Listado");
                       }}
                     >
                       Cancelar

@@ -194,7 +194,7 @@ function PersonaNatural_Crear() {
                   "&:hover": { backgroundColor: "#BFBABA" },
                 }}
                 onClick={(e) => {
-                  navigate("");
+                  navigate("/Contrato-de-Adhesion-Persona-Natural/Index");
                 }}
               >
                 Cancelar
@@ -300,7 +300,7 @@ function PersonaNatural_Crear() {
                   "&:hover": { backgroundColor: "#BFBABA" },
                 }}
                 onClick={(e) => {
-                  navigate("/ContratoDeAdhesionComercianteIndividual/Index");
+                  navigate("/Contrato-de-Adhesion-Persona-Natural/Index");
                 }}
               >
                 Cancelar

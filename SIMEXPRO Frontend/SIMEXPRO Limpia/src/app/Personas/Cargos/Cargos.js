@@ -1,74 +1,42 @@
+
+/* eslint-disable no-lone-blocks */
+/* eslint-disable prettier/prettier */
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { Button, Icon, IconButton, InputAdornment, TextField } from '@mui/material';
+import {
+  Button,
+  ButtonBase,
+  FormControl,
+  Icon,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  TextField,
+  Avatar,
+} from "@mui/material";
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
-import { purple } from '@mui/material/colors';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar, esES } from '@mui/x-data-grid'
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import Collapse from '@mui/material/Collapse';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Select from '@mui/material/Select';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Box from '@mui/material/Box'
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { height } from '@mui/system';
+
 
 function CargosIndex() {
-  const columns = [
-    { field: 'id', headerName: 'Código', width: 200 },
-    { field: 'descripcion', headerName: 'Descripción', width: 300 },
-    {
-      field: 'acciones',
-      headerName: 'Acciones',
-      width: 400,
-      renderCell: (params) => (
-        <Stack direction="row" spacing={1}>
-          <Button
-            startIcon={<Icon>edit</Icon>}
-            variant="contained"
-            sx={{ backgroundColor: '#634A9E', color: 'white', borderRadius: '10px', }}
-          >
-            Editar
-          </Button>
-          <Button
-            startIcon={<Icon>visibility</Icon>}
-            variant="contained"
-            color="primary"
-            sx={{ backgroundColor: '#797979', color: 'white',  borderRadius: '10px' }}
-          >
-            Detalles
-          </Button>
-          <Button
-            startIcon={<Icon>delete</Icon>}
-            variant="contained"
-            color="primary"
-            sx={{ backgroundColor: '#E40F00', color: 'white',  borderRadius: '10px' }}
-          >
-            Eliminar
-          </Button>
-        </Stack>
-      ),
-    },
-  ];
-  
-  const ColorButton = styled(Button)(({ theme }) => ({
-    color: theme.palette.getContrastText(purple[500]),
-    borderRadius: '10px',
-    backgroundColor: '#634A9E',
-    '&:hover': {
-      backgroundColor: purple[700],
-    },
-    '& .MuiButton-startIcon': {
-      marginRight: theme.spacing(0.5),
-    },
-  }));
-  
-  const rows = [
-    { id: '1', descripcion: 'Gerentes' },
-    { id: '2', descripcion: 'Supervisor' },
-    { id: '3', descripcion: 'Técnico' },
-    { id: '5', descripcion: 'Administrador' },
-  ];
-
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
@@ -78,10 +46,78 @@ function CargosIndex() {
     setEliminar(!Eliminar);
   };
 
+  {/* Columnas de la tabla */ }
+  const columns = [
+    { field: 'id', headerName: 'Código', width: 200 },
+    { field: 'descripcion', headerName: 'Cargo', width: 300 },     
+    {
+      field: 'acciones',
+      headerName: 'Acciones',
+      width: 400,
+      renderCell: (params) => (
+        <Stack direction="row" spacing={1}>
+          <Button
+            startIcon={<Icon>edit</Icon>}
+            variant="contained"
+            style={{ borderRadius: '10px' }}
+            sx={{
+              backgroundColor: '#634A9E',
+              color: 'white',
+              "&:hover": { backgroundColor: '#6e52ae' },
+            }}>
+            Editar
+          </Button>
+
+          <Button
+            startIcon={<Icon>visibility</Icon>}
+            variant="contained"
+            color="primary"
+            style={{ borderRadius: '10px' }}
+            sx={{
+              backgroundColor: '#797979', color: 'white',
+              "&:hover": { backgroundColor: '#b69999' },
+            }}
+          >
+            Detalles
+          </Button>
+          <Button
+            startIcon={<Icon>delete</Icon>}
+            variant="contained"
+            color="primary"
+            style={{ borderRadius: '10px' }}
+            sx={{
+              backgroundColor: '#E40F00', color: 'white',
+              "&:hover": { backgroundColor: '#eb5f56' },
+            }}
+            onClick={DialogEliminar}
+          >
+            Eliminar
+          </Button>
+        </Stack>
+      ),
+    },
+  ];
+
+
+  {/* Datos de la tabla */ }
+  const rows = [
+    { id: '1', descripcion: 'Gerentes' },
+    { id: '2', descripcion: 'Supervisor'},
+    { id: '3', descripcion: 'Técnico' },
+    { id: '5', descripcion: 'Administrador'},
+  ];
+
+  {/* Función para mostrar la tabla y mostrar agregar */ }
+  const VisibilidadTabla = () => {
+    setmostrarIndex(!mostrarIndex);
+    setmostrarAdd(!mostrarAdd);
+  };
+
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
   };
 
+  {/* Filtrado de datos */ }
   const filteredRows = rows.filter((row) =>
     row.descripcion.toLowerCase().includes(searchText.toLowerCase())
   );
@@ -95,9 +131,10 @@ function CargosIndex() {
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>
-      <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-      {/* Botón de Nuevo */}
-      <Stack direction="row" spacing={1}>
+        <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+
+          {/* Botón de Nuevo */}
+          <Stack direction="row" spacing={1}>
             <Button
               startIcon={<Icon>add</Icon>}
               variant="contained"
@@ -113,8 +150,8 @@ function CargosIndex() {
             </Button>
           </Stack>
 
-       {/* Barra de Busqueda en la Tabla */}
-       <TextField
+          {/* Barra de Busqueda en la Tabla */}
+          <TextField
             style={{ borderRadius: '10px' }}
             placeholder='Buscar'
             value={searchText}
@@ -131,40 +168,58 @@ function CargosIndex() {
               ),
             }}
           />
-      </CardContent>
+        </CardContent>
       </Collapse>
+
+
+
+
+
 
       {/* Tabla */}
       <Collapse in={mostrarIndex}>
-      <div style={{ height: 400, width: '100%' }}>
-        <DataGrid
-          rows={filteredRows}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 10 },
-            },
-          }}
-          pageSizeOptions={[5, 10]}
-        />
-      </div>
+        <div style={{ height: 400, width: '100%' }}>
+          <DataGrid
+            localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+            components={{
+              Toolbar: GridToolbar,
+              Search: SearchIcon,
+            }}
+            rows={filteredRows}
+            columns={columns}
+            initialState={{
+              pagination: {
+                paginationModel: { page: 0, pageSize: 10 },
+              },
+            }}
+            pageSizeOptions={[10, 20, 50]}
+          />
+        </div>
       </Collapse>
 
-          {/* Formulario Agregar */}
+
+
+
+
+
+      {/* Formulario Agregar */}
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
-              
-          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}
-                 style={{ marginTop: '30px' }}>
-                <FormControl>
-                    <TextField
-                        style={{ borderRadius: '10px', width: '500px' }}
-                        label="Cargo"
-                    />
-                </FormControl>
+            <Grid item xs={12}>
+              <Typography variant="h5" gutterBottom>
+              </Typography>
             </Grid>
-
+            <Grid item xs={12}>
+              <FormControl
+                fullWidth
+              >
+                <TextField
+                  style={{ borderRadius: '10px' }}
+                  label="Nombre del cargo"
+                />
+              </FormControl>
+            </Grid>           
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
               <Button
                 startIcon={<Icon>checked</Icon>}
@@ -253,3 +308,5 @@ function CargosIndex() {
 }
 
 export default CargosIndex;
+
+

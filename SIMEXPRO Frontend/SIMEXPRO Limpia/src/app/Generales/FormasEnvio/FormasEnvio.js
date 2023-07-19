@@ -1,46 +1,50 @@
-/* eslint-disable camelcase */
 /* eslint-disable no-lone-blocks */
 /* eslint-disable prettier/prettier */
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { Button, Icon, IconButton, InputAdornment, TextField } from '@mui/material';
+import { Button, FormControl, Icon, IconButton, InputAdornment, InputLabel, TextField } from '@mui/material';
+import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import { DataGrid, GridToolbar, esES } from '@mui/x-data-grid'
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 
+import Zoom from '@mui/material/Zoom';
+import Grow from '@mui/material/Grow';
 
 import Collapse from '@mui/material/Collapse';
 import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Select from '@mui/material/Select';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useNavigate } from 'react-router-dom';
 
 
-function Declaracion_Valor_Index() {
-  const navigate = useNavigate();  
+function FormaDeEnvioIndex() {
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
   const [Eliminar, setEliminar] = useState(false);
 
-  const DialogEliminar = () => {setEliminar(!Eliminar);};
+  const DialogEliminar = () => {
+    setEliminar(!Eliminar);
+  };
 
   {/* Columnas de la tabla */ }
   const columns = [
-    { field: 'id', headerName: 'ID', width: 10},
-    { field: 'dua_numero', headerName: 'DUA N°', flex: 1, },
-    { field: 'rtn_importador', headerName: 'RTN Importador', flex: 1},
-    { field: 'nombre_importador', headerName: 'Nombre Importador', flex: 1 },
+    { field: 'id', headerName: 'Id', flex: 2 },
+    { field: 'formaenvio', headerName: 'Forma de envío', flex: 2 },
     {
       field: 'acciones',
       headerName: 'Acciones',
-      width: 550,
+      width: 400,
       renderCell: (params) => (
         <Stack direction="row" spacing={1}>
           <Button
@@ -80,21 +84,6 @@ function Declaracion_Valor_Index() {
           >
             Eliminar
           </Button>
-          <Button
-            startIcon={<Icon>insert_drive_file</Icon>}
-            variant="contained"
-            style={{ borderRadius: "10px" }}
-            sx={{
-              backgroundColor: "#C4BADD",
-              color: "white",
-              "&:hover": { backgroundColor: "#A9A2BB" },
-            }}
-            onClick={() => {
-              navigate('/Documentos/Subir')
-            }}
-          >
-            Adjuntar Archivos
-          </Button>
         </Stack>
       ),
     },
@@ -102,11 +91,17 @@ function Declaracion_Valor_Index() {
 
   {/* Datos de la tabla */ }
   const rows = [
-    { id: '1', dua_numero: '230004072570X', rtn_importador: '01052003124739', nombre_importador: 'Daniel Isaac Zepeda Fajardo'},    
-    { id: '2', dua_numero: '250004045540Y', rtn_importador: '05031999344349', nombre_importador: 'Marvin Josue Mejía Paz'},    
-    { id: '3', dua_numero: '270004067750Z', rtn_importador: '04042001233436', nombre_importador: 'Alejandra Michelle Castillo López'},    
+    { id: '1', formaenvio: 'Aéreo' },
+    { id: '2', formaenvio: 'Terrestre' },
+    { id: '3', formaenvio: 'Marítimo' },
+
   ];
 
+  {/* Función para mostrar la tabla y mostrar agregar */ }
+  const VisibilidadTabla = () => {
+    setmostrarIndex(!mostrarIndex);
+    setmostrarAdd(!mostrarAdd);
+  };
 
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
@@ -114,7 +109,7 @@ function Declaracion_Valor_Index() {
 
   {/* Filtrado de datos */ }
   const filteredRows = rows.filter((row) =>
-    row.id.toLowerCase().includes(searchText.toLowerCase())
+    row.formaenvio.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
@@ -122,7 +117,7 @@ function Declaracion_Valor_Index() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/rdxDGbL/DECLARACION.png"
+        image="https://i.ibb.co/ZfHJNBP/FORMAS-DE-ENV-O.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>
@@ -139,11 +134,9 @@ function Declaracion_Valor_Index() {
                 backgroundColor: '#634A9E', color: 'white',
                 "&:hover": { backgroundColor: '#6e52ae' },
               }}
-              onClick={() => {
-                navigate('/Declaracion-de-Valor/Nueva-Declaracion')
-              }}
+              onClick={VisibilidadTabla}
             >
-              Nuevo                                        
+              Nuevo
             </Button>
           </Stack>
 
@@ -189,6 +182,57 @@ function Declaracion_Valor_Index() {
         </div>
       </Collapse>
 
+
+      {/* Formulario Agregar */}
+      <Collapse in={mostrarAdd}>
+        <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <Grid container spacing={3}>
+
+            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}
+                 style={{ marginTop: '30px' }}>
+                <FormControl>
+                    <TextField
+                        style={{ borderRadius: '10px', width: '500px' }}
+                        label="Forma de envío"
+                    />
+                </FormControl>
+            </Grid>
+
+            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
+              <Button
+                startIcon={<Icon>checked</Icon>}
+                variant="contained"
+                color="primary"
+                style={{ borderRadius: '10px', marginRight: '10px' }}
+                sx={{
+                  backgroundColor: '#634A9E', color: 'white',
+                  "&:hover": { backgroundColor: '#6e52ae' },
+                }}
+                onClick={VisibilidadTabla}
+              >
+                Guardar
+              </Button>
+
+              <Button
+                startIcon={<Icon>close</Icon>}
+                variant="contained"
+                color="primary"
+                style={{ borderRadius: '10px' }}
+                sx={{
+                  backgroundColor: '#DAD8D8', color: 'black',
+                  "&:hover": { backgroundColor: '#BFBABA' },
+                }}
+                onClick={VisibilidadTabla}
+              >
+                Cancelar
+              </Button>
+            </Grid>
+
+          </Grid>
+        </CardContent>
+      </Collapse>
+
+
       <Dialog
         open={Eliminar}
         fullWidth="md"
@@ -201,39 +245,39 @@ function Declaracion_Valor_Index() {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-          ¿Está seguro(a) que desea eliminar este registro?
+            ¿Está seguro(a) que desea eliminar este registro?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
-              <Button
-                startIcon={<Icon>checked</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px', marginRight: '10px' }}
-                sx={{
-                  backgroundColor: '#634A9E', color: 'white',
-                  "&:hover": { backgroundColor: '#6e52ae' },
-                }}
-                onClick={DialogEliminar}
-              >
-                Eliminar
-              </Button>
+          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
+            <Button
+              startIcon={<Icon>checked</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px', marginRight: '10px' }}
+              sx={{
+                backgroundColor: '#634A9E', color: 'white',
+                "&:hover": { backgroundColor: '#6e52ae' },
+              }}
+              onClick={DialogEliminar}
+            >
+              Eliminar
+            </Button>
 
-              <Button
-                startIcon={<Icon>close</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px' }}
-                sx={{
-                  backgroundColor: '#DAD8D8', color: 'black',
-                  "&:hover": { backgroundColor: '#BFBABA' },
-                }}
-                onClick={DialogEliminar}
-              >
-                Cancelar
-              </Button>
-            </Grid>
+            <Button
+              startIcon={<Icon>close</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px' }}
+              sx={{
+                backgroundColor: '#DAD8D8', color: 'black',
+                "&:hover": { backgroundColor: '#BFBABA' },
+              }}
+              onClick={DialogEliminar}
+            >
+              Cancelar
+            </Button>
+          </Grid>
         </DialogActions>
       </Dialog>
 
@@ -241,7 +285,7 @@ function Declaracion_Valor_Index() {
   );
 }
 
-export default Declaracion_Valor_Index;
+export default FormaDeEnvioIndex;
 
 
 

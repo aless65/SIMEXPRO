@@ -50,10 +50,14 @@ import SubcategoriaIndex from '../Inventario/Subcategoria/Subcategorias';
 import TipoEmbalajeIndex from '../Inventario/TipoDeEmbalaje/TipoEmbalaje';
 import AldeaIndex from '../Ubicaciones/Aldeas/Aldeas';
 import DocumentosDeSanciones from '../Aduanas/DocumentosDeSanciones/DocumentosDeSanciones';
-import FormaDeEnvioIndex from '../Generales/FormasEnvio/FormasEnvio';
-import MonedasIndex from '../Generales/Monedas/monedas';
 import OrdenProcesosIndex from '../Produccion/OrdenDeProcesos/OrdenDeProcesos';
 import CalendarApp from '../Produccion/Planificación/CalendarApp';
+import FormaDeEnvioIndex from '../generales/FormasEnvio/FormasEnvio';
+import MonedasIndex from '../generales/Monedas/monedas';
+import ModuloIndex from '../Produccion/Modulos/Modulos';
+import ProcesosIndex from '../Produccion/Procesos/Procesos';
+import MarcasIndex from '../Maquinaria/MarcasMaquina/MarcasMaquina';
+import ModelosMaquinaIndex from '../Maquinaria/ModelosMaquina/ModelosMaquina';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -265,6 +269,26 @@ const routes = [
   {
     path: 'Planificacion/Index',
     element: <CalendarApp />,
+  },
+  {
+    path: 'Modulo/Index',
+    element: <ModuloIndex />,
+  },
+  {
+    path: 'Procesos/Index',
+    element: <ProcesosIndex />,
+  },
+  {
+    path: 'Marcas/Index',
+    element: <MarcasIndex />,
+  },
+  {
+    path: 'ModelosMaquinas/Index',
+    element: <ModelosMaquinaIndex />,
+  },
+  {
+    path: 'ModelosMaquinas/Index',
+    element: <ModelosMaquinaIndex />,
   },
 ];
 

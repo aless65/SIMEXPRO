@@ -302,7 +302,7 @@ const navigationConfig = [
             title: 'Módulos',
             type: 'item',
             icon: 'material-outline:iron',
-            url: '/Produccion/Modulos',
+            url: '/Modulo/Index',
           },
           {
             id: 'Produccion.OrdenProcesos',
@@ -330,7 +330,7 @@ const navigationConfig = [
             title: 'Procesos',
             type: 'item',
             icon: 'material-outline:mediation',
-            url: '/Produccion/Procesos',
+            url: '/Procesos/Index',
           },
           {
             id: 'Produccion.RevisionCalidad',
@@ -374,10 +374,10 @@ const navigationConfig = [
             title: 'Marcas de Máquinas',
             type: 'item',
             icon: 'material-outline:auto_stories',
-            url: '/Maquinaria/MarcasMaquina',
+            url: '/Marcas/Index',
           },
           {
-            id: 'Maquinaria.MarcasMaquina',
+            id: 'Maquinaria.Maquinas',
             title: 'Máquinas',
             type: 'item',
             icon: 'material-outline:precision_manufacturing',
@@ -389,7 +389,7 @@ const navigationConfig = [
             title: 'Modelos de Máquinas',
             type: 'item',
             icon: 'material-outline:biotech',
-            url: '/ModelosMaquina/Index',
+            url: '/ModelosMaquinas/Index',
           },
 
         ],

@@ -19,23 +19,20 @@ import Stack from '@mui/material/Stack';
 import { DataGrid, GridToolbar, esES } from '@mui/x-data-grid'
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import Collapse from '@mui/material/Collapse';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Select from '@mui/material/Select';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Box from '@mui/material/Box'
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { height } from '@mui/system';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 
-function AreasIndex() {
+function ModuloIndex() {
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
@@ -47,64 +44,99 @@ function AreasIndex() {
 
   {/* Columnas de la tabla */ }
   const columns = [
-    { field: 'id', headerName: 'Id', width: 10 },
-    { field: 'descripcion', headerName: 'Modulo', flex: 1 },
-    { field: 'marca', headerName: 'Proceso', flex: 1 },
-    { field: 'funcion', headerName: 'Empleado', flex: 1 },      
+    { field: 'id', headerName: 'Id', width: 200 },
+    { field: 'proceso', headerName: 'Proceso', flex: 2 },
+    { field: 'empleado', headerName: 'Supervisor', flex: 2 },
     {
       field: 'acciones',
       headerName: 'Acciones',
-      width: 400,
-      renderCell: (params) => (
-        <Stack direction="row" spacing={1}>
-          <Button
-            startIcon={<Icon>edit</Icon>}
-            variant="contained"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#634A9E',
-              color: 'white',
-              "&:hover": { backgroundColor: '#6e52ae' },
-            }}>
-            Editar
-          </Button>
+      flex:1,
+      renderCell: (params) => {
+        const [anchorEl, setAnchorEl] = React.useState(null);
+  
+        const handleClick = (event) => {
+          setAnchorEl(event.currentTarget);
+        };
+  
+        const handleClose = () => {
+          setAnchorEl(null);
+        };
+  
+        const handleEdit = () => {
+          // Implementa la función para editar aquí
+          handleClose();
+        };
+  
+        const handleDetails = () => {
+          // Implementa la función para detalles aquí
+          handleClose();
+        };
+  
+        const handleDelete = () => {
+          // Implementa la función para eliminar aquí
+          handleClose();
+        };
+  
+        const handlePrint = () => {
+          // Implementa la función para imprimir aquí
 
-          <Button
-            startIcon={<Icon>visibility</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#797979', color: 'white',
-              "&:hover": { backgroundColor: '#b69999' },
-            }}
-          >
-            Detalles
-          </Button>
-          <Button
-            startIcon={<Icon>delete</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#E40F00', color: 'white',
-              "&:hover": { backgroundColor: '#eb5f56' },
-            }}
-            onClick={DialogEliminar}
-          >
-            Eliminar
-          </Button>
-        </Stack>
-      ),
+          handleClose();
+        };
+
+        const handleBoletin = () => {
+          // Implementa la función para imprimir aquí
+          handleClose();
+        };
+  
+        return (
+          <Stack direction="row" spacing={1}>
+            <Button
+              aria-controls={`menu-${params.id}`}
+              aria-haspopup="true"
+              onClick={handleClick}
+              variant="contained"
+              style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+              startIcon={<Icon>menu</Icon>}
+            >
+              Opciones
+            </Button>
+            <Menu
+              id={`menu-${params.id}`}
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleEdit}>
+                <Icon>edit</Icon> Editar
+              </MenuItem>
+              <MenuItem onClick={handleDetails}>
+                <Icon>visibility</Icon> Detalles
+              </MenuItem>
+              <MenuItem onClick={handleDelete}>
+                <Icon>delete</Icon> Eliminar
+              </MenuItem>
+              <MenuItem onClick={handlePrint}>
+                <Icon>print</Icon> Imprimir
+              </MenuItem>
+              {true && (
+                <MenuItem onClick={handleBoletin}>
+                <Icon>insert_drive_file</Icon> Generar Boletin
+                </MenuItem>
+                )}
+            </Menu>
+          </Stack>
+        );
+      },
     },
   ];
 
   {/* Datos de la tabla */ }
   const rows = [
-    { id: '1', descripcion: 'Modulo de costura 120',marca: 'Ensamblaje',funcion: 'Eder Jesús Sánchez Martínez'},
-    { id: '2', descripcion: 'Modulo de costura 808',marca: 'Ensamblaje',funcion: 'Axel Dario Rivera Murillo'},
-    { id: '3', descripcion: 'Modulo de costura 908',marca: 'Ensamblaje',funcion: 'Juan Alberto Centeno Sabillon'},
-    { id: '4', descripcion: 'Modulo de costura 787',marca: 'Ensamblaje',funcion: 'Ian Ignacio Hernandez'},
+    { id: '1', modulo: 'M9862ON', proceso: 'Corte',empleado: 'Junior Mario Loaiza'},
+    { id: '2', modulo: 'M9562ON', proceso: 'Ensamblaje',empleado: 'Junior Mario Loaiza'},
+    { id: '3', modulo: 'M9362ON', proceso: 'Serigrafía',empleado: 'Junior Mario Loaiza'},
+    { id: '4', modulo: 'M2862ON', proceso: 'Estampado',empleado: 'Junior Mario Loaiza'},
   ];
 
   {/* Función para mostrar la tabla y mostrar agregar */ }
@@ -119,7 +151,7 @@ function AreasIndex() {
 
   {/* Filtrado de datos */ }
   const filteredRows = rows.filter((row) =>
-    row.descripcion.toLowerCase().includes(searchText.toLowerCase())
+    row.modulo.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
@@ -127,7 +159,7 @@ function AreasIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/f0sMdrG/M-DULOS.png"
+        image="https://i.ibb.co/SJQHYkr/M-DULOS.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>
@@ -217,6 +249,8 @@ function AreasIndex() {
                 <TextField
                   style={{ borderRadius: '10px' }}
                   label="Nombre Modulo"
+                  defaultValue=' '
+
                 />
               </FormControl>
             </Grid>
@@ -227,7 +261,9 @@ function AreasIndex() {
                 <InputLabel htmlFor="grouped-native-select">Procesos</InputLabel>
                 <Select
                   style={{ borderRadius: '3px' }}
-                  label="Subcategoría"
+                  label="Procesos"
+                  defaultValue=' '
+
                 />
               </FormControl>
             </Grid>
@@ -238,7 +274,9 @@ function AreasIndex() {
                 <InputLabel htmlFor="grouped-native-select">Empleado encargado</InputLabel>
                 <Select
                   style={{ borderRadius: '3px' }}
-                  label="Subcategoría"
+                  label="Empleado encargado"
+                  defaultValue=' '
+
                 />
               </FormControl>
             </Grid>
@@ -329,7 +367,7 @@ function AreasIndex() {
   );
 }
 
-export default AreasIndex;
+export default ModuloIndex;
 
 
 

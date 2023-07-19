@@ -1902,7 +1902,6 @@ CREATE TABLE Prod.tbLotes(
 	lote_CantIngresada			INT NOT NULL,
 	lote_Observaciones			NVARCHAR(500),
 	tipa_Id						INT NOT NULL,
-	lote_Est					BIT NOT NULL,
 
 	usua_UsuarioCreacion		INT NOT NULL,
 	lote_FechaCreacion			DATETIME NOT NULL,
@@ -1926,7 +1925,6 @@ CREATE TABLE Prod.tbAsignacionesOrdenDetalle(
 	adet_Id						INT IDENTITY(1,1), 
 	lote_Id						INT NOT NULL, 
 	adet_Cantidad				INT NOT NULL, 
-	adet_EstadoAsig				NVARCHAR(15),	
 	
 	usua_UsuarioCreacion		INT NOT NULL,
 	adet_FechaCreacion			DATETIME NOT NULL,

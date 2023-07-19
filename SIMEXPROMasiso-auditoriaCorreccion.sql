@@ -1871,7 +1871,8 @@ CREATE TABLE Prod.tbAsignacionesOrden(
 	asor_OrdenDetId				INT NOT NULL,
 	asor_FechaInicio			DATETIME NOT NULL,
 	asor_FechaLimite			DATETIME NOT NULL,
-	asor_EstadoDet				NVARCHAR NOT NULL,
+	--asor_EstadoDet				NVARCHAR NOT NULL,
+	asor_Cantidad				INT NOT NULL,
 	proc_Id						INT NOT NULL,
 	empl_Id						INT NOT NULL,
 
@@ -2482,6 +2483,7 @@ GO
 CREATE TABLE Adua.tbBoletinPago(
     boen_Id                        INT IDENTITY(1,1),
     liqu_Id                        INT NOT NULL,
+	duca_No_Duca				   NVARCHAR(100),
     tipl_Id                        INT NOT NULL,
     boen_FechaEmision              DATE NOT NULL,
     esbo_Id                        INT NOT NULL,
@@ -2501,17 +2503,18 @@ CREATE TABLE Adua.tbBoletinPago(
     boen_FechaCreacion             DATETIME NOT NULL,
     usua_UsuarioModificacion       INT DEFAULT NULL,
     boen_FechaModificacion         DATETIME DEFAULT NULL,
-	usua_UsuarioEliminacion	    INT	DEFAULT NULL,
-	boen_FechaEliminacion		DATETIME DEFAULT NULL,
+	usua_UsuarioEliminacion		   INT	DEFAULT NULL,
+	boen_FechaEliminacion		   DATETIME DEFAULT NULL,
     boen_Estado                    BIT NOT NULL,
     CONSTRAINT PK_Adua_tbBoletinPago_boen_Id 									      PRIMARY KEY (boen_Id),
     CONSTRAINT FK_Adua_tbBoletinPago_lige_Id_Adua_tbLiquidacionGeneral_lige_Id 		  FOREIGN KEY (liqu_Id)                  REFERENCES Adua.tbLiquidacionGeneral(lige_Id),
+	CONSTRAINT FK_Adua_tbBoletinPago_tbDuca_duca_No_Duca							  FOREIGN KEY (duca_No_Duca)			 REFERENCES Adua.tbDuca(duca_No_Duca),
     CONSTRAINT FK_Adua_tbBoletinPago_tipl_Id_Adua_tbTipoLiquidacion_tipl_Id 		  FOREIGN KEY (tipl_Id)                  REFERENCES Adua.tbTipoLiquidacion(tipl_Id),
     CONSTRAINT FK_Adua_tbBoletinPago_esbo_Id_Adua_tbEstadoBoletin_esbo_Id 			  FOREIGN KEY (esbo_Id)                  REFERENCES Adua.tbEstadoBoletin(esbo_Id),
     CONSTRAINT FK_Adua_tbBoletinPago_coim_Id_Adua_tbCodigoImpuesto_coim_Id 			  FOREIGN KEY (coim_Id)                  REFERENCES Adua.tbCodigoImpuesto(coim_Id),
 	CONSTRAINT FK_Adua_tbBoletinPago_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id     FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
     CONSTRAINT FK_Adua_tbBoletinPago_Acce_tbUsuarios_usua_UsuModificacion_usua_Id     FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Adua_tbBoletinPago_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
+	CONSTRAINT FK_Adua_tbBoletinPago_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios (usua_Id)
 );
 GO
 

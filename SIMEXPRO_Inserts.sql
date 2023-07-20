@@ -930,6 +930,14 @@ VALUES ('DIS', 'DISTRIBUIDOR', 1, GETDATE()),
 	   ('MIN', 'MINORISTA', 1, GETDATE()),
 	   ('OTR', 'OTROS', 1, GETDATE())
 
+INSERT INTO Adua.tbCondicionesComerciales(coco_Codigo,coco_Descripcion,usua_UsuarioCreacion,coco_FechaCreacion)
+VALUES	('DT','Distribuidor',1,GETDATE()),
+		('FB','Fabricante',1,GETDATE()),
+		('MY','Mayorista',1,GETDATE()),
+		('OT','Otro',1,GETDATE()),
+		('PR','Productor',1,GETDATE()),
+		('RV','Revendedor',1,GETDATE())
+
 INSERT INTO [Adua].[tbAduanas](adua_Codigo, [adua_Nombre], [adua_Direccion_Exacta], [usua_UsuarioCreacion], [adua_FechaCreacion])
 VALUES	('0001', 'ADUANA AMAPALA', '1st Street, Amapala, Valle, Honduras', 1, GETDATE()),
 		('0002', 'ADUANA LA CEIBA', '2nd Avenue, La Ceiba, Atlántida, Honduras', 1, GETDATE()),

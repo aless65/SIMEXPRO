@@ -456,6 +456,7 @@ GO
 CREATE TABLE Adua.tbAduanas
 (
 		adua_Id							INT 			IDENTITY(1,1),
+		adua_Codigo						CHAR(4)			NOT NULL,
 		adua_Nombre						NVARCHAR(500) 	NOT NULL,
 		adua_Direccion_Exacta			NVARCHAR(800) 	NOT NULL,
 		usua_UsuarioCreacion			INT 			NOT NULL,
@@ -480,6 +481,7 @@ GO
 
 CREATE TABLE Adua.tbNivelesComerciales(
 		nico_Id							INT 			IDENTITY(1,1),
+		nico_Codigo						CHAR(3)			NOT NULL,
 		nico_Descripcion				NVARCHAR(150) 	NOT NULL,
 		usua_UsuarioCreacion			INT 			NOT NULL,
 		nico_FechaCreacion				DATETIME 		NOT NULL,

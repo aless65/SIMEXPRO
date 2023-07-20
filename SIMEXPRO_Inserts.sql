@@ -898,7 +898,6 @@ VALUES	('CHEQUE BANCARIO/CHEQUE PERSONAL', 1, GETDATE()),
 		('TARJETA DE CREDITO', 1, GETDATE());
 
 
-
 INSERT INTO [Prod].[tbProcesos](proc_Descripcion, usua_UsuarioCreacion, proc_FechaCreacion)
 VALUES('pROCESO',1,'05-10-2021')
 
@@ -923,5 +922,94 @@ VALUES('Nombrando',1,1,1,'05-10-2021')
 
 insert into [Prod].[tbModelosMaquina](mmaq_Nombre, marq_Id, func_Id, mmaq_Imagen, usua_UsuarioCreacion, mmaq_FechaCreacion)
 VALUES('Maquinaria',1,1,'https://www.google.com/url?sa=i&url=https%3A%2F%2Fes.wikipedia.org%2Fwiki%2FM%25C3%25A1quina_herramienta&psig=AOvVaw2Z7iOnlL73w4kM6faV6xVd&ust=1689787202888000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMC774LimIADFQAAAAAdAAAAABAE',1,'05-10-2021')
+
+
+INSERT INTO [Adua].[tbNivelesComerciales](nico_Codigo, [nico_Descripcion], [usua_UsuarioCreacion], [nico_FechaCreacion])
+VALUES ('DIS', 'DISTRIBUIDOR', 1, GETDATE()),
+	   ('MAY', 'MAYORISTA', 1, GETDATE()),
+	   ('MIN', 'MINORISTA', 1, GETDATE()),
+	   ('OTR', 'OTROS', 1, GETDATE())
+
+INSERT INTO [Adua].[tbAduanas](adua_Codigo, [adua_Nombre], [adua_Direccion_Exacta], [usua_UsuarioCreacion], [adua_FechaCreacion])
+VALUES
+('0001', 'ADUANA AMAPALA', 'Address for ADUANA AMAPALA', 'admin_user', GETDATE()),
+('0002', 'ADUANA LA CEIBA', 'Address for ADUANA LA CEIBA', 'admin_user', GETDATE()),
+('0003', 'ADUANA PUERTO HENECAN-SN LORENZO', 'Address for ADUANA PUERTO HENECAN-SN LORENZO', 'admin_user', GETDATE()),
+('0004', 'ADUANA PUERTO CORTES', 'Address for ADUANA PUERTO CORTES', 'admin_user', GETDATE()),
+('0005', 'ADUANA PUERTO LEMPIRA', 'Address for ADUANA PUERTO LEMPIRA', 'admin_user', GETDATE()),
+('0006', 'ADUANA ROATAN', 'Address for ADUANA ROATAN', 'admin_user', GETDATE()),
+('0007', 'GUARDATURA ROATAN', 'Address for GUARDATURA ROATAN', 'admin_user', GETDATE()),
+('0008', 'ADUANA TELA', 'Address for ADUANA TELA', 'admin_user', GETDATE()),
+('0009', 'ADUANA PUERTO CASTILLA', 'Address for ADUANA PUERTO CASTILLA', 'admin_user', GETDATE()),
+('0010', 'GUARDATURA GOLOSON-CEIBA', 'Address for GUARDATURA GOLOSON-CEIBA', 'admin_user', GETDATE()),
+('0011', 'ADUANA LA MESA', 'Address for ADUANA LA MESA', 'admin_user', GETDATE()),
+('0013', 'GUARDATURA LA MESA', 'Address for GUARDATURA LA MESA', 'admin_user', GETDATE()),
+('0014', 'ADUANA TONCONTIN', 'Address for ADUANA TONCONTIN', 'admin_user', GETDATE()),
+('0015', 'GUARDATURA TONCONTIN', 'Address for GUARDATURA TONCONTIN', 'admin_user', GETDATE()),
+('0016', 'PASO FRONTERIZO CORINTO HN-GT', 'Address for PASO FRONTERIZO CORINTO HN-GT', 'admin_user', GETDATE()),
+('0017', 'ADUANA PALMEROLA', 'Address for ADUANA PALMEROLA', 'admin_user', GETDATE()),
+('0018', 'GUARDATURA PALMEROLA', 'Address for GUARDATURA PALMEROLA', 'admin_user', GETDATE()),
+('0020', 'ADUANA AGUA CALIENTE', 'Address for ADUANA AGUA CALIENTE', 'admin_user', GETDATE()),
+('0021', 'ADUANA MOCALEMPA', 'Address for ADUANA MOCALEMPA', 'admin_user', GETDATE()),
+('0022', 'ADUANA LA CONCORDIA', 'Address for ADUANA LA CONCORDIA', 'admin_user', GETDATE()),
+('0023', 'ADUANA EL AMATILLO', 'Address for ADUANA EL AMATILLO', 'admin_user', GETDATE()),
+('0024', 'ADUANA EL FLORIDO', 'Address for ADUANA EL FLORIDO', 'admin_user', GETDATE()),
+('0025', 'ADUANA EL POY', 'Address for ADUANA EL POY', 'admin_user', GETDATE()),
+('0027', 'ADUANA LA FRATERNIDAD', 'Address for ADUANA LA FRATERNIDAD', 'admin_user', GETDATE()),
+('0029', 'ADUANA GUASAULE', 'Address for ADUANA GUASAULE', 'admin_user', GETDATE()),
+('0034', 'ADUANA LAS MANOS', 'Address for ADUANA LAS MANOS', 'admin_user', GETDATE()),
+('3004', 'ADUANA TECUN UMAN', 'Address for ADUANA TECUN UMAN', 'admin_user', GETDATE()),
+('6001', 'ZOLI PUERTO CORTES', 'Address for ZOLI PUERTO CORTES', 'admin_user', GETDATE()),
+('6003', 'ZOLI INHDELVA', 'Address for ZOLI INHDELVA', 'admin_user', GETDATE()),
+('6005', 'CONSTRUCCIONES Y DESARROLLOS VICTOR', 'Address for CONSTRUCCIONES Y DESARROLLOS VICTOR', 'admin_user', GETDATE()),
+('6011', 'HONDURAS AMERICAN TABACO SA (HATSA)', 'Address for HONDURAS AMERICAN TABACO SA (HATSA)', 'admin_user', GETDATE()),
+('6012', 'CONFECCIONES INTERNACIONALES S.A. DE C.V.', 'Address for CONFECCIONES INTERNACIONALES S.A. DE C.V.', 'admin_user', GETDATE()),
+('6013', 'ZOLI NOVEM CAR', 'Address for ZOLI NOVEM CAR', 'admin_user', GETDATE()),
+('6017', 'ZOLI DELI DE HONDURAS S.A. DE C.V.', 'Address for ZOLI DELI DE HONDURAS S.A. DE C.V.', 'admin_user', GETDATE()),
+('6021', 'ZOLI EMPACADORA DE CAMARONES SANTA INES', 'Address for ZOLI EMPACADORA DE CAMARONES SANTA INES', 'admin_user', GETDATE()),
+('6022', 'ZOLI EMPACADORA DE PRODUCTO ACUATICOS SAN LORENZO', '123 Main Street, San Lorenzo, Honduras', 'AdminUser', GETDATE()),
+('6023', 'ZOLI HATSA (DANLI)', '456 Elm Avenue, Danli, Honduras', 'AdminUser', GETDATE()),
+('6029', 'ZOLI CONFECCIONES MONZINI S.A.', '789 Oak Road, Tegucigalpa, Honduras', 'AdminUser', GETDATE()),
+('6030', 'ZOLI METROPOLITANA JACALEAPA', '10 Maple Lane, Jacaleapa, Honduras', 'AdminUser', GETDATE()),
+('6035', 'ZOLI ORVASA', '55 Pine Street, San Pedro Sula, Honduras', 'AdminUser', GETDATE()),
+('6043', 'ZOLI COMPONENTES ELECTRONICOS', '100 Cedar Avenue, Choloma, Honduras', 'AdminUser', GETDATE()),
+('6045', 'ZOLI CLASIF. Y EXPORT. TABACO', '200 Walnut Drive, El Progreso, Honduras', 'AdminUser', GETDATE()),
+('6047', 'ZOLI IBEROAMERICANA DE MARISCO', '300 Cherry Lane, La Ceiba, Honduras', 'AdminUser', GETDATE()),
+('6048', 'ZOLI CARACOL KNITS', '400 Oakwood Street, Puerto Cortes, Honduras', 'AdminUser', GETDATE()),
+('6056', 'ASTRO CARTON HONDURAS SA DE CV', '500 Maple Avenue, Tela, Honduras', 'AdminUser', GETDATE()),
+('6059', 'ZOLI MANUFACTURERA CEIBEÑA', '600 Elm Street, Ceiba, Honduras', 'AdminUser', GETDATE()),
+('6060', 'ZOLI ATUTO', '700 Pine Lane, Atuto, Honduras', 'AdminUser', GETDATE()),
+('6064', 'ZOLI TABACOS DE DANLI', '800 Cedar Road, Danli, Honduras', 'AdminUser', GETDATE()),
+('6065', 'ZOLI COTTONWISE TEXTILES HOND.', '900 Walnut Drive, Choloma, Honduras', 'AdminUser', GETDATE()),
+('6067', 'ZOLI WOONG CHUN HOND.S.A.', '1000 Cherry Lane, San Pedro Sula, Honduras', 'AdminUser', GETDATE()),
+('6068', 'ZONA LIBRE HONDURAS SA DE CV', '1100 Oakwood Street, Tegucigalpa, Honduras', 'AdminUser', GETDATE()),
+('6073', 'ZOLI ZIP SAN MIGUEL VI', '1200 Maple Avenue, San Miguel, Honduras', 'AdminUser', GETDATE()),
+('6074', 'PARQUE INDUSTRIAL BUFALO S.A.', '1300 Elm Street, La Paz, Honduras', 'AdminUser', GETDATE()),
+('6075', 'GRUPO J SOCIEDAD ANONIMA', '1400 Pine Lane, Comayagua, Honduras', 'AdminUser', GETDATE()),
+('6077', 'ZONA INDUSTRIAL DE EXPORTACION BUENAVISTA SA', '1500 Cedar Road, Siguatepeque, Honduras', 'AdminUser', GETDATE()),
+('6078', 'ZOLI ZIP CHOLOMA', '1600 Walnut Drive, Choloma, Honduras', 'AdminUser', GETDATE()),
+('6079', 'ZIP EL PORVENIR', '1700 Cherry Lane, El Provenir, Honduras', 'AdminUser', GETDATE()),
+('6083', 'ZOLI LEAR AUTOMOTIVE EDDS, HOND.', '1800 Oakwood Street, San Pedro Sula, Honduras', 'AdminUser', GETDATE()),
+('6085', 'ZOLI ZIP SAN JOSE', '1900 Elm Street, San Jose, Honduras', 'AdminUser', GETDATE()),
+('6091', 'ZOLI GRANDWAY HONDURAS, S. DE R.L.', '2000 Pine Lane, Tegucigalpa, Honduras', 'AdminUser', GETDATE()),
+('6093', 'ZOLI U.S. YACHTS S. DE R.L.', '2100 Cedar Road, La Ceiba, Honduras', 'AdminUser', GETDATE()),
+('6095', 'ZOLI ZIP CALPULES', '2200 Walnut Drive, Calpules, Honduras', 'AdminUser', GETDATE()),
+('6100', 'ZOLI AQUAFINCA ST. PETER FISH', '2300 Cherry Lane, Tela, Honduras', 'AdminUser', GETDATE()),
+('6102', 'AEREO -IMPEX S.A.', '2400 Oakwood Street, Puerto Cortes, Honduras', 'AdminUser', GETDATE()),
+('6103', 'ZOLI C.B.I., S.A.', '2500 Elm Street, Choloma, Honduras', 'AdminUser', GETDATE()),
+('6106', 'ZOLI. CIA. OPERAD.ZIP RIO BLANCO', '2600 Pine Lane, Rio Blanco, Honduras', 'AdminUser', GETDATE()),
+('6107', 'ZOLI EMPACADORA LITORAL, S.A.', '2700 Cedar Road, La Ceiba, Honduras', 'AdminUser', GETDATE()),
+('6108', 'NEW HOLLAND LINGERIE DE HONDURAS SA', '2800 Walnut Drive, Tegucigalpa, Honduras', 'AdminUser', GETDATE()),
+('6109', 'ZOLI AMERICA S.A. DE C.V.', '2900 Cherry Lane, San Pedro Sula, Honduras', 'AdminUser', GETDATE()),
+('6110', 'ZOLI AGENCIA J. E HANDAL S.A DE C.V', '3000 Oakwood Street, Choloma, Honduras', 'AdminUser', GETDATE()),
+('6114', 'ZOLI PARQUE INDUSTRIAL REAL', '3100 Elm Street, Tegucigalpa, Honduras', 'AdminUser', GETDATE()),
+('6118', 'ZOLI HONDURAS ELECT. DISTRIB. SYST.', '3200 Pine Lane, San Pedro Sula, Honduras', 'AdminUser', GETDATE()),
+('6121', 'ZOLI S. HONDURAS', '3300 Cedar Road, Tegucigalpa, Honduras', 'AdminUser', GETDATE()),
+('6125', 'ZOLI GAS DEL CARIBE, S.A. DE C.V.', '3400 Walnut Drive, San Pedro Sula, Honduras', 'AdminUser', GETDATE()),
+('6126', 'ZOLI INVERSIONES EL CACAO
+
+
+
+
 
 

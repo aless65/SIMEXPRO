@@ -1412,7 +1412,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab1_Insert
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab1_Insert 
 	@deva_Aduana_Ingreso_Id				INT,
 	@deva_Aduana_Despacho_Id			INT,
 	@deva_Fecha_Aceptacion				DATETIME,

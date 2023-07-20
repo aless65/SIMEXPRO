@@ -1270,7 +1270,7 @@ GO
 
 --************FORMAS DE ENVIO******************--
 /*Listar FORMAS DE ENVIO*/
-CREATE OR ALTER PROCEDURE Gral.UDP_tbFormas_Envio_Listado
+CREATE OR ALTER PROCEDURE Gral.UDP_tbFormas_Envio_Listar
 AS
 BEGIN
 SELECT	foen_Id											,
@@ -2798,7 +2798,7 @@ GO
 
 --************ESTADO MERCANCIAS******************--
 /*Listar ESTADO MERCANCIAS*/
-CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbEstadoMercancias_Listado
+CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbEstadoMercancias_Listar
 AS
 BEGIN
 SELECT	merc_Id										,
@@ -2906,7 +2906,7 @@ END
 GO
 --************UNIDAD DE MEDIDA******************--
 /*Listar UNIDAD DE MEDIDA*/
-CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_Listado
+CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_Listar
 AS
 BEGIN
 SELECT	unme_Id											,
@@ -3014,7 +3014,7 @@ END
 GO
 --************CONDICIONES******************--
 /*Listar CONDICIONES*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Listado
+CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Listar
 AS
 BEGIN
 SELECT	codi_Id											,

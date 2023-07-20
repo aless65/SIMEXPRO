@@ -16,7 +16,12 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import Select from '@mui/material/Select';
+import * as yup from 'yup';
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import Swal from 'sweetalert2'
+
+
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
@@ -110,12 +115,6 @@ function MarcasIndex() {
         { id: '4', marca: 'Rimoldi' },
     ];
 
-    {/* Función para mostrar la tabla y mostrar agregar */ }
-    const VisibilidadTabla = () => {
-        setmostrarIndex(!mostrarIndex);
-        setmostrarAdd(!mostrarAdd);
-    };
-
     const handleSearchChange = (event) => {
         setSearchText(event.target.value);
     };
@@ -124,6 +123,95 @@ function MarcasIndex() {
     const filteredRows = rows.filter((row) =>
         row.id.toLowerCase().includes(searchText.toLowerCase())
     );
+
+     {/*Codigo para validaciones */}
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'red',
+    width: 400,
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+  const Toast2 = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'green',
+    width: 400,
+    customClass: {
+      popup: 'colored-toast'
+    },  
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+  const defaultMarcasValues = {
+    marcas: '',
+  }
+
+  const MarcasSchema = yup.object().shape({
+    marcas: yup.string().required(),
+  })
+  
+  {/* Función para mostrar la tabla y mostrar agregar */ }
+  const VisibilidadTabla = () => {
+    setmostrarIndex(!mostrarIndex);
+    setmostrarAdd(!mostrarAdd);
+  };
+
+  {/* Función para mostrar la tabla y mostrar agregar */ }
+  const VisibilidadTabla2 = () => {
+    setmostrarIndex(!mostrarIndex);
+    setmostrarAdd(!mostrarAdd);
+    reset(defaultMarcasValues);
+  };
+
+  const {handleSubmit, register, reset, control, watch, formState } = useForm({
+    defaultMarcasValues,
+    mode: 'all',
+    resolver: yupResolver(MarcasSchema),
+  });
+
+  const { isValid, dirtyFields, errors } = formState;
+
+  const onSubmit = (data) => {
+    if(data.marcas != null){
+      if (data.marcas.trim() === '') {
+        Toast.fire({
+          icon: 'error',
+          title: 'No se permiten campos vacios',
+        }); 
+      } else {
+        VisibilidadTabla();
+        Toast2.fire({
+          icon: 'success',
+          title: 'Datos guardados exitosamente',
+        });
+        
+      }
+    }else{
+      Toast.fire({
+        icon: 'error',
+        title: 'No se permiten campos vacios',
+      }); 
+    }
+  };
+
+  const Masiso = () => {
+    const formData = watch();
+    onSubmit(formData); 
+    handleSubmit(onSubmit)(); 
+    reset(defaultMarcasValues);
+  };
+
+  {/*Codigo para validaciones */}
 
     return (
         <Card sx={{ minWidth: 275, margin: '40px' }}>
@@ -211,19 +299,25 @@ function MarcasIndex() {
                     <Grid container spacing={3}>
 
 
-                        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}
-                            style={{ marginTop: '30px' }}>
+                    <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}
+                             style={{ marginTop: '30px' }}>
 
-                            <FormControl>
-                                <TextField
-                                    style={{ borderRadius: '10px', width: '500px' }}
-                                    label="Marca"
-                                    defaultValue={' '}
-
-                                />
-                            </FormControl>
+                            <Controller
+                                render={({ field }) => (
+                                    <TextField
+                                    {...field}
+                                    label="marcas"
+                                    variant="outlined"
+                                    error={!!errors.marcas}
+                                    placeholder='Ingrese el nombre de la marca de la maquinas'
+                                    fullWidth
+                                    InputProps={{startAdornment: (<InputAdornment position="start"></InputAdornment>),}}
+                                    />
+                                )}
+                                name="marcas"  
+                                control={control}
+                            />
                         </Grid>
-
 
 
 
@@ -237,7 +331,7 @@ function MarcasIndex() {
                                     backgroundColor: '#634A9E', color: 'white',
                                     "&:hover": { backgroundColor: '#6e52ae' },
                                 }}
-                                onClick={VisibilidadTabla}
+                                onClick={Masiso}
                             >
                                 Guardar
                             </Button>
@@ -251,7 +345,7 @@ function MarcasIndex() {
                                     backgroundColor: '#DAD8D8', color: 'black',
                                     "&:hover": { backgroundColor: '#BFBABA' },
                                 }}
-                                onClick={VisibilidadTabla}
+                                onClick={VisibilidadTabla2}
                             >
                                 Cancelar
                             </Button>

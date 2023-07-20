@@ -189,7 +189,8 @@ CREATE TABLE Gral.tbPaises(
 GO
 
 CREATE TABLE Gral.tbFormas_Envio(
-		foen_Id 					INT			IDENTITY(1,1),
+		foen_Id 					INT IDENTITY(1,1),
+		foen_Codigo					CHAR(2),
 		foen_Descripcion			NVARCHAR(500),
 
 		usua_UsuarioCreacion 		INT			NOT NULL,
@@ -202,6 +203,7 @@ CREATE TABLE Gral.tbFormas_Envio(
 
 	CONSTRAINT PK_Gral_tbFormas_Envio_foen_Id 			PRIMARY KEY (foen_Id),
 	CONSTRAINT UQ_Gral_tbFormas_Envio_foen_Descripcion  UNIQUE (foen_Descripcion),
+	CONSTRAINT UQ_Gral_tbFormas_Envio_foen_Codigo  UNIQUE (foen_Codigo),
 	CONSTRAINT FK_Gral_tbFormas_Envio_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id 		FOREIGN KEY(usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbFormas_Envio_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id  FOREIGN KEY(usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbFormas_Envio_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id   FOREIGN KEY(usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios (usua_Id)
@@ -518,14 +520,6 @@ CREATE TABLE Adua.tbCondicionesComerciales(
    CONSTRAINT FK_Acce_tbUsuarios_Adua_tbCondicionesComerciales_coco_usua_UsuarioEliminacion  FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios(usua_Id)
    );
    GO
-   INSERT INTO Adua.tbCondicionesComerciales(coco_Codigo,coco_Descripcion,usua_UsuarioCreacion,coco_FechaCreacion)
-   VALUES 
-   ('DT','Distribuidor',1,GETDATE()),
-   ('FB','Fabricante',1,GETDATE()),
-   ('MY','Mayorista',1,GETDATE()),
-   ('OT','Otro',1,GETDATE()),
-   ('PR','Productor',1,GETDATE()),
-   ('RV','Revendedor',1,GETDATE())
 
 CREATE TABLE Adua.tbFormasdePago(
 		fopa_Id							INT 			IDENTITY(1,1),
@@ -1156,7 +1150,7 @@ CREATE TABLE Adua.tbEstadoMercancias(
 	merc_FechaEliminacion		DATETIME DEFAULT NULL, 
 	merc_Estado					BIT DEFAULT 1
 
-	CONSTRAINT PK_Adua_tbUnidadesDeMedida_unme_Id											PRIMARY KEY (merc_Id),
+	CONSTRAINT PK_Adua_tbEstadoMercancias_merc_Id											PRIMARY KEY (merc_Id),
 	CONSTRAINT FK_Adua_tbEstadoMercancias_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios(usua_Id),
 	CONSTRAINT FK_Adua_tbEstadoMercancias_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id	FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios(usua_Id),
 	CONSTRAINT FK_Adua_tbEstadoMercancias_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id	FOREIGN KEY (usua_UsuarioEliminacion)	REFERENCES Acce.tbUsuarios(usua_Id)
@@ -1821,11 +1815,11 @@ CREATE TABLE Prod.tbModelosMaquina(
 	mmaq_Estado					BIT DEFAULT 1,
 	
 	CONSTRAINT PK_Prod_tbModelosMaquina_mmaq_Id 								PRIMARY KEY(mmaq_Id),
-	CONSTRAINT FK_Prod_tbModelosMaquina_Prod_tbMarcasMaquina_marq_Id 			FOREIGN KEY(marq_Id) 				REFERENCES Prod.tbMarcasMaquina(marq_Id),
-	CONSTRAINT FK_Prod_tbModelosMaquina_Prod_tbFunciones_func_Id 				FOREIGN KEY(func_Id) 				REFERENCES Prod.tbFuncionesMaquina(func_Id),
-	CONSTRAINT FK_Prod_tbModelosMaquina_tbUsuarios_usua_UsuaCreaciaon			FOREIGN KEY (usua_UsuarioCreacion)     	REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Prod_tbModelosMaquina_tbUsuarios_usua_UsuaModificacion		FOREIGN KEY (usua_UsuarioModificacion) 	REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Prod_tbModelosMaquina_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
+	CONSTRAINT FK_Prod_tbModelosMaquina_marq_Id_Prod_tbMarcasMaquina_marq_Id 				FOREIGN KEY(marq_Id) 				REFERENCES Prod.tbMarcasMaquina(marq_Id),
+	CONSTRAINT FK_Prod_tbModelosMaquina_func_Id_Prod_tbFunciones_func_Id 					FOREIGN KEY(func_Id) 				REFERENCES Prod.tbFuncionesMaquina(func_Id),
+	CONSTRAINT FK_Prod_tbModelosMaquina_usua_UsuaCreaciaon_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioCreacion)     	REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT FK_Prod_tbModelosMaquina_usua_UsuaModificacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioModificacion) 	REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT FK_Prod_tbModelosMaquina_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
 

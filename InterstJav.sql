@@ -68,7 +68,16 @@ VALUES	('ABC Ingeniería y Construcción S.A.'		,'Calle de la Ingeniería 123, San 
 
 --Insert Proveedor declaracion
 INSERT INTO Adua.tbProveedoresDeclaracion (coco_Id, pvde_Condicion_Otra, decl_Id, usua_UsuarioCreacion, pvde_FechaCreacion)
-VALUES	(1,NULL,1,1,GETDATE()),
-
+VALUES	
+(1,NULL,1,1,GETDATE()),
+(1,NULL,2,1,GETDATE()),
+(2,NULL,3,1,GETDATE()),
+(2,NULL,4,1,GETDATE()),
+(1,NULL,5,1,GETDATE()),
+(3,NULL,6,1,GETDATE()),
+(6,NULL,7,1,GETDATE()),
+(4,NULL,8,1,GETDATE()),
+(5,NULL,9,1,GETDATE()),
+(5,NULL,10,1,GETDATE())
 
 

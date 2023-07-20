@@ -188,14 +188,16 @@ function LotesIndex() {
   const { isValid, dirtyFields, errors } = formState;
 
   const onSubmit = (data) => {
+    console.log(data);
     if(data.stock != null || data.cantidad != null || data.Select != null){
       if (data.stock.trim() === '' || data.cantidad.trim() === '' || data.Select === '') {
+        console.log('Que onda')
         Toast.fire({
           icon: 'error',
           title: 'No se permiten campos vacios',
         }); 
       } else {
-
+        console.log('hola')
         VisibilidadTabla();
         Toast2.fire({
           icon: 'success',
@@ -353,9 +355,9 @@ function LotesIndex() {
                             <div className="mt-48 mb-16">
                                 <Controller
                                     render={({ field }) => (
-                                    <FormControl error={!!errors.Select} required fullWidth>
+                                    <FormControl error={!!errors.Select} fullWidth>
                                         <FormLabel className="font-medium text-14" component="legend">
-                                        MUI Select
+                                        Materiales
                                         </FormLabel>
                                         <Select {...field} variant="outlined" fullWidth>
                                         <MenuItem value="10">Ten (10)</MenuItem>

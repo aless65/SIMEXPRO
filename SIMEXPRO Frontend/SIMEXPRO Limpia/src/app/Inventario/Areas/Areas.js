@@ -27,6 +27,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
+import * as yup from 'yup';
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import Swal from 'sweetalert2'
+
+
 function AreasIndex() {
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
@@ -115,10 +121,6 @@ function AreasIndex() {
   ];
 
   {/* Función para mostrar la tabla y mostrar agregar */ }
-  const VisibilidadTabla = () => {
-    setmostrarIndex(!mostrarIndex);
-    setmostrarAdd(!mostrarAdd);
-  };
 
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
@@ -128,6 +130,94 @@ function AreasIndex() {
   const filteredRows = rows.filter((row) =>
     row.descripcion.toLowerCase().includes(searchText.toLowerCase())
   );
+
+
+  {/*Codigo para validaciones */}
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'red',
+    width: 400,
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+  const Toast2 = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'green',
+    width: 400,
+    customClass: {
+      popup: 'colored-toast'
+    },  
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+  const defaultAreasValues = {
+    areas: '',
+  }
+
+  const AreasSchema = yup.object().shape({
+    areas: yup.string().required(),
+  })
+  
+  const VisibilidadTabla = () => {
+    setmostrarIndex(!mostrarIndex);
+    setmostrarAdd(!mostrarAdd);
+  };
+
+  const VisibilidadTabla2 = () => {
+    setmostrarIndex(!mostrarIndex);
+    setmostrarAdd(!mostrarAdd);
+    reset(defaultAreasValues);
+  };
+
+  const {handleSubmit, register, reset, control, watch, formState } = useForm({
+    defaultAreasValues,
+    mode: 'all',
+    resolver: yupResolver(AreasSchema),
+  });
+
+  const { isValid, dirtyFields, errors } = formState;
+
+  const onSubmit = (data) => {
+    if(data.areas != null){
+      if (data.areas.trim() === '') {
+        Toast.fire({
+          icon: 'error',
+          title: 'No se permiten campos vacios',
+        }); 
+      } else {
+        VisibilidadTabla();
+        Toast2.fire({
+          icon: 'success',
+          title: 'Datos guardados exitosamente',
+        });
+        
+      }
+    }else{
+      Toast.fire({
+        icon: 'error',
+        title: 'No se permiten campos vacios',
+      }); 
+    }
+  };
+
+  const Masiso = () => {
+    const formData = watch();
+    onSubmit(formData); 
+    handleSubmit(onSubmit)(); 
+    reset(defaultAreasValues);
+  };
+
+  {/*Codigo para validaciones */}
 
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
@@ -214,13 +304,21 @@ function AreasIndex() {
               </Typography>
             </Grid>
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-                <FormControl>
+                <Controller
+                  render={({ field }) => (
                     <TextField
-                        defaultValue=" "
-                        style={{ borderRadius: '10px', width: '500px' }}
-                        label="Área"
+                      {...field}
+                      label="Área"
+                      variant="outlined"
+                      error={!!errors.areas}
+                      placeholder='Ingrese el nombre del area'
+                      fullWidth
+                      InputProps={{startAdornment: (<InputAdornment position="start"></InputAdornment>),}}
                     />
-                </FormControl>
+                  )}
+                  name="areas"
+                  control={control}
+                />
             </Grid>  
 
 
@@ -235,7 +333,7 @@ function AreasIndex() {
                   backgroundColor: '#634A9E', color: 'white',
                   "&:hover": { backgroundColor: '#6e52ae' },
                 }}
-                onClick={VisibilidadTabla}
+                onClick={Masiso}
               >
                 Guardar
               </Button>
@@ -249,7 +347,7 @@ function AreasIndex() {
                   backgroundColor: '#DAD8D8', color: 'black',
                   "&:hover": { backgroundColor: '#BFBABA' },
                 }}
-                onClick={VisibilidadTabla}
+                onClick={VisibilidadTabla2}
               >
                 Cancelar
               </Button>

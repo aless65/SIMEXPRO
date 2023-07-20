@@ -38,10 +38,11 @@ import * as yup from 'yup';
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { InputAdornment } from "@material-ui/core";
-import Alert from '@mui/material/Alert';
 import Swal from 'sweetalert2'
 
 
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 function PaisesIndex() {
   const [searchText, setSearchText] = useState('');
@@ -87,8 +88,8 @@ function PaisesIndex() {
   }
 
   const accountSchema = yup.object().shape({
-    codigo: yup.string().required('Debe ingresar un codigo'),
-    pais: yup.string().required('Debe ingresar el nombre del país'),
+    codigo: yup.string().required(),
+    pais: yup.string().required(),
   })
   
 
@@ -105,47 +106,65 @@ function PaisesIndex() {
       field: 'acciones',
       headerName: 'Acciones',
       width: 400,
-      renderCell: (params) => (
-        <Stack direction="row" spacing={1}>
-          <Button
-            startIcon={<Icon>edit</Icon>}
-            variant="contained"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#634A9E',
-              color: 'white',
-              "&:hover": { backgroundColor: '#6e52ae' },
-            }}>
-            Editar
-          </Button>
+      renderCell: (params) => {
+        const [anchorEl, setAnchorEl] = React.useState(null);
+  
+        const handleClick = (event) => {
+          setAnchorEl(event.currentTarget);
+        };
+  
+        const handleClose = () => {
+          setAnchorEl(null);
+        };
+  
+        const handleEdit = () => {
+          // Implementa la función para editar aquí
+          handleClose();
+        };
+  
+        const handleDetails = () => {
+          // Implementa la función para detalles aquí
+          handleClose();
+        };
+  
+        const handleDelete = () => {
+          // Implementa la función para eliminar aquí
+          handleClose();
+        };
 
-          <Button
-            startIcon={<Icon>visibility</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#797979', color: 'white',
-              "&:hover": { backgroundColor: '#b69999' },
-            }}
-          >
-            Detalles
-          </Button>
-          <Button
-            startIcon={<Icon>delete</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#E40F00', color: 'white',
-              "&:hover": { backgroundColor: '#eb5f56' },
-            }}
-            onClick={DialogEliminar}
-          >
-            Eliminar
-          </Button>
-        </Stack>
-      ),
+  
+        return (
+          <Stack direction="row" spacing={1}>
+            <Button
+              aria-controls={`menu-${params.id}`}
+              aria-haspopup="true"
+              onClick={handleClick}
+              variant="contained"
+              style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+              startIcon={<Icon>menu</Icon>}
+            >
+              Opciones
+            </Button>
+            <Menu
+              id={`menu-${params.id}`}
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleEdit}>
+                <Icon>edit</Icon> Editar
+              </MenuItem>
+              <MenuItem onClick={handleDetails}>
+                <Icon>visibility</Icon> Detalles
+              </MenuItem>
+              <MenuItem onClick={DialogEliminar}>
+                <Icon>delete</Icon> Eliminar
+              </MenuItem>
+            </Menu>
+          </Stack>
+        );
+      },
     },
   ];
 
@@ -325,7 +344,6 @@ function PaisesIndex() {
                       label="Codigo"
                       variant="outlined"
                       error={!!errors.codigo}
-                      required
                       placeholder='Ingrese el codigo del país'
                       fullWidth
                       InputProps={{startAdornment: (<InputAdornment position="start"></InputAdornment>),}}
@@ -345,7 +363,6 @@ function PaisesIndex() {
                       label="País"
                       variant="outlined"
                       error={!!errors.pais}
-                      required
                       placeholder='Ingrese el nombre del país'
                       fullWidth
                       InputProps={{startAdornment: (<InputAdornment position="start"></InputAdornment>),}}

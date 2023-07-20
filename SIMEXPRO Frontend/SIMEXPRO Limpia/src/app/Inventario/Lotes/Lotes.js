@@ -17,7 +17,16 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Select from '@mui/material/Select';
+import FormLabel from '@mui/material/FormLabel';
 
+import * as yup from 'yup';
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import Swal from 'sweetalert2'
+import FormHelperText from '@mui/material/FormHelperText';
+
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 function LotesIndex() {
     const [searchText, setSearchText] = useState('');
@@ -40,48 +49,66 @@ function LotesIndex() {
             field: 'acciones',
             headerName: 'Acciones',
             width: 400,
-            renderCell: (params) => (
+            renderCell: (params) => {
+              const [anchorEl, setAnchorEl] = React.useState(null);
+        
+              const handleClick = (event) => {
+                setAnchorEl(event.currentTarget);
+              };
+        
+              const handleClose = () => {
+                setAnchorEl(null);
+              };
+        
+              const handleEdit = () => {
+                // Implementa la función para editar aquí
+                handleClose();
+              };
+        
+              const handleDetails = () => {
+                // Implementa la función para detalles aquí
+                handleClose();
+              };
+        
+              const handleDelete = () => {
+                // Implementa la función para eliminar aquí
+                handleClose();
+              };
+      
+        
+              return (
                 <Stack direction="row" spacing={1}>
-                    <Button
-                        startIcon={<Icon>edit</Icon>}
-                        variant="contained"
-                        style={{ borderRadius: '10px' }}
-                        sx={{
-                            backgroundColor: '#634A9E',
-                            color: 'white',
-                            "&:hover": { backgroundColor: '#6e52ae' },
-                        }}>
-                        Editar
-                    </Button>
-
-                    <Button
-                        startIcon={<Icon>visibility</Icon>}
-                        variant="contained"
-                        color="primary"
-                        style={{ borderRadius: '10px' }}
-                        sx={{
-                            backgroundColor: '#797979', color: 'white',
-                            "&:hover": { backgroundColor: '#b69999' },
-                        }}
-                    >
-                        Detalles
-                    </Button>
-                    <Button
-                        startIcon={<Icon>delete</Icon>}
-                        variant="contained"
-                        color="primary"
-                        style={{ borderRadius: '10px' }}
-                        sx={{
-                            backgroundColor: '#E40F00', color: 'white',
-                            "&:hover": { backgroundColor: '#eb5f56' },
-                        }}
-                        onClick={DialogEliminar}
-                    >
-                        Eliminar
-                    </Button>
+                  <Button
+                    aria-controls={`menu-${params.id}`}
+                    aria-haspopup="true"
+                    onClick={handleClick}
+                    variant="contained"
+                    style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+                    startIcon={<Icon>menu</Icon>}
+                  >
+                    Opciones
+                  </Button>
+                  <Menu
+                    id={`menu-${params.id}`}
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                  >
+                    <MenuItem onClick={handleEdit}>
+                      <Icon>edit</Icon> Editar
+                    </MenuItem>
+                    <MenuItem onClick={handleDetails}>
+                      <Icon>visibility</Icon> Detalles
+                    </MenuItem>
+                    <MenuItem onClick={DialogEliminar}>
+                      <Icon>delete</Icon> Eliminar
+                    </MenuItem>
+                  </Menu>
                 </Stack>
-            ),
-        },
+              );
+            },
+          },
     ];
 
     {/* Datos de la tabla */ }
@@ -92,12 +119,6 @@ function LotesIndex() {
         { id: '234234', material: 'Hilos', stock: '10', cantidad: '10', area: 'ninguna' },
     ];
 
-    {/* Función para mostrar la tabla y mostrar agregar */ }
-    const VisibilidadTabla = () => {
-        setmostrarIndex(!mostrarIndex);
-        setmostrarAdd(!mostrarAdd);
-    };
-
     const handleSearchChange = (event) => {
         setSearchText(event.target.value);
     };
@@ -106,6 +127,99 @@ function LotesIndex() {
     const filteredRows = rows.filter((row) =>
         row.id.toLowerCase().includes(searchText.toLowerCase())
     );
+
+    {/*Codigo para validaciones */}
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'red',
+    width: 400,
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+  const Toast2 = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'green',
+    width: 400,
+    customClass: {
+      popup: 'colored-toast'
+    },  
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+  const defaultAccountValues = {
+    stock: '',
+    cantidad: '',
+    Select: '',
+  }
+
+  const accountSchema = yup.object().shape({
+    stock: yup.string().required(),
+    cantidad: yup.string().required(),
+    Select: yup.string().required(),
+  })
+  
+  const VisibilidadTabla = () => {
+    setmostrarIndex(!mostrarIndex);
+    setmostrarAdd(!mostrarAdd);
+  };
+
+  const VisibilidadTabla2 = () => {
+    setmostrarIndex(!mostrarIndex);
+    setmostrarAdd(!mostrarAdd);
+    reset(defaultAccountValues);
+  };
+
+  const {handleSubmit, register, reset, control, watch, formState } = useForm({
+    defaultAccountValues,
+    mode: 'all',
+    resolver: yupResolver(accountSchema),
+  });
+
+  const { isValid, dirtyFields, errors } = formState;
+
+  const onSubmit = (data) => {
+    if(data.stock != null || data.cantidad != null || data.Select != null){
+      if (data.stock.trim() === '' || data.cantidad.trim() === '' || data.Select === '') {
+        Toast.fire({
+          icon: 'error',
+          title: 'No se permiten campos vacios',
+        }); 
+      } else {
+
+        VisibilidadTabla();
+        Toast2.fire({
+          icon: 'success',
+          title: 'Datos guardados exitosamente',
+        });
+        
+      }
+    }else{
+      Toast.fire({
+        icon: 'error',
+        title: 'No se permiten campos vacios',
+      }); 
+    }
+  };
+
+  const Masiso = () => {
+    const formData = watch();
+    onSubmit(formData); 
+    handleSubmit(onSubmit)(); 
+    reset(defaultAccountValues);
+  };
+
+  {/*Codigo para validaciones */}
+
 
     return (
         <Card sx={{ minWidth: 275, margin: '40px' }}>
@@ -191,55 +305,70 @@ function LotesIndex() {
             <Collapse in={mostrarAdd}>
                 <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginTop: '30px' }}>
                     <Grid container spacing={3}>
-                        <Grid item xs={6}>
-                            <FormControl
-                                fullWidth
-                            >
-                                <InputLabel htmlFor="grouped-native-select">Material</InputLabel>
-                                <Select
-                                    style={{ borderRadius: '10px' }}
-                                    label="Material"
-                                />
-                            </FormControl>
-                        </Grid>
 
-                        <Grid item xs={6}>
-                            <FormControl
-                                fullWidth
-                            >
-                                <TextField
-                                type='number'
-                                    style={{ borderRadius: '10px' }}
+                        
+                    <Grid item xs={6}>
+                            <div className="mt-48 mb-16">
+                                <Controller
+                                render={({ field }) => (
+                                    <TextField
+                                    {...field}
                                     label="Stock"
+                                    variant="outlined"
+                                    error={!!errors.stock}
+                                    placeholder='Ingrese el stock'
+                                    fullWidth
+                                    InputProps={{startAdornment: (<InputAdornment position="start"></InputAdornment>),}}
+                                    />
+                                )}
+                                name="stock"
+                                control={control}
                                 />
-                            </FormControl>
-                        </Grid>         
+                            </div>
+                        </Grid>       
                         
                         
-                           <Grid item xs={6}>
-                            <FormControl
-                                fullWidth
-                            >
-                                <TextField
-                                type='number'
-                                    style={{ borderRadius: '10px' }}
-                                    label="Cantidad Ingresada"
+                        <Grid item xs={6}>
+                            <div className="mt-48 mb-16">
+                                <Controller
+                                render={({ field }) => (
+                                    <TextField
+                                    {...field}
+                                    label="Cantidad"
+                                    variant="outlined"
+                                    error={!!errors.cantidad}
+                                    placeholder='Ingrese la cantidad'
+                                    fullWidth
+                                    InputProps={{startAdornment: (<InputAdornment position="start"></InputAdornment>),}}
+                                    />
+                                )}
+                                name="cantidad"
+                                control={control}
                                 />
-                            </FormControl>
+                            </div>
                         </Grid>
+
 
                         <Grid item xs={6}>
-                            <FormControl
-                                fullWidth
-                            >
-                                <InputLabel htmlFor="grouped-native-select">Área</InputLabel>
-                                <Select
-                                    style={{ borderRadius: '10px' }}
-                                    label="Área"
+                            <div className="mt-48 mb-16">
+                                <Controller
+                                    render={({ field }) => (
+                                    <FormControl error={!!errors.Select} required fullWidth>
+                                        <FormLabel className="font-medium text-14" component="legend">
+                                        MUI Select
+                                        </FormLabel>
+                                        <Select {...field} variant="outlined" fullWidth>
+                                        <MenuItem value="10">Ten (10)</MenuItem>
+                                        <MenuItem value="20">Twenty (20)</MenuItem>
+                                        <MenuItem value="30">Thirty (30)</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                    )}
+                                    name="Select"
+                                    control={control}
                                 />
-                            </FormControl>
-                        </Grid>
-
+                            </div>
+                         </Grid>
 
                         <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }}>
                             <Button
@@ -251,7 +380,7 @@ function LotesIndex() {
                                     backgroundColor: '#634A9E', color: 'white',
                                     "&:hover": { backgroundColor: '#6e52ae' },
                                 }}
-                                onClick={VisibilidadTabla}
+                                onClick={Masiso}
                             >
                                 Guardar
                             </Button>
@@ -265,8 +394,10 @@ function LotesIndex() {
                                     backgroundColor: '#DAD8D8', color: 'black',
                                     "&:hover": { backgroundColor: '#BFBABA' },
                                 }}
-                                onClick={VisibilidadTabla}
-                            >
+                                onClick={() => {
+                                    reset(defaultAccountValues);
+                                  }}
+                                >
                                 Cancelar
                             </Button>
                         </Grid>

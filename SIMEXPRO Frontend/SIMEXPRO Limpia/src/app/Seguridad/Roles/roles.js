@@ -10,15 +10,8 @@ import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { Navigate, useNavigate } from 'react-router-dom';
 
-import Zoom from '@mui/material/Zoom';
-import Grow from '@mui/material/Grow';
-
 import Collapse from '@mui/material/Collapse';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Select from '@mui/material/Select';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -33,7 +26,18 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Paper from '@mui/material/Paper';
 
+import { Controller, useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import _ from '@lodash';
 
+let Validacion = {
+  Rol: '',
+};
+
+const schemaValidacion = yup.object().shape({
+  Rol: yup.string().required(),
+});
 
 
 function not(a, b) {
@@ -53,13 +57,21 @@ function RolesIndex() {
   const [Eliminar, setEliminar] = useState(false);
 
 
-
   const [checked, setChecked] = React.useState([]);
   const [left, setLeft] = React.useState(['Usuarios', 'Roles', 'Boletin de Pago', 'Declaracion de Valor', 'Duca']); //arreglo de la columna izquierda
   const [right, setRight] = React.useState([]); //arreglo de la columna derecha
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
+
+
+  const { handleSubmit, reset, control, formState } = useForm({
+    Validacion,
+    mode: 'all',
+    resolver: yupResolver(schemaValidacion),
+  });
+  const { isValid, dirtyFields, errors } = formState;
+
 
   const DialogEliminar = () => {
     setEliminar(!Eliminar);
@@ -288,14 +300,35 @@ function RolesIndex() {
 
         <Grid container spacing={3} style={{ marginTop: '20px' }}>
           <Grid item xs={3}></Grid>
+
+
           <Grid item xs={6}>
-            <FormControl fullWidth>
-              <TextField style={{ borderRadius: '10px', }} label="Rol" />
-            </FormControl>
+            <Controller
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="Rol"
+                  fullWidth
+                  error={!!errors.Rol}
+                  style={{ borderRadius: '3px' }}
+                  placeholder='Rol'
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                      
+                      </InputAdornment>
+                    ),
+
+                  }}
+                />
+              )}
+              name="Rol"
+              control={control}
+            />
           </Grid>
         </Grid>
 
-        <Grid container spacing={2} style={{marginTop: '20px'}} justifyContent="center" alignItems="center">
+        <Grid container spacing={2} style={{ marginTop: '20px' }} justifyContent="center" alignItems="center">
           <Grid item>{customList(left)}</Grid>
           <Grid item>
             <Grid container direction="column" alignItems="center">
@@ -356,11 +389,13 @@ function RolesIndex() {
                 backgroundColor: '#634A9E', color: 'white',
                 "&:hover": { backgroundColor: '#6e52ae' },
               }}
+              disabled={_.isEmpty(dirtyFields) || !isValid}
               onClick={VisibilidadTabla}
             >
               Guardar
             </Button>
           </Stack>
+
           <Grid item xs={0}></Grid>
           <Stack direction="row" spacing={1}>
             <Button
@@ -385,7 +420,7 @@ function RolesIndex() {
 
       <Dialog
         open={Eliminar}
-        fullWidth={'md'}
+        fullWidth
         onClose={DialogEliminar}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"

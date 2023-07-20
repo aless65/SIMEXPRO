@@ -107,6 +107,7 @@ function UsuariosIndex() {
 
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
+    
   };
 
   {/* Filtrado de datos */ }
@@ -191,9 +192,7 @@ function UsuariosIndex() {
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <Typography variant="h5" gutterBottom>
-                Nuevo Usuario
-              </Typography>
+              
             </Grid>
 
             <Grid item xs={6}>
@@ -242,12 +241,12 @@ function UsuariosIndex() {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Grid item xs={2} sx={{ display: 'flex', justifyContent: 'start', alignItems: 'start' }}>
               <FormControl fullWidth>
                 <FormControlLabel
                   control={<Switch sx={{ '&.Mui-checked': { color: '#634A9E' } }} />}
                   label="Administrador"
-                  labelPlacement="bottom"
+                  labelPlacement="right"
                 />
               </FormControl>
             </Grid>

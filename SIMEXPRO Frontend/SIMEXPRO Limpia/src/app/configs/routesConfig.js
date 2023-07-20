@@ -53,12 +53,15 @@ import DocumentosDeSanciones from '../Aduanas/DocumentosDeSanciones/DocumentosDe
 import OrdenProcesosIndex from '../Produccion/OrdenDeProcesos/OrdenDeProcesos';
 import CalendarApp from '../Produccion/Planificación/CalendarApp';
 import MaquinasIndex from '../Maquinaria/Máquinas/Maquinas';
-/*import FormaDeEnvioIndex from '../generales/FormasEnvio/FormasEnvio';
-import MonedasIndex from '../generales/Monedas/monedas';*/
+/* import FormaDeEnvioIndex from '../generales/FormasEnvio/FormasEnvio';
+import MonedasIndex from '../generales/Monedas/monedas'; */
 import ModuloIndex from '../Produccion/Modulos/Modulos';
 import ProcesosIndex from '../Produccion/Procesos/Procesos';
 import MarcasIndex from '../Maquinaria/MarcasMaquina/MarcasMaquina';
 import ModelosMaquinaIndex from '../Maquinaria/ModelosMaquina/ModelosMaquina';
+
+import OrdenCompraIndex from '../Produccion/OrdenCompra/OrdenCompra';
+import OrdenCompra_Crear from '../Produccion/OrdenCompra/OrdenCompra_Crear';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -294,6 +297,14 @@ const routes = [
   {
     path: 'ModelosMaquinas/Index',
     element: <ModelosMaquinaIndex />,
+  },
+  {
+    path: 'OrdenCompra/Index',
+    element: <OrdenCompraIndex />,
+  },
+  {
+    path: 'OrdenCompra/Crear',
+    element: <OrdenCompra_Crear />,
   },
 ];
 

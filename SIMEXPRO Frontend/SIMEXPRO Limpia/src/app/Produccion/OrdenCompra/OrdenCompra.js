@@ -1,147 +1,271 @@
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import { Button, FormControl, Icon, IconButton, InputAdornment, InputLabel, TextField } from '@mui/material';
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import { DataGrid, GridToolbar, esES } from '@mui/x-data-grid'
+import { useState } from 'react';
+import SearchIcon from '@mui/icons-material/Search';
+import { useNavigate } from 'react-router-dom';
+import Zoom from '@mui/material/Zoom';
+import Grow from '@mui/material/Grow';
+
 import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import Select from '@mui/material/Select';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
-function createData(name, calories, fat, carbs, protein, price) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
-    history: [
-      {
-        date: '2020-01-05',
-        customerId: '11091700',
-        amount: 3,
-      },
-      {
-        date: '2020-01-02',
-        customerId: 'Anonymous',
-        amount: 1,
-      },
-    ],
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+
+
+function DucaIndex() {
+  const navigate = useNavigate()
+  const [searchText, setSearchText] = useState('');
+  const [mostrarAdd, setmostrarAdd] = useState(false);
+  const [Eliminar, setEliminar] = useState(false);
+
+  const DialogEliminar = () => {
+    setEliminar(!Eliminar);
   };
-}
 
-function Row(props) {
-  const { row } = props;
-  const [open, setOpen] = React.useState(false);
+  {/*Columnas de la tabla*/ }
+  const columns = [
+    { field: 'id', headerName: 'ID', flex: 3 },
+    { field: 'FechaEmision', headerName: 'Fecha de Emisión', flex: 2 },
+    { field: 'FechaLimite', headerName: 'Fecha de Limite', flex: 2 },
+    { field: 'Cliente', headerName: 'Cliente', flex: 3 },
+    {
+      field: 'acciones',
+      headerName: 'Acciones',
+      flex: 4,
+      renderCell: (params) => {
+
+        const [anchorEl, setAnchorEl] = React.useState(null);
+
+        const handleClick = (event) => {
+          setAnchorEl(event.currentTarget);
+        };
+
+        const handleClose = () => {
+          setAnchorEl(null);
+        };
+
+        const handleEdit = () => {
+          // Implementa la función para editar aquí
+          handleClose();
+        };
+
+        const handleDetails = () => {
+          // Implementa la función para detalles aquí
+          handleClose();
+        };
+
+        const handleDelete = () => {
+          // Implementa la función para eliminar aquí
+          handleClose();
+        };
+
+        const handleAddMaterial = () => {
+          // Implementa la función para añadir materiales aquí
+          VisibilidadTabla();
+          handleClose();
+        };
+
+
+
+        return (
+          <Stack direction="row" spacing={1}>
+            <Button
+              aria-controls={`menu-${params.id}`}
+              aria-haspopup="true"
+              onClick={handleClick}
+              variant="contained"
+              style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+              startIcon={<Icon>menu</Icon>}
+            >
+              Opciones
+            </Button>
+            <Menu
+              id={`menu-${params.id}`}
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleEdit}>
+                <Icon>edit</Icon> Editar
+              </MenuItem>
+              <MenuItem onClick={handleDetails}>
+                <Icon>visibility</Icon> Detalles
+              </MenuItem>
+              <MenuItem onClick={handleDelete}>
+                <Icon>delete</Icon> Eliminar
+              </MenuItem>
+              <MenuItem onClick={handleAddMaterial}>
+                <Icon>add</Icon> Añadir Materiales
+              </MenuItem>
+
+            </Menu>
+          </Stack>
+        );
+      },
+    },
+  ];
+
+  {/*Datos de la tabla*/ }
+  const rows = [
+    { id: '5686464564' , FechaEmision: '16-10-2023', FechaLimite: '16-10-2023', Cliente: 'Isaac Zepeda GOD' },
+    { id: '2423423423' , FechaEmision: '16-10-2023', FechaLimite: '16-10-2023', Cliente: 'Isaac Zepeda GOD' },
+    { id: '2342342342' , FechaEmision: '16-10-2023', FechaLimite: '16-10-2023', Cliente: 'Isaac Zepeda GOD' },
+    { id: '3423423423' , FechaEmision: '16-10-2023', FechaLimite: '16-10-2023', Cliente: 'Isaac Zepeda GOD' },
+    { id: '5564564565' , FechaEmision: '16-10-2023', FechaLimite: '16-10-2023', Cliente: 'Isaac Zepeda GOD' },
+    { id: '3455345454' , FechaEmision: '16-10-2023', FechaLimite: '16-10-2023', Cliente: 'Isaac Zepeda GOD' },
+  ];
+
+  const handleSearchChange = (event) => {
+    setSearchText(event.target.value);
+  };
+
+  {/*Filtrado de datos*/ }
+  const filteredRows = rows.filter((row) =>
+    row.id.toLowerCase().includes(searchText.toLowerCase())
+  );
 
   return (
-    <>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-        <TableCell>
-          <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell>
-        <TableCell component="th" scope="row">
-          {row.name}
-        </TableCell>
-        <TableCell align="right">{row.calories}</TableCell>
-        <TableCell align="right">{row.fat}</TableCell>
-        <TableCell align="right">{row.carbs}</TableCell>
-        <TableCell align="right">{row.protein}</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                History
-              </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.date}
-                      </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Box>
-          </Collapse>
-        </TableCell>
-      </TableRow>
-    </>
+    <Card sx={{ minWidth: 275, margin: '40px' }}>
+      <CardMedia
+        component="img"
+        height="200"
+        image="https://i.ibb.co/6FZrCcv/DUCAS.png"
+        alt="Encabezado de la carta"
+      />
+      <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+
+        {/*Botón de Nuevo*/}
+        <Stack direction="row" spacing={1}>
+          <Button
+            startIcon={<Icon>add</Icon>}
+            variant="contained"
+            color="primary"
+            style={{ borderRadius: '10px' }}
+            sx={{
+              backgroundColor: '#634A9E', color: 'white',
+              "&:hover": { backgroundColor: '#6e52ae' },
+            }}
+            onClick={() => {
+              navigate('/OrdenCompra/crear')
+            }}
+          >
+            Nuevo
+          </Button>
+        </Stack>
+
+        {/*Barra de Busqueda en la Tabla*/}
+        <TextField
+          style={{ borderRadius: '10px' }}
+          placeholder='Buscar'
+          value={searchText}
+          onChange={handleSearchChange}
+          size="small"
+          variant="outlined"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <IconButton edge="start">
+                  <SearchIcon />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+      </CardContent>
+
+      {/*Tabla*/}
+      <div style={{ height: 400, width: '100%' }}>
+        <DataGrid
+          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+          components={{
+            Toolbar: GridToolbar,
+            Search: SearchIcon,
+          }}
+          rows={filteredRows}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 10 },
+            },
+          }}
+          pageSizeOptions={[10, 20, 50]}
+        />
+      </div>
+
+
+
+      <Dialog
+        open={Eliminar}
+        fullWidth={'md'}
+        onClose={DialogEliminar}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Confirmación de Eliminación"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            ¿Está seguro(a) que desea eliminar este registro?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
+            <Button
+              startIcon={<Icon>checked</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px', marginRight: '10px' }}
+              sx={{
+                backgroundColor: '#634A9E', color: 'white',
+                "&:hover": { backgroundColor: '#6e52ae' },
+              }}
+              onClick={DialogEliminar}
+            >
+              Eliminar
+            </Button>
+
+
+
+            <Button
+              startIcon={<Icon>close</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px' }}
+              sx={{
+                backgroundColor: '#DAD8D8', color: 'black',
+                "&:hover": { backgroundColor: '#BFBABA' },
+              }}
+              onClick={DialogEliminar}
+            >
+              Cancelar
+            </Button>
+          </Grid>
+        </DialogActions>
+      </Dialog>
+
+    </Card>
   );
 }
 
-Row.propTypes = {
-  row: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbs: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      })
-    ).isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    protein: PropTypes.number.isRequired,
-  }).isRequired,
-};
+export default DucaIndex;
 
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-  createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-  createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
-];
 
-export default function OrdenCompraIndex() {
-  return (
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
-}
+

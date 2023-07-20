@@ -64,6 +64,7 @@ import OrdenCompraIndex from '../Produccion/OrdenCompra/OrdenCompra';
 import OrdenCompra_Crear from '../Produccion/OrdenCompra/OrdenCompra_Crear';
 import OrdenPedido_Crear from '../Produccion/OrdenPedidos/OrdenPedido_Crear';
 import OrdenPedido_Index from '../Produccion/OrdenPedidos/OrdenPedido_Index';
+import TablaDetalles_Materiales from '../Produccion/OrdenCompra/TablaDetalles';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -316,6 +317,11 @@ const routes = [
     path: 'OrdenPedido/Crear',
     element: <OrdenPedido_Crear />,
   },
+  {
+    path: 'OrdenCompra/TableDetallesOrden',
+    element: <TablaDetalles_Materiales />,
+  },
+ 
 ];
 
 export default routes;

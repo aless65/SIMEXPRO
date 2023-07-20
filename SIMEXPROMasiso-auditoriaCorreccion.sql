@@ -188,9 +188,6 @@ CREATE TABLE Gral.tbPaises(
 );
 GO
 
-INSERT INTO Gral.tbPaises(pais_Codigo,pais_Nombre,usua_UsuarioCreacion,pais_FechaCreacion)
-VALUES	('HN','Honduras',1,GETDATE())
-
 CREATE TABLE Gral.tbFormas_Envio(
 		foen_Id 					INT			IDENTITY(1,1),
 		foen_Descripcion			NVARCHAR(500),
@@ -260,8 +257,6 @@ CREATE TABLE Gral.tbProvincias(
 	CONSTRAINT FK_Gral_tbProvincias_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id  FOREIGN KEY(usua_UsuarioEliminacion)   REFERENCES Acce.tbUsuarios (usua_Id)
 );
 GO
-INSERT INTO Gral.tbProvincias(pvin_Nombre,pvin_Codigo,pais_Id,usua_UsuarioCreacion,pvin_FechaCreacion)
-VALUES	('Cortes','05',1,1,GETDATE())
 
 
 CREATE TABLE Gral.tbCiudades(
@@ -285,8 +280,6 @@ CREATE TABLE Gral.tbCiudades(
 	CONSTRAINT FK_Gral_tbCiudades_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id  FOREIGN KEY(usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios (usua_Id)
 );
 GO
-INSERT INTO Gral.tbCiudades(ciud_Nombre,pvin_Id,usua_UsuarioCreacion,ciud_FechaCreacion)
-VALUES	('San Pedro Sula',1,1,GETDATE())
 
 CREATE TABLE Gral.tbAldeas(
 		alde_Id						INT 			IDENTITY(1,1),

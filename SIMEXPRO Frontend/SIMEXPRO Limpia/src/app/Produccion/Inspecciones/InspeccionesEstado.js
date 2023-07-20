@@ -28,6 +28,10 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Swal from 'sweetalert2';
+import { Controller, useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 function InspeccionesIndex() {
   const [searchText, setSearchText] = useState('');
@@ -38,6 +42,44 @@ function InspeccionesIndex() {
   const DialogEliminar = () => {
     setEliminar(!Eliminar);
   };
+
+  {/*TOAST*/}
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'red',
+    width: 400,
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+  const Toast2 = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'green',
+    width: 400,
+    customClass: {
+      popup: 'colored-toast'
+    },  
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+   {/* Validaciones de la pantalla de crear*/ }
+   const defaultAccountValues = {
+    inspec: '',
+  }
+
+  const accountSchema = yup.object().shape({
+    inspec: yup.string().required(),
+  })
+  
+  {/* Validaciones de la pantalla de crear*/ }
 
   {/* Columnas de la tabla */ }
   const columns = [
@@ -133,6 +175,45 @@ function InspeccionesIndex() {
     row.inspeccion.toLowerCase().includes(searchText.toLowerCase())
   );
 
+  const {handleSubmit, register, reset, control, watch, formState } = useForm({
+    defaultAccountValues,
+    mode: 'all',
+    resolver: yupResolver(accountSchema),
+  });
+
+  const { isValid, dirtyFields, errors } = formState;
+
+  const onSubmit = (data) => {
+    if(data.inspec != null ){
+      if (data.inspec.trim() === '' ) {
+        Toast.fire({
+          icon: 'error',
+          title: 'No se permiten campos vacios',
+        }); 
+      } else {
+
+        VisibilidadTabla();
+        Toast2.fire({
+          icon: 'success',
+          title: 'Datos guardados exitosamente',
+        });
+        
+      }
+    }else{
+      Toast.fire({
+        icon: 'error',
+        title: 'No se permiten campos vacios',
+      }); 
+    }
+  };
+
+  const Masiso = () => {
+    const formData = watch();
+    onSubmit(formData); 
+    handleSubmit(onSubmit)(); 
+    reset(defaultAccountValues);
+  };
+
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
       <CardMedia
@@ -211,13 +292,21 @@ function InspeccionesIndex() {
             
           <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}
                  style={{ marginTop: '30px' }}>
-                <FormControl>
+                <Controller
+                  render={({ field }) => (
                     <TextField
-                        defaultValue={" "}
-                        style={{ borderRadius: '10px', width: '500px' }}
-                        label="Código de revisión"
+                      {...field}
+                      label="Código de revisión"
+                      variant="outlined"
+                      error={!!errors.inspec}
+                      fullWidth
+                      style={{ borderRadius: '10px', width: '500px' }}
+                      InputProps={{startAdornment: (<InputAdornment position="start"></InputAdornment>),}}
                     />
-                </FormControl>
+                  )}
+                  name="inspec"
+                  control={control}
+                />
             </Grid>
 
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
@@ -230,7 +319,7 @@ function InspeccionesIndex() {
                   backgroundColor: '#634A9E', color: 'white',
                   "&:hover": { backgroundColor: '#6e52ae' },
                 }}
-                onClick={VisibilidadTabla}
+                onClick={Masiso}
               >
                 Guardar
               </Button>

@@ -54,11 +54,11 @@ BEGIN
 		   conduc.cont_FechaEliminacion,
 		   cont_Estado
 	FROM   Adua.tbConductor conduc 
-		   LEFT JOIN acce.tbUsuarios usuCrea ON conduc.usua_UsuarioCreacion = usuCrea.usua_Id
+		   LEFT JOIN acce.tbUsuarios usuCrea ON conduc.usua_UsuarioCreacion     = usuCrea.usua_Id
 		   LEFT JOIN acce.tbUsuarios usuModi ON conduc.usua_UsuarioModificacion = usuModi.usua_Id
-		   LEFT JOIN Acce.tbUsuarios usuElim ON conduc.usua_UsuarioEliminacion = usuElim.usua_Id
-		   LEFT JOIN Adua.tbTransporte trans ON conduc.tran_Id = trans.tran_Id
-		   LEFT JOIN Gral.tbPaises		pais ON conduc.pais_IdExpedicion = pais.pais_Id
+		   LEFT JOIN Acce.tbUsuarios usuElim ON conduc.usua_UsuarioEliminacion  = usuElim.usua_Id
+		   LEFT JOIN Adua.tbTransporte trans ON conduc.tran_Id                  = trans.tran_Id
+		   LEFT JOIN Gral.tbPaises		pais ON conduc.pais_IdExpedicion        = pais.pais_Id
 	WHERE  cont_Estado = 1
 END
 GO
@@ -116,7 +116,7 @@ BEGIN
 			tran_Id                   = @tran_Id, 
 			usua_UsuarioModificacion  = @usua_UsuarioModificacion, 
 			cont_FechaModificacion    = @cont_FechaModificacion
-		WHERE cont_Id                 = @cont_Id
+	  WHERE cont_Id                   = @cont_Id
 
 		SELECT 1
 	END TRY
@@ -238,11 +238,12 @@ BEGIN
 		   trans.trant_FechaEliminacion,
 		   trans.tran_Estado
 	 FROM  Adua.tbTransporte trans  
-		   LEFT JOIN acce.tbUsuarios usuCrea	ON trans.usua_UsuarioCreacio = usuCrea.usua_Id
-		   LEFT JOIN acce.tbUsuarios usuModi	ON trans.usua_UsuarioModificacion = usuModi.usua_Id
-		   LEFT JOIN Acce.tbUsuarios usuElim	ON trans.usua_UsuarioEliminacion = usuElim.usua_Id		   
-		   LEFT JOIN Gral.tbPaises pais			ON trans.pais_Id = pais.pais_Id
-		   LEFT JOIN Adua.tbMarcas marc			ON trans.marca_Id = marc.marc_Id
+		   LEFT JOIN acce.tbUsuarios usuCrea	ON trans.usua_UsuarioCreacio       = usuCrea.usua_Id
+		   LEFT JOIN acce.tbUsuarios usuModi	ON trans.usua_UsuarioModificacion  = usuModi.usua_Id
+		   LEFT JOIN Acce.tbUsuarios usuElim	ON trans.usua_UsuarioEliminacion   = usuElim.usua_Id		   
+		   LEFT JOIN Gral.tbPaises pais			ON trans.pais_Id                   = pais.pais_Id
+		   LEFT JOIN Adua.tbMarcas marc			ON trans.marca_Id                  = marc.marc_Id
+    WHERE  tran_Estado = 1
 END
 GO
 
@@ -321,7 +322,7 @@ BEGIN
 			 tran_IdContenedor            = @tran_IdContenedor, 
 			 usua_UsuarioModificacion     = @usua_UsuarioModificacion, 
 			 tran_FechaModificacion       = @tran_FechaModificacion
-		WHERE tran_Id                      = @tran_Id
+		WHERE tran_Id                     = @tran_Id
 
 		SELECT 1
 		
@@ -387,11 +388,15 @@ BEGIN
 		   marca.marc_FechaCreacion, 
 		   marca.usua_UsuarioModificacion, 
 		   usuModi.usua_Nombre					AS usuarioModificacionNombre,
-		   marca.marc_FechaModificacion, 
+		   marca.marc_FechaModificacion,
+		   marca.usua_UsuarioEliminacion,
+		   marca.marc_FechaEliminacion,
+           usuElim.usua_Nombre                  AS usuarioElimacionNombre,
 		   marca.marc_Estado
 	 FROM  Adua.tbMarcas marca 
-		   LEFT JOIN acce.tbUsuarios usuCrea	ON marca.usua_UsuarioCreacion = usuCrea.usua_Id
+		   LEFT JOIN acce.tbUsuarios usuCrea	ON marca.usua_UsuarioCreacion     = usuCrea.usua_Id
 		   LEFT JOIN acce.tbUsuarios usuModi	ON marca.usua_UsuarioModificacion = usuModi.usua_Id
+		   LEFT JOIN acce.tbUsuarios usuElim	ON marca.usua_UsuarioEliminacion  = usuElim.usua_Id
 	WHERE  marc_Estado = 1
 END
 GO
@@ -427,7 +432,7 @@ BEGIN
 	BEGIN TRY
 		UPDATE  Adua.tbMarcas
 		SET		marc_Descripcion = @marc_Descripcion
-		WHERE	marc_Id = @marc_Id
+		WHERE	marc_Id          = @marc_Id
 
 		SELECT 1
 	END TRY
@@ -525,9 +530,9 @@ BEGIN
            iden_FechaEliminacion,
 		   identi.iden_Estado
 	  FROM Adua.tbTiposIdentificacion identi 
-		   LEFT JOIN acce.tbUsuarios usuCrea	ON identi.usua_UsuarioCreacion	 = usuCrea.usua_Id
+		   LEFT JOIN acce.tbUsuarios usuCrea	ON identi.usua_UsuarioCreacion	   = usuCrea.usua_Id
 		   LEFT JOIN acce.tbUsuarios usuModi	ON identi.usua_UsuarioModificacion = usuModi.usua_Id
-		   LEFT JOIN acce.tbUsuarios usuElim	ON identi.usua_UsuarioEliminacion = usuElim.usua_Id
+		   LEFT JOIN acce.tbUsuarios usuElim	ON identi.usua_UsuarioEliminacion  = usuElim.usua_Id
      WHERE iden_Estado = 1
 END
 GO
@@ -794,10 +799,10 @@ BEGIN
            subc_FechaEliminacion,
 	       subc.subc_Estado
       FROM Prod.tbSubcategoria subc 
-	       INNER JOIN Acce.tbUsuarios usuaCrea      ON subc.usua_UsuarioCreacion = usuaCrea.usua_Id 
+	       INNER JOIN Acce.tbUsuarios usuaCrea      ON subc.usua_UsuarioCreacion     = usuaCrea.usua_Id 
 		   LEFT JOIN Acce.tbUsuarios usuaModifica   ON subc.usua_UsuarioModificacion = usuaModifica.usua_Id 
-		   LEFT JOIN Acce.tbUsuarios usuaElim       ON subc.usua_UsuarioEliminacion = usuaElim.usua_Id 
-		   INNER JOIN Prod.tbCategoria cate         ON subc.cate_Id = cate.cate_Id
+		   LEFT JOIN Acce.tbUsuarios usuaElim       ON subc.usua_UsuarioEliminacion  = usuaElim.usua_Id 
+		   INNER JOIN Prod.tbCategoria cate         ON subc.cate_Id                  = cate.cate_Id
 	 WHERE subc_Estado = 1
 END
 GO
@@ -935,9 +940,9 @@ BEGIN
 	       usuaModifica.usua_Nombre						AS usuarioModificaNombre,
 	       mate.mate_Estado
       FROM Prod.tbMateriales mate 
-	       INNER JOIN Acce.tbUsuarios usuaCrea			ON mate.usua_UsuarioCreacion = usuaCrea.usua_Id 
+	       INNER JOIN Acce.tbUsuarios usuaCrea			ON mate.usua_UsuarioCreacion     = usuaCrea.usua_Id 
 	       LEFT JOIN Acce.tbUsuarios usuaModifica		ON mate.usua_UsuarioModificacion = usuaCrea.usua_Id 
-	       INNER JOIN Prod.tbSubcategoria subc			ON mate.subc_Id = subc.subc_Id
+	       INNER JOIN Prod.tbSubcategoria subc			ON mate.subc_Id                  = subc.subc_Id
 	 WHERE mate_Estado = 1
 END
 GO
@@ -981,7 +986,7 @@ BEGIN
 				mate_Precio              = @mate_Precio,
 				usua_UsuarioModificacion = @usua_UsuarioModificacion,
 				mate_FechaModificacion   = @mate_FechaModificacion
-		WHERE	mate_Id = @mate_Id
+		WHERE	mate_Id                  = @mate_Id
 
 		SELECT 1
 	END TRY
@@ -1023,6 +1028,7 @@ BEGIN
 			BEGIN
 				UPDATE	Prod.tbMateriales
 				   SET	mate_Estado = 0
+				  WHERE mate_Id = @mate_Id 
 			END
 	END TRY
 	BEGIN CATCH
@@ -1074,7 +1080,7 @@ BEGIN
 	       INNER JOIN Acce.tbUsuarios usuaCrea			ON insp.usua_UsuarioCreacion     = usuaCrea.usua_Id 
 		   LEFT JOIN  Acce.tbUsuarios usuaModifica		ON insp.usua_UsuarioModificacion = usuaModifica.usua_Id 
 		   LEFT JOIN  Acce.tbUsuarios usuaElimi		    ON insp.usua_UsuarioEliminacion  = usuaElimi.usua_Id 
-		   INNER JOIN Prod.tbRevisionDeCalidad revi		ON insp.reca_Id = revi.reca_Id
+		   INNER JOIN Prod.tbRevisionDeCalidad revi		ON insp.reca_Id                  = revi.reca_Id
 	 WHERE ines_Estado = 1
 END
 GO
@@ -1168,3 +1174,171 @@ GO
 
 
 --FALTA ESTADO BOLETIN
+
+--**********BOLETIN PAGO**********--
+/*Listar boletin de pago*/
+CREATE OR ALTER PROCEDURE Prod.UDP_tbBoletinPago_Listar
+AS
+BEGIN
+	SELECT  boletin.boen_Id, 
+	        boletin.liqu_Id, 
+			lig.lige_TotalGral           AS liquidacionGeneral,
+			boletin.tipl_Id, 
+			tipli.tipl_Descripcion       AS TipoLiquiDescripcion,
+			boletin.boen_FechaEmision, 
+			boletin.esbo_Id,
+			estadoB.esbo_Descripcion     AS estadoBoletinDescripcion,
+			boletin.boen_Observaciones, 
+			boletin.boen_NDeclaracion,
+			boletin.pena_RTN, 
+			boletin.boen_Preimpreso, 
+			boletin.boen_Declarante, 
+			boletin.boen_TotalPagar, 
+			boletin.boen_TotalGarantizar, 
+			boletin.boen_RTN, 
+			boletin.boen_TipoEncabezado, 
+			boletin.coim_Id, 
+			codigoIm.coim_Descripcion,
+			boletin.copa_Id, 
+			boletin.usua_UsuarioCreacion, 
+            usuaCrea.usua_Nombre		  AS usuarioCreacionNombre,
+			boletin.boen_FechaCreacion, 
+			boletin.usua_UsuarioModificacion,
+			usuaModifica.usua_Nombre      AS usuarioModificacionNombre,
+			boletin.boen_FechaModificacion, 
+			boletin.usua_UsuarioEliminacion,
+			usuElimina.usua_Nombre        AS usuarioEliminacionNombre,
+			boletin.boen_FechaEliminacion, 
+			boen_Estado  
+      FROM  Adua.tbBoletinPago boletin
+	       LEFT JOIN Acce.tbUsuarios usuaCrea			ON boletin.usua_UsuarioCreacion     = usuaCrea.usua_Id 
+		   LEFT JOIN  Acce.tbUsuarios usuaModifica		ON boletin.usua_UsuarioModificacion = usuaCrea.usua_Id 
+		   LEFT JOIN Acce.tbUsuarios usuElimina		    ON boletin.usua_UsuarioEliminacion  = usuElimina.usua_Id
+		   LEFT JOIN Adua.tbLiquidacionGeneral lig      ON boletin.liqu_Id                  = lig.lige_Id
+		   LEFT JOIN Adua.tbTipoLiquidacion tipli       ON boletin.tipl_Id                  = tipli.tipl_Id
+		   LEFT JOIN Adua.tbEstadoBoletin estadoB       ON boletin.esbo_Id                  = estadoB.esbo_Id
+		   LEFT JOIN Adua.tbCodigoImpuesto codigoIm     ON boletin.coim_Id                  = codigoIm.coim_Id
+	 WHERE boen_Estado = 1
+END
+GO
+
+/*Insertar boletin de pago*/
+CREATE OR ALTER PROCEDURE Prod.UDP_tbBoletinPago_Insertar 
+	@liqu_Id                 INT, 
+	@tipl_Id                 INT, 
+	@boen_FechaEmision       DATE, 
+	@esbo_Id                 INT, 
+	@boen_Observaciones      NVARCHAR(200), 
+	@boen_NDeclaracion       NVARCHAR(200), 
+	@pena_RTN                VARCHAR(20), 
+	@boen_Preimpreso         NVARCHAR(MAX), 
+	@boen_Declarante         NVARCHAR(200), 
+	@boen_TotalPagar         DECIMAL(18,2), 
+	@boen_TotalGarantizar    DECIMAL(18,2), 
+	@boen_RTN                NVARCHAR(100),
+	@boen_TipoEncabezado     NVARCHAR(200), 
+	@coim_Id                 INT, 
+	@copa_Id                 INT, 
+	@usua_UsuarioCreacion    INT, 
+	@boen_FechaCreacion      DATETIME
+AS 
+BEGIN
+	
+	BEGIN TRY
+			INSERT INTO Adua.tbBoletinPago(liqu_Id,
+			                               tipl_Id, 
+										   boen_FechaEmision, 
+										   esbo_Id, 
+										   boen_Observaciones, 
+										   boen_NDeclaracion, 
+										   pena_RTN, 
+										   boen_Preimpreso, 
+										   boen_Declarante, 
+										   boen_TotalPagar, 
+										   boen_TotalGarantizar, 
+										   boen_RTN, 
+										   boen_TipoEncabezado, 
+										   coim_Id, 
+										   copa_Id, 
+										   usua_UsuarioCreacion, 
+										   boen_FechaCreacion,
+										   boen_Estado)
+			VALUES(@liqu_Id, 
+			       @tipl_Id, 
+				   @boen_FechaEmision, 
+				   @esbo_Id, 
+				   @boen_Observaciones, 
+				   @boen_NDeclaracion, 
+				   @pena_RTN, 
+				   @boen_Preimpreso, 
+				   @boen_Declarante, 
+				   @boen_TotalPagar, 
+				   @boen_TotalGarantizar, 
+				   @boen_RTN, 
+				   @boen_TipoEncabezado, 
+				   @coim_Id, 
+				   @copa_Id, 
+				   @usua_UsuarioCreacion, 
+				   @boen_FechaCreacion,1)
+			SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH 
+END
+GO
+
+--Execute Prod.UDP_tbBoletinPago_Insertar 1,7,'2023-02-01',2,'observaciones','# declaracion','rtn542451162','preimpreso','declarante',520.00,500.00,'15145454','encabezado',1,1,1,'01-02-2023'
+--NO VA
+/*Editar boletin de pago*/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbBoletinPago_Editar
+	@boen_Id                   INT,
+	@liqu_Id                   INT, 
+	@tipl_Id                   INT, 
+	@boen_FechaEmision         DATE, 
+	@esbo_Id                   INT, 
+	@boen_Observaciones        NVARCHAR(200), 
+	@boen_NDeclaracion         NVARCHAR(200), 
+	@pena_RTN                  NVARCHAR(20), 
+	@boen_Preimpreso           NVARCHAR(MAX), 
+	@boen_Declarante           NVARCHAR(200), 
+	@boen_TotalPagar           DECIMAL(18,2), 
+	@boen_TotalGarantizar      DECIMAL(18,2), 
+	@boen_RTN                  NVARCHAR(100), 
+	@boen_TipoEncabezado       NVARCHAR(200), 
+	@coim_Id                   INT,
+	@copa_Id                   INT,  
+	@usua_UsuarioModificacion  INT, 
+	@boen_FechaModificacion    DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE  Adua.tbBoletinPago
+		SET		liqu_Id                   = @liqu_Id,
+		        tipl_Id                   = @tipl_Id,
+				boen_FechaEmision         = @boen_FechaEmision,
+				esbo_Id                   = @esbo_Id,
+				boen_Observaciones        = @boen_Observaciones,
+				boen_NDeclaracion         = @boen_NDeclaracion,
+				pena_RTN                  = @pena_RTN,
+				boen_Preimpreso           = @boen_Preimpreso,
+                boen_Declarante           = @boen_Declarante,
+				boen_TotalPagar           = @boen_TotalPagar,
+                boen_TotalGarantizar      = @boen_TotalGarantizar,
+				boen_RTN                  = @boen_RTN,
+				boen_TipoEncabezado       = @boen_TipoEncabezado,
+				coim_Id                   = @coim_Id,
+				copa_Id                   = @copa_Id,
+				usua_UsuarioModificacion  = @usua_UsuarioModificacion,
+				boen_FechaModificacion    = @boen_FechaModificacion
+		WHERE	boen_Id                   = @boen_Id
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
+--Adua.UDP_tbBoletinPago_Editar 10,1,7,'2023-02-01',2,'observaciones','# declaracion','rtn542451162','preimpreso','declarante 1202',520.00,500.00,'15145454','encabezado',1,1,1,'01-02-2023'

@@ -53,6 +53,20 @@ function PaisesIndex() {
     toast: true,
     position: 'top-right',
     iconColor: 'red',
+    width: 600,
+    heigth: 300,
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+  const Toast2 = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'green',
     customClass: {
       popup: 'colored-toast'
     },
@@ -73,18 +87,18 @@ function PaisesIndex() {
   }
 
   const accountSchema = yup.object().shape({
-    codigo: yup.string().required(),
-    pais: yup.string().required(),
+    codigo: yup.string().required('Debe ingresar un codigo'),
+    pais: yup.string().required('Debe ingresar el nombre del país'),
   })
   
 
-  const { handleSubmit, register, reset, control, watch, formState } = useForm({
+  const {handleSubmit, register, reset, control, watch, formState } = useForm({
     defaultAccountValues,
     mode: 'all',
     resolver: yupResolver(accountSchema),
   });
 
-  const { isValid, dirtyFields, errors, touchedFields } = formState;
+  const { isValid, dirtyFields,isSubmitting, errors } = formState;
 
   {/* Validaciones de la pantalla de crear*/ }
 
@@ -165,6 +179,7 @@ function PaisesIndex() {
   const VisibilidadTabla = () => {
     setmostrarIndex(!mostrarIndex);
     setmostrarAdd(!mostrarAdd);
+    reset(defaultAccountValues);
   };
 
   const handleSearchChange = (event) => {
@@ -175,6 +190,23 @@ function PaisesIndex() {
   const filteredRows = rows.filter((row) =>
     row.descripcion.toLowerCase().includes(searchText.toLowerCase())
   );
+
+  
+  const Masiso = () => {
+    if(!isValid){
+      handleSubmit()
+      Toast.fire({
+        icon: 'error',
+        title: 'No se permiten campos vacios'
+      })
+    }else{
+      VisibilidadTabla();
+      Toast2.fire({ 
+        icon: 'success',
+        title: 'Datos guardados exitosamente'
+      })
+    }
+  }
 
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
@@ -270,7 +302,7 @@ function PaisesIndex() {
                   render={({ field }) => (
                     <TextField
                       {...field}
-                      label="MUI TextField"
+                      label="Codigo"
                       variant="outlined"
                       error={!!errors.codigo}
                       helperText={errors?.codigo?.message}
@@ -283,17 +315,34 @@ function PaisesIndex() {
                 />
               </div>
               </Grid>
-
+              <Grid item xs={6}>
+              <div className="mt-48 mb-16">
+                <Controller
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="País"
+                      variant="outlined"
+                      error={!!errors.pais}
+                      helperText={errors?.pais?.message}
+                      required
+                      fullWidth
+                    />
+                  )}
+                  name="pais"
+                  control={control}
+                />
+              </div>
+              </Grid>
               <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
               <Button
-            className="mx-8"
-            variant="contained"
-            color="secondary"
-            type="submit"
-            disabled={_.isEmpty(dirtyFields) || !isValid}
-          >
-            Submit
-          </Button>
+                className="mx-8"
+                variant="contained"
+                color="secondary"
+                onClick={Masiso}
+              >
+                Guardar
+              </Button>
                 <Button
                   startIcon={<Icon>close</Icon>}
                   variant="contained"

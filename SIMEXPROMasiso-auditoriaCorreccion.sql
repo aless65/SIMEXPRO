@@ -540,12 +540,15 @@ CREATE TABLE Adua.tbFormasdePago(
 
    CREATE TABLE Adua.tbDeclarantes(
    		decl_Id                  		INT 			IDENTITY(1,1),
+		decl_NumeroIdentificacion		VARCHAR(20),
    		decl_Nombre_Raso         		NVARCHAR(250) 	NOT NULL,
    		decl_Direccion_Exacta    		NVARCHAR(250) 	NOT NULL,
    		ciud_Id                  		INT             NOT NULL,
    		decl_Correo_Electronico  		NVARCHAR(150) 	NOT NULL,
    		decl_Telefono            		NVARCHAR(50) 	NOT NULL,
    		decl_Fax                 		NVARCHAR(50)	NULL, 
+
+
    		usua_UsuarioCreacion            INT 			NOT NULL,
    		decl_FechaCreacion				DATETIME 		NOT NULL,
    		usua_UsuarioModificacion		INT,
@@ -2222,7 +2225,7 @@ CREATE TABLE Adua.tbDuca(
 	duca_AduanaRegistro				INT NOT NULL,
 	duca_AduanaSalida				INT NOT NULL,
 	duca_DomicilioFiscal_Exportador NVARCHAR(MAX) NOT NULL,
-	duca_Tipo_Iden_Exportador		NVARCHAR(100) NOT NULL,
+	duca_Tipo_Iden_Exportador		INT NOT NULL,
 	duca_Pais_Emision_Exportador	INT NOT NULL,
 	duca_Numero_Id_Importador		NVARCHAR(100) NOT NULL,
 	duca_Pais_Emision_Importador	INT NOT NULL,
@@ -2245,14 +2248,12 @@ CREATE TABLE Adua.tbDuca(
 	duca_Codigo_Transportista		NVARCHAR(200) NULL,
 	duca_PesoBrutoTotal             DECIMAL(20,8),
 	duca_PesoNetoTotal              DECIMAL(20,8),
-	--duca_TipoTributo                NVARCHAR(300),
-	--duca_TotalTributo               DECIMAL(18,15),
-	--duca_ModalidadPago              NVARCHAR(350),
-	--duca_TotalGeneral               DECIMAL(18,15),
 	motr_id                 		INT NULL,
 	duca_Transportista_Nombre		NVARCHAR(MAX) NULL,
 	duca_Conductor_Id				INT NULL,
 	duca_Codigo_Tipo_Documento		CHAR(3) NOT NULL,
+	duca_FechaVencimiento			DATE NOT NULL,
+
 	usua_UsuarioCreacion			INT NOT NULL,
 	duca_FechaCreacion				DATETIME NOT NULL,
 	usua_UsuarioModificacion		INT DEFAULT NULL,
@@ -2273,7 +2274,8 @@ CREATE TABLE Adua.tbDuca(
 	CONSTRAINT FK_Prod_tbDuca_tbUsuarios_duca_UsuModifica		               	FOREIGN KEY (usua_UsuarioModificacion) 			REFERENCES Acce.tbUsuarios 	(usua_Id),
 	CONSTRAINT FK_Adua_tbDuca_motr_id_tbModoTransporte_motr_Id			        FOREIGN KEY (motr_id)							REFERENCES Adua.tbModoTransporte(motr_id),
 	CONSTRAINT FK_Adua_tbDuca_duca_AduanaRegistro_tbAduana_adua_Id              FOREIGN KEY (duca_AduanaRegistro)               REFERENCES Adua.tbAduanas(adua_Id),
-	CONSTRAINT FK_Adua_tbDuca_duca_AduanaSalida_tbAduana_adua_Id                FOREIGN KEY (duca_AduanaSalida)                   REFERENCES Adua.tbAduanas(adua_Id)
+	CONSTRAINT FK_Adua_tbDuca_duca_AduanaSalida_tbAduana_adua_Id                FOREIGN KEY (duca_AduanaSalida)                 REFERENCES Adua.tbAduanas(adua_Id),
+	CONSTRAINT FK_Adua_tbDuca_duca_Tipo_Iden_Exportador_tbTiposIdentificacion	FOREIGN KEY (duca_Tipo_Iden_Exportador)			REFERENCES Adua.tbTiposIdentificacion(iden_Id)
 	--CONSTRAINT FK_Adua_tbDuca__Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
@@ -2576,7 +2578,10 @@ CREATE TABLE Adua.tbBoletinPago(
     boen_Estado                    BIT NOT NULL,
     CONSTRAINT PK_Adua_tbBoletinPago_boen_Id 									      PRIMARY KEY (boen_Id),
     CONSTRAINT FK_Adua_tbBoletinPago_lige_Id_Adua_tbLiquidacionGeneral_lige_Id 		  FOREIGN KEY (liqu_Id)                  REFERENCES Adua.tbLiquidacionGeneral(lige_Id),
-	CONSTRAINT FK_Adua_tbBoletinPago_tbDuca_duca_No_Duca							  FOREIGN KEY (duca_No_Duca)			 REFERENCES Adua.tbDuca(duca_No_Duca),
+	CONSTRAINT FK_Adua_tbBoletinPago_
+	
+	
+	_duca_No_Duca							  FOREIGN KEY (duca_No_Duca)			 REFERENCES Adua.tbDuca(duca_No_Duca),
     CONSTRAINT FK_Adua_tbBoletinPago_tipl_Id_Adua_tbTipoLiquidacion_tipl_Id 		  FOREIGN KEY (tipl_Id)                  REFERENCES Adua.tbTipoLiquidacion(tipl_Id),
     CONSTRAINT FK_Adua_tbBoletinPago_esbo_Id_Adua_tbEstadoBoletin_esbo_Id 			  FOREIGN KEY (esbo_Id)                  REFERENCES Adua.tbEstadoBoletin(esbo_Id),
     CONSTRAINT FK_Adua_tbBoletinPago_coim_Id_Adua_tbCodigoImpuesto_coim_Id 			  FOREIGN KEY (coim_Id)                  REFERENCES Adua.tbCodigoImpuesto(coim_Id),
@@ -2601,8 +2606,8 @@ CREATE TABLE Adua.tbDocumentosDeSoporte(
 	doso_FechaCreacion			        DATETIME NOT NULL,
 	usua_UsuarioModificacion 		    INT DEFAULT NULL,
 	doso_FechaModificacion		        DATETIME DEFAULT NULL,
-	usua_UsuarioEliminacion	    INT	DEFAULT NULL,
-	doso_FechaEliminacion		DATETIME DEFAULT NULL,
+	usua_UsuarioEliminacion				INT	DEFAULT NULL,
+	doso_FechaEliminacion				DATETIME DEFAULT NULL,
 	doso_Estado 				        BIT DEFAULT 1
 	CONSTRAINT PK_Adua_tbDocumentosDeSoporte_doso_Id PRIMARY KEY(doso_Id),
 	CONSTRAINT FK_Adua_tbTipoDocumento_tido_Id_Adua_tbDocumentosDeSoporte_tido_Id 	            	FOREIGN KEY(tido_Id) 			        	REFERENCES Adua.tbTipoDocumento(tido_Id),

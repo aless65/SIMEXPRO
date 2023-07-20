@@ -2408,29 +2408,51 @@ BEGIN
 	END CATCH
 END
 GO
---************DUCA******************--
+--****************************************** DUCA ******************************************--
+
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDuca_Listar
 AS
 BEGIN
-	SELECT 
-		duca_No_Duca, 
+	SELECT
+	
+
+	-- Identificación de la Declaración parte I --
 		duca_No_Correlativo_Referencia, 
-		duca.deva_Id, 
-		duca_AduanaRegistro, 
-		duca_AduanaSalida, 
-		duca_DomicilioFiscal_Exportador, 
-		duca_Tipo_Iden_Exportador, 
+		duca_No_Duca, 
+		duca.deva_Id							AS 'Id declaracuión de valor', 
+		deva.deva_Fecha_Aceptacion,
+
+	-- 4.1 Exportador / Proveedor -- 
+		decla.decl_NumeroIdentificacion,
+		duca_Tipo_Iden_Exportador				AS 'Tipo Ident ID', 
+		tipo.iden_Descripcion					AS 'Identificacion',
 		duca_Pais_Emision_Exportador,
 		paisEE.pais_Nombre                      AS 'Nombre Pais emision exportador', 
+		decla.decl_Nombre_Raso,
+		duca_DomicilioFiscal_Exportador, 
+
+   -- Identificación de la Declaración parte II --
+		duca.duca_AduanaRegistro,
+		adua1.adua_Nombre						AS 'Aduana Registro Nombre',
+		duca.duca_AduanaSalida,
+		adua2.adua_Nombre						AS 'Aduana Salida Nombre',
+		deva.deva_Aduana_Ingreso_Id,
+		adua3.adua_Nombre						AS 'Aduana Ingreso Nombre',
+		deva.deva_Aduana_Despacho_Id,
+		adua4.adua_Nombre						AS 'Aduana Despacho Nombre',
+
+	-- 5.1  Iportador / Destinatario  --
 		duca_Numero_Id_Importador, 
 		duca_Pais_Emision_Importador,
 		paisEI.pais_Nombre                      AS 'Nombre Pais emision importador',
 		duca_DomicilioFiscal_Importador, 
-		duca_Regimen_Aduanero, duca_Modalidad, 
-		duca_Clase, duca_Codigo_Declarante,
-		duca_Numero_Id_Declarante, 
-		duca_NombreSocial_Declarante,
-		duca_DomicilioFiscal_Declarante, 
+
+    -- Identificación de la Declaración parte III --
+
+		duca.duca_Regimen_Aduanero,
+		duca.duca_Modalidad,
+		duca.duca_Clase,
+		duca.duca_FechaVencimiento,
 		duca_Pais_Procedencia,
 		paisP.pais_Nombre                       AS 'Nombre pais procedencia', 
 		duca_Pais_Exportacion,
@@ -2440,6 +2462,18 @@ BEGIN
 		duca_Deposito_Aduanero,
 		duca_Lugar_Embarque,
 		duca_Lugar_Desembarque, 
+
+
+
+		duca_Regimen_Aduanero, 
+		duca_Modalidad, 
+		duca_Clase, 
+		duca_Codigo_Declarante,
+		duca_Numero_Id_Declarante, 
+		duca_NombreSocial_Declarante,
+		duca_DomicilioFiscal_Declarante, 
+
+	
 		duca_Manifiesto, 
 		duca_Titulo, 
 		duca_Codigo_Transportista,
@@ -2447,6 +2481,7 @@ BEGIN
 		duca_Transportista_Nombre,
 		duca_Conductor_Id, 
 		duca_Codigo_Tipo_Documento, 
+
 		duca.usua_UsuarioCreacion,
 		usu1.usua_Nombre						AS  'Nombre usuario creador', 
 		duca_FechaCreacion, 
@@ -2455,20 +2490,27 @@ BEGIN
 		duca_FechaModificacion, 
 		duca_Estado
 	FROM Adua.tbDuca duca 
-		INNER JOIN Acce.tbUsuarios usu1				ON duca.usua_UsuarioCreacion = usu1.usua_Id
-		LEFT JOIN  Acce.tbUsuarios usu2				ON duca.usua_UsuarioModificacion = usu2.usua_Id
-		LEFT JOIN  Adua.tbConductor cond			ON duca.duca_Conductor_Id = cond.cont_Id
-		INNER JOIN Adua.tbDeclaraciones_Valor deva	ON duca.deva_Id = deva.deva_Id
-		INNER JOIN Gral.tbPaises paisD				ON duca.duca_Pais_Destino = paisD.pais_Id
-		INNER JOIN Gral.tbPaises paisEE				ON duca.duca_Pais_Emision_Exportador = paisEE.pais_Id
-		INNER JOIN Gral.tbPaises paisEI				ON duca.duca_Pais_Emision_Importador = paisEI.pais_Id
-		INNER JOIN Gral.tbPaises paisE				ON duca.duca_Pais_Exportacion = paisE.pais_Id
-		INNER JOIN Gral.tbPaises paisP				ON duca.duca_Pais_Procedencia = paisP.pais_Id
-		INNER JOIN Adua.tbModoTransporte modoT		ON duca.motr_id = modoT.motr_Id
-		INNER JOIN Adua.tbAduanas   adua            ON duca.duca_AduanaRegistro = adua.adua_Id
-		INNER JOIN Adua.tbAduanas   adua1           ON duca.duca_AduanaSalida = adua1.adua_Id
+		INNER JOIN Acce.tbUsuarios usu1							ON duca.usua_UsuarioCreacion = usu1.usua_Id
+		LEFT  JOIN Acce.tbUsuarios usu2							ON duca.usua_UsuarioModificacion = usu2.usua_Id
+		LEFT  JOIN Adua.tbConductor cond						ON duca.duca_Conductor_Id = cond.cont_Id
+		INNER JOIN Adua.tbDeclaraciones_Valor deva				ON duca.deva_Id = deva.deva_Id
+		INNER JOIN Gral.tbPaises paisD							ON duca.duca_Pais_Destino = paisD.pais_Id
+		INNER JOIN Gral.tbPaises paisEE							ON duca.duca_Pais_Emision_Exportador = paisEE.pais_Id
+		INNER JOIN Gral.tbPaises paisEI							ON duca.duca_Pais_Emision_Importador = paisEI.pais_Id
+		INNER JOIN Gral.tbPaises paisE							ON duca.duca_Pais_Exportacion = paisE.pais_Id
+		INNER JOIN Gral.tbPaises paisP							ON duca.duca_Pais_Procedencia = paisP.pais_Id
+		INNER JOIN Adua.tbModoTransporte modoT					ON duca.motr_id = modoT.motr_Id
+		LEFT  JOIN Adua.tbAduanas adua1							ON duca.duca_AduanaRegistro = adua1.adua_Id
+		LEFT  JOIN Adua.tbAduanas adua2							ON duca.duca_AduanaSalida = adua2.adua_Id
+		LEFT  JOIN Adua.tbAduanas adua3							ON deva.deva_Aduana_Ingreso_Id = adua3.adua_Id
+		LEFT  JOIN Adua.tbAduanas adua4							ON deva.deva_Aduana_Despacho_Id = adua4.adua_Id
+		INNER JOIN Adua.tbProveedoresDeclaracion prode			ON deva.pvde_Id = Prode.pvde_Id
+		INNER JOIN Adua.tbDeclarantes decla						ON prode.decl_Id = decla.decl_Id
+		LEFT  JOIN Adua.tbTiposIdentificacion tipo				ON duca.duca_Tipo_Iden_Exportador = tipo.iden_Id
 END
 GO
+
+
 --************ARCELES******************--
 /*Listar Aranceles*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbAranceles_Listar

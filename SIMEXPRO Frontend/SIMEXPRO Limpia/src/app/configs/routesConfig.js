@@ -62,6 +62,8 @@ import ModelosMaquinaIndex from '../Maquinaria/ModelosMaquina/ModelosMaquina';
 
 import OrdenCompraIndex from '../Produccion/OrdenCompra/OrdenCompra';
 import OrdenCompra_Crear from '../Produccion/OrdenCompra/OrdenCompra_Crear';
+import OrdenPedido_Crear from '../Produccion/OrdenPedidos/OrdenPedido_Crear';
+import OrdenPedido_Index from '../Produccion/OrdenPedidos/OrdenPedido_Index';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -305,6 +307,14 @@ const routes = [
   {
     path: 'OrdenCompra/Crear',
     element: <OrdenCompra_Crear />,
+  },
+  {
+    path: 'OrdenPedido/Index',
+    element: <OrdenPedido_Index />,
+  },
+  {
+    path: 'OrdenPedido/Crear',
+    element: <OrdenPedido_Crear />,
   },
 ];
 

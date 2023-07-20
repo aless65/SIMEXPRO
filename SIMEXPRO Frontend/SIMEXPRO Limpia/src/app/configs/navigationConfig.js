@@ -319,6 +319,13 @@ const navigationConfig = [
             url: '/Produccion/OrdenCompra',
           },
           {
+            id: 'Produccion.OrdenPedido',
+            title: 'Órden de Pedido',
+            type: 'item',
+            icon: 'material-outline:library_books',
+            url: '/OrdenPedido/Index',
+          },
+          {
             id: 'Produccion.PedidosProduccion',
             title: 'Pedidos de Producción',
             type: 'item',
@@ -391,10 +398,8 @@ const navigationConfig = [
             icon: 'material-outline:biotech',
             url: '/ModelosMaquinas/Index',
           },
-
         ],
       },
-      
       {
         id: 'Produccion.Inventario',
         title: 'Inventario',

@@ -1634,17 +1634,70 @@ END
 --												'CASA EVERYWHERE', 2, 'ASD@MSD.COM', '5874786554', null, 1, null, 1, '2023-07-20'
 --GO
 
+GO
 CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab3_Insert
-	@deva_Lugar_Entrega		NVARCHAR(800),
-	@pais_Entrega_Id		INT,
-	@inco_Id				INT,
-	@deva_numero_contrato	NVARCHAR(200),
-	@deva_Fecha_Contrato	DATE,
-	@foen_Id				INT,
-	@deva_Forma_Envio_Otra	NVARCHAR(500),
-	@deva_Pago_Efectuado	BIT,
-	@fopa_Id				INT,
-	@deva_Forma_Pago_Otra	NVARCHAR(200)
+	@deva_Lugar_Entrega			NVARCHAR(800),
+	@pais_Entrega_Id			INT,
+	@inco_Id					INT,
+	@inco_Version				NVARCHAR(10),
+	@deva_numero_contrato		NVARCHAR(200),
+	@deva_Fecha_Contrato		DATE,
+	@foen_Id					INT,
+	@deva_Forma_Envio_Otra		NVARCHAR(500),
+	@deva_Pago_Efectuado		BIT,
+	@fopa_Id					INT,
+	@deva_Forma_Pago_Otra		NVARCHAR(200),
+	@emba_Id					INT,
+	@pais_Exportacion_Id		INT,
+	@deva_Fecha_Exportacion		DATE,
+	@mone_Id					INT,
+	@mone_Otra					NVARCHAR(200),
+	@deva_Conversion_Dolares	DECIMAL(18,2)
+AS 
+BEGIN
+	BEGIN TRANSACTION
+	BEGIN TRY
+			INSERT INTO [Adua].[tbDeclaraciones_Valor](deva_Lugar_Entrega, 
+													   pais_Entrega_Id, 
+													   inco_Id, 
+													   inco_Version, 
+													   deva_numero_contrato, 
+													   deva_Fecha_Contrato, 
+													   foen_Id, 
+													   deva_Forma_Envio_Otra, 
+													   deva_Pago_Efectuado, 
+													   fopa_Id, 
+													   deva_Forma_Pago_Otra, 
+													   emba_Id, 
+													   pais_Exportacion_Id, 
+													   deva_Fecha_Exportacion, 
+													   mone_Id, 
+													   mone_Otra, 
+													   deva_Conversion_Dolares)
+			VALUES (@deva_Lugar_Entrega, 
+					@pais_Entrega_Id, 
+					@inco_Id, 
+					@inco_Version, 
+					@deva_numero_contrato, 
+					@deva_Fecha_Contrato, 
+					@foen_Id, 
+					@deva_Forma_Envio_Otra, 
+					@deva_Pago_Efectuado, 
+					@fopa_Id, 
+					@deva_Forma_Pago_Otra, 
+					@emba_Id, 
+					@pais_Exportacion_Id, 
+					@deva_Fecha_Exportacion, 
+					@mone_Id, 
+					@mone_Otra, 
+					@deva_Conversion_Dolares)
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+
+		ROLLBACK TRAN
+	END CATCH
+END
 --CREATE OR ALTER PROCEDURE prueba
 --	@id			INT,
 --	@response   INT OUTPUT

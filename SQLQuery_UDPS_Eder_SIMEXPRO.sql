@@ -79,11 +79,11 @@ AS
 BEGIN
 	BEGIN TRY
 		   UPDATE Adua.tbEstadoMercancias
-			  SET merc_Descripcion = @merc_Descripcion,
-				  usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				  merc_FechaModificacion = @merc_FechaModificacion
-			WHERE merc_Id = @merc_Id 
-			  AND merc_Estado = 1
+			  SET merc_Descripcion			= @merc_Descripcion,
+				  usua_UsuarioModificacion	= @usua_UsuarioModificacion,
+				  merc_FechaModificacion	= @merc_FechaModificacion
+			WHERE merc_Id		= @merc_Id 
+			  AND merc_Estado	= 1
 
 		SELECT 1 AS Resultado
 	END TRY
@@ -116,10 +116,10 @@ BEGIN
 		IF(@respuesta) = 1
 			BEGIN
 				 UPDATE Adua.tbEstadoMercancias
-					SET merc_Estado = 0,
+					SET merc_Estado				= 0,
 						usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-						merc_FechaEliminacion = @merc_FechaEliminacion
-				  WHERE merc_Id = @merc_Id 
+						merc_FechaEliminacion	= @merc_FechaEliminacion
+				  WHERE merc_Id		= @merc_Id 
 					AND merc_Estado = 1
 			END
 
@@ -184,7 +184,7 @@ BEGIN
 			UPDATE Gral.tbUnidadMedidas
 			   SET unme_Estado = 1
 			 WHERE unme_Descripcion = @unme_Descripcion
-			   AND unme_Estado = 0
+			   AND unme_Estado		= 0
 		END
 		ELSE
 		BEGIN
@@ -219,11 +219,11 @@ AS
 BEGIN 
 	BEGIN TRY
 		UPDATE Gral.tbUnidadMedidas
-		   SET unme_Descripcion = @unme_Descripcion,
+		   SET unme_Descripcion			= @unme_Descripcion,
 			   usua_UsuarioModificacion = @usua_UsuarioModificacion,
-			   unme_FechaModificacion = @unme_FechaModificacion
-		 WHERE unme_Id = @unme_Id
-		   AND unme_Estado = 1
+			   unme_FechaModificacion	= @unme_FechaModificacion
+		 WHERE unme_Id		= @unme_Id
+		   AND unme_Estado	= 1
 			
 		SELECT 1 AS Resultado
 	END TRY
@@ -257,11 +257,11 @@ BEGIN
 		IF(@respuesta) = 1
 			BEGIN
 				UPDATE Gral.tbUnidadMedidas
-				   SET unme_Estado = 0,
-					   usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-					   unme_FechaEliminacion = @unme_FechaEliminacion
-				 WHERE unme_Id = @unme_Id
-				   AND unme_Estado = 1
+				   SET unme_Estado				= 0,
+					   usua_UsuarioEliminacion	= @usua_UsuarioEliminacion,
+					   unme_FechaEliminacion	= @unme_FechaEliminacion
+				 WHERE unme_Id		= @unme_Id
+				   AND unme_Estado	= 1
 			END
 
 		SELECT @respuesta AS Resultado
@@ -412,23 +412,23 @@ AS
 BEGIN
 	BEGIN TRY
 		UPDATE Adua.tbCondiciones 
-		   SET deva_Id = @deva_Id, 
-			   codi_Restricciones_Utilizacion = @codi_Restricciones_Utilizacion, 
-			   codi_Indicar_Restricciones_Utilizacion = @codi_Indicar_Restricciones_Utilizacion, 
-			   codi_Depende_Precio_Condicion = @codi_Depende_Precio_Condicion, 
-			   codi_Indicar_Existe_Condicion = @codi_Indicar_Existe_Condicion, 
-			   codi_Condicionada_Revertir = @codi_Condicionada_Revertir, 
-			   codi_Vinculacion_Comprador_Vendedor = @codi_Vinculacion_Comprador_Vendedor, 
-			   codi_Tipo_Vinculacion = @codi_Tipo_Vinculacion, 
-			   codi_Vinculacion_Influye_Precio = @codi_Vinculacion_Influye_Precio, 
-			   codi_Pagos_Descuentos_Indirectos = @codi_Pagos_Descuentos_Indirectos, 
-			   codi_Concepto_Monto_Declarado = @codi_Concepto_Monto_Declarado, 
-			   codi_Existen_Canones = @codi_Existen_Canones, 
-			   codi_Indicar_Canones = @codi_Indicar_Canones, 
-			   usua_UsuarioCreacion = @usua_UsuarioModificacion, 
-			   codi_FechaCreacion = @codi_FechaModificacion
-		 WHERE codi_Id = @codi_Id
-		   AND codi_Estado = 1
+		   SET deva_Id									= @deva_Id, 
+			   codi_Restricciones_Utilizacion			= @codi_Restricciones_Utilizacion, 
+			   codi_Indicar_Restricciones_Utilizacion	= @codi_Indicar_Restricciones_Utilizacion, 
+			   codi_Depende_Precio_Condicion			= @codi_Depende_Precio_Condicion, 
+			   codi_Indicar_Existe_Condicion			= @codi_Indicar_Existe_Condicion, 
+			   codi_Condicionada_Revertir				= @codi_Condicionada_Revertir, 
+			   codi_Vinculacion_Comprador_Vendedor		= @codi_Vinculacion_Comprador_Vendedor, 
+			   codi_Tipo_Vinculacion					= @codi_Tipo_Vinculacion, 
+			   codi_Vinculacion_Influye_Precio			= @codi_Vinculacion_Influye_Precio, 
+			   codi_Pagos_Descuentos_Indirectos			= @codi_Pagos_Descuentos_Indirectos, 
+			   codi_Concepto_Monto_Declarado			= @codi_Concepto_Monto_Declarado, 
+			   codi_Existen_Canones						= @codi_Existen_Canones, 
+			   codi_Indicar_Canones						= @codi_Indicar_Canones, 
+			   usua_UsuarioCreacion						= @usua_UsuarioModificacion, 
+			   codi_FechaCreacion						= @codi_FechaModificacion
+		 WHERE codi_Id		= @codi_Id
+		   AND codi_Estado	= 1
 
 		SELECT 1 AS Resultado
 	END TRY
@@ -526,11 +526,11 @@ AS
 BEGIN
 	BEGIN TRY
 		UPDATE Gral.tbFormas_Envio
-		   SET foen_Descripcion = @foen_Descripcion,
+		   SET foen_Descripcion			= @foen_Descripcion,
 			   usua_UsuarioModificacion = @usua_UsuarioModificacion,
-			   foen_FechaModificacion = @foen_FechaModificacion
-		 WHERE foen_Id = @foen_Id
-		   AND foen_Estado = 1
+			   foen_FechaModificacion	= @foen_FechaModificacion
+		 WHERE foen_Id		= @foen_Id
+		   AND foen_Estado	= 1
 
 		SELECT 1 AS Resultado
 	END TRY
@@ -564,11 +564,11 @@ BEGIN
 		IF(@respuesta) = 1
 		BEGIN
 			UPDATE Gral.tbFormas_Envio
-			   SET foen_Estado = 0,
-				   usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-				   foen_FechaEliminacion = @foen_FechaEliminacion
-			 WHERE foen_Id = @foen_Id
-			   AND foen_Estado = 1
+			   SET foen_Estado				= 0,
+				   usua_UsuarioEliminacion	= @usua_UsuarioEliminacion,
+				   foen_FechaEliminacion	= @foen_FechaEliminacion
+			 WHERE foen_Id		= @foen_Id
+			   AND foen_Estado	= 1
 		END
 
 		SELECT @respuesta AS Resultado
@@ -782,20 +782,20 @@ AS
 BEGIN
 	BEGIN TRY
 		 UPDATE Gral.tbEmpleados
-		    SET empl_Nombres = @empl_Nombres, 
-				empl_Apellidos = @empl_Apellidos, 
-				empl_DNI = @empl_DNI, 
-				escv_Id = @escv_Id, 
-				empl_Sexo = @empl_Sexo, 
-				empl_FechaNacimiento = @empl_FechaNacimiento, 
-				empl_Telefono = @empl_Telefono, 
-				empl_DireccionExacta = @empl_DireccionExacta, 
-				pvin_Id = @pvin_Id, 
-				empl_CorreoElectronico = @empl_CorreoElectronico, 
-				carg_Id = @carg_Id, 
-				empl_EsAduana = @empl_EsAduana,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				empl_FechaModificacion = @empl_FechaModificacion
+		    SET empl_Nombres				= @empl_Nombres, 
+				empl_Apellidos				= @empl_Apellidos, 
+				empl_DNI					= @empl_DNI, 
+				escv_Id						= @escv_Id, 
+				empl_Sexo					= @empl_Sexo, 
+				empl_FechaNacimiento		= @empl_FechaNacimiento, 
+				empl_Telefono				= @empl_Telefono, 
+				empl_DireccionExacta		= @empl_DireccionExacta, 
+				pvin_Id						= @pvin_Id, 
+				empl_CorreoElectronico		= @empl_CorreoElectronico, 
+				carg_Id						= @carg_Id, 
+				empl_EsAduana				= @empl_EsAduana,
+				usua_UsuarioModificacion	= @usua_UsuarioModificacion,
+				empl_FechaModificacion		= @empl_FechaModificacion
 		  WHERE empl_Id = @empl_Id
 
 		SELECT 1 AS Resultado
@@ -1178,15 +1178,15 @@ AS
 BEGIN
 	BEGIN TRY
 			UPDATE Adua.tbPersonas 
-			   SET pers_RTN = @pers_RTN, 					
-				   ofic_Id = @ofic_Id, 					
-				   escv_Id = @escv_Id, 					
-				   ofpr_Id = @ofpr_Id, 					
-				   fopr_Id = @fopr_Id, 					
-				   pers_escvRepresentante = @pers_escvRepresentante, 		
-				   pers_OfprRepresentante = @pers_OfprRepresentante, 		
-				   usua_UsuarioCreacion = @usua_UsuarioCreacion,      	
-				   pers_FechaCreacion = @pers_FechaCreacion
+			   SET pers_RTN					= @pers_RTN, 					
+				   ofic_Id					= @ofic_Id, 					
+				   escv_Id					= @escv_Id, 					
+				   ofpr_Id					= @ofpr_Id, 					
+				   fopr_Id					= @fopr_Id, 					
+				   pers_escvRepresentante	= @pers_escvRepresentante, 		
+				   pers_OfprRepresentante	= @pers_OfprRepresentante, 		
+				   usua_UsuarioCreacion		= @usua_UsuarioCreacion,      	
+				   pers_FechaCreacion		= @pers_FechaCreacion
 			 WHERE pers_Id = @pers_Id
 
 		SELECT 1 AS Resultado
@@ -1273,19 +1273,19 @@ AS
 BEGIN
 	BEGIN TRY
 		 UPDATE Adua.tbComercianteIndividual 
-			SET pers_Id = @pers_Id,                           	
-				fopr_Id = @fopr_Id,                           	
-				colo_Id = @colo_Id,                           	
-				coin_PuntoReferencia = @coin_PuntoReferencia,			  	
-				coin_ColoniaRepresentante = @coin_ColoniaRepresentante,		  	
-				coin_NumeroLocalReprentante = @coin_NumeroLocalReprentante,	    
-				coin_PuntoReferenciaReprentante = @coin_PuntoReferenciaReprentante,   	
-				coin_TelefonoCelular = @coin_TelefonoCelular,			    
-				coin_TelefonoFijo = @coin_TelefonoFijo,				    
-				coin_CorreoElectronico = @coin_CorreoElectronico,		    	
-				coin_CorreoElectronicoAlternativo = @coin_CorreoElectronicoAlternativo, 	
-				usua_UsuarioCreacion = @usua_UsuarioCreacion,       		
-				coin_FechaCreacion = @coin_FechaCreacion
+			SET pers_Id								= @pers_Id,                           	
+				fopr_Id								= @fopr_Id,                           	
+				colo_Id								= @colo_Id,                           	
+				coin_PuntoReferencia				= @coin_PuntoReferencia,			  	
+				coin_ColoniaRepresentante			= @coin_ColoniaRepresentante,		  	
+				coin_NumeroLocalReprentante			= @coin_NumeroLocalReprentante,	    
+				coin_PuntoReferenciaReprentante		= @coin_PuntoReferenciaReprentante,   	
+				coin_TelefonoCelular				= @coin_TelefonoCelular,			    
+				coin_TelefonoFijo					= @coin_TelefonoFijo,				    
+				coin_CorreoElectronico				= @coin_CorreoElectronico,		    	
+				coin_CorreoElectronicoAlternativo	= @coin_CorreoElectronicoAlternativo, 	
+				usua_UsuarioCreacion				= @usua_UsuarioCreacion,       		
+				coin_FechaCreacion					= @coin_FechaCreacion
 		  WHERE coin_Id = @coin_Id
 
 		SELECT 1 AS Resultado
@@ -1380,21 +1380,21 @@ AS
 BEGIN
 	BEGIN TRY
 		 UPDATE Adua.tbPersonaNatural
-			SET pers_Id = @pers_Id,						
-				pena_DireccionExacta = @pena_DireccionExacta,		
-				ciud_Id = @ciud_Id,						
-				pena_TelefonoFijo = @pena_TelefonoFijo,			
-				pena_TelefonoCelular = @pena_TelefonoCelular,		
-				pena_CorreoElectronico = @pena_CorreoElectronico,		
-				pena_CorreoAlternativo = @pena_CorreoAlternativo,		
-				pena_RTN = @pena_RTN,					
-				pena_ArchivoRTN = @pena_ArchivoRTN,				
-				pena_DNI = @pena_DNI,					
-				pena_ArchivoDNI = @pena_ArchivoDNI,				
-				pena_NumeroRecibo = @pena_NumeroRecibo,			
-				pena_ArchivoNumeroRecibo = @pena_ArchivoNumeroRecibo,	  	
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,   	
-				pena_FechaModificacion = @pena_FechaModificacion     	
+			SET pers_Id						= @pers_Id,						
+				pena_DireccionExacta		= @pena_DireccionExacta,		
+				ciud_Id						= @ciud_Id,						
+				pena_TelefonoFijo			= @pena_TelefonoFijo,			
+				pena_TelefonoCelular		= @pena_TelefonoCelular,		
+				pena_CorreoElectronico		= @pena_CorreoElectronico,		
+				pena_CorreoAlternativo		= @pena_CorreoAlternativo,		
+				pena_RTN					= @pena_RTN,					
+				pena_ArchivoRTN				= @pena_ArchivoRTN,				
+				pena_DNI					= @pena_DNI,					
+				pena_ArchivoDNI				= @pena_ArchivoDNI,				
+				pena_NumeroRecibo			= @pena_NumeroRecibo,			
+				pena_ArchivoNumeroRecibo	= @pena_ArchivoNumeroRecibo,	  	
+				usua_UsuarioModificacion	= @usua_UsuarioModificacion,   	
+				pena_FechaModificacion		= @pena_FechaModificacion     	
 		  WHERE pena_Id = @pena_Id
 
 		SELECT 1 AS Resultado
@@ -1485,20 +1485,20 @@ AS
 BEGIN
 	BEGIN TRY
 		 UPDATE Adua.tbPersonaJuridica
-			SET pers_Id = @pers_Id,							  	
-				peju_EstadoRepresentante = @peju_EstadoRepresentante,				
-				colo_Id = @colo_Id,							  	
-				peju_PuntoReferencia = @peju_PuntoReferencia,					
-				peju_ColoniaRepresentante = @peju_ColoniaRepresentante,				
-				peju_NumeroLocalRepresentante = @peju_NumeroLocalRepresentante,		  	
-				peju_PuntoReferenciaRepresentante = @peju_PuntoReferenciaRepresentante,	  	
-				peju_TelefonoEmpresa = @peju_TelefonoRepresentanteLegal,					
+			SET pers_Id								= @pers_Id,							  	
+				peju_EstadoRepresentante			= @peju_EstadoRepresentante,				
+				colo_Id								= @colo_Id,							  	
+				peju_PuntoReferencia				= @peju_PuntoReferencia,					
+				peju_ColoniaRepresentante			= @peju_ColoniaRepresentante,				
+				peju_NumeroLocalRepresentante		= @peju_NumeroLocalRepresentante,		  	
+				peju_PuntoReferenciaRepresentante	= @peju_PuntoReferenciaRepresentante,	  	
+				peju_TelefonoEmpresa				= @peju_TelefonoRepresentanteLegal,					
 				peju_TelefonoFijoRepresentanteLegal = @peju_TelefonoFijoRepresentanteLegal, 	
-				peju_TelefonoRepresentanteLegal = @peju_TelefonoRepresentanteLegal,	  	
-				peju_CorreoElectronico = @peju_CorreoElectronico,              	
-				peju_CorreoElectronicoAlternativo = @peju_CorreoElectronicoAlternativo,   	
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,       			
-				peju_FechaModificacion =  @peju_FechaModificacion
+				peju_TelefonoRepresentanteLegal		= @peju_TelefonoRepresentanteLegal,	  	
+				peju_CorreoElectronico				= @peju_CorreoElectronico,              	
+				peju_CorreoElectronicoAlternativo	= @peju_CorreoElectronicoAlternativo,   	
+				usua_UsuarioModificacion			= @usua_UsuarioModificacion,       			
+				peju_FechaModificacion				= @peju_FechaModificacion
 		  WHERE peju_Id = @peju_Id
 
 		  SELECT 1 AS Resultado
@@ -1509,3 +1509,213 @@ BEGIN
 END
 GO
 --------------------------------------------/UDPS Para contrato de adhesión-------------------------------------------
+
+-----------------------------------------------/UDPS Para orden de compra---------------------------------------------
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompra_Insertar
+(
+	@orco_IdCliente				INT,
+	@orco_FechaEmision			DATETIME,
+	@orco_FechaLimite			DATETIME,
+	@orco_MetodoPago 			INT,
+	@orco_Materiales			BIT,
+	@orco_IdEmbalaje 			INT,
+	@orco_EstadoOrdenCompra		CHAR(1),
+	@orco_DireccionEntrega		NVARCHAR(250),
+	@usua_UsuarioCreacion       INT,
+	@orco_FechaCreacion         DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Prod.tbOrdenCompra
+					(orco_IdCliente,				
+					orco_FechaEmision,			
+					orco_FechaLimite,			
+					orco_MetodoPago, 			
+					orco_Materiales,			
+					orco_IdEmbalaje, 			
+					orco_EstadoOrdenCompra,		
+					orco_DireccionEntrega,		
+					usua_UsuarioCreacion,       
+					orco_FechaCreacion)
+			VALUES (@orco_IdCliente,				
+					@orco_FechaEmision,			
+					@orco_FechaLimite,			
+					@orco_MetodoPago, 			
+					@orco_Materiales,			
+					@orco_IdEmbalaje, 			
+					@orco_EstadoOrdenCompra,		
+					@orco_DireccionEntrega,		
+					@usua_UsuarioCreacion,       
+					@orco_FechaCreacion)
+			
+		SELECT SCOPE_IDENTITY() AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompra_Editar
+(
+	@orco_Id					INT,
+	@orco_IdCliente				INT,
+	@orco_FechaEmision			DATETIME,
+	@orco_FechaLimite			DATETIME,
+	@orco_MetodoPago 			INT,
+	@orco_Materiales			BIT,
+	@orco_IdEmbalaje 			INT,
+	@orco_EstadoOrdenCompra		CHAR(1),
+	@orco_DireccionEntrega		NVARCHAR(250),
+	@usua_UsuarioCreacion       INT,
+	@orco_FechaCreacion         DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		 UPDATE Prod.tbOrdenCompra
+			SET	orco_IdCliente			= @orco_IdCliente,				
+				orco_FechaEmision		= @orco_FechaEmision,			
+				orco_FechaLimite		= @orco_FechaLimite,			
+				orco_MetodoPago			= @orco_MetodoPago, 			
+				orco_Materiales			= @orco_Materiales,			
+				orco_IdEmbalaje			= @orco_IdEmbalaje, 			
+				orco_EstadoOrdenCompra	= @orco_EstadoOrdenCompra,		
+				orco_DireccionEntrega	= @orco_DireccionEntrega,		
+				usua_UsuarioCreacion	= @usua_UsuarioCreacion,       
+				orco_FechaCreacion		= @orco_FechaCreacion
+		  WHERE orco_Id = @orco_Id
+
+		  SELECT 1 AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+-----------------------------------------------/UDPS Para orden de compra---------------------------------------------
+
+--------------------------------------------UDPS Para orden de compra detalle-----------------------------------------
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Insertar
+(
+	@orco_Id						INT,
+	@code_CantidadPrenda			INT,
+	@esti_Id						INT,
+	@tall_Id						INT,
+	@code_Sexo						CHAR(1),
+	@colr_Id						INT,
+	@code_Documento					NVARCHAR(250),
+	@code_Medidas					NVARCHAR(250),
+	@proc_IdComienza				INT,
+	@proc_IdActual					INT,
+	@code_Unidad					DECIMAL(18,2),
+	@code_Valor						DECIMAL(18,2),
+	@code_Impuesto					DECIMAL(18,2),
+	@code_Descuento					DECIMAL(18,2),
+	@code_EspecificacionEmbalaje	NVARCHAR(200),
+	@usua_UsuarioCreacion       	INT,
+	@code_FechaCreacion         	DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Prod.tbOrdenCompraDetalles
+					(orco_Id,						
+					code_CantidadPrenda,			
+					esti_Id,						
+					tall_Id,						
+					code_Sexo,						
+					colr_Id,						
+					code_Documento,					
+					code_Medidas,					
+					proc_IdComienza,				
+					proc_IdActual,					
+					code_Unidad,					
+					code_Valor,						
+					code_Impuesto,					
+					code_Descuento,					
+					code_EspecificacionEmbalaje,	
+					usua_UsuarioCreacion,       	
+					code_FechaCreacion)
+			 VALUES (@orco_Id,						
+					@code_CantidadPrenda,			
+					@esti_Id,						
+					@tall_Id,						
+					@code_Sexo,						
+					@colr_Id,						
+					@code_Documento,					
+					@code_Medidas,					
+					@proc_IdComienza,				
+					@proc_IdActual,					
+					@code_Unidad,					
+					@code_Valor,						
+					@code_Impuesto,					
+					@code_Descuento,					
+					@code_EspecificacionEmbalaje,	
+					@usua_UsuarioCreacion,       	
+					@code_FechaCreacion)
+		
+		SELECT SCOPE_IDENTITY() AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Editar
+(
+	@code_Id						INT,
+	@orco_Id						INT,
+	@code_CantidadPrenda			INT,
+	@esti_Id						INT,
+	@tall_Id						INT,
+	@code_Sexo						CHAR(1),
+	@colr_Id						INT,
+	@code_Documento					NVARCHAR(250),
+	@code_Medidas					NVARCHAR(250),
+	@proc_IdComienza				INT,
+	@proc_IdActual					INT,
+	@code_Unidad					DECIMAL(18,2),
+	@code_Valor						DECIMAL(18,2),
+	@code_Impuesto					DECIMAL(18,2),
+	@code_Descuento					DECIMAL(18,2),
+	@code_EspecificacionEmbalaje	NVARCHAR(200),
+	@usua_UsuarioCreacion       	INT,
+	@code_FechaCreacion         	DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		 UPDATE Prod.tbOrdenCompraDetalles
+			SET orco_Id						= @orco_Id,						
+				code_CantidadPrenda			= @code_CantidadPrenda,			
+				esti_Id						= @esti_Id,						
+				tall_Id						= @tall_Id,						
+				code_Sexo					= @code_Sexo,						
+				colr_Id						= @colr_Id,						
+				code_Documento				= @code_Documento,					
+				code_Medidas				= @code_Medidas,					
+				proc_IdComienza				= @proc_IdComienza,				
+				proc_IdActual				= @proc_IdActual,					
+				code_Unidad					= @code_Unidad,					
+				code_Valor					= @code_Valor,						
+				code_Impuesto				= @code_Impuesto,					
+				code_Descuento				= @code_Descuento,					
+				code_EspecificacionEmbalaje	= @code_EspecificacionEmbalaje,	
+				usua_UsuarioCreacion       	= @usua_UsuarioCreacion,       	
+				code_FechaCreacion         	= @code_FechaCreacion    
+		  WHERE code_Id = @code_Id
+
+		  SELECT 1 
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+-------------------------------------------/UDPS Para orden de compra detalle-----------------------------------------

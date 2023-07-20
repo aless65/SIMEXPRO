@@ -189,28 +189,35 @@ function LotesIndex() {
 
   const onSubmit = (data) => {
     console.log(data);
-    if(data.stock != null || data.cantidad != null || data.Select != null){
-      if (data.stock.trim() === '' || data.cantidad.trim() === '' || data.Select === '') {
-        console.log('Que onda')
-        Toast.fire({
-          icon: 'error',
-          title: 'No se permiten campos vacios',
-        }); 
-      } else {
-        console.log('hola')
-        VisibilidadTabla();
-        Toast2.fire({
-          icon: 'success',
-          title: 'Datos guardados exitosamente',
-        });
-        
-      }
+    if(data.Select.length != 0){
+        if(data.stock != null || data.cantidad != null){
+            if (data.stock.trim() === '' || data.cantidad.trim() === '' || data.Select === 'Selecciona una opción') {
+              console.log('Que onda')
+              Toast.fire({
+                icon: 'error',
+                title: 'No se permiten campos vacios',
+              }); 
+            } else {
+              console.log('hola')
+              VisibilidadTabla();
+              Toast2.fire({
+                icon: 'success',
+                title: 'Datos guardados exitosamente',
+              });
+              
+            }
+          }else{
+              console.log('Que onda')
+            Toast.fire({
+              icon: 'error',
+              title: 'No se permiten campos vacios',
+            }); 
+          }
+      
     }else{
-      Toast.fire({
-        icon: 'error',
-        title: 'No se permiten campos vacios',
-      }); 
+        console.log('que raro');
     }
+    
   };
 
   const Masiso = () => {
@@ -397,9 +404,7 @@ function LotesIndex() {
                                     backgroundColor: '#DAD8D8', color: 'black',
                                     "&:hover": { backgroundColor: '#BFBABA' },
                                 }}
-                                onClick={() => {
-                                    reset(defaultAccountValues);
-                                  }}
+                                onClick={VisibilidadTabla2}
                                 >
                                 Cancelar
                             </Button>

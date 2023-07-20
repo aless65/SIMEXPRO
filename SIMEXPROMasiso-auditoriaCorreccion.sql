@@ -255,10 +255,9 @@ CREATE TABLE Gral.tbProvincias(
 	CONSTRAINT FK_Gral_tbProvincias_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id 	 FOREIGN KEY(usua_UsuarioCreacion) 		REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbProvincias_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioModificacion)  REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbProvincias_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id  FOREIGN KEY(usua_UsuarioEliminacion)   REFERENCES Acce.tbUsuarios (usua_Id)
-
-	
 );
 GO
+
 
 CREATE TABLE Gral.tbCiudades(
 		ciud_Id						INT 			IDENTITY(1,1),
@@ -456,6 +455,7 @@ GO
 CREATE TABLE Adua.tbAduanas
 (
 		adua_Id							INT 			IDENTITY(1,1),
+		adua_Codigo						CHAR(4)			NOT NULL,
 		adua_Nombre						NVARCHAR(500) 	NOT NULL,
 		adua_Direccion_Exacta			NVARCHAR(800) 	NOT NULL,
 		usua_UsuarioCreacion			INT 			NOT NULL,
@@ -468,7 +468,8 @@ CREATE TABLE Adua.tbAduanas
 		adua_Estado						BIT 			NOT NULL DEFAULT 1,
 
 CONSTRAINT PK_Adua_tbAduanas_adua_Id 	 PRIMARY KEY (adua_Id),
-CONSTRAINT UQ_Adua_tbAduanas_adua_Nombre UNIQUE (adua_Nombre),
+--CONSTRAINT UQ_Adua_tbAduanas_adua_Nombre UNIQUE (adua_Nombre),
+CONSTRAINT UQ_Adua_tbAduanas_adua_Codigo UNIQUE (adua_Codigo),
 CONSTRAINT FK_Adua_tbAduanas_tbUsuarios_adua_UsucCrea								FOREIGN KEY (usua_UsuarioCreacion)			REFERENCES Acce.tbUsuarios (usua_Id),
 CONSTRAINT FK_Adua_tbAduanas_tbUsuarios_adua_usua_UsuarioModificacion				FOREIGN KEY (usua_UsuarioModificacion) 		REFERENCES Acce.tbUsuarios (usua_Id),
 CONSTRAINT FK_Adua_tbAduanas_tbUsuarios_adua_usua_UsuarioEliminacion				FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios (usua_Id)
@@ -480,6 +481,7 @@ GO
 
 CREATE TABLE Adua.tbNivelesComerciales(
 		nico_Id							INT 			IDENTITY(1,1),
+		nico_Codigo						CHAR(3)			NOT NULL,
 		nico_Descripcion				NVARCHAR(150) 	NOT NULL,
 		usua_UsuarioCreacion			INT 			NOT NULL,
 		nico_FechaCreacion				DATETIME 		NOT NULL,
@@ -500,6 +502,7 @@ CREATE TABLE Adua.tbNivelesComerciales(
 
 CREATE TABLE Adua.tbCondicionesComerciales(
    		coco_Id							INT 			IDENTITY(1,1),
+		coco_Codigo						CHAR(2)			NOT NULL,
    		coco_Descripcion				NVARCHAR(150) 	NOT NULL,
    		usua_UsuarioCreacion            INT 			NOT NULL,
    		coco_FechaCreacion				DATETIME 		NOT NULL,
@@ -515,6 +518,14 @@ CREATE TABLE Adua.tbCondicionesComerciales(
    CONSTRAINT FK_Acce_tbUsuarios_Adua_tbCondicionesComerciales_coco_usua_UsuarioEliminacion  FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios(usua_Id)
    );
    GO
+   INSERT INTO Adua.tbCondicionesComerciales(coco_Codigo,coco_Descripcion,usua_UsuarioCreacion,coco_FechaCreacion)
+   VALUES 
+   ('DT','Distribuidor',1,GETDATE()),
+   ('FB','Fabricante',1,GETDATE()),
+   ('MY','Mayorista',1,GETDATE()),
+   ('OT','Otro',1,GETDATE()),
+   ('PR','Productor',1,GETDATE()),
+   ('RV','Revendedor',1,GETDATE())
 
 CREATE TABLE Adua.tbFormasdePago(
 		fopa_Id							INT 			IDENTITY(1,1),
@@ -543,7 +554,7 @@ CREATE TABLE Adua.tbFormasdePago(
    		ciud_Id                  		INT             NOT NULL,
    		decl_Correo_Electronico  		NVARCHAR(150) 	NOT NULL,
    		decl_Telefono            		NVARCHAR(50) 	NOT NULL,
-   		decl_Fax                 		NVARCHAR(50), 
+   		decl_Fax                 		NVARCHAR(50)	NULL, 
    		usua_UsuarioCreacion            INT 			NOT NULL,
    		decl_FechaCreacion				DATETIME 		NOT NULL,
    		usua_UsuarioModificacion		INT,
@@ -566,7 +577,7 @@ CREATE TABLE Adua.tbImportadores(
 		decl_Id							INT				NOT NULL,
 		impo_NivelComercial_Otro		NVARCHAR(300),
 		impo_RTN                 		NVARCHAR(40) 	NOT NULL,
-		impo_NumRegistro         		INT 			NOT NULL,
+		impo_NumRegistro         		NVARCHAR(40) 	NOT NULL,
 		usua_UsuarioCreacion     		INT 			NOT NULL,
 		impo_FechaCreacion				DATETIME 		NOT NULL,
 		usua_UsuarioModificacion		INT,
@@ -607,6 +618,7 @@ GO
 CREATE TABLE Adua.tbIntermediarios(
 		inte_Id							INT 			IDENTITY(1,1),
 		tite_Id							INT 			NOT NULL,
+		inte_Tipo_Otro					NVARCHAR(30),
 		decl_Id							INT 			NOT NULL,
 		usua_UsuarioCreacion            INT 			NOT NULL,
 		inte_FechaCreacion				DATETIME 		NOT NULL,
@@ -729,7 +741,7 @@ CREATE TABLE Adua.tbDeclaraciones_Valor
 
 CREATE TABLE Adua.tbDeclaraciones_ValorHistorial
 (
-		hdev_Id 						INT 			IDENTITY(1,1),
+		hdev_Id 						INT IDENTITY(1,1),
 		deva_Id							INT,
 		deva_Aduana_Ingreso_Id 			INT 			NOT NULL, 
 		deva_Aduana_Despacho_Id 		INT 			NOT NULL,
@@ -760,7 +772,9 @@ CREATE TABLE Adua.tbDeclaraciones_ValorHistorial
 		hdev_FechaAccion 				DATETIME,
 		hdev_Accion						NVARCHAR(100)
 
-)
+		CONSTRAINT PK_Adua_tbDeclaraciones_ValorHistorial_hdev_Id PRIMARY KEY(hdev_Id)
+);
+
 CREATE TABLE Adua.tbFacturas
 (
 		fact_Id							INT 			IDENTITY(1,1),
@@ -1152,6 +1166,8 @@ CREATE TABLE Adua.tbItems(
 	item_Id                                   INT IDENTITY(1,1),
 	fact_Id									  INT NOT NULL,
 	item_Cantidad                             INT NOT NULL,
+	item_PesoNeto                             DECIMAL(18,2),
+	item_PesoBruto                            DECIMAL(18,2),
 	unme_Id                                   INT NOT NULL,
 	item_IdentificacionComercialMercancias    NVARCHAR NOT NULL,
 	item_CaracteristicasMercancias            NVARCHAR NOT NULL,
@@ -1161,6 +1177,16 @@ CREATE TABLE Adua.tbItems(
 	pais_IdOrigenMercancia                    INT,
 	item_ClasificacionArancelaria             CHAR(10),
 	item_ValorUnitario                        DECIMAL(18,2), 
+	item_GastosDeTransporte                   DECIMAL(18,2), 
+	item_ValorTransaccion                     DECIMAL(18,2), 
+	item_Seguro                               DECIMAL(18,2),
+	item_OtrosGastos                          DECIMAL(18,2),
+	item_ValorAduana                          DECIMAL(18,2),
+
+	item_CuotaContingente                     DECIMAL(18,2),
+	item_ReglasAccesorias                     NVARCHAR(MAX),
+	item_CriterioCertificarOrigen             NVARCHAR(MAX),
+
 	usua_UsuarioCreacion                      INT NOT NULL, 
 	item_FechaCreacion                        DATETIME NOT NULL ,
 	usua_UsuarioModificacion                  INT,
@@ -1351,7 +1377,7 @@ CREATE TABLE Prod.tbClientes(
 	clie_Nombre_Contacto		NVARCHAR(200)NOT NULL,
 	clie_Numero_Contacto		CHAR(50)NOT NULL,
 	clie_Correo_Electronico		NVARCHAR(200)NOT NULL,
-	clie_FAX					NVARCHAR(50)NOT NULL,
+	clie_FAX					NVARCHAR(50),
 	
 	usua_UsuarioCreacion       	INT NOT NULL,
 	clie_FechaCreacion         	DATETIME NOT NULL,
@@ -2333,13 +2359,12 @@ GO
 
 CREATE TABLE Prod.tbRevisionDeCalidad(
 	reca_Id						INT IDENTITY(1,1),
-	reca_Orden					INT NOT NULL,
 	ensa_Id						INT NOT NULL,
 	reca_Descripcion			NVARCHAR(200) NOT NULL,
-	reca_Segunda				INT NOT NULL,
-	reca_Scrap					INT NOT NULL,
-	reca_FechaInicio            DATETIME,
-	reca_FechaFinal             DATETIME,
+	reca_Cantidad				INT NOT NULL,
+	reca_Scrap					BIT NOT NULL,
+	reca_FechaRevision          DATETIME NOT NULL,
+	reca_Imagen					NVARCHAR(MAX),
 
 
 	usua_UsuarioCreacion		INT NOT NULL,
@@ -2399,6 +2424,8 @@ GO
 --Seccion pt2
 
 
+
+
 CREATE TABLE Adua.tbLiquidacionGeneral(
 	lige_Id					 INT IDENTITY(1,1),
 	lige_TipoTributo		 NVARCHAR(50) NOT NULL,
@@ -2407,28 +2434,22 @@ CREATE TABLE Adua.tbLiquidacionGeneral(
 	lige_TotalGral			 NVARCHAR(50) NULL,
 	duca_Id				     NVARCHAR(100) NOT NULL,
 
-	usua_UsuarioCreacion 	 INT NOT NULL,
-	lige_FechaCreacion		 DATETIME NOT NULL,
-	usua_UsuarioModificacion INT DEFAULT NULL,
-	lige_FechaModicacion	 DATETIME DEFAULT NULL,
-	usua_UsuarioEliminacion	    INT	DEFAULT NULL,
-	lige_FechaEliminacion		DATETIME DEFAULT NULL,
-	lige_Estado 			 BIT DEFAULT 1
 	CONSTRAINT PK_Adua_tbLiquidacionGeneral_lige_Id PRIMARY KEY(lige_Id),
-	CONSTRAINT FK_Adua_tbDuca_duca_Id_Adua_tbLiquidacionGeneral_duca_Id 	                    FOREIGN KEY	(duca_Id) 				        REFERENCES Adua.tbDuca(duca_No_Duca),
-	CONSTRAINT FK_Adua_tbLiquidacionGeneral_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id	    FOREIGN KEY (usua_UsuarioCreacion)     		REFERENCES Acce.tbUsuarios 	(usua_Id),
-	CONSTRAINT FK_Adua_tbLiquidacionGeneral_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id	FOREIGN KEY (usua_UsuarioModificacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id),
-	CONSTRAINT FK_Adua_tbLiquidacionGeneral_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
+	CONSTRAINT FK_Adua_tbDuca_duca_Id_Adua_tbLiquidacionGeneral_duca_Id 	                    FOREIGN KEY	(duca_Id) 				        REFERENCES Adua.tbDuca(duca_No_Duca)
+	--CONSTRAINT FK_Adua_tbLiquidacionGeneral_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id	    FOREIGN KEY (usua_UsuarioCreacion)     		REFERENCES Acce.tbUsuarios 	(usua_Id),
+	--CONSTRAINT FK_Adua_tbLiquidacionGeneral_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id	FOREIGN KEY (usua_UsuarioModificacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id),
+	--CONSTRAINT FK_Adua_tbLiquidacionGeneral_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
+
 
 CREATE TABLE Adua.tbLiquidacionGeneralHistorial(
 	hlig_Id 				 INT IDENTITY(1,1),
 	lige_Id					 INT,
-	lige_TipoTributo		 NVARCHAR(50),
+	lige_TipoTributo		 DECIMAL(18,2),
 	lige_TotalPorTributo	 NVARCHAR(25),
 	lige_ModalidadPago		 NVARCHAR(55),
-	lige_TotalGral			 NVARCHAR(50),
+	lige_TotalGral			 DECIMAL(18,2),
 	duca_Id				     NVARCHAR(100),
 
 	hlig_UsuarioAccion 		 INT,
@@ -2436,6 +2457,20 @@ CREATE TABLE Adua.tbLiquidacionGeneralHistorial(
 	hlig_Accion				 NVARCHAR(100)
 );
 GO
+CREATE TABLE Adua.tbLiquidacionPorLinea(
+	lili_Id					 INT	IDENTITY(1,1),
+	lili_Tipo				 NVARCHAR(100),
+	lili_Alicuota			 DECIMAL(18,2),
+	lili_Total				 DECIMAL(18,2),
+	lili_ModalidadPago		 NVARCHAR(150),
+	lili_TotalGral			 DECIMAL(18,2),
+	item_Id					 INT	NOT NULL,
+	CONSTRAINT PK_Adua_tbLiquidacionPorLinea_lili_Id				 PRIMARY KEY(lili_Id),
+	CONSTRAINT FK_Adua_tbItems_item_Id_tbLiquidacionPorLinea_item_Id FOREIGN KEY(item_Id) REFERENCES Adua.tbItems(item_Id)
+	
+);
+GO
+
 
 CREATE TABLE Adua.tbTipoDocumento(
 	tido_Id				        INT IDENTITY(1,1),
@@ -2519,8 +2554,8 @@ CREATE TABLE Adua.tbBoletinPago(
     boen_FechaCreacion             DATETIME NOT NULL,
     usua_UsuarioModificacion       INT DEFAULT NULL,
     boen_FechaModificacion         DATETIME DEFAULT NULL,
-	usua_UsuarioEliminacion		   INT	DEFAULT NULL,
-	boen_FechaEliminacion		   DATETIME DEFAULT NULL,
+	--usua_UsuarioEliminacion		   INT	DEFAULT NULL,
+	--boen_FechaEliminacion		   DATETIME DEFAULT NULL,
     boen_Estado                    BIT NOT NULL,
     CONSTRAINT PK_Adua_tbBoletinPago_boen_Id 									      PRIMARY KEY (boen_Id),
     CONSTRAINT FK_Adua_tbBoletinPago_lige_Id_Adua_tbLiquidacionGeneral_lige_Id 		  FOREIGN KEY (liqu_Id)                  REFERENCES Adua.tbLiquidacionGeneral(lige_Id),
@@ -2530,7 +2565,7 @@ CREATE TABLE Adua.tbBoletinPago(
     CONSTRAINT FK_Adua_tbBoletinPago_coim_Id_Adua_tbCodigoImpuesto_coim_Id 			  FOREIGN KEY (coim_Id)                  REFERENCES Adua.tbCodigoImpuesto(coim_Id),
 	CONSTRAINT FK_Adua_tbBoletinPago_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id     FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
     CONSTRAINT FK_Adua_tbBoletinPago_Acce_tbUsuarios_usua_UsuModificacion_usua_Id     FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Adua_tbBoletinPago_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios (usua_Id)
+	--CONSTRAINT FK_Adua_tbBoletinPago_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios (usua_Id)
 );
 GO
 

@@ -53,3 +53,31 @@ VALUES	('Cajas',1,GETDATE()),
 		('Caja de Plastico',1,GETDATE())
 
 GO 
+--Insert Declarantes
+INSERT INTO Adua.tbDeclarantes (decl_Nombre_Raso, decl_Direccion_Exacta, ciud_Id, decl_Correo_Electronico, decl_Telefono, decl_Fax, usua_UsuarioCreacion, decl_FechaCreacion)
+VALUES	('ABC Ingeniería y Construcción S.A.'		,'Calle de la Ingeniería 123, San Pedro Sula, Cortes'	,1,'info@abc-ingenieria.com'					,'1234-5678',null,1,GETDATE()),
+		('MegaCorp Tecnologías Inc.'				,'Avenida Tecnológica 456, San Pedro Sula, Cortes'		,1,'contacto@megacorp-tech.com'					,'9876-5432',null,1,GETDATE()),
+		('Flores y Cía. Floristería S.L.'			,'Plaza de las Flores 789, San Pedro Sula, Cortes'		,1,'ventas@floresycia-floristeria.com'			,'2468-1357',null,1,GETDATE()),
+		('Viajes Aventura Explora Ltda.'			,'Camino de la Aventura 321, San Pedro Sula, Cortes'	,1,'reservas@viajesaventuraexplora.com'			,'8642-7913',null,1,GETDATE()),
+		('Delicias Repostería Fina S.A. de C.V.'	,'Calle de los Sabores 654, San Pedro Sula, Cortes'		,1,'pedidos@deliciasreposteriafina.com'			,'5793-2816',null,1,GETDATE()),
+		('Moda Urbana Boutique S.A.S.'				,'Calle de la Moda 987, San Pedro Sula, Cortes'			,1,'consultas@modaurbanaboutique.com'			,'3857-9146',null,1,GETDATE()),
+		('GreenEco Energías Renovables S.A.'		,'Avenida Sostenible 789, San Pedro Sula, Cortes'		,1,'soporte@greeneco-energiasrenovables.com'	,'6481-7392',null,1,GETDATE()),
+		('SaludTotal Clínica Médica Ltda.'			,'Calle de la Salud 543, San Pedro Sula, Cortes'		,1,'citas@saludtotalclinica.com'				,'3194-6257',null,1,GETDATE()),
+		('InterGlobal Consultores Asociados S.C.'	,'Plaza Internacional 345, San Pedro Sula, Cortes'		,1,'contacto@interglobalconsultores.com'		,'3396-2352',null,1,GETDATE()),
+		('FastDelivery Logística Express S.R.L. '	,'Avenida Rápida 567, San Pedro Sula, Cortes'			,1,'info@fastdelivery-logisticaexpress.com'		,'6464-8164',null,1,GETDATE())
+
+--Insert Proveedor declaracion
+INSERT INTO Adua.tbProveedoresDeclaracion (coco_Id, pvde_Condicion_Otra, decl_Id, usua_UsuarioCreacion, pvde_FechaCreacion)
+VALUES	
+(1,NULL,1,1,GETDATE()),
+(1,NULL,2,1,GETDATE()),
+(2,NULL,3,1,GETDATE()),
+(2,NULL,4,1,GETDATE()),
+(1,NULL,5,1,GETDATE()),
+(3,NULL,6,1,GETDATE()),
+(6,NULL,7,1,GETDATE()),
+(4,NULL,8,1,GETDATE()),
+(5,NULL,9,1,GETDATE()),
+(5,NULL,10,1,GETDATE())
+
+

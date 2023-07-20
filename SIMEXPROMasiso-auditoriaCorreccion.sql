@@ -469,7 +469,8 @@ CREATE TABLE Adua.tbAduanas
 		adua_Estado						BIT 			NOT NULL DEFAULT 1,
 
 CONSTRAINT PK_Adua_tbAduanas_adua_Id 	 PRIMARY KEY (adua_Id),
-CONSTRAINT UQ_Adua_tbAduanas_adua_Nombre UNIQUE (adua_Nombre),
+--CONSTRAINT UQ_Adua_tbAduanas_adua_Nombre UNIQUE (adua_Nombre),
+CONSTRAINT UQ_Adua_tbAduanas_adua_Codigo UNIQUE (adua_Codigo),
 CONSTRAINT FK_Adua_tbAduanas_tbUsuarios_adua_UsucCrea								FOREIGN KEY (usua_UsuarioCreacion)			REFERENCES Acce.tbUsuarios (usua_Id),
 CONSTRAINT FK_Adua_tbAduanas_tbUsuarios_adua_usua_UsuarioModificacion				FOREIGN KEY (usua_UsuarioModificacion) 		REFERENCES Acce.tbUsuarios (usua_Id),
 CONSTRAINT FK_Adua_tbAduanas_tbUsuarios_adua_usua_UsuarioEliminacion				FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios (usua_Id)
@@ -568,7 +569,7 @@ CREATE TABLE Adua.tbImportadores(
 		decl_Id							INT				NOT NULL,
 		impo_NivelComercial_Otro		NVARCHAR(300),
 		impo_RTN                 		NVARCHAR(40) 	NOT NULL,
-		impo_NumRegistro         		INT 			NOT NULL,
+		impo_NumRegistro         		NVARCHAR(40) 	NOT NULL,
 		usua_UsuarioCreacion     		INT 			NOT NULL,
 		impo_FechaCreacion				DATETIME 		NOT NULL,
 		usua_UsuarioModificacion		INT,
@@ -609,6 +610,7 @@ GO
 CREATE TABLE Adua.tbIntermediarios(
 		inte_Id							INT 			IDENTITY(1,1),
 		tite_Id							INT 			NOT NULL,
+		inte_Tipo_Otro					NVARCHAR(30),
 		decl_Id							INT 			NOT NULL,
 		usua_UsuarioCreacion            INT 			NOT NULL,
 		inte_FechaCreacion				DATETIME 		NOT NULL,
@@ -731,7 +733,7 @@ CREATE TABLE Adua.tbDeclaraciones_Valor
 
 CREATE TABLE Adua.tbDeclaraciones_ValorHistorial
 (
-		hdev_Id 						INT 			IDENTITY(1,1),
+		hdev_Id 						INT IDENTITY(1,1),
 		deva_Id							INT,
 		deva_Aduana_Ingreso_Id 			INT 			NOT NULL, 
 		deva_Aduana_Despacho_Id 		INT 			NOT NULL,
@@ -762,7 +764,9 @@ CREATE TABLE Adua.tbDeclaraciones_ValorHistorial
 		hdev_FechaAccion 				DATETIME,
 		hdev_Accion						NVARCHAR(100)
 
-)
+		CONSTRAINT PK_Adua_tbDeclaraciones_ValorHistorial_hdev_Id PRIMARY KEY(hdev_Id)
+);
+
 CREATE TABLE Adua.tbFacturas
 (
 		fact_Id							INT 			IDENTITY(1,1),
@@ -1353,7 +1357,7 @@ CREATE TABLE Prod.tbClientes(
 	clie_Nombre_Contacto		NVARCHAR(200)NOT NULL,
 	clie_Numero_Contacto		CHAR(50)NOT NULL,
 	clie_Correo_Electronico		NVARCHAR(200)NOT NULL,
-	clie_FAX					NVARCHAR(50)NOT NULL,
+	clie_FAX					NVARCHAR(50),
 	
 	usua_UsuarioCreacion       	INT NOT NULL,
 	clie_FechaCreacion         	DATETIME NOT NULL,
@@ -2335,13 +2339,12 @@ GO
 
 CREATE TABLE Prod.tbRevisionDeCalidad(
 	reca_Id						INT IDENTITY(1,1),
-	reca_Orden					INT NOT NULL,
 	ensa_Id						INT NOT NULL,
 	reca_Descripcion			NVARCHAR(200) NOT NULL,
-	reca_Segunda				INT NOT NULL,
-	reca_Scrap					INT NOT NULL,
-	reca_FechaInicio            DATETIME,
-	reca_FechaFinal             DATETIME,
+	reca_Cantidad				INT NOT NULL,
+	reca_Scrap					BIT NOT NULL,
+	reca_FechaRevision          DATETIME NOT NULL,
+	reca_Imagen					NVARCHAR(MAX),
 
 
 	usua_UsuarioCreacion		INT NOT NULL,

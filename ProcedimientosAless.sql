@@ -1445,6 +1445,8 @@ BEGIN
 										   @deva_FechaCreacion,
 										   @decl_Id OUTPUT
 
+		--INSERT INTO [Adua].[tbDeclaraciones_ValorHistorial]()
+
 		INSERT INTO [Adua].[tbImportadores](nico_Id, 
 											decl_Id, 
 											impo_NivelComercial_Otro, 
@@ -1474,14 +1476,132 @@ BEGIN
 			   @impo_Id,
 			   @usua_UsuarioCreacion,
 			   @deva_FechaCreacion)
+
+
+		DECLARE @deva_Id INT = SCOPE_IDENTITY()
+
+		INSERT INTO [Adua].[tbDeclaraciones_ValorHistorial](deva_Id, 
+															deva_Aduana_Ingreso_Id, 
+															deva_Aduana_Despacho_Id,  
+															deva_Fecha_Aceptacion, 
+															impo_Id,
+															hdev_UsuarioAccion, 
+															hdev_FechaAccion, 
+															hdev_Accion)
+		VALUES (@deva_Id,
+				@deva_Aduana_Ingreso_Id,
+				@deva_Aduana_Despacho_Id,
+				@deva_Fecha_Aceptacion,
+				@impo_Id,
+				@usua_UsuarioCreacion,
+				@deva_FechaCreacion,
+				'Insert tab1')
+
 		COMMIT TRAN
 	END TRY
 	BEGIN CATCH
 		ROLLBACK TRAN
-
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
+GO
 
+--EXEC adua.UDP_tbDeclaraciones_Valor_Tab1_Insert 2, 1, '2023-07-12', 'NOMBRE DE RAZÓN JAJA NO SÉ XD', '0501-2005-632458', '05012005632458', 'dirección perrona', 2, 'empresa@empresa.com', '85478965', null, 2, null, 1, '2023-07-12'
+--GO
+
+EXEC adua.UDP_tbDeclaraciones_Valor_Tab2_Insert 1, 'OTRA RAZÓN WTF', 'HOGAR DULCE HOGAR', 
+												3, 'asjds@sdl.com', '45874589', null, 2, null, 'MÁS NOMBRES WN', 
+												'CASA EVERYWHERE', 2, 'ASD@MSD.COM', '5874786554', null, 1, null, 1, '2023-07-20'
+GO
+
+
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab2_Insert 
+	@deva_Id						INT,
+	@prov_decl_Nombre_Raso			NVARCHAR(250),
+	@prov_decl_Direccion_Exacta		NVARCHAR(250),
+	@prov_ciud_Id					INT,
+	@prov_decl_Correo_Electronico	NVARCHAR(150),
+	@prov_decl_Telefono				NVARCHAR(50),
+	@prov_decl_Fax					NVARCHAR(50),
+	@coco_Id						INT,
+	@pvde_Condicion_Otra			NVARCHAR(30),
+	@inte_decl_Nombre_Raso			NVARCHAR(250),
+	@inte_decl_Direccion_Exacta		NVARCHAR(250),
+	@inte_ciud_Id					INT,
+	@inte_decl_Correo_Electronico	NVARCHAR(150),
+	@inte_decl_Telefono				NVARCHAR(50),
+	@inte_decl_Fax					NVARCHAR(50),
+	@tite_Id						INT,
+	@inte_Tipo_Otro					NVARCHAR(30),
+	@usua_UsuarioCreacion			INT,
+	@deva_FechaCreacion				DATETIME
+AS
+BEGIN
+	BEGIN TRANSACTION 
+	BEGIN TRY
+
+		DECLARE @prov_decl_Id INT;
+		DECLARE @inte_decl_Id INT;
+		
+		EXEC adua.UDP_tbDeclarantes_Insert @prov_decl_Nombre_Raso,
+										   @prov_decl_Direccion_Exacta,
+										   @prov_ciud_Id,
+										   @prov_decl_Correo_Electronico,
+										   @prov_decl_Telefono,
+										   @prov_decl_Fax,
+										   @usua_UsuarioCreacion,
+										   @deva_FechaCreacion,
+										   @prov_decl_Id OUTPUT
+
+		INSERT INTO [Adua].[tbProveedoresDeclaracion](coco_Id, 
+													  pvde_Condicion_Otra, 
+													  decl_Id, 
+													  usua_UsuarioCreacion, 
+													  pvde_FechaCreacion)
+		VALUES(@coco_Id, 
+			   @pvde_Condicion_Otra,
+			   @prov_decl_Id,
+			   @usua_UsuarioCreacion,
+			   @deva_FechaCreacion)
+
+		DECLARE @prov_Id INT = SCOPE_IDENTITY()
+
+		EXEC adua.UDP_tbDeclarantes_Insert @inte_decl_Nombre_Raso,
+										   @inte_decl_Direccion_Exacta,
+										   @inte_ciud_Id,
+										   @inte_decl_Correo_Electronico,
+										   @inte_decl_Telefono,
+										   @inte_decl_Fax,
+										   @usua_UsuarioCreacion,
+										   @deva_FechaCreacion,
+										   @inte_decl_Id OUTPUT
+
+
+		INSERT INTO [Adua].[tbIntermediarios](tite_Id, 
+											  inte_Tipo_Otro,
+											  decl_Id, 
+											  usua_UsuarioCreacion, 
+											  inte_FechaCreacion)
+		VALUES (@tite_Id, 
+				@inte_Tipo_Otro, 
+				@inte_decl_Id,
+				@usua_UsuarioCreacion,
+				@deva_FechaCreacion)
+
+		DECLARE @inte_Id INT = SCOPE_IDENTITY()
+
+		UPDATE [Adua].[tbDeclaraciones_Valor]
+		SET [inte_Id] = @inte_Id,
+			[pvde_Id] = @prov_Id
+		WHERE [deva_Id] = @deva_Id
+			
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRAN
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
 
 --CREATE OR ALTER PROCEDURE prueba
 --	@id			INT,

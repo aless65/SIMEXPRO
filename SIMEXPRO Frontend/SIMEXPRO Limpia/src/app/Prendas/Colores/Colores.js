@@ -28,6 +28,10 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Swal from 'sweetalert2';
+import { Controller, useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 function ColoresIndex() {
   const [searchText, setSearchText] = useState('');
@@ -38,6 +42,68 @@ function ColoresIndex() {
   const DialogEliminar = () => {
     setEliminar(!Eliminar);
   };
+
+  {/*TOAST*/}
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'red',
+    width: 600,
+    heigth: 300,
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+  const Toast2 = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'green',
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+   {/* Validaciones de la pantalla de crear*/ }
+   const defaultValues = {
+    codigo: '',
+    color: '',
+  }
+
+  const accountSchema = yup.object().shape({
+    codigo: yup.string().required(''),
+    color: yup.string().required(''),
+  })
+  
+  const { handleSubmit, register, reset, control, watch, formState } = useForm({
+    defaultValues,
+    mode: 'all',
+    resolver: yupResolver(accountSchema),
+  });
+
+  const { isValid, dirtyFields, errors, touchedFields } = formState;
+  const Masiso = handleSubmit((data) => {
+    if (!isValid) {
+      Toast.fire({
+        icon: 'error',
+        title: 'No se permiten campos vacios',
+      });
+    } else {
+      VisibilidadTabla();
+      Toast2.fire({
+        icon: 'success',
+        title: 'Datos guardados exitosamente',
+      });
+    }
+  });
+  {/* Validaciones de la pantalla de crear*/ }
+
 
   {/* Columnas de la tabla */ }
   const columns = [
@@ -209,14 +275,46 @@ function ColoresIndex() {
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
            
-          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }} style={{ marginTop: '30px' }}>
-                <FormControl>
+          <Grid item xs={6}>
+          <div className="mt-48 mb-16">
+                <Controller
+                  render={({ field }) => (
                     <TextField
-                        defaultValue=" "
-                        style={{ borderRadius: '10px', width: '500px' }}
-                        label="Color"
+                      {...field}
+                      variant="outlined"
+                      fullWidth
+                      defaultValue={' '}
+                        style={{ borderRadius: '10px'}}
+                        label="Codigo"
+                        error={!!errors.codigo}
+                        helperText={errors?.codigo?.message}
                     />
-                </FormControl>
+                  )}
+                  name="codigo"
+                  control={control}
+                />
+              </div>
+            </Grid> 
+
+          <Grid item xs={6} >
+          <div className="mt-48 mb-16">
+                <Controller
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      variant="outlined"
+                      fullWidth
+                      defaultValue=" "
+                        style={{ borderRadius: '10px'}}
+                        label="Color"
+                        error={!!errors.color}
+                        helperText={errors?.color?.message}
+                    />
+                  )}
+                  name="cargo"
+                  control={control}
+                />
+              </div>
             </Grid> 
 
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
@@ -229,7 +327,7 @@ function ColoresIndex() {
                   backgroundColor: '#634A9E', color: 'white',
                   "&:hover": { backgroundColor: '#6e52ae' },
                 }}
-                onClick={VisibilidadTabla}
+                onClick={Masiso}
               >
                 Guardar
               </Button>

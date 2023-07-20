@@ -31,19 +31,39 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 
-{/*relajo para los DatePicker parte 1*/}
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import Swal from 'sweetalert2';
 
 let renderCount = 0;
 
+
+{/*relajo para los DatePicker parte 1*/}
 const defaultValues = {
+  Detalle: '',
+  Color: '',
+  Estilo: '',
+  Talla: '',
+  Modulo: '',
+  Proceso: '',
+  Empleado: '',
+  Cantidad: '',
+  PedidoProd: '',
   DateTimePicker1: '',
   DateTimePicker2: '',
 };
 
 const schema = yup.object().shape({
+  Detalle: yup.string().nullable().required(''),
+  Color: yup.string().nullable().required(''),
+  Estilo: yup.string().nullable().required(''),
+  Talla: yup.string().nullable().required(''),
+  Modulo: yup.string().nullable().required(''),
+  Proceso: yup.string().nullable().required(''),
+  Empleado: yup.string().nullable().required(''),
+  Cantidad: yup.string().nullable().required(''),
+  PedidoProd: yup.string().nullable().required(''),
   DateTimePicker1: yup.string().nullable().required(''),
   DateTimePicker2: yup.string().nullable().required(''),
 });
@@ -61,7 +81,33 @@ function OrdenProcesosIndex() {
     setEliminar(!Eliminar);
   };
 
+  {/*TOAST*/}
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'red',
+    width: 600,
+    heigth: 300,
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
 
+  const Toast2 = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'green',
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+  {/*TOAST*/}
 
   {/*Relajo para los DatePicker parte 2*/}
   const { handleSubmit, register, reset, control, watch, formState } = useForm({
@@ -72,18 +118,16 @@ function OrdenProcesosIndex() {
 
   const { isValid, dirtyFields, errors, touchedFields } = formState;
 
-  renderCount += 1;
-
 
   {/* Columnas de la tabla */ }
   const columns = [
     { field: 'id', headerName: 'Id', flex: 1},
-    { field: 'npo', headerName: 'Máquina', flex: 2,  },
-    { field: 'empleado', headerName: 'Fecha de Inicio', flex: 2,  },
+    { field: 'npo', headerName: 'P.O', flex: 4,  },
+    { field: 'empleado', headerName: 'Empleado', flex: 4,  },
     {
       field: 'acciones',
       headerName: 'Acciones',
-      width: 400,
+      width: 200,
       renderCell: (params) => {
         const [anchorEl, setAnchorEl] = React.useState(null);
   
@@ -107,6 +151,12 @@ function OrdenProcesosIndex() {
   
         const handleDelete = () => {
           // Implementa la función para eliminar aquí
+          handleClose();
+        };
+
+        const handlePrint = () => {
+          // Implementa la función para imprimir aquí
+
           handleClose();
         };
 
@@ -139,6 +189,9 @@ function OrdenProcesosIndex() {
               <MenuItem onClick={DialogEliminar}>
                 <Icon>delete</Icon> Eliminar
               </MenuItem>
+              <MenuItem onClick={handlePrint}>
+                <Icon>print</Icon> Imprimir
+              </MenuItem>
             </Menu>
           </Stack>
         );
@@ -157,6 +210,7 @@ function OrdenProcesosIndex() {
   const VisibilidadTabla = () => {
     setmostrarIndex(!mostrarIndex);
     setmostrarAdd(!mostrarAdd);
+    reset(defaultValues);
   };
 
   const handleSearchChange = (event) => {
@@ -167,6 +221,23 @@ function OrdenProcesosIndex() {
   const filteredRows = rows.filter((row) =>
     row.npo.toLowerCase().includes(searchText.toLowerCase())
   );
+
+  {/*Coso que hizo Axel para validar*/}
+  const Masiso = handleSubmit((data) => {
+    if (!isValid) {
+      Toast.fire({
+        icon: 'error',
+        title: 'No se permiten campos vacios',
+      });
+    } else {
+      VisibilidadTabla();
+      Toast2.fire({
+        icon: 'success',
+        title: 'Datos guardados exitosamente',
+      });
+    }
+  });
+  {/*Coso que hizo Axel para validar*/}
 
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
@@ -244,115 +315,202 @@ function OrdenProcesosIndex() {
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
  
-              <Grid item xs={6} style={{ marginTop: '30px' }} >
-              <FormControl
-                fullWidth
-              >
-                <TextField 
-                  defaultValue={" "}
-                  style={{ borderRadius: '10px' }}
-                  label="# Detalle de P.O"
+              <Grid item xs={4} style={{ marginTop: '30px' }} >
+              <div className="mt-1 mb-16">
+                <Controller
+                  name="Detalle"
+                  control={control}
+                  render={({field}) => (
+                    <TextField 
+                      defaultValue={" "}
+                      style={{ borderRadius: '10px' }}
+                      label="# Detalle de P.O"
+                      error={!!errors.Detalle}
+                      helperText={errors?.Detalle?.message}
+                      className="w-full"
+                    />
+                  )}
                 />
-              </FormControl>
+                
+              </div>
             </Grid>
 
-            <Grid item xs={6} style={{ marginTop: '30px' }} >
-              <FormControl
-                fullWidth
-              >
-                <TextField 
-                  defaultValue={" "}
-                  disabled="true"
-                  style={{ borderRadius: '10px' }}
-                  label="Color"
+            <Grid item xs={4} style={{ marginTop: '30px' }} >
+            <div className="mt-1 mb-16">
+                <Controller
+                  name="Color"
+                  control={control}
+                  render={({field }) => (
+                    <TextField 
+                      defaultValue={" "}
+                      disabled="true"
+                      style={{ borderRadius: '10px' }}
+                      label="Color"
+                      error={!!errors.Color}
+                      helperText={errors?.Color?.message}
+                      className="w-full"
+                    />
+                  )}
                 />
-              </FormControl>
+              </div>
             </Grid>
 
-            <Grid item xs={6} >
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  defaultValue={" "}
-                  disabled="true"
-                  style={{ borderRadius: '10px' }}
-                  label="Estilo"
+            <Grid item xs={4} style={{ marginTop: '30px' }} >
+            <div className="mt-1 mb-16">
+                <Controller
+                  name="Estilo"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField 
+                      defaultValue={" "}
+                      disabled="true"
+                      style={{ borderRadius: '10px' }}
+                      label="Estilo"
+                      error={!!errors.Estilo}
+                      helperText={errors?.Estilo?.message}
+                      className="w-full"
+                    />
+                  )}
                 />
-              </FormControl>
+              </div>
             </Grid>
 
-            <Grid item xs={6} >
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  defaultValue={" "}
-                  disabled="true"
-                  style={{ borderRadius: '10px' }}
-                  label="Talla"
+            <Grid item xs={4} style={{ marginTop: '21px' }}  >
+            <div className="mt-1 mb-16">
+                <Controller
+                  name="Talla"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField 
+                      defaultValue={" "}
+                      disabled="true"
+                      style={{ borderRadius: '10px' }}
+                      label="Talla"
+                      error={!!errors.Talla}
+                      helperText={errors?.Talla?.message}
+                      className="w-full"
+                    />
+                  )}
                 />
-              </FormControl>
+              </div>
             </Grid>
 
-            <Grid item xs={6} >
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  defaultValue={" "}
-                  style={{ borderRadius: '10px' }}
-                  label="Módulo Asignado"
+            <Grid item xs={4} style={{ marginTop: '21px' }}  >
+            <div className="mt-1 mb-16">
+                <Controller
+                  name="Modulo"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField 
+                      defaultValue={" "}
+                      style={{ borderRadius: '10px' }}
+                      label="Módulo Asignado"
+                      error={!!errors.Modulo}
+                      helperText={errors?.Modulo?.message}
+                      className="w-full"
+                    />
+                  )}
                 />
-              </FormControl>
+              </div>
             </Grid>
 
-            <Grid item xs={6} >
-              <FormControl
-                fullWidth
-              >
-                <InputLabel htmlFor="grouped-native-select">Proceso</InputLabel>
+            <Grid item xs={4} style={{ marginTop: '21px' }}  >
+            <div className="mt-1 mb-16">
+                <Controller
+                  name="Proceso"
+                  control={control}
+                  render={({ field }) => (
                 <Select
-                  defaultValue={" "}
+                  error={!!errors.Proceso}
+                  helperText={errors?.Proceso?.message}
+                  defaultValue={' '}
                   style={{ borderRadius: '10px' }}
+                  className="w-full"
                   label="Proceso"
+                  placeholder='Seleccione un proceso'
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                >
+                  <MenuItem value="1">Corte</MenuItem>
+                  <MenuItem value="2">Producción</MenuItem>
+                  <MenuItem value="3">Acabado</MenuItem>
+                </Select>
+                  )}
                 />
-              </FormControl>
+                </div>
             </Grid>
 
-            <Grid item xs={6} >
-              <FormControl
-                fullWidth
-              >
-                <InputLabel htmlFor="grouped-native-select">Empleado</InputLabel>
+            <Grid item xs={4} style={{ marginTop: '21px' }} >
+            <div className="mt-1 mb-16">
+                <Controller
+                  name="Empleado"
+                  control={control}
+                  render={({ field }) => (
                 <Select
+                  error={!!errors.Empleado}
+                  helperText={errors?.Empleado?.message}
                   defaultValue={" "}
                   style={{ borderRadius: '10px' }}
                   label="Empleado"
+                  className="w-full"
+                >
+                  <MenuItem value="1">Santiago Gutierrez</MenuItem>
+                  <MenuItem value="2">Valeria Moncada</MenuItem>
+                  <MenuItem value="3">Isabela Torres</MenuItem>
+                </Select>
+                  )}
                 />
-              </FormControl>
+              </div>
             </Grid>
 
-            <Grid item xs={6} >
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  defaultValue={" "}
-                  style={{ borderRadius: '10px' }}
-                  label="Cantidad"
+            <Grid item xs={4} style={{ marginTop: '21px' }}  >
+            <div className="mt-1 mb-16">
+                <Controller
+                  name="Cantidad"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField 
+                      defaultValue={" "}
+                      style={{ borderRadius: '10px' }}
+                      label="Cantidad"
+                      error={!!errors.Cantidad}
+                      helperText={errors?.Cantidad?.message}
+                      className="w-full"
+                    />
+                  )}
                 />
-              </FormControl>
+              </div>
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={4} style={{ marginTop: '21px' }}  >
+            <div className="mt-1 mb-16">
+                <Controller
+                  name="PedidoProd"
+                  control={control}
+                  render={({ field }) => (
+                  <Select
+                    error={!!errors.PedidoProd}
+                    helperText={errors?.PedidoProd?.message}
+                    defaultValue={" "}
+                    style={{ borderRadius: '10px' }}
+                    label="PedidoProduccion"
+                    className="w-full"
+                  />
+                  )}
+                />
+              </div>
+            </Grid>
+
+            <Grid item xs={4}>
+            <div className="mt-1 mb-16">
                 <InputLabel htmlFor="grouped-native-select">Fecha Inicio</InputLabel>
                 <Controller
                   name="DateTimePicker1"
                   control={control}
                   render={({ field: { onChange, value, onBlur } }) => (
                     <DateTimePicker
-                      value={value}
+                    value={value}
                       onChange={onChange}
                       required
                       renderInput={(_props) => (
@@ -368,12 +526,11 @@ function OrdenProcesosIndex() {
                     />
                   )}
                 />
-              <FormControl
-                fullWidth
-              >
-              </FormControl>
+              </div>
             </Grid>
-            <Grid item xs={6}>
+
+            <Grid item xs={4}>
+            <div className="mt-1 mb-16">
                 <InputLabel htmlFor="grouped-native-select">Fecha Límite</InputLabel>
                 <Controller
                   name="DateTimePicker2"
@@ -396,24 +553,9 @@ function OrdenProcesosIndex() {
                     />
                   )}
                 />
-              <FormControl
-                fullWidth
-              >
-              </FormControl>
+              </div>
             </Grid>
 
-            <Grid item xs={6} >
-              <FormControl
-                fullWidth
-              >
-                <InputLabel htmlFor="grouped-native-select">Pedido Producción</InputLabel>
-                <Select
-                  defaultValue={" "}
-                  style={{ borderRadius: '10px' }}
-                  label="PedidoProduccion"
-                />
-              </FormControl>
-            </Grid>
 
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
               <Button
@@ -425,7 +567,7 @@ function OrdenProcesosIndex() {
                   backgroundColor: '#634A9E', color: 'white',
                   "&:hover": { backgroundColor: '#6e52ae' },
                 }}
-                onClick={VisibilidadTabla}
+                onClick={Masiso}
               >
                 Guardar
               </Button>

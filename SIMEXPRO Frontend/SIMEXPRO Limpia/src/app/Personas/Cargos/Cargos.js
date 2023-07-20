@@ -37,6 +37,10 @@ import { height, margin } from '@mui/system';
 
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Swal from 'sweetalert2';
+import { Controller, useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 function CargosIndex() {
   const [searchText, setSearchText] = useState('');
@@ -47,6 +51,65 @@ function CargosIndex() {
   const DialogEliminar = () => {
     setEliminar(!Eliminar);
   };
+
+    {/*TOAST*/}
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'red',
+    width: 600,
+    heigth: 300,
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+  const Toast2 = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'green',
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+   {/* Validaciones de la pantalla de crear*/ }
+   const defaultValues = {
+    cargo: '',
+  }
+
+  const accountSchema = yup.object().shape({
+    cargo: yup.string().required('Debe llenar este campo'),
+  })
+  
+  const { handleSubmit, register, reset, control, watch, formState } = useForm({
+    defaultValues,
+    mode: 'all',
+    resolver: yupResolver(accountSchema),
+  });
+
+  const { isValid, dirtyFields, errors, touchedFields } = formState;
+  const Masiso = handleSubmit((data) => {
+    if (!isValid) {
+      Toast.fire({
+        icon: 'error',
+        title: 'No se permiten campos vacios',
+      });
+    } else {
+      VisibilidadTabla();
+      Toast2.fire({
+        icon: 'success',
+        title: 'Datos guardados exitosamente',
+      });
+    }
+  });
+  {/* Validaciones de la pantalla de crear*/ }
 
   {/* Columnas de la tabla */ }
   const columns = [
@@ -131,6 +194,7 @@ function CargosIndex() {
   const VisibilidadTabla = () => {
     setmostrarIndex(!mostrarIndex);
     setmostrarAdd(!mostrarAdd);
+    reset(defaultValues);
   };
 
   const handleSearchChange = (event) => {
@@ -219,20 +283,27 @@ function CargosIndex() {
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Typography variant="h5" gutterBottom>
-              </Typography>
-            </Grid>
 
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-                <FormControl>
+            <div className="mt-48 mb-16">
+                <Controller
+                  render={({ field }) => (
                     <TextField
-                        defaultValue=" "
+                      {...field}
+                      variant="outlined"
+                      fullWidth
+                      defaultValue=" "
                         style={{ borderRadius: '10px', width: '500px' }}
                         label="Cargo"
                         placeholder='Descripción del cargo'
+                        error={!!errors.cargo}
+                        helperText={errors?.cargo?.message}
                     />
-                </FormControl>
+                  )}
+                  name="cargo"
+                  control={control}
+                />
+              </div>
             </Grid>      
 
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
@@ -245,7 +316,7 @@ function CargosIndex() {
                   backgroundColor: '#634A9E', color: 'white',
                   "&:hover": { backgroundColor: '#6e52ae' },
                 }}
-                onClick={VisibilidadTabla}
+                onClick={Masiso}
               >
                 Guardar
               </Button>

@@ -55,6 +55,7 @@ import MonedasIndex from '../Generales/Monedas/monedas';
 
 import OrdenCompraIndex from '../Produccion/OrdenCompra/OrdenCompra';
 import OrdenCompra_Crear from '../Produccion/OrdenCompra/OrdenCompra_Crear';
+import TablaDetalles_Materiales from '../Produccion/OrdenCompra/TablaDetalles';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -266,6 +267,10 @@ const routes = [
   {
     path: 'OrdenCompra/Crear',
     element: <OrdenCompra_Crear />,
+  },
+  {
+    path: 'OrdenCompra/TableDetallesOrden',
+    element: <TablaDetalles_Materiales />,
   },
  
 ];

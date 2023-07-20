@@ -13,6 +13,7 @@ import Grid from '@mui/material/Grid';
 import { DataGrid, GridToolbar, esES } from '@mui/x-data-grid'
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 
+import Collapse from '@mui/material/Collapse';
 
 
 import PropTypes from 'prop-types';
@@ -40,9 +41,15 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { textAlign } from '@mui/system';
 
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import TablaDetalles_Materiales from './TablaDetalles';
+
+import Chip from '@mui/material/Chip';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
+
 
     return (
         <div
@@ -83,7 +90,8 @@ function OrdenCompra_Crear() {
     const theme = useTheme();
     const [value, setValue] = React.useState(0);
     const [searchText, setSearchText] = useState('');
-
+    const [mostrarIndex, setmostrarIndex] = useState(true);
+    const [mostrarAdd, setmostrarAdd] = useState(false);
 
     const [Eliminar, setEliminar] = useState(false);
 
@@ -101,37 +109,77 @@ function OrdenCompra_Crear() {
             field: 'acciones',
             headerName: 'Acciones',
             flex: 4,
-            renderCell: (params) => (
-                <Stack direction="row" spacing={1}>
-                    <Button
-                        startIcon={<Icon>delete</Icon>}
-                        variant="contained"
-                        color="primary"
-                        style={{ borderRadius: '10px' }}
-                        sx={{
-                            backgroundColor: '#E40F00',
-                            color: 'white',
-                            '&:hover': { backgroundColor: '#eb5f56' },
-                        }}
-                    >
-                        Eliminar
-                    </Button>
-                    <Button
-                        startIcon={<Icon>add</Icon>}
-                        variant="contained"
-                        color="info"
-                        style={{ borderRadius: '10px' }}
-                        sx={{
-                            backgroundColor: '#337DFF',
-                            color: 'white',
-                            '&:hover': { backgroundColor: '#33B8FF' },
-                        }}
-                        onClick={DialogEliminar}
-                    >
-                        Materiales
-                    </Button>
-                </Stack>
-            ),
+            renderCell: (params) => {
+
+                const [anchorEl, setAnchorEl] = React.useState(null);
+
+                const handleClick = (event) => {
+                    setAnchorEl(event.currentTarget);
+                };
+
+                const handleClose = () => {
+                    setAnchorEl(null);
+                };
+
+                const handleEdit = () => {
+                    // Implementa la función para editar aquí
+                    handleClose();
+                };
+
+                const handleDetails = () => {
+                    // Implementa la función para detalles aquí
+                    handleClose();
+                };
+
+                const handleDelete = () => {
+                    // Implementa la función para eliminar aquí
+                    handleClose();
+                };
+
+                const handleAddMaterial = () => {
+                    // Implementa la función para añadir materiales aquí
+                    VisibilidadTabla();
+                    handleClose();
+                };
+
+
+
+                return (
+                    <Stack direction="row" spacing={1}>
+                        <Button
+                            aria-controls={`menu-${params.id}`}
+                            aria-haspopup="true"
+                            onClick={handleClick}
+                            variant="contained"
+                            style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+                            startIcon={<Icon>menu</Icon>}
+                        >
+                            Opciones
+                        </Button>
+                        <Menu
+                            id={`menu-${params.id}`}
+                            anchorEl={anchorEl}
+                            keepMounted
+                            open={Boolean(anchorEl)}
+                            onClose={handleClose}
+                        >
+                            <MenuItem onClick={handleEdit}>
+                                <Icon>edit</Icon> Editar
+                            </MenuItem>
+                            <MenuItem onClick={handleDetails}>
+                                <Icon>visibility</Icon> Detalles
+                            </MenuItem>
+                            <MenuItem onClick={handleDelete}>
+                                <Icon>delete</Icon> Eliminar
+                            </MenuItem>
+                            <MenuItem onClick={handleAddMaterial}>
+                                <Icon>add</Icon> Añadir Materiales
+                            </MenuItem>
+
+                        </Menu>
+                    </Stack>
+                );
+            },
         },
     ];
 
@@ -144,7 +192,11 @@ function OrdenCompra_Crear() {
         setSearchText(event.target.value);
     };
 
-
+    {/* Función para mostrar la tabla de detalles y mostrar agregar materiales */ }
+    const VisibilidadTabla = () => {
+        setmostrarIndex(!mostrarIndex);
+        setmostrarAdd(!mostrarAdd);
+    };
 
     {/* Filtrado de datos */ }
     const filteredRows = rows.filter((row) =>
@@ -482,7 +534,7 @@ function OrdenCompra_Crear() {
                                         </Typography>
                                     </Grid>
 
-                                    <Grid item xs={6} style={{textAlign: 'center'}} >
+                                    <Grid item xs={6} style={{ textAlign: 'center' }} >
 
                                         <div class="flex items-center justify-center w-full">
                                             <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-full border-2 border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
@@ -494,12 +546,12 @@ function OrdenCompra_Crear() {
                                                 </div>
                                                 <input id="dropzone-file" type="file" class="hidden" />
                                             </label>
-                                            
+
                                         </div>
                                         <label>En este campo puede añadir ejemplo de prendas terminadas y otras especificaciones.</label>
                                     </Grid>
 
-                                    <Grid item xs={6} style={{textAlign: 'center'}}>
+                                    <Grid item xs={6} style={{ textAlign: 'center' }}>
                                         <div class="flex items-center justify-center w-full">
                                             <label
                                                 for="dropzone-file"
@@ -507,7 +559,7 @@ function OrdenCompra_Crear() {
                                             >
                                                 <div class="flex flex-col items-center justify-center pt-5 pb-6">
 
-                                                <Avatar alt="Remy Sharp" src="https://cdn-icons-png.flaticon.com/128/337/337946.png" sx={{ height: "50px", width: "50px" }} variant="rounded" />
+                                                    <Avatar alt="Remy Sharp" src="https://cdn-icons-png.flaticon.com/128/337/337946.png" sx={{ height: "50px", width: "50px" }} variant="rounded" />
 
 
                                                     <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
@@ -521,52 +573,126 @@ function OrdenCompra_Crear() {
 
                                     </Grid>
 
-                                    <Grid
-                                        item
-                                        xs={12}
-                                        sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right', marginTop: '10px' }}
-                                    >
+                                    <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '10px', marginBottom: '10px' }}>
                                         <Button
-                                            startIcon={<Icon>checked</Icon>}
+                                            startIcon={<Icon>add_circle</Icon>}
                                             variant="contained"
                                             color="primary"
                                             style={{ borderRadius: '10px', marginRight: '10px' }}
                                             sx={{
-                                                backgroundColor: '#634A9E',
+                                                backgroundColor: '#D1AF3C',
                                                 color: 'white',
                                                 '&:hover': { backgroundColor: '#6e52ae' },
                                             }}
                                             onClick={() => validacion(1)}
                                         >
-                                            Guardar Detalle
+                                            Agregar
                                         </Button>
-
-
                                     </Grid>
-
-
-                                    <Grid item xs={12}>
-                                        <DataGrid
-                                            sx={{ height: '200px' }}
-                                            localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-                                            components={{
-                                                Toolbar: GridToolbar,
-                                                Search: SearchIcon,
-                                            }}
-                                            rows={filteredRows}
-                                            columns={columns}
-                                            initialState={{
-                                                pagination: {
-                                                    paginationModel: { page: 0, pageSize: 10 },
-                                                },
-                                            }}
-                                            pageSizeOptions={[10, 20, 50]}
-                                        />
-                                    </Grid>
-
-
 
                                 </Grid>
+
+                                <Collapse in={mostrarAdd}>
+                                    <Divider style={{ marginTop: '30px', marginBottom: '15px' }}>
+                                        <Chip label="Agregar Materiales " />
+                                    </Divider>
+                                    <Grid container spacing={3}>
+
+                                        <Grid item xs={6}>
+                                            <FormControl fullWidth>
+                                                <InputLabel htmlFor="grouped-native-select">Material</InputLabel>
+                                                <Select
+                                                    style={{ borderRadius: '3px' }}
+                                                    label="Material"
+                                                />
+                                            </FormControl>
+                                        </Grid>
+
+
+                                        <Grid item xs={6}>
+                                            <FormControl fullWidth>
+                                                <TextField style={{ borderRadius: '10px' }} label="Cantidad" />
+                                            </FormControl>
+                                        </Grid>
+
+
+                                        <Grid item xs={6}>
+                                            <FormControl fullWidth>
+                                                <InputLabel htmlFor="grouped-native-select">Unidad de Medida</InputLabel>
+                                                <Select
+                                                    style={{ borderRadius: '3px' }}
+                                                    label="Unidad de Medida"
+                                                />
+                                            </FormControl>
+                                        </Grid>
+
+
+                                        <Grid
+                                            item
+                                            xs={6}
+                                            sx={{ justifyContent: 'right', alignItems: 'right' }}
+                                        >
+                                            <Button
+                                                startIcon={<Icon>checked</Icon>}
+                                                variant="contained"
+                                                color="primary"
+                                                style={{ borderRadius: '10px', marginRight: '10px' }}
+                                                sx={{
+                                                    backgroundColor: '#634A9E',
+                                                    color: 'white',
+                                                    '&:hover': { backgroundColor: '#6e52ae' },
+                                                }}
+                                                onClick={() => validacion(1)}
+                                            >
+                                                Guardar
+                                            </Button>
+
+                                            <Button
+                                                startIcon={<Icon>close</Icon>}
+                                                variant="contained"
+                                                color="primary"
+                                                style={{ borderRadius: '10px' }}
+                                                sx={{
+                                                    backgroundColor: '#DAD8D8',
+                                                    color: 'black',
+                                                    '&:hover': { backgroundColor: '#BFBABA' },
+                                                }}
+                                                onClick={VisibilidadTabla}
+                                            >
+                                                Cancelar
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
+
+                                </Collapse>
+
+                                <Collapse in={mostrarIndex}>
+                                    <Grid container spacing={3}>
+                                        <Grid item xs={12}>
+                                            {/* <DataGrid
+                                                sx={{ height: '200px' }}
+                                                localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+                                                components={{
+                                                    Toolbar: GridToolbar,
+                                                    Search: SearchIcon,
+                                                }}
+                                                rows={filteredRows}
+                                                columns={columns}
+                                                initialState={{
+                                                    pagination: {
+                                                        paginationModel: { page: 0, pageSize: 10 },
+                                                    },
+                                                }}
+                                                pageSizeOptions={[10, 20, 50]}
+                                            />*/}
+                                            <TablaDetalles_Materiales></TablaDetalles_Materiales>
+                                        </Grid>
+                                    </Grid>
+                                </Collapse>
+
+
+
+
                             </CardContent>
                         </Card>
 
@@ -708,7 +834,7 @@ function OrdenCompra_Crear() {
 
                 </SwipeableViews>
             </Box>
-        </Card>
+        </Card >
     );
 }
 

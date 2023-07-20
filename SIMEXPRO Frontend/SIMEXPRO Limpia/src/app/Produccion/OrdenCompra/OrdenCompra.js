@@ -13,25 +13,37 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { Card, CardContent } from '@mui/material';
+import TablePagination from '@mui/material/TablePagination';
 
-function createData(name, calories, fat, carbs, protein, price) {
+
+
+import CardMedia from '@mui/material/CardMedia';
+import { Button, FormControl, Icon, InputAdornment, InputLabel, TextField } from '@mui/material';
+import Stack from '@mui/material/Stack';
+import { DataGrid, GridToolbar, esES } from '@mui/x-data-grid'
+import { useState } from 'react';
+import SearchIcon from '@mui/icons-material/Search';
+
+
+function createData(Id, Fecha, Cliente, Empleado) {
   return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
-    history: [
+    Id,
+    Fecha,
+    Cliente,
+    Empleado,
+    Detalles: [
       {
-        date: '2020-01-05',
-        customerId: '11091700',
-        amount: 3,
+        Producto: 'Harina',
+        cantidad: '3',
+        precio: '10.Lps',
+        Total: '30.Lps'
       },
       {
-        date: '2020-01-02',
-        customerId: 'Anonymous',
-        amount: 1,
+        Producto: 'Manteca',
+        cantidad: '5',
+        precio: '25.Lps',
+        Total: '125.Lps'
       },
     ],
   };
@@ -40,7 +52,6 @@ function createData(name, calories, fat, carbs, protein, price) {
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
-
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -54,40 +65,38 @@ function Row(props) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {row.name}
+          {row.Id}
         </TableCell>
-        <TableCell align="right">{row.calories}</TableCell>
-        <TableCell align="right">{row.fat}</TableCell>
-        <TableCell align="right">{row.carbs}</TableCell>
-        <TableCell align="right">{row.protein}</TableCell>
+        <TableCell align="right">{row.Fecha}</TableCell>
+        <TableCell align="right">{row.Cliente}</TableCell>
+        <TableCell align="right">{row.Empleado}</TableCell>
+
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-                History
+                Detalles
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
+                    <TableCell>Producto</TableCell>
+                    <TableCell>Cantidad</TableCell>
+                    <TableCell>Precio</TableCell>
+                    <TableCell align="right">Total</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
+                  {row.Detalles.map((historyRow) => (
+                    <TableRow key={historyRow.Producto}>
                       <TableCell component="th" scope="row">
-                        {historyRow.date}
+                        {historyRow.Producto}
                       </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
+                      <TableCell>{historyRow.cantidad}</TableCell>
+                      <TableCell>{historyRow.precio}</TableCell>
+                      <TableCell align='right'>{historyRow.Total}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -102,52 +111,154 @@ function Row(props) {
 
 Row.propTypes = {
   row: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbs: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
+    Id: PropTypes.number.isRequired,
+    Fecha: PropTypes.string.isRequired,
+    Cliente: PropTypes.string.isRequired,
+    Empleado: PropTypes.string.isRequired,
+    Detalles: PropTypes.arrayOf(
       PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
+        Producto: PropTypes.string.isRequired,
+        cantidad: PropTypes.string.isRequired,
+        precio: PropTypes.string.isRequired,
+        Total: PropTypes.string.isRequired,
       }),
     ).isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    protein: PropTypes.number.isRequired,
   }).isRequired,
 };
 
 const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-  createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-  createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
+  createData(1, '16-10-2004', 'Cristian Aguilar', 'Lionel Messi'),
+  createData(2, '16-10-2004', 'Mauricio Mateo', 'Cristiano Ronaldo'),
+  createData(3, '16-10-2004', 'Lucas Hernadez', 'Donald Trump'),
+  createData(4, '16-10-2004', 'Victor Valedz', 'Pedro Rodriguez'),
+  createData(5, '16-10-2004', 'Victor Valedz', 'Pedro Rodriguez'),
+  createData(7, '16-10-2004', 'Victor Valedz', 'Pedro Rodriguez'),
+  createData(8, '16-10-2004', 'Victor Valedz', 'Pedro Rodriguez'),
+  createData(9, '16-10-2004', 'Victor Valedz', 'Pedro Rodriguez'),
+  createData(10, '16-10-2004', 'Victor Valedz', 'Pedro Rodriguez'),
+  createData(11, '16-10-2004', 'Victor Valedz', 'Pedro Rodriguez'),
+  createData(12, '16-10-2004', 'Victor Valedz', 'Pedro Rodriguez'),
+  createData(13, '16-10-2004', 'JAfet', 'Pedro Rodriguez'),
+
 ];
+
+function stableSort(array, comparator) {
+  const stabilizedThis = array.map((el, index) => [el, index]);
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) {
+      return order;
+    }
+    return a[1] - b[1];
+  });
+  return stabilizedThis.map((el) => el[0]);
+}
+
+function descendingComparator(a, b, orderBy) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
+}
+
+function getComparator(order, orderBy) {
+  return order === 'desc'
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
+}
+
 
 export default function OrdenCompraIndex() {
 
+  const [searchText, setSearchText] = useState('');
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [page, setPage] = React.useState(0);
+  const [order, setOrder] = React.useState('asc');
+  const [orderBy, setOrderBy] = React.useState('');
+
+
+  const visibleRows = React.useMemo(
+    () =>
+      stableSort(rows, getComparator(order, orderBy)).slice(
+        page * rowsPerPage,
+        page * rowsPerPage + rowsPerPage,
+      ),
+    [order, orderBy, page, rowsPerPage],
+  );
+
+  {/* Filtrado de datos */ }
+  const filteredRows = visibleRows.filter((row) =>
+    row.Fecha.toLowerCase().includes(searchText.toLowerCase()) ||
+    row.Cliente.toLowerCase().includes(searchText.toLowerCase()) ||
+    row.Empleado.toLowerCase().includes(searchText.toLowerCase())
+  );
+
+  const handleSearchChange = (event) => {
+    setSearchText(event.target.value);
+  };
+
+
+  {/* Paginacion */ }
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <div>
+      <TextField
+        style={{ borderRadius: '10px' }}
+        placeholder='Buscar'
+        value={searchText}
+        onChange={handleSearchChange}
+        size="small"
+        variant="outlined"
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <IconButton edge="start">
+                <SearchIcon />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+      />
+
+      <TableContainer >
+        <Table aria-label="collapsible table"
+        >
+          <TableHead>
+            <TableRow>
+              <TableCell />
+              <TableCell>Id</TableCell>
+              <TableCell align="right">Fecha</TableCell>
+              <TableCell align="right">Cliente</TableCell>
+              <TableCell align="right">Empleado</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {filteredRows.map((row) => (
+              <Row key={row.Id} row={row} />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+    </div>
   );
 }

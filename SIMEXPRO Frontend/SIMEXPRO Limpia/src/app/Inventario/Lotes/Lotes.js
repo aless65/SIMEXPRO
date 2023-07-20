@@ -160,12 +160,14 @@ function LotesIndex() {
     stock: '',
     cantidad: '',
     Select: '',
+    Areas:'',
   }
 
   const accountSchema = yup.object().shape({
     stock: yup.string().required(),
     cantidad: yup.string().required(),
     Select: yup.string().required(),
+    Areas: yup.string().required(),
   })
   
   const VisibilidadTabla = () => {
@@ -189,9 +191,9 @@ function LotesIndex() {
 
   const onSubmit = (data) => {
     console.log(data);
-    if(data.Select.length != 0){
+    if(data.Select.length != 0 || data.Areas.length != 0){
         if(data.stock != null || data.cantidad != null){
-            if (data.stock.trim() === '' || data.cantidad.trim() === '' || data.Select === 'Selecciona una opción') {
+            if (data.stock.trim() === '' || data.cantidad.trim() === '' || data.Select === 'Selecciona una opción' || data.Areas === 'Selecciona una opción') {
               console.log('Que onda')
               Toast.fire({
                 icon: 'error',
@@ -216,6 +218,11 @@ function LotesIndex() {
       
     }else{
         console.log('que raro');
+        console.log('Que onda')
+        Toast.fire({
+          icon: 'error',
+          title: 'No se permiten campos vacios',
+        }); 
     }
     
   };
@@ -316,8 +323,29 @@ function LotesIndex() {
                     <Grid container spacing={3}>
 
                         
-                    <Grid item xs={6}>
-                            <div className="mt-48 mb-16">
+                   
+
+                        <Grid item xs={6}>
+                                <Controller
+                                    defaultValue={['Selecciona una opción']}
+                                    render={({ field }) => (
+                                    <FormControl error={!!errors.Select} fullWidth>
+                                        <InputLabel>Materiales</InputLabel>
+                                        <FormLabel className="font-medium text-14" component="legend">                                
+                                        </FormLabel>
+                                        <Select {...field} variant="outlined" fullWidth >
+                                        <MenuItem value="10">Ten (10)</MenuItem>
+                                        <MenuItem value="20">Twenty (20)</MenuItem>
+                                        <MenuItem value="30">Thirty (30)</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                    )}
+                                    name="Select"
+                                    control={control}
+                                />
+                         </Grid>
+
+                         <Grid item xs={6}>
                                 <Controller
                                 render={({ field }) => (
                                     <TextField
@@ -333,12 +361,10 @@ function LotesIndex() {
                                 name="stock"
                                 control={control}
                                 />
-                            </div>
                         </Grid>       
                         
                         
                         <Grid item xs={6}>
-                            <div className="mt-48 mb-16">
                                 <Controller
                                 render={({ field }) => (
                                     <TextField
@@ -354,31 +380,28 @@ function LotesIndex() {
                                 name="cantidad"
                                 control={control}
                                 />
-                            </div>
                         </Grid>
 
-
                         <Grid item xs={6}>
-                            <div className="mt-48 mb-16">
                                 <Controller
                                     defaultValue={['Selecciona una opción']}
                                     render={({ field }) => (
-                                    <FormControl error={!!errors.Select} fullWidth>
-                                        <FormLabel className="font-medium text-14" component="legend">
-                                        Materiales
+                                    <FormControl error={!!errors.Areas} fullWidth>
+                                        <InputLabel>Áreas</InputLabel>
+                                        <FormLabel className="font-medium text-14" component="legend">                                                                      
                                         </FormLabel>
-                                        <Select {...field} variant="outlined" fullWidth>
+                                        <Select {...field} variant="outlined" fullWidth >
                                         <MenuItem value="10">Ten (10)</MenuItem>
                                         <MenuItem value="20">Twenty (20)</MenuItem>
                                         <MenuItem value="30">Thirty (30)</MenuItem>
                                         </Select>
                                     </FormControl>
                                     )}
-                                    name="Select"
+                                    name="Areas"
                                     control={control}
                                 />
-                            </div>
                          </Grid>
+
 
                         <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }}>
                             <Button

@@ -101,14 +101,15 @@ function PersonaNatural_Crear() {
   const navigate = useNavigate();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
-
-  const { handleSubmit, reset, control, formState } = useForm({
-    tab1Fields,
-    tab2Fields,
+  const { handleSubmit, reset, control, formState, setError } = useForm({
     mode: 'all',
-    resolver: yupResolver(schemaTab1Fields || schemaTab2Fields),
+    resolver   
   });
+
   const { isValid, dirtyFields, errors } = formState;
+  const [tabsEstado, settabsEstado] = useState({
+    tab1: true,
+  });
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -117,6 +118,19 @@ function PersonaNatural_Crear() {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
+
+  const onSubmitTab1 = (data) =>{
+    console.log(data);
+    settabsEstado({
+      tab1: false,
+    })
+    setValue(1);
+  };
+
+  const onSubmitTab2 = (data) =>{
+    console.log(data);
+    setValue(2);
+  }
 
   const validacion = (params, event) => {
     if (event) {
@@ -134,9 +148,7 @@ function PersonaNatural_Crear() {
     }
   };
 
-  const [tabsEstado, settabsEstado] = useState({
-    tab1: true,
-  });
+
 
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
@@ -169,7 +181,7 @@ function PersonaNatural_Crear() {
           onChangeIndex={handleChangeIndex}
         >
           <TabPanel value={value} index={0} dir={theme.direction}>
-            <form onSubmit={handleSubmit()}>
+            <form onSubmit={handleSubmit(onSubmitTab1)}>
               <Card style={{ marginBottom: '25px' }}>
                 <CardContent>
                   <Grid container spacing={2}>
@@ -317,7 +329,7 @@ function PersonaNatural_Crear() {
                     color: 'white',
                     '&:hover': { backgroundColor: '#6e52ae' },
                   }}
-                  onClick={() => validacion(1)}
+                  // onClick={() => validacion(1)}
                   type="button"
                   disabled={_.isEmpty(dirtyFields) || !isValid}
                 >
@@ -345,7 +357,7 @@ function PersonaNatural_Crear() {
           </TabPanel>
 
           <TabPanel value={value} index={1} dir={theme.direction}>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmitTab2)}>
               <Card style={{ marginBottom: '25px' }}>
                 <CardContent>
                   <Grid container spacing={2}>

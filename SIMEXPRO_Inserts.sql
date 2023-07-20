@@ -1235,6 +1235,21 @@ VALUES	('0001', 'ADUANA AMAPALA', '1st Street, Amapala, Valle, Honduras', 1, GET
 		('9102', 'ZEDE PROSPERA', '67890 Maple Lane, La Ceiba, Honduras', 1, GETDATE());
 
 
+   GO
+   INSERT INTO Adua.tbCondicionesComerciales(coco_Codigo,coco_Descripcion,usua_UsuarioCreacion,coco_FechaCreacion)
+   VALUES 
+   ('DT','Distribuidor',1,GETDATE()),
+   ('FB','Fabricante',1,GETDATE()),
+   ('MY','Mayorista',1,GETDATE()),
+   ('OT','Otro',1,GETDATE()),
+   ('PR','Productor',1,GETDATE()),
+   ('RV','Revendedor',1,GETDATE())
 
-
-
+   GO
+   INSERT INTO [Adua].[tbTipoIntermediario](tite_Codigo, tite_Descripcion, usua_UsuarioCreacion, tite_FechaCreacion)
+   VALUES 
+   ('BR','BROKER',1,GETDATE()),
+   ('CC','COMISIONISTA COMPRA',1,GETDATE()),
+   ('CO','CORREDOR',1,GETDATE()),
+   ('CV','COMISIONISTA VENTA',1,GETDATE()),
+   ('OT','OTRO',1,GETDATE())

@@ -1352,8 +1352,8 @@ BEGIN
 		   ,[deva_FechaCreacion]				--AS fechaCreacion, 
 		   ,deva.[usua_UsuarioModificacion]		--AS usuarioModificacionId, 
 		   ,[deva_FechaModificacion]			--AS fechaModificacion, 
-		   ,deva.[usua_UsuarioEliminacion]		--AS usuarioEliminacionId, 
-		   ,[deva_FechaEliminacion]				--AS fechaEliminacion, 
+		   --,deva.[usua_UsuarioEliminacion]		--AS usuarioEliminacionId, 
+		   --,[deva_FechaEliminacion]				--AS fechaEliminacion, 
 		   ,[deva_Estado]						--AS declaracionEstado
 	FROM   [Adua].[tbDeclaraciones_Valor] deva 
 		   INNER JOIN [Adua].[tbAduanas] aduaIngreso			ON deva.deva_Aduana_Ingreso_Id = aduaIngreso.adua_Id
@@ -1497,6 +1497,8 @@ BEGIN
 				@deva_FechaCreacion,
 				'Insert tab1')
 
+		SELECT 1
+
 		COMMIT TRAN
 	END TRY
 	BEGIN CATCH
@@ -1509,10 +1511,6 @@ GO
 --EXEC adua.UDP_tbDeclaraciones_Valor_Tab1_Insert 2, 1, '2023-07-12', 'NOMBRE DE RAZÓN JAJA NO SÉ XD', '0501-2005-632458', '05012005632458', 'dirección perrona', 2, 'empresa@empresa.com', '85478965', null, 2, null, 1, '2023-07-12'
 --GO
 
-EXEC adua.UDP_tbDeclaraciones_Valor_Tab2_Insert 1, 'OTRA RAZÓN WTF', 'HOGAR DULCE HOGAR', 
-												3, 'asjds@sdl.com', '45874589', null, 2, null, 'MÁS NOMBRES WN', 
-												'CASA EVERYWHERE', 2, 'ASD@MSD.COM', '5874786554', null, 1, null, 1, '2023-07-20'
-GO
 
 
 CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab2_Insert 
@@ -1594,15 +1592,112 @@ BEGIN
 		SET [inte_Id] = @inte_Id,
 			[pvde_Id] = @prov_Id
 		WHERE [deva_Id] = @deva_Id
+
+		INSERT INTO [Adua].[tbDeclaraciones_ValorHistorial](deva_Id, 
+															deva_Aduana_Ingreso_Id, 
+															deva_Aduana_Despacho_Id, 
+															deva_Declaracion_Mercancia, 
+															deva_Fecha_Aceptacion, 
+															impo_Id, 
+															prov_Id, 
+															inte_Id, 
+															hdev_UsuarioAccion, 
+															hdev_FechaAccion, 
+															hdev_Accion)
+		SELECT deva_Id,
+			   deva_Aduana_Ingreso_Id,
+			   deva_Aduana_Despacho_Id,
+			   deva_Declaracion_Mercancia,
+			   deva_Fecha_Aceptacion,
+			   impo_Id,
+			   @prov_Id,
+			   @inte_Id,
+			   @usua_UsuarioCreacion,
+			   @deva_FechaCreacion,
+			   'Insert tab2'
+		FROM [Adua].[tbDeclaraciones_ValorHistorial]
+		WHERE deva_Id = @deva_Id
+
+		SELECT 1
 			
 		COMMIT TRAN
 	END TRY
 	BEGIN CATCH
-		ROLLBACK TRAN
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
+		ROLLBACK TRAN
 	END CATCH
 END
 
+
+--EXEC adua.UDP_tbDeclaraciones_Valor_Tab2_Insert 1, 'OTRA RAZÓN WTF', 'HOGAR DULCE HOGAR', 
+--												3, 'asjds@sdl.com', '45874589', null, 2, null, 'MÁS NOMBRES WN', 
+--												'CASA EVERYWHERE', 2, 'ASD@MSD.COM', '5874786554', null, 1, null, 1, '2023-07-20'
+--GO
+
+GO
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab3_Insert
+	@deva_Lugar_Entrega			NVARCHAR(800),
+	@pais_Entrega_Id			INT,
+	@inco_Id					INT,
+	@inco_Version				NVARCHAR(10),
+	@deva_numero_contrato		NVARCHAR(200),
+	@deva_Fecha_Contrato		DATE,
+	@foen_Id					INT,
+	@deva_Forma_Envio_Otra		NVARCHAR(500),
+	@deva_Pago_Efectuado		BIT,
+	@fopa_Id					INT,
+	@deva_Forma_Pago_Otra		NVARCHAR(200),
+	@emba_Id					INT,
+	@pais_Exportacion_Id		INT,
+	@deva_Fecha_Exportacion		DATE,
+	@mone_Id					INT,
+	@mone_Otra					NVARCHAR(200),
+	@deva_Conversion_Dolares	DECIMAL(18,2)
+AS 
+BEGIN
+	BEGIN TRANSACTION
+	BEGIN TRY
+			INSERT INTO [Adua].[tbDeclaraciones_Valor](deva_Lugar_Entrega, 
+													   pais_Entrega_Id, 
+													   inco_Id, 
+													   inco_Version, 
+													   deva_numero_contrato, 
+													   deva_Fecha_Contrato, 
+													   foen_Id, 
+													   deva_Forma_Envio_Otra, 
+													   deva_Pago_Efectuado, 
+													   fopa_Id, 
+													   deva_Forma_Pago_Otra, 
+													   emba_Id, 
+													   pais_Exportacion_Id, 
+													   deva_Fecha_Exportacion, 
+													   mone_Id, 
+													   mone_Otra, 
+													   deva_Conversion_Dolares)
+			VALUES (@deva_Lugar_Entrega, 
+					@pais_Entrega_Id, 
+					@inco_Id, 
+					@inco_Version, 
+					@deva_numero_contrato, 
+					@deva_Fecha_Contrato, 
+					@foen_Id, 
+					@deva_Forma_Envio_Otra, 
+					@deva_Pago_Efectuado, 
+					@fopa_Id, 
+					@deva_Forma_Pago_Otra, 
+					@emba_Id, 
+					@pais_Exportacion_Id, 
+					@deva_Fecha_Exportacion, 
+					@mone_Id, 
+					@mone_Otra, 
+					@deva_Conversion_Dolares)
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+
+		ROLLBACK TRAN
+	END CATCH
+END
 --CREATE OR ALTER PROCEDURE prueba
 --	@id			INT,
 --	@response   INT OUTPUT

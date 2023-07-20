@@ -24,6 +24,7 @@ import Stack from '@mui/material/Stack';
 import { DataGrid, GridToolbar, esES } from '@mui/x-data-grid'
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
+import { render } from '@fullcalendar/core/preact';
 
 
 function createData(Id, Modelo, Talla, Proceso, Acciones) {
@@ -51,6 +52,83 @@ function createData(Id, Modelo, Talla, Proceso, Acciones) {
 function Row(props) {
     const { row } = props;
     const [open, setOpen] = React.useState(false);
+
+    const columns = {
+        renderCell: (params) => {
+
+            const [anchorEl, setAnchorEl] = React.useState(null);
+
+            const handleClick = (event) => {
+                setAnchorEl(event.currentTarget);
+            };
+
+            const handleClose = () => {
+                setAnchorEl(null);
+            };
+
+            const handleEdit = () => {
+                // Implementa la función para editar aquí
+                handleClose();
+            };
+
+            const handleDetails = () => {
+                // Implementa la función para detalles aquí
+                handleClose();
+            };
+
+            const handleDelete = () => {
+                // Implementa la función para eliminar aquí
+                handleClose();
+            };
+
+            const handleAddMaterial = () => {
+                // Implementa la función para añadir materiales aquí
+                VisibilidadTabla();
+                handleClose();
+            };
+
+
+
+            return (
+                <Stack direction="row" spacing={1}>
+                    <Button
+                        aria-controls={`menu-${params.id}`}
+                        aria-haspopup="true"
+                        onClick={handleClick}
+                        variant="contained"
+                        style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+                        startIcon={<Icon>menu</Icon>}
+                    >
+                        Opciones
+                    </Button>
+                    <Menu
+                        id={`menu-${params.id}`}
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                    >
+                        <MenuItem onClick={handleEdit}>
+                            <Icon>edit</Icon> Editar
+                        </MenuItem>
+                        <MenuItem onClick={handleDetails}>
+                            <Icon>visibility</Icon> Detalles
+                        </MenuItem>
+                        <MenuItem onClick={handleDelete}>
+                            <Icon>delete</Icon> Eliminar
+                        </MenuItem>
+                        <MenuItem onClick={handleAddMaterial}>
+                            <Icon>add</Icon> Añadir Materiales
+                        </MenuItem>
+
+                    </Menu>
+                </Stack>
+            );
+        },
+    };
+
+
+
     return (
         <React.Fragment>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -66,48 +144,12 @@ function Row(props) {
                 <TableCell component="th" scope="row">
                     {row.Id}
                 </TableCell>
-                <TableCell align="right">{row.Modelo}</TableCell>
-                <TableCell align="right">{row.Talla}</TableCell>
-                <TableCell align="right">{row.Proceso}</TableCell>
-                <TableCell align="right">
-                    <Stack direction="row" spacing={1}>
-                        <Button
-                           
-                            aria-haspopup="true"
-                            onClick={handleClick}
-                            variant="contained"
-                            style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
-                            startIcon={<Icon>menu</Icon>}
-                        >
-                            Opciones
-                        </Button>
-                        <Menu
-                            
-                            anchorEl={anchorEl}
-                            keepMounted
-                            open={Boolean(anchorEl)}
-                            onClose={handleClose}
-                        >
-                            <MenuItem >
-                                <Icon>edit</Icon> Editar
-                            </MenuItem>
-                            <MenuItem >
-                                <Icon>visibility</Icon> Detalles
-                            </MenuItem>
-                            <MenuItem >
-                                <Icon>delete</Icon> Eliminar
-                            </MenuItem>
-                            <MenuItem>
-                                <Icon>add</Icon> Añadir Materiales
-                            </MenuItem>
-
-                        </Menu>
-                    </Stack>
-
-                </TableCell>
-
-
+                <TableCell >{row.Modelo}</TableCell>
+                <TableCell >{row.Talla}</TableCell>
+                <TableCell >{row.Proceso}</TableCell>
+                <TableCell >{columns.renderCell}</TableCell>
             </TableRow>
+
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
@@ -163,7 +205,7 @@ Row.propTypes = {
 
 const rows = [
     createData(1, 'polo', 'L', 'Corte'),
-    createData(2, 'Falda', 'M', 'Corte')
+    createData(2, 'Falda','M', 'Corte')
 ];
 
 function stableSort(array, comparator) {
@@ -217,8 +259,7 @@ export default function TablaDetalles_Materiales() {
     const filteredRows = visibleRows.filter((row) =>
         row.Modelo.toLowerCase().includes(searchText.toLowerCase()) ||
         row.Talla.toLowerCase().includes(searchText.toLowerCase()) ||
-        row.Proceso.toLowerCase().includes(searchText.toLowerCase()) ||
-        row.Id.toLowerCase().includes(searchText.toLowerCase())
+        row.Proceso.toLowerCase().includes(searchText.toLowerCase()) 
     );
 
     const handleSearchChange = (event) => {
@@ -263,10 +304,10 @@ export default function TablaDetalles_Materiales() {
                         <TableRow>
                             <TableCell />
                             <TableCell>Id</TableCell>
-                            <TableCell align="right">Modelo</TableCell>
-                            <TableCell align="right">Talla</TableCell>
-                            <TableCell align="right">Proceso</TableCell>
-                            <TableCell align="right">Acciones</TableCell>
+                            <TableCell >Modelo</TableCell>
+                            <TableCell >Talla</TableCell>
+                            <TableCell >Proceso</TableCell>
+                            <TableCell >Acciones</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

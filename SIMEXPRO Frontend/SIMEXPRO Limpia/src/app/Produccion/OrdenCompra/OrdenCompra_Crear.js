@@ -436,7 +436,7 @@ function OrdenCompra_Crear() {
                                     '&:hover': { backgroundColor: '#BFBABA' },
                                 }}
                                 onClick={(e) => {
-                                    navigate('/Declaracion-de-Valor/Listado');
+                                    navigate('/OrdenCompra/index');
                                 }}
                             >
                                 Cancelar
@@ -669,7 +669,7 @@ function OrdenCompra_Crear() {
                                 <Collapse in={mostrarIndex}>
                                     <Grid container spacing={3}>
                                         <Grid item xs={12}>
-                                            {/* <DataGrid
+                                            <DataGrid
                                                 sx={{ height: '200px' }}
                                                 localeText={esES.components.MuiDataGrid.defaultProps.localeText}
                                                 components={{
@@ -684,8 +684,8 @@ function OrdenCompra_Crear() {
                                                     },
                                                 }}
                                                 pageSizeOptions={[10, 20, 50]}
-                                            />*/}
-                                            <TablaDetalles_Materiales></TablaDetalles_Materiales>
+                                            />
+                                            {/* <TablaDetalles_Materiales></TablaDetalles_Materiales> */}
                                         </Grid>
                                     </Grid>
                                 </Collapse>
@@ -728,7 +728,7 @@ function OrdenCompra_Crear() {
                                     '&:hover': { backgroundColor: '#BFBABA' },
                                 }}
                                 onClick={(e) => {
-                                    navigate('/Declaracion-de-Valor/Listado');
+                                    navigate('/OrdenCompra/index');
                                 }}
                             >
                                 Cancelar

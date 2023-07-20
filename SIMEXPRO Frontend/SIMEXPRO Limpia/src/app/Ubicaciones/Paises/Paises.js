@@ -92,13 +92,6 @@ function PaisesIndex() {
   })
   
 
-  const {handleSubmit, register, reset, control, watch, formState } = useForm({
-    defaultAccountValues,
-    mode: 'all',
-    resolver: yupResolver(accountSchema),
-  });
-
-  const { isValid, dirtyFields,isSubmitting, errors } = formState;
 
   {/* Validaciones de la pantalla de crear*/ }
 
@@ -191,22 +184,29 @@ function PaisesIndex() {
     row.descripcion.toLowerCase().includes(searchText.toLowerCase())
   );
 
+    const {handleSubmit, register, reset, control, watch, formState } = useForm({
+    defaultAccountValues,
+    mode: 'all',
+    resolver: yupResolver(accountSchema),
+  });
+
+  const { isValid, dirtyFields, errors } = formState;
+
   
-  const Masiso = () => {
-    if(!isValid){
-      handleSubmit()
+  const Masiso = handleSubmit((data) => {
+    if (!isValid) {
       Toast.fire({
         icon: 'error',
-        title: 'No se permiten campos vacios'
-      })
-    }else{
+        title: 'No se permiten campos vacios',
+      });
+    } else {
       VisibilidadTabla();
-      Toast2.fire({ 
+      Toast2.fire({
         icon: 'success',
-        title: 'Datos guardados exitosamente'
-      })
+        title: 'Datos guardados exitosamente',
+      });
     }
-  }
+  });
 
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>

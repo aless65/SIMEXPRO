@@ -53,8 +53,8 @@ import DocumentosDeSanciones from '../Aduanas/DocumentosDeSanciones/DocumentosDe
 import OrdenProcesosIndex from '../Produccion/OrdenDeProcesos/OrdenDeProcesos';
 import CalendarApp from '../Produccion/Planificación/CalendarApp';
 import MaquinasIndex from '../Maquinaria/Máquinas/Maquinas';
-import FormaDeEnvioIndex from '../generales/FormasEnvio/FormasEnvio';
-import MonedasIndex from '../generales/Monedas/monedas';
+/*import FormaDeEnvioIndex from '../generales/FormasEnvio/FormasEnvio';
+import MonedasIndex from '../generales/Monedas/monedas';*/
 import ModuloIndex from '../Produccion/Modulos/Modulos';
 import ProcesosIndex from '../Produccion/Procesos/Procesos';
 import MarcasIndex from '../Maquinaria/MarcasMaquina/MarcasMaquina';

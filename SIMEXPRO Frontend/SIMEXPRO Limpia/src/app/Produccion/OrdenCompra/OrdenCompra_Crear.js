@@ -93,11 +93,7 @@ function OrdenCompra_Crear() {
     const [mostrarIndex, setmostrarIndex] = useState(true);
     const [mostrarAdd, setmostrarAdd] = useState(false);
 
-    const [Eliminar, setEliminar] = useState(false);
-
-    const DialogEliminar = () => {
-        setEliminar(!Eliminar);
-    };
+    
 
     {/* Columnas de la tabla */ }
     const columns = [
@@ -240,13 +236,6 @@ function OrdenCompra_Crear() {
         tab1: true,
         tab2: true,
     });
-
-    const [mostrarAddH, setmostrarAddH] = useState(true);
-    const [mostrarAddD, setmostrarAddD] = useState(false);
-    const [mostrarAddF, setmostrarAddF] = useState(false);
-    const [mostrarAddFD, setmostrarAddFD] = useState(false);
-    const [mostrarBoton, setmostrarBoton] = useState(false);
-    const [mostrarDetalles, setmostrarDetalles] = useState(false);
 
 
     return (
@@ -481,20 +470,7 @@ function OrdenCompra_Crear() {
                                         </FormControl>
                                     </Grid>
 
-                                    <Grid item xs={4}>
-                                        <FormControl>
-                                            <FormLabel id="demo-radio-buttons-group-label">Corte de Prenda</FormLabel>
-                                            <RadioGroup
-                                                row
-                                                aria-labelledby="demo-row-radio-buttons-group-label"
-                                                name="row-radio-buttons-group"
-                                            >
-                                                <FormControlLabel value="M" control={<Radio />} label="M" />
-                                                <FormControlLabel value="F" control={<Radio />} label="F" />
-                                                <FormControlLabel value="U" control={<Radio />} label="U" />
-                                            </RadioGroup>
-                                        </FormControl>
-                                    </Grid>
+                                    
 
                                     <Grid item xs={4}>
                                         <FormControl fullWidth>
@@ -525,6 +501,21 @@ function OrdenCompra_Crear() {
                                     <Grid item xs={4}>
                                         <FormControl fullWidth>
                                             <TextField style={{ borderRadius: '10px' }} label="Descuento" />
+                                        </FormControl>
+                                    </Grid>
+
+                                    <Grid item xs={6}>
+                                        <FormControl>
+                                            <FormLabel id="demo-radio-buttons-group-label">Corte de Prenda</FormLabel>
+                                            <RadioGroup
+                                                row
+                                                aria-labelledby="demo-row-radio-buttons-group-label"
+                                                name="row-radio-buttons-group"
+                                            >
+                                                <FormControlLabel value="M" control={<Radio />} label="Masculino" />
+                                                <FormControlLabel value="F" control={<Radio />} label="Femenino" />
+                                                <FormControlLabel value="U" control={<Radio />} label="Unisex" />
+                                            </RadioGroup>
                                         </FormControl>
                                     </Grid>
 
@@ -642,7 +633,7 @@ function OrdenCompra_Crear() {
                                                     color: 'white',
                                                     '&:hover': { backgroundColor: '#6e52ae' },
                                                 }}
-                                                onClick={() => validacion(1)}
+                                                onClick={VisibilidadTabla}
                                             >
                                                 Guardar
                                             </Button>
@@ -684,8 +675,8 @@ function OrdenCompra_Crear() {
                                                     },
                                                 }}
                                                 pageSizeOptions={[10, 20, 50]}
-                                            />
-                                            {/* <TablaDetalles_Materiales></TablaDetalles_Materiales> */}
+                                            /> 
+                                            {/* <TablaDetalles_Materiales></TablaDetalles_Materiales>  */}
                                         </Grid>
                                     </Grid>
                                 </Collapse>
@@ -738,94 +729,7 @@ function OrdenCompra_Crear() {
 
 
 
-                    <Dialog
-                        open={Eliminar}
-                        fullWidth="md"
-                        onClose={DialogEliminar}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
-                    >
-                        <DialogTitle id="alert-dialog-title">
-                            Agregar Materiales a la Orden
-                        </DialogTitle>
-
-                        <Card>
-                            <CardContent>
-
-                                <DialogActions>
-                                    <Grid container spacing={2}>
-
-                                        <Grid item xs={6}>
-                                            <FormControl fullWidth>
-                                                <InputLabel htmlFor="grouped-native-select">Material</InputLabel>
-                                                <Select
-                                                    style={{ borderRadius: '3px' }}
-                                                    label="Material"
-                                                />
-                                            </FormControl>
-                                        </Grid>
-
-
-                                        <Grid item xs={6}>
-                                            <FormControl fullWidth>
-                                                <TextField style={{ borderRadius: '10px' }} label="Cantidad" />
-                                            </FormControl>
-                                        </Grid>
-
-
-                                        <Grid item xs={6}>
-                                            <FormControl fullWidth>
-                                                <InputLabel htmlFor="grouped-native-select">Unidad de Medida</InputLabel>
-                                                <Select
-                                                    style={{ borderRadius: '3px' }}
-                                                    label="Unidad de Medida"
-                                                />
-                                            </FormControl>
-                                        </Grid>
-
-                                    </Grid>
-                                </DialogActions>
-                            </CardContent>
-                        </Card>
-
-                        <Grid
-                            item
-                            xs={12}
-                            sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right', marginTop: '10px', marginBottom: '10px', marginLeft: '10px' }}
-
-                        >
-                            <Button
-                                startIcon={<Icon>checked</Icon>}
-                                variant="contained"
-                                color="primary"
-                                style={{ borderRadius: '10px', marginRight: '10px' }}
-                                sx={{
-                                    backgroundColor: '#634A9E',
-                                    color: 'white',
-                                    '&:hover': { backgroundColor: '#6e52ae' },
-                                }}
-                                onClick={() => validacion(1)}
-                            >
-                                Guardar
-                            </Button>
-
-                            <Button
-                                startIcon={<Icon>close</Icon>}
-                                variant="contained"
-                                color="primary"
-                                style={{ borderRadius: '10px' }}
-                                sx={{
-                                    backgroundColor: '#DAD8D8',
-                                    color: 'black',
-                                    '&:hover': { backgroundColor: '#BFBABA' },
-                                }}
-                                onClick={DialogEliminar}
-                            >
-                                Cancelar
-                            </Button>
-                        </Grid>
-
-                    </Dialog>
+                    
 
 
 

@@ -16,6 +16,9 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { Card, CardContent } from '@mui/material';
 import TablePagination from '@mui/material/TablePagination';
 
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Grid from '@mui/material/Grid';
 
 
 import CardMedia from '@mui/material/CardMedia';
@@ -25,6 +28,7 @@ import { DataGrid, GridToolbar, esES } from '@mui/x-data-grid'
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { render } from '@fullcalendar/core/preact';
+
 
 
 function createData(Id, Modelo, Talla, Proceso, Acciones) {
@@ -87,8 +91,6 @@ function Row(props) {
                 handleClose();
             };
 
-
-
             return (
                 <Stack direction="row" spacing={1}>
                     <Button
@@ -144,11 +146,18 @@ function Row(props) {
                 <TableCell component="th" scope="row">
                     {row.Id}
                 </TableCell>
-                <TableCell >{row.Modelo}</TableCell>
-                <TableCell >{row.Talla}</TableCell>
-                <TableCell >{row.Proceso}</TableCell>
-                <TableCell >{columns.renderCell}</TableCell>
-            </TableRow>
+                <TableCell>{row.Modelo}</TableCell>
+                <TableCell>{row.Talla}</TableCell>
+                <TableCell>{row.Proceso}</TableCell>
+                <TableCell>{columns.renderCell({ id: row.Id})}</TableCell>
+            </TableRow>;
+
+
+
+
+
+
+
 
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -205,7 +214,7 @@ Row.propTypes = {
 
 const rows = [
     createData(1, 'polo', 'L', 'Corte'),
-    createData(2, 'Falda','M', 'Corte')
+    createData(2, 'Falda', 'M', 'Corte')
 ];
 
 function stableSort(array, comparator) {
@@ -259,7 +268,7 @@ export default function TablaDetalles_Materiales() {
     const filteredRows = visibleRows.filter((row) =>
         row.Modelo.toLowerCase().includes(searchText.toLowerCase()) ||
         row.Talla.toLowerCase().includes(searchText.toLowerCase()) ||
-        row.Proceso.toLowerCase().includes(searchText.toLowerCase()) 
+        row.Proceso.toLowerCase().includes(searchText.toLowerCase())
     );
 
     const handleSearchChange = (event) => {

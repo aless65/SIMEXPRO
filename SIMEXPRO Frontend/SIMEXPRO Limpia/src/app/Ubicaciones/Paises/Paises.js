@@ -53,8 +53,7 @@ function PaisesIndex() {
     toast: true,
     position: 'top-right',
     iconColor: 'red',
-    width: 600,
-    heigth: 300,
+    width: 400,
     customClass: {
       popup: 'colored-toast'
     },
@@ -67,9 +66,10 @@ function PaisesIndex() {
     toast: true,
     position: 'top-right',
     iconColor: 'green',
+    width: 400,
     customClass: {
       popup: 'colored-toast'
-    },
+    },  
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true
@@ -172,6 +172,11 @@ function PaisesIndex() {
   const VisibilidadTabla = () => {
     setmostrarIndex(!mostrarIndex);
     setmostrarAdd(!mostrarAdd);
+  };
+
+  const VisibilidadTabla2 = () => {
+    setmostrarIndex(!mostrarIndex);
+    setmostrarAdd(!mostrarAdd);
     reset(defaultAccountValues);
   };
 
@@ -192,21 +197,36 @@ function PaisesIndex() {
 
   const { isValid, dirtyFields, errors } = formState;
 
-  
-  const Masiso = handleSubmit((data) => {
-    if (!isValid) {
+  const onSubmit = (data) => {
+    if(data.codigo != null || data.pais != null){
+      if (data.codigo.trim() === '' || data.pais.trim() === '') {
+        Toast.fire({
+          icon: 'error',
+          title: 'No se permiten campos vacios',
+        }); 
+      } else {
+
+        VisibilidadTabla();
+        Toast2.fire({
+          icon: 'success',
+          title: 'Datos guardados exitosamente',
+        });
+        
+      }
+    }else{
       Toast.fire({
         icon: 'error',
         title: 'No se permiten campos vacios',
-      });
-    } else {
-      VisibilidadTabla();
-      Toast2.fire({
-        icon: 'success',
-        title: 'Datos guardados exitosamente',
-      });
+      }); 
     }
-  });
+  };
+
+  const Masiso = () => {
+    const formData = watch();
+    onSubmit(formData); 
+    handleSubmit(onSubmit)(); 
+    reset(defaultAccountValues);
+  };
 
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
@@ -305,9 +325,10 @@ function PaisesIndex() {
                       label="Codigo"
                       variant="outlined"
                       error={!!errors.codigo}
-                      helperText={errors?.codigo?.message}
                       required
+                      placeholder='Ingrese el codigo del país'
                       fullWidth
+                      InputProps={{startAdornment: (<InputAdornment position="start"></InputAdornment>),}}
                     />
                   )}
                   name="codigo"
@@ -324,9 +345,10 @@ function PaisesIndex() {
                       label="País"
                       variant="outlined"
                       error={!!errors.pais}
-                      helperText={errors?.pais?.message}
                       required
+                      placeholder='Ingrese el nombre del país'
                       fullWidth
+                      InputProps={{startAdornment: (<InputAdornment position="start"></InputAdornment>),}}
                     />
                   )}
                   name="pais"
@@ -352,7 +374,7 @@ function PaisesIndex() {
                     backgroundColor: '#DAD8D8', color: 'black',
                     "&:hover": { backgroundColor: '#BFBABA' },
                   }}
-                  onClick={VisibilidadTabla}
+                  onClick={VisibilidadTabla2}
                 >
                   Cancelar
                 </Button>

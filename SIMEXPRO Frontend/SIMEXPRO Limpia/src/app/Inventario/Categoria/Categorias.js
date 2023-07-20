@@ -28,6 +28,13 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import * as yup from 'yup';
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import Alert from '@mui/material/Alert';
+import Swal from 'sweetalert2'
+import FormHelperText from '@mui/material/FormHelperText';
+import FormLabel from '@mui/material/FormLabel';
 
 
 function CategoriaIndex() {
@@ -35,6 +42,44 @@ function CategoriaIndex() {
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
   const [Eliminar, setEliminar] = useState(false);
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'red',
+    width: 400,
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+  const Toast2 = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'green',
+    width: 400,
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+  {/* Validaciones de la pantalla de crear*/ }
+  const defaultAccountValues = {
+    cate_Descripcion: '',
+
+  }
+
+  const accountSchema = yup.object().shape({
+    cate_Descripcion: yup.string().required(''),
+
+  })
+
 
   const DialogEliminar = () => {
     setEliminar(!Eliminar);
@@ -120,6 +165,8 @@ function CategoriaIndex() {
   const VisibilidadTabla = () => {
     setmostrarIndex(!mostrarIndex);
     setmostrarAdd(!mostrarAdd);
+    reset(defaultAccountValues);
+
   };
 
   const handleSearchChange = (event) => {
@@ -130,6 +177,46 @@ function CategoriaIndex() {
   const filteredRows = rows.filter((row) =>
     row.categoria.toLowerCase().includes(searchText.toLowerCase())
   );
+
+
+  const { handleSubmit, register, reset, control, watch, formState } = useForm({
+    defaultAccountValues,
+    mode: 'all',
+    resolver: yupResolver(accountSchema),
+  });
+
+  const { isValid, dirtyFields, errors } = formState;
+
+  const onSubmit = (data) => {
+    if (data.cate_Descripcion != null) {
+      if (data.cate_Descripcion.trim() === '') {
+        Toast.fire({
+          icon: 'error',
+          title: 'No se permiten campos vacios',
+        });
+      } else {
+
+        VisibilidadTabla();
+        Toast2.fire({
+          icon: 'success',
+          title: 'Datos guardados exitosamente',
+        });
+
+      }
+    } else {
+      Toast.fire({
+        icon: 'error',
+        title: 'No se permiten campos vacios',
+      });
+    }
+  };
+
+  const GuardarCategoria = () => {
+    const formData = watch();
+    onSubmit(formData);
+    handleSubmit(onSubmit)();
+    reset(defaultAccountValues);
+  };
 
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
@@ -207,16 +294,26 @@ function CategoriaIndex() {
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
  
-              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }} style={{ marginTop: '30px' }}>
-                <FormControl>
+          <Grid item xs={6}>
+          <div className="mt-48 mb-16" style={{width: '500px', marginLeft: '230px'}}>
+                <Controller
+                  render={({ field }) => (
                     <TextField
-                        defaultValue=" "
-                        style={{ borderRadius: '10px', width: '500px' }}
-                        label="Categoría"
-                    />
-                </FormControl>
-            </Grid> 
+                      {...field}
+                      label="Categoría"
+                      variant="outlined"
+                      error={!!errors.cate_Descripcion}
 
+                      placeholder='Ingrese la categoría'
+                      fullWidth
+                      InputProps={{ startAdornment: (<InputAdornment position="start"></InputAdornment>), }}
+                    />
+                  )}
+                  name="cate_Descripcion"
+                  control={control}
+                />
+              </div>
+            </Grid>
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
               <Button
                 startIcon={<Icon>checked</Icon>}
@@ -227,7 +324,7 @@ function CategoriaIndex() {
                   backgroundColor: '#634A9E', color: 'white',
                   "&:hover": { backgroundColor: '#6e52ae' },
                 }}
-                onClick={VisibilidadTabla}
+                onClick={GuardarCategoria}
               >
                 Guardar
               </Button>

@@ -23,6 +23,15 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
+import * as yup from 'yup';
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import Alert from '@mui/material/Alert';
+import Swal from 'sweetalert2'
+import FormHelperText from '@mui/material/FormHelperText';
+import FormLabel from '@mui/material/FormLabel';
+
+
 function FuncionesMaquinaIndex() {
     const [searchText, setSearchText] = useState('');
     const [mostrarIndex, setmostrarIndex] = useState(true);
@@ -31,6 +40,43 @@ function FuncionesMaquinaIndex() {
     const DialogEliminar = () => {
         setEliminar(!Eliminar);
     };
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-right',
+        iconColor: 'red',
+        width: 400,
+        customClass: {
+            popup: 'colored-toast'
+        },
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true
+    })
+
+    const Toast2 = Swal.mixin({
+        toast: true,
+        position: 'top-right',
+        iconColor: 'green',
+        width: 400,
+        customClass: {
+            popup: 'colored-toast'
+        },
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true
+    })
+
+    {/* Validaciones de la pantalla de crear*/ }
+    const defaultAccountValues = {
+        func_Descripcion: '',
+
+    }
+
+    const accountSchema = yup.object().shape({
+        func_Descripcion: yup.string().required(''),
+
+    })
 
 
     {/* Columnas de la tabla */ }
@@ -110,6 +156,8 @@ function FuncionesMaquinaIndex() {
     const VisibilidadTabla = () => {
         setmostrarIndex(!mostrarIndex);
         setmostrarAdd(!mostrarAdd);
+        reset(defaultAccountValues);
+
     };
 
     const handleSearchChange = (event) => {
@@ -120,6 +168,47 @@ function FuncionesMaquinaIndex() {
     const filteredRows = rows.filter((row) =>
         row.descripcion.toLowerCase().includes(searchText.toLowerCase())
     );
+
+
+
+    const { handleSubmit, register, reset, control, watch, formState } = useForm({
+        defaultAccountValues,
+        mode: 'all',
+        resolver: yupResolver(accountSchema),
+    });
+
+    const { isValid, dirtyFields, errors } = formState;
+
+    const onSubmit = (data) => {
+        if (data.func_Descripcion != null) {
+            if (data.func_Descripcion.trim() === '') {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'No se permiten campos vacios',
+                });
+            } else {
+
+                VisibilidadTabla();
+                Toast2.fire({
+                    icon: 'success',
+                    title: 'Datos guardados exitosamente',
+                });
+
+            }
+        } else {
+            Toast.fire({
+                icon: 'error',
+                title: 'No se permiten campos vacios',
+            });
+        }
+    };
+
+    const GuardarFuncionDeMaquina = () => {
+        const formData = watch();
+        onSubmit(formData);
+        handleSubmit(onSubmit)();
+        reset(defaultAccountValues);
+    };
 
     return (
         <Card sx={{ minWidth: 275, margin: '40px' }}>
@@ -206,19 +295,26 @@ function FuncionesMaquinaIndex() {
                 <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     <Grid container spacing={3}>
 
-                        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}
-                            style={{ marginTop: '30px' }}>
+                        <Grid item xs={6}>
+                            <div className="mt-48 mb-16" style={{ width: '500px', marginLeft: '230px' }}>
+                                <Controller
+                                    render={({ field }) => (
+                                        <TextField
+                                            {...field}
+                                            label="Función"
+                                            variant="outlined"
+                                            error={!!errors.func_Descripcion}
 
-                            <FormControl>
-                                <TextField
-                                    defaultValue=" "
-                                    placeholder='f'
-                                    style={{ borderRadius: '10px', width: '500px' }}
-                                    label="Descripción"
+                                            placeholder='Ingrese la función de la máquina'
+                                            fullWidth
+                                            InputProps={{ startAdornment: (<InputAdornment position="start"></InputAdornment>), }}
+                                        />
+                                    )}
+                                    name="func_Descripcion"
+                                    control={control}
                                 />
-                            </FormControl>
+                            </div>
                         </Grid>
-
 
                         <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }}>
                             <Button
@@ -230,7 +326,7 @@ function FuncionesMaquinaIndex() {
                                     backgroundColor: '#634A9E', color: 'white',
                                     "&:hover": { backgroundColor: '#6e52ae' },
                                 }}
-                                onClick={VisibilidadTabla}
+                                onClick={GuardarFuncionDeMaquina}
                             >
                                 Guardar
                             </Button>

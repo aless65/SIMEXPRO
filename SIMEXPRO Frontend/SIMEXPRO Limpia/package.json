@@ -86,6 +86,7 @@
         "stylis": "4.1.1",
         "stylis-plugin-rtl": "2.1.1",
         "sweetalert2": "^11.7.18",
+        "sweetalert2-react-content": "^5.0.7",
         "web-vitals": "2.1.4",
         "yup": "0.32.11"
     },

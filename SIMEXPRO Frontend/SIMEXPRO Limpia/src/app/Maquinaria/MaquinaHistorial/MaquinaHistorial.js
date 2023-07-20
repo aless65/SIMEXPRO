@@ -28,6 +28,13 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import * as yup from 'yup';
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import Alert from '@mui/material/Alert';
+import Swal from 'sweetalert2'
+import FormHelperText from '@mui/material/FormHelperText';
+import FormLabel from '@mui/material/FormLabel';
 
 function MaquinaHistorialIndex() {
   const [searchText, setSearchText] = useState('');
@@ -38,6 +45,42 @@ function MaquinaHistorialIndex() {
   const DialogEliminar = () => {
     setEliminar(!Eliminar);
   };
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'red',
+    width: 400,
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+  const Toast2 = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'green',
+    width: 400,
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+  {/* Validaciones de la pantalla de crear*/ }
+  const defaultAccountValues = {
+    cate_Descripcion: '',
+
+  }
+
+  const accountSchema = yup.object().shape({
+    cate_Descripcion: yup.string().required(''),
+
+  })
 
   {/* Columnas de la tabla */ }
   const columns = [

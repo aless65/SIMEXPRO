@@ -7,14 +7,14 @@ GO
 CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbEstadoMercancias_Listado
 AS
 BEGIN
-SELECT	merc_Id										,
-		merc_Descripcion							,
-		estadoMercancia.usua_UsuarioCreacion		,
+SELECT	merc_Id,
+		merc_Descripcion,
+		estadoMercancia.usua_UsuarioCreacion,
 		usuarioCreacion.usua_Nombre					AS usuarioCreacionNombre,
-		merc_FechaCreacion							,
-		estadoMercancia.usua_UsuarioModificacion	,
+		merc_FechaCreacion,
+		estadoMercancia.usua_UsuarioModificacion,
 		usuarioModificacion.usua_Nombre				AS usuarioModificacionNombre,
-		merc_FechaModificacion						,
+		merc_FechaModificacion,
 		merc_Estado									
 FROM	Adua.tbEstadoMercancias estadoMercancia
 		INNER JOIN Acce.tbUsuarios usuarioCreacion		ON estadoMercancia.usua_UsuarioCreacion = usuarioCreacion.usua_Id
@@ -146,14 +146,14 @@ GO
 CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_Listado
 AS
 BEGIN
-SELECT	unme_Id											,
-		unme_Descripcion								,
-		unidadMedidas.usua_UsuarioCreacion				,
+SELECT	unme_Id,
+		unme_Descripcion,
+		unidadMedidas.usua_UsuarioCreacion,
 		usuarioCreacion.usua_Nombre						AS usuarioCreacionNombre,
-		unme_FechaCreacion								,
-		unidadMedidas.usua_UsuarioModificacion			,
+		unme_FechaCreacion,
+		unidadMedidas.usua_UsuarioModificacion,
 		usuarioModificacion.usua_Nombre					AS usuarioModificacionNombre,
-		unme_FechaModificacion							,
+		unme_FechaModificacion,
 		unme_Estado								
 FROM Gral.tbUnidadMedidas unidadMedidas
 		INNER JOIN Acce.tbUsuarios usuarioCreacion		ON unidadMedidas.usua_UsuarioCreacion = usuarioCreacion.usua_Id
@@ -287,26 +287,26 @@ GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Listado
 AS
 BEGIN
-SELECT	codi_Id											,
-		deva_Id											,
-		codi_Restricciones_Utilizacion					,
-		codi_Indicar_Restricciones_Utilizacion			,
-		codi_Depende_Precio_Condicion					,
-		codi_Indicar_Existe_Condicion					,
-		codi_Condicionada_Revertir						,
-		codi_Vinculacion_Comprador_Vendedor				,
-		codi_Tipo_Vinculacion							,
-		codi_Vinculacion_Influye_Precio					,
-		codi_Pagos_Descuentos_Indirectos				,
-		codi_Concepto_Monto_Declarado					,
-		codi_Existen_Canones							,
-		codi_Indicar_Canones							,
-		condiciones.usua_UsuarioCreacion				,
-		usuarioCreacion.usua_Nombre						AS usuarioCreacionNombre,
-		codi_FechaCreacion								,
-		condiciones.usua_UsuarioModificacion			,
-		usuarioModificacion.usua_Nombre					AS usuarioModificacionNombre,
-		codi_FechaModificacion							,
+SELECT	codi_Id,
+		deva_Id,
+		codi_Restricciones_Utilizacion,
+		codi_Indicar_Restricciones_Utilizacion,
+		codi_Depende_Precio_Condicion,
+		codi_Indicar_Existe_Condicion,
+		codi_Condicionada_Revertir,
+		codi_Vinculacion_Comprador_Vendedor,
+		codi_Tipo_Vinculacion,
+		codi_Vinculacion_Influye_Precio,
+		codi_Pagos_Descuentos_Indirectos,
+		codi_Concepto_Monto_Declarado,
+		codi_Existen_Canones,
+		codi_Indicar_Canones,
+		condiciones.usua_UsuarioCreacion,
+		usuarioCreacion.usua_Nombre				AS usuarioCreacionNombre,
+		codi_FechaCreacion,
+		condiciones.usua_UsuarioModificacion,
+		usuarioModificacion.usua_Nombre			AS usuarioModificacionNombre,
+		codi_FechaModificacion,
 		codi_Estado								
 FROM	Adua.tbCondiciones condiciones
 		INNER JOIN Acce.tbUsuarios usuarioCreacion		ON condiciones.usua_UsuarioCreacion = usuarioCreacion.usua_Id
@@ -453,14 +453,14 @@ GO
 CREATE OR ALTER PROCEDURE Gral.UDP_tbFormas_Envio_Listado
 AS
 BEGIN
-SELECT	foen_Id											,
-		foen_Descripcion								,
-		formasEnvio.usua_UsuarioCreacion				,
-		usuarioCreacion.usua_Nombre						AS usuarioCreacionNombre,
-		foen_FechaCreacion								,
-		formasEnvio.usua_UsuarioModificacion			,
-		usuarioModificacion.usua_Nombre					AS usuarioModificacionNombre,
-		foen_FechaModificacion							,
+SELECT	foen_Id,
+		foen_Descripcion,
+		formasEnvio.usua_UsuarioCreacion,
+		usuarioCreacion.usua_Nombre				AS usuarioCreacionNombre,
+		foen_FechaCreacion,
+		formasEnvio.usua_UsuarioModificacion,
+		usuarioModificacion.usua_Nombre			AS usuarioModificacionNombre,
+		foen_FechaModificacion,
 		foen_Estado							
 FROM	Gral.tbFormas_Envio formasEnvio
 		INNER JOIN Acce.tbUsuarios usuarioCreacion		ON formasEnvio.usua_UsuarioCreacion = usuarioCreacion.usua_Id
@@ -594,96 +594,46 @@ GO
 CREATE OR ALTER PROCEDURE Gral.UDP_tbEmpleados_Listar
 AS
 BEGIN
-
-SELECT empl.empl_Id									,
-		empl_Nombres								,
-		empl_Apellidos								,
-		empl_DNI									,
-		empl.escv_Id								,
-		escv.escv_Nombre							,
-		CASE 
-		WHEN [empl_Sexo] = 'F' THEN 'Femenino'
-		ELSE 'Masculino'
-		END											AS empl_Sexo,
-		empl_FechaNacimiento						,
-		empl_Telefono								,
-		empl_DireccionExacta						,
-		empl.pvin_Id								,
-		pvin.pvin_Nombre							,
-		pais.pais_Codigo							,
-		pais.pais_Nombre							,
-		empl_CorreoElectronico						,
-		empl.carg_Id								,
-		carg.carg_Nombre							,
-		empl_EsAduana								,
-		empl.usua_UsuarioCreacion					,
-		usuaCrea.usua_Nombre						AS usuarioCreacionNombre,
-		empl_FechaCreacion							,
-		empl.usua_UsuarioModificacion				,
-		usuaModifica.usua_Nombre					AS usuarioModificacionNombre,
-		empl_FechaModificacion						,
-		empl.usua_UsuarioEliminacion				,
-		usuaElimina.usua_Nombre						AS usuarioEliminacionNombre,
-		empl_FechaEliminacion						,
-		empl_Estado								
-FROM	[Gral].[tbEmpleados] empl 
-		INNER JOIN [Acce].[tbUsuarios] usuaCrea		ON empl.usua_UsuarioCreacion = usuaCrea.usua_Id 
-		LEFT JOIN [Acce].[tbUsuarios] usuaModifica	ON empl.usua_UsuarioModificacion = usuaCrea.usua_Id 
-		LEFT JOIN [Acce].[tbUsuarios] usuaElimina	ON empl.usua_UsuarioEliminacion = usuaCrea.usua_Id 
-		INNER JOIN [Gral].[tbEstadosCiviles] escv	ON empl.escv_Id = escv.escv_Id 
-		INNER JOIN [Gral].[tbProvincias] pvin		ON empl.pvin_Id = pvin.pvin_Id 
-		INNER JOIN [Gral].[tbPaises] pais			ON pvin.pais_Id = pais.pais_Id 
-		INNER JOIN [Gral].[tbCargos] carg			ON empl.carg_Id = carg.carg_Id
-WHERE	empl_Estado = 1
-
-	SELECT empl.empl_Id								AS empleadoId, 
-		   empl_Nombres								AS empleadoNombres, 
-		   empl_Apellidos							AS empleadoApellidos,
-		   empl_DNI									AS empleadoDNI,
-		   empl.escv_Id								AS estadoCivilId,
-		   escv.escv_Nombre							AS estadoCivilNombre,
+	SELECT empl.empl_Id, 
+		   empl_Nombres, 
+		   empl_Apellidos,
+		   empl_DNI,
+		   empl.escv_Id,
+		   escv.escv_Nombre,
 		   CASE 
 			WHEN empl_Sexo = 'F' THEN 'Femenino'
 		   	ELSE 'Masculino'
-		   END										AS empleadoSexo,
-		   empl_FechaNacimiento						AS empleadoNacimiento,
-		   empl_Telefono							AS empleadoTelefono,
-		   empl_DireccionExacta						AS empleadoDireccion,
-		   empl.pvin_Id								AS provinciaId,
-		   pvin.pvin_Nombre							AS provinciaNombre,
-		   pais.pais_Codigo							AS paisCodigo,
-		   pais.pais_Nombre							AS paisNombre,
-		   empl_CorreoElectronico					AS empleadoCorreo,
-		   empl.carg_Id								AS cargoId,
-		   carg.carg_Nombre							AS cargoNombre,
-		   empl_EsAduana							AS empleadoAduana,
-		   empl.usua_UsuarioCreacion				AS usuarioCreacion, 
+		   END										AS empl_Sexo,
+		   empl_FechaNacimiento,
+		   empl_Telefono,
+		   empl_DireccionExacta,
+		   empl.pvin_Id,
+		   pvin.pvin_Nombre,
+		   pais.pais_Codigo,
+		   pais.pais_Nombre,
+		   empl_CorreoElectronico,
+		   empl.carg_Id,
+		   carg.carg_Nombre,
+		   empl_EsAduana,
+		   empl.usua_UsuarioCreacion, 
 		   usuaCrea.usua_Nombre						AS usuarioCreacionNombre,
-		   empl_FechaCreacion						AS fechaCreacion, 
-		   empl.usua_UsuarioModificacion			AS usuarioModificacion, 
+		   empl_FechaCreacion, 
+		   empl.usua_UsuarioModificacion, 
 		   usuaModifica.usua_Nombre					AS usuarioModificacionNombre,
-		   empl_FechaModificacion					AS fechaModificacion, 
-		   empl.usua_UsuarioEliminacion				AS usuarioEliminacion, 
+		   empl_FechaModificacion, 
+		   empl.usua_UsuarioEliminacion, 
 		   usuaElimina.usua_Nombre					AS usuarioEliminacionNombre,
-		   empl_FechaEliminacion					AS fechaEliminacion, 
-		   empl_Estado								AS empleadoEstado
+		   empl_FechaEliminacion, 
+		   empl_Estado
 	  FROM Gral.tbEmpleados empl 
-INNER JOIN Acce.tbUsuarios usuaCrea
-		ON empl.usua_UsuarioCreacion = usuaCrea.usua_Id 
- LEFT JOIN Acce.tbUsuarios usuaModifica
-		ON empl.usua_UsuarioModificacion = usuaCrea.usua_Id 
- LEFT JOIN Acce.tbUsuarios usuaElimina
-		ON empl.usua_UsuarioEliminacion = usuaCrea.usua_Id 
-INNER JOIN Gral.tbEstadosCiviles escv
-		ON empl.escv_Id = escv.escv_Id 
-INNER JOIN Gral.tbProvincias pvin
-		ON empl.pvin_Id = pvin.pvin_Id 
-INNER JOIN Gral.tbPaises pais
-		ON pvin.pais_Id = pais.pais_Id 
-INNER JOIN Gral.tbCargos carg
-		ON empl.carg_Id = carg.carg_Id
+INNER JOIN Acce.tbUsuarios usuaCrea			ON empl.usua_UsuarioCreacion = usuaCrea.usua_Id 
+ LEFT JOIN Acce.tbUsuarios usuaModifica		ON empl.usua_UsuarioModificacion = usuaCrea.usua_Id 
+ LEFT JOIN Acce.tbUsuarios usuaElimina		ON empl.usua_UsuarioEliminacion = usuaCrea.usua_Id 
+INNER JOIN Gral.tbEstadosCiviles escv		ON empl.escv_Id = escv.escv_Id 
+INNER JOIN Gral.tbProvincias pvin			ON empl.pvin_Id = pvin.pvin_Id 
+INNER JOIN Gral.tbPaises pais				ON pvin.pais_Id = pais.pais_Id 
+INNER JOIN Gral.tbCargos carg				ON empl.carg_Id = carg.carg_Id
 	 WHERE empl_Estado = 1
-
 END
 GO
 
@@ -905,46 +855,23 @@ GO
 CREATE OR ALTER PROCEDURE prod.UDP_tbFuncionesMaquina_Listar
 AS
 BEGIN
-
-SELECT func_Id										,
-		func_Nombre									,
-		func.usua_UsuarioCreacion					,
-		usuaCrea.usua_Nombre						AS usuarioCreacionNombre,
-		func_FechaCreacion							,
-		func.usua_UsuarioModificacion				,
-		usuaModifica.usua_Nombre					AS usuarioModificacionNombre,
-		func_FechaModificacion						,
-		func.usua_UsuarioEliminacion				,
-		usuaElimina.usua_Nombre						AS usuarioEliminacionNombre,
-		func_FechaEliminacion						,
-		func_Estado									
-FROM	[Prod].[tbFuncionesMaquina] func 
-		INNER JOIN [Acce].[tbUsuarios] usuaCrea		ON func.usua_UsuarioCreacion = usuaCrea.usua_Id 
-		LEFT JOIN [Acce].[tbUsuarios] usuaModifica	ON func.usua_UsuarioModificacion = usuaCrea.usua_Id 
-		LEFT JOIN [Acce].[tbUsuarios] usuaElimina	ON func.usua_UsuarioEliminacion = usuaCrea.usua_Id 
-WHERE	func_Estado = 1
-
-	SELECT func_Id							AS funcionId, 
-		   func_Nombre						AS funcionNombre, 
-		   func.usua_UsuarioCreacion		AS usuarioCreacion, 
+	SELECT func_Id, 
+		   func_Nombre, 
+		   func.usua_UsuarioCreacion, 
 		   usuaCrea.usua_Nombre				AS usuarioCreacionNombre,
-		   func_FechaCreacion				AS fechaCreacion, 
-		   func.usua_UsuarioModificacion	AS usuarioModificacion, 
+		   func_FechaCreacion, 
+		   func.usua_UsuarioModificacion, 
 		   usuaModifica.usua_Nombre			AS usuarioModificacionNombre,
-		   func_FechaModificacion			AS fechaModificacion,
-		   func.usua_UsuarioEliminacion		AS usuarioEliminacion, 
+		   func_FechaModificacion,
+		   func.usua_UsuarioEliminacion, 
 		   usuaElimina.usua_Nombre			AS usuarioEliminacionNombre,
-		   func_FechaEliminacion			AS fechaEliminacion, 
-		   func_Estado						AS funcionEstado
+		   func_FechaEliminacion, 
+		   func_Estado
 	  FROM Prod.tbFuncionesMaquina func 
-INNER JOIN Acce.tbUsuarios usuaCrea
-		ON func.usua_UsuarioCreacion = usuaCrea.usua_Id 
- LEFT JOIN Acce.tbUsuarios usuaModifica
-		ON func.usua_UsuarioModificacion = usuaCrea.usua_Id 
- LEFT JOIN Acce.tbUsuarios usuaElimina
-		ON func.usua_UsuarioEliminacion = usuaCrea.usua_Id 
+INNER JOIN Acce.tbUsuarios usuaCrea		ON func.usua_UsuarioCreacion = usuaCrea.usua_Id 
+ LEFT JOIN Acce.tbUsuarios usuaModifica	ON func.usua_UsuarioModificacion = usuaCrea.usua_Id 
+ LEFT JOIN Acce.tbUsuarios usuaElimina	ON func.usua_UsuarioEliminacion = usuaCrea.usua_Id 
 	 WHERE func_Estado = 1
-
 END
 GO
 
@@ -1061,46 +988,23 @@ GO
 CREATE OR ALTER PROCEDURE prod.UDP_tbCategoria_Listar
 AS
 BEGIN
-
-SELECT	cate_Id										,
-		cate_Descripcion							,
-		cate.usua_UsuarioCreacion					,
-		usuaCrea.usua_Nombre						AS usuarioCreacionNombre,
-		cate_FechaCreacion							,
-		cate.usua_UsuarioModificacion				,
-		usuaModifica.usua_Nombre					AS usuarioModificacionNombre,
-		cate_FechaModificacion						,
-		cate.usua_UsuarioEliminacion				,
-		usuaElimina.usua_Nombre						AS usuarioEliminacionNombre,
-		cate_FechaEliminacion						,
-		cate_Estado						
-FROM	[Prod].[tbCategoria] cate 
-		INNER JOIN [Acce].[tbUsuarios] usuaCrea		ON cate.usua_UsuarioCreacion = usuaCrea.usua_Id 
-		LEFT JOIN [Acce].[tbUsuarios] usuaModifica	ON cate.usua_UsuarioModificacion = usuaCrea.usua_Id 
-		LEFT JOIN [Acce].[tbUsuarios] usuaElimina	ON cate.usua_UsuarioEliminacion = usuaCrea.usua_Id 
-WHERE cate_Estado = 1
-
-	SELECT cate_Id							AS categoriaId, 
-		   cate_Descripcion					AS categoriaDescripcion, 
-		   cate.usua_UsuarioCreacion		AS usuarioCreacion, 
+	SELECT cate_Id, 
+		   cate_Descripcion, 
+		   cate.usua_UsuarioCreacion, 
 		   usuaCrea.usua_Nombre				AS usuarioCreacionNombre,
-		   cate_FechaCreacion				AS fechaCreacion, 
-		   cate.usua_UsuarioModificacion	AS usuarioModificacion, 
+		   cate_FechaCreacion, 
+		   cate.usua_UsuarioModificacion, 
 		   usuaModifica.usua_Nombre			AS usuarioModificacionNombre,
-		   cate_FechaModificacion			AS fechaModificacion,
-		   cate.usua_UsuarioEliminacion		AS usuarioEliminacion, 
+		   cate_FechaModificacion,
+		   cate.usua_UsuarioEliminacion, 
 		   usuaElimina.usua_Nombre			AS usuarioEliminacionNombre,
-		   cate_FechaEliminacion			AS fechaEliminacion, 
-		   cate_Estado						AS categoriaEstado
+		   cate_FechaEliminacion, 
+		   cate_Estado
 	  FROM Prod.tbCategoria cate 
-INNER JOIN Acce.tbUsuarios usuaCrea
-		ON cate.usua_UsuarioCreacion = usuaCrea.usua_Id 
- LEFT JOIN Acce.tbUsuarios usuaModifica
-		ON cate.usua_UsuarioModificacion = usuaCrea.usua_Id 
- LEFT JOIN Acce.tbUsuarios usuaElimina
-		ON cate.usua_UsuarioEliminacion = usuaCrea.usua_Id 
+INNER JOIN Acce.tbUsuarios usuaCrea			ON cate.usua_UsuarioCreacion = usuaCrea.usua_Id 
+ LEFT JOIN Acce.tbUsuarios usuaModifica		ON cate.usua_UsuarioModificacion = usuaCrea.usua_Id 
+ LEFT JOIN Acce.tbUsuarios usuaElimina		ON cate.usua_UsuarioEliminacion = usuaCrea.usua_Id 
 	 WHERE cate_Estado = 1
-
 END
 GO
 
@@ -1208,7 +1112,7 @@ GO
 DECLARE @FechaActual DATETIME
 SET @FechaActual = GETDATE();
 
-EXEC prod.UDP_tbCategoria_Eliminar 1, 1, @FechaActual
+EXEC prod.UDP_tbCategoria_Eliminar 2, 1, @FechaActual
 GO
 ------------------------------------------------/UDPS tbCategoria---------------------------------------------------
 

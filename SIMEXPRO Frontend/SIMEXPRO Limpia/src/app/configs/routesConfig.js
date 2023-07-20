@@ -50,8 +50,15 @@ import SubcategoriaIndex from '../Inventario/Subcategoria/Subcategorias';
 import TipoEmbalajeIndex from '../Inventario/TipoDeEmbalaje/TipoEmbalaje';
 import AldeaIndex from '../Ubicaciones/Aldeas/Aldeas';
 import DocumentosDeSanciones from '../Aduanas/DocumentosDeSanciones/DocumentosDeSanciones';
-import FormaDeEnvioIndex from '../Generales/FormasEnvio/FormasEnvio';
-import MonedasIndex from '../Generales/Monedas/monedas';
+import OrdenProcesosIndex from '../Produccion/OrdenDeProcesos/OrdenDeProcesos';
+import CalendarApp from '../Produccion/Planificación/CalendarApp';
+import MaquinasIndex from '../Maquinaria/Máquinas/Maquinas';
+/*import FormaDeEnvioIndex from '../generales/FormasEnvio/FormasEnvio';
+import MonedasIndex from '../generales/Monedas/monedas';*/
+import ModuloIndex from '../Produccion/Modulos/Modulos';
+import ProcesosIndex from '../Produccion/Procesos/Procesos';
+import MarcasIndex from '../Maquinaria/MarcasMaquina/MarcasMaquina';
+import ModelosMaquinaIndex from '../Maquinaria/ModelosMaquina/ModelosMaquina';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -193,19 +200,19 @@ const routes = [
     element: <MaquinaHistorialIndex />,
   },
   {
-    path: 'ContratoDeAdhesionComercianteIndividual/Index',
+    path: 'Contrato-de-Adhesion-Comerciante-Individual/Index',
     element: <Comerciante_Individual_Index />,
   },
   {
-    path: 'ContratoDeAdhesionComercianteIndividual/Agregar',
+    path: 'Contrato-de-Adhesion-Comerciante-Individual/Agregar',
     element: <Comerciante_Individual_Agregar />,
   },
   {
-    path: 'ContratoDeAdhesionPersonaJuridica/Index',
+    path: 'Contrato-de-Adhesion-Persona-Juridica/Index',
     element: <Persona_Juridica_Index />,
   },
   {
-    path: 'ContratoDeAdhesionPersonaJuridica/Agregar',
+    path: 'Contrato-de-Adhesion-Persona-Juridica/Agregar',
     element: <Persona_Juridica_Agregar />,
   },
   {
@@ -255,6 +262,38 @@ const routes = [
   {
     path: 'Aldea/Index',
     element: <AldeaIndex />,
+  },
+  {
+    path: 'OrdenProcesos/Index',
+    element: <OrdenProcesosIndex />,
+  },
+  {
+    path: 'Planificacion/Index',
+    element: <CalendarApp />,
+  },
+  {
+    path: 'Maquinas/Index',
+    element: <MaquinasIndex />,
+  },
+  {
+    path: 'Modulo/Index',
+    element: <ModuloIndex />,
+  },
+  {
+    path: 'Procesos/Index',
+    element: <ProcesosIndex />,
+  },
+  {
+    path: 'Marcas/Index',
+    element: <MarcasIndex />,
+  },
+  {
+    path: 'ModelosMaquinas/Index',
+    element: <ModelosMaquinaIndex />,
+  },
+  {
+    path: 'ModelosMaquinas/Index',
+    element: <ModelosMaquinaIndex />,
   },
 ];
 

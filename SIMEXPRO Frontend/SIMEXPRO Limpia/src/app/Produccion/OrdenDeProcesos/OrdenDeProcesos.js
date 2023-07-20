@@ -26,8 +26,29 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { DateTimePicker } from '@mui/x-date-pickers';
+
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+
+
+{/*relajo para los DatePicker parte 1*/}
 import { Controller, useForm } from 'react-hook-form';
+import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+
+let renderCount = 0;
+
+const defaultValues = {
+  DateTimePicker1: '',
+  DateTimePicker2: '',
+};
+
+const schema = yup.object().shape({
+  DateTimePicker1: yup.string().nullable().required(''),
+  DateTimePicker2: yup.string().nullable().required(''),
+});
+{/*fin de relajo para los DatePicker parte 1*/}
+
 
 
 function OrdenProcesosIndex() {
@@ -40,7 +61,18 @@ function OrdenProcesosIndex() {
     setEliminar(!Eliminar);
   };
 
-  /*Relajo para los DatePicker*/
+
+
+  {/*Relajo para los DatePicker parte 2*/}
+  const { handleSubmit, register, reset, control, watch, formState } = useForm({
+    defaultValues,
+    mode: 'all',
+    resolver: yupResolver(schema),
+  });
+
+  const { isValid, dirtyFields, errors, touchedFields } = formState;
+
+  renderCount += 1;
 
 
   {/* Columnas de la tabla */ }
@@ -52,47 +84,65 @@ function OrdenProcesosIndex() {
       field: 'acciones',
       headerName: 'Acciones',
       width: 400,
-      renderCell: (params) => (
-        <Stack direction="row" spacing={1}>
-          <Button
-            startIcon={<Icon>edit</Icon>}
-            variant="contained"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#634A9E',
-              color: 'white',
-              "&:hover": { backgroundColor: '#6e52ae' },
-            }}>
-            Editar
-          </Button>
+      renderCell: (params) => {
+        const [anchorEl, setAnchorEl] = React.useState(null);
+  
+        const handleClick = (event) => {
+          setAnchorEl(event.currentTarget);
+        };
+  
+        const handleClose = () => {
+          setAnchorEl(null);
+        };
+  
+        const handleEdit = () => {
+          // Implementa la función para editar aquí
+          handleClose();
+        };
+  
+        const handleDetails = () => {
+          // Implementa la función para detalles aquí
+          handleClose();
+        };
+  
+        const handleDelete = () => {
+          // Implementa la función para eliminar aquí
+          handleClose();
+        };
 
-          <Button
-            startIcon={<Icon>visibility</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#797979', color: 'white',
-              "&:hover": { backgroundColor: '#b69999' },
-            }}
-          >
-            Detalles
-          </Button>
-          <Button
-            startIcon={<Icon>delete</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#E40F00', color: 'white',
-              "&:hover": { backgroundColor: '#eb5f56' },
-            }}
-            onClick={DialogEliminar}
-          >
-            Eliminar
-          </Button>
-        </Stack>
-      ),
+  
+        return (
+          <Stack direction="row" spacing={1}>
+            <Button
+              aria-controls={`menu-${params.id}`}
+              aria-haspopup="true"
+              onClick={handleClick}
+              variant="contained"
+              style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+              startIcon={<Icon>menu</Icon>}
+            >
+              Opciones
+            </Button>
+            <Menu
+              id={`menu-${params.id}`}
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleEdit}>
+                <Icon>edit</Icon> Editar
+              </MenuItem>
+              <MenuItem onClick={handleDetails}>
+                <Icon>visibility</Icon> Detalles
+              </MenuItem>
+              <MenuItem onClick={DialogEliminar}>
+                <Icon>delete</Icon> Eliminar
+              </MenuItem>
+            </Menu>
+          </Stack>
+        );
+      },
     },
   ];
 
@@ -169,7 +219,7 @@ function OrdenProcesosIndex() {
 
       {/* Tabla */}
       <Collapse in={mostrarIndex}>
-        <div style={{ height: 400, width: '100%' }}>
+        <div style={{ height: 400, width: '100%', marginLeft: '13px', marginRight: '10px' }}>
           <DataGrid
             localeText={esES.components.MuiDataGrid.defaultProps.localeText}
             components={{
@@ -193,12 +243,13 @@ function OrdenProcesosIndex() {
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
-
-            <Grid item xs={6} style={{ marginTop: '30px' }} >
+ 
+              <Grid item xs={6} style={{ marginTop: '30px' }} >
               <FormControl
                 fullWidth
               >
-                <TextField
+                <TextField 
+                  defaultValue={" "}
                   style={{ borderRadius: '10px' }}
                   label="# Detalle de P.O"
                 />
@@ -210,6 +261,7 @@ function OrdenProcesosIndex() {
                 fullWidth
               >
                 <TextField 
+                  defaultValue={" "}
                   disabled="true"
                   style={{ borderRadius: '10px' }}
                   label="Color"
@@ -222,6 +274,7 @@ function OrdenProcesosIndex() {
                 fullWidth
               >
                 <TextField
+                  defaultValue={" "}
                   disabled="true"
                   style={{ borderRadius: '10px' }}
                   label="Estilo"
@@ -234,6 +287,7 @@ function OrdenProcesosIndex() {
                 fullWidth
               >
                 <TextField
+                  defaultValue={" "}
                   disabled="true"
                   style={{ borderRadius: '10px' }}
                   label="Talla"
@@ -246,6 +300,7 @@ function OrdenProcesosIndex() {
                 fullWidth
               >
                 <TextField
+                  defaultValue={" "}
                   style={{ borderRadius: '10px' }}
                   label="Módulo Asignado"
                 />
@@ -258,6 +313,7 @@ function OrdenProcesosIndex() {
               >
                 <InputLabel htmlFor="grouped-native-select">Proceso</InputLabel>
                 <Select
+                  defaultValue={" "}
                   style={{ borderRadius: '10px' }}
                   label="Proceso"
                 />
@@ -270,6 +326,7 @@ function OrdenProcesosIndex() {
               >
                 <InputLabel htmlFor="grouped-native-select">Empleado</InputLabel>
                 <Select
+                  defaultValue={" "}
                   style={{ borderRadius: '10px' }}
                   label="Empleado"
                 />
@@ -281,6 +338,7 @@ function OrdenProcesosIndex() {
                 fullWidth
               >
                 <TextField
+                  defaultValue={" "}
                   style={{ borderRadius: '10px' }}
                   label="Cantidad"
                 />
@@ -289,43 +347,58 @@ function OrdenProcesosIndex() {
 
             <Grid item xs={6}>
                 <InputLabel htmlFor="grouped-native-select">Fecha Inicio</InputLabel>
+                <Controller
+                  name="DateTimePicker1"
+                  control={control}
+                  render={({ field: { onChange, value, onBlur } }) => (
+                    <DateTimePicker
+                      value={value}
+                      onChange={onChange}
+                      required
+                      renderInput={(_props) => (
+                        <TextField
+                          className="w-full"
+                          {..._props}
+                          onBlur={onBlur}
+                          error={!!errors.DateTimePicker1}
+                          helperText={errors?.DateTimePicker1?.message}
+                        />
+                      )}
+                      className="w-full"
+                    />
+                  )}
+                />
               <FormControl
                 fullWidth
               >
-                <DateTimePicker
-                dateFormat="dd/MM/yyyy"
-                onChange={(date) => {
-                    console.log(date);
-                  }}
-                renderInput={(_props) => (
-                  <TextField
-                    className="w-full"
-                    {..._props}
-                  />
-                )}
-                className="w-full"
-              />
               </FormControl>
             </Grid>
-
             <Grid item xs={6}>
                 <InputLabel htmlFor="grouped-native-select">Fecha Límite</InputLabel>
+                <Controller
+                  name="DateTimePicker2"
+                  control={control}
+                  render={({ field: { onChange, value, onBlur } }) => (
+                    <DateTimePicker
+                      value={value}
+                      onChange={onChange}
+                      required
+                      renderInput={(_props) => (
+                        <TextField
+                          className="w-full"
+                          {..._props}
+                          onBlur={onBlur}
+                          error={!!errors.DateTimePicker2}
+                          helperText={errors?.DateTimePicker2?.message}
+                        />
+                      )}
+                      className="w-full"
+                    />
+                  )}
+                />
               <FormControl
                 fullWidth
               >
-                <DateTimePicker
-                dateFormat="dd/MM/yyyy"
-                onChange={(date) => {
-                    console.log(date);
-                  }}
-                renderInput={(_props) => (
-                  <TextField
-                    className="w-full"
-                    {..._props}
-                  />
-                )}
-                className="w-full"
-              />
               </FormControl>
             </Grid>
 
@@ -335,6 +408,7 @@ function OrdenProcesosIndex() {
               >
                 <InputLabel htmlFor="grouped-native-select">Pedido Producción</InputLabel>
                 <Select
+                  defaultValue={" "}
                   style={{ borderRadius: '10px' }}
                   label="PedidoProduccion"
                 />

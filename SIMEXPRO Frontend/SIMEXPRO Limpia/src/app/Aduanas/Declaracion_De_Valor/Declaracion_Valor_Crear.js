@@ -8,6 +8,8 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Select from '@mui/material/Select';
 import CardMedia from '@mui/material/CardMedia';
+import { DataGrid, GridToolbar, esES } from '@mui/x-data-grid'
+import SearchIcon from '@mui/icons-material/Search';
 
 import Grid from '@mui/material/Grid';
 
@@ -22,8 +24,7 @@ import Collapse from '@mui/material/Collapse';
 
 import { useNavigate } from 'react-router-dom';
 import { black } from 'tailwindcss/colors';
-import { DataGrid } from '@mui/x-data-grid';
-import { useState } from 'react';
+import { useState,useRef } from 'react';
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -225,6 +226,10 @@ function Declaracion_Valor_Crear() {
   const [mostrarAddFD, setmostrarAddFD] = useState(false);
   const [mostrarBoton, setmostrarBoton] = useState(false);
   const [mostrarDetalles, setmostrarDetalles] = useState(false);
+  const collapseRef = useRef(null);
+
+
+
 
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
@@ -860,38 +865,354 @@ function Declaracion_Valor_Crear() {
           <TabPanel value={value} index={3} dir={theme.direction}>
             <Card style={{ marginTop: '10px', marginBottom: '10px' }}>
               <CardContent>
-                <Collapse in={mostrarAddH}>
-                  <div style={{ height: 300, width: '100%' }}>
-                    <Button
-                      startIcon={<Icon>add</Icon>}
-                      variant="contained"
-                      color="primary"
-                      style={{ borderRadius: '10px' }}
-                      sx={{
-                        backgroundColor: '#634A9E',
-                        color: 'white',
-                        marginBottom: 4,
-                        '&:hover': { backgroundColor: '#6e52ae' },
-                      }}
-                      onClick={(e) => {
-                        setmostrarAddH(!mostrarAddH);
-                        setmostrarAddF(!mostrarAddF);
-                      }}
-                    >
-                      Nueva Factura
-                    </Button>
-                    <DataGrid
-                      rows={rows}
-                      columns={columns}
-                      getRowClassName={getRowClassName}
-                      initialState={{
-                        pagination: {
-                          paginationModel: { page: 0, pageSize: 3 },
-                        },
-                      }}
-                      pageSizeOptions={[3, 6, 9]}
-                    />
-                  </div>
+            <Collapse in={mostrarAddH}>
+                <div style={{ height: 300, width: '100%' }}>
+                <Button
+              startIcon={<Icon>add</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px' }}
+              sx={{
+                backgroundColor: '#634A9E', color: 'white',
+                marginBottom:4,
+                "&:hover": { backgroundColor: '#6e52ae' },
+              }}
+              onClick={(e) => {
+                setmostrarAddH(!mostrarAddH )
+                setmostrarAddF(!mostrarAddF)
+              }}
+            >
+              Nueva Factura
+            </Button>
+                  <DataGrid
+                              localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+                              components={{
+                                Toolbar: GridToolbar,
+                                Search: SearchIcon,
+                              }}
+                    rows={rows}
+                    columns={columns}
+                    getRowClassName={getRowClassName}
+                    initialState={{
+                      pagination: {
+                        paginationModel: { page: 0, pageSize: 3 },
+                      },
+                    }}
+                    pageSizeOptions={[3, 6, 9]}
+                  />
+                </div>
+            </Collapse>
+            
+
+            <Collapse in={mostrarDetalles}>
+                <div style={{ height: 300, width: '100%' }}>
+                <Button
+              startIcon={<Icon>close</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px' }}
+              sx={{
+                backgroundColor: '#DAD8D8',
+                color: 'black',
+                '&:hover': { backgroundColor: '#BFBABA' },
+              }}
+              onClick={(e) => {
+                setmostrarAddH(!mostrarAddH )
+                setmostrarDetalles(!mostrarDetalles)
+              }}
+            >
+              Cerrar
+            </Button>
+                  <DataGrid
+                              localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+                              components={{
+                                Toolbar: GridToolbar,
+                                Search: SearchIcon,
+                              }}
+                    rows={rows}
+                    columns={columns}
+                    getRowClassName={getRowClassName}
+                    initialState={{
+                      pagination: {
+                        paginationModel: { page: 0, pageSize: 3 },
+                      },
+                    }}
+                    pageSizeOptions={[3, 6, 9]}
+                  />
+                </div>
+            </Collapse>
+
+
+            <Collapse in={mostrarAddF}>
+                <Divider style={{ marginTop: '30px', marginBottom: '15px' }}>
+                  <Chip label="NUEVA FACTURA " />
+                </Divider>
+                <Grid container spacing={3}>
+                  <Grid item xs={2} />
+                  <Grid item xs={4}>
+                    <FormControl fullWidth>
+                      <TextField
+                        style={{ borderRadius: '10px' }}
+                        label="Número de Factura"
+                        size="small"
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControl fullWidth>
+                      <TextField style={{ borderRadius: '10px' }} label="Fecha" size="small" />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                 <Collapse in={!mostrarBoton}>
+                  <Button
+                startIcon={<Icon>checked</Icon>}
+                variant="contained"
+                color="primary"
+                style={{ borderRadius: '10px', marginRight: '10px' }}
+                sx={{
+                  backgroundColor: '#634A9E',
+                  color: 'white',
+                  '&:hover': { backgroundColor: '#6e52ae' },
+                }}
+                onClick={(e) => {
+              
+                  setmostrarBoton(!mostrarBoton)
+                setmostrarAddFD(true)
+
+                }}
+                
+              >
+                Guardar Adición Factura
+              </Button>
+              </Collapse>
+
+
+
+              <Collapse in={mostrarBoton}>
+                  <Button
+                startIcon={<Icon>checked</Icon>}
+                variant="contained"
+                color="primary"
+                style={{ borderRadius: '10px', marginLeft: '-230px' }}
+                sx={{
+                  backgroundColor: '#634A9E',
+                  color: 'white',
+                  '&:hover': { backgroundColor: '#6e52ae' },
+                }}
+                onClick={(e) => {
+                  setmostrarAddH(!mostrarAddH )
+                  setmostrarAddF(!mostrarAddF)
+                  setmostrarAddFD(false)
+                  setmostrarBoton(false)
+                }}
+                
+              >
+                Guardar Factura
+              </Button>
+              </Collapse>
+
+
+
+
+              
+              <Button
+                startIcon={<Icon>close</Icon>}
+                variant="contained"
+                color="primary"
+                style={{ borderRadius: '10px' }}
+                sx={{
+                  backgroundColor: '#DAD8D8',
+                  color: 'black',
+                  '&:hover': { backgroundColor: '#BFBABA' },
+                }}
+                onClick={(e) => {
+                  setmostrarAddH(!mostrarAddH )
+                  setmostrarAddF(!mostrarAddF)
+                  setmostrarAddFD(false)
+                  setmostrarBoton(false)
+                }}
+              >
+                Cancelar Adición Factura
+              </Button>
+                    </Grid>
+
+                    <Grid item xs={12} sx={{marginBottom:4}}>
+                  <Typography variant="" color="rgb(55, 188, 155)">
+                    DESCRIPCIÓN DE LAS MERCANCÍAS (ITEMS)
+                  </Typography>
+                </Grid>
+
+
+                <Collapse in={mostrarAddFD} 
+sx={{marginLeft:'3rem'}}
+>
+<CardContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+
+<Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' , marginTop:'3rem'}} >
+<Grid container spacing={3}>
+<Grid xs={12}>
+<Divider>
+ <Chip label="AÑADIR ITEM" />
+</Divider>
+
+</Grid>
+ <Grid item xs={4}>
+   <FormControl fullWidth>
+     <TextField
+       style={{ borderRadius: '10px' }}
+       label="Numero de Item"
+       size="small"
+     />
+   </FormControl>
+ </Grid>
+ <Grid item xs={4}>
+   <FormControl fullWidth>
+     <TextField style={{ borderRadius: '10px' }} label="Cantidad" size="small" />
+   </FormControl>
+ </Grid>
+ <Grid item xs={4}>
+   <FormControl fullWidth>
+     <TextField
+       style={{ borderRadius: '10px' }}
+       label="Unidad de Medida"
+       size="small"
+     />
+   </FormControl>
+ </Grid>
+ <Grid item xs={4} >
+   <FormControl fullWidth>
+     <TextField
+       style={{ borderRadius: '10px' }}
+       label="Designación o Identificación Comercial de las Mercancías"
+       size="small"
+     />
+   </FormControl>
+ </Grid>
+ <Grid item xs={4}>
+   <FormControl fullWidth>
+     <TextField
+       style={{ borderRadius: '10px' }}
+       label="Características de la Mercancía"
+       size="small"
+     />
+   </FormControl>
+ </Grid>
+ <Grid item xs={4}>
+   <FormControl fullWidth>
+     <TextField style={{ borderRadius: '10px' }} label="Marca" size="small" />
+   </FormControl>
+ </Grid>
+ <Grid item xs={4}>
+   <FormControl fullWidth>
+     <TextField
+       style={{ borderRadius: '10px' }}
+       label="Modelo y/o Estilo"
+       size="small"
+     />
+   </FormControl>
+ </Grid>
+ <Grid item xs={4}>
+   <FormControl fullWidth>
+     <InputLabel>Estado de las Mercancías</InputLabel>
+     <Select
+       style={{ borderRadius: '10px' }}
+       label="Estado de las Mercancías"
+       size="small"
+     />
+   </FormControl>
+ </Grid>
+ <Grid item xs={4}>
+   <FormControl fullWidth>
+     <InputLabel>Orígen de las Mercancías</InputLabel>
+     <Select
+       style={{ borderRadius: '10px' }}
+       label="Orígen de las Mercancías"
+       size="small"
+     />
+   </FormControl>
+ </Grid>
+ <Grid item xs={4}>
+   <FormControl fullWidth>
+     <TextField
+       style={{ borderRadius: '10px' }}
+       label="Clasificación Arancelaria"
+       size="small"
+     />
+   </FormControl>
+ </Grid>
+ <Grid item xs={4}>
+   <FormControl fullWidth>
+     <InputLabel>Valor Unitario</InputLabel>
+     <Select
+       style={{ borderRadius: '10px' }}
+       label="Valor Unitario"
+       size="small"
+     />
+   </FormControl>
+ </Grid>
+ <Grid item xs={4}>
+   <FormControl fullWidth>
+     <TextField
+       style={{ borderRadius: '10px' }}
+       label="Total Factura Unitario"
+       size="small"
+     />
+   </FormControl>
+ </Grid>
+ <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+ <Button
+startIcon={<Icon>checked</Icon>}
+variant="contained"
+color="primary"
+style={{ borderRadius: '10px', marginRight: '10px' }}
+sx={{
+ backgroundColor: '#634A9E',
+ color: 'white',
+ '&:hover': { backgroundColor: '#6e52ae' },
+}}
+onClick={(e) => {
+
+}}
+ref={collapseRef}
+
+>
+Confirmar Adición de Item
+</Button>
+
+   </Grid>
+</Grid>
+</Grid>
+</CardContent>
+</Collapse>
+
+
+<Collapse in={mostrarBoton}>
+           
+            </Collapse>
+                <div style={{ height: 300, width: '100%' }}>
+               
+                  <DataGrid
+                              localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+                              components={{
+                                Toolbar: GridToolbar,
+                                Search: SearchIcon,
+                              }}
+                    rows={rows2}
+                    columns={columns}
+                    getRowClassName={getRowClassName}
+                    initialState={{
+                      pagination: {
+                        paginationModel: { page: 0, pageSize: 3 },
+                      },
+                    }}
+                    pageSizeOptions={[3, 6, 9]}
+                  />
+                </div>
+                </Grid>
+
+
+
                 </Collapse>
 
                 <Collapse in={mostrarDetalles}>
@@ -1030,183 +1351,6 @@ function Declaracion_Valor_Crear() {
                     </div>
                   </Grid>
                 </Collapse>
-
-                <Dialog
-                  open={mostrarAddFD}
-                  fullWidth="md"
-                  maxWidth="md"
-                  aria-labelledby="alert-dialog-title"
-                  aria-describedby="alert-dialog-description"
-                >
-                  <DialogTitle id="alert-dialog-title">
-                    <Divider style={{ marginTop: '5px', marginBottom: '5px' }}>
-                      <Chip label="AÑADIR ITEMS A LA FACTURA" />
-                    </Divider>
-                  </DialogTitle>
-                  <DialogContent>
-                    <DialogContentText id="alert-dialog-description" />
-                  </DialogContent>
-                  <DialogActions>
-                    <Grid
-                      item
-                      xs={12}
-                      sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }}
-                    >
-                      <Grid container spacing={3}>
-                        <Grid item xs={4}>
-                          <FormControl fullWidth>
-                            <TextField
-                              style={{ borderRadius: '10px' }}
-                              label="Numero de Item"
-                              size="small"
-                            />
-                          </FormControl>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <FormControl fullWidth>
-                            <TextField
-                              style={{ borderRadius: '10px' }}
-                              label="Cantidad"
-                              size="small"
-                            />
-                          </FormControl>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <FormControl fullWidth>
-                            <TextField
-                              style={{ borderRadius: '10px' }}
-                              label="Unidad de Medida"
-                              size="small"
-                            />
-                          </FormControl>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <FormControl fullWidth>
-                            <TextField
-                              style={{ borderRadius: '10px' }}
-                              label="Designación o Identificación Comercial de las Mercancías"
-                              size="small"
-                            />
-                          </FormControl>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <FormControl fullWidth>
-                            <TextField
-                              style={{ borderRadius: '10px' }}
-                              label="Características de la Mercancía"
-                              size="small"
-                            />
-                          </FormControl>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <FormControl fullWidth>
-                            <TextField
-                              style={{ borderRadius: '10px' }}
-                              label="Marca"
-                              size="small"
-                            />
-                          </FormControl>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <FormControl fullWidth>
-                            <TextField
-                              style={{ borderRadius: '10px' }}
-                              label="Modelo y/o Estilo"
-                              size="small"
-                            />
-                          </FormControl>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <FormControl fullWidth>
-                            <InputLabel>Estado de las Mercancías</InputLabel>
-                            <Select
-                              style={{ borderRadius: '10px' }}
-                              label="Estado de las Mercancías"
-                              size="small"
-                            />
-                          </FormControl>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <FormControl fullWidth>
-                            <InputLabel>Orígen de las Mercancías</InputLabel>
-                            <Select
-                              style={{ borderRadius: '10px' }}
-                              label="Orígen de las Mercancías"
-                              size="small"
-                            />
-                          </FormControl>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <FormControl fullWidth>
-                            <TextField
-                              style={{ borderRadius: '10px' }}
-                              label="Clasificación Arancelaria"
-                              size="small"
-                            />
-                          </FormControl>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <FormControl fullWidth>
-                            <InputLabel>Valor Unitario</InputLabel>
-                            <Select
-                              style={{ borderRadius: '10px' }}
-                              label="Valor Unitario"
-                              size="small"
-                            />
-                          </FormControl>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <FormControl fullWidth>
-                            <TextField
-                              style={{ borderRadius: '10px' }}
-                              label="Total Factura Unitario"
-                              size="small"
-                            />
-                          </FormControl>
-                        </Grid>
-                        <Grid
-                          item
-                          xs={12}
-                          sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                        >
-                          <Button
-                            startIcon={<Icon>checked</Icon>}
-                            variant="contained"
-                            color="primary"
-                            style={{ borderRadius: '10px', marginRight: '10px' }}
-                            sx={{
-                              backgroundColor: '#634A9E',
-                              color: 'white',
-                              '&:hover': { backgroundColor: '#6e52ae' },
-                            }}
-                            onClick={(e) => {
-                              setmostrarAddFD(!mostrarAddFD);
-                            }}
-                          >
-                            Confirmar Adición de Item
-                          </Button>
-
-                          <Button
-                            startIcon={<Icon>close</Icon>}
-                            variant="contained"
-                            color="primary"
-                            style={{ borderRadius: '10px' }}
-                            sx={{
-                              backgroundColor: '#DAD8D8',
-                              color: 'black',
-                              '&:hover': { backgroundColor: '#BFBABA' },
-                            }}
-                            onClick={(e) => {
-                              setmostrarAddFD(false);
-                            }}
-                          >
-                            Cancelar Adición de Item
-                          </Button>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </DialogActions>
-                </Dialog>
               </CardContent>
             </Card>
             <Grid

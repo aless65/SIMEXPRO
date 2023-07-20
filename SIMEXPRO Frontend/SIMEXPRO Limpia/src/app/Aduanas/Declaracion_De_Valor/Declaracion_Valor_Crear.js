@@ -2,7 +2,7 @@
 /* eslint-disable camelcase */
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { Button, Chip, Divider, FormControl, Icon, InputLabel, TextField } from '@mui/material';
+import { Button, Chip, Divider, FormControl, Icon, InputAdornment, InputLabel, TextField } from '@mui/material';
 import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -31,6 +31,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { DateTimePicker } from '@mui/x-date-pickers';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -291,48 +292,74 @@ function Declaracion_Valor_Crear() {
                   </Grid>
                   <Grid item xs={3}>
                     <FormControl fullWidth>
-                      <InputLabel htmlFor="grouped-native-select">Aduana de Ingreso</InputLabel>
-                      <Select
+                      <TextField                        
+                        select
                         style={{ borderRadius: '3px' }}
                         label="Aduana de Ingreso"
                         size="small"
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={3}>
-                    <FormControl fullWidth>
-                      <InputLabel htmlFor="grouped-native-select">Aduana de Despacho</InputLabel>
-                      <Select
-                        style={{ borderRadius: '3px' }}
-                        label="Aduana de Despacho"
-                        size="small"
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={3}>
-                    <FormControl fullWidth>
-                      <InputLabel htmlFor="grouped-native-select">
-                        Declaración de Mercancía
-                      </InputLabel>
-                      <Select
-                        style={{ borderRadius: '3px' }}
-                        label="Declaración de Mercancía"
-                        size="small"
+                        variant="outlined"
+                        placeholder="Aduana de Ingreso"
+                        InputProps={{
+                          startAdornment: <InputAdornment position="start" />,
+                        }}
                       />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
                     <FormControl fullWidth>
                       <TextField
-                        style={{ borderRadius: '10px' }}
-                        label="Fecha de Aceptación"
+                        style={{ borderRadius: '3px' }}
+                        label="Aduana de Despacho"
                         size="small"
+                        select
+                        variant="outlined"
+                        placeholder="Aduana de Despacho"
+                        InputProps={{
+                          startAdornment: <InputAdornment position="start" />,
+                        }}
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <FormControl fullWidth>
+                      <TextField
+                        style={{ borderRadius: '3px' }}
+                        label="Declaración de Mercancía"
+                        size="small"
+                        select
+                        variant="outlined"
+                        placeholder="Declaración de Mercancía"
+                        InputProps={{
+                          startAdornment: <InputAdornment position="start" />,
+                        }}
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <FormControl fullWidth>
+                        <DateTimePicker
+                        dateFormat="dd/MM/yyyy"
+                        onChange={(date) => {
+                            console.log(date);
+                          }}
+                        renderInput={(_props) => (
+                          <TextField
+                            className="w-full"
+                            {..._props}
+                            style={{ borderRadius: '10px' }}
+                            label="Fecha de Aceptación"
+                            size="small"
+                            variant="outlined"                           
+                          />
+                        )}
+                        className="w-full"
                       />
                     </FormControl>
                   </Grid>
                 </Grid>
               </CardContent>
             </Card>
+
             <Card style={{ marginTop: '10px', marginBottom: '10px' }}>
               <CardContent>
                 <Grid container spacing={3}>
@@ -347,6 +374,10 @@ function Declaracion_Valor_Crear() {
                         style={{ borderRadius: '10px' }}
                         label="Nombre o Razón Social"
                         size="small"
+                        placeholder="Nombre o Razón Social"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
@@ -356,6 +387,10 @@ function Declaracion_Valor_Crear() {
                         style={{ borderRadius: '10px' }}
                         label="Registro Tributario Nacional (RTN)"
                         size="small"
+                        placeholder="Registro Tributario Nacional (RTN)"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
@@ -365,25 +400,53 @@ function Declaracion_Valor_Crear() {
                         style={{ borderRadius: '10px' }}
                         label="Número de Registro"
                         size="small"
+                        placeholder="Número de Registro"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
-                    <FormControl fullWidth>
-                      <InputLabel htmlFor="grouped-native-select">País</InputLabel>
-                      <Select style={{ borderRadius: '3px' }} label="País" size="small" />
+                    <FormControl fullWidth>                      
+                      <TextField 
+                        style={{ borderRadius: '3px' }} 
+                        label="País" 
+                        size="small"
+                        select
+                        placeholder="País"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
+                      />
                     </FormControl>
                   </Grid>
 
                   <Grid item xs={3}>
-                    <FormControl fullWidth>
-                      <InputLabel htmlFor="grouped-native-select">Estado</InputLabel>
-                      <Select style={{ borderRadius: '3px' }} label="Estado" size="small" />
+                    <FormControl fullWidth>                      
+                      <TextField
+                        style={{ borderRadius: '3px' }} 
+                        label="Estado" 
+                        size="small"
+                        select
+                        placeholder="Estado"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={6}>
                     <FormControl fullWidth>
-                      <TextField style={{ borderRadius: '10px' }} label="Dirección" size="small" />
+                      <TextField 
+                      style={{ borderRadius: '10px' }} 
+                      label="Dirección" 
+                      size="small"
+                      placeholder="Dirección"
+                      InputProps={{
+                        startAdornment: <InputAdornment position='start' />
+                      }}
+                    />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
@@ -392,27 +455,51 @@ function Declaracion_Valor_Crear() {
                         style={{ borderRadius: '10px' }}
                         label="Correo Electrónico"
                         size="small"
+                        placeholder="Correo Electrónico"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
 
                   <Grid item xs={3}>
                     <FormControl fullWidth>
-                      <TextField style={{ borderRadius: '10px' }} label="Teléfono" size="small" />
+                      <TextField 
+                        style={{ borderRadius: '10px' }} 
+                        label="Teléfono" 
+                        size="small"
+                        placeholder="Teléfono"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
                     <FormControl fullWidth>
-                      <TextField style={{ borderRadius: '10px' }} label="Fax" size="small" />
+                      <TextField 
+                        style={{ borderRadius: '10px' }} 
+                        label="Fax" 
+                        size="small"
+                        placeholder="Fax"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
                     <FormControl fullWidth>
-                      <InputLabel htmlFor="grouped-native-select">Nivel Comercial</InputLabel>
-                      <Select
+                      <TextField
                         style={{ borderRadius: '3px' }}
                         label="Nivel Comercial"
                         size="small"
+                        select
+                        placeholder="Nivel Comercial"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
@@ -422,6 +509,10 @@ function Declaracion_Valor_Crear() {
                         style={{ borderRadius: '10px' }}
                         label="Otro Nivel Comercial"
                         size="small"
+                        placeholder="Otro Nivel Comercial"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
@@ -477,29 +568,58 @@ function Declaracion_Valor_Crear() {
                       C. Proveedor
                     </Typography>
                   </Grid>
+
                   <Grid item xs={3}>
                     <FormControl fullWidth>
                       <TextField
                         style={{ borderRadius: '10px' }}
                         label="Nombre o Razón Social"
                         size="small"
+                        placeholder="Nombre o Razón Social"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
                   <Grid item xs={6}>
                     <FormControl fullWidth>
-                      <TextField style={{ borderRadius: '3px' }} label="Dirección" size="small" />
+                      <TextField 
+                        style={{ borderRadius: '3px' }} 
+                        label="Dirección" 
+                        size="small"
+                        placeholder="Dirección"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
                     <FormControl fullWidth>
-                      <TextField style={{ borderRadius: '3px' }} label="Ciudad" size="small" />
+                      <TextField 
+                        style={{ borderRadius: '3px' }} 
+                        label="Ciudad" 
+                        size="small"
+                        placeholder="Ciudad"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
-                    <FormControl fullWidth>
-                      <InputLabel htmlFor="grouped-native-select">País</InputLabel>
-                      <Select style={{ borderRadius: '3px' }} label="País" size="small" />
+                    <FormControl fullWidth>                      
+                      <TextField 
+                        style={{ borderRadius: '3px' }} 
+                        label="País" 
+                        size="small"
+                        select
+                        placeholder="País"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={6}>
@@ -508,27 +628,50 @@ function Declaracion_Valor_Crear() {
                         style={{ borderRadius: '10px' }}
                         label="Correo Electrónico"
                         size="small"
+                        placeholder="Correo Electrónico"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
-
                   <Grid item xs={3}>
                     <FormControl fullWidth>
-                      <TextField style={{ borderRadius: '10px' }} label="Teléfono" size="small" />
+                      <TextField 
+                        style={{ borderRadius: '10px' }} 
+                        label="Teléfono" 
+                        size="small"
+                        placeholder="Teléfono"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
                     <FormControl fullWidth>
-                      <TextField style={{ borderRadius: '10px' }} label="Fax" size="small" />
+                      <TextField 
+                        style={{ borderRadius: '10px' }} 
+                        label="Fax" 
+                        size="small"
+                        placeholder="Fax"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
                     <FormControl fullWidth>
-                      <InputLabel htmlFor="grouped-native-select">Nivel Comercial</InputLabel>
-                      <Select
+                      <TextField
                         style={{ borderRadius: '3px' }}
                         label="Condición Comercial"
                         size="small"
+                        select
+                        placeholder="Condición Comercial"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
@@ -538,9 +681,14 @@ function Declaracion_Valor_Crear() {
                         style={{ borderRadius: '10px' }}
                         label="Otra Condición Comercial"
                         size="small"
+                        placeholder="Nombre o Razón Social"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
+
                 </Grid>
               </CardContent>
             </Card>
@@ -552,29 +700,58 @@ function Declaracion_Valor_Crear() {
                       D. Intermediario
                     </Typography>
                   </Grid>
+
                   <Grid item xs={3}>
                     <FormControl fullWidth>
                       <TextField
                         style={{ borderRadius: '10px' }}
                         label="Nombre o Razón Social"
                         size="small"
+                        placeholder="Nombre o Razón Social"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
                   <Grid item xs={6}>
                     <FormControl fullWidth>
-                      <TextField style={{ borderRadius: '3px' }} label="Dirección" size="small" />
+                      <TextField 
+                        style={{ borderRadius: '3px' }} 
+                        label="Dirección" 
+                        size="small"
+                        placeholder="Dirección"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
                     <FormControl fullWidth>
-                      <TextField style={{ borderRadius: '3px' }} label="Ciudad" size="small" />
+                      <TextField 
+                        style={{ borderRadius: '3px' }} 
+                        label="Ciudad" 
+                        size="small"
+                        placeholder="Ciudad"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
-                    <FormControl fullWidth>
-                      <InputLabel htmlFor="grouped-native-select">País</InputLabel>
-                      <Select style={{ borderRadius: '3px' }} label="País" size="small" />
+                    <FormControl fullWidth>                      
+                      <TextField 
+                        style={{ borderRadius: '3px' }} 
+                        label="País" 
+                        size="small"
+                        select
+                        placeholder="País"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={6}>
@@ -583,27 +760,50 @@ function Declaracion_Valor_Crear() {
                         style={{ borderRadius: '10px' }}
                         label="Correo Electrónico"
                         size="small"
+                        placeholder="Correo Electrónico"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
-
                   <Grid item xs={3}>
                     <FormControl fullWidth>
-                      <TextField style={{ borderRadius: '10px' }} label="Teléfono" size="small" />
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={3}>
-                    <FormControl fullWidth>
-                      <TextField style={{ borderRadius: '10px' }} label="Fax" size="small" />
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={3}>
-                    <FormControl fullWidth>
-                      <InputLabel htmlFor="grouped-native-select">Tipo Intermediario</InputLabel>
-                      <Select
-                        style={{ borderRadius: '3px' }}
-                        label="Tipo Intermediario"
+                      <TextField 
+                        style={{ borderRadius: '10px' }} 
+                        label="Teléfono" 
                         size="small"
+                        placeholder="Teléfono"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <FormControl fullWidth>
+                      <TextField 
+                        style={{ borderRadius: '10px' }} 
+                        label="Fax" 
+                        size="small"
+                        placeholder="Fax"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <FormControl fullWidth>
+                      <TextField
+                        style={{ borderRadius: '3px' }}
+                        label="Condición Comercial"
+                        size="small"
+                        select
+                        placeholder="Tipo Intermediario"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
@@ -611,11 +811,16 @@ function Declaracion_Valor_Crear() {
                     <FormControl fullWidth>
                       <TextField
                         style={{ borderRadius: '10px' }}
-                        label="Otro Tipo Intermediario"
+                        label="Otra Tipo Intermediario"
                         size="small"
+                        placeholder="Nombre o Razón Social"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
+
                 </Grid>
               </CardContent>
             </Card>
@@ -657,6 +862,7 @@ function Declaracion_Valor_Crear() {
                 Cancelar
               </Button>
             </Grid>
+            
           </TabPanel>
 
           <TabPanel value={value} index={2} dir={theme.direction}>
@@ -674,28 +880,52 @@ function Declaracion_Valor_Crear() {
                         style={{ borderRadius: '10px' }}
                         label="Lugar de Entrega"
                         size="small"
+                        placeholder="Lugar de Entrega "
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
                     <FormControl fullWidth>
-                      <InputLabel> País de Entrega</InputLabel>
-                      <Select
+                      <TextField
                         style={{ borderRadius: '3px' }}
                         label="País de Entrega"
                         size="small"
+                        select
+                        placeholder="País de Entrega"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
                     <FormControl fullWidth>
-                      <InputLabel>Incoterm</InputLabel>
-                      <Select style={{ borderRadius: '3px' }} label="Incoterm" size="small" />
+                      <TextField 
+                        style={{ borderRadius: '3px' }} 
+                        label="Incoterm" 
+                        size="small"
+                        select
+                        placeholder="Incoterm"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
                     <FormControl fullWidth>
-                      <TextField style={{ borderRadius: '3px' }} label="Versión" size="small" />
+                      <TextField 
+                        style={{ borderRadius: '3px' }} 
+                        label="Versión" 
+                        size="small"
+                        placeholder="Versión"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
@@ -704,6 +934,10 @@ function Declaracion_Valor_Crear() {
                         style={{ borderRadius: '10px' }}
                         label="Número de Contrato"
                         size="small"
+                        placeholder="Número de Contrato"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
@@ -714,13 +948,25 @@ function Declaracion_Valor_Crear() {
                         style={{ borderRadius: '10px' }}
                         label="Fecha de Contrato"
                         size="small"
+                        placeholder="Fecha de Contrato"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
                     <FormControl fullWidth>
-                      <InputLabel>Forma de Envío</InputLabel>
-                      <Select style={{ borderRadius: '3px' }} label="Forma de Envío" size="small" />
+                      <TextField 
+                        style={{ borderRadius: '3px' }} 
+                        label="Forma de Envío" 
+                        size="small"
+                        select
+                        placeholder="Forma de Envío"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
@@ -729,19 +975,39 @@ function Declaracion_Valor_Crear() {
                         style={{ borderRadius: '3px' }}
                         label="Otra Forma de Envío"
                         size="small"
+                        placeholder="Otra Forma de Envío"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
                     <FormControl fullWidth>
-                      <InputLabel htmlFor="grouped-native-select">Pago Efectuado</InputLabel>
-                      <Select style={{ borderRadius: '3px' }} label="Pago Efectuado" size="small" />
+                      <TextField 
+                        style={{ borderRadius: '3px' }} 
+                        label="Pago Efectuado" 
+                        size="small"
+                        select
+                        placeholder="Pago Efectuado"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
                     <FormControl fullWidth>
-                      <InputLabel>Forma de Pago</InputLabel>
-                      <Select style={{ borderRadius: '3px' }} label="Forma de Pago" size="small" />
+                      <TextField 
+                        style={{ borderRadius: '3px' }} 
+                        label="Forma de Pago" 
+                        size="small"
+                        select
+                        placeholder="Forma de Pago"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
@@ -750,6 +1016,10 @@ function Declaracion_Valor_Crear() {
                         style={{ borderRadius: '3px' }}
                         label="Otra Forma de Pago"
                         size="small"
+                        placeholder="Otra Forma de Pago"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
@@ -759,26 +1029,38 @@ function Declaracion_Valor_Crear() {
                         style={{ borderRadius: '10px' }}
                         label="Lugar de Embarque"
                         size="small"
+                        placeholder="Lugar de Embarque"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
                     <FormControl fullWidth>
-                      <InputLabel>País de Embarque</InputLabel>
-                      <Select
+                      <TextField
                         style={{ borderRadius: '3px' }}
                         label="País de Embarque"
                         size="small"
+                        select
+                        placeholder="País de Embarque"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
                     <FormControl fullWidth>
-                      <InputLabel>País de Exportación</InputLabel>
                       <Select
                         style={{ borderRadius: '3px' }}
                         label="País de Exportación"
                         size="small"
+                        select
+                        placeholder="País de Exportación"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
@@ -788,16 +1070,24 @@ function Declaracion_Valor_Crear() {
                         style={{ borderRadius: '10px' }}
                         label="Fecha de Exportación"
                         size="small"
+                        placeholder="Fecha de Exportación"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
                   <Grid item xs={3}>
                     <FormControl fullWidth>
-                      <InputLabel>Moneda en que se realizó la transacción</InputLabel>
-                      <Select
+                      <TextField
                         style={{ borderRadius: '3px' }}
-                        label="Modena en que se realizó la transacción"
+                        label="Moneda en que se realizó la transacción"
                         size="small"
+                        select
+                        placeholder="Moneda en que se realizó la transacción"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
@@ -807,6 +1097,10 @@ function Declaracion_Valor_Crear() {
                         style={{ borderRadius: '10px' }}
                         label="Otra Moneda"
                         size="small"
+                        placeholder="Otra Moneda"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
@@ -816,6 +1110,10 @@ function Declaracion_Valor_Crear() {
                         style={{ borderRadius: '10px' }}
                         label="Tipo de Cambio de Moneda Extrajera a USD"
                         size="small"
+                        placeholder="Tipo de Cambio de Moneda Extrajera a USD"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
@@ -955,12 +1253,32 @@ function Declaracion_Valor_Crear() {
                         style={{ borderRadius: '10px' }}
                         label="Número de Factura"
                         size="small"
+                        placeholder="Número de Factura"
+                        InputProps={{
+                          startAdornment: <InputAdornment position='start' />
+                        }}
                       />
                     </FormControl>
                   </Grid>
                   <Grid item xs={4}>
-                    <FormControl fullWidth>
-                      <TextField style={{ borderRadius: '10px' }} label="Fecha" size="small" />
+                  <FormControl fullWidth>
+                        <DateTimePicker
+                        dateFormat="dd/MM/yyyy"
+                        onChange={(date) => {
+                            console.log(date);
+                          }}
+                        renderInput={(_props) => (
+                          <TextField
+                            className="w-full"
+                            {..._props}
+                            style={{ borderRadius: '10px' }}
+                            label="Fecha"
+                            size="small"
+                            variant="outlined"                           
+                          />
+                        )}
+                        className="w-full"
+                      />
                     </FormControl>
                   </Grid>
                   <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -976,12 +1294,9 @@ function Declaracion_Valor_Crear() {
                   '&:hover': { backgroundColor: '#6e52ae' },
                 }}
                 onClick={(e) => {
-              
                   setmostrarBoton(!mostrarBoton)
                 setmostrarAddFD(true)
-
                 }}
-                
               >
                 Guardar Adición Factura
               </Button>
@@ -1006,16 +1321,11 @@ function Declaracion_Valor_Crear() {
                   setmostrarAddFD(false)
                   setmostrarBoton(false)
                 }}
-                
               >
                 Guardar Factura
               </Button>
               </Collapse>
 
-
-
-
-              
               <Button
                 startIcon={<Icon>close</Icon>}
                 variant="contained"
@@ -1063,12 +1373,24 @@ sx={{marginLeft:'3rem'}}
        style={{ borderRadius: '10px' }}
        label="Numero de Item"
        size="small"
+       placeholder="Número de Item"
+       InputProps={{
+         startAdornment: <InputAdornment position='start' />
+       }}
      />
    </FormControl>
  </Grid>
  <Grid item xs={4}>
    <FormControl fullWidth>
-     <TextField style={{ borderRadius: '10px' }} label="Cantidad" size="small" />
+     <TextField 
+        style={{ borderRadius: '10px' }} 
+        label="Cantidad"
+        size="small"
+        placeholder="Cantidad"
+        InputProps={{
+          startAdornment: <InputAdornment position='start' />
+        }}
+     />
    </FormControl>
  </Grid>
  <Grid item xs={4}>
@@ -1077,6 +1399,10 @@ sx={{marginLeft:'3rem'}}
        style={{ borderRadius: '10px' }}
        label="Unidad de Medida"
        size="small"
+       placeholder="Unidad de Medida"
+       InputProps={{
+         startAdornment: <InputAdornment position='start' />
+       }}
      />
    </FormControl>
  </Grid>
@@ -1086,6 +1412,10 @@ sx={{marginLeft:'3rem'}}
        style={{ borderRadius: '10px' }}
        label="Designación o Identificación Comercial de las Mercancías"
        size="small"
+       placeholder="Designación o Identificación Comercial de las Mercancías"
+       InputProps={{
+         startAdornment: <InputAdornment position='start' />
+       }}
      />
    </FormControl>
  </Grid>
@@ -1095,40 +1425,64 @@ sx={{marginLeft:'3rem'}}
        style={{ borderRadius: '10px' }}
        label="Características de la Mercancía"
        size="small"
+       placeholder="Características de la Mercancía"
+       InputProps={{
+         startAdornment: <InputAdornment position='start' />
+       }}
      />
    </FormControl>
  </Grid>
  <Grid item xs={4}>
    <FormControl fullWidth>
-     <TextField style={{ borderRadius: '10px' }} label="Marca" size="small" />
+     <TextField 
+        style={{ borderRadius: '10px' }} 
+        label="Marca" 
+        size="small"
+        placeholder="Marca"
+        InputProps={{
+          startAdornment: <InputAdornment position='start' />
+        }}
+     />
+   </FormControl>
+ </Grid>
+ <Grid item xs={4}>
+   <FormControl fullWidth>
+     <TextField
+        style={{ borderRadius: '10px' }}
+        label="Modelo y/o Estilo"
+        size="small"
+        placeholder="Modelo y/o Estilo"
+        InputProps={{
+          startAdornment: <InputAdornment position='start' />
+        }}
+     />
    </FormControl>
  </Grid>
  <Grid item xs={4}>
    <FormControl fullWidth>
      <TextField
        style={{ borderRadius: '10px' }}
-       label="Modelo y/o Estilo"
-       size="small"
-     />
-   </FormControl>
- </Grid>
- <Grid item xs={4}>
-   <FormControl fullWidth>
-     <InputLabel>Estado de las Mercancías</InputLabel>
-     <Select
-       style={{ borderRadius: '10px' }}
        label="Estado de las Mercancías"
        size="small"
+       select
+       placeholder="Estado de las Mercancías"
+       InputProps={{
+         startAdornment: <InputAdornment position='start' />
+       }}
      />
    </FormControl>
  </Grid>
  <Grid item xs={4}>
    <FormControl fullWidth>
-     <InputLabel>Orígen de las Mercancías</InputLabel>
-     <Select
+     <TextField
        style={{ borderRadius: '10px' }}
        label="Orígen de las Mercancías"
        size="small"
+       select
+       placeholder="Orígen de las Mercancías"
+       InputProps={{
+         startAdornment: <InputAdornment position='start' />
+       }}
      />
    </FormControl>
  </Grid>
@@ -1138,16 +1492,24 @@ sx={{marginLeft:'3rem'}}
        style={{ borderRadius: '10px' }}
        label="Clasificación Arancelaria"
        size="small"
+       placeholder="Clasificación Arancelaria"
+       InputProps={{
+         startAdornment: <InputAdornment position='start' />
+       }}
      />
    </FormControl>
  </Grid>
  <Grid item xs={4}>
    <FormControl fullWidth>
-     <InputLabel>Valor Unitario</InputLabel>
-     <Select
+     <TextField
        style={{ borderRadius: '10px' }}
        label="Valor Unitario"
        size="small"
+       select
+       placeholder="Valor Unitario"
+       InputProps={{
+         startAdornment: <InputAdornment position='start' />
+       }}
      />
    </FormControl>
  </Grid>
@@ -1157,6 +1519,10 @@ sx={{marginLeft:'3rem'}}
        style={{ borderRadius: '10px' }}
        label="Total Factura Unitario"
        size="small"
+       placeholder="Total Factura Unitario"
+       InputProps={{
+         startAdornment: <InputAdornment position='start' />
+       }}
      />
    </FormControl>
  </Grid>
@@ -1172,10 +1538,8 @@ sx={{
  '&:hover': { backgroundColor: '#6e52ae' },
 }}
 onClick={(e) => {
-
 }}
 ref={collapseRef}
-
 >
 Confirmar Adición de Item
 </Button>
@@ -1188,10 +1552,8 @@ Confirmar Adición de Item
 
 
 <Collapse in={mostrarBoton}>
-           
             </Collapse>
                 <div style={{ height: 300, width: '100%' }}>
-               
                   <DataGrid
                               localeText={esES.components.MuiDataGrid.defaultProps.localeText}
                               components={{
@@ -1210,9 +1572,6 @@ Confirmar Adición de Item
                   />
                 </div>
                 </Grid>
-
-
-
                 </Collapse>
 
                 <Collapse in={mostrarDetalles}>
@@ -1260,12 +1619,24 @@ Confirmar Adición de Item
                           style={{ borderRadius: '10px' }}
                           label="Número de Factura"
                           size="small"
+                          placeholder="Número de Factura"
+                          InputProps={{
+                            startAdornment: <InputAdornment position='start' />
+                          }}
                         />
                       </FormControl>
                     </Grid>
                     <Grid item xs={4}>
                       <FormControl fullWidth>
-                        <TextField style={{ borderRadius: '10px' }} label="Fecha" size="small" />
+                        <TextField 
+                          style={{ borderRadius: '10px' }} 
+                          label="Fecha" 
+                          size="small"
+                          placeholder="Fecha"
+                          InputProps={{
+                            startAdornment: <InputAdornment position='start' />
+                          }}
+                        />
                       </FormControl>
                     </Grid>
                     <Grid
@@ -1453,6 +1824,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -1482,6 +1857,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -1514,6 +1893,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -1547,6 +1930,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -1576,12 +1963,16 @@ Confirmar Adición de Item
               </Grid>
               <Grid item xs={3}>
                 <FormControl fullWidth>
-                  <InputLabel>Seleccione una opción</InputLabel>
-                  <Select
+                  <TextField
                     style={{ borderRadius: '3px' }}
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Seleccione una opción"
                     size="small"
+                    select
+                    placeholder="Seleccione una opción"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -1606,12 +1997,16 @@ Confirmar Adición de Item
               </Grid>
               <Grid item xs={3}>
                 <FormControl fullWidth>
-                  <InputLabel>Seleccione una opción</InputLabel>
-                  <Select
+                  <TextField
                     style={{ borderRadius: '3px' }}
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Seleccione una opción"
                     size="small"
+                    select
+                    placeholder="Seleccione una opción"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -1641,6 +2036,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -1665,12 +2064,16 @@ Confirmar Adición de Item
               </Grid>
               <Grid item xs={3}>
                 <FormControl fullWidth>
-                  <InputLabel>Seleccione una opción</InputLabel>
-                  <Select
+                  <TextField
                     style={{ borderRadius: '3px' }}
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Seleccione una opción"
                     size="small"
+                    select
+                    placeholder="Seleccione una opción"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -1695,12 +2098,16 @@ Confirmar Adición de Item
               </Grid>
               <Grid item xs={3}>
                 <FormControl fullWidth>
-                  <InputLabel>Seleccione una opción</InputLabel>
-                  <Select
+                  <TextField
                     style={{ borderRadius: '3px' }}
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Seleccione una opción"
                     size="small"
+                    select
+                    placeholder="Seleccione una opción"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -1732,6 +2139,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -1759,12 +2170,16 @@ Confirmar Adición de Item
               </Grid>
               <Grid item xs={3}>
                 <FormControl fullWidth>
-                  <InputLabel>Seleccione una opción</InputLabel>
-                  <Select
+                  <TextField
                     style={{ borderRadius: '3px' }}
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Seleccione una opción"
                     size="small"
+                    select
+                    placeholder="Seleccione una opción"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -1796,6 +2211,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -1898,6 +2317,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -1927,6 +2350,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -1958,6 +2385,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -1989,6 +2420,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -2020,6 +2455,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -2049,6 +2488,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -2080,6 +2523,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -2109,6 +2556,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -2140,6 +2591,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -2172,6 +2627,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -2203,6 +2662,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -2236,6 +2699,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -2267,6 +2734,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -2299,6 +2770,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -2331,6 +2806,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -2360,6 +2839,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -2392,6 +2875,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -2423,6 +2910,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -2455,6 +2946,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -2486,6 +2981,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -2515,6 +3014,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -2544,6 +3047,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -2573,6 +3080,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -2605,6 +3116,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -2634,6 +3149,10 @@ Confirmar Adición de Item
                     sx={{ backgroundColor: 'rgb(255,255,255)' }}
                     label="Valor"
                     size="small"
+                    placeholder="Valor"
+                    InputProps={{
+                      startAdornment: <InputAdornment position='start' />
+                    }}
                   />
                 </FormControl>
               </Grid>

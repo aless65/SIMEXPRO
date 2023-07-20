@@ -103,7 +103,7 @@ function PersonaNatural_Crear() {
   const [value, setValue] = React.useState(0);
   const { handleSubmit, reset, control, formState, setError } = useForm({
     mode: 'all',
-    resolver   
+    resolver: yupResolver(schemaTab1Fields || schemaTab2Fields)  
   });
 
   const { isValid, dirtyFields, errors } = formState;

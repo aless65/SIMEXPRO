@@ -99,14 +99,14 @@ const routes = [
     path: 'Colonias/Index',
     element: <ColoniasIndex />,
   },
-  {
-    path: 'FormaDeEnvio/Index',
-    element: <FormaDeEnvioIndex />,
-  },
-  {
-    path: 'Monedas/Index',
-    element: <MonedasIndex />,
-  },
+  // {
+  //   path: 'FormaDeEnvio/Index',
+  //   element: <FormaDeEnvioIndex />,
+  // },
+  // {
+  //   path: 'Monedas/Index',
+  //   element: <MonedasIndex />,
+  // },
   {
     path: 'Cargos/Index',
     element: <CargosIndex />,

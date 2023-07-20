@@ -188,6 +188,9 @@ CREATE TABLE Gral.tbPaises(
 );
 GO
 
+INSERT INTO Gral.tbPaises(pais_Codigo,pais_Nombre,usua_UsuarioCreacion,pais_FechaCreacion)
+VALUES	('HN','Honduras',1,GETDATE())
+
 CREATE TABLE Gral.tbFormas_Envio(
 		foen_Id 					INT			IDENTITY(1,1),
 		foen_Descripcion			NVARCHAR(500),
@@ -255,10 +258,11 @@ CREATE TABLE Gral.tbProvincias(
 	CONSTRAINT FK_Gral_tbProvincias_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id 	 FOREIGN KEY(usua_UsuarioCreacion) 		REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbProvincias_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioModificacion)  REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbProvincias_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id  FOREIGN KEY(usua_UsuarioEliminacion)   REFERENCES Acce.tbUsuarios (usua_Id)
-
-	
 );
 GO
+INSERT INTO Gral.tbProvincias(pvin_Nombre,pvin_Codigo,pais_Id,usua_UsuarioCreacion,pvin_FechaCreacion)
+VALUES	('Cortes','05',1,1,GETDATE())
+
 
 CREATE TABLE Gral.tbCiudades(
 		ciud_Id						INT 			IDENTITY(1,1),
@@ -281,6 +285,8 @@ CREATE TABLE Gral.tbCiudades(
 	CONSTRAINT FK_Gral_tbCiudades_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id  FOREIGN KEY(usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios (usua_Id)
 );
 GO
+INSERT INTO Gral.tbCiudades(ciud_Nombre,pvin_Id,usua_UsuarioCreacion,ciud_FechaCreacion)
+VALUES	('San Pedro Sula',1,1,GETDATE())
 
 CREATE TABLE Gral.tbAldeas(
 		alde_Id						INT 			IDENTITY(1,1),
@@ -500,6 +506,7 @@ CREATE TABLE Adua.tbNivelesComerciales(
 
 CREATE TABLE Adua.tbCondicionesComerciales(
    		coco_Id							INT 			IDENTITY(1,1),
+		coco_Codigo						CHAR(2)			NOT NULL,
    		coco_Descripcion				NVARCHAR(150) 	NOT NULL,
    		usua_UsuarioCreacion            INT 			NOT NULL,
    		coco_FechaCreacion				DATETIME 		NOT NULL,
@@ -515,6 +522,14 @@ CREATE TABLE Adua.tbCondicionesComerciales(
    CONSTRAINT FK_Acce_tbUsuarios_Adua_tbCondicionesComerciales_coco_usua_UsuarioEliminacion  FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios(usua_Id)
    );
    GO
+   INSERT INTO Adua.tbCondicionesComerciales(coco_Codigo,coco_Descripcion,usua_UsuarioCreacion,coco_FechaCreacion)
+   VALUES 
+   ('DT','Distribuidor',1,GETDATE()),
+   ('FB','Fabricante',1,GETDATE()),
+   ('MY','Mayorista',1,GETDATE()),
+   ('OT','Otro',1,GETDATE()),
+   ('PR','Productor',1,GETDATE()),
+   ('RV','Revendedor',1,GETDATE())
 
 CREATE TABLE Adua.tbFormasdePago(
 		fopa_Id							INT 			IDENTITY(1,1),
@@ -543,7 +558,7 @@ CREATE TABLE Adua.tbFormasdePago(
    		ciud_Id                  		INT             NOT NULL,
    		decl_Correo_Electronico  		NVARCHAR(150) 	NOT NULL,
    		decl_Telefono            		NVARCHAR(50) 	NOT NULL,
-   		decl_Fax                 		NVARCHAR(50), 
+   		decl_Fax                 		NVARCHAR(50)	NULL, 
    		usua_UsuarioCreacion            INT 			NOT NULL,
    		decl_FechaCreacion				DATETIME 		NOT NULL,
    		usua_UsuarioModificacion		INT,

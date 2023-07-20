@@ -354,6 +354,7 @@ function LotesIndex() {
                         <Grid item xs={6}>
                             <div className="mt-48 mb-16">
                                 <Controller
+                                    defaultValue={['Selecciona una opción']}
                                     render={({ field }) => (
                                     <FormControl error={!!errors.Select} fullWidth>
                                         <FormLabel className="font-medium text-14" component="legend">

@@ -27,6 +27,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
+import TablaDatos_Index from './OrdenCompra_TablaIndex';
 
 function DucaIndex() {
   const navigate = useNavigate()
@@ -146,7 +147,7 @@ function DucaIndex() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/6FZrCcv/DUCAS.png"
+        image="https://i.ibb.co/D5SZnc4/ORDEN-DE-COMPRA.png"
         alt="Encabezado de la carta"
       />
       <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -170,8 +171,8 @@ function DucaIndex() {
           </Button>
         </Stack>
 
-        {/*Barra de Busqueda en la Tabla*/}
-        <TextField
+        
+        {/* <TextField
           style={{ borderRadius: '10px' }}
           placeholder='Buscar'
           value={searchText}
@@ -187,11 +188,11 @@ function DucaIndex() {
               </InputAdornment>
             ),
           }}
-        />
+        /> */}
       </CardContent>
 
       {/*Tabla*/}
-      <div style={{ height: 400, width: '100%' }}>
+      {/* <div style={{ height: 400, width: '100%' }}>
         <DataGrid
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           components={{
@@ -207,8 +208,9 @@ function DucaIndex() {
           }}
           pageSizeOptions={[10, 20, 50]}
         />
-      </div>
+      </div> */}
 
+      <TablaDatos_Index></TablaDatos_Index>
 
 
       <Dialog

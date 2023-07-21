@@ -59,6 +59,7 @@ import ModuloIndex from '../Produccion/Modulos/Modulos';
 import ProcesosIndex from '../Produccion/Procesos/Procesos';
 import MarcasIndex from '../Maquinaria/MarcasMaquina/MarcasMaquina';
 import ModelosMaquinaIndex from '../Maquinaria/ModelosMaquina/ModelosMaquina';
+import Revision_de_Calidad_Index from '../Produccion/Revisión de Calidad/RevisionCalidad';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -86,6 +87,10 @@ const routes = [
   {
     path: 'Ciudades/Index',
     element: <CiudadesIndex />,
+  },
+  {
+    path: 'RevisionCalidad/Index',
+    element: <Revision_de_Calidad_Index />,
   },
   {
     path: 'Provincias/Index',

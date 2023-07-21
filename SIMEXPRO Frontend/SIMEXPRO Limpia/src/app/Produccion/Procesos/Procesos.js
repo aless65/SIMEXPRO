@@ -35,6 +35,10 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { height } from '@mui/system';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Swal from 'sweetalert2';
+import { Controller, useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 
 function ProcesosIndex() {
@@ -46,6 +50,19 @@ function ProcesosIndex() {
   const DialogEliminar = () => {
     setEliminar(!Eliminar);
   };
+
+  const Toast2 = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'green',
+    width: 400,
+    customClass: {
+      popup: 'colored-toast'
+    },  
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
 
   {/* Columnas de la tabla */ }
   const columns = [
@@ -130,6 +147,14 @@ function ProcesosIndex() {
 
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
+  };
+
+  const Funcion = () => {
+    VisibilidadTabla()
+    Toast2.fire({
+      icon: 'success',
+      title: 'Datos guardados exitosamente',
+    });
   };
 
   {/* Filtrado de datos */ }
@@ -221,18 +246,19 @@ function ProcesosIndex() {
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Typography variant="h5" gutterBottom>
-              </Typography>
-            </Grid> 
-            <Grid item xs={12}>
+            <Grid item xs={3}>
+
+            </Grid>
+            <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'center' }}
+            marginTop={'30px'}>
               <FormControl
                 fullWidth
               >
                 <TextField
-                  style={{ borderRadius: '10px' }}
+                  style={{ borderRadius: '10px', width: '500px'  }}
                   label="Proceso"
-                  defaultValue={' '}
+                  placeholder='Ingrese un proceso'
+                  InputProps={{startAdornment: (<InputAdornment position="start"></InputAdornment>),}}
                 />
               </FormControl>
             </Grid>        
@@ -246,7 +272,7 @@ function ProcesosIndex() {
                   backgroundColor: '#634A9E', color: 'white',
                   "&:hover": { backgroundColor: '#6e52ae' },
                 }}
-                onClick={VisibilidadTabla}
+                onClick={Funcion}
               >
                 Guardar
               </Button>

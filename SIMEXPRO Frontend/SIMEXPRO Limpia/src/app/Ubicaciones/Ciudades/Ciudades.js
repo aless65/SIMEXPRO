@@ -37,6 +37,10 @@ import { height } from '@mui/system';
 
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Swal from 'sweetalert2';
+import { Controller, useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 function CiudadesIndex() {
   const [searchText, setSearchText] = useState('');
@@ -47,6 +51,19 @@ function CiudadesIndex() {
   const DialogEliminar = () => {
     setEliminar(!Eliminar);
   };
+
+  const Toast2 = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'green',
+    width: 400,
+    customClass: {
+      popup: 'colored-toast'
+    },  
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
 
   {/* Columnas de la tabla */ }
   const columns = [
@@ -142,6 +159,14 @@ function CiudadesIndex() {
     setmostrarAdd(!mostrarAdd);
   };
 
+  const Funcion = () => {
+    VisibilidadTabla()
+    Toast2.fire({
+      icon: 'success',
+      title: 'Datos guardados exitosamente',
+    });
+  };
+
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
   };
@@ -201,10 +226,6 @@ function CiudadesIndex() {
       </Collapse>
 
 
-
-
-
-
       {/* Tabla */}
       <Collapse in={mostrarIndex}>
         <div style={{ height: 400, width: '100%', marginLeft: '13px', marginRight: '10px' }}>
@@ -247,8 +268,12 @@ function CiudadesIndex() {
                 <Select
                   defaultValue={" "}
                   style={{ borderRadius: '3px' }}
-                  label="Subcategoría"
-                />
+                  label="Pais"
+                >
+                  <MenuItem value="1">Argentina</MenuItem>
+                  <MenuItem value="2">Honduras</MenuItem>
+                  <MenuItem value="3">Estados Unidos</MenuItem>
+                </Select>
               </FormControl>
             </Grid>
             <Grid item xs={6}>
@@ -259,8 +284,12 @@ function CiudadesIndex() {
                 <Select
                   defaultValue={" "}
                   style={{ borderRadius: '3px' }}
-                  label="Subcategoría"
-                />
+                  label="Provincia"
+                  >
+                  <MenuItem value="1">Mar del Plata</MenuItem>
+                  <MenuItem value="2">Cortés</MenuItem>
+                  <MenuItem value="3">Houston</MenuItem>
+                </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12}>
@@ -268,6 +297,7 @@ function CiudadesIndex() {
                 fullWidth
               >
                 <TextField
+                placeholder='Ingrese el nombre de la ciudad'
                   defaultValue={" "}
                   style={{ borderRadius: '10px' }}
                   label="Nombre Ciudad"
@@ -284,7 +314,7 @@ function CiudadesIndex() {
                   backgroundColor: '#634A9E', color: 'white',
                   "&:hover": { backgroundColor: '#6e52ae' },
                 }}
-                onClick={VisibilidadTabla}
+                onClick={Funcion}
               >
                 Guardar
               </Button>

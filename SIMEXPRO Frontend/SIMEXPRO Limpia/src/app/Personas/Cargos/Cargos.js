@@ -95,20 +95,36 @@ function CargosIndex() {
   });
 
   const { isValid, dirtyFields, errors, touchedFields } = formState;
-  const Masiso = handleSubmit((data) => {
-    if (!isValid) {
+  const onSubmit = (data) => {
+    if(data.cargo != null ){
+      if (data.cargo.trim() === '' ) {
+        Toast.fire({
+          icon: 'error',
+          title: 'No se permiten campos vacios',
+        }); 
+      } else {
+
+        VisibilidadTabla();
+        Toast2.fire({
+          icon: 'success',
+          title: 'Datos guardados exitosamente',
+        });
+        
+      }
+    }else{
       Toast.fire({
         icon: 'error',
         title: 'No se permiten campos vacios',
-      });
-    } else {
-      VisibilidadTabla();
-      Toast2.fire({
-        icon: 'success',
-        title: 'Datos guardados exitosamente',
-      });
+      }); 
     }
-  });
+  };
+
+  const Masiso = () => {
+    const formData = watch();
+    onSubmit(formData); 
+    handleSubmit(onSubmit)(); 
+    reset(defaultValues);
+  };
   {/* Validaciones de la pantalla de crear*/ }
 
   {/* Columnas de la tabla */ }
@@ -298,6 +314,7 @@ function CargosIndex() {
                         placeholder='Descripción del cargo'
                         error={!!errors.cargo}
                         helperText={errors?.cargo?.message}
+                        InputProps={{startAdornment: (<InputAdornment position="start"></InputAdornment>),}}
                     />
                   )}
                   name="cargo"

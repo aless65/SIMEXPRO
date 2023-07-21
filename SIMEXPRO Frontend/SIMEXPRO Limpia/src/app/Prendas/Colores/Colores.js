@@ -194,6 +194,13 @@ function ColoresIndex() {
     setSearchText(event.target.value);
   };
 
+  const Funcion = () => {
+    VisibilidadTabla()
+    Toast2.fire({
+      icon: 'success',
+      title: 'Datos guardados exitosamente',
+    });
+  };
   {/* Filtrado de datos */ }
   const filteredRows = rows.filter((row) =>
     row.colores.toLowerCase().includes(searchText.toLowerCase())
@@ -275,47 +282,25 @@ function ColoresIndex() {
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
            
-          <Grid item xs={6}>
-          <div className="mt-48 mb-16">
-                <Controller
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      variant="outlined"
-                      fullWidth
-                      defaultValue={' '}
-                        style={{ borderRadius: '10px'}}
-                        label="Codigo"
-                        error={!!errors.codigo}
-                        helperText={errors?.codigo?.message}
-                    />
-                  )}
-                  name="codigo"
-                  control={control}
-                />
-              </div>
-            </Grid> 
+          <Grid item xs={6} marginTop={'30px'}>
+              <TextField
+                variant="outlined"
+                fullWidth
+                defaultValue={' '}
+                style={{ borderRadius: '10px'}}
+                label="Codigo"
+              />
+          </Grid> 
 
-          <Grid item xs={6} >
-          <div className="mt-48 mb-16">
-                <Controller
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      variant="outlined"
-                      fullWidth
-                      defaultValue=" "
-                        style={{ borderRadius: '10px'}}
-                        label="Color"
-                        error={!!errors.color}
-                        helperText={errors?.color?.message}
-                    />
-                  )}
-                  name="cargo"
-                  control={control}
-                />
-              </div>
-            </Grid> 
+          <Grid item xs={6} marginTop={'30px'}>
+              <TextField
+                variant="outlined"
+                fullWidth
+                defaultValue={' '}
+                style={{ borderRadius: '10px'}}
+                label="Codigo"
+              />
+          </Grid> 
 
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
               <Button
@@ -327,7 +312,7 @@ function ColoresIndex() {
                   backgroundColor: '#634A9E', color: 'white',
                   "&:hover": { backgroundColor: '#6e52ae' },
                 }}
-                onClick={Masiso}
+                onClick={Funcion}
               >
                 Guardar
               </Button>

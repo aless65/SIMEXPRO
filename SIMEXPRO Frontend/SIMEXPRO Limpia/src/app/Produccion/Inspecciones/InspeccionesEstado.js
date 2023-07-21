@@ -298,6 +298,7 @@ function InspeccionesIndex() {
                       {...field}
                       label="Código de revisión"
                       variant="outlined"
+                      placeholder='Ingrese el código de la revisión'
                       error={!!errors.inspec}
                       fullWidth
                       style={{ borderRadius: '10px', width: '500px' }}

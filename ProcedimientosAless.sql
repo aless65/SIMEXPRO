@@ -1284,7 +1284,7 @@ GO
 /*Vista que trae todos los campos de la parte  1 del formulario de la declaración de valor, incluso los que están en 
   otras tablas conectadas a tbDeclaraciones_Valor (no se incluyen las facturas ni las condiciones)*/
 GO
-CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_ValorCompleto
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_ValorCompleto_Listar
 AS
 BEGIN
 	SELECT [deva_Id]							--AS declaracionId, 
@@ -1372,7 +1372,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER PROCEDURE adua.UDP_tbDeclarantes_Insert
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclarantes_Insertar
 	@decl_Nombre_Raso				NVARCHAR(250),
 	@decl_Direccion_Exacta			NVARCHAR(250),
 	@ciud_Id						INT,
@@ -1412,7 +1412,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab1_Insert 
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab1_Insertar 
 	@deva_Aduana_Ingreso_Id				INT,
 	@deva_Aduana_Despacho_Id			INT,
 	@deva_Fecha_Aceptacion				DATETIME,
@@ -1513,7 +1513,7 @@ GO
 
 
 
-CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab2_Insert 
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab2_Insertar
 	@deva_Id						INT,
 	@prov_decl_Nombre_Raso			NVARCHAR(250),
 	@prov_decl_Direccion_Exacta		NVARCHAR(250),
@@ -1635,7 +1635,7 @@ END
 --GO
 
 GO
-CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab3_Insert
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab3_Insertar
 	@deva_Lugar_Entrega			NVARCHAR(800),
 	@pais_Entrega_Id			INT,
 	@inco_Id					INT,
@@ -1691,10 +1691,12 @@ BEGIN
 					@mone_Id, 
 					@mone_Otra, 
 					@deva_Conversion_Dolares)
+
+			SELECT 1
 		COMMIT TRAN
 	END TRY
 	BEGIN CATCH
-
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 		ROLLBACK TRAN
 	END CATCH
 END

@@ -280,23 +280,23 @@ function OficinasIndex() {
 
       {/* Tabla */}
       <Collapse in={mostrarIndex}>
-        <div style={{ height: 400, width: '100%', marginLeft: '13px', marginRight: '10px' }}>
-          <DataGrid
-            localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-            components={{
-              Toolbar: GridToolbar,
-              Search: SearchIcon,
-            }}
-            rows={filteredRows}
-            columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: { page: 0, pageSize: 10 },
-              },
-            }}
-            pageSizeOptions={[10, 20, 50]}
-          />
-        </div>
+          <div style={{ height: 400, width: '100%', marginLeft: '30px', marginRight: '30px' }}>
+              <DataGrid
+                  localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+                  components={{
+                      Toolbar: GridToolbar,
+                      Search: SearchIcon,
+                  }}
+                  rows={filteredRows}
+                  columns={columns}
+                  initialState={{
+                      pagination: {
+                          paginationModel: { page: 0, pageSize: 10 },
+                      },
+                  }}
+                  pageSizeOptions={[10, 20, 50]}
+              />
+          </div>
       </Collapse>
 
 
@@ -308,8 +308,8 @@ function OficinasIndex() {
               <Typography variant="h5" gutterBottom>
               </Typography>
             </Grid>
-            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }} >
-            <div className="mt-48 mb-16">
+            <Grid item xs={6} >
+            <div className="mt-40 mb-16" style={{ width: '500px', marginLeft: '210px' }}>
                 <Controller
                   render={({ field }) => (
                     <TextField

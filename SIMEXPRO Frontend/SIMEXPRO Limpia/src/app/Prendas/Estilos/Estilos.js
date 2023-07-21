@@ -272,7 +272,7 @@ function EstilosIndex() {
 
 
             {/* Tabla */}
-            <Collapse in={mostrarIndex}>
+             <Collapse in={mostrarIndex}>
                 <div style={{ height: 400, width: '100%', marginLeft: '30px', marginRight: '30px' }}>
                     <DataGrid
                         localeText={esES.components.MuiDataGrid.defaultProps.localeText}
@@ -302,9 +302,8 @@ function EstilosIndex() {
                 <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     <Grid container spacing={3}>
                         
-                        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}
-                             style={{ marginTop: '30px' }}>
-
+                        <Grid item xs={6}>
+                        <div className="mt-40 mb-16" style={{ width: '500px', marginLeft: '210px' }}>
                             <Controller
                                 render={({ field }) => (
                                     <TextField
@@ -320,6 +319,7 @@ function EstilosIndex() {
                                 name="estilos"  
                                 control={control}
                             />
+                          </div>
                         </Grid>
 
 

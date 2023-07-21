@@ -184,6 +184,7 @@ function AreasIndex() {
   const VisibilidadTabla = () => {
     setmostrarIndex(!mostrarIndex);
     setmostrarAdd(!mostrarAdd);
+    reset(defaultAccountValues);
   };
 
   const VisibilidadTabla2 = () => {
@@ -208,7 +209,6 @@ function AreasIndex() {
           title: 'No se permiten campos vacios',
         }); 
       } else {
-
         VisibilidadTabla();
         Toast2.fire({
           icon: 'success',
@@ -228,7 +228,7 @@ function AreasIndex() {
     const formData = watch();
     onSubmit(formData); 
     handleSubmit(onSubmit)(); 
-    reset(defaultAccountValues);
+   
   };
 
 
@@ -290,23 +290,23 @@ function AreasIndex() {
 
       {/* Tabla */}
       <Collapse in={mostrarIndex}>
-        <div style={{ height: 400, width: '100%' }}>
-          <DataGrid
-            localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-            components={{
-              Toolbar: GridToolbar,
-              Search: SearchIcon,
-            }}
-            rows={filteredRows}
-            columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: { page: 0, pageSize: 10 },
-              },
-            }}
-            pageSizeOptions={[10, 20, 50]}
-          />
-        </div>
+          <div style={{ height: 400, width: '100%', marginLeft: '30px', marginRight: '30px' }}>
+              <DataGrid
+                  localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+                  components={{
+                      Toolbar: GridToolbar,
+                      Search: SearchIcon,
+                  }}
+                  rows={filteredRows}
+                  columns={columns}
+                  initialState={{
+                      pagination: {
+                          paginationModel: { page: 0, pageSize: 10 },
+                      },
+                  }}
+                  pageSizeOptions={[10, 20, 50]}
+              />
+          </div>
       </Collapse>
 
 

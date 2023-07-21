@@ -275,24 +275,25 @@ function AreasIndex() {
 
       {/* Tabla */}
       <Collapse in={mostrarIndex}>
-        <div style={{ height: 400, width: '100%', marginLeft: '13px', marginRight: '10px' }}>
-          <DataGrid
-            localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-            components={{
-              Toolbar: GridToolbar,
-              Search: SearchIcon,
-            }}
-            rows={filteredRows}
-            columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: { page: 0, pageSize: 10 },
-              },
-            }}
-            pageSizeOptions={[10, 20, 50]}
-          />
-        </div>
-      </Collapse>
+                <div style={{ height: 400, width: '100%', marginLeft: '30px', marginRight: '30px' }}>
+                    <DataGrid
+                        localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+                        components={{
+                            Toolbar: GridToolbar,
+                            Search: SearchIcon,
+                        }}
+                        rows={filteredRows}
+                        columns={columns}
+                        initialState={{
+                            pagination: {
+                                paginationModel: { page: 0, pageSize: 10 },
+                            },
+                        }}
+                        pageSizeOptions={[10, 20, 50]}
+                    />
+                </div>
+            </Collapse>
+
 
 
       {/* Formulario Agregar */}
@@ -303,7 +304,8 @@ function AreasIndex() {
               <Typography variant="h5" gutterBottom>
               </Typography>
             </Grid>
-            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Grid item xs={6} >
+            <div className="mt-40 mb-16" style={{ width: '500px', marginLeft: '210px' }}>
                 <Controller
                   render={({ field }) => (
                     <TextField
@@ -319,6 +321,7 @@ function AreasIndex() {
                   name="areas"
                   control={control}
                 />
+                </div>
             </Grid>  
 
 

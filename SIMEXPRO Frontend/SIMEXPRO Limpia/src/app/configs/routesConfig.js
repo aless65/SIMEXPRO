@@ -67,6 +67,8 @@ import OrdenPedido_Index from '../Produccion/OrdenPedidos/OrdenPedido_Index';
 import TablaDetalles_Materiales from '../Produccion/OrdenCompra/TablaDetalles';
 
 import FormularioConTabs from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/Tabs_Crear/Tabs1Form';
+import PedidosProduccion from '../Produccion/PedidosProduccion/PedidosProduccion';
+import PedidosProduccion_Crear from '../Produccion/PedidosProduccion/PedidosProduccion_Crear';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -326,6 +328,14 @@ const routes = [
   {
     path: 'TabForm',
     element: <FormularioConTabs />,
+  },
+  {
+    path: 'PedidosProduccion/Index',
+    element: <PedidosProduccion />,
+  },
+  {
+    path: 'PedidosProduccion/Crear',
+    element: <PedidosProduccion_Crear />,
   },
 ];
 

@@ -330,7 +330,7 @@ const navigationConfig = [
             title: 'Pedidos de Producción',
             type: 'item',
             icon: 'material-outline:local_mall',
-            url: '/Produccion/PedidosProduccion',
+            url: 'PedidosProduccion/Index',
           },
           {
             id: 'Produccion.Procesos',

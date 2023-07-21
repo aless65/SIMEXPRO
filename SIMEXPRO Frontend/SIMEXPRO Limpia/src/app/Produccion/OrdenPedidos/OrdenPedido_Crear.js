@@ -456,7 +456,10 @@ function OrdenPedido_Crear() {
                   color: 'white',
                   '&:hover': { backgroundColor: '#6e52ae' },
                 }}
-                onClick={() => validacion(1)}
+                //onClick={() => validacion(1)}
+                onClick={(e) => {
+                  navigate('/OrdenPedido/Index');
+                }}
               >
                 Guardar
               </Button>

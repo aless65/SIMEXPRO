@@ -302,7 +302,7 @@ function OrdenPedido_Crear() {
                   '&:hover': { backgroundColor: '#BFBABA' },
                 }}
                 onClick={(e) => {
-                  navigate('/Declaracion-de-Valor/Listado');
+                  navigate('/OrdenPedido/Index');
                 }}
               >
                 Cancelar
@@ -472,7 +472,7 @@ function OrdenPedido_Crear() {
                   '&:hover': { backgroundColor: '#BFBABA' },
                 }}
                 onClick={(e) => {
-                  navigate('/Declaracion-de-Valor/Listado');
+                  navigate('/OrdenPedido/Index');
                 }}
               >
                 Cancelar

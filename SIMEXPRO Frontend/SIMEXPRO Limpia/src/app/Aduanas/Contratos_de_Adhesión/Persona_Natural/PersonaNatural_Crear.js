@@ -329,7 +329,7 @@ function PersonaNatural_Crear() {
                     color: 'white',
                     '&:hover': { backgroundColor: '#6e52ae' },
                   }}
-                  // onClick={() => validacion(1)}
+                  onClick={() => validacion(1)}
                   type="button"
                   disabled={_.isEmpty(dirtyFields) || !isValid}
                 >
@@ -347,7 +347,7 @@ function PersonaNatural_Crear() {
                     '&:hover': { backgroundColor: '#BFBABA' },
                   }}
                   onClick={() => {
-                    navigate('/Contrato-de-Adhesion/Persona-Natural');
+                    navigate('/Contrato-de-Adhesion-Persona-Natural/Index');
                   }}
                 >
                   Cancelar
@@ -525,10 +525,10 @@ function PersonaNatural_Crear() {
                     '&:hover': { backgroundColor: '#6e52ae' },
                   }}
                   onClick={() => {
-                    navigate('/Contrato-de-Adhesion/Persona-Natural');
+                    navigate('/Contrato-de-Adhesion-Persona-Natural/Index');
                   }}
                   type="button"
-                  disabled={_.isEmpty(dirtyFields) || !isValid}
+                  //disabled={_.isEmpty(dirtyFields) || !isValid}
                 >
                   Guardar
                 </Button>
@@ -544,7 +544,7 @@ function PersonaNatural_Crear() {
                     '&:hover': { backgroundColor: '#BFBABA' },
                   }}
                   onClick={() => {
-                    navigate('/Contrato-de-Adhesion/Persona-Natural');
+                    navigate('/Contrato-de-Adhesion-Persona-Natural/Index');
                   }}
                 >
                   Cancelar

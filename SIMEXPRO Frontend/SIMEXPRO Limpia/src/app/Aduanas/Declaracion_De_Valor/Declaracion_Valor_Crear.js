@@ -1052,7 +1052,7 @@ function Declaracion_Valor_Crear() {
                   </Grid>
                   <Grid item xs={3}>
                     <FormControl fullWidth>
-                      <Select
+                      <TextField
                         style={{ borderRadius: '3px' }}
                         label="País de Exportación"
                         size="small"
@@ -1607,121 +1607,6 @@ Confirmar Adición de Item
                   </div>
                 </Collapse>
 
-                <Collapse in={mostrarAddF}>
-                  <Divider style={{ marginTop: '30px', marginBottom: '15px' }}>
-                    <Chip label="NUEVA FACTURA " />
-                  </Divider>
-                  <Grid container spacing={3}>
-                    <Grid item xs={2} />
-                    <Grid item xs={4}>
-                      <FormControl fullWidth>
-                        <TextField
-                          style={{ borderRadius: '10px' }}
-                          label="Número de Factura"
-                          size="small"
-                          placeholder="Número de Factura"
-                          InputProps={{
-                            startAdornment: <InputAdornment position='start' />
-                          }}
-                        />
-                      </FormControl>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <FormControl fullWidth>
-                        <TextField 
-                          style={{ borderRadius: '10px' }} 
-                          label="Fecha" 
-                          size="small"
-                          placeholder="Fecha"
-                          InputProps={{
-                            startAdornment: <InputAdornment position='start' />
-                          }}
-                        />
-                      </FormControl>
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                    >
-                      <Collapse in={!mostrarBoton}>
-                        <Button
-                          startIcon={<Icon>checked</Icon>}
-                          variant="contained"
-                          color="primary"
-                          style={{ borderRadius: '10px', marginRight: '10px' }}
-                          sx={{
-                            backgroundColor: '#634A9E',
-                            color: 'white',
-                            '&:hover': { backgroundColor: '#6e52ae' },
-                          }}
-                          onClick={(e) => {
-                            setmostrarBoton(!mostrarBoton);
-                          }}
-                        >
-                          Guardar Adición Factura
-                        </Button>
-                      </Collapse>
-                      <Button
-                        startIcon={<Icon>close</Icon>}
-                        variant="contained"
-                        color="primary"
-                        style={{ borderRadius: '10px' }}
-                        sx={{
-                          backgroundColor: '#DAD8D8',
-                          color: 'black',
-                          '&:hover': { backgroundColor: '#BFBABA' },
-                        }}
-                        onClick={(e) => {
-                          setmostrarAddH(!mostrarAddH);
-                          setmostrarAddF(!mostrarAddF);
-                          setmostrarAddFD(false);
-                          setmostrarBoton(false);
-                        }}
-                      >
-                        Cancelar Adición Factura
-                      </Button>
-                    </Grid>
-
-                    <Grid item xs={12} sx={{ marginBottom: 4 }}>
-                      <Typography variant="" color="rgb(55, 188, 155)">
-                        DESCRIPCIÓN DE LAS MERCANCÍAS (ITEMS)
-                      </Typography>
-                    </Grid>
-                    <Collapse in={mostrarBoton}>
-                      <Button
-                        startIcon={<Icon>add</Icon>}
-                        variant="contained"
-                        color="primary"
-                        style={{ borderRadius: '10px' }}
-                        sx={{
-                          backgroundColor: '#634A9E',
-                          color: 'white',
-                          marginBottom: 4,
-                          '&:hover': { backgroundColor: '#6e52ae' },
-                        }}
-                        onClick={(e) => {
-                          setmostrarAddFD(!mostrarAddFD);
-                        }}
-                      >
-                        Agregar Item
-                      </Button>
-                    </Collapse>
-                    <div style={{ height: 300, width: '100%' }}>
-                      <DataGrid
-                        rows={rows2}
-                        columns={columns}
-                        getRowClassName={getRowClassName}
-                        initialState={{
-                          pagination: {
-                            paginationModel: { page: 0, pageSize: 3 },
-                          },
-                        }}
-                        pageSizeOptions={[3, 6, 9]}
-                      />
-                    </div>
-                  </Grid>
-                </Collapse>
               </CardContent>
             </Card>
             <Grid
@@ -1755,7 +1640,7 @@ Confirmar Adición de Item
                   '&:hover': { backgroundColor: '#BFBABA' },
                 }}
                 onClick={(e) => {
-                  navigate('');
+                  navigate('/Declaracion-de-Valor/Listado');
                 }}
               >
                 Cancelar
@@ -3174,6 +3059,9 @@ Confirmar Adición de Item
                   color: 'white',
                   '&:hover': { backgroundColor: '#6e52ae' },
                 }}
+                onClick={(e) => {
+                  navigate('/Declaracion-de-Valor/Listado');
+                }}                
               >
                 Guardar
               </Button>

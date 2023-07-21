@@ -114,7 +114,7 @@ function Revision_de_Calidad_Index() {
     row.usuario.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  
+
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
       <CardMedia
@@ -186,67 +186,73 @@ function Revision_de_Calidad_Index() {
       </Collapse>
 
 
-      {/* Formulario Agregar */}
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
-            <Grid item xs={12} style={{ marginTop: '30px' }}>
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
+            <Grid item xs={4} style={{ marginTop: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <button
+                style={{
+                  width: '25rem', // Set the desired width for the square button
+                  height: '25rem', // Set the same value for height to make it square
+                  backgroundColor: 'transparent',
+                  border: '2px solid #634A9E',
+                  color: 'black',
+                  borderRadius: '10px',
+                  cursor: 'pointer',
+                  marginBottom: '10px',
+                }}
               >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Número de Orden"
-                  required
-                />
-              </FormControl>
+                <Icon style={{ marginRight: '5px' }}>add_photo_alternate</Icon> Agregar Imagen
+              </button>
             </Grid>
+            {/* Right column for all the TextFields */}
+            <Grid item xs={8} style={{ marginTop: '30px' }}>
+              <Grid container spacing={3}>
+                {/* Left column for TextFields */}
+                <Grid item xs={6}>
+                  <FormControl fullWidth>
+                    <TextField
+                      style={{ borderRadius: '10px', marginTop: '10px' }}
+                      label="Cantidad"
+                      required
+                    />
+                  </FormControl>
 
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Segunda"
-                  required
-                />
-              </FormControl>
+                  <FormControl fullWidth>
+                    <TextField
+                      style={{ borderRadius: '10px', marginTop: '10px' }}
+                      label="Fecha de Revisión"
+                      required
+                    />
+                  </FormControl>
+
+                </Grid>
+
+
+                <Grid item xs={6} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <FormControl fullWidth>
+                    <FormControlLabel
+                      control={<Switch sx={{ '&.Mui-checked': { color: '#634A9E' } }} />}
+                      label="SCRAP"
+                      labelPlacement="top"
+                    />
+                  </FormControl>
+                </Grid>
+
+              </Grid>
+
+              <Grid item xs={12}>
+                <FormControl fullWidth>
+                  <TextField
+                    style={{ borderRadius: '10px', marginTop: '10px' }}
+                    label="Observaciones"
+                    required
+                  />
+                </FormControl>
+              </Grid>
+
+
             </Grid>
-
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Descripción"
-                  required
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="SCRAP"
-                  required
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6}>
-          
-
-            </Grid>
-           
 
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
               <Button
@@ -277,7 +283,6 @@ function Revision_de_Calidad_Index() {
                 Cancelar
               </Button>
             </Grid>
-
           </Grid>
         </CardContent>
       </Collapse>
@@ -295,39 +300,39 @@ function Revision_de_Calidad_Index() {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-          ¿Está seguro(a) que desea eliminar este registro?
+            ¿Está seguro(a) que desea eliminar este registro?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
-              <Button
-                startIcon={<Icon>checked</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px', marginRight: '10px' }}
-                sx={{
-                  backgroundColor: '#634A9E', color: 'white',
-                  "&:hover": { backgroundColor: '#6e52ae' },
-                }}
-                onClick={DialogEliminar}
-              >
-                Eliminar
-              </Button>
+          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
+            <Button
+              startIcon={<Icon>checked</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px', marginRight: '10px' }}
+              sx={{
+                backgroundColor: '#634A9E', color: 'white',
+                "&:hover": { backgroundColor: '#6e52ae' },
+              }}
+              onClick={DialogEliminar}
+            >
+              Eliminar
+            </Button>
 
-              <Button
-                startIcon={<Icon>close</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px' }}
-                sx={{
-                  backgroundColor: '#DAD8D8', color: 'black',
-                  "&:hover": { backgroundColor: '#BFBABA' },
-                }}
-                onClick={DialogEliminar}
-              >
-                Cancelar
-              </Button>
-            </Grid>
+            <Button
+              startIcon={<Icon>close</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px' }}
+              sx={{
+                backgroundColor: '#DAD8D8', color: 'black',
+                "&:hover": { backgroundColor: '#BFBABA' },
+              }}
+              onClick={DialogEliminar}
+            >
+              Cancelar
+            </Button>
+          </Grid>
         </DialogActions>
       </Dialog>
 

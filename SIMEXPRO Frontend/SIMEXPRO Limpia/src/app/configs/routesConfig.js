@@ -53,12 +53,13 @@ import DocumentosDeSanciones from '../Aduanas/DocumentosDeSanciones/DocumentosDe
 import OrdenProcesosIndex from '../Produccion/OrdenDeProcesos/OrdenDeProcesos';
 import CalendarApp from '../Produccion/Planificación/CalendarApp';
 import MaquinasIndex from '../Maquinaria/Máquinas/Maquinas';
-/*import FormaDeEnvioIndex from '../generales/FormasEnvio/FormasEnvio';
-import MonedasIndex from '../generales/Monedas/monedas';*/
+import FormaDeEnvioIndex from '../Generales/FormasEnvio/FormasEnvio';
+import MonedasIndex from '../Generales/Monedas/monedas';
 import ModuloIndex from '../Produccion/Modulos/Modulos';
 import ProcesosIndex from '../Produccion/Procesos/Procesos';
 import MarcasIndex from '../Maquinaria/MarcasMaquina/MarcasMaquina';
 import ModelosMaquinaIndex from '../Maquinaria/ModelosMaquina/ModelosMaquina';
+import Revision_de_Calidad_Index from '../Produccion/Revisión de Calidad/RevisionCalidad';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -86,6 +87,10 @@ const routes = [
   {
     path: 'Ciudades/Index',
     element: <CiudadesIndex />,
+  },
+  {
+    path: 'RevisionCalidad/Index',
+    element: <Revision_de_Calidad_Index />,
   },
   {
     path: 'Provincias/Index',

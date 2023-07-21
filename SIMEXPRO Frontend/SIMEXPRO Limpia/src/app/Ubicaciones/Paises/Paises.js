@@ -191,6 +191,7 @@ function PaisesIndex() {
   const VisibilidadTabla = () => {
     setmostrarIndex(!mostrarIndex);
     setmostrarAdd(!mostrarAdd);
+    reset(defaultAccountValues);
   };
 
   const VisibilidadTabla2 = () => {
@@ -215,6 +216,7 @@ function PaisesIndex() {
   });
 
   const { isValid, dirtyFields, errors } = formState;
+  const [Valid, setValid] = useState(false);
 
   const onSubmit = (data) => {
     if(data.codigo != null || data.pais != null){
@@ -224,13 +226,11 @@ function PaisesIndex() {
           title: 'No se permiten campos vacios',
         }); 
       } else {
-
         VisibilidadTabla();
         Toast2.fire({
           icon: 'success',
           title: 'Datos guardados exitosamente',
         });
-        
       }
     }else{
       Toast.fire({
@@ -241,10 +241,10 @@ function PaisesIndex() {
   };
 
   const Masiso = () => {
+    console.log(Valid)
     const formData = watch();
     onSubmit(formData); 
     handleSubmit(onSubmit)(); 
-    reset(defaultAccountValues);
   };
 
   return (
@@ -375,9 +375,14 @@ function PaisesIndex() {
               </Grid>
               <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
               <Button
-                className="mx-8"
+                startIcon={<Icon>checked</Icon>}
                 variant="contained"
-                color="secondary"
+                color="primary"
+                style={{ borderRadius: '10px', marginRight: '10px' }}
+                sx={{
+                  backgroundColor: '#634A9E', color: 'white',
+                  "&:hover": { backgroundColor: '#6e52ae' },
+                }}
                 onClick={Masiso}
               >
                 Guardar

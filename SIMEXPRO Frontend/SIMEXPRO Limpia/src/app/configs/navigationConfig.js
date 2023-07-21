@@ -316,7 +316,7 @@ const navigationConfig = [
             title: 'Órden de Compra',
             type: 'item',
             icon: 'material-outline:library_books',
-            url: '/Produccion/OrdenCompra',
+            url: '/OrdenCompra/Index',
           },
           {
             id: 'Produccion.OrdenPedido',

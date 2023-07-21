@@ -25,6 +25,7 @@ import { DataGrid, GridToolbar, esES } from '@mui/x-data-grid'
 import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { render } from '@fullcalendar/core/preact';
+import { useMemo } from 'react';
 
 
 function createData(Id, Modelo, Talla, Proceso, Acciones) {
@@ -205,7 +206,14 @@ Row.propTypes = {
 
 const rows = [
     createData(1, 'polo', 'L', 'Corte'),
-    createData(2, 'Falda','M', 'Corte')
+    createData(2, 'Falda','M', 'Corte'),
+    createData(3, 'Revuelo','S', 'Corte'),
+    createData(4, 'Manga','X', 'Corte'),
+    createData(5, 'Cuello','XL', 'Corte'),
+    createData(6, 'Arco','S', 'Corte'),
+    createData(7, 'Dobles','L', 'Corte'),
+    createData(8, 'Pantalon','XS', 'Corte'),
+    createData(9, 'Camiseta','XXL', 'Corte'),
 ];
 
 function stableSort(array, comparator) {
@@ -238,94 +246,120 @@ function getComparator(order, orderBy) {
 
 
 export default function TablaDetalles_Materiales() {
-
     const [searchText, setSearchText] = useState('');
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
-    const [page, setPage] = React.useState(0);
-    const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('');
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [page, setPage] = useState(0);
+    const [order, setOrder] = useState('asc');
+    const [orderBy, setOrderBy] = useState('');
+  
+    const handleRequestSort = (property) => {
+        const isAsc = orderBy === property && order === 'asc';
+        setOrder(isAsc ? 'desc' : 'asc');
+        setOrderBy(property);
+      };
 
-
-    const visibleRows = React.useMemo(
-        () =>
-            stableSort(rows, getComparator(order, orderBy)).slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage,
-            ),
-        [order, orderBy, page, rowsPerPage],
+    const visibleRows = useMemo(
+      () => stableSort(rows, getComparator(order, orderBy)),
+      [order, orderBy, rows]
     );
-
-    {/* Filtrado de datos */ }
-    const filteredRows = visibleRows.filter((row) =>
-        row.Modelo.toLowerCase().includes(searchText.toLowerCase()) ||
-        row.Talla.toLowerCase().includes(searchText.toLowerCase()) ||
-        row.Proceso.toLowerCase().includes(searchText.toLowerCase()) 
+  
+    const filteredRows = useMemo(
+      () =>
+        visibleRows.filter(
+          (row) =>
+            row.Modelo.toLowerCase().includes(searchText.toLowerCase()) ||
+            row.Talla.toLowerCase().includes(searchText.toLowerCase()) ||
+            row.Proceso.toLowerCase().includes(searchText.toLowerCase())
+        ),
+      [searchText, visibleRows]
     );
-
+  
     const handleSearchChange = (event) => {
-        setSearchText(event.target.value);
+      setSearchText(event.target.value);
+      setPage(0); // Reset page to 0 when changing the search text
     };
-
-
-    {/* Paginacion */ }
+  
     const handleChangePage = (event, newPage) => {
-        setPage(newPage);
+      setPage(newPage);
     };
-
+  
     const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
+      setRowsPerPage(parseInt(event.target.value, 10));
+      setPage(0); // Reset page to 0 when changing the rows per page
     };
-
+  
     return (
-        <div>
-            <TextField
-                style={{ borderRadius: '10px' }}
-                placeholder='Buscar'
-                value={searchText}
-                onChange={handleSearchChange}
-                size="small"
-                variant="outlined"
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <IconButton edge="start">
-                                <SearchIcon />
-                            </IconButton>
-                        </InputAdornment>
-                    ),
-                }}
-            />
-
-            <TableContainer >
-                <Table aria-label="collapsible table"
-                >
-                    <TableHead>
-                        <TableRow>
-                            <TableCell />
-                            <TableCell>Id</TableCell>
-                            <TableCell >Modelo</TableCell>
-                            <TableCell >Talla</TableCell>
-                            <TableCell >Proceso</TableCell>
-                            <TableCell >Acciones</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {filteredRows.map((row) => (
-                            <Row key={row.Id} row={row} />
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-        </div>
+      <div>
+        <TextField
+          style={{ borderRadius: '10px' }}
+          placeholder="Buscar"
+          value={searchText}
+          onChange={handleSearchChange}
+          size="small"
+          variant="outlined"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <IconButton edge="start">
+                  <SearchIcon />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+  
+        <TableContainer>
+          <Table aria-label="collapsible table">
+            <TableHead>
+              <TableRow>
+                <TableCell/>
+                <TableCell onClick={() => handleRequestSort('Id')}>
+                    Id
+                    {/* Indicador de direccion de ordenamiento */}
+                    {orderBy === 'Id' ? (
+                        <span>{order === 'desc' ? ' ▼' : ' ▲'}</span>
+                    ) : null}
+                </TableCell>
+                <TableCell onClick={() => handleRequestSort('Modelo')}>
+                    Modelo
+                    {orderBy === 'Modelo' ? (
+                        <span>{order === 'desc' ? ' ▼' : ' ▲'}</span>
+                    ) : null}
+                </TableCell>
+                <TableCell onClick={() => handleRequestSort('Talla')}>
+                    Talla
+                    {orderBy === 'Talla' ? (
+                        <span>{order === 'desc' ? ' ▼' : ' ▲'}</span>
+                    ) : null}
+                </TableCell>
+                <TableCell onClick={() => handleRequestSort('Proceso')}>
+                    Proceso
+                    {orderBy === 'Proceso' ? (
+                        <span>{order === 'desc' ? ' ▼' : ' ▲'}</span>
+                    ) : null}
+                </TableCell>
+                <TableCell>Acciones</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredRows
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => (
+                  <Row key={row.Id} row={row} />
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={filteredRows.length} // Use filteredRows.length instead of rows.length
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </div>
     );
-}
+  }
+  

@@ -40,11 +40,11 @@ function LotesIndex() {
 
     {/* Columnas de la tabla */ }
     const columns = [
-        { field: 'id', headerName: 'Id', width: 100, alignItems: 'center' },
-        { field: 'material', headerName: 'Material', width: 100 },
-        { field: 'stock', headerName: 'Stock', width: 70 },
-        { field: 'cantidad', headerName: 'Cantidad', width: 150 },
-        { field: 'area', headerName: 'Área', width: 150 },
+        { field: 'id', headerName: 'Id', width: 150, alignItems: 'center' },
+        { field: 'material', headerName: 'Material', width: 150 },
+        { field: 'stock', headerName: 'Stock', width: 120 },
+        { field: 'cantidad', headerName: 'Cantidad', width: 200 },
+        { field: 'area', headerName: 'Área', width: 200 },
         {
             field: 'acciones',
             headerName: 'Acciones',
@@ -173,6 +173,7 @@ function LotesIndex() {
   const VisibilidadTabla = () => {
     setmostrarIndex(!mostrarIndex);
     setmostrarAdd(!mostrarAdd);
+    reset(defaultAccountValues);
   };
 
   const VisibilidadTabla2 = () => {
@@ -193,14 +194,20 @@ function LotesIndex() {
     console.log(data);
     if(data.Select.length != 0 || data.Areas.length != 0){
         if(data.stock != null || data.cantidad != null){
-            if (data.stock.trim() === '' || data.cantidad.trim() === '' || data.Select === 'Selecciona una opción' || data.Areas === 'Selecciona una opción') {
-              console.log('Que onda')
+            if (data.stock.trim() === '' || data.cantidad.trim() === '' || data.Select[0] === 'Selecciona una opción' || data.Areas[0] === 'Selecciona una opción') {
+              console.log('Validacion 1')
               Toast.fire({
                 icon: 'error',
                 title: 'No se permiten campos vacios',
               }); 
-            } else {
-              console.log('hola')
+            } else if (data.stock.trim() === '' || data.cantidad.trim() === '' || data.Select === '' || data.Areas === '') {
+              console.log('Que onda')
+              Toast.fire({
+                icon: 'error',
+                title: 'No se permiten campos vacios',
+              });  
+            }else {
+              console.log('Validacion 2')
               VisibilidadTabla();
               Toast2.fire({
                 icon: 'success',
@@ -209,20 +216,21 @@ function LotesIndex() {
               
             }
           }else{
-              console.log('Que onda')
+              console.log('Validacion 3')
             Toast.fire({
               icon: 'error',
               title: 'No se permiten campos vacios',
             }); 
-          }
-      
+          }  
     }else{
-        console.log('que raro');
-        console.log('Que onda')
-        Toast.fire({
-          icon: 'error',
-          title: 'No se permiten campos vacios',
-        }); 
+        console.log('Validacion 4')
+        if (data.stock.trim() === '' || data.cantidad.trim() === '' || data.Select === '' || data.Areas === '') {
+          console.log('Que onda')
+          Toast.fire({
+            icon: 'error',
+            title: 'No se permiten campos vacios',
+          });  
+        }
     }
     
   };
@@ -231,7 +239,6 @@ function LotesIndex() {
     const formData = watch();
     onSubmit(formData); 
     handleSubmit(onSubmit)(); 
-    reset(defaultAccountValues);
   };
 
   {/*Codigo para validaciones */}
@@ -330,10 +337,14 @@ function LotesIndex() {
                                     defaultValue={['Selecciona una opción']}
                                     render={({ field }) => (
                                     <FormControl error={!!errors.Select} fullWidth>
-                                        <InputLabel>Materiales</InputLabel>
-                                        <FormLabel className="font-medium text-14" component="legend">                                
+                                    
+                                        <FormLabel className="font-medium text-10" component="legend">  
+                                            Materiales                          
                                         </FormLabel>
-                                        <Select {...field} variant="outlined" fullWidth >
+                                        <Select {...field}  fullWidth
+                                    InputProps={{
+                                      startAdornment: <InputAdornment position="start" />,
+                                    }} >
                                         <MenuItem value="10">Ten (10)</MenuItem>
                                         <MenuItem value="20">Twenty (20)</MenuItem>
                                         <MenuItem value="30">Thirty (30)</MenuItem>
@@ -345,7 +356,13 @@ function LotesIndex() {
                                 />
                          </Grid>
 
+
+
+
+
+
                          <Grid item xs={6}>
+                            <div className="mt-48 mb-16" style={{marginTop: '15px' }}>
                                 <Controller
                                 render={({ field }) => (
                                     <TextField
@@ -361,10 +378,12 @@ function LotesIndex() {
                                 name="stock"
                                 control={control}
                                 />
+                            </div>
                         </Grid>       
                         
                         
                         <Grid item xs={6}>
+                          <div className="mt-48 mb-16" style={{marginTop: '13px' }}>
                                 <Controller
                                 render={({ field }) => (
                                     <TextField
@@ -380,6 +399,7 @@ function LotesIndex() {
                                 name="cantidad"
                                 control={control}
                                 />
+                          </div>
                         </Grid>
 
                         <Grid item xs={6}>
@@ -387,10 +407,14 @@ function LotesIndex() {
                                     defaultValue={['Selecciona una opción']}
                                     render={({ field }) => (
                                     <FormControl error={!!errors.Areas} fullWidth>
-                                        <InputLabel>Áreas</InputLabel>
-                                        <FormLabel className="font-medium text-14" component="legend">                                                                      
+
+                                        <FormLabel className="font-medium text-10" component="legend">  
+                                        Áreas                                                                    
                                         </FormLabel>
-                                        <Select {...field} variant="outlined" fullWidth >
+                                        <Select {...field}  fullWidth  InputProps={{
+                                      startAdornment: <InputAdornment position="start"  />,
+                                    }} >
+                                        <MenuItem value=""></MenuItem>
                                         <MenuItem value="10">Ten (10)</MenuItem>
                                         <MenuItem value="20">Twenty (20)</MenuItem>
                                         <MenuItem value="30">Thirty (30)</MenuItem>

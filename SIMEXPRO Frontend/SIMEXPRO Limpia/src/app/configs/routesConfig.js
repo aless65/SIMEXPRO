@@ -66,6 +66,8 @@ import OrdenPedido_Crear from '../Produccion/OrdenPedidos/OrdenPedido_Crear';
 import OrdenPedido_Index from '../Produccion/OrdenPedidos/OrdenPedido_Index';
 import TablaDetalles_Materiales from '../Produccion/OrdenCompra/TablaDetalles';
 
+import FormularioConTabs from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/Tabs_Crear/Tabs1Form';
+
 const routeConfigs = [
   ...dashboardsConfigs,
   ...pagesConfigs,
@@ -321,7 +323,10 @@ const routes = [
     path: 'OrdenCompra/TableDetallesOrden',
     element: <TablaDetalles_Materiales />,
   },
- 
+  {
+    path: 'TabForm',
+    element: <FormularioConTabs />,
+  },
 ];
 
 export default routes;

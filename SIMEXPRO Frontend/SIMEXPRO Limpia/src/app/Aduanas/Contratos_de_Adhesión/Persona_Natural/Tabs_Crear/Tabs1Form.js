@@ -1,234 +1,247 @@
-/* eslint-disable camelcase */
-import {
-    CardMedia,
-    CardContent,
-    Card,
-    Button,
-    Chip,
-    Divider,
-    FormControl,
-    Icon,
-    TextField,
-    Typography,
-    Grid,
-    AppBar,
-    Tabs,
-    Tab,
-    Box,
-    Avatar,
-    InputAdornment,
-} from '@mui/material';
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import SwipeableViews from 'react-swipeable-views';
-import { useTheme } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
-import { black } from 'tailwindcss/colors';
+import {
+  Card,
+  Button,
+  AppBar,
+  Tabs,
+  Tab,
+  Typography,
+  Box,
+  TextField,
+  Grid,
+  Icon
+} from '@mui/material';
+import { Controller, useForm, FormProvider } from 'react-hook-form';
 import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import _ from '@lodash';
+import { useNavigate } from 'react-router-dom';
+import { isEmpty } from 'lodash';
+import { useTheme } from '@mui/material/styles';
+import SwipeableViews from 'react-swipeable-views';
+import PropTypes from 'prop-types';
 
-const tab1Fields = {
-    rtn_solicitante: '',
-    dni: '',
-    numero_recibo_servicio_publico: '',
-};
-const schemaTab1Fields = yup.object().shape({
-    rtn_solicitante: yup.string().required(),
-    dni: yup.string().required(),
-    numero_recibo_servicio_publico: yup.string().required(),
-});
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
 
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`full-width-tabpanel-${index}`}
+      aria-labelledby={`full-width-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
 
-const Tab1Form = ({onTabChange}) => {
-    const { handleSubmit, reset, control, formState } = useForm({
-        mode: 'all',
-        resolver: yupResolver(schemaTab1Fields),
-    });
-    const { isValid, dirtyFields, errors } = formState;
-
-    const handleNextTab = () => {
-        onTabChange(null, 1);
-    };
-
-    return(
-        <form onSubmit={handleSubmit()}>
-        <Card style={{ marginBottom: '25px' }}>
-          <CardContent>
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
-                <Controller
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      label="RTN del Solicitante"
-                      variant="outlined"
-                      fullWidth
-                      error={!!errors.rtn_solicitante}
-                      style={{ borderRadius: '3px' }}
-                      placeholder="RTN del Solicitante"
-                      InputProps={{
-                        startAdornment: <InputAdornment position="start" />,
-                      }}
-                    />
-                  )}
-                  name="rtn_solicitante"
-                  control={control}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <div className="flex w-full h-48">
-                  <label
-                    htmlFor="dropzone-file"
-                    className="flex flex-col  w-full border-2 border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                  >
-                    <div className="flex flex-col ml-5 pt-5 pb-6">
-                      <Avatar
-                        alt="PDF Img"
-                        src="https://i.ibb.co/7Wfzw5H/pdf.png"
-                        sx={{ height: '25px', width: '25px' }}
-                        variant="rounded"
-                      />
-                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                        <span className="font-semibold">Subir Archivo PDF</span>
-                      </p>
-                    </div>
-                    <input id="dropzone-file" type="file" className="hidden" />
-                  </label>
-                </div>
-              </Grid>
-    
-              <Grid item xs={6}>
-                <Controller
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      label="Documento Nacional de Identificación (DNI)"
-                      fullWidth
-                      error={!!errors.dni}
-                      style={{ borderRadius: '3px' }}
-                      variant="outlined"
-                      placeholder="Documento Nacional de Identificación (DNI)"
-                      InputProps={{
-                        startAdornment: <InputAdornment position="start" />,
-                      }}
-                    />
-                  )}
-                  name="dni"
-                  control={control}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <div className="flex w-full h-48">
-                  <label
-                    htmlFor="dropzone-file"
-                    className="flex flex-col  w-full border-2 border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                  >
-                    <div className="flex flex-col ml-5 pt-5 pb-6">
-                      <Avatar
-                        alt="PDF Img"
-                        src="https://i.ibb.co/7Wfzw5H/pdf.png"
-                        sx={{ height: '25px', width: '25px' }}
-                        variant="rounded"
-                      />
-                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                        <span className="font-semibold">Subir Archivo PDF</span>
-                      </p>
-                    </div>
-                    <input id="dropzone-file" type="file" className="hidden" />
-                  </label>
-                </div>
-              </Grid>
-    
-              <Grid item xs={6}>
-                <Controller
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      label="Número Recibo de Servicio Público (ENEE, SANAA, etc.)"
-                      variant="outlined"
-                      fullWidth
-                      error={!!errors.numero_recibo_servicio_publico}
-                      style={{ borderRadius: '3px' }}
-                      placeholder="Número Recibo de Servicio Público (ENEE, SANAA, etc.)"
-                      InputProps={{
-                        startAdornment: <InputAdornment position="start" />,
-                      }}
-                    />
-                  )}
-                  name="numero_recibo_servicio_publico"
-                  control={control}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <div className="flex w-full h-48">
-                  <label
-                    htmlFor="dropzone-file"
-                    className="flex flex-col  w-full border-2 border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                  >
-                    <div className="flex flex-col ml-5 pt-5 pb-6">
-                      <Avatar
-                        alt="PDF Img"
-                        src="https://i.ibb.co/7Wfzw5H/pdf.png"
-                        sx={{ height: '25px', width: '25px' }}
-                        variant="rounded"
-                      />
-                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                        <span className="font-semibold">Subir Archivo PDF</span>
-                      </p>
-                    </div>
-                    <input id="dropzone-file" type="file" className="hidden" />
-                  </label>
-                </div>
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
-    
-        <Grid
-          item
-          xs={12}
-          sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }}
-        >
-          <Button
-            startIcon={<Icon>checked</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px', marginRight: '10px' }}
-            sx={{
-              backgroundColor: '#634A9E',
-              color: 'white',
-              '&:hover': { backgroundColor: '#6e52ae' },
-            }}
-        onClick={handleNextTab}
-            type="button"
-            disabled={_.isEmpty(dirtyFields) || !isValid}
-          >
-            Guardar
-          </Button>
-    
-          <Button
-            startIcon={<Icon>close</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#DAD8D8',
-              color: 'black',
-              '&:hover': { backgroundColor: '#BFBABA' },
-            }}
-            onClick={() => {
-              navigate('/Contrato-de-Adhesion/Persona-Natural');
-            }}
-          >
-            Cancelar
-          </Button>
-        </Grid>
-      </form>
-    );    
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
 };
 
+function a11yProps(index) {
+  return {
+    id: `full-width-tab-${index}`,
+    'aria-controls': `full-width-tabpanel-${index}`,
+  };
+}
 
-export default Tab1Form;
+function FormularioConTabs() {
+  const theme = useTheme();
+  const navigate = useNavigate();
+  const [error, setError] = useState(false);
+  const [value, setValue] = useState(0);
+  const [tabsEstado, settabsEstado] = useState({
+    tab1: true,
+  });
+  const [formFields, setFormFields] = useState({
+    name: '',
+    age: '',
+    email: '',
+    address: '',
+  });
+
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormFields((prevFields) => ({
+      ...prevFields,
+      [name]: value,
+    }));
+    console.log(formFields.name);
+  };
+
+  const showEmptyError = () => {
+    if(formFields.name == ''){
+      setError(true);
+    }
+  }
+
+  const handleTabChange = (event, newValue) => {
+
+  };
+
+  const submitTab0 = (data) => {
+    var errorsCount = 0;
+    if(isEmpty(formFields.name)){
+      errorsCount++;
+    }
+
+    if(errorsCount == 0){
+      console.log('Todo bien');
+      validacion(1);
+    }
+  };
+
+  const validacion = (params, event) => {
+    if (event) {
+      event.preventDefault();
+    }
+    if (params === 1) {
+      settabsEstado({
+        tab1: false,
+      });
+      setValue(1);
+    }
+  };
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const handleChangeIndex = (index) => {
+    setValue(index);
+  };
+
+  return (
+    <Card sx={{ maxWidth: 600, margin: '0 auto', mt: 2 }}>
+      <AppBar position="static">
+        <Tabs value={value} onChange={handleChange} centered>
+          <Tab label="Tab 1" {...a11yProps(0)}/>
+          <Tab label="Tab 2" {...a11yProps(1)} disabled={tabsEstado.tab1}/>
+        </Tabs>
+      </AppBar>
+
+      <SwipeableViews
+          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+          index={value}
+          onChangeIndex={handleChangeIndex}      
+      >
+          <TabPanel value={value} index={0} dir={theme.direction}>
+
+          <Grid sx={12}>
+            <TextField
+              label="Nombre"
+              variant="outlined"
+              fullWidth
+              value={formFields.name}
+              onChange={handleInputChange}
+              onBlur={showEmptyError}
+              name="name"
+              error={error}
+            />
+
+            <TextField
+              label="Edad"
+              variant="outlined"
+              fullWidth
+            />
+          </Grid>
+
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
+              <Button
+                    startIcon={<Icon>checked</Icon>}
+                    variant="contained"
+                    color="primary"
+                    style={{ borderRadius: '10px', marginRight: '10px' }}
+                    sx={{
+                      backgroundColor: '#634A9E',
+                      color: 'white',
+                      '&:hover': { backgroundColor: '#6e52ae' },
+                    }}
+                    onClick={submitTab0}
+                  >
+                    Guardar
+              </Button>
+
+              <Button
+                  startIcon={<Icon>close</Icon>}
+                  variant="contained"
+                  color="primary"
+                  style={{ borderRadius: '10px' }}
+                  sx={{
+                    backgroundColor: '#DAD8D8',
+                    color: 'black',
+                    '&:hover': { backgroundColor: '#BFBABA' },
+                  }}
+                  onClick={() => {
+                    navigate('/Contrato-de-Adhesion-Persona-Natural/Index');
+                  }}
+                >
+                  Cancelar
+              </Button>
+          </Box>
+
+          </TabPanel>
+
+          <TabPanel value={value} index={1} dir={theme.direction}>
+
+                <TextField
+                  label="Correo Electrónico"
+                  variant="outlined"
+                  fullWidth
+                />
+
+                <TextField
+                  label="Dirección"
+                  variant="outlined"
+                  fullWidth
+                />
+
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
+              <Button
+                    startIcon={<Icon>checked</Icon>}
+                    variant="contained"
+                    color="primary"
+                    style={{ borderRadius: '10px', marginRight: '10px' }}
+                    sx={{
+                      backgroundColor: '#634A9E',
+                      color: 'white',
+                      '&:hover': { backgroundColor: '#6e52ae' },
+                    }}
+                    onClick={submitTab0}
+                  >
+                    Guardar
+              </Button>
+
+              <Button
+                  startIcon={<Icon>close</Icon>}
+                  variant="contained"
+                  color="primary"
+                  style={{ borderRadius: '10px' }}
+                  sx={{
+                    backgroundColor: '#DAD8D8',
+                    color: 'black',
+                    '&:hover': { backgroundColor: '#BFBABA' },
+                  }}
+                  onClick={() => {
+                    navigate('/Contrato-de-Adhesion-Persona-Natural/Index');
+                  }}
+                >
+                  Cancelar
+              </Button>
+            </Box>
+          </TabPanel>
+
+      </SwipeableViews>
+    </Card>
+  );
+}
+
+export default FormularioConTabs;

@@ -17,6 +17,7 @@ import {
   Box,
   Avatar,
   InputAdornment,
+  InputLabel,
 } from '@mui/material';
 import * as React from 'react';
 import PropTypes from 'prop-types';
@@ -30,39 +31,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import _ from '@lodash';
 
-const tab1Fields = {
-  rtn_solicitante: '',
-  dni: '',
-  numero_recibo_servicio_publico: '',
-};
-const schemaTab1Fields = yup.object().shape({
-  rtn_solicitante: yup.string().required(),
-  dni: yup.string().required(),
-  numero_recibo_servicio_publico: yup.string().required(),
-});
 
-const tab2Fields = {
-  oficina_regional_aduanas: '',
-  estado_civil: '',
-  profesion_oficio: '',
-  departamento_municipio: '',
-  cuidad: '',
-  direccion_completa: '',
-  telefono_fijo: '',
-  telefono_celular: '',
-  correo_electronico: '',
-};
-const schemaTab2Fields = yup.object().shape({
-  oficina_regional_aduanas: yup.string().required(),
-  estado_civil: yup.string().required(),
-  profesion_oficio: yup.string().required(),
-  departamento_municipio: yup.string().required(),
-  cuidad: yup.string().required(),
-  direccion_completa: yup.string().required(),
-  telefono_fijo: yup.string().required(),
-  telefono_celular: yup.string().required(),
-  correo_electronico: yup.string().required(),
-});
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -101,12 +70,103 @@ function PersonaNatural_Crear() {
   const navigate = useNavigate();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
-  const { handleSubmit, reset, control, formState, setError } = useForm({
-    mode: 'all',
-    resolver: yupResolver(schemaTab1Fields || schemaTab2Fields)  
-  });
+  
+  const [RTNSolicitante, setRTNSolicitante] = useState('');
+  const [DNI, setDNI] = useState('');
+  const [Recibo, setRecibo] = useState('');
+  const [OficinaRegional, setOficinaRegional] = useState('');
+  const [EstadoCivil, setEstadoCivil] = useState('');
+  const [Profesion, setProfesion] = useState('');
+  const [DepartamentoMunicipio, setDepartamentoMunicipio] = useState('');
+  const [Ciudad, setCiudad] = useState('');
+  const [Direccion, setDireccion] = useState('');
+  const [TelefonoFijo, setTelefonoFijo] = useState('');
+  const [Celular, setCelular] = useState('');
+  const [Correo, setCorreo] = useState('');
 
-  const { isValid, dirtyFields, errors } = formState;
+  const [validRTNSolicitante, setValidRTNSolicitante] = useState(true);
+  const [validDNI, setValidDNI] = useState(true);
+  const [validRecibo, setValidRecibo] = useState(true);
+  const [validOficinaRegional, setValidOficinaRegional] = useState(true);
+  const [validEstadoCivil, setValidEstadoCivil] = useState(true);
+  const [validProfesion, setValidProfesion] = useState(true);
+  const [validDepartamentoMunicipio, setValidDepartamentoMunicipio] = useState(true);
+  const [validCiudad, setValidCiudad] = useState(true);
+  const [validDireccion, setValidDireccion] = useState(true);
+  const [validTelefonoFijo, setValidTelefonoFijo] = useState(true);
+  const [validCelular, setValidCelular] = useState(true);
+  const [validCorreo, setValidCorreo] = useState(true);
+
+  const sendTab1 = () => {
+    let valid = true;
+    if (RTNSolicitante.trim() === '') {
+      setValidRTNSolicitante(false);
+      valid = false;
+    }
+    if (DNI.trim() === '') {
+      setValidDNI(false);
+      valid = false;
+    }
+    if (Recibo.trim() === '') {
+      setValidRecibo(false);
+      valid = false;
+    }
+
+    if (valid == true) {
+      // Your logic to save data when all fields are valid
+
+      console.log('Data saved!');
+      validacion(1);
+      // Reset the form
+
+    }
+  };
+
+  const sendTab2 = () => {
+    let valid = true;
+        
+    if (OficinaRegional.trim() === '') {
+      setValidOficinaRegional(false);
+      valid = false;
+    }
+    if (EstadoCivil.trim() === '') {
+      setValidEstadoCivil(false);
+      valid = false;
+    }
+    if (Profesion.trim() === '') {
+      setValidProfesion(false);
+      valid = false;
+    }
+    if (DepartamentoMunicipio.trim() === '') {
+      setValidDepartamentoMunicipio(false);
+      valid = false;
+    }
+    if (Ciudad.trim() === '') {
+      setValidCiudad(false);
+      valid = false;
+    }
+    if (Direccion.trim() === '') {
+      setValidDireccion(false);
+      valid = false;
+    }
+    if (TelefonoFijo.trim() === '') {
+      setValidTelefonoFijo(false);
+      valid = false;
+    }
+    if (Celular.trim() === '') {
+      setValidCelular(false);
+      valid = false;
+    }
+    if (Correo.trim() === '') {
+      setValidCorreo(false);
+      valid = false;
+    }
+
+    if(valid){
+      console.log('Data saved 2!');
+    };
+  };
+
   const [tabsEstado, settabsEstado] = useState({
     tab1: true,
   });
@@ -139,16 +199,10 @@ function PersonaNatural_Crear() {
     if (params === 1) {
       settabsEstado({
         tab1: false,
-        tab2: true,
-        tab3: true,
-        tab4: true,
-        tab5: true,
       });
       setValue(1);
     }
   };
-
-
 
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
@@ -181,29 +235,31 @@ function PersonaNatural_Crear() {
           onChangeIndex={handleChangeIndex}
         >
           <TabPanel value={value} index={0} dir={theme.direction}>
-            <form onSubmit={handleSubmit(onSubmitTab1)}>
+
               <Card style={{ marginBottom: '25px' }}>
                 <CardContent>
                   <Grid container spacing={2}>
                     <Grid item xs={6}>
-                      <Controller
-                        render={({ field }) => (
                           <TextField
-                            {...field}
                             label="RTN del Solicitante"
                             variant="outlined"
                             fullWidth
-                            error={!!errors.rtn_solicitante}
-                            style={{ borderRadius: '3px' }}
                             placeholder="RTN del Solicitante"
                             InputProps={{
                               startAdornment: <InputAdornment position="start" />,
                             }}
+                            style={{
+                              borderRadius: '10px',
+                              // marginTop: '10px',
+                              // border: '1.5px solid',
+                              // borderColor: validRTNSolicitante ? 'initial' : 'red'
+                            }}
+                            value={RTNSolicitante}
+                            onChange={(e) => {
+                              setRTNSolicitante(e.target.value);
+                              setValidRTNSolicitante(true);
+                            }}
                           />
-                        )}
-                        name="rtn_solicitante"
-                        control={control}
-                      />
                     </Grid>
                     <Grid item xs={6}>
                       <div className="flex w-full h-48">
@@ -228,24 +284,26 @@ function PersonaNatural_Crear() {
                     </Grid>
 
                     <Grid item xs={6}>
-                      <Controller
-                        render={({ field }) => (
                           <TextField
-                            {...field}
                             label="Documento Nacional de Identificación (DNI)"
                             fullWidth
-                            error={!!errors.dni}
-                            style={{ borderRadius: '3px' }}
                             variant="outlined"
                             placeholder="Documento Nacional de Identificación (DNI)"
                             InputProps={{
                               startAdornment: <InputAdornment position="start" />,
                             }}
+                            style={{
+                              borderRadius: '10px',
+                              // marginTop: '10px',
+                              // border: '1.5px solid',
+                              // borderColor: validDNI ? 'initial' : 'red'
+                            }}
+                            value={DNI}
+                            onChange={(e) => {
+                              setDNI(e.target.value);
+                              setValidDNI(true);
+                            }}
                           />
-                        )}
-                        name="dni"
-                        control={control}
-                      />
                     </Grid>
                     <Grid item xs={6}>
                       <div className="flex w-full h-48">
@@ -270,24 +328,26 @@ function PersonaNatural_Crear() {
                     </Grid>
 
                     <Grid item xs={6}>
-                      <Controller
-                        render={({ field }) => (
                           <TextField
-                            {...field}
                             label="Número Recibo de Servicio Público (ENEE, SANAA, etc.)"
                             variant="outlined"
                             fullWidth
-                            error={!!errors.numero_recibo_servicio_publico}
-                            style={{ borderRadius: '3px' }}
                             placeholder="Número Recibo de Servicio Público (ENEE, SANAA, etc.)"
                             InputProps={{
                               startAdornment: <InputAdornment position="start" />,
                             }}
+                            style={{
+                              borderRadius: '10px',
+                              // marginTop: '10px',
+                              // border: '1.5px solid',
+                              // borderColor: validRecibo ? 'initial' : 'red'
+                            }}
+                            value={Recibo}
+                            onChange={(e) => {
+                              setRecibo(e.target.value);
+                              setValidRecibo(true);
+                            }}
                           />
-                        )}
-                        name="numero_recibo_servicio_publico"
-                        control={control}
-                      />
                     </Grid>
                     <Grid item xs={6}>
                       <div className="flex w-full h-48">
@@ -331,7 +391,6 @@ function PersonaNatural_Crear() {
                   }}
                   onClick={() => validacion(1)}
                   type="button"
-                  disabled={_.isEmpty(dirtyFields) || !isValid}
                 >
                   Guardar
                 </Button>
@@ -353,21 +412,16 @@ function PersonaNatural_Crear() {
                   Cancelar
                 </Button>
               </Grid>
-            </form>
           </TabPanel>
 
           <TabPanel value={value} index={1} dir={theme.direction}>
-            <form onSubmit={handleSubmit(onSubmitTab2)}>
+
               <Card style={{ marginBottom: '25px' }}>
                 <CardContent>
                   <Grid container spacing={2}>
                     <Grid item xs={4}>
-                      <Controller
-                        render={({ field }) => (
                           <TextField
-                            {...field}
                             label="Oficina Regional de Aduanas más cercana"
-                            style={{ borderRadius: '10px' }}
                             select
                             fullWidth
                             variant="outlined"
@@ -375,23 +429,39 @@ function PersonaNatural_Crear() {
                             InputProps={{
                               startAdornment: <InputAdornment position="start" />,
                             }}
-                            error={!!errors.oficina_regional_aduanas}
+                            style={{
+                              borderRadius: '10px',
+                              // marginTop: '10px',
+                              // border: '1.5px solid',
+                              // borderColor: validOficinaRegional ? 'initial' : 'red'
+                            }}
+                            value={OficinaRegional}
+                            onChange={(e) => {
+                              setOficinaRegional(e.target.value);
+                              setValidOficinaRegional(true);
+                            }}
                           />
-                        )}
-                        name="oficina_regional_aduanas"
-                        control={control}
-                      />
                     </Grid>
                     <Grid item xs={4}>
                       <FormControl fullWidth>
                         <TextField
                           label="Estado Civil de la Persona"
-                          style={{ borderRadius: '10px' }}
                           select
                           variant="outlined"
                           placeholder="Estado Civil de la Persona"
                           InputProps={{
                             startAdornment: <InputAdornment position="start" />,
+                          }}
+                          style={{
+                            borderRadius: '10px',
+                            // marginTop: '10px',
+                            // border: '1.5px solid',
+                            // borderColor: validEstadoCivil ? 'initial' : 'red'
+                          }}
+                          value={EstadoCivil}
+                          onChange={(e) => {
+                            setEstadoCivil(e.target.value);
+                            setValidEstadoCivil(true);
                           }}
                         />
                       </FormControl>
@@ -422,12 +492,22 @@ function PersonaNatural_Crear() {
                         <FormControl fullWidth>
                           <TextField
                             label="Departamento y Municipio"
-                            style={{ borderRadius: '10px' }}
                             select
                             variant="outlined"
                             placeholder="Departamento y Municipio"
                             InputProps={{
                               startAdornment: <InputAdornment position="start" />,
+                            }}
+                            style={{
+                              borderRadius: '10px',
+                              // marginTop: '10px',
+                              // border: '1.5px solid',
+                              // borderColor: validDepartamentoMunicipio ? 'initial' : 'red'
+                            }}
+                            value={DepartamentoMunicipio}
+                            onChange={(e) => {
+                              setDepartamentoMunicipio(e.target.value);
+                              setValidDepartamentoMunicipio(true);
                             }}
                           />
                         </FormControl>
@@ -436,12 +516,22 @@ function PersonaNatural_Crear() {
                     <Grid item xs={4}>
                       <FormControl fullWidth>
                         <TextField
-                          style={{ borderRadius: '10px' }}
                           label="Ciudad"
                           variant="outlined"
                           placeholder="Ciudad"
                           InputProps={{
                             startAdornment: <InputAdornment position="start" />,
+                          }}
+                          style={{
+                            borderRadius: '10px',
+                            // marginTop: '10px',
+                            // border: '1.5px solid',
+                            // borderColor: validCiudad ? 'initial' : 'red'
+                          }}
+                          value={Ciudad}
+                          onChange={(e) => {
+                            setCiudad(e.target.value);
+                            setValidCiudad(true);
                           }}
                         />
                       </FormControl>
@@ -449,12 +539,22 @@ function PersonaNatural_Crear() {
                     <Grid item xs={4}>
                       <FormControl fullWidth>
                         <TextField
-                          style={{ borderRadius: '10px' }}
                           label="Dirección Completa"
                           variant="outlined"
                           placeholder="Dirección Completa"
                           InputProps={{
                             startAdornment: <InputAdornment position="start" />,
+                          }}
+                          style={{
+                            borderRadius: '10px',
+                            // marginTop: '10px',
+                            // border: '1.5px solid',
+                            // borderColor: validDireccion ? 'initial' : 'red'
+                          }}
+                          value={Direccion}
+                          onChange={(e) => {
+                            setDireccion(e.target.value);
+                            setValidDireccion(true);
                           }}
                         />
                       </FormControl>
@@ -469,25 +569,22 @@ function PersonaNatural_Crear() {
                     <Grid item xs={4}>
                       <FormControl fullWidth>
                         <TextField
-                          style={{ borderRadius: '10px' }}
                           label="Número de Teléfono Fijo de la Persona"
                           variant="outlined"
                           placeholder="Número de Teléfono Fijo de la Persona"
                           InputProps={{
                             startAdornment: <InputAdornment position="start" />,
                           }}
-                        />
-                      </FormControl>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <FormControl fullWidth>
-                        <TextField
-                          style={{ borderRadius: '10px' }}
-                          label="Número de Teléfono Celular de la Persona"
-                          variant="outlined"
-                          placeholder="Número de Teléfono Celular de la Persona"
-                          InputProps={{
-                            startAdornment: <InputAdornment position="start" />,
+                          style={{
+                            borderRadius: '10px',
+                            // marginTop: '10px',
+                            // border: '1.5px solid',
+                            // borderColor: validTelefonoFijo ? 'initial' : 'red'
+                          }}
+                          value={TelefonoFijo}
+                          onChange={(e) => {
+                            setTelefonoFijo(e.target.value);
+                            setValidTelefonoFijo(true);
                           }}
                         />
                       </FormControl>
@@ -495,12 +592,53 @@ function PersonaNatural_Crear() {
                     <Grid item xs={4}>
                       <FormControl fullWidth>
                         <TextField
-                          style={{ borderRadius: '10px' }}
-                          label="Correo Electrónico donde Notificar"
+                          label="Número de Teléfono Celular de la Persona"
+                          variant="outlined"
+                          placeholder="Número de Teléfono Celular de la Persona"
+                          InputProps={{
+                            startAdornment: <InputAdornment position="start" />,
+                          }}
+                          style={{
+                            borderRadius: '10px',
+                            // marginTop: '10px',
+                            // border: '1.5px solid',
+                            // borderColor: validCelular ? 'initial' : 'red'
+                          }}
+                          value={Celular}
+                          onChange={(e) => {
+                            setCelular(e.target.value);
+                            setValidCelular(true);
+                          }}
+                        />
+                      </FormControl>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <FormControl fullWidth>
+                        <InputLabel
+                          style={{
+                            marginTop: '-19px',
+                            color: validCorreo ? 'grey' : 'red',
+                          }}
+                        >
+                          Cantidad
+                        </InputLabel>
+                        <TextField
+                          label=""
                           variant="outlined"
                           placeholder="Correo Electrónico donde Notificar"
                           InputProps={{
                             startAdornment: <InputAdornment position="start" />,
+                          }}
+                          style={{
+                            borderRadius: '5px',
+                            // marginTop: '18px',
+                            // border: '.5px solid',
+                            // borderColor: validCorreo ? 'initial' : 'red'
+                          }}
+                          value={Correo}
+                          onChange={(e) => {
+                            setCorreo(e.target.value);
+                            setValidCorreo(true);
                           }}
                         />
                       </FormControl>
@@ -524,11 +662,11 @@ function PersonaNatural_Crear() {
                     color: 'white',
                     '&:hover': { backgroundColor: '#6e52ae' },
                   }}
+                  //onClick={sendTab1}
                   onClick={() => {
                     navigate('/Contrato-de-Adhesion-Persona-Natural/Index');
                   }}
                   type="button"
-                  //disabled={_.isEmpty(dirtyFields) || !isValid}
                 >
                   Guardar
                 </Button>
@@ -550,7 +688,6 @@ function PersonaNatural_Crear() {
                   Cancelar
                 </Button>
               </Grid>
-            </form>
           </TabPanel>
         </SwipeableViews>
       </Box>

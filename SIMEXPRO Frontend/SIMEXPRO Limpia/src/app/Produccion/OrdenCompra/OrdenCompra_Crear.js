@@ -93,11 +93,7 @@ function OrdenCompra_Crear() {
     const [mostrarIndex, setmostrarIndex] = useState(true);
     const [mostrarAdd, setmostrarAdd] = useState(false);
 
-    const [Eliminar, setEliminar] = useState(false);
 
-    const DialogEliminar = () => {
-        setEliminar(!Eliminar);
-    };
 
     {/* Columnas de la tabla */ }
     const columns = [
@@ -241,20 +237,13 @@ function OrdenCompra_Crear() {
         tab2: true,
     });
 
-    const [mostrarAddH, setmostrarAddH] = useState(true);
-    const [mostrarAddD, setmostrarAddD] = useState(false);
-    const [mostrarAddF, setmostrarAddF] = useState(false);
-    const [mostrarAddFD, setmostrarAddFD] = useState(false);
-    const [mostrarBoton, setmostrarBoton] = useState(false);
-    const [mostrarDetalles, setmostrarDetalles] = useState(false);
-
 
     return (
         <Card sx={{ minWidth: 275, margin: '40px' }}>
             <CardMedia
                 component="img"
                 height="200"
-                image="https://i.ibb.co/rdxDGbL/DECLARACION.png"
+                image="https://i.ibb.co/D5SZnc4/ORDEN-DE-COMPRA.png"
                 alt="Encabezado de la carta"
             />
             <CardContent sx={{ textAlign: 'center' }}>
@@ -300,12 +289,15 @@ function OrdenCompra_Crear() {
                                     <Grid item xs={12}>
                                         <FormControl fullWidth>
                                             <InputLabel htmlFor="grouped-native-select">Cliente</InputLabel>
-                                            <Select
+                                            <TextField
                                                 style={{ borderRadius: '3px' }}
                                                 label="Cliente"
-
+                                                select
+                                                placeholder="Tipo Identificacion"
+                                                InputProps={{ startAdornment: <InputAdornment position="start" />, }}
                                             />
                                         </FormControl>
+
                                     </Grid>
 
                                     <Grid item xs={4}>
@@ -317,7 +309,7 @@ function OrdenCompra_Crear() {
                                                 label='Fecha de Emisión'
                                                 dateFormat="dd/MM/yyyy"
                                                 onChange={(date) => {
-                                                    console.log(date);
+
                                                 }}
                                                 renderInput={(_props) => (
                                                     <TextField
@@ -355,9 +347,12 @@ function OrdenCompra_Crear() {
                                     <Grid item xs={4}>
                                         <FormControl fullWidth>
                                             <InputLabel htmlFor="grouped-native-select">Metodo de Pago</InputLabel>
-                                            <Select
+                                            <TextField
                                                 style={{ borderRadius: '3px' }}
                                                 label="Metodo de Pago"
+                                                select
+                                                placeholder="Metodo de Pago"
+                                                InputProps={{ startAdornment: <InputAdornment position="start" />, }}
                                             />
                                         </FormControl>
                                     </Grid>
@@ -365,9 +360,12 @@ function OrdenCompra_Crear() {
                                     <Grid item xs={4}>
                                         <FormControl fullWidth>
                                             <InputLabel htmlFor="grouped-native-select">Embalaje</InputLabel>
-                                            <Select
+                                            <TextField
                                                 style={{ borderRadius: '3px' }}
                                                 label="Embalaje"
+                                                select
+                                                placeholder="Embalaje"
+                                                InputProps={{ startAdornment: <InputAdornment position="start" />, }}
                                             />
                                         </FormControl>
                                     </Grid>
@@ -375,9 +373,12 @@ function OrdenCompra_Crear() {
                                     <Grid item xs={4}>
                                         <FormControl fullWidth>
                                             <InputLabel htmlFor="grouped-native-select">¿Materiales?</InputLabel>
-                                            <Select
+                                            <TextField
                                                 style={{ borderRadius: '3px' }}
                                                 label="¿Materiales?"
+                                                select
+                                                placeholder="¿Materiales?"
+                                                InputProps={{ startAdornment: <InputAdornment position="start" />, }}
                                             />
                                         </FormControl>
                                     </Grid>
@@ -386,16 +387,26 @@ function OrdenCompra_Crear() {
                                     <Grid item xs={4}>
                                         <FormControl fullWidth>
                                             <InputLabel htmlFor="grouped-native-select">Estado de la Orden</InputLabel>
-                                            <Select
+                                            <TextField
                                                 style={{ borderRadius: '3px' }}
                                                 label="Estado de la Orden"
+                                                select
+                                                placeholder="Estado de la Orden"
+                                                InputProps={{ startAdornment: <InputAdornment position="start" />, }}
                                             />
                                         </FormControl>
                                     </Grid>
 
                                     <Grid item xs={12}>
                                         <FormControl fullWidth>
-                                            <TextField style={{ borderRadius: '10px' }} label="Dirección" />
+                                            <TextField
+                                                InputProps={{
+                                                    startAdornment: (
+                                                        <InputAdornment position="start">
+                                                        </InputAdornment>
+                                                    ),
+                                                }}
+                                                style={{ borderRadius: '10px' }} label="Dirección" />
                                         </FormControl>
                                     </Grid>
 
@@ -458,9 +469,12 @@ function OrdenCompra_Crear() {
                                     <Grid item xs={4}>
                                         <FormControl fullWidth>
                                             <InputLabel htmlFor="grouped-native-select">Modelo</InputLabel>
-                                            <Select
+                                            <TextField
                                                 style={{ borderRadius: '3px' }}
                                                 label="Modelo"
+                                                select
+                                                placeholder="Modelo"
+                                                InputProps={{ startAdornment: <InputAdornment position="start" />, }}
                                             />
                                         </FormControl>
                                     </Grid>
@@ -468,40 +482,35 @@ function OrdenCompra_Crear() {
                                     <Grid item xs={4}>
                                         <FormControl fullWidth>
                                             <InputLabel htmlFor="grouped-native-select">Talla</InputLabel>
-                                            <Select
+                                            <TextField
                                                 style={{ borderRadius: '3px' }}
                                                 label="Talla"
+                                                select
+                                                placeholder="Talla"
+                                                InputProps={{ startAdornment: <InputAdornment position="start" />, }}
                                             />
                                         </FormControl>
                                     </Grid>
 
                                     <Grid item xs={4}>
                                         <FormControl fullWidth>
-                                            <TextField style={{ borderRadius: '10px' }} label="Cantidad" />
+                                            <TextField style={{ borderRadius: '10px' }} label="Cantidad"
+                                                InputProps={{ startAdornment: <InputAdornment position="start" />, }}
+                                            />
                                         </FormControl>
                                     </Grid>
 
-                                    <Grid item xs={4}>
-                                        <FormControl>
-                                            <FormLabel id="demo-radio-buttons-group-label">Corte de Prenda</FormLabel>
-                                            <RadioGroup
-                                                row
-                                                aria-labelledby="demo-row-radio-buttons-group-label"
-                                                name="row-radio-buttons-group"
-                                            >
-                                                <FormControlLabel value="M" control={<Radio />} label="M" />
-                                                <FormControlLabel value="F" control={<Radio />} label="F" />
-                                                <FormControlLabel value="U" control={<Radio />} label="U" />
-                                            </RadioGroup>
-                                        </FormControl>
-                                    </Grid>
+
 
                                     <Grid item xs={4}>
                                         <FormControl fullWidth>
                                             <InputLabel htmlFor="grouped-native-select">Color</InputLabel>
-                                            <Select
+                                            <TextField
                                                 style={{ borderRadius: '3px' }}
                                                 label="Color"
+                                                select
+                                                placeholder="Color"
+                                                InputProps={{ startAdornment: <InputAdornment position="start" />, }}
                                             />
                                         </FormControl>
                                     </Grid>
@@ -509,22 +518,41 @@ function OrdenCompra_Crear() {
                                     <Grid item xs={4}>
                                         <FormControl fullWidth>
                                             <InputLabel htmlFor="grouped-native-select">Proceso</InputLabel>
-                                            <Select
+                                            <TextField
                                                 style={{ borderRadius: '3px' }}
                                                 label="Proceso"
+                                                select
+                                                placeholder="Proceso"
+                                                InputProps={{ startAdornment: <InputAdornment position="start" />, }}
                                             />
                                         </FormControl>
                                     </Grid>
 
                                     <Grid item xs={4}>
                                         <FormControl fullWidth>
-                                            <TextField style={{ borderRadius: '10px' }} label="Impuesto" />
+                                            <TextField style={{ borderRadius: '10px' }} label="Impuesto"
+                                                InputProps={{ startAdornment: <InputAdornment position="start" />, }} />
                                         </FormControl>
                                     </Grid>
 
                                     <Grid item xs={4}>
                                         <FormControl fullWidth>
-                                            <TextField style={{ borderRadius: '10px' }} label="Descuento" />
+                                            <TextField style={{ borderRadius: '10px' }} label="Descuento" InputProps={{ startAdornment: <InputAdornment position="start" />, }} />
+                                        </FormControl>
+                                    </Grid>
+
+                                    <Grid item xs={6}>
+                                        <FormControl>
+                                            <FormLabel id="demo-radio-buttons-group-label">Corte de Prenda</FormLabel>
+                                            <RadioGroup
+                                                row
+                                                aria-labelledby="demo-row-radio-buttons-group-label"
+                                                name="row-radio-buttons-group"
+                                            >
+                                                <FormControlLabel value="M" control={<Radio />} label="Masculino" />
+                                                <FormControlLabel value="F" control={<Radio />} label="Femenino" />
+                                                <FormControlLabel value="U" control={<Radio />} label="Unisex" />
+                                            </RadioGroup>
                                         </FormControl>
                                     </Grid>
 
@@ -601,9 +629,12 @@ function OrdenCompra_Crear() {
                                         <Grid item xs={6}>
                                             <FormControl fullWidth>
                                                 <InputLabel htmlFor="grouped-native-select">Material</InputLabel>
-                                                <Select
+                                                <TextField
                                                     style={{ borderRadius: '3px' }}
                                                     label="Material"
+                                                    select
+                                                    placeholder="Material"
+                                                    InputProps={{ startAdornment: <InputAdornment position="start" />, }}
                                                 />
                                             </FormControl>
                                         </Grid>
@@ -611,7 +642,7 @@ function OrdenCompra_Crear() {
 
                                         <Grid item xs={6}>
                                             <FormControl fullWidth>
-                                                <TextField style={{ borderRadius: '10px' }} label="Cantidad" />
+                                                <TextField style={{ borderRadius: '10px' }} label="Cantidad" InputProps={{ startAdornment: <InputAdornment position="start" />, }} />
                                             </FormControl>
                                         </Grid>
 
@@ -619,9 +650,12 @@ function OrdenCompra_Crear() {
                                         <Grid item xs={6}>
                                             <FormControl fullWidth>
                                                 <InputLabel htmlFor="grouped-native-select">Unidad de Medida</InputLabel>
-                                                <Select
+                                                <TextField
                                                     style={{ borderRadius: '3px' }}
                                                     label="Unidad de Medida"
+                                                    select
+                                                    placeholder="Unida de Medida"
+                                                    InputProps={{ startAdornment: <InputAdornment position="start" />, }}
                                                 />
                                             </FormControl>
                                         </Grid>
@@ -642,7 +676,7 @@ function OrdenCompra_Crear() {
                                                     color: 'white',
                                                     '&:hover': { backgroundColor: '#6e52ae' },
                                                 }}
-                                                onClick={() => validacion(1)}
+                                                onClick={VisibilidadTabla}
                                             >
                                                 Guardar
                                             </Button>
@@ -685,7 +719,7 @@ function OrdenCompra_Crear() {
                                                 }}
                                                 pageSizeOptions={[10, 20, 50]}
                                             />
-                                            {/* <TablaDetalles_Materiales></TablaDetalles_Materiales> */}
+                                            {/* <TablaDetalles_Materiales></TablaDetalles_Materiales>  */}
                                         </Grid>
                                     </Grid>
                                 </Collapse>
@@ -738,94 +772,7 @@ function OrdenCompra_Crear() {
 
 
 
-                    <Dialog
-                        open={Eliminar}
-                        fullWidth="md"
-                        onClose={DialogEliminar}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
-                    >
-                        <DialogTitle id="alert-dialog-title">
-                            Agregar Materiales a la Orden
-                        </DialogTitle>
 
-                        <Card>
-                            <CardContent>
-
-                                <DialogActions>
-                                    <Grid container spacing={2}>
-
-                                        <Grid item xs={6}>
-                                            <FormControl fullWidth>
-                                                <InputLabel htmlFor="grouped-native-select">Material</InputLabel>
-                                                <Select
-                                                    style={{ borderRadius: '3px' }}
-                                                    label="Material"
-                                                />
-                                            </FormControl>
-                                        </Grid>
-
-
-                                        <Grid item xs={6}>
-                                            <FormControl fullWidth>
-                                                <TextField style={{ borderRadius: '10px' }} label="Cantidad" />
-                                            </FormControl>
-                                        </Grid>
-
-
-                                        <Grid item xs={6}>
-                                            <FormControl fullWidth>
-                                                <InputLabel htmlFor="grouped-native-select">Unidad de Medida</InputLabel>
-                                                <Select
-                                                    style={{ borderRadius: '3px' }}
-                                                    label="Unidad de Medida"
-                                                />
-                                            </FormControl>
-                                        </Grid>
-
-                                    </Grid>
-                                </DialogActions>
-                            </CardContent>
-                        </Card>
-
-                        <Grid
-                            item
-                            xs={12}
-                            sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right', marginTop: '10px', marginBottom: '10px', marginLeft: '10px' }}
-
-                        >
-                            <Button
-                                startIcon={<Icon>checked</Icon>}
-                                variant="contained"
-                                color="primary"
-                                style={{ borderRadius: '10px', marginRight: '10px' }}
-                                sx={{
-                                    backgroundColor: '#634A9E',
-                                    color: 'white',
-                                    '&:hover': { backgroundColor: '#6e52ae' },
-                                }}
-                                onClick={() => validacion(1)}
-                            >
-                                Guardar
-                            </Button>
-
-                            <Button
-                                startIcon={<Icon>close</Icon>}
-                                variant="contained"
-                                color="primary"
-                                style={{ borderRadius: '10px' }}
-                                sx={{
-                                    backgroundColor: '#DAD8D8',
-                                    color: 'black',
-                                    '&:hover': { backgroundColor: '#BFBABA' },
-                                }}
-                                onClick={DialogEliminar}
-                            >
-                                Cancelar
-                            </Button>
-                        </Grid>
-
-                    </Dialog>
 
 
 

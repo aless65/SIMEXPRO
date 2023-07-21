@@ -18,7 +18,6 @@ function DocumentosDeSanciones() {
     // mostramos el documento PDF en un iframe
     return (
         <Card sx={{ minWidth: 275, margin: '40px' }}>
-
             <div style={{ height: '100vh', marginTop: '10px' }}>
                 <iframe src={pdfUrl} style={{ width: '100%', height: '100%' }} />
             </div>

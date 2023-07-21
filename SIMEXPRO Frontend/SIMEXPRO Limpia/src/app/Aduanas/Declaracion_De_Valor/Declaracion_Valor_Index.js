@@ -21,6 +21,75 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useNavigate } from 'react-router-dom';
 
+function Row(props) {
+  const { row } = props;
+  const [open, setOpen] = React.useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const columns = {
+      renderCell: (params) => {
+
+          const [anchorEl, setAnchorEl] = React.useState(null);
+          
+          const handleClick = (event) => {
+              setAnchorEl(event.currentTarget);
+          };
+
+          const handleClose = () => {
+              setAnchorEl(null);
+          };
+
+          const handleEdit = () => {
+              // Implementa la función para editar aquí
+              handleClose();
+          };
+
+          const handleDetails = () => {
+              // Implementa la función para detalles aquí
+              handleClose();
+          };
+
+          const handleDelete = () => {
+              console.log(params);
+              setOpenDialog(true);
+              //handleClose();
+          };
+
+          return (
+              <Stack direction="row" spacing={1}>
+                  <Button
+                      aria-controls={`menu-${params.id}`}
+                      aria-haspopup="true"
+                      onClick={handleClick}
+                      variant="contained"
+                      style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+                      startIcon={<Icon>menu</Icon>}
+                  >
+                      Opciones
+                  </Button>
+                  <Menu
+                      id={`menu-${params.id}`}
+                      anchorEl={anchorEl}
+                      keepMounted
+                      open={Boolean(anchorEl)}
+                      onClose={handleClose}
+                  >
+                      <MenuItem onClick={handleEdit}>
+                          <Icon>edit</Icon> Editar
+                      </MenuItem>
+                      <MenuItem onClick={handleDetails}>
+                          <Icon>visibility</Icon> Detalles
+                      </MenuItem>
+                      <MenuItem onClick={handleDelete}>
+                          <Icon>delete</Icon> Eliminar
+                      </MenuItem>
+                  </Menu>
+              </Stack>
+          );
+      },
+  };
+}
+
 
 function Declaracion_Valor_Index() {
   const navigate = useNavigate();  
@@ -122,7 +191,7 @@ function Declaracion_Valor_Index() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/rdxDGbL/DECLARACION.png"
+        image="https://i.ibb.co/Trhd4rH/DECLARACI-N-DE-VALOR.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>

@@ -316,14 +316,21 @@ const navigationConfig = [
             title: 'Órden de Compra',
             type: 'item',
             icon: 'material-outline:library_books',
-            url: '/Produccion/OrdenCompra',
+            url: '/OrdenCompra/Index',
+          },
+          {
+            id: 'Produccion.OrdenPedido',
+            title: 'Órden de Pedido',
+            type: 'item',
+            icon: 'material-outline:library_books',
+            url: '/OrdenPedido/Index',
           },
           {
             id: 'Produccion.PedidosProduccion',
             title: 'Pedidos de Producción',
             type: 'item',
             icon: 'material-outline:local_mall',
-            url: '/Produccion/PedidosProduccion',
+            url: 'PedidosProduccion/Index',
           },
           {
             id: 'Produccion.Procesos',
@@ -391,10 +398,8 @@ const navigationConfig = [
             icon: 'material-outline:biotech',
             url: '/ModelosMaquinas/Index',
           },
-
         ],
       },
-      
       {
         id: 'Produccion.Inventario',
         title: 'Inventario',

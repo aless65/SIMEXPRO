@@ -1340,8 +1340,7 @@ BEGIN
 		   ,[deva_Pago_Efectuado]				--AS declaracionPagoEfectuado, 
 		   ,[fopa_Id]							--AS formaPagoId, 
 		   ,[deva_Forma_Pago_Otra]				--AS formaPagoOtra, 
-		   ,[deva_Lugar_Embarque]				--AS declaracionLugarEmbarque, 
-		   ,[pais_Embarque_Id]					--AS paisEmbarqueId, 
+		   ,[emba_Id]							--AS declaracionLugarEmbarque, 
 		   ,[pais_Exportacion_Id]				--AS paisExportacionId, 
 		   ,[deva_Fecha_Exportacion]			--	AS declaracionFechaExportacion, 
 		   ,[mone_Id]							--AS monedaId, 
@@ -1435,7 +1434,7 @@ BEGIN
 		
 		DECLARE @decl_Id INT;
 
-		EXEC adua.UDP_tbDeclarantes_Insert @decl_Nombre_Raso,
+		EXEC adua.UDP_tbDeclarantes_Insertar @decl_Nombre_Raso,
 										   @decl_Direccion_Exacta,
 										   @ciud_Id,
 										   @decl_Correo_Electronico,
@@ -1508,7 +1507,7 @@ BEGIN
 END
 GO
 
---EXEC adua.UDP_tbDeclaraciones_Valor_Tab1_Insert 2, 1, '2023-07-12', 'NOMBRE DE RAZÓN JAJA NO SÉ XD', '0501-2005-632458', '05012005632458', 'dirección perrona', 2, 'empresa@empresa.com', '85478965', null, 2, null, 1, '2023-07-12'
+--EXEC adua.UDP_tbDeclaraciones_Valor_Tab1_Insertar 2, 1, '2023-07-12', 'NOMBRE DE RAZÓN JAJA NO SÉ XD', '0501-2005-632458', '05012005632458', 'dirección perrona', 2, 'empresa@empresa.com', '85478965', null, 2, null, 1, '2023-07-12'
 --GO
 
 
@@ -1541,7 +1540,7 @@ BEGIN
 		DECLARE @prov_decl_Id INT;
 		DECLARE @inte_decl_Id INT;
 		
-		EXEC adua.UDP_tbDeclarantes_Insert @prov_decl_Nombre_Raso,
+		EXEC adua.UDP_tbDeclarantes_Insertar @prov_decl_Nombre_Raso,
 										   @prov_decl_Direccion_Exacta,
 										   @prov_ciud_Id,
 										   @prov_decl_Correo_Electronico,
@@ -1564,7 +1563,7 @@ BEGIN
 
 		DECLARE @prov_Id INT = SCOPE_IDENTITY()
 
-		EXEC adua.UDP_tbDeclarantes_Insert @inte_decl_Nombre_Raso,
+		EXEC adua.UDP_tbDeclarantes_Insertar @inte_decl_Nombre_Raso,
 										   @inte_decl_Direccion_Exacta,
 										   @inte_ciud_Id,
 										   @inte_decl_Correo_Electronico,
@@ -1599,7 +1598,7 @@ BEGIN
 															deva_Declaracion_Mercancia, 
 															deva_Fecha_Aceptacion, 
 															impo_Id, 
-															prov_Id, 
+															pvde_Id, 
 															inte_Id, 
 															hdev_UsuarioAccion, 
 															hdev_FechaAccion, 
@@ -1615,7 +1614,7 @@ BEGIN
 			   @usua_UsuarioCreacion,
 			   @deva_FechaCreacion,
 			   'Insert tab2'
-		FROM [Adua].[tbDeclaraciones_ValorHistorial]
+		FROM [Adua].[tbDeclaraciones_Valor]
 		WHERE deva_Id = @deva_Id
 
 		SELECT 1
@@ -1629,13 +1628,16 @@ BEGIN
 END
 
 
---EXEC adua.UDP_tbDeclaraciones_Valor_Tab2_Insert 1, 'OTRA RAZÓN WTF', 'HOGAR DULCE HOGAR', 
+--EXEC adua.UDP_tbDeclaraciones_Valor_Tab2_Insertar 1, 'OTRA RAZÓN WTF', 'HOGAR DULCE HOGAR', 
 --												3, 'asjds@sdl.com', '45874589', null, 2, null, 'MÁS NOMBRES WN', 
 --												'CASA EVERYWHERE', 2, 'ASD@MSD.COM', '5874786554', null, 1, null, 1, '2023-07-20'
 --GO
 
+--EXEC adua.UDP_tbDeclaraciones_Valor_Tab3_Insertar  
+
 GO
-CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab3_Insertar
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab3_Insertar 
+	@deva_Id					INT,	
 	@deva_Lugar_Entrega			NVARCHAR(800),
 	@pais_Entrega_Id			INT,
 	@inco_Id					INT,
@@ -1652,45 +1654,89 @@ CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab3_Insertar
 	@deva_Fecha_Exportacion		DATE,
 	@mone_Id					INT,
 	@mone_Otra					NVARCHAR(200),
-	@deva_Conversion_Dolares	DECIMAL(18,2)
+	@deva_Conversion_Dolares	DECIMAL(18,2),
+	@deva_UsuarioCreacion		INT,
+	@deva_FechaCreacion			DATETIME
 AS 
 BEGIN
 	BEGIN TRANSACTION
 	BEGIN TRY
-			INSERT INTO [Adua].[tbDeclaraciones_Valor](deva_Lugar_Entrega, 
-													   pais_Entrega_Id, 
-													   inco_Id, 
-													   inco_Version, 
-													   deva_numero_contrato, 
-													   deva_Fecha_Contrato, 
-													   foen_Id, 
-													   deva_Forma_Envio_Otra, 
-													   deva_Pago_Efectuado, 
-													   fopa_Id, 
-													   deva_Forma_Pago_Otra, 
-													   emba_Id, 
-													   pais_Exportacion_Id, 
-													   deva_Fecha_Exportacion, 
-													   mone_Id, 
-													   mone_Otra, 
-													   deva_Conversion_Dolares)
-			VALUES (@deva_Lugar_Entrega, 
-					@pais_Entrega_Id, 
-					@inco_Id, 
-					@inco_Version, 
-					@deva_numero_contrato, 
-					@deva_Fecha_Contrato, 
-					@foen_Id, 
-					@deva_Forma_Envio_Otra, 
-					@deva_Pago_Efectuado, 
-					@fopa_Id, 
-					@deva_Forma_Pago_Otra, 
-					@emba_Id, 
-					@pais_Exportacion_Id, 
-					@deva_Fecha_Exportacion, 
-					@mone_Id, 
-					@mone_Otra, 
-					@deva_Conversion_Dolares)
+
+			UPDATE [Adua].[tbDeclaraciones_Valor]
+			SET deva_Lugar_Entrega = @deva_Lugar_Entrega,
+				pais_Entrega_Id = @pais_Entrega_Id,
+				inco_Id = @inco_Id,
+				inco_Version = @inco_Version,
+				deva_numero_contrato = @deva_numero_contrato,
+				deva_Fecha_Contrato = @deva_Fecha_Contrato,
+				foen_Id = @foen_Id,
+				deva_Forma_Envio_Otra = @deva_Forma_Envio_Otra,
+				deva_Pago_Efectuado = @deva_Pago_Efectuado,
+				fopa_Id = @fopa_Id,
+				deva_Forma_Pago_Otra = @deva_Forma_Pago_Otra,
+				emba_Id = @emba_Id,
+				pais_Exportacion_Id = @pais_Exportacion_Id,
+				deva_Fecha_Exportacion = @deva_Fecha_Exportacion,
+				mone_Id = @mone_Id,
+				mone_Otra = @mone_Otra,
+				deva_Conversion_Dolares = @deva_Conversion_Dolares
+			WHERE deva_id = @deva_Id
+
+			INSERT INTO [Adua].[tbDeclaraciones_ValorHistorial](deva_Id, 
+																deva_Aduana_Ingreso_Id, 
+																deva_Aduana_Despacho_Id, 
+																deva_Declaracion_Mercancia, 
+																deva_Fecha_Aceptacion, 
+																impo_Id, 
+																pvde_Id, 
+																inte_Id, 
+																deva_Lugar_Entrega, 
+																inco_Id, 
+																deva_numero_contrato, 
+																deva_Fecha_Contrato, 
+																foen_Id, 
+																deva_Forma_Envio_Otra, 
+																deva_Pago_Efectuado, 
+																fopa_Id, 
+																deva_Forma_Pago_Otra, 
+																emba_Id, 
+																pais_Exportacion_Id, 
+																deva_Fecha_Exportacion, 
+																mone_Id, 
+																mone_Otra, 
+																deva_Conversion_Dolares, 
+																hdev_UsuarioAccion, 
+																hdev_FechaAccion, 
+																hdev_Accion)
+
+				SELECT deva_Id, 
+					   deva_Aduana_Ingreso_Id, 
+					   deva_Aduana_Despacho_Id, 
+					   deva_Declaracion_Mercancia, 
+					   deva_Fecha_Aceptacion, 
+					   impo_Id, 
+					   pvde_Id, 
+					   inte_Id, 
+					   @deva_Lugar_Entrega, 
+					   @inco_Id, 
+					   @deva_numero_contrato, 
+					   @deva_Fecha_Contrato, 
+					   @foen_Id, 
+					   @deva_Forma_Envio_Otra, 
+					   @deva_Pago_Efectuado, 
+					   @fopa_Id, 
+					   @deva_Forma_Pago_Otra, 
+					   @emba_Id, 
+					   @pais_Exportacion_Id, 
+					   @deva_Fecha_Exportacion, 
+					   @mone_Id, 
+					   @mone_Otra, 
+					   @deva_Conversion_Dolares, 
+					   @deva_UsuarioCreacion, 
+					   @deva_FechaCreacion, 
+					   'Insert tab3'
+				FROM [Adua].[tbDeclaraciones_Valor]
+				WHERE deva_Id = @deva_Id
 
 			SELECT 1
 		COMMIT TRAN

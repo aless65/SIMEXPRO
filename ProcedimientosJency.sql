@@ -1206,14 +1206,10 @@ BEGIN
 			boletin.usua_UsuarioModificacion,
 			usuaModifica.usua_Nombre      AS usuarioModificacionNombre,
 			boletin.boen_FechaModificacion, 
-			boletin.usua_UsuarioEliminacion,
-			usuElimina.usua_Nombre        AS usuarioEliminacionNombre,
-			boletin.boen_FechaEliminacion, 
 			boen_Estado  
       FROM  Adua.tbBoletinPago boletin
 	       LEFT JOIN Acce.tbUsuarios usuaCrea			ON boletin.usua_UsuarioCreacion     = usuaCrea.usua_Id 
 		   LEFT JOIN  Acce.tbUsuarios usuaModifica		ON boletin.usua_UsuarioModificacion = usuaCrea.usua_Id 
-		   LEFT JOIN Acce.tbUsuarios usuElimina		    ON boletin.usua_UsuarioEliminacion  = usuElimina.usua_Id
 		   LEFT JOIN Adua.tbLiquidacionGeneral lig      ON boletin.liqu_Id                  = lig.lige_Id
 		   LEFT JOIN Adua.tbTipoLiquidacion tipli       ON boletin.tipl_Id                  = tipli.tipl_Id
 		   LEFT JOIN Adua.tbEstadoBoletin estadoB       ON boletin.esbo_Id                  = estadoB.esbo_Id
@@ -1342,3 +1338,105 @@ END
 GO
 
 --Adua.UDP_tbBoletinPago_Editar 10,1,7,'2023-02-01',2,'observaciones','# declaracion','rtn542451162','preimpreso','declarante 1202',520.00,500.00,'15145454','encabezado',1,1,1,'01-02-2023'
+
+
+--**********LUGARES EMBARQUE**********--
+
+
+/*Listar lugares embarque*/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Listar
+AS
+BEGIN
+	SELECT lugar.emba_Id,
+	       lugar.emba_Codigo, 
+		   lugar.emba_Descripcion, 
+		   lugar.usua_UsuarioCreacion, 
+		   usuaCrea.usua_Nombre             AS usuarioCreacionNombre,
+		   lugar.emba_FechaCreacion, 
+		   lugar.usua_UsuarioModificacion,
+		   usuaModifica.usua_Nombre         AS usuarioModificacionNombre,
+		   lugar.emba_FechaModificacion, 
+		   lugar.usua_UsuarioEliminacion, 
+		   usuaElimi.usua_Nombre            AS usuarioEliminacionNombre,
+		   lugar.emba_FechaEliminacion, 
+		   lugar.emba_Estado   
+      FROM Adua.tbLugaresEmbarque lugar
+	       INNER JOIN Acce.tbUsuarios usuaCrea			ON lugar.usua_UsuarioCreacion     = usuaCrea.usua_Id 
+		   LEFT JOIN  Acce.tbUsuarios usuaModifica		ON lugar.usua_UsuarioModificacion = usuaModifica.usua_Id 
+		   LEFT JOIN  Acce.tbUsuarios usuaElimi		    ON lugar.usua_UsuarioEliminacion  = usuaElimi.usua_Id 
+	 WHERE emba_Estado = 1
+END
+GO
+
+/*Insertar lugares embarque*/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Insertar
+	 @emba_Codigo             CHAR(5),
+	 @emba_Descripcion        NVARCHAR(200),
+	 @usua_UsuarioCreacion    INT, 
+	 @emba_FechaCreacion      DATETIME
+AS 
+BEGIN
+	
+	BEGIN TRY
+		INSERT INTO Adua.tbLugaresEmbarque (emba_Codigo, emba_Descripcion, usua_UsuarioCreacion, emba_FechaCreacion)
+		VALUES(@emba_Codigo, @emba_Descripcion, @usua_UsuarioCreacion, @emba_FechaCreacion)
+		
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH 
+END
+GO
+
+/*Editar lugares embarque*/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Editar
+	@emba_Id                  INT,
+    @emba_Codigo              CHAR(5),
+    @emba_Descripcion         NVARCHAR(200),
+	@usua_UsuarioModificacion INT,
+	@emba_FechaModificacion   DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE  Adua.tbLugaresEmbarque
+		SET		emba_Codigo              = @emba_Codigo,
+		        emba_Descripcion         = @emba_Descripcion,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				emba_FechaModificacion   = @emba_FechaModificacion
+		WHERE	emba_Id                  = @emba_Id
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
+/*Eliminar lugares Embarque*/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Eliminar
+	@emba_Id					INT,
+	@usua_UsuarioEliminacion    INT,
+	@emba_FechaEliminacion      DATETIME
+AS
+BEGIN
+	BEGIN TRY
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'emba_Id', @emba_Id, 'Adua.tbLugaresEmbarque', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+			BEGIN
+				UPDATE	Adua.tbLugaresEmbarque
+				   SET	emba_Estado             = 0,
+				        usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+						emba_FechaEliminacion   = @emba_FechaEliminacion
+				  WHERE emba_Id                 = @emba_Id 
+			END
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO

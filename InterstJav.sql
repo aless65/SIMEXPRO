@@ -158,7 +158,7 @@ VALUES	('00001',1,1,1,GETDATE()),
 		('00005',5,5,1,GETDATE())
 
 INSERT INTO Adua.tbEstadoMercancias (merc_Descripcion, usua_UsuarioCreacion, merc_FechaCreacion)
-VALUES ('FRACCIONADO', 1, GETDATE()),
+VALUES ('FRACCIONADO', 1, GETDATE());
 
 INSERT INTO Gral.tbFormas_Envio (foen_Codigo,foen_Descripcion, usua_UsuarioCreacion, foen_FechaCreacion)
 VALUES ('FR', 'FRACCIONADO', 1, GETDATE()),

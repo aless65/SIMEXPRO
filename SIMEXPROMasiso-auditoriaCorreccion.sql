@@ -700,7 +700,7 @@ CREATE TABLE Adua.tbLugaresEmbarque
 
 	CONSTRAINT PK_Adua_tbLugaresEmbarque_emba_Id 								  PRIMARY KEY (emba_Id),
 	CONSTRAINT UQ_Adua_tbLugaresEmbarque_prov_emba_Codigo 						  UNIQUE	  (emba_Codigo),
-	CONSTRAINT UQ_Adua_tbLugaresEmbarque_prov_emba_Descripcion 					  UNIQUE	  (emba_Descripcion),
+	--CONSTRAINT UQ_Adua_tbLugaresEmbarque_prov_emba_Descripcion 					  UNIQUE	  (emba_Descripcion),
 	CONSTRAINT FK_Adua_tbLugaresEmbarque_tbUsuarios_prov_UsuarioCreacion		  FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Adua_tbLugaresEmbarque_tbUsuarios_prov_usua_UsuarioModificacion FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Adua_tbLugaresEmbarque_tbUsuarios_prov_usua_UsuarioEliminacion  FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios (usua_Id)

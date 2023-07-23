@@ -1,4 +1,4 @@
- -----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS GENERAL
+-----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS GENERAL
 
 --**********ESTADOS CIVILES**********--
 
@@ -1424,7 +1424,7 @@ CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab1_Insertar
 	@decl_Telefono						NVARCHAR(50),
 	@decl_Fax							NVARCHAR(50),
 	@nico_Id							INT,
-	@impo_NivelComercial_Otro			INT,
+	@impo_NivelComercial_Otro			NVARCHAR(300),
 	@usua_UsuarioCreacion				INT,
 	@deva_FechaCreacion					DATETIME
 AS
@@ -1633,7 +1633,7 @@ END
 --												'CASA EVERYWHERE', 2, 'ASD@MSD.COM', '5874786554', null, 1, null, 1, '2023-07-20'
 --GO
 
---EXEC adua.UDP_tbDeclaraciones_Valor_Tab3_Insertar  
+
 
 GO
 CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab3_Insertar 
@@ -1746,6 +1746,9 @@ BEGIN
 		ROLLBACK TRAN
 	END CATCH
 END
+
+GO
+EXEC adua.UDP_tbDeclaraciones_Valor_Tab3_Insertar 1, 'lolol' , 2, 2, '??', null, '2023-03-01', 2, null, 1, 6, null, 1, 10, '2023-05-02', 5, null, null, 1, '2023-07-22 22:59:01'
 --CREATE OR ALTER PROCEDURE prueba
 --	@id			INT,
 --	@response   INT OUTPUT

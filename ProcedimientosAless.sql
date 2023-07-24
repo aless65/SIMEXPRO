@@ -1749,6 +1749,128 @@ BEGIN
 	END CATCH
 END
 
+GO
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab2_Editar
+	@deva_Id						INT,
+	@prov_decl_Nombre_Raso			NVARCHAR(250),
+	@prov_decl_Direccion_Exacta		NVARCHAR(250),
+	@prov_ciud_Id					INT,
+	@prov_decl_Correo_Electronico	NVARCHAR(150),
+	@prov_decl_Telefono				NVARCHAR(50),
+	@prov_decl_Fax					NVARCHAR(50),
+	@coco_Id						INT,
+	@pvde_Condicion_Otra			NVARCHAR(30),
+	@inte_decl_Nombre_Raso			NVARCHAR(250),
+	@inte_decl_Direccion_Exacta		NVARCHAR(250),
+	@inte_ciud_Id					INT,
+	@inte_decl_Correo_Electronico	NVARCHAR(150),
+	@inte_decl_Telefono				NVARCHAR(50),
+	@inte_decl_Fax					NVARCHAR(50),
+	@tite_Id						INT,
+	@inte_Tipo_Otro					NVARCHAR(30),
+	@usua_UsuarioModificacion		INT,
+	@deva_FechaModificacion			DATETIME
+AS
+BEGIN
+	BEGIN TRANSACTION 
+	BEGIN TRY
+
+		DECLARE @prov_decl_Id INT = (SELECT decl_Id
+									 FROM [Adua].[tbProveedoresDeclaracion]
+									 WHERE pvde_Id = (SELECT pvde_Id
+													  FROM [Adua].[tbDeclaraciones_Valor]
+													  WHERE deva_Id = @deva_Id));
+		DECLARE @inte_decl_Id INT = (SELECT decl_Id
+									 FROM [Adua].[tbIntermediarios]
+									 WHERE inte_Id = (SELECT inte_Id
+													  FROM [Adua].[tbDeclaraciones_Valor]
+													  WHERE deva_Id = @deva_Id));
+		
+		EXEC adua.UDP_tbDeclarantes_Editar @prov_decl_Id,
+										   @prov_decl_Nombre_Raso,
+										   @prov_decl_Direccion_Exacta,
+										   @prov_ciud_Id,
+										   @prov_decl_Correo_Electronico,
+										   @prov_decl_Telefono,
+										   @prov_decl_Fax,
+										   @usua_UsuarioModificacion,
+										   @deva_FechaModificacion
+
+		DECLARE @pvde_Id INT = (SELECT pvde_Id
+								FROM [Adua].[tbDeclaraciones_Valor]
+								WHERE deva_Id = @deva_Id)
+
+		UPDATE [Adua].[tbProveedoresDeclaracion]
+		SET coco_Id = @coco_Id, 
+			pvde_Condicion_Otra = @pvde_Condicion_Otra, 
+			decl_Id = @prov_decl_Id, 
+			usua_UsuarioModificacion = @usua_UsuarioModificacion, 
+			pvde_FechaModificacion = @deva_FechaModificacion
+		WHERE pvde_Id = @pvde_Id
+
+
+		EXEC adua.UDP_tbDeclarantes_Editar @inte_decl_Id,
+										   @prov_decl_Nombre_Raso,
+										   @prov_decl_Direccion_Exacta,
+										   @prov_ciud_Id,
+										   @prov_decl_Correo_Electronico,
+										   @prov_decl_Telefono,
+										   @prov_decl_Fax,
+										   @usua_UsuarioModificacion,
+										   @deva_FechaModificacion
+
+		DECLARE @inte_Id INT = (SELECT inte_Id
+								FROM [Adua].[tbDeclaraciones_Valor]
+								WHERE deva_Id = @deva_Id)
+
+		UPDATE [Adua].[tbIntermediarios]
+		SET tite_Id = @tite_Id, 
+			inte_Tipo_Otro = @inte_Tipo_Otro,
+			decl_Id = @inte_decl_Id, 
+			usua_UsuarioModificacion = @usua_UsuarioModificacion,
+			inte_FechaModificacion = @deva_FechaModificacion
+		WHERE inte_Id = @inte_Id
+
+		UPDATE [Adua].[tbDeclaraciones_Valor]
+		SET [inte_Id] = @inte_Id,
+			[pvde_Id] = @pvde_Id
+		WHERE [deva_Id] = @deva_Id
+
+		INSERT INTO [Adua].[tbDeclaraciones_ValorHistorial](deva_Id, 
+															deva_Aduana_Ingreso_Id, 
+															deva_Aduana_Despacho_Id, 
+															deva_Declaracion_Mercancia, 
+															deva_Fecha_Aceptacion, 
+															impo_Id, 
+															pvde_Id, 
+															inte_Id, 
+															hdev_UsuarioAccion, 
+															hdev_FechaAccion, 
+															hdev_Accion)
+		SELECT deva_Id,
+			   deva_Aduana_Ingreso_Id,
+			   deva_Aduana_Despacho_Id,
+			   deva_Declaracion_Mercancia,
+			   deva_Fecha_Aceptacion,
+			   impo_Id,
+			   @pvde_Id,
+			   @inte_Id,
+			   @usua_UsuarioModificacion,
+			   @deva_FechaModificacion,
+			   'Editar tab2'
+		FROM [Adua].[tbDeclaraciones_Valor]
+		WHERE deva_Id = @deva_Id
+
+		SELECT 1
+			
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+		ROLLBACK TRAN
+	END CATCH
+END
+
 
 GO
 CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab3_Insertar 
@@ -2220,207 +2342,6 @@ BEGIN
 	END CATCH
 END
 
-GO
-CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Listar
-	@deva_Id			INT
-AS
-BEGIN
-	SELECT codi_Id, 
-		   deva_Id, 
-		   codi_Restricciones_Utilizacion, 
-		   codi_Indicar_Restricciones_Utilizacion, 
-		   codi_Depende_Precio_Condicion, 
-		   codi_Indicar_Existe_Condicion, 
-		   codi_Condicionada_Revertir, 
-		   codi_Vinculacion_Comprador_Vendedor, 
-		   codi_Tipo_Vinculacion, 
-		   codi_Vinculacion_Influye_Precio, 
-		   codi_Pagos_Descuentos_Indirectos, 
-		   codi_Concepto_Monto_Declarado, 
-		   codi_Existen_Canones, 
-		   codi_Indicar_Canones, 
-		   usua_UsuarioCreacion, 
-		   codi_FechaCreacion, 
-		   usua_UsuarioModificacion, 
-		   codi_FechaModificacion, 
-		   codi_Estado
-	FROM [Adua].[tbCondiciones]
-	WHERE deva_Id = @deva_Id
-END
-
-GO
-CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Insertar 
-	@deva_Id									INT, 
-	@codi_Restricciones_Utilizacion				BIT, 
-	@codi_Indicar_Restricciones_Utilizacion		NVARCHAR(500), 
-	@codi_Depende_Precio_Condicion				BIT, 
-	@codi_Indicar_Existe_Condicion				NVARCHAR(500),
-	@codi_Condicionada_Revertir					BIT, 
-	@codi_Vinculacion_Comprador_Vendedor		BIT, 
-	@codi_Tipo_Vinculacion						NVARCHAR(500), 
-	@codi_Vinculacion_Influye_Precio			BIT, 
-	@codi_Pagos_Descuentos_Indirectos			BIT, 
-	@codi_Concepto_Monto_Declarado				NVARCHAR(500), 
-	@codi_Existen_Canones						BIT, 
-	@codi_Indicar_Canones						NVARCHAR(500), 
-	@usua_UsuarioCreacion						INT, 
-	@codi_FechaCreacion							DATE
-AS
-BEGIN
-	BEGIN TRY
-		INSERT INTO [Adua].[tbCondiciones](deva_Id, 
-										   codi_Restricciones_Utilizacion, 
-										   codi_Indicar_Restricciones_Utilizacion, 
-										   codi_Depende_Precio_Condicion, 
-										   codi_Indicar_Existe_Condicion, 
-										   codi_Condicionada_Revertir, 
-										   codi_Vinculacion_Comprador_Vendedor, 
-										   codi_Tipo_Vinculacion, 
-										   codi_Vinculacion_Influye_Precio, 
-										   codi_Pagos_Descuentos_Indirectos, 
-										   codi_Concepto_Monto_Declarado, 
-										   codi_Existen_Canones, 
-										   codi_Indicar_Canones, 
-										   usua_UsuarioCreacion, 
-										   codi_FechaCreacion)
-		VALUES (@deva_Id, 
-				@codi_Restricciones_Utilizacion, 
-				@codi_Indicar_Restricciones_Utilizacion, 
-				@codi_Depende_Precio_Condicion, 
-				@codi_Indicar_Existe_Condicion, 
-				@codi_Condicionada_Revertir, 
-				@codi_Vinculacion_Comprador_Vendedor, 
-				@codi_Tipo_Vinculacion, 
-				@codi_Vinculacion_Influye_Precio, 
-				@codi_Pagos_Descuentos_Indirectos, 
-				@codi_Concepto_Monto_Declarado, 
-				@codi_Existen_Canones, 
-				@codi_Indicar_Canones, 
-				@usua_UsuarioCreacion, 
-				@codi_FechaCreacion)
-
-		INSERT INTO [Adua].[tbCondicionesHistorial](codi_Id,
-													deva_Id, 
-													codi_Restricciones_Utilizacion, 
-													codi_Indicar_Restricciones_Utilizacion, 
-													codi_Depende_Precio_Condicion, 
-													codi_Indicar_Existe_Condicion, 
-													codi_Condicionada_Revertir, 
-													codi_Vinculacion_Comprador_Vendedor, 
-													codi_Tipo_Vinculacion, 
-													codi_Vinculacion_Influye_Precio, 
-													codi_Pagos_Descuentos_Indirectos, 
-													codi_Concepto_Monto_Declarado, 
-													codi_Existen_Canones, 
-													codi_Indicar_Canones, 
-													hcod_UsuarioAccion,
-													hcod_FechaAccion,
-													hcod_Accion)
-		VALUES (SCOPE_IDENTITY(),
-				@deva_Id, 
-				@codi_Restricciones_Utilizacion, 
-				@codi_Indicar_Restricciones_Utilizacion, 
-				@codi_Depende_Precio_Condicion, 
-				@codi_Indicar_Existe_Condicion, 
-				@codi_Condicionada_Revertir, 
-				@codi_Vinculacion_Comprador_Vendedor, 
-				@codi_Tipo_Vinculacion, 
-				@codi_Vinculacion_Influye_Precio, 
-				@codi_Pagos_Descuentos_Indirectos, 
-				@codi_Concepto_Monto_Declarado, 
-				@codi_Existen_Canones, 
-				@codi_Indicar_Canones, 
-				@usua_UsuarioCreacion, 
-				@codi_FechaCreacion,
-				'Insertar')
-
-		SELECT 1
-	END TRY
-	BEGIN CATCH
-		SELECT 'Error Message: ' + ERROR_MESSAGE()
-	END CATCH
-END
-
-GO
-CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Editar 
-	@codi_Id									INT,
-	@deva_Id									INT, 
-	@codi_Restricciones_Utilizacion				BIT, 
-	@codi_Indicar_Restricciones_Utilizacion		NVARCHAR(500), 
-	@codi_Depende_Precio_Condicion				BIT, 
-	@codi_Indicar_Existe_Condicion				NVARCHAR(500),
-	@codi_Condicionada_Revertir					BIT, 
-	@codi_Vinculacion_Comprador_Vendedor		BIT, 
-	@codi_Tipo_Vinculacion						NVARCHAR(500), 
-	@codi_Vinculacion_Influye_Precio			BIT, 
-	@codi_Pagos_Descuentos_Indirectos			BIT, 
-	@codi_Concepto_Monto_Declarado				NVARCHAR(500), 
-	@codi_Existen_Canones						BIT, 
-	@codi_Indicar_Canones						NVARCHAR(500), 
-	@usua_UsuarioModificacion					INT, 
-	@codi_FechaModificacion						DATE
-AS
-BEGIN
-	BEGIN TRY
-		UPDATE [Adua].[tbCondiciones]
-		SET		deva_Id = @deva_Id, 
-				codi_Restricciones_Utilizacion = @codi_Restricciones_Utilizacion, 
-				codi_Indicar_Restricciones_Utilizacion = @codi_Indicar_Restricciones_Utilizacion, 
-				codi_Depende_Precio_Condicion = @codi_Depende_Precio_Condicion, 
-				codi_Indicar_Existe_Condicion = @codi_Indicar_Existe_Condicion, 
-				codi_Condicionada_Revertir = @codi_Condicionada_Revertir, 
-				codi_Vinculacion_Comprador_Vendedor = @codi_Vinculacion_Comprador_Vendedor, 
-				codi_Tipo_Vinculacion = @codi_Tipo_Vinculacion, 
-				codi_Vinculacion_Influye_Precio = @codi_Vinculacion_Influye_Precio, 
-				codi_Pagos_Descuentos_Indirectos = @codi_Pagos_Descuentos_Indirectos, 
-				codi_Concepto_Monto_Declarado = @codi_Concepto_Monto_Declarado, 
-				codi_Existen_Canones = @codi_Existen_Canones, 
-				codi_Indicar_Canones = @codi_Indicar_Canones, 
-				usua_UsuarioModificacion = @usua_UsuarioModificacion, 
-				codi_FechaModificacion = @codi_FechaModificacion
-		WHERE codi_Id = @codi_Id
-
-		INSERT INTO [Adua].[tbCondicionesHistorial](codi_Id,
-													deva_Id, 
-													codi_Restricciones_Utilizacion, 
-													codi_Indicar_Restricciones_Utilizacion, 
-													codi_Depende_Precio_Condicion, 
-													codi_Indicar_Existe_Condicion, 
-													codi_Condicionada_Revertir, 
-													codi_Vinculacion_Comprador_Vendedor, 
-													codi_Tipo_Vinculacion, 
-													codi_Vinculacion_Influye_Precio, 
-													codi_Pagos_Descuentos_Indirectos, 
-													codi_Concepto_Monto_Declarado, 
-													codi_Existen_Canones, 
-													codi_Indicar_Canones, 
-													hcod_UsuarioAccion,
-													hcod_FechaAccion,
-													hcod_Accion)
-		VALUES (@codi_Id,
-				@deva_Id, 
-				@codi_Restricciones_Utilizacion, 
-				@codi_Indicar_Restricciones_Utilizacion, 
-				@codi_Depende_Precio_Condicion, 
-				@codi_Indicar_Existe_Condicion, 
-				@codi_Condicionada_Revertir, 
-				@codi_Vinculacion_Comprador_Vendedor, 
-				@codi_Tipo_Vinculacion, 
-				@codi_Vinculacion_Influye_Precio, 
-				@codi_Pagos_Descuentos_Indirectos, 
-				@codi_Concepto_Monto_Declarado, 
-				@codi_Existen_Canones, 
-				@codi_Indicar_Canones, 
-				@usua_UsuarioModificacion, 
-				@codi_FechaModificacion,
-				'Editar')
-
-		SELECT 1
-	END TRY
-	BEGIN CATCH
-		SELECT 'Error Message: ' + ERROR_MESSAGE()
-	END CATCH
-END
 
 GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbBaseCalculos_Listar

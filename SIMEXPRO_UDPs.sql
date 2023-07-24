@@ -3056,147 +3056,147 @@ END
 GO
 --************CONDICIONES******************--
 /*Listar CONDICIONES*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Listar
-AS
-BEGIN
-SELECT	codi_Id											,
-		deva_Id											,
-		codi_Restricciones_Utilizacion					,
-		codi_Indicar_Restricciones_Utilizacion			,
-		codi_Depende_Precio_Condicion					,
-		codi_Indicar_Existe_Condicion					,
-		codi_Condicionada_Revertir						,
-		codi_Vinculacion_Comprador_Vendedor				,
-		codi_Tipo_Vinculacion							,
-		codi_Vinculacion_Influye_Precio					,
-		codi_Pagos_Descuentos_Indirectos				,
-		codi_Concepto_Monto_Declarado					,
-		codi_Existen_Canones							,
-		codi_Indicar_Canones							,
-		condiciones.usua_UsuarioCreacion				,
-		usuarioCreacion.usua_Nombre						AS usuarioCreacionNombre,
-		codi_FechaCreacion								,
-		condiciones.usua_UsuarioModificacion			,
-		usuarioModificacion.usua_Nombre					AS usuarioModificacionNombre,
-		codi_FechaModificacion							,
-		codi_Estado								
-FROM	Adua.tbCondiciones condiciones
-		INNER JOIN Acce.tbUsuarios usuarioCreacion		ON condiciones.usua_UsuarioCreacion = usuarioCreacion.usua_Id
-		LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON condiciones.usua_UsuarioModificacion = usuarioModificacion.usua_Id
-WHERE	codi_Estado = 1
-END
-GO
-/*Insertar CONDICIONES*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Insertar
-(
-	@deva_Id								INT, 
-	@codi_Restricciones_Utilizacion			BIT,
-	@codi_Indicar_Restricciones_Utilizacion	NVARCHAR(500),
-	@codi_Depende_Precio_Condicion			BIT, 
-	@codi_Indicar_Existe_Condicion			NVARCHAR(200), 
-	@codi_Condicionada_Revertir				BIT, 
-	@codi_Vinculacion_Comprador_Vendedor	BIT, 
-	@codi_Tipo_Vinculacion					NVARCHAR(500), 
-	@codi_Vinculacion_Influye_Precio		BIT, 
-	@codi_Pagos_Descuentos_Indirectos		BIT, 
-	@codi_Concepto_Monto_Declarado			NVARCHAR(500), 
-	@codi_Existen_Canones					BIT, 
-	@codi_Indicar_Canones					NVARCHAR(500), 
-	@usua_UsuarioCreacion					INT, 
-	@codi_FechaCreacion						DATETIME
-)
-AS
-BEGIN
-	BEGIN TRY
-		INSERT INTO Adua.tbCondiciones 
-					(deva_Id, 
-					codi_Restricciones_Utilizacion, 
-					codi_Indicar_Restricciones_Utilizacion, 
-					codi_Depende_Precio_Condicion, 
-					codi_Indicar_Existe_Condicion, 
-					codi_Condicionada_Revertir, 
-					codi_Vinculacion_Comprador_Vendedor, 
-					codi_Tipo_Vinculacion, 
-					codi_Vinculacion_Influye_Precio, 
-					codi_Pagos_Descuentos_Indirectos, 
-					codi_Concepto_Monto_Declarado, 
-					codi_Existen_Canones, 
-					codi_Indicar_Canones, 
-					usua_UsuarioCreacion, 
-					codi_FechaCreacion)
-			VALUES	(@deva_Id,
-					@codi_Restricciones_Utilizacion,
-					@codi_Indicar_Restricciones_Utilizacion,
-					@codi_Depende_Precio_Condicion,
-					@codi_Indicar_Existe_Condicion,
-					@codi_Condicionada_Revertir,
-					@codi_Vinculacion_Comprador_Vendedor,
-					@codi_Tipo_Vinculacion,
-					@codi_Vinculacion_Influye_Precio,
-					@codi_Pagos_Descuentos_Indirectos,
-					@codi_Concepto_Monto_Declarado,
-					@codi_Existen_Canones,
-					@codi_Indicar_Canones,
-					@usua_UsuarioCreacion,
-					@codi_FechaCreacion)
+--CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Listar
+--AS
+--BEGIN
+--SELECT	codi_Id											,
+--		deva_Id											,
+--		codi_Restricciones_Utilizacion					,
+--		codi_Indicar_Restricciones_Utilizacion			,
+--		codi_Depende_Precio_Condicion					,
+--		codi_Indicar_Existe_Condicion					,
+--		codi_Condicionada_Revertir						,
+--		codi_Vinculacion_Comprador_Vendedor				,
+--		codi_Tipo_Vinculacion							,
+--		codi_Vinculacion_Influye_Precio					,
+--		codi_Pagos_Descuentos_Indirectos				,
+--		codi_Concepto_Monto_Declarado					,
+--		codi_Existen_Canones							,
+--		codi_Indicar_Canones							,
+--		condiciones.usua_UsuarioCreacion				,
+--		usuarioCreacion.usua_Nombre						AS usuarioCreacionNombre,
+--		codi_FechaCreacion								,
+--		condiciones.usua_UsuarioModificacion			,
+--		usuarioModificacion.usua_Nombre					AS usuarioModificacionNombre,
+--		codi_FechaModificacion							,
+--		codi_Estado								
+--FROM	Adua.tbCondiciones condiciones
+--		INNER JOIN Acce.tbUsuarios usuarioCreacion		ON condiciones.usua_UsuarioCreacion = usuarioCreacion.usua_Id
+--		LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON condiciones.usua_UsuarioModificacion = usuarioModificacion.usua_Id
+--WHERE	codi_Estado = 1
+--END
+--GO
+--/*Insertar CONDICIONES*/
+--CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Insertar
+--(
+--	@deva_Id								INT, 
+--	@codi_Restricciones_Utilizacion			BIT,
+--	@codi_Indicar_Restricciones_Utilizacion	NVARCHAR(500),
+--	@codi_Depende_Precio_Condicion			BIT, 
+--	@codi_Indicar_Existe_Condicion			NVARCHAR(200), 
+--	@codi_Condicionada_Revertir				BIT, 
+--	@codi_Vinculacion_Comprador_Vendedor	BIT, 
+--	@codi_Tipo_Vinculacion					NVARCHAR(500), 
+--	@codi_Vinculacion_Influye_Precio		BIT, 
+--	@codi_Pagos_Descuentos_Indirectos		BIT, 
+--	@codi_Concepto_Monto_Declarado			NVARCHAR(500), 
+--	@codi_Existen_Canones					BIT, 
+--	@codi_Indicar_Canones					NVARCHAR(500), 
+--	@usua_UsuarioCreacion					INT, 
+--	@codi_FechaCreacion						DATETIME
+--)
+--AS
+--BEGIN
+--	BEGIN TRY
+--		INSERT INTO Adua.tbCondiciones 
+--					(deva_Id, 
+--					codi_Restricciones_Utilizacion, 
+--					codi_Indicar_Restricciones_Utilizacion, 
+--					codi_Depende_Precio_Condicion, 
+--					codi_Indicar_Existe_Condicion, 
+--					codi_Condicionada_Revertir, 
+--					codi_Vinculacion_Comprador_Vendedor, 
+--					codi_Tipo_Vinculacion, 
+--					codi_Vinculacion_Influye_Precio, 
+--					codi_Pagos_Descuentos_Indirectos, 
+--					codi_Concepto_Monto_Declarado, 
+--					codi_Existen_Canones, 
+--					codi_Indicar_Canones, 
+--					usua_UsuarioCreacion, 
+--					codi_FechaCreacion)
+--			VALUES	(@deva_Id,
+--					@codi_Restricciones_Utilizacion,
+--					@codi_Indicar_Restricciones_Utilizacion,
+--					@codi_Depende_Precio_Condicion,
+--					@codi_Indicar_Existe_Condicion,
+--					@codi_Condicionada_Revertir,
+--					@codi_Vinculacion_Comprador_Vendedor,
+--					@codi_Tipo_Vinculacion,
+--					@codi_Vinculacion_Influye_Precio,
+--					@codi_Pagos_Descuentos_Indirectos,
+--					@codi_Concepto_Monto_Declarado,
+--					@codi_Existen_Canones,
+--					@codi_Indicar_Canones,
+--					@usua_UsuarioCreacion,
+--					@codi_FechaCreacion)
 
-		SELECT 1 AS Resultado
-	END TRY
-	BEGIN CATCH
-		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
-	END CATCH
-END
-GO
+--		SELECT 1 AS Resultado
+--	END TRY
+--	BEGIN CATCH
+--		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+--	END CATCH
+--END
+--GO
 
-/*Editar CONDICIONES*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Editar
-(
-	@codi_Id								INT,
-	@deva_Id								INT, 
-	@codi_Restricciones_Utilizacion			BIT,
-	@codi_Indicar_Restricciones_Utilizacion	NVARCHAR(500),
-	@codi_Depende_Precio_Condicion			BIT, 
-	@codi_Indicar_Existe_Condicion			NVARCHAR(200), 
-	@codi_Condicionada_Revertir				BIT, 
-	@codi_Vinculacion_Comprador_Vendedor	BIT, 
-	@codi_Tipo_Vinculacion					NVARCHAR(500), 
-	@codi_Vinculacion_Influye_Precio		BIT, 
-	@codi_Pagos_Descuentos_Indirectos		BIT, 
-	@codi_Concepto_Monto_Declarado			NVARCHAR(500), 
-	@codi_Existen_Canones					BIT, 
-	@codi_Indicar_Canones					NVARCHAR(500), 
-	@usua_UsuarioModificacion				INT, 
-	@codi_FechaModificacion					DATETIME
-)
-AS
-BEGIN
-	BEGIN TRY
-		UPDATE Adua.tbCondiciones 
-		   SET deva_Id = @deva_Id, 
-			   codi_Restricciones_Utilizacion = @codi_Restricciones_Utilizacion, 
-			   codi_Indicar_Restricciones_Utilizacion = @codi_Indicar_Restricciones_Utilizacion, 
-			   codi_Depende_Precio_Condicion = @codi_Depende_Precio_Condicion, 
-			   codi_Indicar_Existe_Condicion = @codi_Indicar_Existe_Condicion, 
-			   codi_Condicionada_Revertir = @codi_Condicionada_Revertir, 
-			   codi_Vinculacion_Comprador_Vendedor = @codi_Vinculacion_Comprador_Vendedor, 
-			   codi_Tipo_Vinculacion = @codi_Tipo_Vinculacion, 
-			   codi_Vinculacion_Influye_Precio = @codi_Vinculacion_Influye_Precio, 
-			   codi_Pagos_Descuentos_Indirectos = @codi_Pagos_Descuentos_Indirectos, 
-			   codi_Concepto_Monto_Declarado = @codi_Concepto_Monto_Declarado, 
-			   codi_Existen_Canones = @codi_Existen_Canones, 
-			   codi_Indicar_Canones = @codi_Indicar_Canones, 
-			   usua_UsuarioCreacion = @usua_UsuarioModificacion, 
-			   codi_FechaCreacion = @codi_FechaModificacion
-		 WHERE codi_Id = @codi_Id
-		   AND codi_Estado = 1
+--/*Editar CONDICIONES*/
+--CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Editar
+--(
+--	@codi_Id								INT,
+--	@deva_Id								INT, 
+--	@codi_Restricciones_Utilizacion			BIT,
+--	@codi_Indicar_Restricciones_Utilizacion	NVARCHAR(500),
+--	@codi_Depende_Precio_Condicion			BIT, 
+--	@codi_Indicar_Existe_Condicion			NVARCHAR(200), 
+--	@codi_Condicionada_Revertir				BIT, 
+--	@codi_Vinculacion_Comprador_Vendedor	BIT, 
+--	@codi_Tipo_Vinculacion					NVARCHAR(500), 
+--	@codi_Vinculacion_Influye_Precio		BIT, 
+--	@codi_Pagos_Descuentos_Indirectos		BIT, 
+--	@codi_Concepto_Monto_Declarado			NVARCHAR(500), 
+--	@codi_Existen_Canones					BIT, 
+--	@codi_Indicar_Canones					NVARCHAR(500), 
+--	@usua_UsuarioModificacion				INT, 
+--	@codi_FechaModificacion					DATETIME
+--)
+--AS
+--BEGIN
+--	BEGIN TRY
+--		UPDATE Adua.tbCondiciones 
+--		   SET deva_Id = @deva_Id, 
+--			   codi_Restricciones_Utilizacion = @codi_Restricciones_Utilizacion, 
+--			   codi_Indicar_Restricciones_Utilizacion = @codi_Indicar_Restricciones_Utilizacion, 
+--			   codi_Depende_Precio_Condicion = @codi_Depende_Precio_Condicion, 
+--			   codi_Indicar_Existe_Condicion = @codi_Indicar_Existe_Condicion, 
+--			   codi_Condicionada_Revertir = @codi_Condicionada_Revertir, 
+--			   codi_Vinculacion_Comprador_Vendedor = @codi_Vinculacion_Comprador_Vendedor, 
+--			   codi_Tipo_Vinculacion = @codi_Tipo_Vinculacion, 
+--			   codi_Vinculacion_Influye_Precio = @codi_Vinculacion_Influye_Precio, 
+--			   codi_Pagos_Descuentos_Indirectos = @codi_Pagos_Descuentos_Indirectos, 
+--			   codi_Concepto_Monto_Declarado = @codi_Concepto_Monto_Declarado, 
+--			   codi_Existen_Canones = @codi_Existen_Canones, 
+--			   codi_Indicar_Canones = @codi_Indicar_Canones, 
+--			   usua_UsuarioCreacion = @usua_UsuarioModificacion, 
+--			   codi_FechaCreacion = @codi_FechaModificacion
+--		 WHERE codi_Id = @codi_Id
+--		   AND codi_Estado = 1
 
-		SELECT 1 AS Resultado
-	END TRY
-	BEGIN CATCH
-		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
-	END CATCH
-END
-GO
+--		SELECT 1 AS Resultado
+--	END TRY
+--	BEGIN CATCH
+--		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+--	END CATCH
+--END
+--GO
 
 
 -----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS MÓDULO PRODUCCION

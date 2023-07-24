@@ -3265,6 +3265,7 @@ END
 -----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS MÓDULO PRODUCCION
 --************PROCESO******************--
 /*Listar Proceso*/
+GO
 CREATE OR ALTER PROCEDURE Prod.UDP_tbProcesos_Listar
 AS
 BEGIN

@@ -1969,7 +1969,7 @@ CREATE TABLE Prod.tbAsignacionesOrden(
 	asor_FechaModificacion		DATETIME DEFAULT NULL,
 	--usua_UsuarioEliminacion	INT DEFAULT NULL,
 	--asor_FechaEliminacion		DATETIME DEFAULT NULL,
-	asor_Estado					BIT DEFAULT 1
+	--asor_Estado					BIT DEFAULT 1
 
 	CONSTRAINT PK_Prod_tbAsignacionesOrden_asor_Id								PRIMARY KEY (asor_Id),
 	CONSTRAINT FK_Prod_tbAsignacionesOrden_tbProcesos_proc_Id					FOREIGN KEY	(proc_Id) 				   REFERENCES Prod.tbProcesos (proc_Id),
@@ -2018,7 +2018,7 @@ CREATE TABLE Prod.tbAsignacionesOrdenDetalle(
 	adet_FechaModificacion		DATETIME DEFAULT NULL,
 	--usua_UsuarioEliminacion		INT DEFAULT NULL,
 	--amod_FechaEliminacion		DATETIME DEFAULT NULL,
-	adet_Estado					BIT DEFAULT 1 
+	--adet_Estado					BIT DEFAULT 1 
 
 	CONSTRAINT PK_Prod_tbAsignacionesModuloDetalle_adet_Id								PRIMARY KEY (adet_Id),
 	CONSTRAINT FK_Prod_tbAsignacionesModuloDetalle_tbLotes_lote_Id						FOREIGN KEY (lote_Id)				   REFERENCES Prod.tbLotes (lote_Id),

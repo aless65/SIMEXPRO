@@ -1,14 +1,14 @@
+/* eslint-disable react/jsx-pascal-case */
 /* eslint-disable camelcase */
 /* eslint-disable no-lone-blocks */
 /* eslint-disable prettier/prettier */
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { Button, Icon, IconButton, InputAdornment, TextField } from '@mui/material';
+import { Button, Icon } from '@mui/material';
 import Stack from '@mui/material/Stack';
-import { DataGrid, GridToolbar, esES } from '@mui/x-data-grid'
 import { useState } from 'react';
-import SearchIcon from '@mui/icons-material/Search';
+
 
 
 import Collapse from '@mui/material/Collapse';
@@ -65,7 +65,7 @@ function OrdenPedido_Index() {
 
       {/* Tabla */}
       <Collapse in={mostrarIndex}>
-              <OrdenPedido_TablaMaestra></OrdenPedido_TablaMaestra>
+              <OrdenPedido_TablaMaestra />
       </Collapse>
 
       <Dialog

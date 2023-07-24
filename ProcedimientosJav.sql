@@ -742,3 +742,173 @@ BEGIN
 	END CATCH
 END
 GO
+
+
+
+--*****Pedidos Orden*****-
+--*****Listado*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Listas
+AS
+BEGIN
+SELECT	peor_Id, 
+		prov.prov_Id, 
+		prov.prov_NombreCompania,
+		prov.prov_NombreContacto,
+		prov.prov_Ciudad,
+		peor_No_Duca, 
+		peor_FechaEntrada, 
+		peor_Obsevaciones, 
+		peor_DadoCliente, 
+		peor_Est, 
+		crea.usua_Nombre							AS usua_UsuarioCreacion, 
+		peor_FechaCreacion, 
+		modi.usua_Nombre							AS usua_UsuarioModificacion , 
+		peor_FechaModificacion, 
+		peor_Estado 
+FROM	Prod.tbPedidosOrden po
+		INNER JOIN Gral.tbProveedores prov			ON po.prov_Id = prov.prov_Id
+		INNER JOIN Acce.tbUsuarios crea				ON crea.usua_Id = po.usua_UsuarioCreacion 
+		LEFT JOIN  Acce.tbUsuarios modi				ON modi.usua_Id = po.usua_UsuarioModificacion 	
+END
+GO
+
+
+--*****Insertar*****--
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Insertar
+@prov_Id				INT, 
+@peor_No_Duca			NVARCHAR(100), 
+@peor_FechaEntrada		DATETIME, 
+@peor_Obsevaciones		NVARCHAR(100), 
+@peor_DadoCliente		BIT, 
+@peor_Est				BIT, 
+@usua_UsuarioCreacion	INT, 
+@peor_FechaCreacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Prod.tbPedidosOrden (prov_Id, peor_No_Duca, peor_FechaEntrada, peor_Obsevaciones, peor_DadoCliente, peor_Est, usua_UsuarioCreacion, peor_FechaCreacion)
+		VALUES	(@prov_Id,				
+				 @peor_No_Duca,			
+				 @peor_FechaEntrada,		
+				 @peor_Obsevaciones,		
+				 @peor_DadoCliente,		
+				 @peor_Est,				
+				 @usua_UsuarioCreacion,	
+				 @peor_FechaCreacion	
+				 )	
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() 
+	END CATCH
+END
+GO
+
+--*****Editar*****--
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Editar
+@peor_Id					INT, 
+@prov_Id					INT, 
+@peor_No_Duca				NVARCHAR(100), 
+@peor_FechaEntrada			DATETIME, 
+@peor_Obsevaciones			NVARCHAR(100), 
+@peor_DadoCliente			BIT, 
+@peor_Est					BIT, 
+@usua_UsuarioModificacion	INT, 
+@peor_FechaModificacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE Prod.tbPedidosOrden 
+		SET prov_Id 				= @prov_Id, 
+		peor_No_Duca				= @peor_No_Duca, 
+		peor_FechaEntrada			= @peor_FechaEntrada,	 
+		peor_Obsevaciones			= @peor_Obsevaciones, 
+		peor_DadoCliente			= @peor_DadoCliente,
+		peor_Est					= @peor_Est, 
+		usua_UsuarioModificacion	= @usua_UsuarioModificacion,
+		peor_FechaModificacion		= @peor_FechaModificacion	
+		WHERE peor_Id				= @peor_Id
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() 
+	END CATCH
+END
+GO
+
+
+--*****ReporteModuloDia*****-
+--*****Listado*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbReporteModuloDia_Listar
+AS
+BEGIN
+SELECT	remo_Id, 
+		modu.modu_Id, 
+		modu.modu_Nombre,
+		remo_Fecha, 
+		remo_TotalDia, 
+		remo_TotalDanado, 
+		crea.usua_Nombre usua_UsuarioCreacion, 
+		remo_FechaCreacion, 
+		modi.usua_Nombre usua_UsuarioModificacion, 
+		remo_FechaModificacion, 
+		remo_Estado 
+FROM	Prod.tbReporteModuloDia rmd 
+		INNER JOIN Prod.tbModulos modu				ON rmd.modu_Id = modu.modu_Id 
+		INNER JOIN Acce.tbUsuarios crea				ON crea.usua_Id = rmd.usua_UsuarioCreacion 
+		LEFT JOIN  Acce.tbUsuarios modi				ON modi.usua_Id = rmd.usua_UsuarioModificacion 	
+END
+GO
+
+--*****Insertar*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbReporteModuloDia_Insertar
+@modu_Id				INT, 
+@remo_Fecha				DATE, 
+@remo_TotalDia			INT, 
+@remo_TotalDanado		INT, 
+@usua_UsuarioCreacion	INT, 
+@remo_FechaCreacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Prod.tbReporteModuloDia (modu_Id, remo_Fecha, remo_TotalDia, remo_TotalDanado, usua_UsuarioCreacion, remo_FechaCreacion)
+		VALUES (
+		@modu_Id,				
+		@remo_Fecha,				
+		@remo_TotalDia,		
+		@remo_TotalDanado,		
+		@usua_UsuarioCreacion,	
+		@remo_FechaCreacion
+		)
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() 
+	END CATCH
+END
+GO
+--*****Editar*****--
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbReporteModuloDia_Editar
+@remo_Id					INT, 
+@modu_Id					INT, 
+@remo_Fecha					DATE, 
+@remo_TotalDia				INT, 
+@remo_TotalDanado			INT, 
+@usua_UsuarioModificacion	INT, 
+@remo_FechaModificacion	 	DATETIME 
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE Prod.tbReporteModuloDia
+		SET modu_Id					= @modu_Id, 
+		remo_Fecha					= @remo_Fecha, 
+		remo_TotalDia				= @remo_TotalDia, 
+		remo_TotalDanado			= @remo_TotalDanado, 
+		usua_UsuarioModificacion	= @usua_UsuarioModificacion, 
+		remo_FechaModificacion		= @remo_FechaModificacion	 
+		where remo_Id				= @remo_Id				
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() 
+	END CATCH
+END

@@ -2110,7 +2110,8 @@ CREATE TABLE Adua.tbTransporte(
 	CONSTRAINT PK_Adua_tbTransporte_tran_Id PRIMARY KEY(tran_Id),
 	CONSTRAINT FK_Prod_tbTransporte_tbUsuarios_tran_UsuCrea							 FOREIGN KEY (usua_UsuarioCreacio)		REFERENCES Acce.tbUsuarios 	(usua_Id),
 	CONSTRAINT FK_Prod_tbTransporte_tbUsuarios_tran_UsuModifica						 FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios 	(usua_Id),
-	CONSTRAINT FK_Gral_tbPaises_pais_Id_Adua_tbTransporte_pais_Id 					 FOREIGN KEY (pais_Id)					REFERENCES Gral.tbPaises(pais_Id),
+	CONSTRAINT FK_Adua_tbTransporte_tbMarca_marca_id                                 FOREIGN KEY (marca_Id)                 REFERENCES Adua.tbMarcas    (marc_Id),
+	CONSTRAINT FK_Gral_tbPaises_pais_Id_Adua_tbTransporte_pais_Id 					 FOREIGN KEY (pais_Id)					REFERENCES Gral.tbPaises    (pais_Id),
 	CONSTRAINT PK_Adua_tbTransporte_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 	REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO

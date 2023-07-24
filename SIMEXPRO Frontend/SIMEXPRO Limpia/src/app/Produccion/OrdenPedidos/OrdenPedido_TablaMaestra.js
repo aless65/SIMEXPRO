@@ -358,7 +358,7 @@ export default function OrdenPedido_TablaMaestra() {
         <Grid xs={12}>
             <Grid item xs={6} textAlign="end">
                 <TextField
-                style={{ borderRadius: '10px' }}
+                style={{ borderRadius: '10px', marginLeft: '650px', marginTop: '-65px', marginRight: '20px' }}
                 placeholder="Buscar"
                 value={searchText}
                 onChange={handleSearchChange}

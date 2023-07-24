@@ -13,7 +13,6 @@ import CiudadesIndex from '../Ubicaciones/Ciudades/Ciudades';
 import ProvinciasIndex from '../Ubicaciones/Provincias/Provincias';
 import PaisesIndex from '../Ubicaciones/Paises/Paises';
 import ColoniasIndex from '../Ubicaciones/Colonias/Colonias';
-import EstadosCivilesIndex from '../Personas/EstadosCiviles/EstadosCiviles';
 import CargosIndex from '../Personas/Cargos/Cargos';
 import OficinasIndex from '../Personas/Oficinas/Oficinas';
 import OficiosProfesiones from '../Personas/OficiosProfesiones/OficiosProfesiones';
@@ -25,10 +24,10 @@ import RolesCrear from '../Seguridad/Roles/roles_crear';
 import DucaIndex from '../Aduanas/DUCA/duca_Index';
 import DucaCrear from '../Aduanas/DUCA/duca_Crear';
 import Subir_Documentos from '../Aduanas/Documentacion/Subir_Documentos';
-
+import TallasIndex from '../Prendas/Tallas/Tallas';
 import EmpleadosIndex from '../Personas/Empleados/Empleados';
 import ProveedoresIndex from '../Personas/Proveedores/Proveedores';
-
+import OrdenCompraIndex from '../Produccion/OrdenCompra/OrdenCompra';
 import PersonaNatural_Index from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/PersonaNatural_Index';
 import PersonaNatural_Crear from '../Aduanas/Contratos_de_Adhesión/Persona_Natural/PersonaNatural_Crear';
 import Declaracion_Valor_Index from '../Aduanas/Declaracion_De_Valor/Declaracion_Valor_Index';
@@ -53,14 +52,18 @@ import DocumentosDeSanciones from '../Aduanas/DocumentosDeSanciones/DocumentosDe
 import OrdenProcesosIndex from '../Produccion/OrdenDeProcesos/OrdenDeProcesos';
 import CalendarApp from '../Produccion/Planificación/CalendarApp';
 import MaquinasIndex from '../Maquinaria/Máquinas/Maquinas';
-import FormaDeEnvioIndex from '../Generales/FormasEnvio/FormasEnvio';
-import MonedasIndex from '../Generales/Monedas/monedas';
+import FormaDeEnvioIndex from '../generales/FormasEnvio/FormasEnvio';
+import MonedasIndex from '../generales/Monedas/monedas';
 import ModuloIndex from '../Produccion/Modulos/Modulos';
 import ProcesosIndex from '../Produccion/Procesos/Procesos';
+import OrdenCompra_Crear from '../Produccion/OrdenCompra/OrdenCompra_Crear';
 import MarcasIndex from '../Maquinaria/MarcasMaquina/MarcasMaquina';
 import ModelosMaquinaIndex from '../Maquinaria/ModelosMaquina/ModelosMaquina';
 import Revision_de_Calidad_Index from '../Produccion/Revisión de Calidad/RevisionCalidad';
-
+import OrdenPedido_Index from '../Produccion/OrdenPedidos/OrdenPedido_Index';
+import OrdenPedido_Crear from '../Produccion/OrdenPedidos/OrdenPedido_Crear';
+import PedidosProduccion from '../Produccion/PedidosProduccion/PedidosProduccion';
+import PedidosProduccion_Crear from '../Produccion/PedidosProduccion/PedidosProduccion_Crear';
 const routeConfigs = [
   ...dashboardsConfigs,
   ...pagesConfigs,
@@ -89,6 +92,26 @@ const routes = [
     element: <CiudadesIndex />,
   },
   {
+    path: 'OrdenCompra/Crear',
+    element: <OrdenCompra_Crear />,
+  },
+  {
+    path: 'OrdenPedido/Crear',
+    element: <OrdenPedido_Crear />,
+  },
+  {
+    path: 'RevisionCalidad/Crear',
+    element: <Revision_de_Calidad_Index />,
+  },
+  {
+    path: 'PedidosProduccion/Index',
+    element: <PedidosProduccion />,
+  },
+  {
+    path: 'PedidosProduccion/Crear',
+    element: <PedidosProduccion_Crear />,
+  },
+  {
     path: 'RevisionCalidad/Index',
     element: <Revision_de_Calidad_Index />,
   },
@@ -107,18 +130,18 @@ const routes = [
   {
     path: 'FormaDeEnvio/Index',
     element: <FormaDeEnvioIndex />,
- },
- {
-  path: 'Monedas/Index',
-  element: <MonedasIndex />,
-},
+  },
+  {
+    path: 'Monedas/Index',
+    element: <MonedasIndex />,
+  },
   {
     path: 'Cargos/Index',
     element: <CargosIndex />,
   },
   {
-    path: 'EstadosCiviles/Index',
-    element: <EstadosCivilesIndex />,
+    path: 'OrdenCompra/Index',
+    element: <OrdenCompraIndex />,
   },
   {
     path: 'Oficinas/Index',
@@ -299,6 +322,14 @@ const routes = [
   {
     path: 'ModelosMaquinas/Index',
     element: <ModelosMaquinaIndex />,
+  },
+  {
+    path: 'Tallas/Index',
+    element: <TallasIndex />,
+  },
+  {
+    path: 'OrdenPedido/Index',
+    element: <OrdenPedido_Index />,
   },
 ];
 

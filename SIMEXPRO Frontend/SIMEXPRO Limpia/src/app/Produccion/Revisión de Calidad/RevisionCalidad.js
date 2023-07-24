@@ -88,34 +88,34 @@ function Revision_de_Calidad_Index() {
     {
       field: 'acciones',
       headerName: 'Acciones',
-      flex:1,
+      flex: 1,
       renderCell: (params) => {
         const [anchorEl, setAnchorEl] = React.useState(null);
-  
+
         const handleClick = (event) => {
           setAnchorEl(event.currentTarget);
         };
-  
+
         const handleClose = () => {
           setAnchorEl(null);
         };
-  
+
         const handleEdit = () => {
           // Implementa la función para editar aquí
           handleClose();
         };
-  
+
         const handleDetails = () => {
           // Implementa la función para detalles aquí
           handleClose();
         };
-  
+
         const handleDelete = () => {
           DialogEliminar();
           // Implementa la función para eliminar aquí
           handleClose();
         };
-  
+
         const handlePrint = () => {
           // Implementa la función para imprimir aquí
 
@@ -126,7 +126,7 @@ function Revision_de_Calidad_Index() {
           // Implementa la función para imprimir aquí
           handleClose();
         };
-  
+
         return (
           <Stack direction="row" spacing={1}>
             <Button
@@ -346,14 +346,12 @@ function Revision_de_Calidad_Index() {
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
-
                         </InputAdornment>
                       ),
 
                     }}
-
                     label="Observaciones"
-
+                    type='Textarea'
                     value={observaciones}
                     onChange={(e) => {
                       setObservaciones(e.target.value);

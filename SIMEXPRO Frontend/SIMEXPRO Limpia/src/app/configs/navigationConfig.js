@@ -159,13 +159,7 @@ const navigationConfig = [
             icon: 'material-outline:cleaning_services',
             url: 'Cargos/Index',
           },
-          {
-            id: 'Personas.estados_civiles',
-            title: 'Estados Civiles',
-            type: 'item',
-            icon: 'material-outline:male',
-            url: 'EstadosCiviles/Index',
-          },
+
           {
             id: 'Personas.empleados',
             title: 'Empleados ',
@@ -346,13 +340,7 @@ const navigationConfig = [
             icon: 'material-outline:pageview',
             url: '/RevisionCalidad/Index',
           },
-          {
-            id: 'Produccion.RevisionModuloDia',
-            title: 'Revision de Módulo',
-            type: 'item',
-            icon: 'material-outline:recycling',
-            url: '/Produccion/RevisionModuloDia',
-          },
+  
         ],
       },
       {
@@ -435,20 +423,8 @@ const navigationConfig = [
             icon: 'material-outline:bakery_dining',
             url: '/Materiales/Index',
           },
-          {
-            id: 'Inventario.MaterialesBrindar',
-            title: 'Materiales a Brindar',
-            type: 'item',
-            icon: 'material-outline:business_center',
-            url: '/Inventario/MaterialesBrindar',
-          },
-          {
-            id: 'Inventario.PedidosOrden',
-            title: 'Órden de Pedido',
-            type: 'item',
-            icon: 'material-outline:fact_check',
-            url: '/Inventario/PedidosOrden',
-          },
+
+ 
           {
             id: 'Inventario.Subcategorias',
             title: 'Subcategorías',
@@ -487,13 +463,8 @@ const navigationConfig = [
             icon: 'material-outline:design_services',
             url: '/Estilos/Index',
           },
-          {
-            id: 'Prendas.Modelos',
-            title: 'Modelos',
-            type: 'item',
-            icon: 'material-outline:document_scanner',
-            url: '/Modelos/Index',
-          }, {
+
+           {
             id: 'Prendas.Tallas',
             title: 'Tallas',
             type: 'item',

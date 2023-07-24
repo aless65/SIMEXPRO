@@ -15,25 +15,31 @@ import Stack from "@mui/material/Stack";
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 import { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
+import Zoom from "@mui/material/Zoom";
+import Grow from "@mui/material/Grow";
 
 import Collapse from "@mui/material/Collapse";
 import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Select from "@mui/material/Select";
+import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import PedidosProduccion_Tabla from "./PedidosProduccion_Tabla";
 
-import { useNavigate } from "react-router-dom";
-
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-
-function Comerciante_Individual_Index() {
+function PedidosProduccion() {
+  const navigate = useNavigate();
   const [searchText, setSearchText] = useState("");
+  const [mostrarAdd, setmostrarAdd] = useState(false);
   const [Eliminar, setEliminar] = useState(false);
-  const Navigate = useNavigate();
 
   const DialogEliminar = () => {
     setEliminar(!Eliminar);
@@ -42,52 +48,76 @@ function Comerciante_Individual_Index() {
   {
     /*Columnas de la tabla*/
   }
+
   const columns = [
-    { field: "id", headerName: "Id", width: 100 },
-    { field: "RTN", headerName: "RTN Solitante", flex: 1 },
-    { field: "fecha", headerName: "Fecha de Solicitud", flex: 1 },
+    { field: "id", headerName: "ID", flex: 3 },
+    { field: "Empleado", headerName: "Empleado", flex: 3 },
+    { field: "FechaEmision", headerName: "Fecha de Emision", flex: 3 },
     {
-      field: 'acciones',
-      headerName: 'Acciones',
-      flex:1,
+      headerName: 'Estado Pedido',
+      field: 'EstadoPedido',
+      renderCell: (params) => {
+        let backgroundColor, textColor;
+  
+        if (params.row.EstadoPedido === "En proceso") {
+          backgroundColor = 'yellow';
+          textColor = 'black';
+        } else if (params.row.EstadoPedido === "Terminado") {
+          backgroundColor = 'green';
+          textColor = 'white';
+        } else if (params.row.EstadoPedido === "Pendiente") {
+          backgroundColor = 'red';
+          textColor = 'white';
+        } else {
+          // Agregar un estilo por defecto en caso de que no se cumpla ninguna condición
+          backgroundColor = 'gray';
+          textColor = 'black';
+        }
+  
+        return (
+          <div style={{ backgroundColor, padding: 10, borderRadius: 5, margin: 'auto', color: textColor }}>
+            {params.row.EstadoPedido}
+          </div>
+        );
+      },
+    },
+    { field: "UsuarioCreacion", headerName: "Usuario Creacion", flex: 4 },
+    {
+      field: "acciones",
+      headerName: "Acciones",
+      flex: 3,
       renderCell: (params) => {
         const [anchorEl, setAnchorEl] = React.useState(null);
-  
+
         const handleClick = (event) => {
           setAnchorEl(event.currentTarget);
         };
-  
+
         const handleClose = () => {
           setAnchorEl(null);
         };
-  
+
         const handleEdit = () => {
           // Implementa la función para editar aquí
           handleClose();
         };
-  
+
         const handleDetails = () => {
           // Implementa la función para detalles aquí
           handleClose();
         };
-  
+
         const handleDelete = () => {
-          DialogEliminar();
           // Implementa la función para eliminar aquí
           handleClose();
         };
-  
-        const handlePrint = () => {
-          // Implementa la función para imprimir aquí
 
+        const handleAddMaterial = () => {
+          // Implementa la función para añadir materiales aquí
+          VisibilidadTabla();
           handleClose();
         };
 
-        const handleBoletin = () => {
-          // Implementa la función para imprimir aquí
-          handleClose();
-        };
-  
         return (
           <Stack direction="row" spacing={1}>
             <Button
@@ -95,7 +125,11 @@ function Comerciante_Individual_Index() {
               aria-haspopup="true"
               onClick={handleClick}
               variant="contained"
-              style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+              style={{
+                borderRadius: "10px",
+                backgroundColor: "#634A9E",
+                color: "white",
+              }}
               startIcon={<Icon>menu</Icon>}
             >
               Opciones
@@ -112,9 +146,12 @@ function Comerciante_Individual_Index() {
               </MenuItem>
               <MenuItem onClick={handleDetails}>
                 <Icon>visibility</Icon> Detalles
-              </MenuItem>
+              </MenuItem>   
               <MenuItem onClick={handleDelete}>
                 <Icon>delete</Icon> Eliminar
+              </MenuItem>
+              <MenuItem onClick={handleAddMaterial}>
+                <Icon>print</Icon> Imprimir
               </MenuItem>
             </Menu>
           </Stack>
@@ -126,7 +163,29 @@ function Comerciante_Individual_Index() {
   {
     /*Datos de la tabla*/
   }
-  const rows = [{ id: "1", RTN: "05012006017552", fecha: "01/02/2023" }];
+  const rows = [
+    {
+      id: "5686464562",
+      Empleado: "Isaac Zepeda GOD",
+      FechaEmision: "02/05/2023",
+      EstadoPedido: "En proceso",
+      UsuarioCreacion: "admin",
+    },
+    {
+        id: "5686464563",
+        Empleado: "Isaac Zepeda GOD",
+        FechaEmision: "02/05/2023",
+        EstadoPedido: "Terminado",
+        UsuarioCreacion: "admin",
+    },
+    {
+        id: "5686464564",
+        Empleado: "Isaac Zepeda GOD",
+        FechaEmision: "02/05/2023",
+        EstadoPedido: "Pendiente",
+        UsuarioCreacion: "admin",
+    },
+  ];
 
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
@@ -135,10 +194,8 @@ function Comerciante_Individual_Index() {
   {
     /*Filtrado de datos*/
   }
-  const filteredRows = rows.filter(
-    (row) =>
-      row.RTN.toLowerCase().includes(searchText.toLowerCase()) ||
-      row.fecha.toLowerCase().includes(searchText.toLowerCase())
+  const filteredRows = rows.filter((row) =>
+    row.id.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
@@ -146,7 +203,7 @@ function Comerciante_Individual_Index() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/FBTmyr7/CONTRATO-DE-ADHESI-N-COMERCIANTE-INDIVIDUAL.png"
+        image="https://i.ibb.co/2ZDqQND/PEDIDOS-DE-PRODUCCI-N.png"
         alt="Encabezado de la carta"
       />
       <CardContent
@@ -168,53 +225,18 @@ function Comerciante_Individual_Index() {
               color: "white",
               "&:hover": { backgroundColor: "#6e52ae" },
             }}
-            onClick={(e) => {
-              Navigate("/Contrato-de-Adhesion-Comerciante-Individual/Agregar");
+            onClick={() => {
+              navigate("/PedidosProduccion/Crear");
             }}
           >
             Nuevo
           </Button>
         </Stack>
 
-        {/*Barra de Busqueda en la Tabla*/}
-        <TextField
-          style={{ borderRadius: "10px" }}
-          placeholder="Buscar"
-          value={searchText}
-          onChange={handleSearchChange}
-          size="small"
-          variant="outlined"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <IconButton edge="start">
-                  <SearchIcon />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
+   
       </CardContent>
 
-      {/*Tabla*/}
-
-      <div style={{ height: 400, width: "100%" }}>
-        <DataGrid
-          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-          components={{
-            Toolbar: GridToolbar,
-            Search: SearchIcon,
-          }}
-          rows={filteredRows}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 10 },
-            },
-          }}
-          pageSizeOptions={[10, 20, 50]}
-        />
-      </div>
+          <PedidosProduccion_Tabla/>
 
       <Dialog
         open={Eliminar}
@@ -277,4 +299,4 @@ function Comerciante_Individual_Index() {
   );
 }
 
-export default Comerciante_Individual_Index;
+export default PedidosProduccion;

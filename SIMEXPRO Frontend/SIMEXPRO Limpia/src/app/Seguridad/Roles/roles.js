@@ -10,8 +10,15 @@ import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { Navigate, useNavigate } from 'react-router-dom';
 
+import Zoom from '@mui/material/Zoom';
+import Grow from '@mui/material/Grow';
+
 import Collapse from '@mui/material/Collapse';
 import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Select from '@mui/material/Select';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -26,18 +33,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Paper from '@mui/material/Paper';
 
-import { Controller, useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import _ from '@lodash';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
-let Validacion = {
-  Rol: '',
-};
-
-const schemaValidacion = yup.object().shape({
-  Rol: yup.string().required(),
-});
 
 
 function not(a, b) {
@@ -57,21 +55,13 @@ function RolesIndex() {
   const [Eliminar, setEliminar] = useState(false);
 
 
+
   const [checked, setChecked] = React.useState([]);
   const [left, setLeft] = React.useState(['Usuarios', 'Roles', 'Boletin de Pago', 'Declaracion de Valor', 'Duca']); //arreglo de la columna izquierda
   const [right, setRight] = React.useState([]); //arreglo de la columna derecha
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
-
-
-  const { handleSubmit, reset, control, formState } = useForm({
-    Validacion,
-    mode: 'all',
-    resolver: yupResolver(schemaValidacion),
-  });
-  const { isValid, dirtyFields, errors } = formState;
-
 
   const DialogEliminar = () => {
     setEliminar(!Eliminar);
@@ -86,50 +76,77 @@ function RolesIndex() {
     {
       field: 'acciones',
       headerName: 'Acciones',
-      width: 400,
-      renderCell: (params) => (
-        <Stack direction="row" spacing={1}>
-          <Button
-            startIcon={<Icon>edit</Icon>}
-            variant="contained"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#634A9E',
-              color: 'white',
-              "&:hover": { backgroundColor: '#6e52ae' },
-            }}>
-            Editar
-          </Button>
+      flex:2,
+      renderCell: (params) => {
+        const [anchorEl, setAnchorEl] = React.useState(null);
+  
+        const handleClick = (event) => {
+          setAnchorEl(event.currentTarget);
+        };
+  
+        const handleClose = () => {
+          setAnchorEl(null);
+        };
+  
+        const handleEdit = () => {
+          // Implementa la función para editar aquí
+          handleClose();
+        };
+  
+        const handleDetails = () => {
+          // Implementa la función para detalles aquí
+          handleClose();
+        };
+  
+        const handleDelete = () => {
+          DialogEliminar();
+          // Implementa la función para eliminar aquí
+          handleClose();
+        };
+  
+        const handlePrint = () => {
+          // Implementa la función para imprimir aquí
 
-          <Button
-            startIcon={<Icon>visibility</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#797979', color: 'white',
-              "&:hover": { backgroundColor: '#b69999' },
-            }}
-          >
-            Detalles
-          </Button>
-          <Button
-            startIcon={<Icon>delete</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#E40F00', color: 'white',
-              "&:hover": { backgroundColor: '#eb5f56' },
-            }}
-            onClick={DialogEliminar}
-          >
-            Eliminar
-          </Button>
+          handleClose();
+        };
 
-
-        </Stack>
-      ),
+        const handleBoletin = () => {
+          // Implementa la función para imprimir aquí
+          handleClose();
+        };
+  
+        return (
+          <Stack direction="row" spacing={1}>
+            <Button
+              aria-controls={`menu-${params.id}`}
+              aria-haspopup="true"
+              onClick={handleClick}
+              variant="contained"
+              style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+              startIcon={<Icon>menu</Icon>}
+            >
+              Opciones
+            </Button>
+            <Menu
+              id={`menu-${params.id}`}
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleEdit}>
+                <Icon>edit</Icon> Editar
+              </MenuItem>
+              <MenuItem onClick={handleDetails}>
+                <Icon>visibility</Icon> Detalles
+              </MenuItem>
+              <MenuItem onClick={handleDelete}>
+                <Icon>delete</Icon> Eliminar
+              </MenuItem>
+            </Menu>
+          </Stack>
+        );
+      },
     },
   ];
 
@@ -300,35 +317,14 @@ function RolesIndex() {
 
         <Grid container spacing={3} style={{ marginTop: '20px' }}>
           <Grid item xs={3}></Grid>
-
-
           <Grid item xs={6}>
-            <Controller
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Rol"
-                  fullWidth
-                  error={!!errors.Rol}
-                  style={{ borderRadius: '3px' }}
-                  placeholder='Rol'
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                      
-                      </InputAdornment>
-                    ),
-
-                  }}
-                />
-              )}
-              name="Rol"
-              control={control}
-            />
+            <FormControl fullWidth>
+              <TextField style={{ borderRadius: '10px', }} label="Rol" />
+            </FormControl>
           </Grid>
         </Grid>
 
-        <Grid container spacing={2} style={{ marginTop: '20px' }} justifyContent="center" alignItems="center">
+        <Grid container spacing={2} style={{marginTop: '20px'}} justifyContent="center" alignItems="center">
           <Grid item>{customList(left)}</Grid>
           <Grid item>
             <Grid container direction="column" alignItems="center">
@@ -389,13 +385,11 @@ function RolesIndex() {
                 backgroundColor: '#634A9E', color: 'white',
                 "&:hover": { backgroundColor: '#6e52ae' },
               }}
-              disabled={_.isEmpty(dirtyFields) || !isValid}
               onClick={VisibilidadTabla}
             >
               Guardar
             </Button>
           </Stack>
-
           <Grid item xs={0}></Grid>
           <Stack direction="row" spacing={1}>
             <Button
@@ -420,7 +414,7 @@ function RolesIndex() {
 
       <Dialog
         open={Eliminar}
-        fullWidth
+        fullWidth={'md'}
         onClose={DialogEliminar}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"

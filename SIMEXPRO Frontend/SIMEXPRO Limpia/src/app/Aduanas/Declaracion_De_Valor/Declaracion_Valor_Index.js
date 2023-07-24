@@ -21,6 +21,79 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useNavigate } from 'react-router-dom';
 
+import * as React from "react";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+
+function Row(props) {
+  const { row } = props;
+  const [open, setOpen] = React.useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const columns = {
+      renderCell: (params) => {
+
+          const [anchorEl, setAnchorEl] = React.useState(null);
+          
+          const handleClick = (event) => {
+              setAnchorEl(event.currentTarget);
+          };
+
+          const handleClose = () => {
+              setAnchorEl(null);
+          };
+
+          const handleEdit = () => {
+              // Implementa la función para editar aquí
+              handleClose();
+          };
+
+          const handleDetails = () => {
+              // Implementa la función para detalles aquí
+              handleClose();
+          };
+
+          const handleDelete = () => {
+              console.log(params);
+              setOpenDialog(true);
+              //handleClose();
+          };
+
+          return (
+              <Stack direction="row" spacing={1}>
+                  <Button
+                      aria-controls={`menu-${params.id}`}
+                      aria-haspopup="true"
+                      onClick={handleClick}
+                      variant="contained"
+                      style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+                      startIcon={<Icon>menu</Icon>}
+                  >
+                      Opciones
+                  </Button>
+                  <Menu
+                      id={`menu-${params.id}`}
+                      anchorEl={anchorEl}
+                      keepMounted
+                      open={Boolean(anchorEl)}
+                      onClose={handleClose}
+                  >
+                      <MenuItem onClick={handleEdit}>
+                          <Icon>edit</Icon> Editar
+                      </MenuItem>
+                      <MenuItem onClick={handleDetails}>
+                          <Icon>visibility</Icon> Detalles
+                      </MenuItem>
+                      <MenuItem onClick={handleDelete}>
+                          <Icon>delete</Icon> Eliminar
+                      </MenuItem>
+                  </Menu>
+              </Stack>
+          );
+      },
+  };
+}
+
 
 function Declaracion_Valor_Index() {
   const navigate = useNavigate();  
@@ -40,63 +113,77 @@ function Declaracion_Valor_Index() {
     {
       field: 'acciones',
       headerName: 'Acciones',
-      width: 550,
-      renderCell: (params) => (
-        <Stack direction="row" spacing={1}>
-          <Button
-            startIcon={<Icon>edit</Icon>}
-            variant="contained"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#634A9E',
-              color: 'white',
-              "&:hover": { backgroundColor: '#6e52ae' },
-            }}>
-            Editar
-          </Button>
+      flex:1,
+      renderCell: (params) => {
+        const [anchorEl, setAnchorEl] = React.useState(null);
+  
+        const handleClick = (event) => {
+          setAnchorEl(event.currentTarget);
+        };
+  
+        const handleClose = () => {
+          setAnchorEl(null);
+        };
+  
+        const handleEdit = () => {
+          // Implementa la función para editar aquí
+          handleClose();
+        };
+  
+        const handleDetails = () => {
+          // Implementa la función para detalles aquí
+          handleClose();
+        };
+  
+        const handleDelete = () => {
+          DialogEliminar();
+          // Implementa la función para eliminar aquí
+          handleClose();
+        };
+  
+        const handlePrint = () => {
+          // Implementa la función para imprimir aquí
 
-          <Button
-            startIcon={<Icon>visibility</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#797979', color: 'white',
-              "&:hover": { backgroundColor: '#b69999' },
-            }}
-          >
-            Detalles
-          </Button>
-          <Button
-            startIcon={<Icon>delete</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#E40F00', color: 'white',
-              "&:hover": { backgroundColor: '#eb5f56' },
-            }}
-            onClick={DialogEliminar}
-          >
-            Eliminar
-          </Button>
-          <Button
-            startIcon={<Icon>insert_drive_file</Icon>}
-            variant="contained"
-            style={{ borderRadius: "10px" }}
-            sx={{
-              backgroundColor: "#C4BADD",
-              color: "white",
-              "&:hover": { backgroundColor: "#A9A2BB" },
-            }}
-            onClick={() => {
-              navigate('/Documentos/Subir')
-            }}
-          >
-            Adjuntar Archivos
-          </Button>
-        </Stack>
-      ),
+          handleClose();
+        };
+
+        const handleBoletin = () => {
+          // Implementa la función para imprimir aquí
+          handleClose();
+        };
+  
+        return (
+          <Stack direction="row" spacing={1}>
+            <Button
+              aria-controls={`menu-${params.id}`}
+              aria-haspopup="true"
+              onClick={handleClick}
+              variant="contained"
+              style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+              startIcon={<Icon>menu</Icon>}
+            >
+              Opciones
+            </Button>
+            <Menu
+              id={`menu-${params.id}`}
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleEdit}>
+                <Icon>edit</Icon> Editar
+              </MenuItem>
+              <MenuItem onClick={handleDetails}>
+                <Icon>visibility</Icon> Detalles
+              </MenuItem>
+              <MenuItem onClick={handleDelete}>
+                <Icon>delete</Icon> Eliminar
+              </MenuItem>
+            </Menu>
+          </Stack>
+        );
+      },
     },
   ];
 
@@ -122,7 +209,7 @@ function Declaracion_Valor_Index() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/rdxDGbL/DECLARACION.png"
+        image="https://i.ibb.co/Trhd4rH/DECLARACI-N-DE-VALOR.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>

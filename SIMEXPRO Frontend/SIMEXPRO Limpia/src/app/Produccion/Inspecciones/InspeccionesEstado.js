@@ -26,6 +26,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Swal from 'sweetalert2';
+import { Controller, useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 function InspeccionesIndex() {
   const [searchText, setSearchText] = useState('');
@@ -37,6 +43,44 @@ function InspeccionesIndex() {
     setEliminar(!Eliminar);
   };
 
+  {/*TOAST*/}
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'red',
+    width: 400,
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+  const Toast2 = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'green',
+    width: 400,
+    customClass: {
+      popup: 'colored-toast'
+    },  
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+   {/* Validaciones de la pantalla de crear*/ }
+   const defaultAccountValues = {
+    inspec: '',
+  }
+
+  const accountSchema = yup.object().shape({
+    inspec: yup.string().required(),
+  })
+  
+  {/* Validaciones de la pantalla de crear*/ }
+
   {/* Columnas de la tabla */ }
   const columns = [
     { field: 'id', headerName: 'Id', flex: 2},
@@ -45,47 +89,65 @@ function InspeccionesIndex() {
       field: 'acciones',
       headerName: 'Acciones',
       width: 400,
-      renderCell: (params) => (
-        <Stack direction="row" spacing={1}>
-          <Button
-            startIcon={<Icon>edit</Icon>}
-            variant="contained"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#634A9E',
-              color: 'white',
-              "&:hover": { backgroundColor: '#6e52ae' },
-            }}>
-            Editar
-          </Button>
+      renderCell: (params) => {
+        const [anchorEl, setAnchorEl] = React.useState(null);
+  
+        const handleClick = (event) => {
+          setAnchorEl(event.currentTarget);
+        };
+  
+        const handleClose = () => {
+          setAnchorEl(null);
+        };
+  
+        const handleEdit = () => {
+          // Implementa la función para editar aquí
+          handleClose();
+        };
+  
+        const handleDetails = () => {
+          // Implementa la función para detalles aquí
+          handleClose();
+        };
+  
+        const handleDelete = () => {
+          // Implementa la función para eliminar aquí
+          handleClose();
+        };
 
-          <Button
-            startIcon={<Icon>visibility</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#797979', color: 'white',
-              "&:hover": { backgroundColor: '#b69999' },
-            }}
-          >
-            Detalles
-          </Button>
-          <Button
-            startIcon={<Icon>delete</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#E40F00', color: 'white',
-              "&:hover": { backgroundColor: '#eb5f56' },
-            }}
-            onClick={DialogEliminar}
-          >
-            Eliminar
-          </Button>
-        </Stack>
-      ),
+  
+        return (
+          <Stack direction="row" spacing={1}>
+            <Button
+              aria-controls={`menu-${params.id}`}
+              aria-haspopup="true"
+              onClick={handleClick}
+              variant="contained"
+              style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+              startIcon={<Icon>menu</Icon>}
+            >
+              Opciones
+            </Button>
+            <Menu
+              id={`menu-${params.id}`}
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleEdit}>
+                <Icon>edit</Icon> Editar
+              </MenuItem>
+              <MenuItem onClick={handleDetails}>
+                <Icon>visibility</Icon> Detalles
+              </MenuItem>
+              <MenuItem onClick={DialogEliminar}>
+                <Icon>delete</Icon> Eliminar
+              </MenuItem>
+            </Menu>
+          </Stack>
+        );
+      },
     },
   ];
 
@@ -112,6 +174,45 @@ function InspeccionesIndex() {
   const filteredRows = rows.filter((row) =>
     row.inspeccion.toLowerCase().includes(searchText.toLowerCase())
   );
+
+  const {handleSubmit, register, reset, control, watch, formState } = useForm({
+    defaultAccountValues,
+    mode: 'all',
+    resolver: yupResolver(accountSchema),
+  });
+
+  const { isValid, dirtyFields, errors } = formState;
+
+  const onSubmit = (data) => {
+    if(data.inspec != null ){
+      if (data.inspec.trim() === '' ) {
+        Toast.fire({
+          icon: 'error',
+          title: 'No se permiten campos vacios',
+        }); 
+      } else {
+
+        VisibilidadTabla();
+        Toast2.fire({
+          icon: 'success',
+          title: 'Datos guardados exitosamente',
+        });
+        
+      }
+    }else{
+      Toast.fire({
+        icon: 'error',
+        title: 'No se permiten campos vacios',
+      }); 
+    }
+  };
+
+  const Masiso = () => {
+    const formData = watch();
+    onSubmit(formData); 
+    handleSubmit(onSubmit)(); 
+    reset(defaultAccountValues);
+  };
 
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
@@ -164,7 +265,7 @@ function InspeccionesIndex() {
 
       {/* Tabla */}
       <Collapse in={mostrarIndex}>
-        <div style={{ height: 400, width: '100%' }}>
+        <div style={{ height: 400, width: '100%', marginLeft: '13px', marginRight: '10px' }}>
           <DataGrid
             localeText={esES.components.MuiDataGrid.defaultProps.localeText}
             components={{
@@ -191,12 +292,22 @@ function InspeccionesIndex() {
             
           <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}
                  style={{ marginTop: '30px' }}>
-                <FormControl>
+                <Controller
+                  render={({ field }) => (
                     <TextField
-                        style={{ borderRadius: '10px', width: '500px' }}
-                        label="Código de revisión"
+                      {...field}
+                      label="Código de revisión"
+                      variant="outlined"
+                      placeholder='Ingrese el código de la revisión'
+                      error={!!errors.inspec}
+                      fullWidth
+                      style={{ borderRadius: '10px', width: '500px' }}
+                      InputProps={{startAdornment: (<InputAdornment position="start"></InputAdornment>),}}
                     />
-                </FormControl>
+                  )}
+                  name="inspec"
+                  control={control}
+                />
             </Grid>
 
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
@@ -209,7 +320,7 @@ function InspeccionesIndex() {
                   backgroundColor: '#634A9E', color: 'white',
                   "&:hover": { backgroundColor: '#6e52ae' },
                 }}
-                onClick={VisibilidadTabla}
+                onClick={Masiso}
               >
                 Guardar
               </Button>

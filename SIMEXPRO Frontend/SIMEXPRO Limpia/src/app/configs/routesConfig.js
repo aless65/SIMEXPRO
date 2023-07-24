@@ -50,12 +50,16 @@ import SubcategoriaIndex from '../Inventario/Subcategoria/Subcategorias';
 import TipoEmbalajeIndex from '../Inventario/TipoDeEmbalaje/TipoEmbalaje';
 import AldeaIndex from '../Ubicaciones/Aldeas/Aldeas';
 import DocumentosDeSanciones from '../Aduanas/DocumentosDeSanciones/DocumentosDeSanciones';
+import OrdenProcesosIndex from '../Produccion/OrdenDeProcesos/OrdenDeProcesos';
+import CalendarApp from '../Produccion/Planificación/CalendarApp';
+import MaquinasIndex from '../Maquinaria/Máquinas/Maquinas';
 import FormaDeEnvioIndex from '../Generales/FormasEnvio/FormasEnvio';
 import MonedasIndex from '../Generales/Monedas/monedas';
-
-import OrdenCompraIndex from '../Produccion/OrdenCompra/OrdenCompra';
-import OrdenCompra_Crear from '../Produccion/OrdenCompra/OrdenCompra_Crear';
-import TablaDetalles_Materiales from '../Produccion/OrdenCompra/TablaDetalles';
+import ModuloIndex from '../Produccion/Modulos/Modulos';
+import ProcesosIndex from '../Produccion/Procesos/Procesos';
+import MarcasIndex from '../Maquinaria/MarcasMaquina/MarcasMaquina';
+import ModelosMaquinaIndex from '../Maquinaria/ModelosMaquina/ModelosMaquina';
+import Revision_de_Calidad_Index from '../Produccion/Revisión de Calidad/RevisionCalidad';
 
 const routeConfigs = [
   ...dashboardsConfigs,
@@ -83,6 +87,10 @@ const routes = [
   {
     path: 'Ciudades/Index',
     element: <CiudadesIndex />,
+  },
+  {
+    path: 'RevisionCalidad/Index',
+    element: <Revision_de_Calidad_Index />,
   },
   {
     path: 'Provincias/Index',
@@ -261,18 +269,37 @@ const routes = [
     element: <AldeaIndex />,
   },
   {
-    path: 'OrdenCompra/Index',
-    element: <OrdenCompraIndex />,
+    path: 'OrdenProcesos/Index',
+    element: <OrdenProcesosIndex />,
   },
   {
-    path: 'OrdenCompra/Crear',
-    element: <OrdenCompra_Crear />,
+    path: 'Planificacion/Index',
+    element: <CalendarApp />,
   },
   {
-    path: 'OrdenCompra/TableDetallesOrden',
-    element: <TablaDetalles_Materiales />,
+    path: 'Maquinas/Index',
+    element: <MaquinasIndex />,
   },
- 
+  {
+    path: 'Modulo/Index',
+    element: <ModuloIndex />,
+  },
+  {
+    path: 'Procesos/Index',
+    element: <ProcesosIndex />,
+  },
+  {
+    path: 'Marcas/Index',
+    element: <MarcasIndex />,
+  },
+  {
+    path: 'ModelosMaquinas/Index',
+    element: <ModelosMaquinaIndex />,
+  },
+  {
+    path: 'ModelosMaquinas/Index',
+    element: <ModelosMaquinaIndex />,
+  },
 ];
 
 export default routes;

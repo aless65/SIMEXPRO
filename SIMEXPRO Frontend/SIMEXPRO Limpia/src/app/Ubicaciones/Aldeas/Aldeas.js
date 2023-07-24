@@ -25,7 +25,16 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import FormLabel from "@mui/material/FormLabel";
 
+import * as yup from "yup";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import Swal from "sweetalert2";
+import FormHelperText from "@mui/material/FormHelperText";
+
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 function AldeaIndex() {
   const [searchText, setSearchText] = useState('');
@@ -43,50 +52,71 @@ function AldeaIndex() {
     { field: 'aldea', headerName: 'Aldea', flex: 2,  },
     { field: 'ciudad', headerName: 'Ciudad', flex: 2,  },
     {
-      field: 'acciones',
-      headerName: 'Acciones',
+      field: "acciones",
+      headerName: "Acciones",
       width: 400,
-      renderCell: (params) => (
-        <Stack direction="row" spacing={1}>
-          <Button
-            startIcon={<Icon>edit</Icon>}
-            variant="contained"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#634A9E',
-              color: 'white',
-              "&:hover": { backgroundColor: '#6e52ae' },
-            }}>
-            Editar
-          </Button>
+      renderCell: (params) => {
+        const [anchorEl, setAnchorEl] = React.useState(null);
 
-          <Button
-            startIcon={<Icon>visibility</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#797979', color: 'white',
-              "&:hover": { backgroundColor: '#b69999' },
-            }}
-          >
-            Detalles
-          </Button>
-          <Button
-            startIcon={<Icon>delete</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#E40F00', color: 'white',
-              "&:hover": { backgroundColor: '#eb5f56' },
-            }}
-            onClick={DialogEliminar}
-          >
-            Eliminar
-          </Button>
-        </Stack>
-      ),
+        const handleClick = (event) => {
+          setAnchorEl(event.currentTarget);
+        };
+
+        const handleClose = () => {
+          setAnchorEl(null);
+        };
+
+        const handleEdit = () => {
+          // Implementa la función para editar aquí
+          handleClose();
+        };
+
+        const handleDetails = () => {
+          // Implementa la función para detalles aquí
+          handleClose();
+        };
+
+        const handleDelete = () => {
+          // Implementa la función para eliminar aquí
+          handleClose();
+        };
+
+        return (
+          <Stack direction="row" spacing={1}>
+            <Button
+              aria-controls={`menu-${params.id}`}
+              aria-haspopup="true"
+              onClick={handleClick}
+              variant="contained"
+              style={{
+                borderRadius: "10px",
+                backgroundColor: "#634A9E",
+                color: "white",
+              }}
+              startIcon={<Icon>menu</Icon>}
+            >
+              Opciones
+            </Button>
+            <Menu
+              id={`menu-${params.id}`}
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleEdit}>
+                <Icon>edit</Icon> Editar
+              </MenuItem>
+              <MenuItem onClick={handleDetails}>
+                <Icon>visibility</Icon> Detalles
+              </MenuItem>
+              <MenuItem onClick={DialogEliminar}>
+                <Icon>delete</Icon> Eliminar
+              </MenuItem>
+            </Menu>
+          </Stack>
+        );
+      },
     },
   ];
 
@@ -99,12 +129,6 @@ function AldeaIndex() {
     { id: '5', aldea: 'El Rosario', ciudad: 'Santa Bárbara' },
   ];
 
-  {/* Función para mostrar la tabla y mostrar agregar */ }
-  const VisibilidadTabla = () => {
-    setmostrarIndex(!mostrarIndex);
-    setmostrarAdd(!mostrarAdd);
-  };
-
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
   };
@@ -113,6 +137,129 @@ function AldeaIndex() {
   const filteredRows = rows.filter((row) =>
     row.aldea.toLowerCase().includes(searchText.toLowerCase())
   );
+
+  {
+    /*Codigo para validaciones */
+  }
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-right",
+    iconColor: "red",
+    width: 400,
+    customClass: {
+      popup: "colored-toast",
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+  });
+
+  const Toast2 = Swal.mixin({
+    toast: true,
+    position: "top-right",
+    iconColor: "green",
+    width: 400,
+    customClass: {
+      popup: "colored-toast",
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+  });
+
+  const defaultAccountValues = {
+    Aldea: "",
+    Select: "",
+  };
+
+  const accountSchema = yup.object().shape({
+    Aldea: yup.string().required(),
+    Select: yup.string().required(),
+  });
+
+  const VisibilidadTabla = () => {
+    setmostrarIndex(!mostrarIndex);
+    setmostrarAdd(!mostrarAdd);
+    reset(defaultAccountValues);
+  };
+
+  const VisibilidadTabla2 = () => {
+    setmostrarIndex(!mostrarIndex);
+    setmostrarAdd(!mostrarAdd);
+    reset(defaultAccountValues);
+  };
+
+  const { handleSubmit, register, reset, control, watch, formState } = useForm({
+    defaultAccountValues,
+    mode: "all",
+    resolver: yupResolver(accountSchema),
+  });
+
+  const { isValid, dirtyFields, errors } = formState;
+
+  const onSubmit = (data) => {
+    console.log(data);
+    if (data.Select.length != 0) {
+      if (data.Aldea != null ) {
+        if (
+          data.Aldea.trim() === "" ||       
+          data.Select[0] === "Selecciona una opción"
+        ) {
+          console.log("Validacion 1");
+          Toast.fire({
+            icon: "error",
+            title: "No se permiten campos vacios",
+          });
+        } else if (
+          data.Aldea.trim() === "" ||
+          data.Select === "" 
+        ) {
+          console.log("Que onda");
+          Toast.fire({
+            icon: "error",
+            title: "No se permiten campos vacios",
+          });
+        } else {
+          console.log("Validacion 2");
+          VisibilidadTabla();
+          Toast2.fire({
+            icon: "success",
+            title: "Datos guardados exitosamente",
+          });
+        }
+      } 
+      else {
+        console.log("Validacion 3");
+        Toast.fire({
+          icon: "error",
+          title: "No se permiten campos vacios",
+        });
+      }
+    } else {
+      console.log("Validacion 4");
+      if (
+        data.Aldea.trim() === "" ||
+        data.Select === ""
+      ) {
+        console.log("Que onda");
+        Toast.fire({
+          icon: "error",
+          title: "No se permiten campos vacios",
+        });
+      }
+    }
+  };
+
+  const Masiso = () => {
+    const formData = watch();
+    onSubmit(formData);
+    handleSubmit(onSubmit)();
+  };
+
+  {
+    /*Codigo para validaciones */
+  }
 
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
@@ -165,51 +312,90 @@ function AldeaIndex() {
 
       {/* Tabla */}
       <Collapse in={mostrarIndex}>
-        <div style={{ height: 400, width: '100%' }}>
-          <DataGrid
-            localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-            components={{
-              Toolbar: GridToolbar,
-              Search: SearchIcon,
-            }}
-            rows={filteredRows}
-            columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: { page: 0, pageSize: 10 },
-              },
-            }}
-            pageSizeOptions={[10, 20, 50]}
-          />
-        </div>
-      </Collapse>
+                <div style={{ height: 400, width: '100%', marginLeft: '30px', marginRight: '30px' }}>
+                    <DataGrid
+                        localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+                        components={{
+                            Toolbar: GridToolbar,
+                            Search: SearchIcon,
+                        }}
+                        rows={filteredRows}
+                        columns={columns}
+                        initialState={{
+                            pagination: {
+                                paginationModel: { page: 0, pageSize: 10 },
+                            },
+                        }}
+                        pageSizeOptions={[10, 20, 50]}
+                    />
+                </div>
+            </Collapse>
 
 
       {/* Formulario Agregar */}
       <Collapse in={mostrarAdd}>
-        <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+      <CardContent
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            marginTop: "30px",
+          }}
+        >
           <Grid container spacing={3}>
-          <Grid item xs={6} style={{ marginTop: '30px' }} >
-              <FormControl
-                fullWidth
-              >
-                <InputLabel htmlFor="grouped-native-select">Ciudad</InputLabel>
-                <Select
-                  style={{ borderRadius: '10px' }}
-                  label="Ciudad"
-                />
-              </FormControl>
+            <Grid item xs={6}>
+              <Controller
+                defaultValue={["Selecciona una opción"]}
+                render={({ field }) => (
+                  <FormControl error={!!errors.Select} fullWidth>
+                    <FormLabel
+                      className="font-medium text-10"
+                      component="legend"
+                    >
+                      Ciudades
+                    </FormLabel>
+                    <Select
+                      {...field}
+                      fullWidth
+                      InputProps={{
+                        startAdornment: <InputAdornment position="start" />,
+                      }}
+                    >
+                      <MenuItem value="10">San Pedro Sula</MenuItem>
+                      <MenuItem value="20">La Lima</MenuItem>
+                      <MenuItem value="30">Choloma</MenuItem>
+                    </Select>
+                  </FormControl>
+                )}
+                name="Select"
+                control={control}
+              />
             </Grid>
-            <Grid item xs={6} style={{ marginTop: '30px' }} >
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Aldea"
+
+            <Grid item xs={6}>
+              <div className="mt-48 mb-16" style={{ marginTop: "15px" }}>
+                <Controller
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="Aldea"
+                      variant="outlined"
+                      error={!!errors.Aldea}
+                      placeholder="Ingrese el nombre de la Aldea"
+                      fullWidth
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start"></InputAdornment>
+                        ),
+                      }}
+                    />
+                  )}
+                  name="Aldea"
+                  control={control}
                 />
-              </FormControl>
+              </div>
             </Grid>
+
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
               <Button
                 startIcon={<Icon>checked</Icon>}
@@ -220,7 +406,7 @@ function AldeaIndex() {
                   backgroundColor: '#634A9E', color: 'white',
                   "&:hover": { backgroundColor: '#6e52ae' },
                 }}
-                onClick={VisibilidadTabla}
+                onClick={Masiso}
               >
                 Guardar
               </Button>

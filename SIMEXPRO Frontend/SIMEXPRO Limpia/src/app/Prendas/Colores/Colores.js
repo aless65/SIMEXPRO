@@ -26,6 +26,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Swal from 'sweetalert2';
+import { Controller, useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 function ColoresIndex() {
   const [searchText, setSearchText] = useState('');
@@ -37,6 +43,68 @@ function ColoresIndex() {
     setEliminar(!Eliminar);
   };
 
+  {/*TOAST*/}
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'red',
+    width: 600,
+    heigth: 300,
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+  const Toast2 = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'green',
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+   {/* Validaciones de la pantalla de crear*/ }
+   const defaultValues = {
+    codigo: '',
+    color: '',
+  }
+
+  const accountSchema = yup.object().shape({
+    codigo: yup.string().required(''),
+    color: yup.string().required(''),
+  })
+  
+  const { handleSubmit, register, reset, control, watch, formState } = useForm({
+    defaultValues,
+    mode: 'all',
+    resolver: yupResolver(accountSchema),
+  });
+
+  const { isValid, dirtyFields, errors, touchedFields } = formState;
+  const Masiso = handleSubmit((data) => {
+    if (!isValid) {
+      Toast.fire({
+        icon: 'error',
+        title: 'No se permiten campos vacios',
+      });
+    } else {
+      VisibilidadTabla();
+      Toast2.fire({
+        icon: 'success',
+        title: 'Datos guardados exitosamente',
+      });
+    }
+  });
+  {/* Validaciones de la pantalla de crear*/ }
+
+
   {/* Columnas de la tabla */ }
   const columns = [
     { field: 'id', headerName: 'Id', flex: 2},
@@ -45,47 +113,65 @@ function ColoresIndex() {
       field: 'acciones',
       headerName: 'Acciones',
       width: 400,
-      renderCell: (params) => (
-        <Stack direction="row" spacing={1}>
-          <Button
-            startIcon={<Icon>edit</Icon>}
-            variant="contained"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#634A9E',
-              color: 'white',
-              "&:hover": { backgroundColor: '#6e52ae' },
-            }}>
-            Editar
-          </Button>
+      renderCell: (params) => {
+        const [anchorEl, setAnchorEl] = React.useState(null);
+  
+        const handleClick = (event) => {
+          setAnchorEl(event.currentTarget);
+        };
+  
+        const handleClose = () => {
+          setAnchorEl(null);
+        };
+  
+        const handleEdit = () => {
+          // Implementa la función para editar aquí
+          handleClose();
+        };
+  
+        const handleDetails = () => {
+          // Implementa la función para detalles aquí
+          handleClose();
+        };
+  
+        const handleDelete = () => {
+          // Implementa la función para eliminar aquí
+          handleClose();
+        };
 
-          <Button
-            startIcon={<Icon>visibility</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#797979', color: 'white',
-              "&:hover": { backgroundColor: '#b69999' },
-            }}
-          >
-            Detalles
-          </Button>
-          <Button
-            startIcon={<Icon>delete</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#E40F00', color: 'white',
-              "&:hover": { backgroundColor: '#eb5f56' },
-            }}
-            onClick={DialogEliminar}
-          >
-            Eliminar
-          </Button>
-        </Stack>
-      ),
+  
+        return (
+          <Stack direction="row" spacing={1}>
+            <Button
+              aria-controls={`menu-${params.id}`}
+              aria-haspopup="true"
+              onClick={handleClick}
+              variant="contained"
+              style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+              startIcon={<Icon>menu</Icon>}
+            >
+              Opciones
+            </Button>
+            <Menu
+              id={`menu-${params.id}`}
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleEdit}>
+                <Icon>edit</Icon> Editar
+              </MenuItem>
+              <MenuItem onClick={handleDetails}>
+                <Icon>visibility</Icon> Detalles
+              </MenuItem>
+              <MenuItem onClick={DialogEliminar}>
+                <Icon>delete</Icon> Eliminar
+              </MenuItem>
+            </Menu>
+          </Stack>
+        );
+      },
     },
   ];
 
@@ -108,6 +194,13 @@ function ColoresIndex() {
     setSearchText(event.target.value);
   };
 
+  const Funcion = () => {
+    VisibilidadTabla()
+    Toast2.fire({
+      icon: 'success',
+      title: 'Datos guardados exitosamente',
+    });
+  };
   {/* Filtrado de datos */ }
   const filteredRows = rows.filter((row) =>
     row.colores.toLowerCase().includes(searchText.toLowerCase())
@@ -164,7 +257,7 @@ function ColoresIndex() {
 
       {/* Tabla */}
       <Collapse in={mostrarIndex}>
-        <div style={{ height: 400, width: '100%' }}>
+        <div style={{ height: 400, width: '100%', marginLeft: '13px', marginRight: '10px' }}>
           <DataGrid
             localeText={esES.components.MuiDataGrid.defaultProps.localeText}
             components={{
@@ -188,22 +281,26 @@ function ColoresIndex() {
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Typography variant="h5" gutterBottom>
-                Nuevo Color
-              </Typography>
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
+           
+          <Grid item xs={6} marginTop={'30px'}>
+              <TextField
+                variant="outlined"
                 fullWidth
-              >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Color"
-                />
-              </FormControl>
-            </Grid>
+                defaultValue={' '}
+                style={{ borderRadius: '10px'}}
+                label="Codigo"
+              />
+          </Grid> 
+
+          <Grid item xs={6} marginTop={'30px'}>
+              <TextField
+                variant="outlined"
+                fullWidth
+                defaultValue={' '}
+                style={{ borderRadius: '10px'}}
+                label="Codigo"
+              />
+          </Grid> 
 
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
               <Button
@@ -215,7 +312,7 @@ function ColoresIndex() {
                   backgroundColor: '#634A9E', color: 'white',
                   "&:hover": { backgroundColor: '#6e52ae' },
                 }}
-                onClick={VisibilidadTabla}
+                onClick={Funcion}
               >
                 Guardar
               </Button>

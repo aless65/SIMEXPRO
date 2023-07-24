@@ -27,11 +27,53 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+
 function Revision_de_Calidad_Index() {
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
   const [Eliminar, setEliminar] = useState(false);
+
+
+
+  const [cantidad, setCantidad] = useState('');
+  const [fechaRevision, setFechaRevision] = useState('');
+  const [observaciones, setObservaciones] = useState('');
+  const [isCantidadValid, setIsCantidadValid] = useState(true);
+  const [isFechaRevisionValid, setIsFechaRevisionValid] = useState(true);
+  const [isObservacionesValid, setIsObservacionesValid] = useState(true);
+
+  const handleImageUpload = () => {
+    // Add your image upload logic here
+  };
+
+  const handleGuardarClick = () => {
+    let valid = true;
+    if (cantidad.trim() === '') {
+      setIsCantidadValid(false);
+      valid = false;
+    }
+    if (fechaRevision.trim() === '') {
+      setIsFechaRevisionValid(false);
+      valid = false;
+    }
+    if (observaciones.trim() == '') {
+      setIsObservacionesValid(false);
+
+      valid = false;
+    }
+
+    if (valid) {
+      // Your logic to save data when all fields are valid
+      console.log('Data saved!');
+      // Reset the form
+      setCantidad('');
+      setFechaRevision('');
+      setObservaciones('');
+    }
+  };
 
   const DialogEliminar = () => {
     setEliminar(!Eliminar);
@@ -46,48 +88,77 @@ function Revision_de_Calidad_Index() {
     {
       field: 'acciones',
       headerName: 'Acciones',
-      width: 400,
-      renderCell: (params) => (
-        <Stack direction="row" spacing={1}>
-          <Button
-            startIcon={<Icon>edit</Icon>}
-            variant="contained"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#634A9E',
-              color: 'white',
-              "&:hover": { backgroundColor: '#6e52ae' },
-            }}>
-            Editar
-          </Button>
+      flex:1,
+      renderCell: (params) => {
+        const [anchorEl, setAnchorEl] = React.useState(null);
+  
+        const handleClick = (event) => {
+          setAnchorEl(event.currentTarget);
+        };
+  
+        const handleClose = () => {
+          setAnchorEl(null);
+        };
+  
+        const handleEdit = () => {
+          // Implementa la función para editar aquí
+          handleClose();
+        };
+  
+        const handleDetails = () => {
+          // Implementa la función para detalles aquí
+          handleClose();
+        };
+  
+        const handleDelete = () => {
+          DialogEliminar();
+          // Implementa la función para eliminar aquí
+          handleClose();
+        };
+  
+        const handlePrint = () => {
+          // Implementa la función para imprimir aquí
 
-          <Button
-            startIcon={<Icon>visibility</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#797979', color: 'white',
-              "&:hover": { backgroundColor: '#b69999' },
-            }}
-          >
-            Detalles
-          </Button>
-          <Button
-            startIcon={<Icon>delete</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#E40F00', color: 'white',
-              "&:hover": { backgroundColor: '#eb5f56' },
-            }}
-            onClick={DialogEliminar}
-          >
-            Eliminar
-          </Button>
-        </Stack>
-      ),
+          handleClose();
+        };
+
+        const handleBoletin = () => {
+          // Implementa la función para imprimir aquí
+          handleClose();
+        };
+  
+        return (
+          <Stack direction="row" spacing={1}>
+            <Button
+              aria-controls={`menu-${params.id}`}
+              aria-haspopup="true"
+              onClick={handleClick}
+              variant="contained"
+              style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+              startIcon={<Icon>menu</Icon>}
+            >
+              Opciones
+            </Button>
+            <Menu
+              id={`menu-${params.id}`}
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleEdit}>
+                <Icon>edit</Icon> Editar
+              </MenuItem>
+              <MenuItem onClick={handleDetails}>
+                <Icon>visibility</Icon> Detalles
+              </MenuItem>
+              <MenuItem onClick={handleDelete}>
+                <Icon>delete</Icon> Eliminar
+              </MenuItem>
+            </Menu>
+          </Stack>
+        );
+      },
     },
   ];
 
@@ -114,7 +185,7 @@ function Revision_de_Calidad_Index() {
     row.usuario.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  
+
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
       <CardMedia
@@ -186,71 +257,118 @@ function Revision_de_Calidad_Index() {
       </Collapse>
 
 
-      {/* Formulario Agregar */}
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
-            <Grid item xs={12} style={{ marginTop: '30px' }}>
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
+            <Grid item xs={4} style={{ marginTop: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <button
+                style={{
+                  width: '25rem', // Set the desired width for the square button
+                  height: '25rem', // Set the same value for height to make it square
+                  backgroundColor: 'transparent',
+                  border: '2px solid #634A9E',
+                  color: 'black',
+                  borderRadius: '10px',
+                  cursor: 'pointer',
+                  marginBottom: '10px',
+                }}
               >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Número de Orden"
-                  required
-                />
-              </FormControl>
+                <Icon style={{ marginRight: '5px' }}>add_photo_alternate</Icon> Agregar Imagen
+              </button>
             </Grid>
 
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Segunda"
-                  required
-                />
-              </FormControl>
+            {/* Right column for all the TextFields */}
+            <Grid item xs={8} style={{ marginTop: '30px' }}>
+              <Grid container spacing={3}>
+                {/* Left column for TextFields */}
+                <Grid item xs={6}>
+                  <FormControl fullWidth>
+                    <TextField
+                      style={{ borderRadius: '10px', marginTop: '10px', borderColor: isCantidadValid ? 'initial' : 'red' }}
+                      label="Cantidad"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+
+                          </InputAdornment>
+                        ),
+
+                      }}
+                      value={cantidad}
+                      onChange={(e) => {
+                        setCantidad(e.target.value);
+                        setIsCantidadValid(true);
+                      }}
+                    />
+                  </FormControl>
+
+                  <FormControl fullWidth>
+                    <TextField
+                      style={{ borderRadius: '10px', marginTop: '10px', borderColor: isFechaRevisionValid ? 'initial' : 'red' }}
+                      label="Fecha de Revisión"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+
+                          </InputAdornment>
+                        ),
+
+                      }}
+                      value={fechaRevision}
+                      onChange={(e) => {
+                        setFechaRevision(e.target.value);
+                        setIsFechaRevisionValid(true);
+                      }}
+                    />
+                  </FormControl>
+                </Grid>
+
+                <Grid item xs={6} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <FormControl fullWidth>
+                    <FormControlLabel
+                      control={<Switch sx={{ '&.Mui-checked': { color: '#634A9E' } }} />}
+                      label="SCRAP"
+                      labelPlacement="top"
+                    />
+                  </FormControl>
+                </Grid>
+
+              </Grid>
+
+              <Grid item xs={12}>
+                <FormControl fullWidth>
+
+                  <TextField
+                    style={{
+                      borderRadius: '10px',
+                      marginTop: '10px',
+                    }}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+
+                        </InputAdornment>
+                      ),
+
+                    }}
+
+                    label="Observaciones"
+
+                    value={observaciones}
+                    onChange={(e) => {
+                      setObservaciones(e.target.value);
+                      setIsObservacionesValid(!!e.target.value.trim()); // Set the state to true if value is not empty
+                    }}
+                  />
+                </FormControl>
+              </Grid>
+
+
             </Grid>
-
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Descripción"
-                  required
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="SCRAP"
-                  required
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6}>
-          
-
-            </Grid>
-           
 
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
               <Button
-                startIcon={<Icon>checked</Icon>}
+                startIcon={<Icon>check</Icon>}
                 variant="contained"
                 color="primary"
                 style={{ borderRadius: '10px', marginRight: '10px' }}
@@ -258,7 +376,7 @@ function Revision_de_Calidad_Index() {
                   backgroundColor: '#634A9E', color: 'white',
                   "&:hover": { backgroundColor: '#6e52ae' },
                 }}
-                onClick={VisibilidadTabla}
+                onClick={handleGuardarClick}
               >
                 Guardar
               </Button>
@@ -277,11 +395,9 @@ function Revision_de_Calidad_Index() {
                 Cancelar
               </Button>
             </Grid>
-
           </Grid>
         </CardContent>
       </Collapse>
-
 
       <Dialog
         open={Eliminar}
@@ -295,39 +411,39 @@ function Revision_de_Calidad_Index() {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-          ¿Está seguro(a) que desea eliminar este registro?
+            ¿Está seguro(a) que desea eliminar este registro?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
-              <Button
-                startIcon={<Icon>checked</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px', marginRight: '10px' }}
-                sx={{
-                  backgroundColor: '#634A9E', color: 'white',
-                  "&:hover": { backgroundColor: '#6e52ae' },
-                }}
-                onClick={DialogEliminar}
-              >
-                Eliminar
-              </Button>
+          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
+            <Button
+              startIcon={<Icon>checked</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px', marginRight: '10px' }}
+              sx={{
+                backgroundColor: '#634A9E', color: 'white',
+                "&:hover": { backgroundColor: '#6e52ae' },
+              }}
+              onClick={DialogEliminar}
+            >
+              Eliminar
+            </Button>
 
-              <Button
-                startIcon={<Icon>close</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px' }}
-                sx={{
-                  backgroundColor: '#DAD8D8', color: 'black',
-                  "&:hover": { backgroundColor: '#BFBABA' },
-                }}
-                onClick={DialogEliminar}
-              >
-                Cancelar
-              </Button>
-            </Grid>
+            <Button
+              startIcon={<Icon>close</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px' }}
+              sx={{
+                backgroundColor: '#DAD8D8', color: 'black',
+                "&:hover": { backgroundColor: '#BFBABA' },
+              }}
+              onClick={DialogEliminar}
+            >
+              Cancelar
+            </Button>
+          </Grid>
         </DialogActions>
       </Dialog>
 

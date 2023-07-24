@@ -24,6 +24,14 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+
+import * as yup from 'yup';
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import Swal from 'sweetalert2'
+
 
 function AreasIndex() {
   const [searchText, setSearchText] = useState('');
@@ -37,52 +45,70 @@ function AreasIndex() {
 
   {/* Columnas de la tabla */ }
   const columns = [
-    { field: 'id', headerName: 'Id', width: 10 },
-    { field: 'descripcion', headerName: 'Descripción', flex: 1 },    {
+    { field: 'id', headerName: 'Id', width: 200 },
+    { field: 'descripcion', headerName: 'Área', flex: 4  },    {
       field: 'acciones',
       headerName: 'Acciones',
       width: 400,
-      renderCell: (params) => (
-        <Stack direction="row" spacing={1}>
-          <Button
-            startIcon={<Icon>edit</Icon>}
-            variant="contained"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#634A9E',
-              color: 'white',
-              "&:hover": { backgroundColor: '#6e52ae' },
-            }}>
-            Editar
-          </Button>
+      renderCell: (params) => {
+        const [anchorEl, setAnchorEl] = React.useState(null);
+  
+        const handleClick = (event) => {
+          setAnchorEl(event.currentTarget);
+        };
+  
+        const handleClose = () => {
+          setAnchorEl(null);
+        };
+  
+        const handleEdit = () => {
+          // Implementa la función para editar aquí
+          handleClose();
+        };
+  
+        const handleDetails = () => {
+          // Implementa la función para detalles aquí
+          handleClose();
+        };
+  
+        const handleDelete = () => {
+          // Implementa la función para eliminar aquí
+          handleClose();
+        };
 
-          <Button
-            startIcon={<Icon>visibility</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#797979', color: 'white',
-              "&:hover": { backgroundColor: '#b69999' },
-            }}
-          >
-            Detalles
-          </Button>
-          <Button
-            startIcon={<Icon>delete</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#E40F00', color: 'white',
-              "&:hover": { backgroundColor: '#eb5f56' },
-            }}
-            onClick={DialogEliminar}
-          >
-            Eliminar
-          </Button>
-        </Stack>
-      ),
+  
+        return (
+          <Stack direction="row" spacing={1}>
+            <Button
+              aria-controls={`menu-${params.id}`}
+              aria-haspopup="true"
+              onClick={handleClick}
+              variant="contained"
+              style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+              startIcon={<Icon>menu</Icon>}
+            >
+              Opciones
+            </Button>
+            <Menu
+              id={`menu-${params.id}`}
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleEdit}>
+                <Icon>edit</Icon> Editar
+              </MenuItem>
+              <MenuItem onClick={handleDetails}>
+                <Icon>visibility</Icon> Detalles
+              </MenuItem>
+              <MenuItem onClick={DialogEliminar}>
+                <Icon>delete</Icon> Eliminar
+              </MenuItem>
+            </Menu>
+          </Stack>
+        );
+      },
     },
   ];
 
@@ -95,10 +121,6 @@ function AreasIndex() {
   ];
 
   {/* Función para mostrar la tabla y mostrar agregar */ }
-  const VisibilidadTabla = () => {
-    setmostrarIndex(!mostrarIndex);
-    setmostrarAdd(!mostrarAdd);
-  };
 
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
@@ -108,6 +130,94 @@ function AreasIndex() {
   const filteredRows = rows.filter((row) =>
     row.descripcion.toLowerCase().includes(searchText.toLowerCase())
   );
+
+
+  {/*Codigo para validaciones */}
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'red',
+    width: 400,
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+  const Toast2 = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'green',
+    width: 400,
+    customClass: {
+      popup: 'colored-toast'
+    },  
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+  const defaultAreasValues = {
+    areas: '',
+  }
+
+  const AreasSchema = yup.object().shape({
+    areas: yup.string().required(),
+  })
+  
+  const VisibilidadTabla = () => {
+    setmostrarIndex(!mostrarIndex);
+    setmostrarAdd(!mostrarAdd);
+  };
+
+  const VisibilidadTabla2 = () => {
+    setmostrarIndex(!mostrarIndex);
+    setmostrarAdd(!mostrarAdd);
+    reset(defaultAreasValues);
+  };
+
+  const {handleSubmit, register, reset, control, watch, formState } = useForm({
+    defaultAreasValues,
+    mode: 'all',
+    resolver: yupResolver(AreasSchema),
+  });
+
+  const { isValid, dirtyFields, errors } = formState;
+
+  const onSubmit = (data) => {
+    if(data.areas != null){
+      if (data.areas.trim() === '') {
+        Toast.fire({
+          icon: 'error',
+          title: 'No se permiten campos vacios',
+        }); 
+      } else {
+        VisibilidadTabla();
+        Toast2.fire({
+          icon: 'success',
+          title: 'Datos guardados exitosamente',
+        });
+        
+      }
+    }else{
+      Toast.fire({
+        icon: 'error',
+        title: 'No se permiten campos vacios',
+      }); 
+    }
+  };
+
+  const Masiso = () => {
+    const formData = watch();
+    onSubmit(formData); 
+    handleSubmit(onSubmit)(); 
+    reset(defaultAreasValues);
+  };
+
+  {/*Codigo para validaciones */}
 
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
@@ -165,27 +275,24 @@ function AreasIndex() {
 
       {/* Tabla */}
       <Collapse in={mostrarIndex}>
-        <div style={{ height: 400, width: '100%' }}>
-          <DataGrid
-            localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-            components={{
-              Toolbar: GridToolbar,
-              Search: SearchIcon,
-            }}
-            rows={filteredRows}
-            columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: { page: 0, pageSize: 10 },
-              },
-            }}
-            pageSizeOptions={[10, 20, 50]}
-          />
-        </div>
-      </Collapse>
-
-
-
+                <div style={{ height: 400, width: '100%', marginLeft: '30px', marginRight: '30px' }}>
+                    <DataGrid
+                        localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+                        components={{
+                            Toolbar: GridToolbar,
+                            Search: SearchIcon,
+                        }}
+                        rows={filteredRows}
+                        columns={columns}
+                        initialState={{
+                            pagination: {
+                                paginationModel: { page: 0, pageSize: 10 },
+                            },
+                        }}
+                        pageSizeOptions={[10, 20, 50]}
+                    />
+                </div>
+            </Collapse>
 
 
 
@@ -193,26 +300,29 @@ function AreasIndex() {
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
-            <Grid item xs={12}>
+          <Grid item xs={12}>
               <Typography variant="h5" gutterBottom>
-                Nuevo Usuario
               </Typography>
             </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Descripción"
+            <Grid item xs={6} >
+            <div className="mt-40 mb-16" style={{ width: '500px', marginLeft: '210px' }}>
+                <Controller
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="Área"
+                      variant="outlined"
+                      error={!!errors.areas}
+                      placeholder='Ingrese el nombre del area'
+                      fullWidth
+                      InputProps={{startAdornment: (<InputAdornment position="start"></InputAdornment>),}}
+                    />
+                  )}
+                  name="areas"
+                  control={control}
                 />
-              </FormControl>
-            </Grid>
-
-
-
-
+                </div>
+            </Grid>  
 
 
 
@@ -226,7 +336,7 @@ function AreasIndex() {
                   backgroundColor: '#634A9E', color: 'white',
                   "&:hover": { backgroundColor: '#6e52ae' },
                 }}
-                onClick={VisibilidadTabla}
+                onClick={Masiso}
               >
                 Guardar
               </Button>
@@ -240,7 +350,7 @@ function AreasIndex() {
                   backgroundColor: '#DAD8D8', color: 'black',
                   "&:hover": { backgroundColor: '#BFBABA' },
                 }}
-                onClick={VisibilidadTabla}
+                onClick={VisibilidadTabla2}
               >
                 Cancelar
               </Button>

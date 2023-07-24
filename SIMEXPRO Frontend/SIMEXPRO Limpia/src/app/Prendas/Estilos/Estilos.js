@@ -21,6 +21,14 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
+import * as yup from 'yup';
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import Swal from 'sweetalert2'
+
+
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 function EstilosIndex() {
     const [searchText, setSearchText] = useState('');
@@ -37,50 +45,68 @@ function EstilosIndex() {
         { field: 'id', headerName: 'Id', width: 200 },
         { field: 'descripcion', headerName: 'Descripción', flex: 5 }, {
             field: 'acciones',
-            headerName: 'Acciones',
-            width: 400,
-            renderCell: (params) => (
-                <Stack direction="row" spacing={1}>
-                    <Button
-                        startIcon={<Icon>edit</Icon>}
-                        variant="contained"
-                        style={{ borderRadius: '10px' }}
-                        sx={{
-                            backgroundColor: '#634A9E',
-                            color: 'white',
-                            "&:hover": { backgroundColor: '#6e52ae' },
-                        }}>
-                        Editar
-                    </Button>
+      headerName: 'Acciones',
+      width: 400,
+      renderCell: (params) => {
+        const [anchorEl, setAnchorEl] = React.useState(null);
+  
+        const handleClick = (event) => {
+          setAnchorEl(event.currentTarget);
+        };
+  
+        const handleClose = () => {
+          setAnchorEl(null);
+        };
+  
+        const handleEdit = () => {
+          // Implementa la función para editar aquí
+          handleClose();
+        };
+  
+        const handleDetails = () => {
+          // Implementa la función para detalles aquí
+          handleClose();
+        };
+  
+        const handleDelete = () => {
+          // Implementa la función para eliminar aquí
+          handleClose();
+        };
 
-                    <Button
-                        startIcon={<Icon>visibility</Icon>}
-                        variant="contained"
-                        color="primary"
-                        style={{ borderRadius: '10px' }}
-                        sx={{
-                            backgroundColor: '#797979', color: 'white',
-                            "&:hover": { backgroundColor: '#b69999' },
-                        }}
-                    >
-                        Detalles
-                    </Button>
-                    <Button
-                        startIcon={<Icon>delete</Icon>}
-                        variant="contained"
-                        color="primary"
-                        style={{ borderRadius: '10px' }}
-                        sx={{
-                            backgroundColor: '#E40F00', color: 'white',
-                            "&:hover": { backgroundColor: '#eb5f56' },
-                        }}
-                        onClick={DialogEliminar}
-                    >
-                        Eliminar
-                    </Button>
-                </Stack>
-            ),
-        },
+  
+        return (
+          <Stack direction="row" spacing={1}>
+            <Button
+              aria-controls={`menu-${params.id}`}
+              aria-haspopup="true"
+              onClick={handleClick}
+              variant="contained"
+              style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+              startIcon={<Icon>menu</Icon>}
+            >
+              Opciones
+            </Button>
+            <Menu
+              id={`menu-${params.id}`}
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleEdit}>
+                <Icon>edit</Icon> Editar
+              </MenuItem>
+              <MenuItem onClick={handleDetails}>
+                <Icon>visibility</Icon> Detalles
+              </MenuItem>
+              <MenuItem onClick={DialogEliminar}>
+                <Icon>delete</Icon> Eliminar
+              </MenuItem>
+            </Menu>
+          </Stack>
+        );
+      },
+    },
     ];
 
     {/* Datos de la tabla */ }
@@ -91,11 +117,7 @@ function EstilosIndex() {
         { id: '4', descripcion: 'Manga Corta' },
     ];
 
-    {/* Función para mostrar la tabla y mostrar agregar */ }
-    const VisibilidadTabla = () => {
-        setmostrarIndex(!mostrarIndex);
-        setmostrarAdd(!mostrarAdd);
-    };
+    
 
     const handleSearchChange = (event) => {
         setSearchText(event.target.value);
@@ -105,6 +127,95 @@ function EstilosIndex() {
     const filteredRows = rows.filter((row) =>
         row.descripcion.toLowerCase().includes(searchText.toLowerCase())
     );
+
+     {/*Codigo para validaciones */}
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'red',
+    width: 400,
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+  const Toast2 = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'green',
+    width: 400,
+    customClass: {
+      popup: 'colored-toast'
+    },  
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+  const defaultEstilosValues = {
+    estilos: '',
+  }
+
+  const EstilosSchema = yup.object().shape({
+    estilos: yup.string().required(),
+  })
+  
+  {/* Función para mostrar la tabla y mostrar agregar */ }
+  const VisibilidadTabla = () => {
+    setmostrarIndex(!mostrarIndex);
+    setmostrarAdd(!mostrarAdd);
+  };
+
+  {/* Función para mostrar la tabla y mostrar agregar */ }
+  const VisibilidadTabla2 = () => {
+    setmostrarIndex(!mostrarIndex);
+    setmostrarAdd(!mostrarAdd);
+    reset(defaultEstilosValues);
+  };
+
+  const {handleSubmit, register, reset, control, watch, formState } = useForm({
+    defaultEstilosValues,
+    mode: 'all',
+    resolver: yupResolver(EstilosSchema),
+  });
+
+  const { isValid, dirtyFields, errors } = formState;
+
+  const onSubmit = (data) => {
+    if(data.estilos != null){
+      if (data.estilos.trim() === '') {
+        Toast.fire({
+          icon: 'error',
+          title: 'No se permiten campos vacios',
+        }); 
+      } else {
+        VisibilidadTabla();
+        Toast2.fire({
+          icon: 'success',
+          title: 'Datos guardados exitosamente',
+        });
+        
+      }
+    }else{
+      Toast.fire({
+        icon: 'error',
+        title: 'No se permiten campos vacios',
+      }); 
+    }
+  };
+
+  const Masiso = () => {
+    const formData = watch();
+    onSubmit(formData); 
+    handleSubmit(onSubmit)(); 
+    reset(defaultEstilosValues);
+  };
+
+  {/*Codigo para validaciones */}
 
     return (
         <Card sx={{ minWidth: 275, margin: '40px' }}>
@@ -161,7 +272,7 @@ function EstilosIndex() {
 
 
             {/* Tabla */}
-            <Collapse in={mostrarIndex}>
+             <Collapse in={mostrarIndex}>
                 <div style={{ height: 400, width: '100%', marginLeft: '30px', marginRight: '30px' }}>
                     <DataGrid
                         localeText={esES.components.MuiDataGrid.defaultProps.localeText}
@@ -191,15 +302,24 @@ function EstilosIndex() {
                 <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     <Grid container spacing={3}>
                         
-                        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}
-                             style={{ marginTop: '30px' }}>
-
-                            <FormControl>
-                                <TextField
-                                    style={{ borderRadius: '10px', width: '500px' }}
-                                    label="Descripción"
-                                />
-                            </FormControl>
+                        <Grid item xs={6}>
+                        <div className="mt-40 mb-16" style={{ width: '500px', marginLeft: '210px' }}>
+                            <Controller
+                                render={({ field }) => (
+                                    <TextField
+                                    {...field}
+                                    label="Estilo"
+                                    variant="outlined"
+                                    error={!!errors.estilos}
+                                    placeholder='Ingrese el nombre del estilo'
+                                    fullWidth
+                                    InputProps={{startAdornment: (<InputAdornment position="start"></InputAdornment>),}}
+                                    />
+                                )}
+                                name="estilos"  
+                                control={control}
+                            />
+                          </div>
                         </Grid>
 
 
@@ -213,7 +333,7 @@ function EstilosIndex() {
                                     backgroundColor: '#634A9E', color: 'white',
                                     "&:hover": { backgroundColor: '#6e52ae' },
                                 }}
-                                onClick={VisibilidadTabla}
+                                onClick={Masiso}
                             >
                                 Guardar
                             </Button>
@@ -227,7 +347,7 @@ function EstilosIndex() {
                                     backgroundColor: '#DAD8D8', color: 'black',
                                     "&:hover": { backgroundColor: '#BFBABA' },
                                 }}
-                                onClick={VisibilidadTabla}
+                                onClick={VisibilidadTabla2}
                             >
                                 Cancelar
                             </Button>

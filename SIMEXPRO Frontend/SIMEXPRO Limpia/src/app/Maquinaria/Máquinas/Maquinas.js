@@ -18,6 +18,12 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Select from '@mui/material/Select';
 
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Swal from 'sweetalert2';
+import { Controller, useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 function MaquinasIndex() {
     const [searchText, setSearchText] = useState('');
@@ -29,6 +35,19 @@ function MaquinasIndex() {
         setEliminar(!Eliminar);
     };
 
+    const Toast2 = Swal.mixin({
+        toast: true,
+        position: 'top-right',
+        iconColor: 'green',
+        width: 400,
+        customClass: {
+          popup: 'colored-toast'
+        },  
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true
+      })
+
     {/* Columnas de la tabla */ }
     const columns = [
         { field: 'id', headerName: 'Id', width: 100, alignItems: 'center' },
@@ -38,47 +57,65 @@ function MaquinasIndex() {
             field: 'acciones',
             headerName: 'Acciones',
             width: 400,
-            renderCell: (params) => (
-                <Stack direction="row" spacing={1}>
+            renderCell: (params) => {
+                const [anchorEl, setAnchorEl] = React.useState(null);
+          
+                const handleClick = (event) => {
+                  setAnchorEl(event.currentTarget);
+                };
+          
+                const handleClose = () => {
+                  setAnchorEl(null);
+                };
+          
+                const handleEdit = () => {
+                  // Implementa la función para editar aquí
+                  handleClose();
+                };
+          
+                const handleDetails = () => {
+                  // Implementa la función para detalles aquí
+                  handleClose();
+                };
+          
+                const handleDelete = () => {
+                  // Implementa la función para eliminar aquí
+                  handleClose();
+                };
+        
+          
+                return (
+                  <Stack direction="row" spacing={1}>
                     <Button
-                        startIcon={<Icon>edit</Icon>}
-                        variant="contained"
-                        style={{ borderRadius: '10px' }}
-                        sx={{
-                            backgroundColor: '#634A9E',
-                            color: 'white',
-                            "&:hover": { backgroundColor: '#6e52ae' },
-                        }}>
-                        Editar
-                    </Button>
-
-                    <Button
-                        startIcon={<Icon>visibility</Icon>}
-                        variant="contained"
-                        color="primary"
-                        style={{ borderRadius: '10px' }}
-                        sx={{
-                            backgroundColor: '#797979', color: 'white',
-                            "&:hover": { backgroundColor: '#b69999' },
-                        }}
+                      aria-controls={`menu-${params.id}`}
+                      aria-haspopup="true"
+                      onClick={handleClick}
+                      variant="contained"
+                      style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+                      startIcon={<Icon>menu</Icon>}
                     >
-                        Detalles
+                      Opciones
                     </Button>
-                    <Button
-                        startIcon={<Icon>delete</Icon>}
-                        variant="contained"
-                        color="primary"
-                        style={{ borderRadius: '10px' }}
-                        sx={{
-                            backgroundColor: '#E40F00', color: 'white',
-                            "&:hover": { backgroundColor: '#eb5f56' },
-                        }}
-                        onClick={DialogEliminar}
+                    <Menu
+                      id={`menu-${params.id}`}
+                      anchorEl={anchorEl}
+                      keepMounted
+                      open={Boolean(anchorEl)}
+                      onClose={handleClose}
                     >
-                        Eliminar
-                    </Button>
-                </Stack>
-            ),
+                      <MenuItem onClick={handleEdit}>
+                        <Icon>edit</Icon> Editar
+                      </MenuItem>
+                      <MenuItem onClick={handleDetails}>
+                        <Icon>visibility</Icon> Detalles
+                      </MenuItem>
+                      <MenuItem onClick={DialogEliminar}>
+                        <Icon>delete</Icon> Eliminar
+                      </MenuItem>
+                    </Menu>
+                  </Stack>
+                );
+              },
         },
     ];
 
@@ -99,6 +136,14 @@ function MaquinasIndex() {
     const handleSearchChange = (event) => {
         setSearchText(event.target.value);
     };
+
+    const Funcion = () => {
+        VisibilidadTabla()
+        Toast2.fire({
+          icon: 'success',
+          title: 'Datos guardados exitosamente',
+        });
+      };
 
     {/* Filtrado de datos */ }
     const filteredRows = rows.filter((row) =>
@@ -161,7 +206,7 @@ function MaquinasIndex() {
 
             {/* Tabla */}
             <Collapse in={mostrarIndex}>
-                <div style={{ height: 400, width: '100%', marginLeft: '30px', marginRight: '30px' }}>
+                <div style={{ height: 400, width: '100%', marginLeft: '13px', marginRight: '10px' }}>
                     <DataGrid
                         localeText={esES.components.MuiDataGrid.defaultProps.localeText}
                         components={{
@@ -180,11 +225,6 @@ function MaquinasIndex() {
                 </div>
             </Collapse>
 
-
-
-
-
-
             {/* Formulario Agregar */}
             <Collapse in={mostrarAdd}>
                 <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginTop: '30px' }}>
@@ -196,6 +236,8 @@ function MaquinasIndex() {
                                 fullWidth
                             >
                                 <TextField
+                                defaultValue={" "}
+                                placeholder='Ingrese el número de serie'
                                 type='text'
                                     style={{ borderRadius: '10px' }}
                                     label="Número de serie"
@@ -211,9 +253,14 @@ function MaquinasIndex() {
                             >
                                 <InputLabel htmlFor="grouped-native-select">Modelo</InputLabel>
                                 <Select
+                                defaultValue={" "}
                                     style={{ borderRadius: '10px' }}
                                     label="Modelo"
-                                />
+                                >
+                                    <MenuItem value='1'>KJS728</MenuItem>
+                                    <MenuItem value='2'>MNE923</MenuItem>
+                                    <MenuItem value='3'>EMM536</MenuItem>
+                                </Select>
                             </FormControl>
                         </Grid>
 
@@ -228,7 +275,7 @@ function MaquinasIndex() {
                                     backgroundColor: '#634A9E', color: 'white',
                                     "&:hover": { backgroundColor: '#6e52ae' },
                                 }}
-                                onClick={VisibilidadTabla}
+                                onClick={Funcion}
                             >
                                 Guardar
                             </Button>

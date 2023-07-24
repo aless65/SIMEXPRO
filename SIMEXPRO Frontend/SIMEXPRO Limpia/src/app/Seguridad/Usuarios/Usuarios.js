@@ -27,11 +27,56 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+
+
 function UsuariosIndex() {
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
   const [Eliminar, setEliminar] = useState(false);
+
+
+  const [cantidad, setCantidad] = useState('');
+  const [fechaRevision, setFechaRevision] = useState('');
+  const [observaciones, setObservaciones] = useState('');
+  const [isCantidadValid, setIsCantidadValid] = useState(true);
+  const [isFechaRevisionValid, setIsFechaRevisionValid] = useState(true);
+  const [isObservacionesValid, setIsObservacionesValid] = useState(true);
+
+  
+  const handleImageUpload = () => {
+    // Add your image upload logic here
+  };
+
+  const handleGuardarClick = () => {
+    let valid = true;
+    if (cantidad.trim() === '') {
+      setIsCantidadValid(false);
+      valid = false;
+    }
+    if (fechaRevision.trim() === '') {
+      setIsFechaRevisionValid(false);
+      valid = false;
+    }
+    if (observaciones.trim() == '') {
+      setIsObservacionesValid(false);
+
+      valid = false;
+    }
+
+    if (valid) {
+      // Your logic to save data when all fields are valid
+      console.log('Data saved!');
+      // Reset the form
+      setCantidad('');
+      setFechaRevision('');
+      setObservaciones('');
+    }
+  };
+
+
 
   const DialogEliminar = () => {
     setEliminar(!Eliminar);
@@ -46,48 +91,77 @@ function UsuariosIndex() {
     {
       field: 'acciones',
       headerName: 'Acciones',
-      width: 400,
-      renderCell: (params) => (
-        <Stack direction="row" spacing={1}>
-          <Button
-            startIcon={<Icon>edit</Icon>}
-            variant="contained"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#634A9E',
-              color: 'white',
-              "&:hover": { backgroundColor: '#6e52ae' },
-            }}>
-            Editar
-          </Button>
+      flex:1,
+      renderCell: (params) => {
+        const [anchorEl, setAnchorEl] = React.useState(null);
+  
+        const handleClick = (event) => {
+          setAnchorEl(event.currentTarget);
+        };
+  
+        const handleClose = () => {
+          setAnchorEl(null);
+        };
+  
+        const handleEdit = () => {
+          // Implementa la función para editar aquí
+          handleClose();
+        };
+  
+        const handleDetails = () => {
+          // Implementa la función para detalles aquí
+          handleClose();
+        };
+  
+        const handleDelete = () => {
+          DialogEliminar();
+          // Implementa la función para eliminar aquí
+          handleClose();
+        };
+  
+        const handlePrint = () => {
+          // Implementa la función para imprimir aquí
 
-          <Button
-            startIcon={<Icon>visibility</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#797979', color: 'white',
-              "&:hover": { backgroundColor: '#b69999' },
-            }}
-          >
-            Detalles
-          </Button>
-          <Button
-            startIcon={<Icon>delete</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#E40F00', color: 'white',
-              "&:hover": { backgroundColor: '#eb5f56' },
-            }}
-            onClick={DialogEliminar}
-          >
-            Eliminar
-          </Button>
-        </Stack>
-      ),
+          handleClose();
+        };
+
+        const handleBoletin = () => {
+          // Implementa la función para imprimir aquí
+          handleClose();
+        };
+  
+        return (
+          <Stack direction="row" spacing={1}>
+            <Button
+              aria-controls={`menu-${params.id}`}
+              aria-haspopup="true"
+              onClick={handleClick}
+              variant="contained"
+              style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+              startIcon={<Icon>menu</Icon>}
+            >
+              Opciones
+            </Button>
+            <Menu
+              id={`menu-${params.id}`}
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleEdit}>
+                <Icon>edit</Icon> Editar
+              </MenuItem>
+              <MenuItem onClick={handleDetails}>
+                <Icon>visibility</Icon> Detalles
+              </MenuItem>
+              <MenuItem onClick={handleDelete}>
+                <Icon>delete</Icon> Eliminar
+              </MenuItem>
+            </Menu>
+          </Stack>
+        );
+      },
     },
   ];
 
@@ -107,7 +181,6 @@ function UsuariosIndex() {
 
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
-    
   };
 
   {/* Filtrado de datos */ }
@@ -115,7 +188,7 @@ function UsuariosIndex() {
     row.usuario.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  
+
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
       <CardMedia
@@ -191,77 +264,162 @@ function UsuariosIndex() {
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
-            <Grid item xs={12}>
-              
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
+            {/* Botón para agregar imagen */}
+            <Grid item xs={4} style={{ marginTop: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <button
+                style={{
+                  width: '25rem', // Set the desired width for the square button
+                  height: '25rem', // Set the same value for height to make it square
+                  backgroundColor: 'transparent',
+                  border: '2px solid #634A9E',
+                  color: 'black',
+                  borderRadius: '10px',
+                  cursor: 'pointer',
+                  marginBottom: '10px',
+                }}
               >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Usuario"
-                />
-              </FormControl>
+                <Icon style={{ marginRight: '5px' }}>add_photo_alternate</Icon> Agregar Imagen
+              </button>
             </Grid>
 
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Contraseña"
-                />
-              </FormControl>
+            {/* Right column for all the TextField  InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+
+                        </InputAdornment>
+                      ),
+
+                    }}
+s */}
+            <Grid item xs={8} style={{ marginTop: '30px' }}>
+              <Grid container spacing={3}>
+                {/* Etiqueta "Nuevo Usuario" */}
+                <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                </Grid>
+
+                {/* Left column for TextFields */}
+                <Grid item xs={6}>
+                  <FormControl fullWidth>
+                    {/* TextField Usuario */}
+                    <TextField  InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+
+                        </InputAdornment>
+                      ),
+
+                    }}
+
+                      style={{ borderRadius: '3px', marginTop: '10px' }}
+
+                      label="Usuario"
+                      placeholder="Usuario"
+
+                    />
+                  </FormControl>
+
+                  <FormControl fullWidth>
+                    {/* TextField Contraseña */}
+                    <TextField  InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+
+                        </InputAdornment>
+                      ),
+
+                    }}
+
+                      style={{ borderRadius: '3px', marginTop: '10px' }}
+
+                      label="Contraseña"
+                      placeholder="Contraseña"
+
+                    />
+                  </FormControl>
+
+                  <FormControl fullWidth>
+                    {/* TextField Contraseña */}
+                    <TextField  InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+
+                        </InputAdornment>
+                      ),
+                      
+                    }}
+                    placeholder="Correo Eléctronico"
+                    
+                      style={{ borderRadius: '3px', marginTop: '10px' }}
+
+                      label="Correo Eléctronico"
+
+                    />
+                  </FormControl>
+
+                
+                </Grid>
+
+                <Grid item xs={6} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <FormControl fullWidth>
+                      <InputLabel htmlFor="grouped-native-select">Empleado</InputLabel>
+                      <TextField
+                        style={{ borderRadius: '3px' ,marginTop:'1.1rem'}}
+                        label="Empleado"
+                        select
+                        placeholder="Empleado"
+                        InputProps={{
+                          startAdornment: <InputAdornment position="start" />,
+                        }}
+                      />
+                    </FormControl>
+
+
+
+        <FormControl fullWidth>
+                      <InputLabel htmlFor="grouped-native-select">Rol</InputLabel>
+                      <TextField
+                        style={{ borderRadius: '3px',marginTop:'1rem' }}
+                        label="Rol"
+                        select
+                        placeholder="Rol"
+                        InputProps={{
+                          startAdornment: <InputAdornment position="start" />,
+                        }}
+                      />
+                    </FormControl>
+
+
+        <FormControl fullWidth>
+          <FormControlLabel
+            control={<Switch sx={{ '&.Mui-checked': { color: '#634A9E' } }} />}
+            label="Administrador"
+            labelPlacement="rigth"
+            style={{marginTop:'25px'}}
+          />
+        </FormControl>
+      </Grid>
+
+
+    </Grid>
+
+
             </Grid>
 
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <InputLabel htmlFor="grouped-native-select">Empleado</InputLabel>
-                <Select
-                  style={{ borderRadius: '3px' }}
-                  label="Empleado"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <InputLabel htmlFor="grouped-native-select">Rol</InputLabel>
-                <Select
-                  style={{ borderRadius: '3px' }}
-                  label="Rol"
-                />
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={2} sx={{ display: 'flex', justifyContent: 'start', alignItems: 'start' }}>
-              <FormControl fullWidth>
-                <FormControlLabel
-                  control={<Switch sx={{ '&.Mui-checked': { color: '#634A9E' } }} />}
-                  label="Administrador"
-                  labelPlacement="right"
-                />
-              </FormControl>
-            </Grid>
-
+            {/* Botones de "Guardar" y "Cancelar" */}
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
               <Button
-                startIcon={<Icon>checked</Icon>}
+                startIcon={<Icon>check</Icon>}
                 variant="contained"
                 color="primary"
-                style={{ borderRadius: '10px', marginRight: '10px' }}
+                style={{
+                  borderRadius: '10px',
+                  marginRight: '10px',
+                }}
                 sx={{
                   backgroundColor: '#634A9E', color: 'white',
                   "&:hover": { backgroundColor: '#6e52ae' },
                 }}
-                onClick={VisibilidadTabla}
+                onClick={handleGuardarClick}
               >
                 Guardar
               </Button>
@@ -280,10 +438,10 @@ function UsuariosIndex() {
                 Cancelar
               </Button>
             </Grid>
-
           </Grid>
         </CardContent>
       </Collapse>
+
 
 
       <Dialog
@@ -298,39 +456,39 @@ function UsuariosIndex() {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-          ¿Está seguro(a) que desea eliminar este registro?
+            ¿Está seguro(a) que desea eliminar este registro?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
-              <Button
-                startIcon={<Icon>checked</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px', marginRight: '10px' }}
-                sx={{
-                  backgroundColor: '#634A9E', color: 'white',
-                  "&:hover": { backgroundColor: '#6e52ae' },
-                }}
-                onClick={DialogEliminar}
-              >
-                Eliminar
-              </Button>
+          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
+            <Button
+              startIcon={<Icon>checked</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px', marginRight: '10px' }}
+              sx={{
+                backgroundColor: '#634A9E', color: 'white',
+                "&:hover": { backgroundColor: '#6e52ae' },
+              }}
+              onClick={DialogEliminar}
+            >
+              Eliminar
+            </Button>
 
-              <Button
-                startIcon={<Icon>close</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px' }}
-                sx={{
-                  backgroundColor: '#DAD8D8', color: 'black',
-                  "&:hover": { backgroundColor: '#BFBABA' },
-                }}
-                onClick={DialogEliminar}
-              >
-                Cancelar
-              </Button>
-            </Grid>
+            <Button
+              startIcon={<Icon>close</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px' }}
+              sx={{
+                backgroundColor: '#DAD8D8', color: 'black',
+                "&:hover": { backgroundColor: '#BFBABA' },
+              }}
+              onClick={DialogEliminar}
+            >
+              Cancelar
+            </Button>
+          </Grid>
         </DialogActions>
       </Dialog>
 

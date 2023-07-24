@@ -33,6 +33,15 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { height } from '@mui/system';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import * as yup from 'yup';
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import Alert from '@mui/material/Alert';
+import Swal from 'sweetalert2'
+import FormHelperText from '@mui/material/FormHelperText';
+import FormLabel from '@mui/material/FormLabel';
 
 
 function MonedasIndex() {
@@ -44,73 +53,126 @@ function MonedasIndex() {
   const DialogEliminar = () => {
     setEliminar(!Eliminar);
   };
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'red',
+    width: 400,
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+  const Toast2 = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    iconColor: 'green',
+    width: 400,
+    customClass: {
+      popup: 'colored-toast'
+    },
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  })
+
+  {/* Validaciones de la pantalla de crear*/ }
+  const defaultAccountValues = {
+    mone_Descripcion: '',
+    mone_Codigo: '',
+  }
+
+  const accountSchema = yup.object().shape({
+    mone_Descripcion: yup.string().required(''),
+    mone_Codigo: yup.string().required(''),
+  })
+
 
   {/* Columnas de la tabla */ }
   const columns = [
-    { field: 'id', headerName: 'Id', width: 10 },
-    { field: 'code', headerName: 'Codigo', flex: 1 },
-    { field: 'descripcion', headerName: 'Moneda', flex: 1 },       
+    { field: 'id', headerName: 'Id', flex: 4 },
+    { field: 'code', headerName: 'Codigo', flex: 5 },
+    { field: 'descripcion', headerName: 'Moneda', flex: 5 },
     {
       field: 'acciones',
       headerName: 'Acciones',
-      width: 400,
-      renderCell: (params) => (
-        <Stack direction="row" spacing={1}>
-          <Button
-            startIcon={<Icon>edit</Icon>}
-            variant="contained"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#634A9E',
-              color: 'white',
-              "&:hover": { backgroundColor: '#6e52ae' },
-            }}>
-            Editar
-          </Button>
+      flex: 5,
+      renderCell: (params) => {
+        const [anchorEl, setAnchorEl] = React.useState(null);
 
-          <Button
-            startIcon={<Icon>visibility</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#797979', color: 'white',
-              "&:hover": { backgroundColor: '#b69999' },
-            }}
-          >
-            Detalles
-          </Button>
-          <Button
-            startIcon={<Icon>delete</Icon>}
-            variant="contained"
-            color="primary"
-            style={{ borderRadius: '10px' }}
-            sx={{
-              backgroundColor: '#E40F00', color: 'white',
-              "&:hover": { backgroundColor: '#eb5f56' },
-            }}
-            onClick={DialogEliminar}
-          >
-            Eliminar
-          </Button>
-        </Stack>
-      ),
+        const handleClick = (event) => {
+          setAnchorEl(event.currentTarget);
+        };
+
+        const handleClose = () => {
+          setAnchorEl(null);
+        };
+
+        const handleEdit = () => {
+          // Implementa la función para editar aquí
+          handleClose();
+        };
+
+        const handleDetails = () => {
+          // Implementa la función para detalles aquí
+          handleClose();
+        };
+
+
+
+
+        return (
+          <Stack direction="row" spacing={1}>
+            <Button
+              aria-controls={`menu-${params.id}`}
+              aria-haspopup="true"
+              onClick={handleClick}
+              variant="contained"
+              style={{ borderRadius: '10px', backgroundColor: '#634A9E', color: 'white' }}
+              startIcon={<Icon>menu</Icon>}
+            >
+              Opciones
+            </Button>
+            <Menu
+              id={`menu-${params.id}`}
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleEdit}>
+                <Icon>edit</Icon> Editar
+              </MenuItem>
+              <MenuItem onClick={handleDetails}>
+                <Icon>visibility</Icon> Detalles
+              </MenuItem>
+              <MenuItem onClick={DialogEliminar}>
+                <Icon>delete</Icon> Eliminar
+              </MenuItem>
+            </Menu>
+          </Stack>
+        );
+      },
     },
   ];
 
   {/* Datos de la tabla */ }
   const rows = [
-    { id: '1', code:'HND',descripcion: 'El Lempira'},
-    { id: '2', code:'EUR',descripcion: 'El Euro'},
-    { id: '3', code:'USD',descripcion: 'El Dolar'},
-    { id: '4', code:'JPY',descripcion: 'El Yen Japones'},
-    { id: '5', code:'GBP',descripcion: 'La Libra Esterlina'},
+    { id: '1', code: 'HND', descripcion: 'El Lempira' },
+    { id: '2', code: 'EUR', descripcion: 'El Euro' },
+    { id: '3', code: 'USD', descripcion: 'El Dolar' },
+    { id: '4', code: 'JPY', descripcion: 'El Yen Japones' },
+    { id: '5', code: 'GBP', descripcion: 'La Libra Esterlina' },
   ];
 
   {/* Función para mostrar la tabla y mostrar agregar */ }
   const VisibilidadTabla = () => {
     setmostrarIndex(!mostrarIndex);
     setmostrarAdd(!mostrarAdd);
+    reset(defaultAccountValues);
   };
 
   const handleSearchChange = (event) => {
@@ -122,12 +184,52 @@ function MonedasIndex() {
     row.descripcion.toLowerCase().includes(searchText.toLowerCase())
   );
 
+
+  const { handleSubmit, register, reset, control, watch, formState } = useForm({
+    defaultAccountValues,
+    mode: 'all',
+    resolver: yupResolver(accountSchema),
+  });
+
+  const { isValid, dirtyFields, errors } = formState;
+
+  const onSubmit = (data) => {
+    if (data.mone_Codigo != null || data.pais_Id != null) {
+      if (data.mone_Descripcion.trim() === '' || data.pais_Id == 0) {
+        Toast.fire({
+          icon: 'error',
+          title: 'No se permiten campos vacios',
+        });
+      } else {
+
+        VisibilidadTabla();
+        Toast2.fire({
+          icon: 'success',
+          title: 'Datos guardados exitosamente',
+        });
+
+      }
+    } else {
+      Toast.fire({
+        icon: 'error',
+        title: 'No se permiten campos vacios',
+      });
+    }
+  };
+
+  const GuardarMoneda = () => {
+    const formData = watch();
+    onSubmit(formData);
+    handleSubmit(onSubmit)();
+    reset(defaultAccountValues);
+  };
+
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/SJygSW8/MONEDAS.png"
+        image="https://i.ibb.co/yXhrPpL/MONEDAS.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>
@@ -178,7 +280,7 @@ function MonedasIndex() {
 
       {/* Tabla */}
       <Collapse in={mostrarIndex}>
-        <div style={{ height: 400, width: '100%' }}>
+        <div style={{ height: 400, width: '100%', marginLeft: '13px', marginRight: '10px' }}>
           <DataGrid
             localeText={esES.components.MuiDataGrid.defaultProps.localeText}
             components={{
@@ -206,30 +308,50 @@ function MonedasIndex() {
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Typography variant="h5" gutterBottom>
-              </Typography>
-            </Grid> 
+
             <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Codigo Moneda"
+              <div className="mt-48 mb-16">
+                <Controller
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="Código de la moneda"
+                      variant="outlined"
+                      error={!!errors.mone_Codigo}
+                      placeholder='Ingrese el código de la moneda'
+                      fullWidth
+                      InputProps={{ startAdornment: (<InputAdornment position="start"></InputAdornment>), }}
+                    />
+                  )}
+                  name="mone_Codigo"
+                  control={control}
                 />
-              </FormControl>
-            </Grid> 
+              </div>
+            </Grid>
+
             <Grid item xs={6}>
-              <FormControl
-                fullWidth
-              >
-                <TextField
-                  style={{ borderRadius: '10px' }}
-                  label="Nombre Moneda"
+              <div className="mt-48 mb-16">
+                <Controller
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="Nombre de la moneda"
+                      variant="outlined"
+                      error={!!errors.mone_Descripcion}
+
+                      placeholder='Ingrese el nombre de la moneda'
+                      fullWidth
+                      InputProps={{ startAdornment: (<InputAdornment position="start"></InputAdornment>), }}
+                    />
+                  )}
+                  name="mone_Descripcion"
+                  control={control}
                 />
-              </FormControl>
-            </Grid>        
+              </div>
+            </Grid>
+
+
+
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
               <Button
                 startIcon={<Icon>checked</Icon>}
@@ -240,7 +362,7 @@ function MonedasIndex() {
                   backgroundColor: '#634A9E', color: 'white',
                   "&:hover": { backgroundColor: '#6e52ae' },
                 }}
-                onClick={VisibilidadTabla}
+                onClick={GuardarMoneda}
               >
                 Guardar
               </Button>
@@ -277,39 +399,39 @@ function MonedasIndex() {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-          ¿Está seguro(a) que desea eliminar este registro?
+            ¿Está seguro(a) que desea eliminar este registro?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
-              <Button
-                startIcon={<Icon>checked</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px', marginRight: '10px' }}
-                sx={{
-                  backgroundColor: '#634A9E', color: 'white',
-                  "&:hover": { backgroundColor: '#6e52ae' },
-                }}
-                onClick={DialogEliminar}
-              >
-                Eliminar
-              </Button>
+          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
+            <Button
+              startIcon={<Icon>checked</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px', marginRight: '10px' }}
+              sx={{
+                backgroundColor: '#634A9E', color: 'white',
+                "&:hover": { backgroundColor: '#6e52ae' },
+              }}
+              onClick={DialogEliminar}
+            >
+              Eliminar
+            </Button>
 
-              <Button
-                startIcon={<Icon>close</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px' }}
-                sx={{
-                  backgroundColor: '#DAD8D8', color: 'black',
-                  "&:hover": { backgroundColor: '#BFBABA' },
-                }}
-                onClick={DialogEliminar}
-              >
-                Cancelar
-              </Button>
-            </Grid>
+            <Button
+              startIcon={<Icon>close</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px' }}
+              sx={{
+                backgroundColor: '#DAD8D8', color: 'black',
+                "&:hover": { backgroundColor: '#BFBABA' },
+              }}
+              onClick={DialogEliminar}
+            >
+              Cancelar
+            </Button>
+          </Grid>
         </DialogActions>
       </Dialog>
 

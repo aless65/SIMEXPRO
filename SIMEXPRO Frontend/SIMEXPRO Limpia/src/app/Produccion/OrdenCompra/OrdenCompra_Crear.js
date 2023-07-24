@@ -746,7 +746,10 @@ function OrdenCompra_Crear() {
                                     color: 'white',
                                     '&:hover': { backgroundColor: '#6e52ae' },
                                 }}
-                                onClick={() => validacion(1)}
+                                //onClick={() => validacion(1)}
+                                onClick={(e) => {
+                                    navigate('/OrdenCompra/index');
+                                }}
                             >
                                 Guardar
                             </Button>

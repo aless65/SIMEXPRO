@@ -1440,3 +1440,103 @@ BEGIN
 	END CATCH
 END
 GO
+
+--**********REVISION DE CALIDAD**********--
+/*Listar revisión de calidad*/
+CREATE OR ALTER PROCEDURE Prod.UDP_tbRevisionDeCalidad_Listar
+AS
+BEGIN
+	SELECT revi.reca_Id,
+	       revi.ensa_Id, 
+		   revi.reca_Descripcion, 
+		   revi.reca_Cantidad, 
+		   revi.reca_Scrap, 
+		   revi.reca_FechaRevision, 
+		   revi.reca_Imagen, 
+		   revi.usua_UsuarioCreacion, 
+		   usuaCrea.usua_Nombre                       AS usuarioCreacionNombre,
+		   revi.reca_FechaCreacion, 
+		   revi.usua_UsuarioModificacion,
+		   usuaModifica.usua_Nombre                   AS usuarioModificacionNombre,
+		   revi.reca_FechaModificacion, 
+		   revi.reca_Estado
+      FROM Prod.tbRevisionDeCalidad revi
+	       LEFT JOIN  Acce.tbUsuarios usuaCrea		  ON revi.usua_UsuarioCreacion     = usuaCrea.usua_Id 
+		   LEFT JOIN  Acce.tbUsuarios usuaModifica	  ON revi.usua_UsuarioModificacion = usuaModifica.usua_Id
+		   INNER JOIN Prod.tbOrde_Ensa_Acab_Etiq ensa ON revi.ensa_Id                  = ensa.ensa_Id
+	 WHERE reca_Estado = 1
+END
+GO
+
+
+/*Insertar revision de calidad*/
+CREATE OR ALTER PROCEDURE Prod.UDP_tbRevisionDeCalidad_Insertar
+	@ensa_Id                  INT,
+	@reca_Descripcion         NVARCHAR(200),
+	@reca_Cantidad            INT,
+	@reca_Scrap               BIT, 
+	@reca_FechaRevision       DATETIME, 
+	@reca_Imagen              NVARCHAR(MAX), 
+	@usua_UsuarioCreacion     INT, 
+	@reca_FechaCreacion       DATETIME	 
+AS 
+BEGIN
+	
+	BEGIN TRY
+		INSERT INTO Prod.tbRevisionDeCalidad(ensa_Id,
+		                                     reca_Descripcion, 
+											 reca_Cantidad, 
+											 reca_Scrap, 
+											 reca_FechaRevision, 
+											 reca_Imagen, 
+											 usua_UsuarioCreacion, 
+											 reca_FechaCreacion)
+		      VALUES(@ensa_Id,
+			         @reca_Descripcion, 
+					 @reca_Cantidad, 
+					 @reca_Scrap, 
+					 @reca_FechaRevision, 
+					 @reca_Imagen, 
+					 @usua_UsuarioCreacion, 
+					 @reca_FechaCreacion)
+		
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH 
+END
+GO
+
+/*Editar revision de calidad*/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbRevisionDeCalidad_Editar
+	@reca_Id                  INT, 
+	@ensa_Id                  INT, 
+	@reca_Descripcion         NVARCHAR(200), 
+	@reca_Cantidad            INT, 
+	@reca_Scrap               BIT, 
+	@reca_FechaRevision       DATETIME,
+	@reca_Imagen              NVARCHAR(MAX),
+	@usua_UsuarioModificacion INT, 
+	@reca_FechaModificacion   DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE  Prod.tbRevisionDeCalidad
+		SET		ensa_Id                  = @ensa_Id                 ,
+		        reca_Descripcion         = @reca_Descripcion        ,
+				reca_Cantidad            = @reca_Cantidad           ,
+				reca_Scrap               = @reca_Scrap              ,
+				reca_FechaRevision       = @reca_FechaRevision      ,
+				reca_Imagen              = @reca_Imagen             ,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				reca_FechaModificacion   = @reca_FechaModificacion
+		WHERE	reca_Id                  = @reca_Id
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO

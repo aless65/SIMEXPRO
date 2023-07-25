@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alexe\\Desktop\\EVALUACION_Final\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj": {}
+    "C:\\Users\\LAB02\\Desktop\\SIMEXPRRO DIVIDIDO\\SIMEXPRO\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alexe\\Desktop\\EVALUACION_Final\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj": {
+    "C:\\Users\\LAB02\\Desktop\\SIMEXPRRO DIVIDIDO\\SIMEXPRO\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alexe\\Desktop\\EVALUACION_Final\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj",
+        "projectUniqueName": "C:\\Users\\LAB02\\Desktop\\SIMEXPRRO DIVIDIDO\\SIMEXPRO\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj",
         "projectName": "SIMEXPRO.BusinessLogic",
-        "projectPath": "C:\\Users\\alexe\\Desktop\\EVALUACION_Final\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj",
-        "packagesPath": "C:\\Users\\alexe\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alexe\\Desktop\\EVALUACION_Final\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\obj\\",
+        "projectPath": "C:\\Users\\LAB02\\Desktop\\SIMEXPRRO DIVIDIDO\\SIMEXPRO\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj",
+        "packagesPath": "C:\\Users\\LAB02\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\LAB02\\Desktop\\SIMEXPRRO DIVIDIDO\\SIMEXPRO\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\alexe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\LAB02\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -66,7 +64,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.413\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "TPX2X1EBLbjNiYVW61fWeB2YIdLwlODXTnBxwMvuQ6MnHAqVX5TO4WxWUlDfapz//t+aEZDtBV/9RJoIaiqCnA==",
+  "dgSpecHash": "Q+jN0RnO9JIy/ox6Kd0XVrGTeiLKVAsvwb5ng1TyS7NXfaDbuvx0nuse/r4eEWGG7osVplLjuqJnkNCk5kDfsg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\alexe\\Desktop\\EVALUACION_Final\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj",
+  "projectFilePath": "C:\\Users\\LAB02\\Desktop\\SIMEXPRRO DIVIDIDO\\SIMEXPRO\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\alexe\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512"
+    "C:\\Users\\LAB02\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512"
   ],
   "logs": []
 }

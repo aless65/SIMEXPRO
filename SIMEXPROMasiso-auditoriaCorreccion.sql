@@ -2081,6 +2081,26 @@ GO
 -----------------Adquisicion de material--------------------
 
 
+CREATE TABLE Adua.tbMarcas(
+	marc_Id							INT IDENTITY(1,1),
+	marc_Descripcion				NVARCHAR(20) NOT NULL,
+
+	usua_UsuarioCreacion			INT NOT NULL,
+	marc_FechaCreacion				DATETIME NOT NULL,
+	usua_UsuarioModificacion 		INT DEFAULT NULL,
+	marc_FechaModificacion			DATETIME DEFAULT NULL,
+	usua_UsuarioEliminacion	    INT	DEFAULT NULL,
+	marc_FechaEliminacion		DATETIME DEFAULT NULL,
+	marc_Estado 					BIT DEFAULT 1
+	CONSTRAINT PK_Adua_tbMarcas_marc_Id PRIMARY KEY(marc_Id),
+	CONSTRAINT FK_Prod_tbMarcas_tbUsuarios_marc_UsuarioCreacion		FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios 	(usua_Id),
+	CONSTRAINT FK_Prod_tbMarcas_tbUsuarios_marc_UsuarioModificacion	FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios 	(usua_Id),
+    CONSTRAINT UQ_Adua_tbMarcas_marc_Descripcion UNIQUE(marc_Descripcion),
+	CONSTRAINT FK_Prod_tbMarcas_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
+);
+GO
+
+
 ---- DUCA ----
 CREATE TABLE Adua.tbTransporte( 
 	tran_Id							INT IDENTITY(1,1),
@@ -2463,26 +2483,6 @@ CREATE TABLE Prod.tbRevisionDeCalidad(
 	--CONSTRAINT FK_Prod_tbRevisionDeCalidad_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
-
-CREATE TABLE Adua.tbMarcas(
-	marc_Id							INT IDENTITY(1,1),
-	marc_Descripcion				NVARCHAR(20) NOT NULL,
-
-	usua_UsuarioCreacion			INT NOT NULL,
-	marc_FechaCreacion				DATETIME NOT NULL,
-	usua_UsuarioModificacion 		INT DEFAULT NULL,
-	marc_FechaModificacion			DATETIME DEFAULT NULL,
-	usua_UsuarioEliminacion	    INT	DEFAULT NULL,
-	marc_FechaEliminacion		DATETIME DEFAULT NULL,
-	marc_Estado 					BIT DEFAULT 1
-	CONSTRAINT PK_Adua_tbMarcas_marc_Id PRIMARY KEY(marc_Id),
-	CONSTRAINT FK_Prod_tbMarcas_tbUsuarios_marc_UsuarioCreacion		FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios 	(usua_Id),
-	CONSTRAINT FK_Prod_tbMarcas_tbUsuarios_marc_UsuarioModificacion	FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios 	(usua_Id),
-    CONSTRAINT UQ_Adua_tbMarcas_marc_Descripcion UNIQUE(marc_Descripcion),
-	CONSTRAINT FK_Prod_tbMarcas_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
-);
-GO
-
 --Seccion pt2
 
 

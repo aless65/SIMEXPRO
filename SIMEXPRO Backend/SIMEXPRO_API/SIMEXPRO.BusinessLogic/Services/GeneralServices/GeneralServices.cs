@@ -11,14 +11,568 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
 {
     public class GeneralServices
     {
+        private readonly AldeasRepository _aldeasRepository;
+        private readonly CargosRepository _cargosRepository;
+        private readonly CiudadesRepository _ciudadesRepository;
+        private readonly ColoniasRepository _coloniasRepository;
+        private readonly EmpleadosRepository _empleadosRepository;
         private readonly EstadosCivilesRepository _estadosCivilesRepository;
+        private readonly FormasEnvioRepository _formasEnvioRepository;
+        private readonly MonedasRepository _monedasRepository;
+        private readonly OficinasRepository _oficinasRepository;
+        private readonly OficioProfesionesRepository _oficioProfesionesRepository;
+        private readonly PaisesRepository _paisesRepository;
+        private readonly ProveedoresRepository _proveedoresRepository;
+        private readonly ProvinciasRepository _provinciasRepository;
+        private readonly UnidadMedidasRepository _unidadMedidasRepository;
 
-        public GeneralServices(EstadosCivilesRepository estadosCivilesRepository)
+
+
+        public GeneralServices(
+            AldeasRepository aldeasRepository,
+            CargosRepository cargosRepository,
+            CiudadesRepository ciudadesRepository,
+            ColoniasRepository coloniasRepository,
+            EmpleadosRepository empleadosRepository,
+            EstadosCivilesRepository estadosCivilesRepository,
+            FormasEnvioRepository formasEnvioRepository,
+            MonedasRepository monedasRepository,
+            OficinasRepository oficinasRepository,
+            OficioProfesionesRepository oficioProfesionesRepository,
+            PaisesRepository paisesRepository,
+            ProveedoresRepository proveedoresRepository,
+            ProvinciasRepository provinciasRepository,
+            UnidadMedidasRepository unidadMedidasRepository
+                                )
         {
+            _aldeasRepository = aldeasRepository;
+            _cargosRepository = cargosRepository;
+            _ciudadesRepository = ciudadesRepository;
+            _coloniasRepository = coloniasRepository;
+            _empleadosRepository = empleadosRepository;
             _estadosCivilesRepository = estadosCivilesRepository;
+            _formasEnvioRepository = formasEnvioRepository;
+            _monedasRepository = monedasRepository;
+            _oficinasRepository = oficinasRepository;
+            _oficioProfesionesRepository = oficioProfesionesRepository;
+            _paisesRepository = paisesRepository;
+            _proveedoresRepository = proveedoresRepository;
+            _provinciasRepository = provinciasRepository;
+            _unidadMedidasRepository = unidadMedidasRepository;
+
         }
 
-        #region Estados Civiles 
+        #region Aldeas
+        public IEnumerable<tbAldeas> ListarAldeas()
+        {
+            try
+            {
+                var list = _aldeasRepository.List();
+                return list;
+            }
+            catch (Exception ex)
+            {
+                return Enumerable.Empty<tbAldeas>();
+            }
+        }
+
+        public ServiceResult InsertarAldeas(tbAldeas item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.alde_Nombre != "")
+                {
+                    var map = _aldeasRepository.Insert(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarAldeas(tbAldeas item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.alde_Nombre != "")
+                {
+                    var map = _aldeasRepository.Update(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult EliminarAldeas(tbAldeas item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.alde_Id != 0)
+                {
+                    var map = _aldeasRepository.Delete(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Cargos
+        public IEnumerable<tbCargos> ListarCargos()
+        {
+            try
+            {
+                var list = _cargosRepository.List();
+                return list;
+            }
+            catch (Exception ex)
+            {
+                return Enumerable.Empty<tbCargos>();
+            }
+        }
+
+        public ServiceResult InsertarCargos(tbCargos item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.carg_Nombre != "")
+                {
+                    var map = _cargosRepository.Insert(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarCargos(tbCargos item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.carg_Nombre != "")
+                {
+                    var map = _cargosRepository.Update(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult EliminarCargos(tbCargos item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.carg_Id != 0)
+                {
+                    var map = _cargosRepository.Delete(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Ciudades
+        public IEnumerable<tbCiudades> ListarCiudades()
+        {
+            try
+            {
+                var list = _ciudadesRepository.List();
+                return list;
+            }
+            catch (Exception ex)
+            {
+                return Enumerable.Empty<tbCiudades>();
+            }
+        }
+
+        public ServiceResult InsertarCiudades(tbCiudades item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.ciud_Nombre != "")
+                {
+                    var map = _ciudadesRepository.Insert(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarCiudades(tbCiudades item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.ciud_Nombre != "")
+                {
+                    var map = _ciudadesRepository.Update(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult EliminarCiudades(tbCiudades item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.ciud_Id != 0)
+                {
+                    var map = _ciudadesRepository.Delete(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Colonias
+        public IEnumerable<tbColonias> ListarColonias()
+        {
+            try
+            {
+                var list = _coloniasRepository.List();
+                return list;
+            }
+            catch (Exception ex)
+            {
+                return Enumerable.Empty<tbColonias>();
+            }
+        }
+
+        public ServiceResult InsertarColonias(tbColonias item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.colo_Nombre != "")
+                {
+                    var map = _coloniasRepository.Insert(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarColonias(tbColonias item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.colo_Nombre != "")
+                {
+                    var map = _coloniasRepository.Update(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult EliminarColonias(tbColonias item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.colo_Id != 0)
+                {
+                    var map = _coloniasRepository.Delete(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Empleados
+        public IEnumerable<tbEmpleados> ListarEmpleados()
+        {
+            try
+            {
+                var list = _empleadosRepository.List();
+                return list;
+            }
+            catch (Exception ex)
+            {
+                return Enumerable.Empty<tbEmpleados>();
+            }
+        }
+
+        public ServiceResult InsertarEmpleados(tbEmpleados item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.empl_Nombres != "")
+                {
+                    var map = _empleadosRepository.Insert(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarEmpleados(tbEmpleados item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.empl_Nombres != "")
+                {
+                    var map = _empleadosRepository.Update(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult EliminarEmpleados(tbEmpleados item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.empl_Id != 0)
+                {
+                    var map = _empleadosRepository.Delete(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        #endregion
+
+        #region EstadosCiviles
         public IEnumerable<tbEstadosCiviles> ListarEstadosCiviles()
         {
             try
@@ -32,80 +586,908 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             }
         }
 
-        //public ServiceResult InsertarEstadoCivil(tbEstadosCiviles item)
-        //{
-        //    var result = new ServiceResult();
-        //    try
-        //    {
-        //        if (item.esci_Descripcion != "")
-        //        {
-        //            var map = _estadosCivilesRepository.InsertarEstadoCivil(item);
-        //            if (map.CodeStatus > 0)
-        //            {
-        //                return result.Ok(map);
-        //            }
-        //            else
-        //            {
-        //                map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-        //                return result.Error(map);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return result.Error(ex.Message);
-        //    }
-        //}
+        public ServiceResult InsertarEstadosCiviles(tbEstadosCiviles item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.alde_Nombre != "")
+                {
+                    var map = _estadosCivilesRepository.Insert(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
 
-        //public ServiceResult ActualizarEstadoCivil(tbEstadosCiviles item)
-        //{
-        //    var result = new ServiceResult();
-        //    try
-        //    {
-        //        if (item.esci_Descripcion != "")
-        //        {
-        //            var map = _estadosCivilesRepository.ActualizarEstadoCivil(item);
-        //            if (map.CodeStatus > 0)
-        //            {
-        //                return result.Ok(map);
-        //            }
-        //            else
-        //            {
-        //                map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-        //                return result.Error(map);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return result.Error(ex.Message);
-        //    }
-        //}
+        public ServiceResult ActualizarEstadosCiviles(tbEstadosCiviles item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.alde_Nombre != "")
+                {
+                    var map = _estadosCivilesRepository.Update(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
 
-        //public IEnumerable<tbEstadosCiviles> ListarDetallesEstadosCiviles(tbEstadosCiviles item)
-        //{
-        //    try
-        //    {
-        //        var list = _estadosCivilesRepository.ListarDetallesEstadosCiviles(item);
-        //        return list;
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        return Enumerable.Empty<tbEstadosCiviles>();
-        //    }
-        //}
+        public ServiceResult EliminarEstadosCiviles(tbEstadosCiviles item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.alde_Id != 0)
+                {
+                    var map = _estadosCivilesRepository.Delete(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
         #endregion
 
+        #region Formas_Envio
+        public IEnumerable<tbFormas_Envio> ListarFormas_Envio()
+        {
+            try
+            {
+                var list = _formasEnvioRepository.List();
+                return list;
+            }
+            catch (Exception ex)
+            {
+                return Enumerable.Empty<tbFormas_Envio>();
+            }
+        }
 
+        public ServiceResult InsertarFormas_Envio(tbFormas_Envio item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.foen_Descripcion != "")
+                {
+                    var map = _formasEnvioRepository.Insert(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
 
+        public ServiceResult ActualizarFormas_Envio(tbFormas_Envio item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.foen_Descripcion != "")
+                {
+                    var map = _formasEnvioRepository.Update(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult EliminarFormas_Envio(tbFormas_Envio item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.foen_Id != 0)
+                {
+                    var map = _formasEnvioRepository.Delete(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Monedas
+        public IEnumerable<tbMonedas> ListarMonedas()
+        {
+            try
+            {
+                var list = _monedasRepository.List();
+                return list;
+            }
+            catch (Exception ex)
+            {
+                return Enumerable.Empty<tbMonedas>();
+            }
+        }
+
+        public ServiceResult InsertarMonedas(tbMonedas item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.mone_Descripcion != "")
+                {
+                    var map = _monedasRepository.Insert(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarMonedas(tbMonedas item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.mone_Descripcion != "")
+                {
+                    var map = _monedasRepository.Update(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult EliminarMonedas(tbMonedas item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.mone_Id != 0)
+                {
+                    var map = _monedasRepository.Delete(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Oficinas
+        public IEnumerable<tbOficinas> ListarOficinas()
+        {
+            try
+            {
+                var list = _oficinasRepository.List();
+                return list;
+            }
+            catch (Exception ex)
+            {
+                return Enumerable.Empty<tbOficinas>();
+            }
+        }
+
+        public ServiceResult InsertarOficinas(tbOficinas item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.ofic_Nombre != "")
+                {
+                    var map = _oficinasRepository.Insert(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarOficinas(tbOficinas item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.ofic_Nombre != "")
+                {
+                    var map = _oficinasRepository.Update(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult EliminarOficinas(tbOficinas item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.ofic_Id != 0)
+                {
+                    var map = _oficinasRepository.Delete(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Oficio_Profesiones
+        public IEnumerable<tbOficio_Profesiones> ListarOficio_Profesiones()
+        {
+            try
+            {
+                var list = _oficioProfesionesRepository.List();
+                return list;
+            }
+            catch (Exception ex)
+            {
+                return Enumerable.Empty<tbOficio_Profesiones>();
+            }
+        }
+
+        public ServiceResult InsertarOficio_Profesiones(tbOficio_Profesiones item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.ofpr_Nombre != "")
+                {
+                    var map = _oficioProfesionesRepository.Insert(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarOficio_Profesiones(tbOficio_Profesiones item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.ofpr_Nombre != "")
+                {
+                    var map = _oficioProfesionesRepository.Update(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult EliminarOficio_Profesiones(tbOficio_Profesiones item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.ofpr_Id != 0)
+                {
+                    var map = _oficioProfesionesRepository.Delete(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Paises
+        public IEnumerable<tbPaises> ListarPaises()
+        {
+            try
+            {
+                var list = _paisesRepository.List();
+                return list;
+            }
+            catch (Exception ex)
+            {
+                return Enumerable.Empty<tbPaises>();
+            }
+        }
+
+        public ServiceResult InsertarPaises(tbPaises item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.pais_Nombre != "")
+                {
+                    var map = _paisesRepository.Insert(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarPaises(tbPaises item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.pais_Nombre != "")
+                {
+                    var map = _paisesRepository.Update(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult EliminarPaises(tbPaises item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.pais_Id != 0)
+                {
+                    var map = _paisesRepository.Delete(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Provincias
+        public IEnumerable<tbProvincias> ListarProvincias()
+        {
+            try
+            {
+                var list = _provinciasRepository.List();
+                return list;
+            }
+            catch (Exception ex)
+            {
+                return Enumerable.Empty<tbProvincias>();
+            }
+        }
+
+        public ServiceResult InsertarProvincias(tbProvincias item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.pvin_Nombre != "")
+                {
+                    var map = _provinciasRepository.Insert(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarProvincias(tbProvincias item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.pvin_Nombre != "")
+                {
+                    var map = _provinciasRepository.Update(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult EliminarProvincias(tbProvincias item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.pvin_Id != 0)
+                {
+                    var map = _provinciasRepository.Delete(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Proveedores
+        public IEnumerable<tbProveedores> ListarProveedores()
+        {
+            try
+            {
+                var list = _proveedoresRepository.List();
+                return list;
+            }
+            catch (Exception ex)
+            {
+                return Enumerable.Empty<tbProveedores>();
+            }
+        }
+
+        public ServiceResult InsertarProveedores(tbProveedores item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.prov_NombreCompania != "")
+                {
+                    var map = _proveedoresRepository.Insert(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarProveedores(tbProveedores item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.prov_NombreCompania != "")
+                {
+                    var map = _proveedoresRepository.Update(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult EliminarProveedores(tbProveedores item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.prov_Id != 0)
+                {
+                    var map = _proveedoresRepository.Delete(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        #endregion
+
+        #region UnidadMedidas
+        public IEnumerable<tbUnidadMedidas> ListarUnidadMedidas()
+        {
+            try
+            {
+                var list = _unidadMedidasRepository.List();
+                return list;
+            }
+            catch (Exception ex)
+            {
+                return Enumerable.Empty<tbUnidadMedidas>();
+            }
+        }
+
+        public ServiceResult InsertarUnidadMedidas(tbUnidadMedidas item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.unme_Descripcion != "")
+                {
+                    var map = _unidadMedidasRepository.Insert(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarUnidadMedidas(tbUnidadMedidas item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.unme_Descripcion != "")
+                {
+                    var map = _unidadMedidasRepository.Update(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult EliminarUnidadMedidas(tbUnidadMedidas item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                if (item.unme_Id != 0)
+                {
+                    var map = _unidadMedidasRepository.Delete(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        return result.Error(map);
+                    }
+                }
+                else
+                {
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        #endregion
     }
 }

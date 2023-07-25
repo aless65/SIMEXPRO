@@ -1,4 +1,4 @@
------------------PROCEDIMIENTOS ALMACENADOS Y VISTAS MÓDULO ADUANERO
+
 
 ---***********VALIDACIÓN DE ELIMINAR**************---
 
@@ -100,8 +100,34 @@ GO
 CREATE OR ALTER PROCEDURE acce.UDP_VW_tbUsuarios_Listar
 AS
 BEGIN
-	SELECT *
-    FROM acce.VW_tbUsuarios
+	SELECT usua.usua_Id, 
+		   usua.usua_Nombre, 
+		   usua.usua_Contrasenia, 
+		   usua.usua_Correo, 
+		   usua.role_Id,
+		   rol.role_Descripcion, 
+		   usua.usua_EsAdmin,
+		   usua.empl_Id,
+		   (empl_Nombres + ' ' + empl_Apellidos) AS empleadoNombreCompleto, 
+		   usua.usua_UsuarioCreacion, 
+		   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
+		   usua.usua_FechaCreacion, 
+	       usua.usua_UsuarioModificacion, 
+		   usuaModifica.usua_Nombre AS usuarioModificacionNombre, 
+		   usua.usua_FechaModificacion,
+		   usuaElimina.usua_Nombre AS usuarioEliminacionNombre, 
+		   usua.usua_FechaEliminacion,
+		   usua.usua_Estado,
+		   empl.empl_CorreoElectronicO	
+	FROM Acce.tbUsuarios usua LEFT JOIN Acce.tbRoles rol
+	ON usua.role_Id = rol.role_Id
+	LEFT JOIN Gral.tbEmpleados empl
+	ON empl.empl_Id = usua.empl_Id 
+	LEFT JOIN acce.tbUsuarios usuaCrea
+	ON usua.usua_UsuarioCreacion = usuaCrea.usua_Id
+	LEFT JOIN acce.tbUsuarios usuaModifica
+	ON usua.usua_UsuarioModificacion = usuaModifica.usua_Id LEFT JOIN acce.tbUsuarios usuaElimina
+	ON usua.usua_UsuarioEliminacion = usuaElimina.usua_Id
 END
 GO
 
@@ -1288,6 +1314,7 @@ FROM	Gral.tbFormas_Envio formasEnvio
 WHERE	foen_Estado = 1
 END
 GO
+
 /*Insertar FORMAS DE ENVIO*/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbFormas_Envio_Insertar
 (
@@ -1659,6 +1686,746 @@ END
 GO
 
 -----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS MÓDULO ADUANA
+
+
+--------------------------------------------UDPS Para contrato de adhesión-------------------------------------------
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbPersonas_Insertar
+(
+	@pers_RTN					VARCHAR(20),
+	@ofic_Id					INT,
+	@escv_Id					INT,
+	@ofpr_Id					INT,
+	@fopr_Id					BIT,
+	@pers_escvRepresentante		INT,
+	@pers_OfprRepresentante		INT,
+	@usua_UsuarioCreacion		INT,
+	@pers_FechaCreacion			DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Adua.tbPersonas 
+					(pers_RTN, 
+					ofic_Id, 
+					escv_Id, 
+					ofpr_Id, 
+					fopr_Id, 
+					pers_escvRepresentante, 
+					pers_OfprRepresentante, 
+					usua_UsuarioCreacion, 
+					pers_FechaCreacion)
+			 VALUES (@pers_RTN,
+					@ofic_Id,
+					@escv_Id,
+					@ofpr_Id,
+					@fopr_Id,
+					@pers_escvRepresentante,
+					@pers_OfprRepresentante,
+					@usua_UsuarioCreacion,
+					@pers_FechaCreacion)
+
+		SELECT SCOPE_IDENTITY() AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbPersonas_Editar
+(
+	@pers_Id 					INT,
+	@pers_RTN					VARCHAR(20),
+	@ofic_Id					INT,
+	@escv_Id					INT,
+	@ofpr_Id					INT,
+	@fopr_Id					BIT,
+	@pers_escvRepresentante		INT,
+	@pers_OfprRepresentante		INT,
+	@usua_UsuarioCreacion		INT,
+	@pers_FechaCreacion			DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+			UPDATE Adua.tbPersonas 
+			   SET pers_RTN					= @pers_RTN, 					
+				   ofic_Id					= @ofic_Id, 					
+				   escv_Id					= @escv_Id, 					
+				   ofpr_Id					= @ofpr_Id, 					
+				   fopr_Id					= @fopr_Id, 					
+				   pers_escvRepresentante	= @pers_escvRepresentante, 		
+				   pers_OfprRepresentante	= @pers_OfprRepresentante, 		
+				   usua_UsuarioCreacion		= @usua_UsuarioCreacion,      	
+				   pers_FechaCreacion		= @pers_FechaCreacion
+			 WHERE pers_Id = @pers_Id
+
+		SELECT 1 AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbComercianteIndividual_Insertar
+(
+  	@pers_Id                           	INT,
+  	@fopr_Id                           	BIT,
+  	@colo_Id                           	INT,
+  	@coin_PuntoReferencia			  	NVARCHAR(200),
+  	@coin_ColoniaRepresentante		  	INT,
+  	@coin_NumeroLocalReprentante	    NVARCHAR(200),
+  	@coin_PuntoReferenciaReprentante   	NVARCHAR(200),
+  	@coin_TelefonoCelular			    NVARCHAR(20),
+  	@coin_TelefonoFijo				    NVARCHAR(20),
+  	@coin_CorreoElectronico		    	NVARCHAR(30),
+  	@coin_CorreoElectronicoAlternativo 	NVARCHAR(30),
+  	@usua_UsuarioCreacion       		INT,
+  	@coin_FechaCreacion         		DATETIME 
+)
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Adua.tbComercianteIndividual 
+					(pers_Id,                           	
+					fopr_Id,                           	
+					colo_Id,                           	
+					coin_PuntoReferencia,			  	
+					coin_ColoniaRepresentante,		  	
+					coin_NumeroLocalReprentante,	    
+					coin_PuntoReferenciaReprentante,   	
+					coin_TelefonoCelular,			    
+					coin_TelefonoFijo,				    
+					coin_CorreoElectronico,		    	
+					coin_CorreoElectronicoAlternativo, 	
+					usua_UsuarioCreacion,       		
+					coin_FechaCreacion)
+			 VALUES (@pers_Id,                           	
+					 @fopr_Id,                           	
+					 @colo_Id,                           	
+					 @coin_PuntoReferencia,			  	
+					 @coin_ColoniaRepresentante,		  	
+					 @coin_NumeroLocalReprentante,	    
+					 @coin_PuntoReferenciaReprentante,   	
+					 @coin_TelefonoCelular,			    
+					 @coin_TelefonoFijo,				    
+					 @coin_CorreoElectronico,		    	
+					 @coin_CorreoElectronicoAlternativo, 	
+					 @usua_UsuarioCreacion,       		
+					 @coin_FechaCreacion)
+
+		SELECT SCOPE_IDENTITY() AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbComercianteIndividual_Editar
+(
+	@coin_Id							INT,
+  	@pers_Id                           	INT,
+  	@fopr_Id                           	BIT,
+  	@colo_Id                           	INT,
+  	@coin_PuntoReferencia			  	NVARCHAR(200),
+  	@coin_ColoniaRepresentante		  	INT,
+  	@coin_NumeroLocalReprentante	    NVARCHAR(200),
+  	@coin_PuntoReferenciaReprentante   	NVARCHAR(200),
+  	@coin_TelefonoCelular			    NVARCHAR(20),
+  	@coin_TelefonoFijo				    NVARCHAR(20),
+  	@coin_CorreoElectronico		    	NVARCHAR(30),
+  	@coin_CorreoElectronicoAlternativo 	NVARCHAR(30),
+  	@usua_UsuarioModificacion   		INT,
+  	@coin_FechaModificacion     		DATETIME 
+)
+AS
+BEGIN
+	BEGIN TRY
+		 UPDATE Adua.tbComercianteIndividual 
+			SET pers_Id								= @pers_Id,                           	
+				fopr_Id								= @fopr_Id,                           	
+				colo_Id								= @colo_Id,                           	
+				coin_PuntoReferencia				= @coin_PuntoReferencia,			  	
+				coin_ColoniaRepresentante			= @coin_ColoniaRepresentante,		  	
+				coin_NumeroLocalReprentante			= @coin_NumeroLocalReprentante,	    
+				coin_PuntoReferenciaReprentante		= @coin_PuntoReferenciaReprentante,   	
+				coin_TelefonoCelular				= @coin_TelefonoCelular,			    
+				coin_TelefonoFijo					= @coin_TelefonoFijo,				    
+				coin_CorreoElectronico				= @coin_CorreoElectronico,		    	
+				coin_CorreoElectronicoAlternativo	= @coin_CorreoElectronicoAlternativo, 	
+				usua_UsuarioCreacion				= @usua_UsuarioCreacion,       		
+				coin_FechaCreacion					= @coin_FechaCreacion
+		  WHERE coin_Id = @coin_Id
+
+		SELECT 1 AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbPersonaNatural_Insertar
+(
+	@pers_Id					INT,
+	@pena_DireccionExacta		NVARCHAR(200),
+	@ciud_Id					INT,
+	@pena_TelefonoFijo			NVARCHAR(20),
+	@pena_TelefonoCelular		NVARCHAR(20),
+	@pena_CorreoElectronico		NVARCHAR(50),
+	@pena_CorreoAlternativo		NVARCHAR(50),
+	@pena_RTN					NVARCHAR(40),
+	@pena_ArchivoRTN			NVARCHAR(MAX),
+	@pena_DNI					NVARCHAR(40),
+	@pena_ArchivoDNI			NVARCHAR(MAX),
+	@pena_NumeroRecibo			VARCHAR(100),
+	@pena_ArchivoNumeroRecibo	NVARCHAR(MAX),
+	@usua_UsuarioCreacion       INT,
+	@pena_FechaCreacion         DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Adua.tbPersonaNatural
+					(pers_Id,						
+					pena_DireccionExacta,		
+					ciud_Id,						
+					pena_TelefonoFijo,			
+					pena_TelefonoCelular,		
+					pena_CorreoElectronico,		
+					pena_CorreoAlternativo,		
+					pena_RTN,					
+					pena_ArchivoRTN,				
+					pena_DNI,					
+					pena_ArchivoDNI,				
+					pena_NumeroRecibo,			
+					pena_ArchivoNumeroRecibo,	
+					usua_UsuarioCreacion,       	
+					pena_FechaCreacion)
+			VALUES (@pers_Id,					
+					@pena_DireccionExacta,		
+					@ciud_Id,					
+					@pena_TelefonoFijo,			
+					@pena_TelefonoCelular,		
+					@pena_CorreoElectronico,		
+					@pena_CorreoAlternativo,		
+					@pena_RTN,					
+					@pena_ArchivoRTN,			
+					@pena_DNI,					
+					@pena_ArchivoDNI,			
+					@pena_NumeroRecibo,			
+					@pena_ArchivoNumeroRecibo,	
+					@usua_UsuarioCreacion,      
+					@pena_FechaCreacion)
+
+		SELECT SCOPE_IDENTITY() AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbPersonaNatural_Editar
+(
+	@pena_Id					INT,
+	@pers_Id					INT,
+	@pena_DireccionExacta		NVARCHAR(200),
+	@ciud_Id					INT,
+	@pena_TelefonoFijo			NVARCHAR(20),
+	@pena_TelefonoCelular		NVARCHAR(20),
+	@pena_CorreoElectronico		NVARCHAR(50),
+	@pena_CorreoAlternativo		NVARCHAR(50),
+	@pena_RTN					NVARCHAR(40),
+	@pena_ArchivoRTN			NVARCHAR(MAX),
+	@pena_DNI					NVARCHAR(40),
+	@pena_ArchivoDNI			NVARCHAR(MAX),
+	@pena_NumeroRecibo			VARCHAR(100),
+	@pena_ArchivoNumeroRecibo	NVARCHAR(MAX),
+	@usua_UsuarioModificacion   INT,
+	@pena_FechaModificacion     DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		 UPDATE Adua.tbPersonaNatural
+			SET pers_Id						= @pers_Id,						
+				pena_DireccionExacta		= @pena_DireccionExacta,		
+				ciud_Id						= @ciud_Id,						
+				pena_TelefonoFijo			= @pena_TelefonoFijo,			
+				pena_TelefonoCelular		= @pena_TelefonoCelular,		
+				pena_CorreoElectronico		= @pena_CorreoElectronico,		
+				pena_CorreoAlternativo		= @pena_CorreoAlternativo,		
+				pena_RTN					= @pena_RTN,					
+				pena_ArchivoRTN				= @pena_ArchivoRTN,				
+				pena_DNI					= @pena_DNI,					
+				pena_ArchivoDNI				= @pena_ArchivoDNI,				
+				pena_NumeroRecibo			= @pena_NumeroRecibo,			
+				pena_ArchivoNumeroRecibo	= @pena_ArchivoNumeroRecibo,	  	
+				usua_UsuarioModificacion	= @usua_UsuarioModificacion,   	
+				pena_FechaModificacion		= @pena_FechaModificacion     	
+		  WHERE pena_Id = @pena_Id
+
+		SELECT 1 AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbPersonaJuridica_Insertar
+(
+	@pers_Id							  	INT,
+	@peju_EstadoRepresentante				INT,
+	@colo_Id							  	INT,
+	@peju_PuntoReferencia					NVARCHAR(200),
+	@peju_ColoniaRepresentante				INT,
+	@peju_NumeroLocalReprentante		  	NVARCHAR(200),
+	@peju_PuntoReferenciaReprentante	  	NVARCHAR(200),
+	@peju_TelefonoEmpresa					NVARCHAR(200),
+	@peju_TelefonoFijoRepresentanteLegal 	NVARCHAR(200),
+	@peju_TelefonoRepresentanteLegal	  	NVARCHAR(200),
+	@peju_CorreoElectronico              	NVARCHAR(200),
+	@peju_CorreoElectronicoAlternativo   	NVARCHAR(200),
+	@usua_UsuarioCreacion       			INT,
+	@peju_FechaCreacion         			DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Adua.tbPersonaJuridica 
+					(pers_Id,							  	
+					peju_EstadoRepresentante,				
+					colo_Id,							  	
+					peju_PuntoReferencia,					
+					peju_ColoniaRepresentante,				
+					peju_NumeroLocalReprentante,		  	
+					peju_PuntoReferenciaReprentante,	  	
+					peju_TelefonoEmpresa,					
+					peju_TelefonoFijoRepresentanteLegal, 	
+					peju_TelefonoRepresentanteLegal,	  	
+					peju_CorreoElectronico,              	
+					peju_CorreoElectronicoAlternativo,   	
+					usua_UsuarioCreacion,       			
+					peju_FechaCreacion)
+			VALUES (@pers_Id,							  	
+					@peju_EstadoRepresentante,				
+					@colo_Id,							  	
+					@peju_PuntoReferencia,					
+					@peju_ColoniaRepresentante,				
+					@peju_NumeroLocalReprentante,		  	
+					@peju_PuntoReferenciaReprentante,	  	
+					@peju_TelefonoEmpresa,					
+					@peju_TelefonoFijoRepresentanteLegal, 	
+					@peju_TelefonoRepresentanteLegal,	  	
+					@peju_CorreoElectronico,                 	
+					@peju_CorreoElectronicoAlternativo,   	
+					@usua_UsuarioCreacion,       			
+					@peju_FechaCreacion)
+
+		SELECT SCOPE_IDENTITY() AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbPersonaJuridica_Editar
+(
+	@peju_Id								INT,
+	@pers_Id							  	INT,
+	@peju_EstadoRepresentante				INT,
+	@colo_Id							  	INT,
+	@peju_PuntoReferencia					NVARCHAR(200),
+	@peju_ColoniaRepresentante				INT,
+	@peju_NumeroLocalRepresentante		  	NVARCHAR(200),
+	@peju_PuntoReferenciaReprentante	  	NVARCHAR(200),
+	@peju_TelefonoEmpresa					NVARCHAR(200),
+	@peju_TelefonoFijoRepresentanteLegal 	NVARCHAR(200),
+	@peju_TelefonoRepresentanteLegal	  	NVARCHAR(200),
+	@peju_CorreoElectronico              	NVARCHAR(200),
+	@peju_CorreoElectronicoAlternativo   	NVARCHAR(200),
+	@usua_UsuarioModificacion       		INT,
+	@peju_FechaModificacion         		DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		 UPDATE Adua.tbPersonaJuridica
+			SET pers_Id								= @pers_Id,							  	
+				peju_EstadoRepresentante			= @peju_EstadoRepresentante,				
+				colo_Id								= @colo_Id,							  	
+				peju_PuntoReferencia				= @peju_PuntoReferencia,					
+				peju_ColoniaRepresentante			= @peju_ColoniaRepresentante,				
+				peju_NumeroLocalRepresentante		= @peju_NumeroLocalRepresentante,		  	
+				peju_PuntoReferenciaRepresentante	= @peju_PuntoReferenciaRepresentante,	  	
+				peju_TelefonoEmpresa				= @peju_TelefonoRepresentanteLegal,					
+				peju_TelefonoFijoRepresentanteLegal = @peju_TelefonoFijoRepresentanteLegal, 	
+				peju_TelefonoRepresentanteLegal		= @peju_TelefonoRepresentanteLegal,	  	
+				peju_CorreoElectronico				= @peju_CorreoElectronico,              	
+				peju_CorreoElectronicoAlternativo	= @peju_CorreoElectronicoAlternativo,   	
+				usua_UsuarioModificacion			= @usua_UsuarioModificacion,       			
+				peju_FechaModificacion				= @peju_FechaModificacion
+		  WHERE peju_Id = @peju_Id
+
+		  SELECT 1 AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+--------------------------------------------/UDPS Para contrato de adhesión-------------------------------------------
+
+--**********LUGARES EMBARQUE**********--
+
+
+/*Listar lugares embarque*/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Listar
+AS
+BEGIN
+	SELECT lugar.emba_Id,
+	       lugar.emba_Codigo, 
+		   lugar.emba_Descripcion, 
+		   lugar.usua_UsuarioCreacion, 
+		   usuaCrea.usua_Nombre             AS usuarioCreacionNombre,
+		   lugar.emba_FechaCreacion, 
+		   lugar.usua_UsuarioModificacion,
+		   usuaModifica.usua_Nombre         AS usuarioModificacionNombre,
+		   lugar.emba_FechaModificacion, 
+		   lugar.usua_UsuarioEliminacion, 
+		   usuaElimi.usua_Nombre            AS usuarioEliminacionNombre,
+		   lugar.emba_FechaEliminacion, 
+		   lugar.emba_Estado   
+      FROM Adua.tbLugaresEmbarque lugar
+	       INNER JOIN Acce.tbUsuarios usuaCrea			ON lugar.usua_UsuarioCreacion     = usuaCrea.usua_Id 
+		   LEFT JOIN  Acce.tbUsuarios usuaModifica		ON lugar.usua_UsuarioModificacion = usuaModifica.usua_Id 
+		   LEFT JOIN  Acce.tbUsuarios usuaElimi		    ON lugar.usua_UsuarioEliminacion  = usuaElimi.usua_Id 
+	 WHERE emba_Estado = 1
+END
+GO
+
+/*Insertar lugares embarque*/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Insertar
+	 @emba_Codigo             CHAR(5),
+	 @emba_Descripcion        NVARCHAR(200),
+	 @usua_UsuarioCreacion    INT, 
+	 @emba_FechaCreacion      DATETIME
+AS 
+BEGIN
+	
+	BEGIN TRY
+		INSERT INTO Adua.tbLugaresEmbarque (emba_Codigo, emba_Descripcion, usua_UsuarioCreacion, emba_FechaCreacion)
+		VALUES(@emba_Codigo, @emba_Descripcion, @usua_UsuarioCreacion, @emba_FechaCreacion)
+		
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH 
+END
+GO
+
+/*Editar lugares embarque*/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Editar
+	@emba_Id                  INT,
+    @emba_Codigo              CHAR(5),
+    @emba_Descripcion         NVARCHAR(200),
+	@usua_UsuarioModificacion INT,
+	@emba_FechaModificacion   DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE  Adua.tbLugaresEmbarque
+		SET		emba_Codigo              = @emba_Codigo,
+		        emba_Descripcion         = @emba_Descripcion,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				emba_FechaModificacion   = @emba_FechaModificacion
+		WHERE	emba_Id                  = @emba_Id
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
+/*Eliminar lugares Embarque*/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Eliminar
+	@emba_Id					INT,
+	@usua_UsuarioEliminacion    INT,
+	@emba_FechaEliminacion      DATETIME
+AS
+BEGIN
+	BEGIN TRY
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'emba_Id', @emba_Id, 'Adua.tbLugaresEmbarque', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+			BEGIN
+				UPDATE	Adua.tbLugaresEmbarque
+				   SET	emba_Estado             = 0,
+				        usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+						emba_FechaEliminacion   = @emba_FechaEliminacion
+				  WHERE emba_Id                 = @emba_Id 
+			END
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
+/******************************** Formas de pago*****************************************/
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbFormadePago_Listar
+AS
+BEGIN 
+SELECT	fopa_Id							,
+        fopa_Descripcion				,
+		usu.usua_Nombre					AS usarioCreacion,
+		fopa_FechaCreacion				,
+		usu1.usua_Nombre				AS usuarioModificacion,
+		fopa_FechaModificacion			,
+		fopa_Estado						
+FROM	Adua.tbFormasdePago form 
+		INNER JOIN Acce.tbUsuarios usu	ON usu.usua_Id = form.usua_UsuarioCreacion 
+		LEFT JOIN Acce.tbUsuarios usu1	ON usu1.usua_Id = form.usua_UsuarioModificacion   
+WHERE	fopa_Estado = 1
+END
+
+
+
+
+/**************Crear Formas de pago**********************/
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbFormasdePago_Insertar 
+   @fopa_Descripcion        NVARCHAR(MAX), 
+   @usua_UsuarioCreacion    INT, 
+   @fopa_FechaCreacion      DATETIME
+AS
+BEGIN
+     BEGIN TRY 
+	 
+	    IF EXISTS(SELECT * FROM Adua.tbFormasdePago WHERE fopa_Descripcion=@fopa_Descripcion 
+		 AND fopa_Estado = 0)	 
+		 BEGIN 
+		    UPDATE Adua.tbFormasdePago
+			SET fopa_Estado = 1
+			WHERE fopa_Descripcion=@fopa_Descripcion
+			SELECT 1
+		 END
+		ELSE 
+		 BEGIN
+		    INSERT INTO Adua.tbFormasdePago 
+			( fopa_Descripcion, 
+			  usua_UsuarioCreacion, 
+			  fopa_FechaCreacion  
+	 		)
+		    VALUES(
+	          @fopa_Descripcion ,
+			  @usua_UsuarioCreacion,
+			  @fopa_FechaCreacion  
+			)
+         END
+		 
+		END TRY 
+	BEGIN CATCH
+	   SELECT 0	
+	END CATCH    
+END
+
+
+GO
+/********************Editar Formas de pago************************/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbFormasdePago_Editar 
+   @fopa_id    INT,
+   @fopa_Descripcion  NVARCHAR(350),  
+   @usua_UsuarioModificacion INT, 
+   @fopa_FechaModificacion  DATETIME
+AS
+BEGIN 
+      BEGIN TRY 
+	  
+	      UPDATE Adua.tbFormasdePago
+		  SET fopa_Descripcion = @fopa_Descripcion, 
+		      usua_UsuarioModificacion = @usua_UsuarioModificacion,
+			  fopa_FechaModificacion = @fopa_FechaModificacion
+		  WHERE fopa_Id = @fopa_id
+		  SELECT 1
+	   END TRY 
+	   BEGIN CATCH 
+	       SELECT 0
+	   END CATCH
+END 
+
+go
+/****************Eliminar Formas de pago*******************/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbFormasdePago_Eliminar 
+	@fopa_id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@fopa_FechaEliminacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+
+		BEGIN
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'fopa_id', @fopa_id, 'Adua.tbFormasdePago', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					UPDATE Adua.tbFormasdePago
+					SET fopa_Estado = 0,
+					    usua_UsuarioEliminacion=@usua_UsuarioEliminacion,
+						fopa_FechaEliminacion=@fopa_FechaEliminacion
+					WHERE fopa_Id = @fopa_id
+				END
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+
+/************************UDP tbAduanas ***********************************/
+/*Listar aduanas*/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Listar
+AS
+BEGIN
+SELECT	adu.adua_Id							,
+		adu.adua_Nombre						,
+		adu.adua_Direccion_Exacta			,
+		usu.usua_Nombre						AS usarioCreacion,
+		adu.adua_FechaCreacion				,
+		usu2.usua_Nombre					AS usuarioModificacion,
+		adu.adua_FechaModificacion			,
+		adu.adua_Estado						
+FROM	Adua.tbAduanas adu 
+		INNER JOIN Acce.tbUsuarios usu		ON adu.usua_UsuarioCreacion = usu.usua_Id 
+		LEFT JOIN Acce.tbUsuarios usu2		ON usu2.usua_UsuarioModificacion = adu.usua_UsuarioModificacion 
+WHERE	adu.adua_Estado = 1
+END 
+
+/*Aduanas Crear */
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Insertar 
+   @adua_Nombre                NVARCHAR(MAX),
+   @adua_Direccion_Exacta      NVARCHAR(MAX), 
+   @usua_UsuarioCreacion       INT,  
+   @adua_FechaCreacion         DATETIME
+AS 
+BEGIN 
+     BEGIN TRY 
+		
+		IF EXISTS (SELECT * FROM Adua.tbAduanas     
+		  WHERE @adua_Nombre = adua_Nombre
+			AND adua_Estado = 0)
+			BEGIN 
+			   UPDATE Adua.tbAduanas
+			   SET    adua_Estado = 1,
+			          adua_Direccion_Exacta =@adua_Direccion_Exacta, 
+			          usua_UsuarioModificacion=@usua_UsuarioCreacion
+				WHERE adua_Nombre = @adua_Nombre
+			   SELECT 1	    
+		   END 
+		
+	      ELSE IF EXISTS(SELECT * FROM Adua.tbAduanas  		  
+		    WHERE @adua_Nombre = adua_Nombre)
+		      BEGIN 
+			   SELECT 2
+		    END          	
+		ELSE 
+		   BEGIN 
+		     INSERT INTO Adua.tbAduanas
+			 (adua_Nombre, 
+			  adua_Direccion_Exacta, 
+			  usua_UsuarioCreacion, 
+			  adua_FechaCreacion			  
+			 )
+			 VALUES 
+			 ( 
+			 @adua_Nombre,          
+			 @adua_Direccion_Exacta,
+			 @usua_UsuarioCreacion, 
+			 @adua_FechaCreacion   
+			 )			
+			  SELECT 1			
+			END
+	     END TRY
+	 BEGIN CATCH 
+	    SELECT 0
+	 END CATCH 
+END 
+go
+
+/*Aduanas Editar*/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Editar 
+ @adua_Id                   INT, 
+ @adua_Nombre               NVARCHAR(MAX), 
+ @adua_Direccion_Exacta     NVARCHAR(MAX),   
+ @usua_UsuarioModificacion  INT, 
+ @adua_FechaModificacion    DATETIME
+AS
+BEGIN 
+   BEGIN TRY   
+     
+	   UPDATE  Adua.tbAduanas 
+	   SET adua_Nombre = @adua_Nombre, 
+	       adua_Direccion_Exacta = @adua_Direccion_Exacta, 		   
+		   usua_UsuarioModificacion = @usua_UsuarioModificacion, 
+		   adua_FechaModificacion = @adua_FechaModificacion
+	   WHERE  adua_Id = @adua_Id
+	   SELECT 1
+	END TRY
+   BEGIN CATCH
+      SELECT 0
+    END CATCH
+END
+
+
+GO
+/*Aduana Eliminar*/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Eliminar 
+	 @adua_Id					INT,
+	 @usua_UsuarioEliminacion	INT,
+	 @adua_FechaEliminacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+
+		BEGIN
+		   
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'adua_Id',  @adua_Id, 'Adua.tbAduanas', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					UPDATE Adua.tbAduanas
+					SET adua_Estado = 0,
+					    usua_UsuarioEliminacion=@usua_UsuarioEliminacion,
+                        adua_FechaEliminacion=@adua_FechaEliminacion
+					WHERE adua_Id = @adua_Id
+				END
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
 --************MODO TRANSPORTE******************--
 /*Listar Modo Transporte*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Listar
@@ -2316,6 +3083,7 @@ BEGIN
 	END CATCH
 END
 GO
+
 --************TIPOS IDENTIFICACION******************--
 /*Listar Tipos Identificacion*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTiposIdentificacion_Listar
@@ -2453,6 +3221,8 @@ BEGIN
 		duca.duca_Modalidad,
 		duca.duca_Clase,
 		duca.duca_FechaVencimiento,
+		
+    -- Identificacion de la Declaracion parte IV
 		duca_Pais_Procedencia,
 		paisP.pais_Nombre                       AS 'Nombre pais procedencia', 
 		duca_Pais_Exportacion,
@@ -2462,25 +3232,61 @@ BEGIN
 		duca_Deposito_Aduanero,
 		duca_Lugar_Embarque,
 		duca_Lugar_Desembarque, 
+		duca_Manifiesto, 
+		duca_Titulo, 
 
-
-
-		duca_Regimen_Aduanero, 
-		duca_Modalidad, 
-		duca_Clase, 
+	--6.1 Declarante 
 		duca_Codigo_Declarante,
 		duca_Numero_Id_Declarante, 
 		duca_NombreSocial_Declarante,
 		duca_DomicilioFiscal_Declarante, 
 
-	
-		duca_Manifiesto, 
-		duca_Titulo, 
+	--19.1 Transportista 		
 		duca_Codigo_Transportista,
 		duca.motr_id, 
 		duca_Transportista_Nombre,
+		
+	--23.1 Conductor 
+	    cond.cont_Id,
+		cond.cont_Licencia,
+		paisc.pais_Nombre  AS 'Pais Expedicion',
+		cond.cont_Nombre +' '+cond.cont_Apellido AS 'Nombre y Apellido Conductor',
+		cond.pais_IdExpedicion,		
 		duca_Conductor_Id, 
-		duca_Codigo_Tipo_Documento, 
+
+     -- Identificacion de la Declaracion parte V
+		trns.tran_Id,
+		trns.pais_Id,
+	    paist.pais_Nombre  AS 'Pais de registro',
+		trns.marca_Id,
+		marc.marc_Descripcion AS 'Marca del Transporte',
+		trns.tran_Chasis,
+		trns.tran_Remolque,
+		trns.tran_CantCarga,
+		trns.tran_NumDispositivoSeguridad,
+		trns.tran_Equipamiento,
+		                          ---------Tamaño del equipamiento
+		trns.tran_TipoCarga,
+	    trns.tran_IdContenedor,	
+	  --25.Valores Totales 
+		baca.base_Gasto_TransporteM_Importada,
+		baca.base_Costos_Seguro,
+	    deva.inco_Id,
+		icot.inco_Descripcion AS 'Icoterm Descripcion',
+		baca.base_Valor_Aduana,
+		deva.deva_Conversion_Dolares,
+	                               -------Otros gastos
+			
+	 --32.Totales 
+        duca.duca_PesoBrutoTotal,      
+		duca.duca_PesoNetoTotal,
+		
+		
+      --Liquidacion general 
+	  
+	  --Mercancias
+	    
+
 
 		duca.usua_UsuarioCreacion,
 		usu1.usua_Nombre						AS  'Nombre usuario creador', 
@@ -2493,6 +3299,10 @@ BEGIN
 		INNER JOIN Acce.tbUsuarios usu1							ON duca.usua_UsuarioCreacion = usu1.usua_Id
 		LEFT  JOIN Acce.tbUsuarios usu2							ON duca.usua_UsuarioModificacion = usu2.usua_Id
 		LEFT  JOIN Adua.tbConductor cond						ON duca.duca_Conductor_Id = cond.cont_Id
+		INNER JOIN Adua.tbTransporte trns                       ON cond.tran_Id = trns.tran_Id 
+		INNER JOIN Gral.tbPaises  paisc                         ON cond.pais_IdExpedicion = paisc.pais_Id 
+		INNER JOIN Gral.tbPaises  paist                         ON paist.pais_Id = trns.pais_Id
+		INNER JOIN Adua.tbMarcas  marc                          ON marc.marc_Id = trns.marca_Id
 		INNER JOIN Adua.tbDeclaraciones_Valor deva				ON duca.deva_Id = deva.deva_Id
 		INNER JOIN Gral.tbPaises paisD							ON duca.duca_Pais_Destino = paisD.pais_Id
 		INNER JOIN Gral.tbPaises paisEE							ON duca.duca_Pais_Emision_Exportador = paisEE.pais_Id
@@ -2506,7 +3316,10 @@ BEGIN
 		LEFT  JOIN Adua.tbAduanas adua4							ON deva.deva_Aduana_Despacho_Id = adua4.adua_Id
 		INNER JOIN Adua.tbProveedoresDeclaracion prode			ON deva.pvde_Id = Prode.pvde_Id
 		INNER JOIN Adua.tbDeclarantes decla						ON prode.decl_Id = decla.decl_Id
+		INNER JOIN Adua.tbBaseCalculos baca                     ON baca.base_Id = decla.decl_Id 
 		LEFT  JOIN Adua.tbTiposIdentificacion tipo				ON duca.duca_Tipo_Iden_Exportador = tipo.iden_Id
+		LEFT  JOIN Adua.tbIncoterm icot                         ON icot.inco_Id = deva.inco_Id 
+		Inner join Adua.tbItems item                            ON item.item_Id
 END
 GO
 
@@ -2539,7 +3352,282 @@ END
 
 GO
 
---************ARCELES******************--
+/*******************************Condiciones comerciales *******************************/ 
+
+/*Listar Condiciones comerciales*/
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbCondicionesComerciales_Listar
+AS
+
+SELECT	condi.coco_Id					,
+        condi.coco_Descripcion			,
+		usu.usua_Nombre					AS UsuarioCreacion,
+		coco_FechaCreacion				,
+		usu1.usua_Nombre				AS UsuarioModificacion ,
+		coco_FechaModificacion			,
+		condi.coco_Estado				
+FROM	Adua.tbCondicionesComerciales condi 
+		INNER JOIN Acce.tbUsuarios usu	ON condi.usua_UsuarioCreacion = usu.usua_Id 
+		LEFT JOIN Acce.tbUsuarios usu1	ON usu1.usua_Id = condi.usua_UsuarioModificacion
+WHERE	coco_Estado = 1
+
+
+/*Crear Condiciones comerciales*/
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbCondicionesComerciales_Insertar 
+ @coco_Descripcion		NVARCHAR(350), 
+ @coco_UsuCreacion		INT, 
+ @coco_FechaCreacion    DATETIME
+AS    
+BEGIN 
+    BEGIN TRY 
+	  IF EXISTS(SELECT * FROM Adua.tbCondicionesComerciales 
+	        WHERE coco_Descripcion = @coco_Descripcion AND coco_Estado=0)
+			BEGIN 
+			   UPDATE Adua.tbCondicionesComerciales
+			   SET coco_Estado = 1
+			   WHERE coco_Descripcion =@coco_Descripcion
+			   SELECT 1
+			END
+			ELSE 
+			  BEGIN 
+			     INSERT INTO Adua.tbCondicionesComerciales
+				 ( coco_Descripcion, 
+				   usua_UsuarioCreacion, 
+				   coco_FechaCreacion				     				 
+				 )
+				 VALUES(
+                  @coco_Descripcion,
+				  @coco_UsuCreacion,   
+				  @coco_FechaCreacion 					 
+				 )			  
+			  SELECT 1
+			 END 
+	   END TRY
+	BEGIN CATCH
+	    SELECT 0
+	END CATCH  
+END 
+
+
+/*Editar Condiciones comerciales*/
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbCondicionesComerciales_Editar 
+   @coco_Id						INT,
+   @coco_Descripcion			NVARCHAR(150),
+   @coco_UsuarioModificacion	INT,
+   @coco_FechaModi				DATETIME
+AS
+BEGIN 
+      BEGIN TRY
+	      UPDATE Adua.tbCondicionesComerciales
+		  SET coco_Descripcion = @coco_Descripcion, 
+		      usua_UsuarioModificacion = @coco_UsuarioModificacion,
+			  coco_FechaModificacion = @coco_FechaModi
+		  WHERE coco_Id = @coco_Id
+		  SELECT 1
+	   END TRY 
+	   BEGIN CATCH 
+	       SELECT 0
+	   END CATCH
+END
+ 
+ /*Eliminar Condiciones Comerciales */
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbCondicionesComerciales_Eliminar
+	@coco_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@coco_FechaEliminacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		BEGIN
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'coco_Id', @coco_Id,'Adua.tbCondicionesComerciales',@respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					 UPDATE Adua.tbCondicionesComerciales
+						SET coco_Estado = 0,
+						    usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+							coco_FechaEliminacion = @coco_FechaEliminacion
+						WHERE coco_Id = @coco_Id
+		SELECT 1
+		 END
+	END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+
+--**********BOLETIN PAGO**********--
+/*Listar boletin de pago*/
+CREATE OR ALTER PROCEDURE Prod.UDP_tbBoletinPago_Listar
+AS
+BEGIN
+	SELECT  boletin.boen_Id, 
+	        boletin.liqu_Id, 
+			lig.lige_TotalGral           AS liquidacionGeneral,
+			boletin.tipl_Id, 
+			tipli.tipl_Descripcion       AS TipoLiquiDescripcion,
+			boletin.boen_FechaEmision, 
+			boletin.esbo_Id,
+			estadoB.esbo_Descripcion     AS estadoBoletinDescripcion,
+			boletin.boen_Observaciones, 
+			boletin.boen_NDeclaracion,
+			boletin.pena_RTN, 
+			boletin.boen_Preimpreso, 
+			boletin.boen_Declarante, 
+			boletin.boen_TotalPagar, 
+			boletin.boen_TotalGarantizar, 
+			boletin.boen_RTN, 
+			boletin.boen_TipoEncabezado, 
+			boletin.coim_Id, 
+			codigoIm.coim_Descripcion,
+			boletin.copa_Id, 
+			boletin.usua_UsuarioCreacion, 
+            usuaCrea.usua_Nombre		  AS usuarioCreacionNombre,
+			boletin.boen_FechaCreacion, 
+			boletin.usua_UsuarioModificacion,
+			usuaModifica.usua_Nombre      AS usuarioModificacionNombre,
+			boletin.boen_FechaModificacion, 
+			boen_Estado  
+      FROM  Adua.tbBoletinPago boletin
+	       LEFT JOIN Acce.tbUsuarios usuaCrea			ON boletin.usua_UsuarioCreacion     = usuaCrea.usua_Id 
+		   LEFT JOIN  Acce.tbUsuarios usuaModifica		ON boletin.usua_UsuarioModificacion = usuaCrea.usua_Id 
+		   LEFT JOIN Adua.tbLiquidacionGeneral lig      ON boletin.liqu_Id                  = lig.lige_Id
+		   LEFT JOIN Adua.tbTipoLiquidacion tipli       ON boletin.tipl_Id                  = tipli.tipl_Id
+		   LEFT JOIN Adua.tbEstadoBoletin estadoB       ON boletin.esbo_Id                  = estadoB.esbo_Id
+		   LEFT JOIN Adua.tbCodigoImpuesto codigoIm     ON boletin.coim_Id                  = codigoIm.coim_Id
+	 WHERE boen_Estado = 1
+END
+GO
+
+/*Insertar boletin de pago*/
+CREATE OR ALTER PROCEDURE Prod.UDP_tbBoletinPago_Insertar 
+	@liqu_Id                 INT, 
+	@tipl_Id                 INT, 
+	@boen_FechaEmision       DATE, 
+	@esbo_Id                 INT, 
+	@boen_Observaciones      NVARCHAR(200), 
+	@boen_NDeclaracion       NVARCHAR(200), 
+	@pena_RTN                VARCHAR(20), 
+	@boen_Preimpreso         NVARCHAR(MAX), 
+	@boen_Declarante         NVARCHAR(200), 
+	@boen_TotalPagar         DECIMAL(18,2), 
+	@boen_TotalGarantizar    DECIMAL(18,2), 
+	@boen_RTN                NVARCHAR(100),
+	@boen_TipoEncabezado     NVARCHAR(200), 
+	@coim_Id                 INT, 
+	@copa_Id                 INT, 
+	@usua_UsuarioCreacion    INT, 
+	@boen_FechaCreacion      DATETIME
+AS 
+BEGIN
+	
+	BEGIN TRY
+			INSERT INTO Adua.tbBoletinPago(liqu_Id,
+			                               tipl_Id, 
+										   boen_FechaEmision, 
+										   esbo_Id, 
+										   boen_Observaciones, 
+										   boen_NDeclaracion, 
+										   pena_RTN, 
+										   boen_Preimpreso, 
+										   boen_Declarante, 
+										   boen_TotalPagar, 
+										   boen_TotalGarantizar, 
+										   boen_RTN, 
+										   boen_TipoEncabezado, 
+										   coim_Id, 
+										   copa_Id, 
+										   usua_UsuarioCreacion, 
+										   boen_FechaCreacion,
+										   boen_Estado)
+			VALUES(@liqu_Id, 
+			       @tipl_Id, 
+				   @boen_FechaEmision, 
+				   @esbo_Id, 
+				   @boen_Observaciones, 
+				   @boen_NDeclaracion, 
+				   @pena_RTN, 
+				   @boen_Preimpreso, 
+				   @boen_Declarante, 
+				   @boen_TotalPagar, 
+				   @boen_TotalGarantizar, 
+				   @boen_RTN, 
+				   @boen_TipoEncabezado, 
+				   @coim_Id, 
+				   @copa_Id, 
+				   @usua_UsuarioCreacion, 
+				   @boen_FechaCreacion,1)
+			SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH 
+END
+GO
+
+--Execute Prod.UDP_tbBoletinPago_Insertar 1,7,'2023-02-01',2,'observaciones','# declaracion','rtn542451162','preimpreso','declarante',520.00,500.00,'15145454','encabezado',1,1,1,'01-02-2023'
+--NO VA
+/*Editar boletin de pago*/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbBoletinPago_Editar
+	@boen_Id                   INT,
+	@liqu_Id                   INT, 
+	@tipl_Id                   INT, 
+	@boen_FechaEmision         DATE, 
+	@esbo_Id                   INT, 
+	@boen_Observaciones        NVARCHAR(200), 
+	@boen_NDeclaracion         NVARCHAR(200), 
+	@pena_RTN                  NVARCHAR(20), 
+	@boen_Preimpreso           NVARCHAR(MAX), 
+	@boen_Declarante           NVARCHAR(200), 
+	@boen_TotalPagar           DECIMAL(18,2), 
+	@boen_TotalGarantizar      DECIMAL(18,2), 
+	@boen_RTN                  NVARCHAR(100), 
+	@boen_TipoEncabezado       NVARCHAR(200), 
+	@coim_Id                   INT,
+	@copa_Id                   INT,  
+	@usua_UsuarioModificacion  INT, 
+	@boen_FechaModificacion    DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE  Adua.tbBoletinPago
+		SET		liqu_Id                   = @liqu_Id,
+		        tipl_Id                   = @tipl_Id,
+				boen_FechaEmision         = @boen_FechaEmision,
+				esbo_Id                   = @esbo_Id,
+				boen_Observaciones        = @boen_Observaciones,
+				boen_NDeclaracion         = @boen_NDeclaracion,
+				pena_RTN                  = @pena_RTN,
+				boen_Preimpreso           = @boen_Preimpreso,
+                boen_Declarante           = @boen_Declarante,
+				boen_TotalPagar           = @boen_TotalPagar,
+                boen_TotalGarantizar      = @boen_TotalGarantizar,
+				boen_RTN                  = @boen_RTN,
+				boen_TipoEncabezado       = @boen_TipoEncabezado,
+				coim_Id                   = @coim_Id,
+				copa_Id                   = @copa_Id,
+				usua_UsuarioModificacion  = @usua_UsuarioModificacion,
+				boen_FechaModificacion    = @boen_FechaModificacion
+		WHERE	boen_Id                   = @boen_Id
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
+--************ARCELES******************-
+
 /*Insertar Aranceles*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbAranceles_Insertar 
 	@aran_Codigo				NVARCHAR(100),
@@ -2728,6 +3816,182 @@ BEGIN
 					usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
 					decl_FechaEliminacion = @decl_FechaEliminacion
 			WHERE decl_Id = @decl_Id
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+--*****Tipos de documento*****--
+--CREATE OR ALTER VIEW tbTipoDocumento
+--*****Listado*****--
+CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoDocumento_Listar
+AS
+BEGIN
+SELECT	tido_Id								, 
+		tido_Codigo							,
+		tido_Descripcion					,
+		crea.usua_Nombre					AS usarioCreacion,
+		tido_FechaCreacion					,
+		modi.usua_Nombre					AS usuarioModificacion,
+		tido_FechaModificacion				,
+		tido_Estado 								
+FROM	Adua.tbTipoDocumento tido 
+		INNER JOIN Acce.tbUsuarios crea		ON crea.usua_Id = tido.usua_UsuarioCreacion 
+		LEFT JOIN Acce.tbUsuarios modi		ON modi.usua_Id = tido.usua_UsuarioModificacion 
+WHERE	tido_Estado = 1
+END
+GO
+
+--*****Insertar*****--
+--Adua.UDP_tbTipoDocumento_Insertar 'kl45', 'probandoo',1,'07-18-2023'
+--  select*from  Adua.tbTipoDocumento
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoDocumento_Insertar
+@tido_Codigo			CHAR(4),
+@tido_Descripcion		NVARCHAR(50),
+@usua_UsuarioCreacion	INT,
+@tido_FechaCrea			DATETIME
+AS
+BEGIN
+	BEGIN TRY
+				INSERT INTO Adua.tbTipoDocumento (tido_Codigo,tido_Descripcion,usua_UsuarioCreacion,tido_FechaCreacion)
+				VALUES (
+				@tido_Codigo,
+				@tido_Descripcion,
+				@usua_UsuarioCreacion,
+				@tido_FechaCrea
+				)
+				SELECT 1
+	END TRY
+	BEGIN CATCH
+	SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
+--*****Editar*****--
+--Adua.UDP_tbTipoDocumento_Editar 1, 'LL45', 'PRUEBA2',1, '07-18-2023'
+-- SELECT * FROM Adua.tbTipoDocumento
+
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoDocumento_Editar
+@tido_Id					INT,
+@tido_Codigo				CHAR(4),
+@tido_Descripcion			NVARCHAR(50),
+@usua_UsuarioModificacion	INT,
+@tido_FechaModificacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE Adua.tbTipoDocumento
+		SET tido_Descripcion = @tido_Descripcion,
+		tido_Codigo = @tido_Codigo,
+		usua_UsuarioModificacion = @usua_UsuarioModificacion,
+		tido_FechaModificacion = @tido_FechaModificacion
+		WHERE tido_Id = @tido_Id
+		SELECT 1
+	END TRY
+BEGIN CATCH 
+	SELECT 'Error Message: ' + ERROR_MESSAGE()
+END CATCH
+END
+GO
+
+/*********************Listar Tipo intermediario***************************/
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Listar
+AS
+BEGIN 
+SELECT	tite_Id							,
+		tite_Descripcion				, 
+		usu.usua_Nombre					AS usarioCreacion,
+		tite_FechaCreacion				,
+		usu1.usua_Nombre				AS usuarioModificacion,
+		tite_FechaModificacion			,
+		tite_Estado						
+FROM	Adua.tbTipoIntermediario tip 
+		INNER JOIN Acce.tbUsuarios usu	ON tip.usua_UsuarioCreacion = usu.usua_Id 
+		LEFT JOIN Acce.tbUsuarios usu1	ON usu1.usua_UsuarioModificacion = tip.usua_UsuarioModificacion
+WHERE	tite_Estado = 1
+
+ END 
+ GO
+ /********************Crear Tipo Intermediario******************************/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Insertar
+   @tite_Descripcion		NVARCHAR(150), 
+   @tite_UsuCreacion        INT, 
+   @tite_FechaCreacion		DATETIME
+AS    
+BEGIN 
+   BEGIN TRY 
+      IF EXISTS(SELECT * FROM Adua.tbTipoIntermediario WHERE tite_Descripcion = @tite_Descripcion AND tite_Estado = 0)
+      BEGIN 
+         UPDATE Adua.tbTipoIntermediario
+         SET tite_Estado = 1
+         SELECT 1
+      END
+      ELSE 
+      BEGIN 
+         INSERT INTO Adua.tbTipoIntermediario (tite_Descripcion, usua_UsuarioCreacion, tite_FechaCreacion)
+         VALUES (@tite_Descripcion, @tite_UsuCreacion, @tite_FechaCreacion)			  
+         SELECT 1
+      END
+   END TRY
+   BEGIN CATCH
+      SELECT 0
+   END CATCH  
+END
+
+GO
+/*************Editar Tipo de intermediario ************************/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Editar  
+   @tite_Id						INT,
+   @tite_Descripcion			NVARCHAR(150),
+   @tite_UsuarioModificacion    INT,
+   @tite_FechaModicacion     DATETIME
+AS
+BEGIN 
+   BEGIN TRY 
+      UPDATE Adua.tbTipoIntermediario
+      SET tite_Descripcion = @tite_Descripcion, 
+          usua_UsuarioModificacion = @tite_UsuarioModificacion,
+          tite_FechaModificacion = @tite_FechaModicacion
+      WHERE tite_Id = @tite_Id
+	  SELECT 1
+   END TRY 
+   BEGIN CATCH 
+       SELECT 0
+   END CATCH
+END
+
+GO
+/*************************Eliminar tipo de intermediario*****************/
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Eliminar
+	@tite_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@tite_FechaEliminacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+
+		BEGIN
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'tite_Id', @tite_Id, 'Adua.tbTipoIntermediario', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					   UPDATE Adua.tbTipoIntermediario
+					   SET tite_Estado = 0,
+					       usua_UsuarioEliminacion=@usua_UsuarioEliminacion,
+						   tite_FechaEliminacion = @tite_FechaEliminacion
+                       WHERE tite_Id = @tite_Id
+		SELECT 1
+				END
 		END
 	END TRY
 	BEGIN CATCH
@@ -3056,150 +4320,1157 @@ END
 GO
 --************CONDICIONES******************--
 /*Listar CONDICIONES*/
+GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Listar
+	@deva_Id			INT
 AS
 BEGIN
-SELECT	codi_Id											,
-		deva_Id											,
-		codi_Restricciones_Utilizacion					,
-		codi_Indicar_Restricciones_Utilizacion			,
-		codi_Depende_Precio_Condicion					,
-		codi_Indicar_Existe_Condicion					,
-		codi_Condicionada_Revertir						,
-		codi_Vinculacion_Comprador_Vendedor				,
-		codi_Tipo_Vinculacion							,
-		codi_Vinculacion_Influye_Precio					,
-		codi_Pagos_Descuentos_Indirectos				,
-		codi_Concepto_Monto_Declarado					,
-		codi_Existen_Canones							,
-		codi_Indicar_Canones							,
-		condiciones.usua_UsuarioCreacion				,
-		usuarioCreacion.usua_Nombre						AS usuarioCreacionNombre,
-		codi_FechaCreacion								,
-		condiciones.usua_UsuarioModificacion			,
-		usuarioModificacion.usua_Nombre					AS usuarioModificacionNombre,
-		codi_FechaModificacion							,
-		codi_Estado								
-FROM	Adua.tbCondiciones condiciones
-		INNER JOIN Acce.tbUsuarios usuarioCreacion		ON condiciones.usua_UsuarioCreacion = usuarioCreacion.usua_Id
-		LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON condiciones.usua_UsuarioModificacion = usuarioModificacion.usua_Id
-WHERE	codi_Estado = 1
+	SELECT codi_Id, 
+		   deva_Id, 
+		   codi_Restricciones_Utilizacion, 
+		   codi_Indicar_Restricciones_Utilizacion, 
+		   codi_Depende_Precio_Condicion, 
+		   codi_Indicar_Existe_Condicion, 
+		   codi_Condicionada_Revertir, 
+		   codi_Vinculacion_Comprador_Vendedor, 
+		   codi_Tipo_Vinculacion, 
+		   codi_Vinculacion_Influye_Precio, 
+		   codi_Pagos_Descuentos_Indirectos, 
+		   codi_Concepto_Monto_Declarado, 
+		   codi_Existen_Canones, 
+		   codi_Indicar_Canones, 
+		   usua_UsuarioCreacion, 
+		   codi_FechaCreacion, 
+		   usua_UsuarioModificacion, 
+		   codi_FechaModificacion, 
+		   codi_Estado
+	FROM [Adua].[tbCondiciones]
+	WHERE deva_Id = @deva_Id
 END
+
+/*Insertar condiciones*/
 GO
-/*Insertar CONDICIONES*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Insertar
-(
-	@deva_Id								INT, 
-	@codi_Restricciones_Utilizacion			BIT,
-	@codi_Indicar_Restricciones_Utilizacion	NVARCHAR(500),
-	@codi_Depende_Precio_Condicion			BIT, 
-	@codi_Indicar_Existe_Condicion			NVARCHAR(200), 
-	@codi_Condicionada_Revertir				BIT, 
-	@codi_Vinculacion_Comprador_Vendedor	BIT, 
-	@codi_Tipo_Vinculacion					NVARCHAR(500), 
-	@codi_Vinculacion_Influye_Precio		BIT, 
-	@codi_Pagos_Descuentos_Indirectos		BIT, 
-	@codi_Concepto_Monto_Declarado			NVARCHAR(500), 
-	@codi_Existen_Canones					BIT, 
-	@codi_Indicar_Canones					NVARCHAR(500), 
-	@usua_UsuarioCreacion					INT, 
-	@codi_FechaCreacion						DATETIME
-)
+CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Insertar 
+	@deva_Id									INT, 
+	@codi_Restricciones_Utilizacion				BIT, 
+	@codi_Indicar_Restricciones_Utilizacion		NVARCHAR(500), 
+	@codi_Depende_Precio_Condicion				BIT, 
+	@codi_Indicar_Existe_Condicion				NVARCHAR(500),
+	@codi_Condicionada_Revertir					BIT, 
+	@codi_Vinculacion_Comprador_Vendedor		BIT, 
+	@codi_Tipo_Vinculacion						NVARCHAR(500), 
+	@codi_Vinculacion_Influye_Precio			BIT, 
+	@codi_Pagos_Descuentos_Indirectos			BIT, 
+	@codi_Concepto_Monto_Declarado				NVARCHAR(500), 
+	@codi_Existen_Canones						BIT, 
+	@codi_Indicar_Canones						NVARCHAR(500), 
+	@usua_UsuarioCreacion						INT, 
+	@codi_FechaCreacion							DATE
 AS
 BEGIN
 	BEGIN TRY
-		INSERT INTO Adua.tbCondiciones 
-					(deva_Id, 
-					codi_Restricciones_Utilizacion, 
-					codi_Indicar_Restricciones_Utilizacion, 
-					codi_Depende_Precio_Condicion, 
-					codi_Indicar_Existe_Condicion, 
-					codi_Condicionada_Revertir, 
-					codi_Vinculacion_Comprador_Vendedor, 
-					codi_Tipo_Vinculacion, 
-					codi_Vinculacion_Influye_Precio, 
-					codi_Pagos_Descuentos_Indirectos, 
-					codi_Concepto_Monto_Declarado, 
-					codi_Existen_Canones, 
-					codi_Indicar_Canones, 
-					usua_UsuarioCreacion, 
-					codi_FechaCreacion)
-			VALUES	(@deva_Id,
-					@codi_Restricciones_Utilizacion,
-					@codi_Indicar_Restricciones_Utilizacion,
-					@codi_Depende_Precio_Condicion,
-					@codi_Indicar_Existe_Condicion,
-					@codi_Condicionada_Revertir,
-					@codi_Vinculacion_Comprador_Vendedor,
-					@codi_Tipo_Vinculacion,
-					@codi_Vinculacion_Influye_Precio,
-					@codi_Pagos_Descuentos_Indirectos,
-					@codi_Concepto_Monto_Declarado,
-					@codi_Existen_Canones,
-					@codi_Indicar_Canones,
-					@usua_UsuarioCreacion,
-					@codi_FechaCreacion)
+		INSERT INTO [Adua].[tbCondiciones](deva_Id, 
+										   codi_Restricciones_Utilizacion, 
+										   codi_Indicar_Restricciones_Utilizacion, 
+										   codi_Depende_Precio_Condicion, 
+										   codi_Indicar_Existe_Condicion, 
+										   codi_Condicionada_Revertir, 
+										   codi_Vinculacion_Comprador_Vendedor, 
+										   codi_Tipo_Vinculacion, 
+										   codi_Vinculacion_Influye_Precio, 
+										   codi_Pagos_Descuentos_Indirectos, 
+										   codi_Concepto_Monto_Declarado, 
+										   codi_Existen_Canones, 
+										   codi_Indicar_Canones, 
+										   usua_UsuarioCreacion, 
+										   codi_FechaCreacion)
+		VALUES (@deva_Id, 
+				@codi_Restricciones_Utilizacion, 
+				@codi_Indicar_Restricciones_Utilizacion, 
+				@codi_Depende_Precio_Condicion, 
+				@codi_Indicar_Existe_Condicion, 
+				@codi_Condicionada_Revertir, 
+				@codi_Vinculacion_Comprador_Vendedor, 
+				@codi_Tipo_Vinculacion, 
+				@codi_Vinculacion_Influye_Precio, 
+				@codi_Pagos_Descuentos_Indirectos, 
+				@codi_Concepto_Monto_Declarado, 
+				@codi_Existen_Canones, 
+				@codi_Indicar_Canones, 
+				@usua_UsuarioCreacion, 
+				@codi_FechaCreacion)
 
-		SELECT 1 AS Resultado
+		INSERT INTO [Adua].[tbCondicionesHistorial](codi_Id,
+													deva_Id, 
+													codi_Restricciones_Utilizacion, 
+													codi_Indicar_Restricciones_Utilizacion, 
+													codi_Depende_Precio_Condicion, 
+													codi_Indicar_Existe_Condicion, 
+													codi_Condicionada_Revertir, 
+													codi_Vinculacion_Comprador_Vendedor, 
+													codi_Tipo_Vinculacion, 
+													codi_Vinculacion_Influye_Precio, 
+													codi_Pagos_Descuentos_Indirectos, 
+													codi_Concepto_Monto_Declarado, 
+													codi_Existen_Canones, 
+													codi_Indicar_Canones, 
+													hcod_UsuarioAccion,
+													hcod_FechaAccion,
+													hcod_Accion)
+		VALUES (SCOPE_IDENTITY(),
+				@deva_Id, 
+				@codi_Restricciones_Utilizacion, 
+				@codi_Indicar_Restricciones_Utilizacion, 
+				@codi_Depende_Precio_Condicion, 
+				@codi_Indicar_Existe_Condicion, 
+				@codi_Condicionada_Revertir, 
+				@codi_Vinculacion_Comprador_Vendedor, 
+				@codi_Tipo_Vinculacion, 
+				@codi_Vinculacion_Influye_Precio, 
+				@codi_Pagos_Descuentos_Indirectos, 
+				@codi_Concepto_Monto_Declarado, 
+				@codi_Existen_Canones, 
+				@codi_Indicar_Canones, 
+				@usua_UsuarioCreacion, 
+				@codi_FechaCreacion,
+				'Insertar')
+
+		SELECT 1
 	END TRY
 	BEGIN CATCH
-		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
-GO
 
-/*Editar CONDICIONES*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Editar
-(
-	@codi_Id								INT,
-	@deva_Id								INT, 
-	@codi_Restricciones_Utilizacion			BIT,
-	@codi_Indicar_Restricciones_Utilizacion	NVARCHAR(500),
-	@codi_Depende_Precio_Condicion			BIT, 
-	@codi_Indicar_Existe_Condicion			NVARCHAR(200), 
-	@codi_Condicionada_Revertir				BIT, 
-	@codi_Vinculacion_Comprador_Vendedor	BIT, 
-	@codi_Tipo_Vinculacion					NVARCHAR(500), 
-	@codi_Vinculacion_Influye_Precio		BIT, 
-	@codi_Pagos_Descuentos_Indirectos		BIT, 
-	@codi_Concepto_Monto_Declarado			NVARCHAR(500), 
-	@codi_Existen_Canones					BIT, 
-	@codi_Indicar_Canones					NVARCHAR(500), 
-	@usua_UsuarioModificacion				INT, 
-	@codi_FechaModificacion					DATETIME
-)
+
+/*Editar condiciones*/
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Editar 
+	@codi_Id									INT,
+	@deva_Id									INT, 
+	@codi_Restricciones_Utilizacion				BIT, 
+	@codi_Indicar_Restricciones_Utilizacion		NVARCHAR(500), 
+	@codi_Depende_Precio_Condicion				BIT, 
+	@codi_Indicar_Existe_Condicion				NVARCHAR(500),
+	@codi_Condicionada_Revertir					BIT, 
+	@codi_Vinculacion_Comprador_Vendedor		BIT, 
+	@codi_Tipo_Vinculacion						NVARCHAR(500), 
+	@codi_Vinculacion_Influye_Precio			BIT, 
+	@codi_Pagos_Descuentos_Indirectos			BIT, 
+	@codi_Concepto_Monto_Declarado				NVARCHAR(500), 
+	@codi_Existen_Canones						BIT, 
+	@codi_Indicar_Canones						NVARCHAR(500), 
+	@usua_UsuarioModificacion					INT, 
+	@codi_FechaModificacion						DATE
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE Adua.tbCondiciones 
-		   SET deva_Id = @deva_Id, 
-			   codi_Restricciones_Utilizacion = @codi_Restricciones_Utilizacion, 
-			   codi_Indicar_Restricciones_Utilizacion = @codi_Indicar_Restricciones_Utilizacion, 
-			   codi_Depende_Precio_Condicion = @codi_Depende_Precio_Condicion, 
-			   codi_Indicar_Existe_Condicion = @codi_Indicar_Existe_Condicion, 
-			   codi_Condicionada_Revertir = @codi_Condicionada_Revertir, 
-			   codi_Vinculacion_Comprador_Vendedor = @codi_Vinculacion_Comprador_Vendedor, 
-			   codi_Tipo_Vinculacion = @codi_Tipo_Vinculacion, 
-			   codi_Vinculacion_Influye_Precio = @codi_Vinculacion_Influye_Precio, 
-			   codi_Pagos_Descuentos_Indirectos = @codi_Pagos_Descuentos_Indirectos, 
-			   codi_Concepto_Monto_Declarado = @codi_Concepto_Monto_Declarado, 
-			   codi_Existen_Canones = @codi_Existen_Canones, 
-			   codi_Indicar_Canones = @codi_Indicar_Canones, 
-			   usua_UsuarioCreacion = @usua_UsuarioModificacion, 
-			   codi_FechaCreacion = @codi_FechaModificacion
-		 WHERE codi_Id = @codi_Id
-		   AND codi_Estado = 1
+		UPDATE [Adua].[tbCondiciones]
+		SET		deva_Id = @deva_Id, 
+				codi_Restricciones_Utilizacion = @codi_Restricciones_Utilizacion, 
+				codi_Indicar_Restricciones_Utilizacion = @codi_Indicar_Restricciones_Utilizacion, 
+				codi_Depende_Precio_Condicion = @codi_Depende_Precio_Condicion, 
+				codi_Indicar_Existe_Condicion = @codi_Indicar_Existe_Condicion, 
+				codi_Condicionada_Revertir = @codi_Condicionada_Revertir, 
+				codi_Vinculacion_Comprador_Vendedor = @codi_Vinculacion_Comprador_Vendedor, 
+				codi_Tipo_Vinculacion = @codi_Tipo_Vinculacion, 
+				codi_Vinculacion_Influye_Precio = @codi_Vinculacion_Influye_Precio, 
+				codi_Pagos_Descuentos_Indirectos = @codi_Pagos_Descuentos_Indirectos, 
+				codi_Concepto_Monto_Declarado = @codi_Concepto_Monto_Declarado, 
+				codi_Existen_Canones = @codi_Existen_Canones, 
+				codi_Indicar_Canones = @codi_Indicar_Canones, 
+				usua_UsuarioModificacion = @usua_UsuarioModificacion, 
+				codi_FechaModificacion = @codi_FechaModificacion
+		WHERE codi_Id = @codi_Id
 
-		SELECT 1 AS Resultado
+		INSERT INTO [Adua].[tbCondicionesHistorial](codi_Id,
+													deva_Id, 
+													codi_Restricciones_Utilizacion, 
+													codi_Indicar_Restricciones_Utilizacion, 
+													codi_Depende_Precio_Condicion, 
+													codi_Indicar_Existe_Condicion, 
+													codi_Condicionada_Revertir, 
+													codi_Vinculacion_Comprador_Vendedor, 
+													codi_Tipo_Vinculacion, 
+													codi_Vinculacion_Influye_Precio, 
+													codi_Pagos_Descuentos_Indirectos, 
+													codi_Concepto_Monto_Declarado, 
+													codi_Existen_Canones, 
+													codi_Indicar_Canones, 
+													hcod_UsuarioAccion,
+													hcod_FechaAccion,
+													hcod_Accion)
+		VALUES (@codi_Id,
+				@deva_Id, 
+				@codi_Restricciones_Utilizacion, 
+				@codi_Indicar_Restricciones_Utilizacion, 
+				@codi_Depende_Precio_Condicion, 
+				@codi_Indicar_Existe_Condicion, 
+				@codi_Condicionada_Revertir, 
+				@codi_Vinculacion_Comprador_Vendedor, 
+				@codi_Tipo_Vinculacion, 
+				@codi_Vinculacion_Influye_Precio, 
+				@codi_Pagos_Descuentos_Indirectos, 
+				@codi_Concepto_Monto_Declarado, 
+				@codi_Existen_Canones, 
+				@codi_Indicar_Canones, 
+				@usua_UsuarioModificacion, 
+				@codi_FechaModificacion,
+				'Editar')
+
+		SELECT 1
 	END TRY
 	BEGIN CATCH
-		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 GO
-
 
 -----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS MÓDULO PRODUCCION
+
+-----------------------------------------------/UDPS Para orden de compra---------------------------------------------
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompra_Insertar
+(
+	@orco_IdCliente				INT,
+	@orco_FechaEmision			DATETIME,
+	@orco_FechaLimite			DATETIME,
+	@orco_MetodoPago 			INT,
+	@orco_Materiales			BIT,
+	@orco_IdEmbalaje 			INT,
+	@orco_EstadoOrdenCompra		CHAR(1),
+	@orco_DireccionEntrega		NVARCHAR(250),
+	@usua_UsuarioCreacion       INT,
+	@orco_FechaCreacion         DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Prod.tbOrdenCompra
+					(orco_IdCliente,				
+					orco_FechaEmision,			
+					orco_FechaLimite,			
+					orco_MetodoPago, 			
+					orco_Materiales,			
+					orco_IdEmbalaje, 			
+					orco_EstadoOrdenCompra,		
+					orco_DireccionEntrega,		
+					usua_UsuarioCreacion,       
+					orco_FechaCreacion)
+			VALUES (@orco_IdCliente,				
+					@orco_FechaEmision,			
+					@orco_FechaLimite,			
+					@orco_MetodoPago, 			
+					@orco_Materiales,			
+					@orco_IdEmbalaje, 			
+					@orco_EstadoOrdenCompra,		
+					@orco_DireccionEntrega,		
+					@usua_UsuarioCreacion,       
+					@orco_FechaCreacion)
+			
+		SELECT SCOPE_IDENTITY() AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompra_Editar
+(
+	@orco_Id					INT,
+	@orco_IdCliente				INT,
+	@orco_FechaEmision			DATETIME,
+	@orco_FechaLimite			DATETIME,
+	@orco_MetodoPago 			INT,
+	@orco_Materiales			BIT,
+	@orco_IdEmbalaje 			INT,
+	@orco_EstadoOrdenCompra		CHAR(1),
+	@orco_DireccionEntrega		NVARCHAR(250),
+	@usua_UsuarioCreacion       INT,
+	@orco_FechaCreacion         DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		 UPDATE Prod.tbOrdenCompra
+			SET	orco_IdCliente			= @orco_IdCliente,				
+				orco_FechaEmision		= @orco_FechaEmision,			
+				orco_FechaLimite		= @orco_FechaLimite,			
+				orco_MetodoPago			= @orco_MetodoPago, 			
+				orco_Materiales			= @orco_Materiales,			
+				orco_IdEmbalaje			= @orco_IdEmbalaje, 			
+				orco_EstadoOrdenCompra	= @orco_EstadoOrdenCompra,		
+				orco_DireccionEntrega	= @orco_DireccionEntrega,		
+				usua_UsuarioCreacion	= @usua_UsuarioCreacion,       
+				orco_FechaCreacion		= @orco_FechaCreacion
+		  WHERE orco_Id = @orco_Id
+
+		  SELECT 1 AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+-----------------------------------------------/UDPS Para orden de compra---------------------------------------------
+
+--------------------------------------------UDPS Para orden de compra detalle-----------------------------------------
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Insertar
+(
+	@orco_Id						INT,
+	@code_CantidadPrenda			INT,
+	@esti_Id						INT,
+	@tall_Id						INT,
+	@code_Sexo						CHAR(1),
+	@colr_Id						INT,
+	@code_Documento					NVARCHAR(250),
+	@code_Medidas					NVARCHAR(250),
+	@proc_IdComienza				INT,
+	@proc_IdActual					INT,
+	@code_Unidad					DECIMAL(18,2),
+	@code_Valor						DECIMAL(18,2),
+	@code_Impuesto					DECIMAL(18,2),
+	@code_Descuento					DECIMAL(18,2),
+	@code_EspecificacionEmbalaje	NVARCHAR(200),
+	@usua_UsuarioCreacion       	INT,
+	@code_FechaCreacion         	DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Prod.tbOrdenCompraDetalles
+					(orco_Id,						
+					code_CantidadPrenda,			
+					esti_Id,						
+					tall_Id,						
+					code_Sexo,						
+					colr_Id,						
+					code_Documento,					
+					code_Medidas,					
+					proc_IdComienza,				
+					proc_IdActual,					
+					code_Unidad,					
+					code_Valor,						
+					code_Impuesto,					
+					code_Descuento,					
+					code_EspecificacionEmbalaje,	
+					usua_UsuarioCreacion,       	
+					code_FechaCreacion)
+			 VALUES (@orco_Id,						
+					@code_CantidadPrenda,			
+					@esti_Id,						
+					@tall_Id,						
+					@code_Sexo,						
+					@colr_Id,						
+					@code_Documento,					
+					@code_Medidas,					
+					@proc_IdComienza,				
+					@proc_IdActual,					
+					@code_Unidad,					
+					@code_Valor,						
+					@code_Impuesto,					
+					@code_Descuento,					
+					@code_EspecificacionEmbalaje,	
+					@usua_UsuarioCreacion,       	
+					@code_FechaCreacion)
+		
+		SELECT SCOPE_IDENTITY() AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Editar
+(
+	@code_Id						INT,
+	@orco_Id						INT,
+	@code_CantidadPrenda			INT,
+	@esti_Id						INT,
+	@tall_Id						INT,
+	@code_Sexo						CHAR(1),
+	@colr_Id						INT,
+	@code_Documento					NVARCHAR(250),
+	@code_Medidas					NVARCHAR(250),
+	@proc_IdComienza				INT,
+	@proc_IdActual					INT,
+	@code_Unidad					DECIMAL(18,2),
+	@code_Valor						DECIMAL(18,2),
+	@code_Impuesto					DECIMAL(18,2),
+	@code_Descuento					DECIMAL(18,2),
+	@code_EspecificacionEmbalaje	NVARCHAR(200),
+	@usua_UsuarioCreacion       	INT,
+	@code_FechaCreacion         	DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		 UPDATE Prod.tbOrdenCompraDetalles
+			SET orco_Id						= @orco_Id,						
+				code_CantidadPrenda			= @code_CantidadPrenda,			
+				esti_Id						= @esti_Id,						
+				tall_Id						= @tall_Id,						
+				code_Sexo					= @code_Sexo,						
+				colr_Id						= @colr_Id,						
+				code_Documento				= @code_Documento,					
+				code_Medidas				= @code_Medidas,					
+				proc_IdComienza				= @proc_IdComienza,				
+				proc_IdActual				= @proc_IdActual,					
+				code_Unidad					= @code_Unidad,					
+				code_Valor					= @code_Valor,						
+				code_Impuesto				= @code_Impuesto,					
+				code_Descuento				= @code_Descuento,					
+				code_EspecificacionEmbalaje	= @code_EspecificacionEmbalaje,	
+				usua_UsuarioCreacion       	= @usua_UsuarioCreacion,       	
+				code_FechaCreacion         	= @code_FechaCreacion    
+		  WHERE code_Id = @code_Id
+
+		  SELECT 1 
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+-------------------------------------------/UDPS Para orden de compra detalle-----------------------------------------
+
+----------------------------------------------UDPS Para Asignaciones Orden--------------------------------------------
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrden_Listado
+AS
+BEGIN
+	 SELECT asor_Id,						
+			asor_OrdenDetId,				
+			asor_FechaInicio,			
+			asor_FechaLimite,						
+			asor_Cantidad,				
+			proc_Id,						
+			asignacionesOrden.empl_Id,						
+			asignacionesOrden.usua_UsuarioCreacion,
+			usuarioCreacion.usua_Nombre					AS usuarioCreacionNombre,
+			asor_FechaCreacion,			
+			asignacionesOrden.usua_UsuarioModificacion,
+			usuarioModificacion.usua_Nombre				AS usuarioModificacionNombre,
+			asor_FechaModificacion
+	   FROM Prod.tbAsignacionesOrden			AS asignacionesOrden 
+ INNER JOIN Acce.tbUsuarios usuarioCreacion		ON asignacionesOrden.usua_UsuarioCreacion = usuarioCreacion.usua_Id
+  LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON asignacionesOrden.usua_UsuarioModificacion = usuarioModificacion.usua_Id
+END
+GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrden_Insertar
+(
+	@asor_OrdenDetId			INT,
+	@asor_FechaInicio			DATETIME,
+	@asor_FechaLimite			DATETIME,
+	@asor_Cantidad				INT,
+	@proc_Id					INT,
+	@empl_Id					INT,
+	@usua_UsuarioCreacion		INT,
+	@asor_FechaCreacion			DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Prod.tbAsignacionesOrden
+					(asor_OrdenDetId,			
+					asor_FechaInicio,			
+					asor_FechaLimite,			
+					asor_Cantidad,				
+					proc_Id,					
+					empl_Id,					
+					usua_UsuarioCreacion,		
+					asor_FechaCreacion)
+			 VALUES (@asor_OrdenDetId,			
+					@asor_FechaInicio,			
+					@asor_FechaLimite,			
+					@asor_Cantidad,				
+					@proc_Id,					
+					@empl_Id,					
+					@usua_UsuarioCreacion,		
+					@asor_FechaCreacion)
+		
+		SELECT SCOPE_IDENTITY() AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrden_Editar
+(
+	@asor_Id					INT,
+	@asor_OrdenDetId			INT,
+	@asor_FechaInicio			DATETIME,
+	@asor_FechaLimite			DATETIME,
+	@asor_Cantidad				INT,
+	@proc_Id					INT,
+	@empl_Id					INT,
+	@usua_UsuarioCreacion		INT,
+	@asor_FechaCreacion			DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		 UPDATE Prod.tbAsignacionesOrden
+			SET	asor_OrdenDetId			= @asor_OrdenDetId,
+				asor_FechaInicio		= @asor_FechaInicio,	
+				asor_FechaLimite		= @asor_FechaLimite,	
+				asor_Cantidad			= @asor_Cantidad,	
+				proc_Id					= @proc_Id,
+				empl_Id					= @empl_Id,
+				usua_UsuarioCreacion	= @usua_UsuarioCreacion,	
+				asor_FechaCreacion		= @asor_FechaCreacion
+		  WHERE asor_Id	= @asor_Id
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrden_Eliminar
+(
+	@asor_Id	INT
+)
+AS
+BEGIN
+	BEGIN TRY
+		DELETE Prod.tbAsignacionesOrden
+		WHERE asor_Id = @asor_Id
+
+		SELECT 1 AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+---------------------------------------------/UDPS Para Asignaciones Orden--------------------------------------------
+
+-------------------------------------------UDPS Para Asignaciones Orden detalle---------------------------------------
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrdenDetalle_Listado
+AS
+BEGIN
+	SELECT adet_Id,						
+		   lote_Id,						
+		   adet_Cantidad,				
+		   AsignacionesOrdenDetalle.usua_UsuarioCreacion,
+		   usuarioCreacion.usua_Nombre							AS usuarioCreacionNombre,
+		   adet_FechaCreacion,			
+		   AsignacionesOrdenDetalle.usua_UsuarioModificacion,
+		   usuarioModificacion.usua_Nombre						AS usuarioModificacionNombre,
+		   adet_FechaModificacion
+	  FROM Prod.tbAsignacionesOrdenDetalle		AS AsignacionesOrdenDetalle
+INNER JOIN Acce.tbUsuarios usuarioCreacion		ON AsignacionesOrdenDetalle.usua_UsuarioCreacion = usuarioCreacion.usua_Id
+ LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON AsignacionesOrdenDetalle.usua_UsuarioModificacion = usuarioModificacion.usua_Id
+END
+GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrdenDetalle_Insertar
+(
+	@lote_Id					INT, 
+	@adet_Cantidad				INT, 
+	@usua_UsuarioCreacion		INT,
+	@adet_FechaCreacion			DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Prod.tbAsignacionesOrdenDetalle
+					(lote_Id,					
+					adet_Cantidad,				
+					usua_UsuarioCreacion,		
+					adet_FechaCreacion)
+			VALUES (@lote_Id,					
+					@adet_Cantidad,				
+					@usua_UsuarioCreacion,		
+					@adet_FechaCreacion)
+	
+		SELECT SCOPE_IDENTITY() AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrdenDetalle_Editar
+(
+	@adet_Id					INT,
+	@lote_Id					INT, 
+	@adet_Cantidad				INT, 
+	@usua_UsuarioCreacion		INT,
+	@adet_FechaCreacion			DATETIME
+)	
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE Prod.tbAsignacionesOrdenDetalle
+		   SET lote_Id				= @lote_Id,					 
+			   adet_Cantidad		= @adet_Cantidad,					
+			   usua_UsuarioCreacion	= @usua_UsuarioCreacion,		
+			   adet_FechaCreacion	= @adet_FechaCreacion
+		 WHERE adet_Id = @adet_Id
+
+		 SELECT 1 AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrdenDetalle_Eliminar
+(
+	@adet_Id	INT
+)
+AS
+BEGIN
+	BEGIN TRY
+		DELETE Prod.tbAsignacionesOrdenDetalle
+		 WHERE adet_Id = @adet_Id
+
+		 SELECT 1 AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+-------------------------------------------UDPS Para Asignaciones Orden detalle---------------------------------------
+
+--*****Pedidos Orden*****-
+--*****Listado*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Listas
+AS
+BEGIN
+SELECT	peor_Id, 
+		prov.prov_Id, 
+		prov.prov_NombreCompania,
+		prov.prov_NombreContacto,
+		prov.prov_Ciudad,
+		peor_No_Duca, 
+		peor_FechaEntrada, 
+		peor_Obsevaciones, 
+		peor_DadoCliente, 
+		peor_Est, 
+		crea.usua_Nombre							AS usua_UsuarioCreacion, 
+		peor_FechaCreacion, 
+		modi.usua_Nombre							AS usua_UsuarioModificacion , 
+		peor_FechaModificacion, 
+		peor_Estado 
+FROM	Prod.tbPedidosOrden po
+		INNER JOIN Gral.tbProveedores prov			ON po.prov_Id = prov.prov_Id
+		INNER JOIN Acce.tbUsuarios crea				ON crea.usua_Id = po.usua_UsuarioCreacion 
+		LEFT JOIN  Acce.tbUsuarios modi				ON modi.usua_Id = po.usua_UsuarioModificacion 	
+END
+GO
+
+
+--*****Insertar*****--
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Insertar
+@prov_Id				INT, 
+@peor_No_Duca			NVARCHAR(100), 
+@peor_FechaEntrada		DATETIME, 
+@peor_Obsevaciones		NVARCHAR(100), 
+@peor_DadoCliente		BIT, 
+@peor_Est				BIT, 
+@usua_UsuarioCreacion	INT, 
+@peor_FechaCreacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Prod.tbPedidosOrden (prov_Id, peor_No_Duca, peor_FechaEntrada, peor_Obsevaciones, peor_DadoCliente, peor_Est, usua_UsuarioCreacion, peor_FechaCreacion)
+		VALUES	(@prov_Id,				
+				 @peor_No_Duca,			
+				 @peor_FechaEntrada,		
+				 @peor_Obsevaciones,		
+				 @peor_DadoCliente,		
+				 @peor_Est,				
+				 @usua_UsuarioCreacion,	
+				 @peor_FechaCreacion	
+				 )	
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() 
+	END CATCH
+END
+GO
+
+--*****Editar*****--
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Editar
+@peor_Id					INT, 
+@prov_Id					INT, 
+@peor_No_Duca				NVARCHAR(100), 
+@peor_FechaEntrada			DATETIME, 
+@peor_Obsevaciones			NVARCHAR(100), 
+@peor_DadoCliente			BIT, 
+@peor_Est					BIT, 
+@usua_UsuarioModificacion	INT, 
+@peor_FechaModificacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE Prod.tbPedidosOrden 
+		SET prov_Id 				= @prov_Id, 
+		peor_No_Duca				= @peor_No_Duca, 
+		peor_FechaEntrada			= @peor_FechaEntrada,	 
+		peor_Obsevaciones			= @peor_Obsevaciones, 
+		peor_DadoCliente			= @peor_DadoCliente,
+		peor_Est					= @peor_Est, 
+		usua_UsuarioModificacion	= @usua_UsuarioModificacion,
+		peor_FechaModificacion		= @peor_FechaModificacion	
+		WHERE peor_Id				= @peor_Id
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() 
+	END CATCH
+END
+GO
+
+
+/****************************************UDPs Estilos******************/
+/*Listar estilos*/
+CREATE OR ALTER PROCEDURE Prod.UDP_tbEstilos_Listar
+AS
+BEGIN
+SELECT	est.esti_Id						,
+		est.esti_Descripcion			,
+		usu.usua_Nombre					AS usarioCreacion,
+		est.esti_FechaCreacion			,
+		usu2.usua_Nombre				AS usuarioModificacion,
+		est.esti_FechaModificacion		,
+		est.esti_Estado					
+FROM	Prod.tbEstilos est 
+		INNER JOIN Acce.tbUsuarios usu	ON est.usua_UsuarioCreacion = usu.usua_Id 
+		LEFT JOIN Acce.tbUsuarios usu2 ON usu2.usua_UsuarioModificacion = est.usua_UsuarioModificacion 
+WHERE	esti_Estado = 1
+END 
+
+GO
+
+/***Insertar estilos*/
+CREATE OR ALTER PROCEDURE Prod.UDP_tbEstilos_Insertar 
+   @esti_Descripcion    NVARCHAR(200), 
+   @usua_UsuarioCreacion        INT, 
+   @esti_FechaCreacion      DATETIME
+AS    
+BEGIN 
+   BEGIN TRY 
+	 IF EXISTS(SELECT * FROM Prod.tbEstilos WHERE esti_Descripcion = @esti_Descripcion AND esti_Estado = 0)
+      BEGIN 
+         UPDATE Prod.tbEstilos
+         SET esti_Estado = 1
+         SELECT 1
+      END
+      ELSE 
+      BEGIN 
+         INSERT INTO Prod.tbEstilos (esti_Descripcion, usua_UsuarioCreacion, esti_FechaCreacion)
+         VALUES (@esti_Descripcion, @usua_UsuarioCreacion, @esti_FechaCreacion)			  
+         SELECT 1
+      END
+   END TRY
+   BEGIN CATCH
+      SELECT 0
+   END CATCH  
+END
+
+/***Editar estilos*/
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbEstilos_Editar 
+   @esti_Id                  INT,
+   @esti_Descripcion         NVARCHAR(200),
+   @usua_UsuarioModificacion INT,
+   @esti_FechaModificacion   DATETIME
+AS
+BEGIN 
+   BEGIN TRY 
+      UPDATE Prod.tbEstilos
+      SET esti_Descripcion = @esti_Descripcion, 
+          usua_UsuarioModificacion = @usua_UsuarioModificacion,
+          esti_FechaModificacion = @esti_FechaModificacion
+      WHERE esti_Id = @esti_Id
+	  SELECT 1
+   END TRY 
+   BEGIN CATCH 
+       SELECT 0
+   END CATCH
+END
+
+/*Eliminar estilos*/
+GO
+CREATE OR ALTER PROCEDURE Prod.UDP_tbEstilos_Eliminar
+	@esti_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@esti_FechaEliminacion	DATETIME
+AS
+BEGIN
+	BEGIN TRY
+
+		BEGIN
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'esti_Id', @esti_Id, 'Prod.tbEstilos', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					 UPDATE Prod.tbEstilos
+						SET esti_Estado = 0,
+						   usua_UsuarioEliminacion =@usua_UsuarioEliminacion,
+						   esti_FechaEliminacion = @esti_FechaEliminacion
+						WHERE esti_Id = @esti_Id
+		SELECT 1
+				END
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+
+/****************************UDP's Clientes*********************************/
+/*Listar Clientes*/
+CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Listar
+AS
+BEGIN 
+SELECT	clie.clie_Id					,
+		clie.clie_Numero_Contacto		,
+		clie.clie_Nombre_Contacto		,
+		clie.clie_Correo_Electronico	,
+		clie.clie_Direccion				,
+		clie.clie_FAX					,
+		clie.clie_RTN					,
+		usu.usua_Nombre					AS usarioCreacion,
+		clie.clie_FechaCreacion			,
+		usu1.usua_Nombre				AS usuarioModificacion,
+		clie.clie_FechaModificacion		,
+		clie.clie_Estado				
+FROM	Prod.tbClientes clie 
+		INNER JOIN Acce.tbUsuarios usu	ON usu.usua_Id = clie.usua_UsuarioCreacion 
+		LEFT JOIN Acce.tbUsuarios usu1	ON usu1.usua_Id = clie.usua_UsuarioModificacion
+WHERE	clie_Estado = 1
+END
+
+GO
+/*Crear Clientes*/
+CREATE OR ALTER PROCEDURE prod.UDP_tbClientes_Insertar 
+   @clie_Nombre_O_Razon_Social    NVARCHAR(200), 
+   @clie_Direccion                NVARCHAR(250), 
+   @clie_RTN                      CHAR(13), 
+   @clie_Nombre_Contacto          NVARCHAR(200), 
+   @clie_Numero_Contacto          CHAR(50), 
+   @clie_Correo_Electronico       NVARCHAR(200), 
+   @clie_FAX                      NVARCHAR(50), 
+   @usua_UsuarioCreacion          INT, 
+   @clie_FechaCreacion            DATETIME
+
+AS
+BEGIN 
+  BEGIN TRY
+  IF EXISTS(SELECT * FROM Prod.tbClientes cli WHERE cli.clie_Nombre_O_Razon_Social = @clie_Nombre_O_Razon_Social)    
+	BEGIN  
+	    UPDATE Prod.tbClientes
+		SET 
+		    clie_Nombre_O_Razon_Social=@clie_Nombre_O_Razon_Social, 
+			clie_Direccion=@clie_Direccion, 
+			clie_RTN=@clie_RTN, 
+			clie_Nombre_Contacto=@clie_Nombre_Contacto,
+			clie_Numero_Contacto=@clie_Numero_Contacto,
+			clie_Correo_Electronico=@clie_Correo_Electronico, 
+			clie_FAX=@clie_FAX,  
+			usua_UsuarioModificacion=@usua_UsuarioCreacion, 
+			clie_FechaModificacion=@clie_FechaCreacion
+			WHERE clie_Nombre_O_Razon_Social= @clie_Nombre_O_Razon_Social
+		SELECT 1
+  END 	  
+  ELSE 
+	   BEGIN  
+	      INSERT INTO Prod.tbClientes
+		  ( 
+	      clie_Nombre_O_Razon_Social,
+		  clie_Direccion   ,  
+		  clie_RTN          , 
+		  clie_Nombre_Contacto ,
+		  clie_Numero_Contacto,
+		  clie_Correo_Electronico,
+		  clie_FAX ,
+		  usua_UsuarioCreacion,
+		  clie_FechaCreacion            	  		  
+		  )
+		  VALUES (		         
+		  @clie_Nombre_O_Razon_Social ,   
+		  @clie_Direccion ,  
+		  @clie_RTN ,  
+		  @clie_Nombre_Contacto ,  
+		  @clie_Numero_Contacto  ,  
+		  @clie_Correo_Electronico,  
+		  @clie_FAX,  
+		  @usua_UsuarioCreacion,  
+		  @clie_FechaCreacion           
+		  )	 
+	   SELECT 1
+    END		
+END TRY	    
+   BEGIN CATCH 	 
+	 SELECT 0
+   END CATCH
+END
+
+GO
+/*Editar Clientes*/
+CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Editar 
+  @clie_Id    INT, 
+  @clie_Nombre_O_Razon_Social NVARCHAR(200), 
+  @clie_Direccion     NVARCHAR(200), 
+  @clie_RTN CHAR(13), 
+  @clie_Nombre_Contacto   NVARCHAR(200),
+  @clie_Numero_Contacto CHAR(50), 
+  @clie_Correo_Electronico  NVARCHAR(200) , 
+  @clie_FAX  NVARCHAR(50) ,  
+  @usua_UsuarioModificacion INT, 
+  @clie_FechaModificacion DATETIME
+AS
+BEGIN   
+    BEGIN TRY 
+	    UPDATE Prod.tbClientes
+		SET clie_Nombre_O_Razon_Social =@clie_Nombre_O_Razon_Social, 
+		    clie_Direccion=@clie_Direccion, 
+			clie_RTN = @clie_RTN, 
+			clie_Nombre_Contacto=@clie_Nombre_Contacto, 
+			clie_Numero_Contacto=@clie_Numero_Contacto, 
+			clie_Correo_Electronico=@clie_Correo_Electronico, 
+			clie_FAX=@clie_FAX, 
+			usua_UsuarioModificacion=@usua_UsuarioModificacion, 
+			clie_FechaModificacion=@clie_FechaModificacion 
+		WHERE clie_Id = @clie_Id
+		 SELECT 1
+	END TRY
+	BEGIN CATCH
+	     SELECT 0
+	END CATCH
+END
+
+/*Eliminar Clientes*/
+GO
+CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Eliminar 
+	@clie_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@clie_FechaEliminacion	DATETIME
+AS
+BEGIN
+	BEGIN TRY
+
+		BEGIN
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'clie_Id', @clie_Id, 'Prod.tbClientes', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					 UPDATE Prod.tbClientes
+						SET clie_Estado = 0, 
+						     usua_UsuarioEliminacion =@usua_UsuarioEliminacion,
+							 clie_FechaEliminacion =@clie_FechaEliminacion
+						WHERE clie_Id = @clie_Id
+		SELECT 1
+				END
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+--*****ReporteModuloDia*****-
+--*****Listado*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbReporteModuloDia_Listar
+AS
+BEGIN
+SELECT	remo_Id, 
+		modu.modu_Id, 
+		modu.modu_Nombre,
+		remo_Fecha, 
+		remo_TotalDia, 
+		remo_TotalDanado, 
+		crea.usua_Nombre usua_UsuarioCreacion, 
+		remo_FechaCreacion, 
+		modi.usua_Nombre usua_UsuarioModificacion, 
+		remo_FechaModificacion, 
+		remo_Estado 
+FROM	Prod.tbReporteModuloDia rmd 
+		INNER JOIN Prod.tbModulos modu				ON rmd.modu_Id = modu.modu_Id 
+		INNER JOIN Acce.tbUsuarios crea				ON crea.usua_Id = rmd.usua_UsuarioCreacion 
+		LEFT JOIN  Acce.tbUsuarios modi				ON modi.usua_Id = rmd.usua_UsuarioModificacion 	
+END
+GO
+
+--*****Insertar*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbReporteModuloDia_Insertar
+@modu_Id				INT, 
+@remo_Fecha				DATE, 
+@remo_TotalDia			INT, 
+@remo_TotalDanado		INT, 
+@usua_UsuarioCreacion	INT, 
+@remo_FechaCreacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Prod.tbReporteModuloDia (modu_Id, remo_Fecha, remo_TotalDia, remo_TotalDanado, usua_UsuarioCreacion, remo_FechaCreacion)
+		VALUES (
+		@modu_Id,				
+		@remo_Fecha,				
+		@remo_TotalDia,		
+		@remo_TotalDanado,		
+		@usua_UsuarioCreacion,	
+		@remo_FechaCreacion
+		)
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() 
+	END CATCH
+END
+GO
+--*****Editar*****--
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbReporteModuloDia_Editar
+@remo_Id					INT, 
+@modu_Id					INT, 
+@remo_Fecha					DATE, 
+@remo_TotalDia				INT, 
+@remo_TotalDanado			INT, 
+@usua_UsuarioModificacion	INT, 
+@remo_FechaModificacion	 	DATETIME 
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE Prod.tbReporteModuloDia
+		SET modu_Id					= @modu_Id, 
+		remo_Fecha					= @remo_Fecha, 
+		remo_TotalDia				= @remo_TotalDia, 
+		remo_TotalDanado			= @remo_TotalDanado, 
+		usua_UsuarioModificacion	= @usua_UsuarioModificacion, 
+		remo_FechaModificacion		= @remo_FechaModificacion	 
+		where remo_Id				= @remo_Id				
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() 
+	END CATCH
+END
+GO
+
+
+--**********REVISION DE CALIDAD**********--
+/*Listar revisión de calidad*/
+CREATE OR ALTER PROCEDURE Prod.UDP_tbRevisionDeCalidad_Listar
+AS
+BEGIN
+	SELECT revi.reca_Id,
+	       revi.ensa_Id, 
+		   revi.reca_Descripcion, 
+		   revi.reca_Cantidad, 
+		   revi.reca_Scrap, 
+		   revi.reca_FechaRevision, 
+		   revi.reca_Imagen, 
+		   revi.usua_UsuarioCreacion, 
+		   usuaCrea.usua_Nombre                       AS usuarioCreacionNombre,
+		   revi.reca_FechaCreacion, 
+		   revi.usua_UsuarioModificacion,
+		   usuaModifica.usua_Nombre                   AS usuarioModificacionNombre,
+		   revi.reca_FechaModificacion, 
+		   revi.reca_Estado
+      FROM Prod.tbRevisionDeCalidad revi
+	       LEFT JOIN  Acce.tbUsuarios usuaCrea		  ON revi.usua_UsuarioCreacion     = usuaCrea.usua_Id 
+		   LEFT JOIN  Acce.tbUsuarios usuaModifica	  ON revi.usua_UsuarioModificacion = usuaModifica.usua_Id
+		   INNER JOIN Prod.tbOrde_Ensa_Acab_Etiq ensa ON revi.ensa_Id                  = ensa.ensa_Id
+	 WHERE reca_Estado = 1
+END
+GO
+
+
+/*Insertar revision de calidad*/
+CREATE OR ALTER PROCEDURE Prod.UDP_tbRevisionDeCalidad_Insertar
+	@ensa_Id                  INT,
+	@reca_Descripcion         NVARCHAR(200),
+	@reca_Cantidad            INT,
+	@reca_Scrap               BIT, 
+	@reca_FechaRevision       DATETIME, 
+	@reca_Imagen              NVARCHAR(MAX), 
+	@usua_UsuarioCreacion     INT, 
+	@reca_FechaCreacion       DATETIME	 
+AS 
+BEGIN
+	
+	BEGIN TRY
+		INSERT INTO Prod.tbRevisionDeCalidad(ensa_Id,
+		                                     reca_Descripcion, 
+											 reca_Cantidad, 
+											 reca_Scrap, 
+											 reca_FechaRevision, 
+											 reca_Imagen, 
+											 usua_UsuarioCreacion, 
+											 reca_FechaCreacion)
+		      VALUES(@ensa_Id,
+			         @reca_Descripcion, 
+					 @reca_Cantidad, 
+					 @reca_Scrap, 
+					 @reca_FechaRevision, 
+					 @reca_Imagen, 
+					 @usua_UsuarioCreacion, 
+					 @reca_FechaCreacion)
+		
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH 
+END
+GO
+
+/*Editar revision de calidad*/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbRevisionDeCalidad_Editar
+	@reca_Id                  INT, 
+	@ensa_Id                  INT, 
+	@reca_Descripcion         NVARCHAR(200), 
+	@reca_Cantidad            INT, 
+	@reca_Scrap               BIT, 
+	@reca_FechaRevision       DATETIME,
+	@reca_Imagen              NVARCHAR(MAX),
+	@usua_UsuarioModificacion INT, 
+	@reca_FechaModificacion   DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE  Prod.tbRevisionDeCalidad
+		SET		ensa_Id                  = @ensa_Id                 ,
+		        reca_Descripcion         = @reca_Descripcion        ,
+				reca_Cantidad            = @reca_Cantidad           ,
+				reca_Scrap               = @reca_Scrap              ,
+				reca_FechaRevision       = @reca_FechaRevision      ,
+				reca_Imagen              = @reca_Imagen             ,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				reca_FechaModificacion   = @reca_FechaModificacion
+		WHERE	reca_Id                  = @reca_Id
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
 --************PROCESO******************--
 /*Listar Proceso*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbProcesos_Listar
@@ -4620,3 +6891,171 @@ BEGIN
 	END CATCH
 END
 GO
+
+--*****Pedidos Orden*****-
+--*****Listado*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Listas
+AS
+BEGIN
+SELECT	peor_Id, 
+		prov.prov_Id, 
+		prov.prov_NombreCompania,
+		prov.prov_NombreContacto,
+		prov.prov_Ciudad,
+		peor_No_Duca, 
+		peor_FechaEntrada, 
+		peor_Obsevaciones, 
+		peor_DadoCliente, 
+		peor_Est, 
+		crea.usua_Nombre							AS usua_UsuarioCreacion, 
+		peor_FechaCreacion, 
+		modi.usua_Nombre							AS usua_UsuarioModificacion , 
+		peor_FechaModificacion, 
+		peor_Estado 
+FROM	Prod.tbPedidosOrden po
+		INNER JOIN Gral.tbProveedores prov			ON po.prov_Id = prov.prov_Id
+		INNER JOIN Acce.tbUsuarios crea				ON crea.usua_Id = po.usua_UsuarioCreacion 
+		LEFT JOIN  Acce.tbUsuarios modi				ON modi.usua_Id = po.usua_UsuarioModificacion 	
+END
+GO
+
+
+--*****Insertar*****--
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Insertar
+@prov_Id				INT, 
+@peor_No_Duca			NVARCHAR(100), 
+@peor_FechaEntrada		DATETIME, 
+@peor_Obsevaciones		NVARCHAR(100), 
+@peor_DadoCliente		BIT, 
+@peor_Est				BIT, 
+@usua_UsuarioCreacion	INT, 
+@peor_FechaCreacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Prod.tbPedidosOrden (prov_Id, peor_No_Duca, peor_FechaEntrada, peor_Obsevaciones, peor_DadoCliente, peor_Est, usua_UsuarioCreacion, peor_FechaCreacion)
+		VALUES	(@prov_Id,				
+				 @peor_No_Duca,			
+				 @peor_FechaEntrada,		
+				 @peor_Obsevaciones,		
+				 @peor_DadoCliente,		
+				 @peor_Est,				
+				 @usua_UsuarioCreacion,	
+				 @peor_FechaCreacion	
+				 )	
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() 
+	END CATCH
+END
+GO
+
+--*****Editar*****--
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Editar
+@peor_Id					INT, 
+@prov_Id					INT, 
+@peor_No_Duca				NVARCHAR(100), 
+@peor_FechaEntrada			DATETIME, 
+@peor_Obsevaciones			NVARCHAR(100), 
+@peor_DadoCliente			BIT, 
+@peor_Est					BIT, 
+@usua_UsuarioModificacion	INT, 
+@peor_FechaModificacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE Prod.tbPedidosOrden 
+		SET prov_Id 				= @prov_Id, 
+		peor_No_Duca				= @peor_No_Duca, 
+		peor_FechaEntrada			= @peor_FechaEntrada,	 
+		peor_Obsevaciones			= @peor_Obsevaciones, 
+		peor_DadoCliente			= @peor_DadoCliente,
+		peor_Est					= @peor_Est, 
+		usua_UsuarioModificacion	= @usua_UsuarioModificacion,
+		peor_FechaModificacion		= @peor_FechaModificacion	
+		WHERE peor_Id				= @peor_Id
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() 
+	END CATCH
+END
+GO
+
+
+--*****ReporteModuloDia*****-
+--*****Listado*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbReporteModuloDia_Listar
+AS
+BEGIN
+SELECT	remo_Id, 
+		modu.modu_Id, 
+		modu.modu_Nombre,
+		remo_Fecha, 
+		remo_TotalDia, 
+		remo_TotalDanado, 
+		crea.usua_Nombre usua_UsuarioCreacion, 
+		remo_FechaCreacion, 
+		modi.usua_Nombre usua_UsuarioModificacion, 
+		remo_FechaModificacion, 
+		remo_Estado 
+FROM	Prod.tbReporteModuloDia rmd 
+		INNER JOIN Prod.tbModulos modu				ON rmd.modu_Id = modu.modu_Id 
+		INNER JOIN Acce.tbUsuarios crea				ON crea.usua_Id = rmd.usua_UsuarioCreacion 
+		LEFT JOIN  Acce.tbUsuarios modi				ON modi.usua_Id = rmd.usua_UsuarioModificacion 	
+END
+GO
+
+--*****Insertar*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbReporteModuloDia_Insertar
+@modu_Id				INT, 
+@remo_Fecha				DATE, 
+@remo_TotalDia			INT, 
+@remo_TotalDanado		INT, 
+@usua_UsuarioCreacion	INT, 
+@remo_FechaCreacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Prod.tbReporteModuloDia (modu_Id, remo_Fecha, remo_TotalDia, remo_TotalDanado, usua_UsuarioCreacion, remo_FechaCreacion)
+		VALUES (
+		@modu_Id,				
+		@remo_Fecha,				
+		@remo_TotalDia,		
+		@remo_TotalDanado,		
+		@usua_UsuarioCreacion,	
+		@remo_FechaCreacion
+		)
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() 
+	END CATCH
+END
+GO
+--*****Editar*****--
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbReporteModuloDia_Editar
+@remo_Id					INT, 
+@modu_Id					INT, 
+@remo_Fecha					DATE, 
+@remo_TotalDia				INT, 
+@remo_TotalDanado			INT, 
+@usua_UsuarioModificacion	INT, 
+@remo_FechaModificacion	 	DATETIME 
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE Prod.tbReporteModuloDia
+		SET modu_Id					= @modu_Id, 
+		remo_Fecha					= @remo_Fecha, 
+		remo_TotalDia				= @remo_TotalDia, 
+		remo_TotalDanado			= @remo_TotalDanado, 
+		usua_UsuarioModificacion	= @usua_UsuarioModificacion, 
+		remo_FechaModificacion		= @remo_FechaModificacion	 
+		where remo_Id				= @remo_Id				
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() 
+	END CATCH
+END

@@ -16,7 +16,7 @@ SELECT	merc_Id,
 		usuarioModificacion.usua_Nombre				AS usuarioModificacionNombre,
 		merc_FechaModificacion,
 		merc_Estado									
-FROM	Adua.tbEstadoMercancias estadoMercancia
+FROM	Adua.tbEstadoMercancias							AS estadoMercancia
 		INNER JOIN Acce.tbUsuarios usuarioCreacion		ON estadoMercancia.usua_UsuarioCreacion = usuarioCreacion.usua_Id
 		LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON estadoMercancia.usua_UsuarioModificacion = usuarioModificacion.usua_Id
 WHERE	merc_Estado = 1
@@ -155,7 +155,7 @@ SELECT	unme_Id,
 		usuarioModificacion.usua_Nombre					AS usuarioModificacionNombre,
 		unme_FechaModificacion,
 		unme_Estado								
-FROM Gral.tbUnidadMedidas unidadMedidas
+FROM Gral.tbUnidadMedidas								AS unidadMedidas
 		INNER JOIN Acce.tbUsuarios usuarioCreacion		ON unidadMedidas.usua_UsuarioCreacion = usuarioCreacion.usua_Id
 		LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON unidadMedidas.usua_UsuarioModificacion = usuarioModificacion.usua_Id
 WHERE unme_Estado = 1
@@ -308,7 +308,7 @@ SELECT	codi_Id,
 		usuarioModificacion.usua_Nombre			AS usuarioModificacionNombre,
 		codi_FechaModificacion,
 		codi_Estado								
-FROM	Adua.tbCondiciones condiciones
+FROM	Adua.tbCondiciones								AS condiciones
 		INNER JOIN Acce.tbUsuarios usuarioCreacion		ON condiciones.usua_UsuarioCreacion = usuarioCreacion.usua_Id
 		LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON condiciones.usua_UsuarioModificacion = usuarioModificacion.usua_Id
 WHERE	codi_Estado = 1
@@ -462,7 +462,7 @@ SELECT	foen_Id,
 		usuarioModificacion.usua_Nombre			AS usuarioModificacionNombre,
 		foen_FechaModificacion,
 		foen_Estado							
-FROM	Gral.tbFormas_Envio formasEnvio
+FROM	Gral.tbFormas_Envio								AS formasEnvio
 		INNER JOIN Acce.tbUsuarios usuarioCreacion		ON formasEnvio.usua_UsuarioCreacion = usuarioCreacion.usua_Id
 		LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON formasEnvio.usua_UsuarioModificacion = usuarioModificacion.usua_Id
 WHERE	foen_Estado = 1
@@ -625,7 +625,7 @@ BEGIN
 		   usuaElimina.usua_Nombre					AS usuarioEliminacionNombre,
 		   empl_FechaEliminacion, 
 		   empl_Estado
-	  FROM Gral.tbEmpleados empl 
+	  FROM Gral.tbEmpleados					AS empl 
 INNER JOIN Acce.tbUsuarios usuaCrea			ON empl.usua_UsuarioCreacion = usuaCrea.usua_Id 
  LEFT JOIN Acce.tbUsuarios usuaModifica		ON empl.usua_UsuarioModificacion = usuaCrea.usua_Id 
  LEFT JOIN Acce.tbUsuarios usuaElimina		ON empl.usua_UsuarioEliminacion = usuaCrea.usua_Id 
@@ -660,91 +660,35 @@ CREATE OR ALTER PROCEDURE gral.UDP_tbEmpleados_Insertar
 AS 
 BEGIN
 	BEGIN TRY
-		--IF EXISTS (SELECT * FROM Gral.tbEmpleados
-		--				WHERE empl_DNI = @empl_DNI AND empl_Telefono = @empl_Telefono
-		--				AND empl_Estado = 0)
-		--BEGIN
-		--	UPDATE Gral.tbEmpleados
-		--	SET	   empl_Estado = 1,
-		--		   empl_Nombres = @empl_Nombres, 
-		--		   empl_Apellidos = @empl_Apellidos, 
-		--		   empl_DNI = @empl_DNI, 
-		--		   escv_Id = @escv_Id, 
-		--		   empl_Sexo = @empl_Sexo, 
-		--		   empl_FechaNacimiento = @empl_FechaNacimiento, 
-		--		   empl_Telefono = @empl_Telefono, 
-		--		   empl_DireccionExacta = @empl_DireccionExacta, 
-		--		   pvin_Id = @pvin_Id, 
-		--		   empl_CorreoElectronico = @empl_CorreoElectronico, 
-		--		   carg_Id = @carg_Id, 
-		--		   empl_EsAduana = @empl_EsAduana
-		--	WHERE  empl_DNI = @empl_DNI
-
-		--	SELECT 1
-		--END
-		--ELSE 
-		--	BEGIN
-		--		INSERT INTO  Gral.tbEmpleados(empl_Nombres, 
-		--										  empl_Apellidos, 
-		--										  empl_DNI, 
-		--										  escv_Id, 
-		--										  empl_Sexo, 
-		--										  empl_FechaNacimiento, 
-		--										  empl_Telefono, 
-		--										  empl_DireccionExacta, 
-		--										  pvin_Id, 
-		--										  empl_CorreoElectronico, 
-		--										  carg_Id, 
-		--										  empl_EsAduana, 
-		--										  usua_UsuarioCreacion, 
-		--										  empl_FechaCreacion)
-		--	VALUES(@empl_Nombres,
-		--		   @empl_Apellidos,
-		--		   @empl_DNI, 
-		--		   @escv_Id,
-		--		   @empl_Sexo,				
-		--		   @empl_FechaNacimiento,	
-		--		   @empl_Telefono, 
-		--		   @empl_DireccionExacta, 
-		--		   @pvin_Id,
-		--		   @empl_CorreoElectronico, 
-		--		   @carg_Id,
-		--		   @empl_EsAduana,		
-		--		   @usua_UsuarioCreacion,	
-		--		   @empl_FechaCreacion)
-
-
-		--	SELECT 1
-		--END
-			INSERT INTO Gral.tbEmpleados
-						(empl_Nombres, 
-						 empl_Apellidos, 
-						 empl_DNI, 
-						 escv_Id, 
-						 empl_Sexo, 
-						 empl_FechaNacimiento, 
-						 empl_Telefono, 
-						 empl_DireccionExacta, 
-						 pvin_Id, 
-						 empl_CorreoElectronico, 
-						 carg_Id, 
-						 empl_EsAduana, 
-						 usua_UsuarioCreacion, 
-						 empl_FechaCreacion)
-				  VALUES (@empl_Nombres,
-				  	      @empl_Apellidos,
-				  	      @empl_DNI, 
-				  	      @escv_Id,
-				  	      @empl_Sexo,				
-				  	      @empl_FechaNacimiento,	
-				  	      @empl_Telefono, 
-				  	      @empl_DireccionExacta, 
-				  	      @pvin_Id,
-				  	      @empl_CorreoElectronico, 
-				  	      @carg_Id,
-				  	      @empl_EsAduana,		
-				  	      @usua_UsuarioCreacion,	
-				  	      @empl_FechaCreacion)
+		INSERT INTO Gral.tbEmpleados
+					(empl_Nombres, 
+					empl_Apellidos, 
+					empl_DNI, 
+					escv_Id, 
+					empl_Sexo, 
+					empl_FechaNacimiento, 
+					empl_Telefono, 
+					empl_DireccionExacta, 
+					pvin_Id, 
+					empl_CorreoElectronico, 
+					carg_Id, 
+					empl_EsAduana, 
+					usua_UsuarioCreacion, 
+					empl_FechaCreacion)
+			VALUES (@empl_Nombres,
+				  	@empl_Apellidos,
+				  	@empl_DNI, 
+				  	@escv_Id,
+				  	@empl_Sexo,				
+				  	@empl_FechaNacimiento,	
+				  	@empl_Telefono, 
+				  	@empl_DireccionExacta, 
+				  	@pvin_Id,
+				  	@empl_CorreoElectronico, 
+				  	@carg_Id,
+				  	@empl_EsAduana,		
+				  	@usua_UsuarioCreacion,	
+				  	@empl_FechaCreacion)
 		
 		SELECT 1 AS Resultado
 	END TRY
@@ -867,7 +811,7 @@ BEGIN
 		   usuaElimina.usua_Nombre			AS usuarioEliminacionNombre,
 		   func_FechaEliminacion, 
 		   func_Estado
-	  FROM Prod.tbFuncionesMaquina func 
+	  FROM Prod.tbFuncionesMaquina		AS func 
 INNER JOIN Acce.tbUsuarios usuaCrea		ON func.usua_UsuarioCreacion = usuaCrea.usua_Id 
  LEFT JOIN Acce.tbUsuarios usuaModifica	ON func.usua_UsuarioModificacion = usuaCrea.usua_Id 
  LEFT JOIN Acce.tbUsuarios usuaElimina	ON func.usua_UsuarioEliminacion = usuaCrea.usua_Id 
@@ -1000,7 +944,7 @@ BEGIN
 		   usuaElimina.usua_Nombre			AS usuarioEliminacionNombre,
 		   cate_FechaEliminacion, 
 		   cate_Estado
-	  FROM Prod.tbCategoria cate 
+	  FROM Prod.tbCategoria					AS cate 
 INNER JOIN Acce.tbUsuarios usuaCrea			ON cate.usua_UsuarioCreacion = usuaCrea.usua_Id 
  LEFT JOIN Acce.tbUsuarios usuaModifica		ON cate.usua_UsuarioModificacion = usuaCrea.usua_Id 
  LEFT JOIN Acce.tbUsuarios usuaElimina		ON cate.usua_UsuarioEliminacion = usuaCrea.usua_Id 
@@ -1719,3 +1663,213 @@ BEGIN
 END
 GO
 -------------------------------------------/UDPS Para orden de compra detalle-----------------------------------------
+
+----------------------------------------------UDPS Para Asignaciones Orden--------------------------------------------
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrden_Listado
+AS
+BEGIN
+	 SELECT asor_Id,						
+			asor_OrdenDetId,				
+			asor_FechaInicio,			
+			asor_FechaLimite,						
+			asor_Cantidad,				
+			proc_Id,						
+			asignacionesOrden.empl_Id,						
+			asignacionesOrden.usua_UsuarioCreacion,
+			usuarioCreacion.usua_Nombre					AS usuarioCreacionNombre,
+			asor_FechaCreacion,			
+			asignacionesOrden.usua_UsuarioModificacion,
+			usuarioModificacion.usua_Nombre				AS usuarioModificacionNombre,
+			asor_FechaModificacion
+	   FROM Prod.tbAsignacionesOrden			AS asignacionesOrden 
+ INNER JOIN Acce.tbUsuarios usuarioCreacion		ON asignacionesOrden.usua_UsuarioCreacion = usuarioCreacion.usua_Id
+  LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON asignacionesOrden.usua_UsuarioModificacion = usuarioModificacion.usua_Id
+END
+GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrden_Insertar
+(
+	@asor_OrdenDetId			INT,
+	@asor_FechaInicio			DATETIME,
+	@asor_FechaLimite			DATETIME,
+	@asor_Cantidad				INT,
+	@proc_Id					INT,
+	@empl_Id					INT,
+	@usua_UsuarioCreacion		INT,
+	@asor_FechaCreacion			DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Prod.tbAsignacionesOrden
+					(asor_OrdenDetId,			
+					asor_FechaInicio,			
+					asor_FechaLimite,			
+					asor_Cantidad,				
+					proc_Id,					
+					empl_Id,					
+					usua_UsuarioCreacion,		
+					asor_FechaCreacion)
+			 VALUES (@asor_OrdenDetId,			
+					@asor_FechaInicio,			
+					@asor_FechaLimite,			
+					@asor_Cantidad,				
+					@proc_Id,					
+					@empl_Id,					
+					@usua_UsuarioCreacion,		
+					@asor_FechaCreacion)
+		
+		SELECT SCOPE_IDENTITY() AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrden_Editar
+(
+	@asor_Id					INT,
+	@asor_OrdenDetId			INT,
+	@asor_FechaInicio			DATETIME,
+	@asor_FechaLimite			DATETIME,
+	@asor_Cantidad				INT,
+	@proc_Id					INT,
+	@empl_Id					INT,
+	@usua_UsuarioCreacion		INT,
+	@asor_FechaCreacion			DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		 UPDATE Prod.tbAsignacionesOrden
+			SET	asor_OrdenDetId			= @asor_OrdenDetId,
+				asor_FechaInicio		= @asor_FechaInicio,	
+				asor_FechaLimite		= @asor_FechaLimite,	
+				asor_Cantidad			= @asor_Cantidad,	
+				proc_Id					= @proc_Id,
+				empl_Id					= @empl_Id,
+				usua_UsuarioCreacion	= @usua_UsuarioCreacion,	
+				asor_FechaCreacion		= @asor_FechaCreacion
+		  WHERE asor_Id	= @asor_Id
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrden_Eliminar
+(
+	@asor_Id	INT
+)
+AS
+BEGIN
+	BEGIN TRY
+		DELETE Prod.tbAsignacionesOrden
+		WHERE asor_Id = @asor_Id
+
+		SELECT 1 AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+---------------------------------------------/UDPS Para Asignaciones Orden--------------------------------------------
+
+-------------------------------------------UDPS Para Asignaciones Orden detalle---------------------------------------
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrdenDetalle_Listado
+AS
+BEGIN
+	SELECT adet_Id,						
+		   lote_Id,						
+		   adet_Cantidad,				
+		   AsignacionesOrdenDetalle.usua_UsuarioCreacion,
+		   usuarioCreacion.usua_Nombre							AS usuarioCreacionNombre,
+		   adet_FechaCreacion,			
+		   AsignacionesOrdenDetalle.usua_UsuarioModificacion,
+		   usuarioModificacion.usua_Nombre						AS usuarioModificacionNombre,
+		   adet_FechaModificacion
+	  FROM Prod.tbAsignacionesOrdenDetalle		AS AsignacionesOrdenDetalle
+INNER JOIN Acce.tbUsuarios usuarioCreacion		ON AsignacionesOrdenDetalle.usua_UsuarioCreacion = usuarioCreacion.usua_Id
+ LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON AsignacionesOrdenDetalle.usua_UsuarioModificacion = usuarioModificacion.usua_Id
+END
+GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrdenDetalle_Insertar
+(
+	@lote_Id					INT, 
+	@adet_Cantidad				INT, 
+	@usua_UsuarioCreacion		INT,
+	@adet_FechaCreacion			DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Prod.tbAsignacionesOrdenDetalle
+					(lote_Id,					
+					adet_Cantidad,				
+					usua_UsuarioCreacion,		
+					adet_FechaCreacion)
+			VALUES (@lote_Id,					
+					@adet_Cantidad,				
+					@usua_UsuarioCreacion,		
+					@adet_FechaCreacion)
+	
+		SELECT SCOPE_IDENTITY() AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrdenDetalle_Editar
+(
+	@adet_Id					INT,
+	@lote_Id					INT, 
+	@adet_Cantidad				INT, 
+	@usua_UsuarioCreacion		INT,
+	@adet_FechaCreacion			DATETIME
+)	
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE Prod.tbAsignacionesOrdenDetalle
+		   SET lote_Id				= @lote_Id,					 
+			   adet_Cantidad		= @adet_Cantidad,					
+			   usua_UsuarioCreacion	= @usua_UsuarioCreacion,		
+			   adet_FechaCreacion	= @adet_FechaCreacion
+		 WHERE adet_Id = @adet_Id
+
+		 SELECT 1 AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrdenDetalle_Eliminar
+(
+	@adet_Id	INT
+)
+AS
+BEGIN
+	BEGIN TRY
+		DELETE Prod.tbAsignacionesOrdenDetalle
+		 WHERE adet_Id = @adet_Id
+
+		 SELECT 1 AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+-------------------------------------------UDPS Para Asignaciones Orden detalle---------------------------------------

@@ -1206,14 +1206,10 @@ BEGIN
 			boletin.usua_UsuarioModificacion,
 			usuaModifica.usua_Nombre      AS usuarioModificacionNombre,
 			boletin.boen_FechaModificacion, 
-			boletin.usua_UsuarioEliminacion,
-			usuElimina.usua_Nombre        AS usuarioEliminacionNombre,
-			boletin.boen_FechaEliminacion, 
 			boen_Estado  
       FROM  Adua.tbBoletinPago boletin
 	       LEFT JOIN Acce.tbUsuarios usuaCrea			ON boletin.usua_UsuarioCreacion     = usuaCrea.usua_Id 
 		   LEFT JOIN  Acce.tbUsuarios usuaModifica		ON boletin.usua_UsuarioModificacion = usuaCrea.usua_Id 
-		   LEFT JOIN Acce.tbUsuarios usuElimina		    ON boletin.usua_UsuarioEliminacion  = usuElimina.usua_Id
 		   LEFT JOIN Adua.tbLiquidacionGeneral lig      ON boletin.liqu_Id                  = lig.lige_Id
 		   LEFT JOIN Adua.tbTipoLiquidacion tipli       ON boletin.tipl_Id                  = tipli.tipl_Id
 		   LEFT JOIN Adua.tbEstadoBoletin estadoB       ON boletin.esbo_Id                  = estadoB.esbo_Id
@@ -1342,3 +1338,205 @@ END
 GO
 
 --Adua.UDP_tbBoletinPago_Editar 10,1,7,'2023-02-01',2,'observaciones','# declaracion','rtn542451162','preimpreso','declarante 1202',520.00,500.00,'15145454','encabezado',1,1,1,'01-02-2023'
+
+
+--**********LUGARES EMBARQUE**********--
+
+
+/*Listar lugares embarque*/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Listar
+AS
+BEGIN
+	SELECT lugar.emba_Id,
+	       lugar.emba_Codigo, 
+		   lugar.emba_Descripcion, 
+		   lugar.usua_UsuarioCreacion, 
+		   usuaCrea.usua_Nombre             AS usuarioCreacionNombre,
+		   lugar.emba_FechaCreacion, 
+		   lugar.usua_UsuarioModificacion,
+		   usuaModifica.usua_Nombre         AS usuarioModificacionNombre,
+		   lugar.emba_FechaModificacion, 
+		   lugar.usua_UsuarioEliminacion, 
+		   usuaElimi.usua_Nombre            AS usuarioEliminacionNombre,
+		   lugar.emba_FechaEliminacion, 
+		   lugar.emba_Estado   
+      FROM Adua.tbLugaresEmbarque lugar
+	       INNER JOIN Acce.tbUsuarios usuaCrea			ON lugar.usua_UsuarioCreacion     = usuaCrea.usua_Id 
+		   LEFT JOIN  Acce.tbUsuarios usuaModifica		ON lugar.usua_UsuarioModificacion = usuaModifica.usua_Id 
+		   LEFT JOIN  Acce.tbUsuarios usuaElimi		    ON lugar.usua_UsuarioEliminacion  = usuaElimi.usua_Id 
+	 WHERE emba_Estado = 1
+END
+GO
+
+/*Insertar lugares embarque*/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Insertar
+	 @emba_Codigo             CHAR(5),
+	 @emba_Descripcion        NVARCHAR(200),
+	 @usua_UsuarioCreacion    INT, 
+	 @emba_FechaCreacion      DATETIME
+AS 
+BEGIN
+	
+	BEGIN TRY
+		INSERT INTO Adua.tbLugaresEmbarque (emba_Codigo, emba_Descripcion, usua_UsuarioCreacion, emba_FechaCreacion)
+		VALUES(@emba_Codigo, @emba_Descripcion, @usua_UsuarioCreacion, @emba_FechaCreacion)
+		
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH 
+END
+GO
+
+/*Editar lugares embarque*/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Editar
+	@emba_Id                  INT,
+    @emba_Codigo              CHAR(5),
+    @emba_Descripcion         NVARCHAR(200),
+	@usua_UsuarioModificacion INT,
+	@emba_FechaModificacion   DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE  Adua.tbLugaresEmbarque
+		SET		emba_Codigo              = @emba_Codigo,
+		        emba_Descripcion         = @emba_Descripcion,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				emba_FechaModificacion   = @emba_FechaModificacion
+		WHERE	emba_Id                  = @emba_Id
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
+/*Eliminar lugares Embarque*/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Eliminar
+	@emba_Id					INT,
+	@usua_UsuarioEliminacion    INT,
+	@emba_FechaEliminacion      DATETIME
+AS
+BEGIN
+	BEGIN TRY
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'emba_Id', @emba_Id, 'Adua.tbLugaresEmbarque', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+			BEGIN
+				UPDATE	Adua.tbLugaresEmbarque
+				   SET	emba_Estado             = 0,
+				        usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+						emba_FechaEliminacion   = @emba_FechaEliminacion
+				  WHERE emba_Id                 = @emba_Id 
+			END
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
+--**********REVISION DE CALIDAD**********--
+/*Listar revisión de calidad*/
+CREATE OR ALTER PROCEDURE Prod.UDP_tbRevisionDeCalidad_Listar
+AS
+BEGIN
+	SELECT revi.reca_Id,
+	       revi.ensa_Id, 
+		   revi.reca_Descripcion, 
+		   revi.reca_Cantidad, 
+		   revi.reca_Scrap, 
+		   revi.reca_FechaRevision, 
+		   revi.reca_Imagen, 
+		   revi.usua_UsuarioCreacion, 
+		   usuaCrea.usua_Nombre                       AS usuarioCreacionNombre,
+		   revi.reca_FechaCreacion, 
+		   revi.usua_UsuarioModificacion,
+		   usuaModifica.usua_Nombre                   AS usuarioModificacionNombre,
+		   revi.reca_FechaModificacion, 
+		   revi.reca_Estado
+      FROM Prod.tbRevisionDeCalidad revi
+	       LEFT JOIN  Acce.tbUsuarios usuaCrea		  ON revi.usua_UsuarioCreacion     = usuaCrea.usua_Id 
+		   LEFT JOIN  Acce.tbUsuarios usuaModifica	  ON revi.usua_UsuarioModificacion = usuaModifica.usua_Id
+		   INNER JOIN Prod.tbOrde_Ensa_Acab_Etiq ensa ON revi.ensa_Id                  = ensa.ensa_Id
+	 WHERE reca_Estado = 1
+END
+GO
+
+
+/*Insertar revision de calidad*/
+CREATE OR ALTER PROCEDURE Prod.UDP_tbRevisionDeCalidad_Insertar
+	@ensa_Id                  INT,
+	@reca_Descripcion         NVARCHAR(200),
+	@reca_Cantidad            INT,
+	@reca_Scrap               BIT, 
+	@reca_FechaRevision       DATETIME, 
+	@reca_Imagen              NVARCHAR(MAX), 
+	@usua_UsuarioCreacion     INT, 
+	@reca_FechaCreacion       DATETIME	 
+AS 
+BEGIN
+	
+	BEGIN TRY
+		INSERT INTO Prod.tbRevisionDeCalidad(ensa_Id,
+		                                     reca_Descripcion, 
+											 reca_Cantidad, 
+											 reca_Scrap, 
+											 reca_FechaRevision, 
+											 reca_Imagen, 
+											 usua_UsuarioCreacion, 
+											 reca_FechaCreacion)
+		      VALUES(@ensa_Id,
+			         @reca_Descripcion, 
+					 @reca_Cantidad, 
+					 @reca_Scrap, 
+					 @reca_FechaRevision, 
+					 @reca_Imagen, 
+					 @usua_UsuarioCreacion, 
+					 @reca_FechaCreacion)
+		
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH 
+END
+GO
+
+/*Editar revision de calidad*/
+CREATE OR ALTER PROCEDURE Adua.UDP_tbRevisionDeCalidad_Editar
+	@reca_Id                  INT, 
+	@ensa_Id                  INT, 
+	@reca_Descripcion         NVARCHAR(200), 
+	@reca_Cantidad            INT, 
+	@reca_Scrap               BIT, 
+	@reca_FechaRevision       DATETIME,
+	@reca_Imagen              NVARCHAR(MAX),
+	@usua_UsuarioModificacion INT, 
+	@reca_FechaModificacion   DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE  Prod.tbRevisionDeCalidad
+		SET		ensa_Id                  = @ensa_Id                 ,
+		        reca_Descripcion         = @reca_Descripcion        ,
+				reca_Cantidad            = @reca_Cantidad           ,
+				reca_Scrap               = @reca_Scrap              ,
+				reca_FechaRevision       = @reca_FechaRevision      ,
+				reca_Imagen              = @reca_Imagen             ,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				reca_FechaModificacion   = @reca_FechaModificacion
+		WHERE	reca_Id                  = @reca_Id
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO

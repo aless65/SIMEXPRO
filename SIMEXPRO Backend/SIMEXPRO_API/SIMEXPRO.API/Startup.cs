@@ -51,7 +51,6 @@ namespace SIMEXPRO.API
             services.AddControllersWithViews();
             services.AddControllers();
             AddSwagger(services);
-
         }
 
         private void AddSwagger(IServiceCollection services)
@@ -72,6 +71,30 @@ namespace SIMEXPRO.API
                         Url = new Uri("https://foo.com/"),
                     }
                 });
+
+                options.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
+                {
+                    Description = "Standard Authorization header using the Bearer scheme (\"bearer {token}\")",
+                    In = ParameterLocation.Header,
+                    Name = "XApiKey",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "ApiKeyScheme"
+                });
+
+                var key = new OpenApiSecurityScheme()
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "ApiKey"
+                    },
+                    In = ParameterLocation.Header
+                };
+                var requirement = new OpenApiSecurityRequirement
+                    {
+                             { key, new List<string>() }
+                    };
+                options.AddSecurityRequirement(requirement);
             });
         }
 
@@ -85,8 +108,15 @@ namespace SIMEXPRO.API
                 //app.UseHttpsRedirection();
             }
 
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Events_Company_R.API v1"));
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Events_Company_R.API v1");
+                //c.OAuthClientId("test-id");
+                //c.OAuthClientSecret("test-secret");
+            });
             app.UseHttpsRedirection();
+
+            //app.UseApiKeyMiddleware();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

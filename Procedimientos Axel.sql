@@ -1,5 +1,6 @@
 --Modulos
 --Maquinas
+--Aranceles
 --Marcas Maquinas
 --Modelos Maquinas
 --Roles
@@ -750,7 +751,7 @@ END
 --************************************************************************   Tabla Declaratntes FIN   ***********************************************************************************************
 ---------------------------------------------------------------------//  Modulos de Aduanas Procedimientos final \\-------------------------------------------------------------------------------------------
 GO
----------------------------------------------------------------------//  Modulos de Aduanas y producción \\-------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------//  Modulo de acceso  \\-------------------------------------------------------------------------------------------
 --************************************************************************   Tabla Roles inicio   ***********************************************************************************************
 
 /* listar Roles*/
@@ -823,4 +824,169 @@ BEGIN
 		SELECT 1
 	END CATCH
 END
+
+GO
+
+/* Eliminar Roles*/
+CREATE OR ALTER PROCEDURE Acce.UDP_tbRoles_Eliminar
+	@role_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@role_FechaEliminacion		DATETIME
+AS
+BEGIN
+	SET @role_FechaEliminacion = GETDATE();
+	BEGIN TRY
+		DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'role_Id', @role_Id, 'Acce.tbRoles', @respuesta OUTPUT
+
+		SELECT @respuesta AS Resultado
+		IF(@respuesta = 1)
+		BEGIN
+			UPDATE	Acce.tbRoles
+			SET		role_Estado = 0,
+					usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+					role_FechaEliminacion = @role_FechaEliminacion
+			WHERE role_Id = @role_Id
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+
 --************************************************************************   Tabla Roles Fin   ***********************************************************************************************
+GO
+--************************************************************************   Tabla Pantallas inicio   ***********************************************************************************************
+
+/* Listar pantallas*/
+CREATE OR ALTER PROCEDURE Acce.UDP_tbPantallas_Listar
+AS
+BEGIN
+	SELECT	pant_Id,
+			pant_Nombre,
+			pant_URL,
+			pant_Icono
+	FROM	Acce.tbPantallas
+END
+
+--************************************************************************   Tabla Pantallas Fin   ***********************************************************************************************
+GO
+--************************************************************************   Tabla Roles por pantallas inicio   ***********************************************************************************************
+
+/* Listar Pantallas por id de rol*/
+CREATE OR ALTER PROCEDURE Acce.UDP_tbRolesXPantallas
+	@role_Id		INT
+AS
+BEGIN
+	SELECT		T2.pant_Id,
+				T2.pant_Nombre,
+				T2.pant_URL,
+				T2.pant_Icono
+	FROM		Acce.tbRolesXPantallas T1 
+	INNER JOIN	Acce.tbPantallas T2
+	ON			T1.pant_Id = T2.pant_Id
+	WHERE		T1.role_Id = @role_Id
+END
+
+GO
+
+/* Insertar RolesXPantallas*/
+CREATE OR ALTER PROCEDURE Acce.UDP_tbRolesXPantallas_Insertar
+	@pant_Id				INT,
+	@role_Id				INT,
+	@usua_UsuarioCreacion	INT,
+	@ropa_FechaCreacion		DATETIME
+AS
+BEGIN
+	SET @ropa_FechaCreacion = GETDATE();
+	BEGIN TRY
+		INSERT INTO Acce.tbRolesXPantallas ([pant_Id], [role_Id], [usua_UsuarioCreacion], [ropa_FechaCreacion], [usua_UsuarioModificacion], [ropa_FechaModificacion], [usua_UsuarioEliminacion], [ropa_FechaEliminacion], [ropa_Estado])
+		VALUES(@pant_Id,@role_Id,@usua_UsuarioCreacion, @ropa_FechaCreacion,NULL,NULL,NULL,NULL,1);
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+
+GO
+
+
+/* Insertar RolesXPantallas*/
+CREATE OR ALTER PROCEDURE Acce.UDP_tbRolesXPantallas_Editar
+	@pant_Id					INT,
+	@role_Id					INT
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Acce.tbRolesXPantallas ([pant_Id], [role_Id], [usua_UsuarioCreacion], [ropa_FechaCreacion], [usua_UsuarioModificacion], [ropa_FechaModificacion], [usua_UsuarioEliminacion], [ropa_FechaEliminacion], [ropa_Estado])
+		VALUES(@pant_Id,@role_Id,NULL, NULL,NULL,NULL,NULL,NULL,1);
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+
+GO
+
+
+/* Eliminar RolesXPantallas*/
+CREATE OR ALTER PROCEDURE Acce.UDP_tbRolesXPantallas_Eliminar
+	@role_Id					INT
+AS
+BEGIN
+	BEGIN TRY
+		DELETE FROM Acce.tbRolesXPantallas WHERE role_Id = @role_Id
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+
+--************************************************************************   Tabla Roles por pantallas Fin   ***********************************************************************************************
+GO
+--************************************************************************   Tabla Duca inicio   ***********************************************************************************************
+
+/* Listar Duca*/ii
+CREATE OR ALTER PROCEDURE Adua.UDP_tbDuca_Listar
+AS
+BEGIN
+	SELECT	[duca_No_Duca], 
+			[duca_No_Correlativo_Referencia],
+			[deva_Id], 
+			[duca_AduanaRegistro], 
+			[duca_AduanaSalida], 
+			[duca_DomicilioFiscal_Exportador], 
+			[duca_Tipo_Iden_Exportador], 
+			[duca_Pais_Emision_Exportador], 
+			[duca_Numero_Id_Importador], 
+			[duca_Pais_Emision_Importador],
+			[duca_DomicilioFiscal_Importador], 
+			[duca_Regimen_Aduanero],
+			[duca_Modalidad],
+			[duca_Clase],
+			[duca_Codigo_Declarante],
+			[duca_Numero_Id_Declarante], 
+			[duca_NombreSocial_Declarante],
+			[duca_DomicilioFiscal_Declarante], 
+			[duca_Pais_Procedencia],
+			[duca_Pais_Exportacion],
+		    [duca_Pais_Destino], 
+			[duca_Deposito_Aduanero],
+			[duca_Lugar_Embarque],
+			[duca_Lugar_Desembarque],
+			[duca_Manifiesto], 
+			[duca_Titulo], 
+			[duca_Codigo_Transportista], 
+			[duca_PesoBrutoTotal],
+			[duca_PesoNetoTotal], 
+			[motr_id], 
+			[duca_Transportista_Nombre], 
+			[duca_Conductor_Id],
+			[duca_Codigo_Tipo_Documento],
+			[duca_FechaVencimiento]
+	FROM	Adua.tbDuca
+
+END

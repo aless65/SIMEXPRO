@@ -7,41 +7,29 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.DataAccess.Repositories.Prod
 {
-    public class ColoresRepository : IRepository<tbColores>
+    public class PedidosOrdenRepository : IRepository<tbPedidosOrden>
     {
-      
-
-        public RequestStatus Delete(tbColores item)
+        public RequestStatus Delete(tbPedidosOrden item)
         {
             throw new NotImplementedException();
         }
 
-        public tbColores Find(int? id)
+        public tbPedidosOrden Find(int? id)
         {
             throw new NotImplementedException();
         }
 
-    
-
-        public RequestStatus Insert(tbColores item)
+        public RequestStatus Insert(tbPedidosOrden item)
         {
             throw new NotImplementedException();
         }
 
-     
-
-
-        public RequestStatus Update(tbColores item)
+        public IEnumerable<tbPedidosOrden> List()
         {
             throw new NotImplementedException();
         }
 
-        tbColores IRepository<tbColores>.Find(int? id)
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerable<tbColores> IRepository<tbColores>.List()
+        public RequestStatus Update(tbPedidosOrden item)
         {
             throw new NotImplementedException();
         }

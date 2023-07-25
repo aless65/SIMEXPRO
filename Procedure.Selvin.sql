@@ -304,3 +304,128 @@ BEGIN
 END
 
 
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosContratos_Listar
+AS
+BEGIN
+ 
+
+	SELECT	 documentoContrato.[doco_Id]
+			,comercianteIndividual.[coin_Id]
+			,comercianteIndividual.pers_Id
+			,Personas.pers_RTN
+			,comercianteIndividual.coin_CorreoElectronico
+ 			,comercianteIndividual.coin_TelefonoFijo
+			,comercianteIndividual.coin_PuntoReferencia
+			,personaJuridica.[peju_Id]
+			,documentoContrato.[doco_Numero_O_Referencia]
+			,documentoContrato.[doco_TipoDocumento]
+			,documentoContrato.[usua_UsuarioCreacion]
+			,UsuarioCreacion.usua_Nombre
+			,documentoContrato.[doco_FechaCreacion]
+			,documentoContrato.[usua_UsuarioModificacion]
+			,UsuarioModificaion.usua_Nombre
+			,documentoContrato.[doco_FechaModificacion]
+			,documentoContrato.[doco_Estado]
+	  FROM	[Adua].[tbDocumentosContratos]				documentoContrato
+			INNER JOIN	adua.tbComercianteIndividual	comercianteIndividual	ON	documentoContrato.coin_Id					= comercianteIndividual.coin_Id
+			INNER JOIN	adua.tbPersonaJuridica			personaJuridica			ON	documentoContrato.peju_Id					= personaJuridica.peju_Id
+			INNER JOIN	adua.tbPersonas					Personas				ON	comercianteIndividual.pers_Id				= Personas.pers_Id
+			INNER JOIN	Acce.tbUsuarios					UsuarioCreacion			ON	documentoContrato.usua_UsuarioCreacion		= UsuarioCreacion.usua_Id
+			INNER JOIN	Acce.tbUsuarios					UsuarioModificaion		ON	documentoContrato.usua_UsuarioModificacion	= UsuarioModificaion.usua_Id
+ 
+ 
+
+
+
+END
+
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosContratos_Insertar
+@coin_Id					int,
+@peju_Id					int,
+@doco_Numero_O_Referencia	nvarchar(50),
+@doco_TipoDocumento			nvarchar(6),
+@usua_UsuarioCreacion		int,
+@doco_FechaCreacion			datetime
+   
+AS
+BEGIN
+	BEGIN TRY
+ 
+
+		INSERT INTO [Adua].[tbDocumentosContratos]
+				   ([coin_Id]
+				   ,[peju_Id]
+				   ,[doco_Numero_O_Referencia]
+				   ,[doco_TipoDocumento]
+				   ,[usua_UsuarioCreacion]
+				   ,[doco_FechaCreacion] )
+			 VALUES
+				   (@coin_Id					
+				   ,@peju_Id					
+				   ,@doco_Numero_O_Referencia	 
+				   ,@doco_TipoDocumento			 
+				   ,@usua_UsuarioCreacion		
+				   ,@doco_FechaCreacion	)
+ 
+ 				   SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH 
+END
+
+
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosContratos_Editar
+@doco_Id					int,
+@coin_Id					int,
+@peju_Id					int,
+@doco_Numero_O_Referencia	nvarchar(50),
+@doco_TipoDocumento			nvarchar(6),
+@usua_UsuarioModificacion	int,
+@doco_FechaModificacion		datetime
+AS
+BEGIN
+ 
+ 	BEGIN TRY
+
+		UPDATE	 [Adua].[tbDocumentosContratos]
+		   SET	 [coin_Id] = @coin_Id
+				,[peju_Id] = @peju_Id
+				,[doco_Numero_O_Referencia] =	@doco_Numero_O_Referencia
+				,[doco_TipoDocumento] =			@doco_TipoDocumento
+ 				,[usua_UsuarioModificacion] =	@usua_UsuarioModificacion
+				,[doco_FechaModificacion] =		@doco_FechaModificacion
+ 		 WHERE	doco_Id = @doco_Id
+ 
+  				   SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH 
+
+
+END
+
+
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosContratos_Eliminar
+@doco_Id					int
+AS
+BEGIN
+  	BEGIN TRY
+
+
+		UPDATE [Adua].[tbDocumentosContratos]
+		   SET [doco_Estado] = 0
+		   WHERE	doco_Id = @doco_Id
+ 
+  				   SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH 
+
+END

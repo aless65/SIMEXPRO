@@ -2485,9 +2485,6 @@ CREATE TABLE Prod.tbRevisionDeCalidad(
 GO
 --Seccion pt2
 
-
-
-
 CREATE TABLE Adua.tbLiquidacionGeneral(
 	lige_Id					 INT IDENTITY(1,1),
 	lige_TipoTributo		 NVARCHAR(50) NOT NULL,

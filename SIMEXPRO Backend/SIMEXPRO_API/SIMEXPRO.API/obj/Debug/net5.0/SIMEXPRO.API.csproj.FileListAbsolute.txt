@@ -72,3 +72,13 @@ C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API
 C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\System.IO.Pipelines.dll
 C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\SIMEXPRO.DataAccess.dll
 C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\SIMEXPRO.DataAccess.pdb
+C:\Users\LAB01\OneDrive\Documentos\Github\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\obj\Debug\net5.0\SIMEXPRO.API.csproj.AssemblyReference.cache
+C:\Users\LAB01\OneDrive\Documentos\Github\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\obj\Debug\net5.0\SIMEXPRO.API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LAB01\OneDrive\Documentos\Github\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\obj\Debug\net5.0\SIMEXPRO.API.AssemblyInfoInputs.cache
+C:\Users\LAB01\OneDrive\Documentos\Github\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\obj\Debug\net5.0\SIMEXPRO.API.AssemblyInfo.cs
+C:\Users\LAB01\OneDrive\Documentos\Github\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\obj\Debug\net5.0\SIMEXPRO.API.csproj.CoreCompileInputs.cache
+C:\Users\LAB01\OneDrive\Documentos\Github\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\obj\Debug\net5.0\SIMEXPRO.API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\LAB01\OneDrive\Documentos\Github\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\obj\Debug\net5.0\SIMEXPRO.API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\LAB01\OneDrive\Documentos\Github\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\obj\Debug\net5.0\SIMEXPRO.API.dll
+C:\Users\LAB01\OneDrive\Documentos\Github\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\obj\Debug\net5.0\ref\SIMEXPRO.API.dll
+C:\Users\LAB01\OneDrive\Documentos\Github\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\obj\Debug\net5.0\SIMEXPRO.API.pdb

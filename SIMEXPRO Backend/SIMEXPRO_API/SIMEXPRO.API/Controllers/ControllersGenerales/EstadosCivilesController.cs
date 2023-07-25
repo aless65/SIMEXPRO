@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SIMEXPRO.API.Models;
 using SIMEXPRO.BussinessLogic.Services;
@@ -13,7 +13,9 @@ namespace SIMEXPRO.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EstadosCivilesController : Controller
+    //[Authorize]
+
+    public class EstadosCivilesController : ControllerBase
     {
         private readonly GeneralServices _generalesServices;
         private readonly IMapper _mapper;
@@ -23,6 +25,7 @@ namespace SIMEXPRO.API.Controllers
             _generalesServices = generalesService;
             _mapper = mapper;
         }
+
 
         [HttpGet("ListarEstadosCiviles")]
         public IActionResult ListarEstadosCiviles()

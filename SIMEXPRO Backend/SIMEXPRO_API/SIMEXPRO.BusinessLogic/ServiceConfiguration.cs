@@ -23,17 +23,30 @@ namespace SIMEXPRO.BussinessLogic
             //services.AddScoped<UsuariosRepository>();
 
             //Aduanas
-            services.AddScoped<EstadosCivilesRepository>();
 
 
              //General
+            services.AddScoped<AldeasRepository>();
+            services.AddScoped<CargosRepository>();
+            services.AddScoped<CiudadesRepository>();
+            services.AddScoped<ColoniasRepository>();
+            services.AddScoped<EmpleadosRepository>();
+            services.AddScoped<EstadosCivilesRepository>();
+            services.AddScoped<FormasEnvioRepository>();
+            services.AddScoped<MonedasRepository>();
+            services.AddScoped<OficinasRepository>();
+            services.AddScoped<OficioProfesionesRepository>();
+            services.AddScoped<PaisesRepository>();
+            services.AddScoped<ProveedoresRepository>();
+            services.AddScoped<ProvinciasRepository>();
+            services.AddScoped<UnidadMedidasRepository>();
 
-             
+
             //Produccion
 
 
-             //services.AddScoped<GraficaRepository>();
-            
+            //services.AddScoped<GraficaRepository>();
+
         }
 
 

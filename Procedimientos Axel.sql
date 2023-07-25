@@ -823,4 +823,23 @@ BEGIN
 		SELECT 1
 	END CATCH
 END
+
+GO
+
+/* Eliminar Roles*/
+CREATE OR ALTER PROCEDURE Acce.UDP_tbRoles_Eliminar
+	@role_Id			INT,
+
+
+AS
+BEGIN
+	BEGIN TRY
+
+
+	END TRY
+	BEGIN CATCH
+
+	END CATCH
+END
+
 --************************************************************************   Tabla Roles Fin   ***********************************************************************************************

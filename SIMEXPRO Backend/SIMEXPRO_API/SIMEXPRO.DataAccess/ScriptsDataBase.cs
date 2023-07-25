@@ -8,8 +8,10 @@ namespace SIMEXPRO.DataAccess
 {
     public class ScriptsDataBase
     {
-        
 
+        #region Generales
+        public static string ListarEstadosCiviles = "gral.UDP_tbEstadosCiviles_Listar";
+        #endregion
         #region Ejemplos
         /*public static string ListarDetallesDirecciones = "gral.UDP_tbDirecciones_ListarDetalles ";
         public static string InsertarDirecciones = "gral.UDP_tbDirecciones_Insert";

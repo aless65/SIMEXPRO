@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
+using SIMEXPRO.API.Models;
+using SIMEXPRO.BussinessLogic.Services;
+using SIMEXPRO.BussinessLogic.Services.GeneralServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +15,7 @@ namespace SIMEXPRO.API.Controllers
     [ApiController]
     public class EstadosCivilesController : Controller
     {
-        /*private readonly GeneralServices _generalesServices;
+        private readonly GeneralServices _generalesServices;
         private readonly IMapper _mapper;
 
         public EstadosCivilesController(GeneralServices generalesService, IMapper mapper)
@@ -20,35 +23,38 @@ namespace SIMEXPRO.API.Controllers
             _generalesServices = generalesService;
             _mapper = mapper;
         }
+
         [HttpGet("ListarEstadosCiviles")]
         public IActionResult ListarEstadosCiviles()
         {
             var list = _generalesServices.ListarEstadosCiviles();
-            return Ok(list);
+            var listadoMapeado = _mapper.Map<IEnumerable<EstadosCivilesViewModel>>(list);
+
+            return Ok(listadoMapeado);
         }
 
-        [HttpPost("InsertarEstadoCivil")]
-        public IActionResult InsertarEstadoCivil(EstadosCivilesViewModel item)
-        {
-            var item2 = _mapper.Map<tbEstadosCiviles>(item);
-            var response = _generalesServices.InsertarEstadoCivil(item2);
-            return Ok(response);
-        }
+        //[HttpPost("InsertarEstadoCivil")]
+        //public IActionResult InsertarEstadoCivil(EstadosCivilesViewModel item)
+        //{
+        //    var item2 = _mapper.Map<tbEstadosCiviles>(item);
+        //    var response = _generalesServices.InsertarEstadoCivil(item2);
+        //    return Ok(response);
+        //}
 
-        [HttpPost("ActualizarEstadoCivil")]
-        public IActionResult ActualizarEstadoCivil(EstadosCivilesViewModel item)
-        {
-            var item2 = _mapper.Map<tbEstadosCiviles>(item);
-            var response = _generalesServices.ActualizarEstadoCivil(item2);
-            return Ok(response);
-        }
+        //[HttpPost("ActualizarEstadoCivil")]
+        //public IActionResult ActualizarEstadoCivil(EstadosCivilesViewModel item)
+        //{
+        //    var item2 = _mapper.Map<tbEstadosCiviles>(item);
+        //    var response = _generalesServices.ActualizarEstadoCivil(item2);
+        //    return Ok(response);
+        //}
 
-        [HttpPost("ListarDetallesEstadosCiviles")]
-        public IActionResult ListarDetallesEstadosCiviles(EstadosCivilesViewModel item)
-        {
-            var item2 = _mapper.Map<tbEstadosCiviles>(item);
-            var response = _generalesServices.ListarDetallesEstadosCiviles(item2);
-            return Ok(response);
-        }*/
+        //[HttpPost("ListarDetallesEstadosCiviles")]
+        //public IActionResult ListarDetallesEstadosCiviles(EstadosCivilesViewModel item)
+        //{
+        //    var item2 = _mapper.Map<tbEstadosCiviles>(item);
+        //    var response = _generalesServices.ListarDetallesEstadosCiviles(item2);
+        //    return Ok(response);
+        //}
     }
 }

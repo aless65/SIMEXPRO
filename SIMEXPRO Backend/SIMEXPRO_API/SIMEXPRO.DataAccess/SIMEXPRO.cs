@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SIMEXPRO.DataAccess;
-
+using SIMEXPRO.DataAccess.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.DataAccess
 {
-   /* public class SIMEXPRO : Db_SIMEXPROContext
+   public class SIMEXPRO : SIMEXPROContext
     {
         public static string ConnectionString { get; set; }
 
@@ -35,5 +35,5 @@ namespace SIMEXPRO.DataAccess
             var connectionStringBuilder = new SqlConnectionStringBuilder { ConnectionString = connection };
             ConnectionString = connectionStringBuilder.ConnectionString;
         }
-    }*/
+    }
 }

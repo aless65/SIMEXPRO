@@ -42,9 +42,9 @@ namespace SIMEXPRO.API
            );
 
 
-            services.DataAccess(Configuration.GetConnectionString("ConectarPrograma"));
+            services.DataAccess(Configuration.GetConnectionString("ConexionSimexpro"));
             services.BussinessLogic();
-            services.AddAutoMapper(x => x.AddProfile<MappingProfileExntensions>(), AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(x => x.AddProfile<MappingProfileExtensions>(), AppDomain.CurrentDomain.GetAssemblies());
             services.AddControllers();
 
             services.AddMvc();

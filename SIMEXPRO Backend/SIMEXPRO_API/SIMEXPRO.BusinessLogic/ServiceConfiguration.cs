@@ -1,5 +1,7 @@
 ﻿
 using Microsoft.Extensions.DependencyInjection;
+using SIMEXPRO.BussinessLogic.Services.GeneralServices;
+using SIMEXPRO.DataAccess.Repositories.Gral;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +14,16 @@ namespace SIMEXPRO.BussinessLogic
     {
         public static void DataAccess(this IServiceCollection services, string connection)
         {
-            /* SIMEXPRO.BuildConnectionString(connection);
+            SIMEXPRO.DataAccess.SIMEXPRO.BuildConnectionString(connection);
 
-             //Acceso
-             services.AddScoped<PantallasRepository>();
-             services.AddScoped<RolesPorPantallaRepository>();
-             services.AddScoped<RolesRepository>();
-             services.AddScoped<UsuariosRepository>();
+            //Acceso
+            //services.AddScoped<PantallasRepository>();
+            //services.AddScoped<RolesPorPantallaRepository>();
+            //services.AddScoped<RolesRepository>();
+            //services.AddScoped<UsuariosRepository>();
 
-             //Aduanas
-
+            //Aduanas
+            services.AddScoped<EstadosCivilesRepository>();
 
 
              //General
@@ -30,17 +32,17 @@ namespace SIMEXPRO.BussinessLogic
             //Produccion
 
 
-             services.AddScoped<GraficaRepository>();
-            */
+             //services.AddScoped<GraficaRepository>();
+            
         }
 
 
         public static void BussinessLogic(this IServiceCollection services)
         {
-            /*services.AddScoped<GeneralServices>();
-            services.AddScoped<AccesoServices>();
+            services.AddScoped<GeneralServices>();
+            //services.AddScoped<AccesoServices>();
             services.AddScoped<ProduccionServices>();
-            services.AddScoped<ProduccionAduanas>(); */
+            //services.AddScoped<ProduccionAduanas>(); 
         }
     }
 }

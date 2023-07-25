@@ -585,8 +585,6 @@ CREATE TABLE Adua.tbImportadores(
 		impo_Estado						BIT 			NOT NULL DEFAULT 1,
 
    CONSTRAINT PK_Adua_tbImportadores_impo_Id PRIMARY KEY (impo_Id),
-   CONSTRAINT UQ_Adua_tbImportadores_impo_RTN											 UNIQUE(impo_RTN),
-   CONSTRAINT UQ_Adua_tbImportadores_impo_NumRegistro									 UNIQUE(impo_NumRegistro),
    CONSTRAINT FK_Adua_tbImportadores_nico_Id_Adua_tbNivelesComerciales_nico_Id 			 FOREIGN KEY (nico_Id) 					REFERENCES Adua.tbNivelesComerciales(nico_Id),
    CONSTRAINT FK_Adua_tbImportadores_decl_Id_Adua_tbDeclarantes_decl_Id 		 		 FOREIGN KEY (decl_Id)					REFERENCES Adua.tbDeclarantes(decl_Id),
    CONSTRAINT FK_Acce_tbImportadores_Adua_tbIncoterm_Valor_impo_UsuarioCreacion 		 FOREIGN KEY (usua_UsuarioCreacion) 	REFERENCES Acce.tbUsuarios(usua_Id),
@@ -767,29 +765,26 @@ CREATE TABLE Adua.tbDeclaraciones_Valor
 CREATE TABLE Adua.tbDeclaraciones_ValorHistorial
 (
 		hdev_Id 						INT IDENTITY(1,1),
-		deva_Id 						INT,
-		deva_Aduana_Ingreso_Id 			INT NOT NULL, 
-		deva_Aduana_Despacho_Id 		INT NOT NULL,
+		deva_Id							INT,
+		deva_Aduana_Ingreso_Id 			INT 			NOT NULL, 
+		deva_Aduana_Despacho_Id 		INT 			NOT NULL,
 		deva_Declaracion_Mercancia 		NVARCHAR(500),
 		deva_Fecha_Aceptacion 			DATETIME,
 		impo_Id 						INT,
 		pvde_Id 						INT,
 		inte_Id 						INT,
 		deva_Lugar_Entrega 				NVARCHAR(800),
-		pais_Entrega_Id					INT,
 		inco_Id 						INT,
-		inco_Version					NVARCHAR(10),
 		deva_numero_contrato 			NVARCHAR(200),
-		deva_Fecha_Contrato 			DATE,
+		deva_Fecha_Contrato 			DATETIME,
 		foen_Id 						INT,
 		deva_Forma_Envio_Otra 			NVARCHAR(500),
 		deva_Pago_Efectuado 			BIT,
 		fopa_Id 						INT,
 		deva_Forma_Pago_Otra 			NVARCHAR(200),
 		emba_Id 						INT,
-		--pais_Embarque_Id 				INT,
 		pais_Exportacion_Id 			INT,
-		deva_Fecha_Exportacion  		DATE,
+		deva_Fecha_Exportacion  		DATETIME,
 		mone_Id 						INT,
 		mone_Otra 						NVARCHAR(200),
 		deva_Conversion_Dolares 		DECIMAL(18,2),
@@ -913,13 +908,13 @@ CREATE TABLE Adua.tbCondicionesHistorial
 	codi_Concepto_Monto_Declarado NVARCHAR(500) ,
 	codi_Existen_Canones BIT ,
 	codi_Indicar_Canones NVARCHAR(500) ,
-	--usua_UsuarioCreacion INT ,
-	--codi_FechaCreacion  DATETIME ,
-	--usua_UsuarioModificacion INT,
-	--codi_FechaModificacion DATETIME,
-	--usua_UsuarioEliminacion 	INT,
-	--codi_FechaEliminacion		DATETIME,
-	--codi_Estado BIT	 DEFAULT 1,
+	usua_UsuarioCreacion INT ,
+	codi_FechaCreacion  DATETIME ,
+	usua_UsuarioModificacion INT,
+	codi_FechaModificacion DATETIME,
+	usua_UsuarioEliminacion 	INT,
+	codi_FechaEliminacion		DATETIME,
+	codi_Estado BIT	 DEFAULT 1,
 
 	hcod_UsuarioAccion 			INT,
 	hcod_FechaAccion 			DATETIME,
@@ -1974,7 +1969,7 @@ CREATE TABLE Prod.tbAsignacionesOrden(
 	asor_FechaModificacion		DATETIME DEFAULT NULL,
 	--usua_UsuarioEliminacion	INT DEFAULT NULL,
 	--asor_FechaEliminacion		DATETIME DEFAULT NULL,
-	asor_Estado					BIT DEFAULT 1
+	--asor_Estado					BIT DEFAULT 1
 
 	CONSTRAINT PK_Prod_tbAsignacionesOrden_asor_Id								PRIMARY KEY (asor_Id),
 	CONSTRAINT FK_Prod_tbAsignacionesOrden_tbProcesos_proc_Id					FOREIGN KEY	(proc_Id) 				   REFERENCES Prod.tbProcesos (proc_Id),
@@ -2023,7 +2018,7 @@ CREATE TABLE Prod.tbAsignacionesOrdenDetalle(
 	adet_FechaModificacion		DATETIME DEFAULT NULL,
 	--usua_UsuarioEliminacion		INT DEFAULT NULL,
 	--amod_FechaEliminacion		DATETIME DEFAULT NULL,
-	adet_Estado					BIT DEFAULT 1 
+	--adet_Estado					BIT DEFAULT 1 
 
 	CONSTRAINT PK_Prod_tbAsignacionesModuloDetalle_adet_Id								PRIMARY KEY (adet_Id),
 	CONSTRAINT FK_Prod_tbAsignacionesModuloDetalle_tbLotes_lote_Id						FOREIGN KEY (lote_Id)				   REFERENCES Prod.tbLotes (lote_Id),
@@ -2110,7 +2105,8 @@ CREATE TABLE Adua.tbTransporte(
 	CONSTRAINT PK_Adua_tbTransporte_tran_Id PRIMARY KEY(tran_Id),
 	CONSTRAINT FK_Prod_tbTransporte_tbUsuarios_tran_UsuCrea							 FOREIGN KEY (usua_UsuarioCreacio)		REFERENCES Acce.tbUsuarios 	(usua_Id),
 	CONSTRAINT FK_Prod_tbTransporte_tbUsuarios_tran_UsuModifica						 FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios 	(usua_Id),
-	CONSTRAINT FK_Gral_tbPaises_pais_Id_Adua_tbTransporte_pais_Id 					 FOREIGN KEY (pais_Id)					REFERENCES Gral.tbPaises(pais_Id),
+	CONSTRAINT FK_Adua_tbTransporte_tbMarca_marca_id                                 FOREIGN KEY (marca_Id)                 REFERENCES Adua.tbMarcas    (marc_Id),
+	CONSTRAINT FK_Gral_tbPaises_pais_Id_Adua_tbTransporte_pais_Id 					 FOREIGN KEY (pais_Id)					REFERENCES Gral.tbPaises    (pais_Id),
 	CONSTRAINT PK_Adua_tbTransporte_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 	REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
@@ -2523,6 +2519,10 @@ CREATE TABLE Adua.tbLiquidacionGeneralHistorial(
 	hlig_Accion				 NVARCHAR(100)
 );
 GO
+
+
+
+
 CREATE TABLE Adua.tbLiquidacionPorLinea(
 	lili_Id					 INT	IDENTITY(1,1),
 	lili_Tipo				 NVARCHAR(100),

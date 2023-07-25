@@ -2,6 +2,8 @@
 --Maquinas
 --Marcas Maquinas
 --Modelos Maquinas
+--Roles
+--RolesXPantalla
 
 ----------------------------------------------------------------//  Modulos de Producci�n Procedimientos Inicio \\-------------------------------------------------------------------------------------------
 --************************************************************************   Tabla Modulos inicio   ***********************************************************************************************
@@ -746,6 +748,79 @@ BEGIN
 END
 
 --************************************************************************   Tabla Declaratntes FIN   ***********************************************************************************************
+---------------------------------------------------------------------//  Modulos de Aduanas Procedimientos final \\-------------------------------------------------------------------------------------------
+GO
+---------------------------------------------------------------------//  Modulos de Aduanas y producción \\-------------------------------------------------------------------------------------------
+--************************************************************************   Tabla Roles inicio   ***********************************************************************************************
+
+/* listar Roles*/
+CREATE OR ALTER PROCEDURE Acce.UDP_tbRoles_Listar
+AS
+BEGIN
+	SELECT	role_Id,
+			role_Descripcion,
+			usua_UsuarioCreacion,
+			role_FechaCreacion,
+			Usua_UsuarioModificacion,
+			role_FechaModificacion
+	FROM	Acce.tbRoles
+	WHERE	role_Estado = 1
+END
+
 GO
 
----------------------------------------------------------------------//  Modulos de Aduanas Procedimientos final \\-------------------------------------------------------------------------------------------
+/* Insertar Roles*/
+CREATE OR ALTER PROCEDURE Acce.UDP_tbRoles_Insertar
+	@role_Descripcion			NVARCHAR(500),
+	@usua_UsuarioCreacion		INT,
+	@role_FechaCreacion			DATETIME
+AS
+BEGIN
+	SET @role_FechaCreacion = GETDATE()
+	BEGIN TRY
+		IF EXISTS (SELECT role_Id FROM Acce.tbRoles WHERE role_Descripcion = @role_Descripcion AND role_Estado = 0)
+			BEGIN
+				UPDATE Acce.tbRoles
+				   SET role_Descripcion = @role_Descripcion
+					  ,role_Estado = 1
+				 WHERE role_Descripcion = @role_Descripcion
+
+				 SELECT 1
+			END
+		ELSE
+			BEGIN
+				INSERT INTO Acce.tbRoles([role_Descripcion], [usua_UsuarioCreacion], [role_FechaCreacion], [usua_UsuarioModificacion], [role_FechaModificacion], [usua_UsuarioEliminacion], [role_FechaEliminacion], [role_Estado])
+				VALUES (@role_Descripcion,@usua_UsuarioCreacion,@role_FechaCreacion,NULL,NULL,NULL,NULL,1);
+
+				 SELECT 1
+			END
+	END TRY
+	BEGIN CATCH
+		 SELECT 0
+	END CATCH
+END
+
+GO
+
+/* Editar Roles*/
+CREATE OR ALTER PROCEDURE Acce.UDP_tbRoles_Editar
+	@role_Id					INT,
+	@role_Descripcion			NVARCHAR(500),
+	@usua_UsuarioModificacio	INT,
+	@roleFechaModificacioN		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE [Acce].[tbRoles]
+		   SET [role_Descripcion] = @role_Descripcion			 
+			  ,[usua_UsuarioModificacion] = @usua_UsuarioModificacio
+			  ,[role_FechaModificacion] = @roleFechaModificacioN		  
+		 WHERE role_Id = @role_Id
+
+		 SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 1
+	END CATCH
+END
+--************************************************************************   Tabla Roles Fin   ***********************************************************************************************

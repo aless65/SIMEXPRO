@@ -76,17 +76,20 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbConductor_Insert
 AS 
 BEGIN
 	BEGIN TRY
-		INSERT INTO Adua.tbConductor(cont_Nombre,cont_Apellido, cont_Licencia, 
-		  pais_IdExpedicion, tran_Id, usua_UsuarioCreacion, cont_FechaCreacion)
-		VALUES(
-		  @cont_Nombre, 
-		  @cont_Apellido, 
-		  @cont_Licencia, 
-		  @pais_IdExpedicion, 
-		  @tran_Id, 
-		  @usua_UsuarioCreacion, 
-		  @cont_FechaCreacion
-		);
+		INSERT INTO Adua.tbConductor(cont_Nombre,
+		                             cont_Apellido, 
+									 cont_Licencia, 
+		                             pais_IdExpedicion, 
+									 tran_Id, 
+									 usua_UsuarioCreacion, 
+									 cont_FechaCreacion)
+		     VALUES(@cont_Nombre, 
+		            @cont_Apellido, 
+		            @cont_Licencia, 
+		            @pais_IdExpedicion, 
+		            @tran_Id, 
+		            @usua_UsuarioCreacion, 
+		            @cont_FechaCreacion);
 		SELECT 1
 	END TRY
 	BEGIN CATCH
@@ -142,10 +145,10 @@ BEGIN
 		IF(@respuesta) = 1
 			BEGIN
 					UPDATE Adua.tbConductor
-				SET		cont_Estado = 0, 
-						usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-						cont_FechaEliminacion   = @cont_FechaEliminacion
-				WHERE cont_Id = @cont_Id
+				       SET cont_Estado             = 0, 
+				           usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+						   cont_FechaEliminacion   = @cont_FechaEliminacion
+				     WHERE cont_Id                 = @cont_Id
 				SELECT 1
 			END
 	END TRY
@@ -274,17 +277,17 @@ BEGIN
 										tran_IdContenedor, 
 										usua_UsuarioCreacio, 
 										tran_FechaCreacion)
-		VALUES(@pais_Id,
-				@tran_Chasis, 
-				@marca_Id, 
-				@tran_IdRemolque, 
-				@tran_CantCarga, 
-				@tran_NumDispositivoSeguridad, 
-				@tran_Equipamiento, 
-				@tran_TipoCarga,
-				@tran_IdContenedor, 
-				@usua_UsuarioCreacio, 
-				@tran_FechaCreacion);	
+		     VALUES(@pais_Id,
+				   @tran_Chasis, 
+				   @marca_Id, 
+				   @tran_IdRemolque, 
+				   @tran_CantCarga, 
+				   @tran_NumDispositivoSeguridad, 
+				   @tran_Equipamiento, 
+				   @tran_TipoCarga,
+				   @tran_IdContenedor, 
+				   @usua_UsuarioCreacio, 
+				   @tran_FechaCreacion);	
 		SELECT 1		
 	END TRY
 	BEGIN CATCH
@@ -410,8 +413,12 @@ AS
 BEGIN
 	
 	BEGIN TRY
-		INSERT INTO Adua.tbMarcas (marc_Descripcion, usua_UsuarioCreacion, marc_FechaCreacion)
-		VALUES(@marc_Descripcion, @usua_UsuarioCreacion, @marc_FechaCreacion)
+		INSERT INTO Adua.tbMarcas (marc_Descripcion,
+		                           usua_UsuarioCreacion,
+								   marc_FechaCreacion)
+		     VALUES(@marc_Descripcion,
+			        @usua_UsuarioCreacion, 
+					@marc_FechaCreacion)
 
 		SELECT 1
 	END TRY
@@ -478,9 +485,9 @@ BEGIN
 			BEGIN
 				UPDATE	Adua.tbMarcas
 				SET		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-						marc_FechaEliminacion = @marc_FechaEliminacion,
-						marc_Estado = 0
-				WHERE marc_Id = @marc_Id
+						marc_FechaEliminacion   = @marc_FechaEliminacion,
+						marc_Estado             = 0
+				WHERE   marc_Id                 = @marc_Id
 				SELECT 1
 			END
 	END TRY
@@ -615,8 +622,8 @@ BEGIN
 			BEGIN
 				UPDATE	Adua.tbTiposIdentificacion
 				SET		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-						iden_FechaEliminacion = @iden_FechaEliminacion,
-						iden_Estado = 0
+						iden_FechaEliminacion   = @iden_FechaEliminacion,
+						iden_Estado             = 0
 			END
 	END TRY
 	BEGIN CATCH
@@ -817,8 +824,14 @@ AS
 BEGIN
 	
 	BEGIN TRY
-		INSERT INTO Prod.tbSubcategoria (cate_Id, subc_Descripcion, usua_UsuarioCreacion, subc_FechaCreacion)
-		VALUES(@cate_Id, @subc_Descripcion, @usua_UsuarioCreacion, @usua_FechaCreacion)
+		INSERT INTO Prod.tbSubcategoria (cate_Id, 
+		                                 subc_Descripcion, 
+										 usua_UsuarioCreacion, 
+										 subc_FechaCreacion)
+		     VALUES(@cate_Id, 
+			        @subc_Descripcion, 
+					@usua_UsuarioCreacion, 
+					@usua_FechaCreacion)
 		
 		SELECT 1
 	END TRY
@@ -889,9 +902,9 @@ BEGIN
 			IF(@respuesta) = 1
 			BEGIN
 				UPDATE	Prod.tbSubcategoria
-				SET		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-						subc_FechaEliminacion = @subc_FechaEliminacion,
-						subc_Estado = 0
+				   SET	usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+						subc_FechaEliminacion   = @subc_FechaEliminacion,
+						subc_Estado             = 0
 			END
 	END TRY
 	BEGIN CATCH
@@ -958,8 +971,16 @@ AS
 BEGIN
 	
 	BEGIN TRY
-		INSERT INTO Prod.tbMateriales (mate_Descripcion, subc_Id, mate_Precio, usua_UsuarioCreacion, mate_FechaCreacion)
-		VALUES(@mate_Descripcion, @subc_Id, @mate_Precio, @usua_UsuarioCreacion, @mate_FechaCreacion)
+		INSERT INTO Prod.tbMateriales (mate_Descripcion, 
+		                               subc_Id,
+									   mate_Precio, 
+									   usua_UsuarioCreacion, 
+									   mate_FechaCreacion)
+		     VALUES(@mate_Descripcion, 
+			        @subc_Id, 
+					@mate_Precio, 
+					@usua_UsuarioCreacion, 
+					@mate_FechaCreacion)
 		
 		SELECT 1
 	END TRY
@@ -1094,8 +1115,12 @@ AS
 BEGIN
 	
 	BEGIN TRY
-			INSERT INTO Prod.tbInspeccionesEstado(reca_Id, usua_UsuarioCreacion, ines_FechaCreacion)
-			VALUES(@reca_Id, @usua_UsuarioCreacion, @ines_FechaCreacion)
+			INSERT INTO Prod.tbInspeccionesEstado(reca_Id,
+			                                      usua_UsuarioCreacion, 
+												  ines_FechaCreacion)
+			     VALUES(@reca_Id,
+				        @usua_UsuarioCreacion,
+						@ines_FechaCreacion)
 			SELECT 1
 	END TRY
 	BEGIN CATCH
@@ -1117,7 +1142,7 @@ BEGIN
 		SET		reca_Id                  = @reca_Id,
 		        usua_UsuarioModificacion = @usua_UsuarioModificacion,
 				ines_FechaModificacion   = @ines_FechaModificacion
-		WHERE	ines_Id = @ines_Id
+		WHERE	ines_Id                  = @ines_Id
 
 		SELECT 1
 	END TRY
@@ -1162,8 +1187,8 @@ BEGIN
 			BEGIN
 				UPDATE	Prod.tbInspeccionesEstado
 				SET		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-						ines_FechaEliminacion = @ines_FechaEliminacion,
-						ines_Estado = 0
+						ines_FechaEliminacion   = @ines_FechaEliminacion,
+						ines_Estado             = 0
 			END
 	END TRY
 	BEGIN CATCH
@@ -1470,7 +1495,7 @@ GO
 
 
 /*Insertar revision de calidad*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbRevisionDeCalidad_Insertar
+CREATE OR ALTER PROCEDURE Prod.UDP_tbRevisionDeCalidad_Insertar 
 	@ensa_Id                  INT,
 	@reca_Descripcion         NVARCHAR(200),
 	@reca_Cantidad            INT,
@@ -1509,7 +1534,7 @@ END
 GO
 
 /*Editar revision de calidad*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbRevisionDeCalidad_Editar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbRevisionDeCalidad_Editar 
 	@reca_Id                  INT, 
 	@ensa_Id                  INT, 
 	@reca_Descripcion         NVARCHAR(200), 

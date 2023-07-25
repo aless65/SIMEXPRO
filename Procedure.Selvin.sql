@@ -141,25 +141,49 @@ AS
 BEGIN 
  
 	BEGIN TRY
+		BEGIN TRAN
+			INSERT INTO [Adua].[tbDocumentosPDF]
+					   ([deva_Id]
+					   ,[dpdf_CA]
+					   ,[dpdf_DVA]
+					   ,[dpdf_DUCA]
+					   ,[dpdf_Boletin]
+					   ,[usua_UsuarioCreacion]
+					   ,[dpdf_FechaCreacion])
+				 VALUES
+					   (@deva_Id				
+					   ,@dpdf_CA				
+					   ,@dpdf_DVA				
+					   ,@dpdf_DUCA				
+					   ,@dpdf_Boletin			
+					   ,@usua_UsuarioCreacion   
+					   ,@dpdf_FechaCreacion)
 
-		INSERT INTO [Adua].[tbDocumentosPDF]
-				   ([deva_Id]
-				   ,[dpdf_CA]
-				   ,[dpdf_DVA]
-				   ,[dpdf_DUCA]
-				   ,[dpdf_Boletin]
-				   ,[usua_UsuarioCreacion]
-				   ,[dpdf_FechaCreacion])
-			 VALUES
-				   (@deva_Id				
-				   ,@dpdf_CA				
-				   ,@dpdf_DVA				
-				   ,@dpdf_DUCA				
-				   ,@dpdf_Boletin			
-				   ,@usua_UsuarioCreacion   
-				   ,@dpdf_FechaCreacion)
+				   SELECT 1
 
-			   SELECT 1
+				   
+	  SET @dpdf_Id = SCOPE_IDENTITY();
+
+	  INSERT INTO Adua.tbDocumentosPDFHistorial	(dpdf_Id
+												,deva_Id
+												,dpdf_CA
+												,dpdf_DVA
+												,dpdf_DUCA
+												,dpdf_Boletin
+												,hpdf_UsuarioAccion
+												,hpdf_FechaAccion
+												,hpdf_Accion)
+		VALUES	 (@dpdf_Id,
+				  @deva_Id,
+				  @dpdf_CA,
+				  @dpdf_DVA,
+				  @dpdf_DUCA,
+				  @dpdf_Boletin,
+				  @usua_UsuarioCreacion,
+				  @dpdf_FechaCreacion,
+				  'Insertar')
+
+		COMMIT
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -183,20 +207,44 @@ BEGIN
 
  
 	BEGIN TRY
+		BEGIN TRAN
+			UPDATE	[Adua].[tbDocumentosPDF]
+				SET	[deva_Id] = @deva_Id
+					,[dpdf_CA] = @dpdf_CA
+					,[dpdf_DVA] = @dpdf_DVA
+					,[dpdf_DUCA] = @dpdf_DUCA
+					,[dpdf_Boletin] = @dpdf_Boletin
+					,[usua_UsuarioModificacion] = @usua_UsuarioModificacion
+					,[dpdf_FechaModificacion] = @dpdf_FechaModificacion
+			  WHERE	dpdf_Id = @dpdf_Id
  
-		UPDATE	[Adua].[tbDocumentosPDF]
-			SET	[deva_Id] = @deva_Id
-				,[dpdf_CA] = @dpdf_CA
-				,[dpdf_DVA] = @dpdf_DVA
-				,[dpdf_DUCA] = @dpdf_DUCA
-				,[dpdf_Boletin] = @dpdf_Boletin
-				,[usua_UsuarioModificacion] = @usua_UsuarioModificacion
-				,[dpdf_FechaModificacion] = @dpdf_FechaModificacion
-		  WHERE	dpdf_Id = @dpdf_Id
- 
- 				   SELECT 1
+ 					   SELECT 1
+
+					   
+
+
+		  INSERT INTO Adua.tbDocumentosPDFHistorial	(dpdf_Id
+													,deva_Id
+													,dpdf_CA
+													,dpdf_DVA
+													,dpdf_DUCA
+													,dpdf_Boletin
+													,hpdf_UsuarioAccion
+													,hpdf_FechaAccion
+													,hpdf_Accion)
+			VALUES (  @dpdf_Id,
+					  @deva_Id,
+					  @dpdf_CA,
+					  @dpdf_DVA,
+					  @dpdf_DUCA,
+					  @dpdf_Boletin,
+					  @usua_UsuarioModificacion,
+					  @dpdf_FechaModificacion,
+					  'Editar')
+		COMMIT
 	END TRY
 	BEGIN CATCH
+		ROLLBACK
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH 
 
@@ -212,21 +260,46 @@ AS
 BEGIN 
 
 	BEGIN TRY
+ 		BEGIN TRAN
+		UPDATE	 [Adua].[tbDocumentosPDF]
+		   SET	 [usua_UsuarioEliminacion] =	@usua_UsuarioEliminacion
+				,[dpdf_FechaEliminacion] =		@dpdf_FechaEliminacion
+				,[dpdf_Estado] = 0
+		 WHERE	 dpdf_Id = @dpdf_Id
  
-	UPDATE	 [Adua].[tbDocumentosPDF]
-	   SET	 [usua_UsuarioEliminacion] =	@usua_UsuarioEliminacion
-			,[dpdf_FechaEliminacion] =		@dpdf_FechaEliminacion
-			,[dpdf_Estado] = 0
-	 WHERE	 dpdf_Id = @dpdf_Id
- 
 
 
 
-			   SELECT 1
-	END TRY
-	BEGIN CATCH
-		SELECT 'Error Message: ' + ERROR_MESSAGE()
-	END CATCH 
+				   SELECT 1
+
+			
+  INSERT INTO Adua.tbDocumentosPDFHistorial	(dpdf_Id
+											,deva_Id
+											,dpdf_CA
+											,dpdf_DVA
+											,dpdf_DUCA
+											,dpdf_Boletin
+											,hpdf_UsuarioAccion
+											,hpdf_FechaAccion
+											,hpdf_Accion)
+	SELECT    dpdf_Id,
+			  deva_Id,
+			  dpdf_CA,
+			  dpdf_DVA,
+			  dpdf_DUCA,
+			  dpdf_Boletin,
+			  @usua_UsuarioEliminacion,
+			  @dpdf_FechaEliminacion,
+			  'Eliminar'
+			  FROM Adua.tbDocumentosPDF 
+			  WHERE dpdf_Id = @dpdf_Id
+
+		 COMMIT
+		END TRY
+		BEGIN CATCH
+			ROLLBACK
+			SELECT 'Error Message: ' + ERROR_MESSAGE()
+		END CATCH 
 
 END
 

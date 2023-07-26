@@ -82,3 +82,24 @@ C:\Users\LAB01\OneDrive\Documentos\Github\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API
 C:\Users\LAB01\OneDrive\Documentos\Github\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\obj\Debug\net5.0\SIMEXPRO.API.dll
 C:\Users\LAB01\OneDrive\Documentos\Github\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\obj\Debug\net5.0\ref\SIMEXPRO.API.dll
 C:\Users\LAB01\OneDrive\Documentos\Github\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\obj\Debug\net5.0\SIMEXPRO.API.pdb
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\Microsoft.Azure.KeyVault.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\Microsoft.Azure.KeyVault.WebKey.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\Microsoft.Azure.Services.AppAuthentication.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\Microsoft.Extensions.Configuration.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\Microsoft.Extensions.Configuration.AzureKeyVault.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\Microsoft.Extensions.Configuration.Json.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\Microsoft.Extensions.Configuration.UserSecrets.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\Microsoft.Extensions.FileProviders.Physical.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\Microsoft.Extensions.FileSystemGlobbing.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\Microsoft.Rest.ClientRuntime.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\Microsoft.Rest.ClientRuntime.Azure.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\System.Text.Encodings.Web.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\bin\Debug\net5.0\System.Text.Json.dll

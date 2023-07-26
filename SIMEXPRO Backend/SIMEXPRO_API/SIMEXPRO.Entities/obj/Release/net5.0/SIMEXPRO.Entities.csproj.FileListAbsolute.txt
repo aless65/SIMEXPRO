@@ -1,0 +1,12 @@
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.Entities\bin\Release\net5.0\SIMEXPRO.Entities.deps.json
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.Entities\bin\Release\net5.0\SIMEXPRO.Entities.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.Entities\bin\Release\net5.0\ref\SIMEXPRO.Entities.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.Entities\bin\Release\net5.0\SIMEXPRO.Entities.pdb
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.Entities\obj\Release\net5.0\SIMEXPRO.Entities.csproj.AssemblyReference.cache
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.Entities\obj\Release\net5.0\SIMEXPRO.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.Entities\obj\Release\net5.0\SIMEXPRO.Entities.AssemblyInfoInputs.cache
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.Entities\obj\Release\net5.0\SIMEXPRO.Entities.AssemblyInfo.cs
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.Entities\obj\Release\net5.0\SIMEXPRO.Entities.csproj.CoreCompileInputs.cache
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.Entities\obj\Release\net5.0\SIMEXPRO.Entities.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.Entities\obj\Release\net5.0\ref\SIMEXPRO.Entities.dll
+C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.Entities\obj\Release\net5.0\SIMEXPRO.Entities.pdb

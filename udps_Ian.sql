@@ -475,3 +475,172 @@ BEGIN
 	END CATCH
 END
 GO
+
+---------------------EDIT DUCA------------------------
+CREATE OR ALTER PROCEDURE Adua.UDP_tbDuca_EditarTab1
+    @duca_No_Correlativo_Referencia		NVARCHAR(MAX),
+	@FechaAceptacion					DATETIME,
+	@duca_AduanaRegistro				INT,
+	@duca_AduanaSalida					INT,
+	@duca_AduanaIngreso					INT,
+	@duca_AduanaDestino					INT,
+	@duca_Regimen_Aduanero				NVARCHAR(MAX),
+	@duca_Modalidad						NVARCHAR(MAX),
+	@duca_Clase							NVARCHAR(MAX),
+	@duca_FechaVencimiento				DATETIME,
+	@duca_Pais_Procedencia				INT,
+	@duca_Pais_Exportacion				INT,
+	@duca_Pais_Destino					INT,
+	@duca_Deposito_Aduanero				NVARCHAR(MAX),
+	@duca_Lugar_Embarque				NVARCHAR(MAX),
+	@duca_Lugar_Desembarque				NVARCHAR(MAX),
+	@duca_Manifiesto					NVARCHAR(MAX),
+	@NoIdentificacion_ex				NVARCHAR(15),
+	@iden_Id_ex							INT,
+	@pais_ex							INT,
+	@domicilio_Fiscal_ex				NVARCHAR(MAX),	
+	@NoIdentificacion_im				NVARCHAR(15),
+	@iden_Id_im							INT,
+	@pais_im							INT,
+	@Nombre_RazonSocial					NVARCHAR(MAX),
+	@domicilio_Fiscal_im				NVARCHAR(MAX),
+	@Duca_Id							NVARCHAR(100) OUTPUT 
+AS
+BEGIN
+    UPDATE [Adua].[tbDuca]
+	SET    [duca_No_Correlativo_Referencia] = @duca_No_Correlativo_Referencia,
+	       [duca_AduanaRegistro] = @duca_AduanaRegistro, 
+		   [duca_AduanaSalida] = @duca_AduanaSalida,
+		   [duca_Modalidad] = @duca_Modalidad,
+		   [duca_Clase] = @duca_Clase,
+		   [duca_FechaVencimiento] = @duca_FechaVencimiento,
+		   [duca_Pais_Procedencia] = @duca_Pais_Procedencia ,
+		   [duca_Pais_Exportacion] = @duca_Pais_Exportacion,
+		   [duca_Pais_Destino] = @duca_Pais_Destino,
+		   [duca_Deposito_Aduanero] = @duca_Deposito_Aduanero,
+		   [duca_Lugar_Embarque] = @duca_Lugar_Embarque, 
+		   [duca_Lugar_Desembarque] = @duca_Lugar_Desembarque,
+		   [duca_Manifiesto] = @duca_Manifiesto,
+		   [duca_DomicilioFiscal_Exportador] = @domicilio_Fiscal_ex, 
+		   [duca_Tipo_Iden_Exportador] = @iden_Id_ex, 
+		   [duca_Pais_Emision_Exportador] = @pais_ex,
+		   [duca_Numero_Id_Importador] = @NoIdentificacion_im, 
+		   [duca_Pais_Emision_Importador] = @pais_im, 
+		   [duca_DomicilioFiscal_Importador] = @domicilio_Fiscal_im
+	WHERE  [duca_No_Duca] = @Duca_Id    
+END
+GO
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbDuca_EditarTab2
+    @Duca_Id							NVARCHAR(100),
+	@duca_Codigo_Declarante				NVARCHAR(200),
+	@duca_Numero_Id_Declarante			NVARCHAR(200),
+	@duca_NombreSocial_Declarante		NVARCHAR(MAX),
+	@duca_DomicilioFiscal_Declarante	NVARCHAR(MAX),
+	@duca_Codigo_Transportista			NVARCHAR(200),
+	@duca_Transportista_Nombre			NVARCHAR(MAX),
+	@motr_Id							INT,
+	@cont_Licencia						NVARCHAR(200),
+	@pais_IdExpedicion					INT,
+	@cont_Nombre						NVARCHAR(200),
+	@cont_Apellido						NVARCHAR(200),
+	@pais_Id							INT,
+	@marca_Id							INT,
+	@tran_Chasis						NVARCHAR(100),
+	@tran_Remolque						NVARCHAR(50),
+	@tran_CantCarga						INT,
+	@tran_NumDispositivoSeguridad		INT,
+	@tran_Equipamiento					NVARCHAR(200),
+	@tran_TipoCarga						NVARCHAR(200),
+	@tran_IdContenedor					NVARCHAR(100),
+	@usua_UsuarioModificacion			INT,
+	@tran_FechaModificacion				DATETIME,
+	@cont_FechaModificacion             DATETIME
+AS
+BEGIN
+   BEGIN TRANSACTION 
+	SET @tran_FechaModificacion = GETDATE();
+	BEGIN TRY
+	    DECLARE @Transporte_Id INT = (SELECT TOP 1 tran_Id FROM [Adua].[tbTransporte] ORDER BY DES);
+
+		UPDATE [Adua].[tbTransporte] 
+		SET    [pais_Id] = @pais_Id, 
+		       [tran_Chasis] = @tran_Chasis, 
+		       [marca_Id] = @marca_Id, 
+			   [tran_Remolque] = @tran_Remolque, 
+			   [tran_CantCarga] = @tran_CantCarga,
+			   [tran_NumDispositivoSeguridad] = @tran_NumDispositivoSeguridad,
+			   [tran_Equipamiento] = @tran_Equipamiento, 
+			   [tran_TipoCarga] = @tran_TipoCarga, 
+			   [tran_IdContenedor] = @tran_IdContenedor, 
+			   [usua_UsuarioModificacion] = @usua_UsuarioModificacion, 
+			   [tran_FechaModificacion] = @tran_FechaModificacion
+		WHERE  tran_Id = @Transporte_Id
+		
+		DECLARE @ducaConductor INT = (SELECT TOP 1 cont_Id FROM [Adua].[tbConductor] ORDER BY DES);
+		UPDATE [Adua].[tbConductor]
+		SET    [cont_Nombre] = @cont_Nombre,
+		       [cont_Apellido] = @cont_Apellido,
+			   [cont_Licencia] = @cont_Licencia,
+			   [pais_IdExpedicion] = @pais_IdExpedicion,
+			   [tran_Id] = @Transporte_Id,
+			   [usua_UsuarioModificacion] = @usua_UsuarioModificacion,
+			   [cont_FechaModificacion] = @cont_FechaModificacion
+        WHERE @ducaConductor = [cont_Id]
+
+		UPDATE [Adua].[tbDuca]
+		   SET [duca_Codigo_Declarante] = @duca_Codigo_Declarante
+			  ,[duca_Numero_Id_Declarante] = @duca_Numero_Id_Declarante
+			  ,[duca_NombreSocial_Declarante] = @duca_NombreSocial_Declarante
+			  ,[duca_DomicilioFiscal_Declarante] = @duca_DomicilioFiscal_Declarante
+			  ,[duca_Codigo_Transportista] = @duca_Codigo_Transportista 
+			  ,[motr_id] = @motr_Id
+			  ,[duca_Transportista_Nombre] = @duca_Transportista_Nombre
+			  ,[duca_Conductor_Id] = @ducaConductor      
+		 WHERE [duca_No_Duca] = @Duca_Id
+
+		 SELECT 1
+		COMMIT TRAN 
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+		ROLLBACK TRAN
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE  Adua.UDP_tbDuca_EditarTab3
+    @tido_Id                    INT,
+    @doso_NumeroDocumento       INT,
+    @doso_FechaEmision          DATETIME,
+    @doso_FechaVencimiento      DATETIME,
+    @doso_PaisEmision           INT,
+    @doso_LineaAplica           CHAR(4),
+    @doso_EntiadEmitioDocumento NVARCHAR(75),
+    @doso_Monto                 NVARCHAR(50),
+    @usua_UsuarioModificacion   INT,
+    @doso_FechaModificacion     DATETIME
+AS
+BEGIN
+    BEGIN TRY
+	   
+	    UPDATE [Adua].[tbDocumentosDeSoporte] 
+		SET    [tido_Id] = @tido_Id,
+		       [doso_NumeroDocumento] = @doso_NumeroDocumento,
+			   [doso_FechaEmision] = @doso_FechaEmision,
+			   [doso_FechaVencimiento] = @doso_FechaVencimiento,
+			   [doso_PaisEmision] = @doso_PaisEmision,
+			   [doso_LineaAplica] = @doso_LineaAplica,
+			   [doso_EntidadEmitioDocumento] = @doso_EntiadEmitioDocumento,
+			   [doso_Monto] = @doso_Monto,
+			   [usua_UsuarioModificacion] = @usua_UsuarioModificacion,
+			   [doso_FechaModificacion] = @doso_FechaModificacion
+        WHERE  
+        SELECT 1
+    END TRY
+    BEGIN CATCH
+        SELECT 0
+    END CATCH
+END
+
+

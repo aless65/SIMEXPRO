@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
+namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
 {
     public class ProduccionServices
     {        

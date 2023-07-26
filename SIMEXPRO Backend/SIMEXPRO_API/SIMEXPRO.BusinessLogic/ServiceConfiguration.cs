@@ -27,7 +27,7 @@ namespace SIMEXPRO.BussinessLogic
 
             //Aduanas
             services.AddScoped<AduanasRepository>();
-            services.AddScoped<AracelesRepository>();
+            services.AddScoped<ArancelesRepository>();
             services.AddScoped<BaseCalculosHistorialRepository>();
             services.AddScoped<BaseCalculosRepository>();
             services.AddScoped<BoletinPagoRepository>();
@@ -74,7 +74,7 @@ namespace SIMEXPRO.BussinessLogic
             services.AddScoped<TipoIntermediarioRepository>();
             services.AddScoped<TipoLiquidacionRepository>();
             services.AddScoped<TiposIdentificacionRepository>();
-            services.AddScoped <TransporteRepository>();
+            services.AddScoped<TransporteRepository>();
 
             //General
             services.AddScoped<AldeasRepository>();

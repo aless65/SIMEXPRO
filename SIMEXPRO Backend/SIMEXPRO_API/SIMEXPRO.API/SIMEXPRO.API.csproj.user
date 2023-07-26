@@ -5,6 +5,5 @@
   </PropertyGroup>
   <PropertyGroup>
     <ActiveDebugProfile>IIS Express</ActiveDebugProfile>
-    <NameOfLastUsedPublishProfile>C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.API\Properties\PublishProfiles\SIMEXPRO - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

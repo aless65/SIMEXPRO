@@ -4,10 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.KeyVault;
-using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.AzureKeyVault;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -44,24 +41,6 @@ namespace SIMEXPRO.API
                 );
             }
            );
-
-
-            // Configure Azure Key Vault
-            var configBuilder = new ConfigurationBuilder();
-            var keyVaultEndpoint = "https://simexpro.vault.azure.net/"; // Replace with your Key Vault URI
-            var azureServiceTokenProvider = new AzureServiceTokenProvider();
-            var keyVaultClient = new KeyVaultClient(
-                new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback)
-            );
-            configBuilder.AddAzureKeyVault(keyVaultEndpoint, keyVaultClient, new DefaultKeyVaultSecretManager());
-
-            // Add your other configuration sources, e.g., appsettings.json, user secrets, etc.
-            configBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                        .AddUserSecrets<Startup>()
-                        .AddEnvironmentVariables();
-
-            var configuration = configBuilder.Build();
-            services.AddSingleton(configuration);
 
 
             services.DataAccess(Configuration.GetConnectionString("ConexionSimexpro"));

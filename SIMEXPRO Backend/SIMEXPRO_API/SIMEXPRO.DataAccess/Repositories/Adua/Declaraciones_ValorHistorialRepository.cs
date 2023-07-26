@@ -7,29 +7,29 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.DataAccess.Repositories.Adua
 {
-    public class DucaHistorial : IRepository<tbDucaHistorial>
+    public class Declaraciones_ValorHistorialRepository : IRepository<tbDeclaraciones_ValorHistorial>
     {
-        public RequestStatus Delete(tbDucaHistorial item)
+        public RequestStatus Delete(tbDeclaraciones_ValorHistorial item)
         {
             throw new NotImplementedException();
         }
 
-        public tbDucaHistorial Find(int? id)
+        public tbDeclaraciones_ValorHistorial Find(int? id)
         {
             throw new NotImplementedException();
         }
 
-        public RequestStatus Insert(tbDucaHistorial item)
+        public RequestStatus Insert(tbDeclaraciones_ValorHistorial item)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<tbDucaHistorial> List()
+        public IEnumerable<tbDeclaraciones_ValorHistorial> List()
         {
             throw new NotImplementedException();
         }
 
-        public RequestStatus Update(tbDucaHistorial item)
+        public RequestStatus Update(tbDeclaraciones_ValorHistorial item)
         {
             throw new NotImplementedException();
         }

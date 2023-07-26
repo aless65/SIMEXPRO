@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.DataAccess.Repositories.Adua
 {
-    class NivelesComercialesRepository : IRepository<tbNivelesComerciales>
+    public class NivelesComercialesRepository : IRepository<tbNivelesComerciales>
     {
         public RequestStatus Delete(tbNivelesComerciales item)
         {

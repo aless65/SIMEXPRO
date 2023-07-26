@@ -7,29 +7,29 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.DataAccess.Repositories.Adua
 {
-    public class CondicionesComerciales : IRepository<tbCondicionesComerciales>
+    public class ProveedoresDeclaracionRepository : IRepository<tbProveedores>
     {
-        public RequestStatus Delete(tbCondicionesComerciales item)
+        public RequestStatus Delete(tbProveedores item)
         {
             throw new NotImplementedException();
         }
 
-        public tbCondicionesComerciales Find(int? id)
+        public tbProveedores Find(int? id)
         {
             throw new NotImplementedException();
         }
 
-        public RequestStatus Insert(tbCondicionesComerciales item)
+        public RequestStatus Insert(tbProveedores item)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<tbCondicionesComerciales> List()
+        public IEnumerable<tbProveedores> List()
         {
             throw new NotImplementedException();
         }
 
-        public RequestStatus Update(tbCondicionesComerciales item)
+        public RequestStatus Update(tbProveedores item)
         {
             throw new NotImplementedException();
         }

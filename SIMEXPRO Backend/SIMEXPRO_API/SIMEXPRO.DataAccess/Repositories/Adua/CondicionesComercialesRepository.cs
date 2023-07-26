@@ -7,29 +7,29 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.DataAccess.Repositories.Adua
 {
-    public class Declaraciones_ValorHistorial : IRepository<tbDeclaraciones_ValorHistorial>
+    public class CondicionesComercialesHistorial : IRepository<tbCondicionesComerciales>
     {
-        public RequestStatus Delete(tbDeclaraciones_ValorHistorial item)
+        public RequestStatus Delete(tbCondicionesComerciales item)
         {
             throw new NotImplementedException();
         }
 
-        public tbDeclaraciones_ValorHistorial Find(int? id)
+        public tbCondicionesComerciales Find(int? id)
         {
             throw new NotImplementedException();
         }
 
-        public RequestStatus Insert(tbDeclaraciones_ValorHistorial item)
+        public RequestStatus Insert(tbCondicionesComerciales item)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<tbDeclaraciones_ValorHistorial> List()
+        public IEnumerable<tbCondicionesComerciales> List()
         {
             throw new NotImplementedException();
         }
 
-        public RequestStatus Update(tbDeclaraciones_ValorHistorial item)
+        public RequestStatus Update(tbCondicionesComerciales item)
         {
             throw new NotImplementedException();
         }

@@ -105,7 +105,57 @@ namespace SIMEXPRO.DataAccess
 
         #endregion
 
+        #region Produccion
+  
+        #region Procesos
+        public static string ListarProcesos = "Prod.UDP_tbProcesos_Listar";
+        public static string InsertarProcesos = "Prod.UDP_tbProcesos_Insertar";
+        public static string EditaProcesos = "Prod.UDP_tbProcesos_Editar";
+        public static string EliminarProcesis = "Prod.UDP_tbProcesos_Eliminar";
+        #endregion
 
+        #region Reporte Modulo del Dia
+        public static string ListarReporteModuloDia = "Prod.UDP_tbReporteModuloDia_Listar";
+        public static string InsertarReporteModuloDia = "Prod.UDP_tbReporteModuloDia_Insertar";
+        public static string EditarReporteModuloDia = "Prod.UDP_tbReporteModuloDia_Editar";
+
+        #endregion
+
+        #region Reporte Modulo del Dia Detalle
+        public static string ListarReporteModuloDiaDetalle = "Prod.UDP_tbReporteModuloDiaDetalle_Listar";
+        public static string InsertarReporteModuloDiaDetalle = "Prod.UDP_tbReporteModuloDiaDetalle_Insertar";
+        public static string EditarReporteModuloDiaDetalle = "Prod.UDP_tbReporteModuloDiaDetalle_Editar";
+        #endregion
+
+        #region Revision de Calidad
+        public static string ListarRevisionDeCalidad = "Prod.UDP_tbRevisionDeCalidad_Listar";
+        public static string InsertaRevisionDeCalidad = "Prod.UDP_tbRevisionDeCalidad_Insertar";
+        public static string EditarRevisionDeCalidad = "Adua.UDP_tbRevisionDeCalidad_Editar";
+        
+        #endregion
+
+        #region Sub Categoria
+        public static string ListarSubCategoria = "Prod.UDP_tbSubcategoria_Listar";
+        public static string InsertarSubCategoria = "Prod.UDP_tbSubcategoria_Insertar";
+        public static string EditarSubCategoria = "Prod.UDP_tbSubcategoria_Editar";
+        public static string EliminarSubCategoria = "Prod.UDP_tbSubcategoria_Eliminar";
+        #endregion
+
+        #region Tallas
+        public static string ListarTallas = "Prod.UDP_tbTallas_Listar";
+        public static string InsertarTallas = "Prod.UDP_tbTallas_Insertar";
+        public static string EditarTallas = "Prod.UDP_tbTallas_Editar";
+        //public static string EliminarEmpleados = "gral.UDP_tbEmpleados_Eliminar";
+        #endregion
+
+        #region Tipo Embalaje
+        public static string ListarTipoEmbalaje = "Prod.UDP_tbTipoEmbalaje_Listar";
+        public static string InsertarTipoEmbalaje = "Prod.UDP_tbTipoEmbalaje_Insertar";
+        public static string EditarTipoEmbalaje = "Prod.UDP_tbTipoEmbalaje_Editar";
+        public static string EliminarTipoEmbalaje = "Prod.UDP_tbTipoEmbalaje_Eliminar";
+        #endregion
+
+        #endregion
 
         #region Ejemplos
         /*public static string ListarDetallesDirecciones = "gral.UDP_tbDirecciones_ListarDetalles ";

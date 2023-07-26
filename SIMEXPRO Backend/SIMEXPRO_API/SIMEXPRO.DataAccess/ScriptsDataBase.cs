@@ -11,12 +11,30 @@ namespace SIMEXPRO.DataAccess
 
         #region Acceso
 
-        #region Usuarios
-        public static string ListarUsuarios = "acce.UDP_VW_tbUsuarios_Listar";
-        public static string InsertarUsuarios = "acce.UDP_tbUsuarios_Insertar";
-        public static string EditarUsuarios = "acce.UDP_tbUsuarios_Editar";
-        public static string EliminarUsuarios = "acce.UDP_tbUsuarios_Eliminar";
+            #region Usuarios
+            public static string ListarUsuarios = "acce.UDP_VW_tbUsuarios_Listar";
+            public static string InsertarUsuarios = "acce.UDP_tbUsuarios_Insertar";
+            public static string EditarUsuarios = "acce.UDP_tbUsuarios_Editar";
+            public static string EliminarUsuarios = "acce.UDP_tbUsuarios_Eliminar";
+            #endregion
+
+            #region Pantallas
+            public static string ListarPantallas = "Acce.UDP_tbPantallas_Listar";
         #endregion
+
+            #region Roles
+            public static string ListarRoles        = "Acce.UDP_tbRoles_Listar";
+            public static string InsertarRoles      = "Acce.UDP_tbRoles_Insertar";
+            public static string EditarRoles        = "Acce.UDP_tbRoles_Editar";
+            public static string EliminarRoles      = "Acce.UDP_tbRoles_Eliminar";
+        #endregion
+
+            #region RolesXPantallas
+            public static string ListarRolesXPantallas      = "Acce.UDP_tbRolesXPantallas_Listar";
+            public static string InsertarRolesXPantallas    = "Acce.UDP_tbRolesXPantallas_Insertar";
+            public static string EditarRolesXPantallas      = "Acce.UDP_tbRolesXPantallas_Editar";
+            public static string EliminarRolesXPantallas    = "Acce.UDP_tbRolesXPantallas_Eliminar";
+            #endregion
 
         #endregion
 
@@ -96,12 +114,6 @@ namespace SIMEXPRO.DataAccess
         public static string EliminarFormasEnvio = "Gral.UDP_tbFormas_Envio_Eliminar";
         #endregion
 
-        #region Empleados
-        public static string ListarEmpleados = "Gral.UDP_tbEmpleados_Listar";
-        public static string InsertarEmpleados = "gral.UDP_tbEmpleados_Insertar";
-        public static string EditarEmpleados = "gral.UDP_tbEmpleados_Editar";
-        public static string EliminarEmpleados = "gral.UDP_tbEmpleados_Eliminar";
-        #endregion
 
         #endregion
 

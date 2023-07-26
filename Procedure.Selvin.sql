@@ -429,3 +429,77 @@ BEGIN
 	END CATCH 
 
 END
+
+GO
+CREATE OR ALTER PROC prod.UDP_tbMaterialesBrindar_Insertar 
+@code_Id					INT, 
+@mate_Id					INT, 
+@mabr_Cantidad				INT, 
+@usua_UsuarioCreacion		INT, 
+@mabr_FechaCreacion			DATETIME
+AS 
+BEGIN
+	BEGIN TRY
+
+		INSERT INTO [Prod].[tbMaterialesBrindar]
+		(code_Id, 
+		 mate_Id, 
+		 mabr_Cantidad, 
+		 usua_UsuarioCreacion, 
+		 mabr_FechaCreacion
+		 )
+		VALUES
+		(@code_Id,				
+		 @mate_Id,				
+		 @mabr_Cantidad,	
+		 @usua_UsuarioCreacion,
+		 @mabr_FechaCreacion		
+		)
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+
+GO
+
+CREATE OR ALTER PROC prod.UDP_tbMaterialesBrindar_Editar
+@mabr_Id					INT,
+@code_Id					INT, 
+@mate_Id					INT, 
+@mabr_Cantidad				INT, 
+@usua_UsuarioModificacion	INT, 
+@mabr_FechaModificacion		DATETIME
+AS 
+BEGIN
+	BEGIN TRY
+		UPDATE [Prod].[tbMaterialesBrindar]
+		SET		code_Id						= @code_Id,				
+				mate_Id						= @mate_Id,				 
+				mabr_Cantidad				= @mabr_Cantidad,	
+				usua_UsuarioCreacion		= @usua_UsuarioModificacion,
+				mabr_FechaCreacion			= @mabr_FechaModificacion	
+		WHERE	mabr_Id						= @mabr_Id
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+
+GO
+
+CREATE OR ALTER PROC prod.UDP_tbMaterialesBrindar_Eliminar
+@mabr_Id					INT
+AS
+BEGIN
+	BEGIN TRY
+
+		UPDATE [Prod].[tbMaterialesBrindar]
+		SET		mabr_Estado					= 0
+		WHERE	mabr_Id						= @mabr_Id
+
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END

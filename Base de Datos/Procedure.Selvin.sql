@@ -2,6 +2,7 @@ GO
 USE SIMEXPRO
 
 GO
+/* LISTAR DOCUMENTOS DE SOPORTE */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosDeSoporte_Listar
 AS 
 BEGIN
@@ -40,6 +41,8 @@ BEGIN
 END
 
 GO
+
+/* INSERTAR DOCUMENTOS DE SOPORTE */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosDeSoporte_Insertar 
 	@tido_Id					        INT,
 	@doso_NumeroDocumento		        NVARCHAR(15),
@@ -93,6 +96,8 @@ END
 -------------------------------------------------------
 
 GO 
+
+/* LISTAR DOCUMENTOS PDF */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosPDF_Listar
 AS
 BEGIN 
@@ -127,7 +132,9 @@ BEGIN
 END
 
 
-GO 
+GO
+
+/* INSERTAR DOCUMENTOS PDF */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosPDF_Insertar
 	@deva_Id				int,
 	@dpdf_CA				nvarchar(200),
@@ -191,7 +198,10 @@ BEGIN
 
 END
 
-GO 
+GO
+
+
+/* EDITAR DOCUMENTOS PDF */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosPDF_Editar
 @dpdf_Id					int,
 @deva_Id					int,
@@ -252,6 +262,9 @@ BEGIN
 END
 
 GO 
+
+
+/* ELIMINAR DOCUMENTOS PDF */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosPDF_Eliminar
 	@dpdf_Id					int,
 	@usua_UsuarioEliminacion    int,
@@ -305,6 +318,8 @@ END
 
 
 GO
+
+/* LISTAR DOCUMENTOS CONTRATOS */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosContratos_Listar
 AS
 BEGIN
@@ -341,6 +356,9 @@ BEGIN
 END
 
 GO
+
+
+/* INSERTAR DOCUMENTOS CONTRATOS */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosContratos_Insertar
 @coin_Id					int,
 @peju_Id					int,
@@ -378,6 +396,9 @@ END
 
 
 GO
+
+
+/* EDITAR DOCUMENTOS CONTRATOS */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosContratos_Editar
 @doco_Id					int,
 @coin_Id					int,
@@ -411,6 +432,9 @@ END
 
 
 GO
+
+
+/* ELIMINAR DOCUMENTOS CONTRATOS */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosContratos_Eliminar
 @doco_Id					int
 AS
@@ -431,6 +455,8 @@ BEGIN
 END
 GO
 
+
+/* LISTAR MATERIALES BRINDAR */
 CREATE OR ALTER PROC prod.UDP_tbMaterialesBrindar_Listar
 AS
 BEGIN
@@ -447,6 +473,9 @@ BEGIN
 END
 
 GO
+
+
+/* INSERTAR MATERIALES BRINDAR */
 CREATE OR ALTER PROC prod.UDP_tbMaterialesBrindar_Insertar 
 @code_Id					INT, 
 @mate_Id					INT, 
@@ -479,6 +508,8 @@ END
 
 GO
 
+
+/* EDITAR MATERIALES BRINDAR */
 CREATE OR ALTER PROC prod.UDP_tbMaterialesBrindar_Editar
 @mabr_Id					INT,
 @code_Id					INT, 
@@ -504,6 +535,8 @@ END
 
 GO
 
+
+/* ELIMINAR MATERIALES BRINDAR */
 CREATE OR ALTER PROC prod.UDP_tbMaterialesBrindar_Eliminar
 @mabr_Id					INT
 AS

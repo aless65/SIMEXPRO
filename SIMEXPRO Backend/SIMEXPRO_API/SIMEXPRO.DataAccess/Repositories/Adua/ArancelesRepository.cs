@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.DataAccess.Repositories.Adua
 {
-    public class AracelesRepository : IRepository<tbAranceles>
+    public class ArancelesRepository : IRepository<tbAranceles>
     {
         public RequestStatus Delete(tbAranceles item)
         {

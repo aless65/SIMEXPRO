@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using SIMEXPRO.BussinessLogic.Services.AccesoServices;
 using SIMEXPRO.BussinessLogic.Services.GeneralServices;
+using SIMEXPRO.BussinessLogic.Services.ProduccionServices;
 using SIMEXPRO.DataAccess.Repositories.Adua;
 using SIMEXPRO.DataAccess.Repositories.Gral;
 using SIMEXPRO.DataAccess.Repositories.Prod;
@@ -27,7 +28,7 @@ namespace SIMEXPRO.BussinessLogic
 
             //Aduanas
             services.AddScoped<AduanasRepository>();
-            services.AddScoped<AracelesRepository>();
+            services.AddScoped<ArancelesRepository>();
             services.AddScoped<BaseCalculosHistorialRepository>();
             services.AddScoped<BaseCalculosRepository>();
             services.AddScoped<BoletinPagoRepository>();
@@ -74,7 +75,7 @@ namespace SIMEXPRO.BussinessLogic
             services.AddScoped<TipoIntermediarioRepository>();
             services.AddScoped<TipoLiquidacionRepository>();
             services.AddScoped<TiposIdentificacionRepository>();
-            services.AddScoped <TransporteRepository>();
+            services.AddScoped<TransporteRepository>();
 
             //General
             services.AddScoped<AldeasRepository>();
@@ -135,7 +136,7 @@ namespace SIMEXPRO.BussinessLogic
             services.AddScoped<GeneralServices>();
             //services.AddScoped<AccesoServices>();
             services.AddScoped<ProduccionServices>();
-            services.AddScoped<ProduccionServices>();
+            
         }
     }
 }

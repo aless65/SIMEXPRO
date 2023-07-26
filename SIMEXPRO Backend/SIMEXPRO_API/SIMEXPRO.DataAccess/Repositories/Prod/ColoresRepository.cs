@@ -9,7 +9,11 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
 {
     public class ColoresRepository : IRepository<tbColores>
     {
-      
+        public IEnumerable<tbColores> List()
+        {
+            throw new NotImplementedException();
+        }
+
 
         public RequestStatus Delete(tbColores item)
         {

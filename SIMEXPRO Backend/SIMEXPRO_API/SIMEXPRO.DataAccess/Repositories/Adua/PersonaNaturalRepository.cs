@@ -7,29 +7,29 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.DataAccess.Repositories.Adua
 {
-    public class PersonaNaturalRepository : IRepository<tbPersonaJuridica>
+    public class PersonaNaturalRepository : IRepository<tbPersonaNatural>
     {
-        public RequestStatus Delete(tbPersonaJuridica item)
+        public RequestStatus Delete(tbPersonaNatural item)
         {
             throw new NotImplementedException();
         }
 
-        public tbPersonaJuridica Find(int? id)
+        public tbPersonaNatural Find(int? id)
         {
             throw new NotImplementedException();
         }
 
-        public RequestStatus Insert(tbPersonaJuridica item)
+        public RequestStatus Insert(tbPersonaNatural item)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<tbPersonaJuridica> List()
+        public IEnumerable<tbPersonaNatural> List()
         {
             throw new NotImplementedException();
         }
 
-        public RequestStatus Update(tbPersonaJuridica item)
+        public RequestStatus Update(tbPersonaNatural item)
         {
             throw new NotImplementedException();
         }

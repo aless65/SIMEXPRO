@@ -23,7 +23,7 @@ import Select from '@mui/material/Select';
 
 
 import CardMedia from '@mui/material/CardMedia';
-import { Button, FormControl, Icon, InputAdornment, InputLabel, Divider ,TextField} from '@mui/material';
+import { Button, FormControl, Icon, InputAdornment, InputLabel, Divider, TextField } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import { DataGrid, GridToolbar, esES } from '@mui/x-data-grid'
 import { useState } from 'react';
@@ -33,7 +33,7 @@ import Chip from '@mui/material/Chip';
 
 var ActicarColapse = true
 
-function createData(Id, FechaEmision, FechaLimite, Cliente,Acciones) {
+function createData(Id, FechaEmision, FechaLimite, Cliente, Acciones) {
     return {
         Id,
         FechaEmision,
@@ -90,11 +90,6 @@ function Row(props) {
                 handleClose();
             };
 
-            const handleAddMaterial = () => {
-                // Implementa la función para añadir materiales aquí
-
-                handleClose();
-            };
 
             return (
 
@@ -125,9 +120,6 @@ function Row(props) {
                         </MenuItem>
                         <MenuItem onClick={handleDelete}>
                             <Icon>delete</Icon> Eliminar
-                        </MenuItem>
-                        <MenuItem onClick={handleAddMaterial}>
-                            <Icon>add</Icon> Añadir Materiales
                         </MenuItem>
 
                     </Menu>
@@ -294,23 +286,23 @@ export default function TablaDatos_Index() {
 
     return (
         <div>
-            <TextField
-                style={{ borderRadius: '10px' }}
-                placeholder='Buscar'
-                value={searchText}
-                onChange={handleSearchChange}
-                size="small"
-                variant="outlined"
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <IconButton edge="start">
-                                <SearchIcon />
-                            </IconButton>
-                        </InputAdornment>
-                    ),
-                }}
-            />
+          <TextField
+            style={{ borderRadius: '10px', marginLeft: '720px', marginTop: '-55px' }}
+            placeholder='Buscar'
+            value={searchText}
+            onChange={handleSearchChange}
+            size="small"
+            variant="outlined"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <IconButton edge="start">
+                    <SearchIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
 
             <TableContainer >
                 <Table aria-label="collapsible table"

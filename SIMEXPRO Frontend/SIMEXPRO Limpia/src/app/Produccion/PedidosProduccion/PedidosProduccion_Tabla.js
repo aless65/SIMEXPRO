@@ -358,7 +358,7 @@ export default function PedidosProduccion_Tabla() {
         <Grid xs={12}>
             <Grid item xs={6} paddingRight={4} textAlign="end">
                 <TextField
-                style={{ borderRadius: '10px' }}
+                style={{ borderRadius: '10px', marginLeft: '650px', marginTop: '-60px', marginRight: '20px' }}
                 placeholder="Buscar"
                 value={searchText}
                 onChange={handleSearchChange}

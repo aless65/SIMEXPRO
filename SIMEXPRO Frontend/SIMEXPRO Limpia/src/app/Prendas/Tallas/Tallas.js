@@ -43,7 +43,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-function AreasIndex() {
+function TallasIndex() {
   const [searchText, setSearchText] = useState('');
   const [mostrarIndex, setmostrarIndex] = useState(true);
   const [mostrarAdd, setmostrarAdd] = useState(false);
@@ -447,7 +447,7 @@ function AreasIndex() {
   );
 }
 
-export default AreasIndex;
+export default TallasIndex;
 
 
 

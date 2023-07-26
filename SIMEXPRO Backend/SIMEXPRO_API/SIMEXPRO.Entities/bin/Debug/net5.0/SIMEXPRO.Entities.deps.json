@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "SIMEXPRO.Entities/1.0.0": {
+        "runtime": {
+          "SIMEXPRO.Entities.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SIMEXPRO.Entities/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

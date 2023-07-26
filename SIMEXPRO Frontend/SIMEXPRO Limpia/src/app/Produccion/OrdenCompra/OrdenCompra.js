@@ -29,7 +29,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 import TablaDatos_Index from './OrdenCompra_TablaIndex';
 
-function DucaIndex() {
+function OrdenCompraIndex() {
   const navigate = useNavigate()
   const [searchText, setSearchText] = useState('');
   const [mostrarAdd, setmostrarAdd] = useState(false);
@@ -158,7 +158,7 @@ function DucaIndex() {
             startIcon={<Icon>add</Icon>}
             variant="contained"
             color="primary"
-            style={{ borderRadius: '10px' }}
+            style={{ borderRadius: '10px',  }}
             sx={{
               backgroundColor: '#634A9E', color: 'white',
               "&:hover": { backgroundColor: '#6e52ae' },
@@ -267,7 +267,7 @@ function DucaIndex() {
   );
 }
 
-export default DucaIndex;
+export default OrdenCompraIndex;
 
 
 

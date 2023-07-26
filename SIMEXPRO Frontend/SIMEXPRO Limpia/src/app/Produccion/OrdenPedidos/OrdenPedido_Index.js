@@ -35,7 +35,7 @@ function OrdenPedido_Index() {
       <CardMedia
         component="img"
         height="200"
-        image="https://i.ibb.co/Y016vP1/ORDEN-DE-PEDIDO.png"
+        image="https://i.ibb.co/Mn7c4XY/ORDEN-DE-PEDIDO.png"
         alt="Encabezado de la carta"
       />
       <Collapse in={mostrarIndex}>

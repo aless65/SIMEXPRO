@@ -949,44 +949,71 @@ END
 GO
 --************************************************************************   Tabla Duca inicio   ***********************************************************************************************
 
-/* Listar Duca*/ii
+/* Listar Duca*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDuca_Listar
 AS
 BEGIN
-	SELECT	[duca_No_Duca], 
-			[duca_No_Correlativo_Referencia],
-			[deva_Id], 
-			[duca_AduanaRegistro], 
-			[duca_AduanaSalida], 
-			[duca_DomicilioFiscal_Exportador], 
-			[duca_Tipo_Iden_Exportador], 
-			[duca_Pais_Emision_Exportador], 
-			[duca_Numero_Id_Importador], 
-			[duca_Pais_Emision_Importador],
-			[duca_DomicilioFiscal_Importador], 
-			[duca_Regimen_Aduanero],
-			[duca_Modalidad],
-			[duca_Clase],
-			[duca_Codigo_Declarante],
-			[duca_Numero_Id_Declarante], 
-			[duca_NombreSocial_Declarante],
-			[duca_DomicilioFiscal_Declarante], 
-			[duca_Pais_Procedencia],
-			[duca_Pais_Exportacion],
-		    [duca_Pais_Destino], 
-			[duca_Deposito_Aduanero],
-			[duca_Lugar_Embarque],
-			[duca_Lugar_Desembarque],
-			[duca_Manifiesto], 
-			[duca_Titulo], 
-			[duca_Codigo_Transportista], 
-			[duca_PesoBrutoTotal],
-			[duca_PesoNetoTotal], 
-			[motr_id], 
-			[duca_Transportista_Nombre], 
-			[duca_Conductor_Id],
-			[duca_Codigo_Tipo_Documento],
-			[duca_FechaVencimiento]
-	FROM	Adua.tbDuca
-
+	SELECT	duca.[duca_No_Duca], 
+			duca.[duca_No_Correlativo_Referencia],
+			duca.[deva_Id], 
+			duca.[duca_AduanaRegistro],
+			adua.[adua_Nombre] as "AduanaRegistro",
+			duca.[duca_AduanaSalida],
+			adua.[adua_Nombre] as "AduanaSalida",
+			duca.[duca_DomicilioFiscal_Exportador], 
+			duca.[duca_Tipo_Iden_Exportador],
+			tipo.[iden_Descripcion] as "TipoIdentificacion",
+			duca.[duca_Pais_Emision_Exportador],
+			pais_ex.[pais_Nombre] as "PaisExportador",
+			duca.[duca_Numero_Id_Importador], 
+			duca.[duca_Pais_Emision_Importador],
+			pais_im.[pais_Nombre] as "PaisImportador",
+			duca.[duca_DomicilioFiscal_Importador], 
+			duca.[duca_Regimen_Aduanero],
+			duca.[duca_Modalidad],
+			duca.[duca_Clase],
+			duca.[duca_Codigo_Declarante],
+			duca.[duca_Numero_Id_Declarante], 
+			duca.[duca_NombreSocial_Declarante],
+			duca.[duca_DomicilioFiscal_Declarante], 
+			duca.[duca_Pais_Procedencia],
+			pais_pro.[pais_Nombre] as "PaisProcedencia",
+			duca.[duca_Pais_Exportacion],
+			pais_exp.[pais_Nombre] as "PaisExportacion",
+		    duca.[duca_Pais_Destino],[cont_Licencia],
+			pais_des.[pais_Nombre] as "PaisDestino",
+			duca.[duca_Deposito_Aduanero],
+			duca.[duca_Lugar_Embarque],
+			duca.[duca_Lugar_Desembarque],
+			duca.[duca_Manifiesto], 
+			duca.[duca_Titulo], 
+			duca.[duca_Codigo_Transportista], 
+			duca.[duca_PesoBrutoTotal],
+			duca.[duca_PesoNetoTotal], 
+			duca.[motr_id], 
+			moto.[motr_Descripcion] as "ModoTransporte",
+			duca.[duca_Transportista_Nombre], 
+			duca.[duca_Conductor_Id],
+			cond.[cont_Nombre] + ' ' +  [cont_Apellido] as "NombreConductor",
+			cond.[cont_Licencia] as "LicenciaConductor",
+			duca.[duca_Codigo_Tipo_Documento],
+			duca.[duca_FechaVencimiento],
+			usuC.[usua_Nombre] as "UsuarioCreacion",
+			duca.[duca_FechaCreacion] as "DucaFechaCreacion",
+			usuM.[usua_Nombre] as "UsuarioModificacion",
+			duca.[duca_FechaModificacion] as DucaFechaModificacion
+	FROM	Adua.tbDuca												INNER JOIN Adua.tbAduanas adua
+	ON		duca.duca_AduanaRegistro			= adua.adua_Id		INNER JOIN Adua.tbAduanas aduas
+	ON		duca.duca_AduanaSalida				= adua.adua_Id		INNER JOIN Adua.tbDeclaraciones_Valor deva
+	ON		duca.deva_Id						= deva.deva_Id		INNER JOIN Adua.tbTiposIdentificacion tipo
+	ON		duca.duca_Tipo_Iden_Exportador		= pais_ex.iden_Id	INNER JOIN Gral.tbPaises pais_ex
+	ON		duca.duca_Pais_Emision_Exportador	= pais_im.pais_Id	INNER JOIN Gral.tbPaises pais_im
+	ON		duca.duca_Pais_Emision_Importador	= pais_im.pais_Id	INNER JOIN Gral.tbPaises pais_pro
+	ON		duca.duca_Pais_Procedencia			= pais_pro.pais_Id	INNER JOIN Gral.tbPaises pais_exp
+	ON		duca.duca_Pais_Exportacion			= pais_exp.pais_Id	INNER JOIN Gral.tbPaises pais_des
+	ON		duca.duca_Pais_Destino				= pais_des.pais_Id	INNER JOIN Adua.tbModoTransporte moto
+	ON		duca.motr_id						= moto.motr_id		INNER JOIN Adua.tbConductor cond
+	ON		duca.duca_Conductor_Id				= cond.cont_Id		INNER JOIN Acce.tbUsuarios usuC
+	ON		duca.usua_UsuarioCreacion			= usuC.usua_Id		INNER JOIN Acce.tbUsuarios usuM
+	ON		duca.usua_UsuarioModificacion		= usuM.usua_Id
 END

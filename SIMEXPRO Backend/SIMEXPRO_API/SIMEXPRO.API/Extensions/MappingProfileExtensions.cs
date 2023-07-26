@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SIMEXPRO.API.Models;
+using SIMEXPRO.API.Models.ModelsAcceso;
 using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
@@ -41,6 +42,10 @@ namespace Events_Company_R.API.Extentions
 
             #endregion
 
+            CreateMap<UsuariosViewModel, tbUsuarios>().ReverseMap();
+            CreateMap<PantallasViewModel, tbPantallas>().ReverseMap();
+            CreateMap<RolesViewModel, tbRoles>().ReverseMap();
+            CreateMap<RolesPorPantallasViewModel, tbRolesXPantallas>().ReverseMap();
         }
     }
 }

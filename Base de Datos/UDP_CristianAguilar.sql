@@ -2,7 +2,6 @@
 
 
 /*Listar Liquidacion Por Linea*/
-GO
 CREATE OR ALTER PROCEDURE adua.UDP_tbLiquidacionPorLinea_Listar
 AS
 BEGIN	
@@ -16,9 +15,9 @@ BEGIN
 	FROM	[Adua].[tbLiquidacionPorLinea] liquiLinea 
 	INNER JOIN [Adua].[tbItems] Items ON liquiLinea.item_Id = Items.item_Id
 END
+GO
 
 /*Insertar Liquidacion Por Linea*/
-GO
 CREATE OR ALTER PROCEDURE adua.UDP_tbLiquidacionPorLinea_Insertar
 	@lili_Tipo			NVARCHAR(100), 
 	@lili_Alicuota		DECIMAL(18,2), 
@@ -74,6 +73,7 @@ END
 
 
 /*****************************************************************************/
+
 /*Listar Maquinaria Historial*/
 GO
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinaHistorial_Listar
@@ -180,3 +180,4 @@ BEGIN
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
+GO

@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using SIMEXPRO.API.Middleware;
 using SIMEXPRO.BussinessLogic;
 using System;
 using System.Collections.Generic;
@@ -72,15 +73,23 @@ namespace SIMEXPRO.API
                     }
                 });
 
+                //options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                //{
+                //    Description = "Standard Authorization header using the Bearer scheme (\"bearer {token}\")",
+                //    In = ParameterLocation.Header,
+                //    Name = "Authorization",
+                //    Type = SecuritySchemeType.ApiKey,
+                //    //    Scheme = "ApiKeyScheme"
+                //});
+
                 options.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
                 {
-                    Description = "Standard Authorization header using the Bearer scheme (\"bearer {token}\")",
-                    In = ParameterLocation.Header,
-                    Name = "XApiKey",
+                    Description = "ApiKey must appear in header",
                     Type = SecuritySchemeType.ApiKey,
+                    Name = "XApiKey",
+                    In = ParameterLocation.Header,
                     Scheme = "ApiKeyScheme"
                 });
-
                 var key = new OpenApiSecurityScheme()
                 {
                     Reference = new OpenApiReference
@@ -122,6 +131,7 @@ namespace SIMEXPRO.API
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Foo API V1");
+                c.EnableValidator();
             });
             app.UseRouting();
 
@@ -129,6 +139,7 @@ namespace SIMEXPRO.API
             app.UseCors("AllowFlutter");
 
             app.UseAuthorization();
+            app.UseMiddleware<ApiKeyMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

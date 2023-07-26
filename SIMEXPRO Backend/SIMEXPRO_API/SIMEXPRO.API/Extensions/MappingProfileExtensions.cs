@@ -12,7 +12,7 @@ namespace Events_Company_R.API.Extentions
     {
         public MappingProfileExtensions()
         {
-
+            #region Generales
             CreateMap<AldeasViewModel, tbAldeas>().ReverseMap();
             CreateMap<CargosViewModel, tbCargos>().ReverseMap();
             CreateMap<CiudadesViewModel, tbCiudades>().ReverseMap();
@@ -27,6 +27,19 @@ namespace Events_Company_R.API.Extentions
             CreateMap<ProveedoresViewModel, tbProveedores>().ReverseMap();
             CreateMap<ProvinciasViewModel, tbProvincias>().ReverseMap();
             CreateMap<UnidadMedidaViewModel, tbUnidadMedidas>().ReverseMap();
+            #endregion
+
+            #region Aduana
+
+            #endregion
+
+            #region Producción
+
+            #endregion
+
+            #region Acceso
+
+            #endregion
 
         }
     }

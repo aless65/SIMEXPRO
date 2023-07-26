@@ -120,12 +120,8 @@ namespace SIMEXPRO.API
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Events_Company_R.API v1");
-                //c.OAuthClientId("test-id");
-                //c.OAuthClientSecret("test-secret");
             });
             app.UseHttpsRedirection();
-
-            //app.UseApiKeyMiddleware();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

@@ -591,7 +591,7 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                if (item.alde_Nombre != "")
+                if (item.escv_Nombre != "")
                 {
                     var map = _estadosCivilesRepository.Insert(item);
                     if (map.CodeStatus > 0)
@@ -620,7 +620,7 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                if (item.alde_Nombre != "")
+                if (item.escv_Nombre != "")
                 {
                     var map = _estadosCivilesRepository.Update(item);
                     if (map.CodeStatus > 0)
@@ -649,7 +649,7 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                if (item.alde_Id != 0)
+                if (item.escv_Id != 0)
                 {
                     var map = _estadosCivilesRepository.Delete(item);
                     if (map.CodeStatus > 0)

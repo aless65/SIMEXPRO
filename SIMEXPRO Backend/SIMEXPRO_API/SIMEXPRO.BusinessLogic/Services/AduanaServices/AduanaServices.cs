@@ -10,8 +10,8 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
 {
     public class AduanaServices
     {
-        private readonly AduanasRepository                          _duanasRepository;
-        private readonly AracelesRepository                         _racelesRepository;
+        private readonly AduanasRepository                          _AduanasRepository;
+        private readonly AracelesRepository                         _AracelesRepository;
         private readonly BaseCalculosHistorialRepository            _baseCalculosHistorialRepository;
         private readonly BaseCalculosRepository                     _baseCalculosRepository;
         private readonly BoletinPagoRepository                      _boletinPagoRepository;
@@ -75,8 +75,8 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                                 ProveedoresDeclaracionRepository ProveedoresDeclaracionRepository, TipoDocumentoRepository TipoDocumentoRepository, TipoIntermediarioRepository TipoIntermediarioRepository,
                                 TipoLiquidacionRepository TipoLiquidacionRepository, TiposIdentificacionRepository TiposIdentificacionRepository, TransporteRepository TransporteRepository)
         {
-            _duanasRepository = AduanasRepository;
-            _racelesRepository = AracelesRepository;
+            _AduanasRepository = AduanasRepository;
+            _AracelesRepository = AracelesRepository;
             _baseCalculosHistorialRepository = BaseCalculosHistorialRepository;
             _baseCalculosRepository = BaseCalculosRepository;
             _boletinPagoRepository = BoletinPagoRepository;

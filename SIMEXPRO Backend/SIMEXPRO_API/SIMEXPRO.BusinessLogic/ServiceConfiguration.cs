@@ -1,8 +1,10 @@
 ﻿
 using Microsoft.Extensions.DependencyInjection;
+using SIMEXPRO.BussinessLogic.Services.AccesoServices;
 using SIMEXPRO.BussinessLogic.Services.GeneralServices;
 using SIMEXPRO.DataAccess.Repositories.Adua;
 using SIMEXPRO.DataAccess.Repositories.Gral;
+using SIMEXPRO.DataAccess.Repositories.Prod;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -92,8 +94,37 @@ namespace SIMEXPRO.BussinessLogic
 
 
             //Produccion
-
-
+            services.AddScoped<AreasRepository>();
+            services.AddScoped<AsignacionesOrdenDetalleRepository>();
+            services.AddScoped<AsignacionesOrdenRepository>();
+            services.AddScoped<CategoriasRepository>();
+            services.AddScoped<ClientesRepository>();
+            services.AddScoped<ColoresRepository>();
+            services.AddScoped<EstilosRepository>();
+            services.AddScoped<FuncionesMaquinaRepository>();
+            services.AddScoped<LotesRepository>();
+            services.AddScoped<MaquinaHistorialRepository>();
+            services.AddScoped<MaquinasRepository>();
+            services.AddScoped<MarcasMaquinaRepository>();
+            services.AddScoped<MaterialesBrindarRepository>();
+            services.AddScoped<MaterialesRepository>();
+            services.AddScoped<ModelosMaquinaRepository>();
+            services.AddScoped<ModulosRepository>();
+            services.AddScoped<Orde_Ensa_Acab_EtiqRepository>();
+            services.AddScoped<OrdenCompraDetallesRepository>();
+            services.AddScoped<OrdenCompraRepository>();
+            services.AddScoped<PedidosOrdenDetallesRepository>();
+            services.AddScoped<PedidosOrdenRepository>();
+            services.AddScoped<PedidosProduccionDetallesRepository>();
+            services.AddScoped<PedidosProduccionRepository>();
+            services.AddScoped<ProcesosRepository>();
+            services.AddScoped<ReporteModuloDiaDetalleRepository>();
+            services.AddScoped<ReporteModuloDiaRepository>();
+            services.AddScoped<RevisionDeCalidadRepository>();
+            services.AddScoped<SubCategoriasRepository>();
+            services.AddScoped<TallasRepository>();
+            services.AddScoped<TipoEmbalajeRepository>();
+            
             //services.AddScoped<GraficaRepository>();
 
         }
@@ -104,7 +135,7 @@ namespace SIMEXPRO.BussinessLogic
             services.AddScoped<GeneralServices>();
             //services.AddScoped<AccesoServices>();
             services.AddScoped<ProduccionServices>();
-            //services.AddScoped<ProduccionAduanas>(); 
+            services.AddScoped<ProduccionServices>();
         }
     }
 }

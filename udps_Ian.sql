@@ -625,7 +625,7 @@ BEGIN
     BEGIN TRY
 	   
 	    UPDATE [Adua].[tbDocumentosDeSoporte] 
-		SET    [tido_Id] = @tido_Id,
+		SET   
 		       [doso_NumeroDocumento] = @doso_NumeroDocumento,
 			   [doso_FechaEmision] = @doso_FechaEmision,
 			   [doso_FechaVencimiento] = @doso_FechaVencimiento,
@@ -635,7 +635,7 @@ BEGIN
 			   [doso_Monto] = @doso_Monto,
 			   [usua_UsuarioModificacion] = @usua_UsuarioModificacion,
 			   [doso_FechaModificacion] = @doso_FechaModificacion
-        WHERE  
+        WHERE   [tido_Id] = @tido_Id
         SELECT 1
     END TRY
     BEGIN CATCH

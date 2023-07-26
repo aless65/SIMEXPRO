@@ -1,0 +1,85 @@
+Secciones de la DUCA :
+
+/*******Exportador/Proveedor***********/
+Informacion se extrae de 
+Declaracion de Valor => ProveedoresDeclaracion => Declarantes
+
+/*******Identificacion de la declaracion***********/
+Aduana Registro : Aduanas     
+Aduana Salida   : Aduanas 
+Aduana Ingreso  : Declaracion de valor => Aduana 
+Aduana Registro : Declaracion de valor => Aduana 
+
+/*******Importador/Destinatario**********/
+Informacion se extrae de 
+Declaracion de valor => Importadores 
+
+/*******Identificacion de la declaracion en linea con Importador/Destinatario ******/
+Regimen aduanero : Duca 
+Modalidad : Duca
+clase : Duca 
+Fecha Vencimiento :      //Preguntra a Vanessa 
+
+
+/******Declarantes ***************************/
+Informacion se extrae de 
+Declaracion de Valor => ProveedoresDeclaracion => Declarantes
+
+
+/*********Transportista************************/
+Codigo : Duca 
+Nombre : Duca 
+ModoDeTransporte : ModoTransporte 
+
+
+/*********Identificacion de la declaracion en linea con transportista y declarante******/
+Pais Procedencia   	: pais 
+Pais Exportacion   	: Pais
+Pais Destinatario  	: Pais 
+Desposito aduanero 	: Duca 
+Lugar de embarque  	: Duca 
+Lugar de desembarque    : Duca 
+
+Manifiesto --Dejar como input 
+Titulo  --Dejar de titulo
+
+/**********Conductor *********************/
+No.Identificacion     :Conductor
+No.LicenciaDeConducir :Conductor 
+Pais Expedicion       :Conductor 
+NombreApellido        :Conductor 
+
+
+/*********Identificacion de la declaracion en linea con Conductor******/
+IdUnidadTransporte  :Conductor => Transporte 
+PaisRegistro        :Conductor => Transporte
+Marca               :Conductor => Transporte
+Chasis/Vin          :Conductor => Transporte
+Identificacion del remolque o semiremolque    :Conductor => Transporte
+Cantidad de unidades carga(remolque o semiremolque) :Conductor => Transporte
+Numero de dispositivo Seguridad  :Conductor => Transporte
+Equipamiento            :Conductor => Transporte
+Tamaño del Equipamiento :Conductor => Transporte
+Tipo de Carga           :Conductor => Transporte
+Numero/Numeros de identificacion del contenedores  :Conductor => Transporte
+
+
+/*************Valores totales ************************/
+Valor de transaccion    //Pregunta a Vanessa   
+Gastos Transporte : BaseCalculo => DeclaracionValor   
+Gastos de seguro : BaseCalculo => DeclaracionValor   
+Otros gastos 
+Valor en Aduana total  : BaseCalculo => DeclaracionValor  
+incoterm    : Declaracion de valor => Icoterm  
+Tasa de Cambio : Declaracion de valor 
+
+
+
+
+
+
+
+
+
+ 
+

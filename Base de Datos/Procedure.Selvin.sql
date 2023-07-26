@@ -429,6 +429,22 @@ BEGIN
 	END CATCH 
 
 END
+GO
+
+CREATE OR ALTER PROC prod.UDP_tbMaterialesBrindar_Listar
+AS
+BEGIN
+	SELECT	mabr_Id, 
+			code_Id, 
+			mate_Id, 
+			mabr_Cantidad, 
+			usua_UsuarioCreacion, 
+			mabr_FechaCreacion,
+			usua_UsuarioModificacion,
+			mabr_FechaModificacion, 
+			mabr_Estado
+			FROM [Prod].[tbMaterialesBrindar]
+END
 
 GO
 CREATE OR ALTER PROC prod.UDP_tbMaterialesBrindar_Insertar 

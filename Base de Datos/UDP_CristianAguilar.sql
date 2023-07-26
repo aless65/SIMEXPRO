@@ -120,7 +120,7 @@ BEGIN
 												mahi_Observaciones, 
 												usua_UsuarioCreacion, 
 												mahi_FechaCreacion)
-		VALUES(@maqu_Id,@mahi_FechaInicio,@mahi_FechaFin,@usua_UsuarioCreacion,@mahi_FechaCreacion)
+		VALUES(@maqu_Id,@mahi_FechaInicio,@mahi_FechaFin,@mahi_Observaciones,@usua_UsuarioCreacion,@mahi_FechaCreacion)
 
 		SELECT 1
 	END TRY

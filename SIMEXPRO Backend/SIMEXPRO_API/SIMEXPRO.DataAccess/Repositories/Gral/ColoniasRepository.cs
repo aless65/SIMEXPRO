@@ -40,14 +40,16 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@ciud_Id", item.ciud_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@colo_FechaCreacion", item.colo_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarCiudades, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarColonias, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
             return result;
         }
 
         public IEnumerable<tbColonias> List()
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            var parametros = new DynamicParameters();
+            return db.Query<tbColonias>(ScriptsDataBase.ListarColonias, null, commandType: CommandType.StoredProcedure);
         }
 
         public RequestStatus Update(tbColonias item)
@@ -59,9 +61,9 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@colo_Nombre", item.colo_Nombre, DbType.String, ParameterDirection.Input);
             parametros.Add("@alde_Id", item.alde_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@ciud_Id", item.ciud_Id, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@colo_FechaCreacion", item.colo_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarCiudades, parametros, commandType: CommandType.StoredProcedure);
+            parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@colo_FechaModificacion", item.colo_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarColonias, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
             return result;
         }

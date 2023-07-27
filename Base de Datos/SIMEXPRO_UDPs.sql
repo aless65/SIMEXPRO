@@ -8635,98 +8635,10 @@ BEGIN
 END
 GO
 
--------------------------------------------UDPS Para Asignaciones Orden detalle---------------------------------------
-
---*****Pedidos Orden*****-
---*****Listado*****--
-CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Listas
-AS
-BEGIN
-SELECT	peor_Id, 
-		prov.prov_Id, 
-		prov.prov_NombreCompania,
-		prov.prov_NombreContacto,
-		prov.prov_Ciudad,
-		peor_No_Duca, 
-		peor_FechaEntrada, 
-		peor_Obsevaciones, 
-		peor_DadoCliente, 
-		peor_Est, 
-		crea.usua_Nombre							AS usua_UsuarioCreacion, 
-		peor_FechaCreacion, 
-		modi.usua_Nombre							AS usua_UsuarioModificacion , 
-		peor_FechaModificacion, 
-		peor_Estado 
-FROM	Prod.tbPedidosOrden po
-		INNER JOIN Gral.tbProveedores prov			ON po.prov_Id = prov.prov_Id
-		INNER JOIN Acce.tbUsuarios crea				ON crea.usua_Id = po.usua_UsuarioCreacion 
-		LEFT JOIN  Acce.tbUsuarios modi				ON modi.usua_Id = po.usua_UsuarioModificacion 	
-END
-GO
+------------------------------------------/UDPS Para Asignaciones Orden detalle---------------------------------------
 
 
---*****Insertar*****--
 
-CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Insertar
-@prov_Id				INT, 
-@peor_No_Duca			NVARCHAR(100), 
-@peor_FechaEntrada		DATETIME, 
-@peor_Obsevaciones		NVARCHAR(100), 
-@peor_DadoCliente		BIT, 
-@peor_Est				BIT, 
-@usua_UsuarioCreacion	INT, 
-@peor_FechaCreacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
-		INSERT INTO Prod.tbPedidosOrden (prov_Id, peor_No_Duca, peor_FechaEntrada, peor_Obsevaciones, peor_DadoCliente, peor_Est, usua_UsuarioCreacion, peor_FechaCreacion)
-		VALUES	(@prov_Id,				
-				 @peor_No_Duca,			
-				 @peor_FechaEntrada,		
-				 @peor_Obsevaciones,		
-				 @peor_DadoCliente,		
-				 @peor_Est,				
-				 @usua_UsuarioCreacion,	
-				 @peor_FechaCreacion	
-				 )	
-	END TRY
-	BEGIN CATCH
-		SELECT 'Error Message: ' + ERROR_MESSAGE() 
-	END CATCH
-END
-GO
-
---*****Editar*****--
-
-CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Editar
-@peor_Id					INT, 
-@prov_Id					INT, 
-@peor_No_Duca				NVARCHAR(100), 
-@peor_FechaEntrada			DATETIME, 
-@peor_Obsevaciones			NVARCHAR(100), 
-@peor_DadoCliente			BIT, 
-@peor_Est					BIT, 
-@usua_UsuarioModificacion	INT, 
-@peor_FechaModificacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
-		UPDATE Prod.tbPedidosOrden 
-		SET prov_Id 				= @prov_Id, 
-		peor_No_Duca				= @peor_No_Duca, 
-		peor_FechaEntrada			= @peor_FechaEntrada,	 
-		peor_Obsevaciones			= @peor_Obsevaciones, 
-		peor_DadoCliente			= @peor_DadoCliente,
-		peor_Est					= @peor_Est, 
-		usua_UsuarioModificacion	= @usua_UsuarioModificacion,
-		peor_FechaModificacion		= @peor_FechaModificacion	
-		WHERE peor_Id				= @peor_Id
-	END TRY
-	BEGIN CATCH
-		SELECT 'Error Message: ' + ERROR_MESSAGE() 
-	END CATCH
-END
-GO
 
 
 /****************************************UDPs Estilos******************/
@@ -8777,7 +8689,7 @@ END
 
 /***Editar estilos*/
 GO
-CREATE OR ALTER PROCEDURE Adua.UDP_tbEstilos_Editar 
+CREATE OR ALTER PROCEDURE Prod.UDP_tbEstilos_Editar 
    @esti_Id                  INT,
    @esti_Descripcion         NVARCHAR(200),
    @usua_UsuarioModificacion INT,
@@ -10584,7 +10496,8 @@ GO
 
 --*****Pedidos Orden*****-
 --*****Listado*****--
-CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Listas
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Listar
 AS
 BEGIN
 SELECT	peor_Id, 
@@ -10881,7 +10794,6 @@ END
 
 GO
 
-
 /* INSERTAR MATERIALES BRINDAR */
 CREATE OR ALTER PROC prod.UDP_tbMaterialesBrindar_Insertar 
 @code_Id					INT, 
@@ -10915,7 +10827,6 @@ END
 
 GO
 
-
 /* EDITAR MATERIALES BRINDAR */
 CREATE OR ALTER PROC prod.UDP_tbMaterialesBrindar_Editar
 @mabr_Id					INT,
@@ -10941,6 +10852,7 @@ BEGIN
 END
 
 GO
+
 
 --------------------------------------------------------------- TABLA REPORTE MODULO DIA DETALLE ---------------------------------------------------------------
 /* LISTAR REPORTE MODULO DIA DETALLE */
@@ -11328,7 +11240,6 @@ ON pediproduccion.usua_UsuarioModificacion = Modificacion.usua_Id
 END
 GO
 
-
 CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccion_Insertar
 @empl_Id INT,
 @ppro_Fecha DATETIME,
@@ -11366,7 +11277,6 @@ END CATCH
 
 END
 GO
-
 
 CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccion_Editar
 @ppro_Id INT,
@@ -11422,7 +11332,6 @@ END
 --************************************************************************   Tabla Modulos inicio   ***********************************************************************************************
 
 GO
-
 
 
 

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SIMEXPRO.API.Models;
 using SIMEXPRO.API.Models.ModelsAcceso;
+using SIMEXPRO.API.Models.ModelsProduccion;
 using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace Events_Company_R.API.Extentions
             #endregion
 
             #region Producción
-
+            CreateMap<ProcesosViewModel, tbProcesos>().ReverseMap();
             #endregion
 
             #region Acceso

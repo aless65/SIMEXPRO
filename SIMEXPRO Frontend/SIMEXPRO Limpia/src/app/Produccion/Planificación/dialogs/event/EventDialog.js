@@ -210,16 +210,19 @@ function EventDialog(props) {
             </FuseSvgIcon>
             <FormControl>
               <TextField
+              disabled
                 style={{ borderRadius: '10px', width: '100px' }}
                 label="Estilo" />
             </FormControl>
             <FormControl>
               <TextField
+              disabled
                 style={{ borderRadius: '10px', width: '75px', marginLeft: '15px' }}
                 label="Talla" />
             </FormControl>
             <FormControl>
               <TextField
+              disabled
                 style={{ borderRadius: '10px', width: '145px', marginLeft: '15px' }}
                 label="Color" />
             </FormControl>

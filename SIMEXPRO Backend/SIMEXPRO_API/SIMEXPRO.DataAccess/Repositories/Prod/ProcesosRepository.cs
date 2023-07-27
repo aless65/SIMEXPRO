@@ -23,7 +23,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
        
         public RequestStatus Insert(tbProcesos item)
         {
-            using var db = new SqlConnection(SIMEXPROContext.ConexionSimexpro);
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
             parametros.Add("@proc_Descripcion", item.proc_Descripcion, DbType.String, ParameterDirection.Input);
@@ -37,7 +37,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
 
         public RequestStatus Update(tbProcesos item)
         {
-            using var db = new SqlConnection(SIMEXPROContext.ConexionSimexpro);
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
             parametros.Add("@proc_Id", item.proc_Id, DbType.String, ParameterDirection.Input);
@@ -52,14 +52,14 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
 
         public RequestStatus Delete(tbProcesos item)
         {
-            using var db = new SqlConnection(SIMEXPROContext.ConexionSimexpro);
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
             parametros.Add("@proc_Id", item.proc_Id, DbType.Int32, ParameterDirection.Input);       
             parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@proc_FechaEliminacion", item.proc_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditaProcesos, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarProcesis, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
             return result;
         }
@@ -67,7 +67,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
 
         public IEnumerable<tbProcesos> List()
         {
-            using var db = new SqlConnection(SIMEXPROContext.ConexionSimexpro);
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();
             return db.Query<tbProcesos>(ScriptsDataBase.ListarProcesos, null, commandType: CommandType.StoredProcedure);
         }

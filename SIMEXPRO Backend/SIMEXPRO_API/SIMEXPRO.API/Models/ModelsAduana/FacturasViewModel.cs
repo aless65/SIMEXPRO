@@ -7,5 +7,13 @@ namespace SIMEXPRO.API.Models.ModelsAduana
 {
     public class FacturasViewModel
     {
+        public int fact_Id { get; set; }
+        public int deva_Id { get; set; }
+        public DateTime fact_Fecha { get; set; }
+        public int usua_UsuarioCreacion { get; set; }
+        public DateTime fact_FechaCreacion { get; set; }
+        public int? usua_UsuarioModificacion { get; set; }
+        public DateTime? fact_FechaModificacion { get; set; }
+        public bool? fact_Estado { get; set; }
     }
 }

@@ -227,6 +227,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region Aranceles
         public IEnumerable<tbAranceles> ListarAranceles()
         {
@@ -328,6 +329,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region BaseCalculosHistorial
         public IEnumerable<tbBaseCalculosHistorial> ListarBaseCalculosHistorial()
         {
@@ -429,6 +431,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region BaseCalculos
         public IEnumerable<tbBaseCalculos> ListarBaseCalculos()
         {
@@ -530,6 +533,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region BoletinPago
         public IEnumerable<tbBoletinPago> ListarBoletinPago()
         {
@@ -631,6 +635,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region CodigoImpuesto
         public IEnumerable<tbCodigoImpuesto> ListarCodigoImpuesto()
         {
@@ -732,6 +737,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region ComercianteIndividual
         public IEnumerable<tbComercianteIndividual> ListarComercianteIndividual()
         {
@@ -833,6 +839,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region ConceptoPago
         public IEnumerable<tbConceptoPago> ListarConceptoPago()
         {
@@ -934,6 +941,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region Condiciones
         public IEnumerable<tbCondiciones> ListarCondiciones()
         {
@@ -1035,6 +1043,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region CondicionesHistorial
         public IEnumerable<tbCondicionesHistorial> ListarCondicionesHistorial()
         {
@@ -1136,6 +1145,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region CondicionesComerciales
         public IEnumerable<tbCondicionesComerciales> ListarCondicionesComerciales()
         {
@@ -1237,6 +1247,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region Conductor
         public IEnumerable<tbConductor> ListarConductor()
         {
@@ -1338,6 +1349,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region Declaraciones_ValorHistorial
         public IEnumerable<tbDeclaraciones_ValorHistorial> ListarDeclaraciones_ValorHistorial()
         {
@@ -1439,6 +1451,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region Declaraciones_Valor
         public IEnumerable<tbDeclaraciones_Valor> ListarDeclaraciones_Valor()
         {
@@ -1540,6 +1553,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region Declarantes
         public IEnumerable<tbDeclarantes> ListarDeclarantes()
         {
@@ -1641,6 +1655,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region DocumentosContratos
         public IEnumerable<tbDocumentosContratos> ListarDocumentosContratos()
         {
@@ -1742,6 +1757,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region DocumentosdeSoporte
         public IEnumerable<tbDocumentosDeSoporte> ListarDocumentosdeSoporte()
         {
@@ -1843,6 +1859,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region DocumentosPDFHistorial
         public IEnumerable<tbDocumentosPDFHistorial> ListarDocumentosPDFHistorial()
         {
@@ -1944,6 +1961,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region DocumentosPDF
         public IEnumerable<tbDocumentosPDF> ListarDocumentosPDF()
         {
@@ -2045,6 +2063,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region DucaHistorial
         public IEnumerable<tbDucaHistorial> ListarDucaHistorial()
         {
@@ -2146,6 +2165,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region Duca
         public IEnumerable<tbDuca> ListarDuca()
         {
@@ -2247,6 +2267,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region EstadoBoletin
         public IEnumerable<tbEstadoBoletin> ListarEstadoBoletin()
         {
@@ -2348,6 +2369,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region EstadoMercancias
         public IEnumerable<tbEstadoMercancias> ListarEstadoMercancias()
         {
@@ -2449,6 +2471,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region FacturasHistorial
         public IEnumerable<tbFacturasHistorial> ListarFacturasHistorial()
         {
@@ -2550,6 +2573,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region Facturas
         public IEnumerable<tbFacturas> ListarFacturas()
         {
@@ -2651,6 +2675,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region FormasdePago
         public IEnumerable<tbFormasdePago> ListarFormasdePago()
         {
@@ -2752,6 +2777,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region Importadores
         public IEnumerable<tbImportadores> ListarImportadores()
         {
@@ -2853,6 +2879,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region ImpuestosPorArancel
         public IEnumerable<tbImpuestosPorArancel> ListarImpuestosPorArancel()
         {
@@ -2954,6 +2981,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region Impuestos
         public IEnumerable<tbImpuestos> ListarImpuestos()
         {
@@ -3055,6 +3083,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region Incoterm
         public IEnumerable<tbIncoterm> ListarIncoterm()
         {
@@ -3156,6 +3185,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region Intermediarios
         public IEnumerable<tbIntermediarios> ListarIntermediarios()
         {
@@ -3257,6 +3287,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region ItemsHistorial
         public IEnumerable<tbItemsHistorial> ListarItemsHistorial()
         {
@@ -3358,6 +3389,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region Items
         public IEnumerable<tbItems> ListarItems()
         {
@@ -3459,6 +3491,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region LiquidacionGeneralHistorial
         public IEnumerable<tbLiquidacionGeneralHistorial> ListarLiquidacionGeneralHistorial()
         {
@@ -3560,6 +3593,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region LiquidacionGeneral
         public IEnumerable<tbLiquidacionGeneral> ListarLiquidacionGeneral()
         {
@@ -3661,6 +3695,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region LiquidacionPorLinea
         public IEnumerable<tbLiquidacionPorLinea> ListarLiquidacionPorLinea()
         {
@@ -3762,6 +3797,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region LugaresEmbarque
         public IEnumerable<tbLugaresEmbarque> ListarLugaresEmbarque()
         {
@@ -3863,6 +3899,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region Marcas
         public IEnumerable<tbMarcas> ListarMarcas()
         {
@@ -3964,6 +4001,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region ModoTransporte
         public IEnumerable<tbModoTransporte> ListarModoTransporte()
         {
@@ -4065,6 +4103,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region NivelesComerciales
         public IEnumerable<tbNivelesComerciales> ListarNivelesComerciales()
         {
@@ -4166,6 +4205,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region PersonaJuridica
         public IEnumerable<tbPersonaJuridica> ListarPersonaJuridica()
         {
@@ -4267,6 +4307,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region PersonaNatural
         public IEnumerable<tbPersonaNatural> ListarPersonaNatural()
         {
@@ -4368,6 +4409,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region Personas
         public IEnumerable<tbPersonas> ListarPersonas()
         {
@@ -4469,6 +4511,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region ProveedoresDeclaracion
         public IEnumerable<tbProveedoresDeclaracion> ListarProveedoresDeclaracion()
         {
@@ -4570,6 +4613,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region TipoDocumento
         public IEnumerable<tbTipoDocumento> ListarTipoDocumento()
         {
@@ -4671,6 +4715,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region TipoIntermediario
         public IEnumerable<tbTipoIntermediario> ListarTipoIntermediario()
         {
@@ -4772,6 +4817,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region TipoLiquidacion
         public IEnumerable<tbTipoLiquidacion> ListarTipoLiquidacion()
         {
@@ -4873,6 +4919,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region TiposIdentificacion
         public IEnumerable<tbTiposIdentificacion> ListarTiposIdentificacion()
         {
@@ -4974,6 +5021,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
+
         #region Transporte
         public IEnumerable<tbTransporte> ListarTransporte()
         {

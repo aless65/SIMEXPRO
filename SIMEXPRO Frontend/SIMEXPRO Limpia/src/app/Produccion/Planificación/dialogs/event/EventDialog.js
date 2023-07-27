@@ -432,7 +432,17 @@ function EventDialog(props) {
               <FormControl>
                 <TextField
                   style={{ borderRadius: '10px', width: '328px' }}
-                  label="Stock" />
+                  label="Cantidad" />
+              </FormControl>
+            </Grid>
+          </div>
+          <div className="flex sm:space-x-20 mb-10">
+            <Grid item xs={4} sx={{ display: 'flex', justifyContent: 'center' }}
+              style={{ marginTop: '10px' }}>
+              <FormControl>
+                <TextField
+                  style={{ borderRadius: '10px', width: '328px' }}
+                  label="Observaciones" />
               </FormControl>
             </Grid>
           </div>

@@ -37,7 +37,7 @@ import MenuItem from '@mui/material/MenuItem';
 let renderCount = 0;
 
 
-{/*relajo para los DatePicker parte 1*/}
+{/*relajo para los DatePicker parte 1*/ }
 const defaultValues = {
   Detalle: '',
   Color: '',
@@ -65,7 +65,7 @@ const schema = yup.object().shape({
   DateTimePicker1: yup.string().nullable().required(''),
   DateTimePicker2: yup.string().nullable().required(''),
 });
-{/*fin de relajo para los DatePicker parte 1*/}
+{/*fin de relajo para los DatePicker parte 1*/ }
 
 
 
@@ -79,7 +79,7 @@ function OrdenProcesosIndex() {
     setEliminar(!Eliminar);
   };
 
-  {/*TOAST*/}
+  {/*TOAST*/ }
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-right',
@@ -105,9 +105,9 @@ function OrdenProcesosIndex() {
     timer: 3000,
     timerProgressBar: true
   })
-  {/*TOAST*/}
+  {/*TOAST*/ }
 
-  {/*Relajo para los DatePicker parte 2*/}
+  {/*Relajo para los DatePicker parte 2*/ }
   const { handleSubmit, register, reset, control, watch, formState } = useForm({
     defaultValues,
     mode: 'all',
@@ -119,34 +119,34 @@ function OrdenProcesosIndex() {
 
   {/* Columnas de la tabla */ }
   const columns = [
-    { field: 'id', headerName: 'Id', flex: 1},
-    { field: 'npo', headerName: 'P.O', flex: 4,  },
-    { field: 'empleado', headerName: 'Empleado', flex: 4,  },
+    { field: 'id', headerName: 'Id', flex: 1 },
+    { field: 'npo', headerName: 'P.O', flex: 4, },
+    { field: 'empleado', headerName: 'Empleado', flex: 4, },
     {
       field: 'acciones',
       headerName: 'Acciones',
       width: 200,
       renderCell: (params) => {
         const [anchorEl, setAnchorEl] = React.useState(null);
-  
+
         const handleClick = (event) => {
           setAnchorEl(event.currentTarget);
         };
-  
+
         const handleClose = () => {
           setAnchorEl(null);
         };
-  
+
         const handleEdit = () => {
           // Implementa la función para editar aquí
           handleClose();
         };
-  
+
         const handleDetails = () => {
           // Implementa la función para detalles aquí
           handleClose();
         };
-  
+
         const handleDelete = () => {
           // Implementa la función para eliminar aquí
           handleClose();
@@ -158,7 +158,7 @@ function OrdenProcesosIndex() {
           handleClose();
         };
 
-  
+
         return (
           <Stack direction="row" spacing={1}>
             <Button
@@ -220,7 +220,7 @@ function OrdenProcesosIndex() {
     row.npo.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  {/*Coso que hizo Axel para validar*/}
+  {/*Coso que hizo Axel para validar*/ }
   const Masiso = handleSubmit((data) => {
     if (!isValid) {
       Toast.fire({
@@ -235,7 +235,7 @@ function OrdenProcesosIndex() {
       });
     }
   });
-  {/*Coso que hizo Axel para validar*/}
+  {/*Coso que hizo Axel para validar*/ }
 
   return (
     <Card sx={{ minWidth: 275, margin: '40px' }}>
@@ -312,14 +312,14 @@ function OrdenProcesosIndex() {
       <Collapse in={mostrarAdd}>
         <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Grid container spacing={3}>
- 
-              <Grid item xs={4} style={{ marginTop: '30px' }} >
+
+            <Grid item xs={4} style={{ marginTop: '30px' }} >
               <div className="mt-1 mb-16">
                 <Controller
                   name="Detalle"
                   control={control}
-                  render={({field}) => (
-                    <TextField 
+                  render={({ field }) => (
+                    <TextField
                       defaultValue={" "}
                       style={{ borderRadius: '10px' }}
                       label="# Detalle de P.O"
@@ -329,17 +329,17 @@ function OrdenProcesosIndex() {
                     />
                   )}
                 />
-                
+
               </div>
             </Grid>
 
             <Grid item xs={4} style={{ marginTop: '30px' }} >
-            <div className="mt-1 mb-16">
+              <div className="mt-1 mb-16">
                 <Controller
                   name="Color"
                   control={control}
-                  render={({field }) => (
-                    <TextField 
+                  render={({ field }) => (
+                    <TextField
                       defaultValue={" "}
                       disabled="true"
                       style={{ borderRadius: '10px' }}
@@ -354,12 +354,12 @@ function OrdenProcesosIndex() {
             </Grid>
 
             <Grid item xs={4} style={{ marginTop: '30px' }} >
-            <div className="mt-1 mb-16">
+              <div className="mt-1 mb-16">
                 <Controller
                   name="Estilo"
                   control={control}
                   render={({ field }) => (
-                    <TextField 
+                    <TextField
                       defaultValue={" "}
                       disabled="true"
                       style={{ borderRadius: '10px' }}
@@ -374,12 +374,12 @@ function OrdenProcesosIndex() {
             </Grid>
 
             <Grid item xs={4} style={{ marginTop: '21px' }}  >
-            <div className="mt-1 mb-16">
+              <div className="mt-1 mb-16">
                 <Controller
                   name="Talla"
                   control={control}
                   render={({ field }) => (
-                    <TextField 
+                    <TextField
                       defaultValue={" "}
                       disabled="true"
                       style={{ borderRadius: '10px' }}
@@ -394,12 +394,12 @@ function OrdenProcesosIndex() {
             </Grid>
 
             <Grid item xs={4} style={{ marginTop: '21px' }}  >
-            <div className="mt-1 mb-16">
+              <div className="mt-1 mb-16">
                 <Controller
                   name="Modulo"
                   control={control}
                   render={({ field }) => (
-                    <TextField 
+                    <TextField
                       defaultValue={" "}
                       style={{ borderRadius: '10px' }}
                       label="Módulo Asignado"
@@ -412,63 +412,42 @@ function OrdenProcesosIndex() {
               </div>
             </Grid>
 
-            <Grid item xs={4} style={{ marginTop: '21px' }}  >
-            <div className="mt-1 mb-16">
-                <Controller
-                  name="Proceso"
-                  control={control}
-                  render={({ field }) => (
-                <Select
+            <Grid item xs={4} style={{ marginTop: '21px' }}>
+              <FormControl fullWidth>
+                <InputLabel htmlFor="grouped-native-select">Proceso</InputLabel>
+                <TextField
+                  style={{ borderRadius: '3px' }}
+                  label="Proceso"
+                  select
                   error={!!errors.Proceso}
                   helperText={errors?.Proceso?.message}
-                  defaultValue={' '}
-                  style={{ borderRadius: '10px' }}
-                  className="w-full"
-                  label="Proceso"
-                  placeholder='Seleccione un proceso'
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                >
-                  <MenuItem value="1">Corte</MenuItem>
-                  <MenuItem value="2">Producción</MenuItem>
-                  <MenuItem value="3">Acabado</MenuItem>
-                </Select>
-                  )}
-                />
-                </div>
-            </Grid>
 
-            <Grid item xs={4} style={{ marginTop: '21px' }} >
-            <div className="mt-1 mb-16">
-                <Controller
-                  name="Empleado"
-                  control={control}
-                  render={({ field }) => (
-                <Select
+                  placeholder="Proceso"
+                  InputProps={{ startAdornment: <InputAdornment position="start" />, }}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={4} style={{ marginTop: '21px' }}>
+              <FormControl fullWidth>
+                <InputLabel htmlFor="grouped-native-select">Empleado</InputLabel>
+                <TextField
+                  style={{ borderRadius: '3px' }}
+                  label="Empleado"
+                  select
                   error={!!errors.Empleado}
                   helperText={errors?.Empleado?.message}
-                  defaultValue={" "}
-                  style={{ borderRadius: '10px' }}
-                  label="Empleado"
-                  className="w-full"
-                >
-                  <MenuItem value="1">Santiago Gutierrez</MenuItem>
-                  <MenuItem value="2">Valeria Moncada</MenuItem>
-                  <MenuItem value="3">Isabela Torres</MenuItem>
-                </Select>
-                  )}
+                  placeholder="Empleado"
+                  InputProps={{ startAdornment: <InputAdornment position="start" />, }}
                 />
-              </div>
+              </FormControl>
             </Grid>
-
             <Grid item xs={4} style={{ marginTop: '21px' }}  >
-            <div className="mt-1 mb-16">
+              <div className="mt-1 mb-16">
                 <Controller
                   name="Cantidad"
                   control={control}
                   render={({ field }) => (
-                    <TextField 
+                    <TextField
                       defaultValue={" "}
                       style={{ borderRadius: '10px' }}
                       label="Cantidad"
@@ -480,35 +459,30 @@ function OrdenProcesosIndex() {
                 />
               </div>
             </Grid>
-
-            <Grid item xs={4} style={{ marginTop: '21px' }}  >
-            <div className="mt-1 mb-16">
-                <Controller
-                  name="PedidoProd"
-                  control={control}
-                  render={({ field }) => (
-                  <Select
-                    error={!!errors.PedidoProd}
-                    helperText={errors?.PedidoProd?.message}
-                    defaultValue={" "}
-                    style={{ borderRadius: '10px' }}
-                    label="PedidoProduccion"
-                    className="w-full"
-                  />
-                  )}
+            <Grid item xs={4} style={{ marginTop: '21px' }}>
+              <FormControl fullWidth>
+                <InputLabel htmlFor="grouped-native-select">Pedido Producción</InputLabel>
+                <TextField
+                  style={{ borderRadius: '3px' }}
+                  label="Pedido Producción"
+                  select
+                  error={!!errors.PedidoProd}
+                  helperText={errors?.PedidoProd?.message}
+                  placeholder="Pedido Producción"
+                  InputProps={{ startAdornment: <InputAdornment position="start" />, }}
                 />
-              </div>
+              </FormControl>
             </Grid>
 
             <Grid item xs={4}>
-            <div className="mt-1 mb-16">
+              <div className="mt-1 mb-16">
                 <InputLabel htmlFor="grouped-native-select">Fecha Inicio</InputLabel>
                 <Controller
                   name="DateTimePicker1"
                   control={control}
                   render={({ field: { onChange, value, onBlur } }) => (
                     <DateTimePicker
-                    value={value}
+                      value={value}
                       onChange={onChange}
                       required
                       renderInput={(_props) => (
@@ -528,7 +502,7 @@ function OrdenProcesosIndex() {
             </Grid>
 
             <Grid item xs={4}>
-            <div className="mt-1 mb-16">
+              <div className="mt-1 mb-16">
                 <InputLabel htmlFor="grouped-native-select">Fecha Límite</InputLabel>
                 <Controller
                   name="DateTimePicker2"
@@ -602,39 +576,39 @@ function OrdenProcesosIndex() {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-          ¿Está seguro(a) que desea eliminar este registro?
+            ¿Está seguro(a) que desea eliminar este registro?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
-              <Button
-                startIcon={<Icon>checked</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px', marginRight: '10px' }}
-                sx={{
-                  backgroundColor: '#634A9E', color: 'white',
-                  "&:hover": { backgroundColor: '#6e52ae' },
-                }}
-                onClick={DialogEliminar}
-              >
-                Eliminar
-              </Button>
+          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'right', alignItems: 'right' }} >
+            <Button
+              startIcon={<Icon>checked</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px', marginRight: '10px' }}
+              sx={{
+                backgroundColor: '#634A9E', color: 'white',
+                "&:hover": { backgroundColor: '#6e52ae' },
+              }}
+              onClick={DialogEliminar}
+            >
+              Eliminar
+            </Button>
 
-              <Button
-                startIcon={<Icon>close</Icon>}
-                variant="contained"
-                color="primary"
-                style={{ borderRadius: '10px' }}
-                sx={{
-                  backgroundColor: '#DAD8D8', color: 'black',
-                  "&:hover": { backgroundColor: '#BFBABA' },
-                }}
-                onClick={DialogEliminar}
-              >
-                Cancelar
-              </Button>
-            </Grid>
+            <Button
+              startIcon={<Icon>close</Icon>}
+              variant="contained"
+              color="primary"
+              style={{ borderRadius: '10px' }}
+              sx={{
+                backgroundColor: '#DAD8D8', color: 'black',
+                "&:hover": { backgroundColor: '#BFBABA' },
+              }}
+              onClick={DialogEliminar}
+            >
+              Cancelar
+            </Button>
+          </Grid>
         </DialogActions>
       </Dialog>
 

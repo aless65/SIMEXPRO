@@ -554,25 +554,6 @@ namespace SIMEXPRO.DataAccess
         public static string ListarPedidosProduccionDetalles = "Prod.UDP_tbPedidosProduccionDetalle_Listar";
         #endregion
 
-        #region Reporte Modulo del Dia Detalle
-        public static string ListarReporteModuloDiaDetalle = "Prod.UDP_tbReporteModuloDiaDetalle_Listar";
-        public static string InsertarReporteModuloDiaDetalle = "Prod.UDP_tbReporteModuloDiaDetalle_Insertar";
-        public static string EditarReporteModuloDiaDetalle = "Prod.UDP_tbReporteModuloDiaDetalle_Editar";
-        #endregion
-
-        #region Revision de Calidad
-        public static string ListarRevisionDeCalidad = "Prod.UDP_tbRevisionDeCalidad_Listar";
-        public static string InsertaRevisionDeCalidad = "Prod.UDP_tbRevisionDeCalidad_Insertar";
-        public static string EditarRevisionDeCalidad = "Adua.UDP_tbRevisionDeCalidad_Editar";
-        
-        #endregion
-
-        #region Sub Categoria
-        public static string ListarSubCategoria = "Prod.UDP_tbSubcategoria_Listar";
-        public static string InsertarSubCategoria = "Prod.UDP_tbSubcategoria_Insertar";
-        public static string EditarSubCategoria = "Prod.UDP_tbSubcategoria_Editar";
-        public static string EliminarSubCategoria = "Prod.UDP_tbSubcategoria_Eliminar";
-        #endregion
 
         #endregion
 

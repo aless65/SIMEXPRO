@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SIMEXPRO.BussinessLogic.Services.AccesoServices;
 using SIMEXPRO.BussinessLogic.Services.GeneralServices;
 using SIMEXPRO.BussinessLogic.Services.ProduccionServices;
+using SIMEXPRO.DataAccess.Repositories.Acce;
 using SIMEXPRO.DataAccess.Repositories.Adua;
 using SIMEXPRO.DataAccess.Repositories.Gral;
 using SIMEXPRO.DataAccess.Repositories.Prod;
@@ -21,10 +22,11 @@ namespace SIMEXPRO.BussinessLogic
             SIMEXPRO.DataAccess.SIMEXPRO.BuildConnectionString(connection);
 
             //Acceso
-            //services.AddScoped<PantallasRepository>();
-            //services.AddScoped<RolesPorPantallaRepository>();
-            //services.AddScoped<RolesRepository>();
-            //services.AddScoped<UsuariosRepository>();
+            services.AddScoped<PantallasRepository>();
+            services.AddScoped<RolesPorPantallaRepository>();
+            services.AddScoped<RolesRepository>();
+            services.AddScoped<UsuariosHistorialRepository>();
+            services.AddScoped<UsuariosRepository>();
 
             //Aduanas
             services.AddScoped<AduanasRepository>();
@@ -134,7 +136,7 @@ namespace SIMEXPRO.BussinessLogic
         public static void BussinessLogic(this IServiceCollection services)
         {
             services.AddScoped<GeneralServices>();
-            //services.AddScoped<AccesoServices>();
+            services.AddScoped<AccesoServices>();
             services.AddScoped<ProduccionServices>();
             
         }

@@ -31,6 +31,21 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
         #endregion
 
         #region Usuarios
+
+        public ServiceResult IniciarSesion(string usua_Nombre, string usua_Contrasenia)
+        {
+            var resultado = new ServiceResult();
+            try
+            {
+                var usuario = _usuariosRepository.Login(usua_Nombre, usua_Contrasenia);
+                return resultado.Ok(usuario);
+            }
+            catch (Exception ex)
+            {
+                return resultado.Error(ex.Message);
+            }
+        }
+
         public IEnumerable<tbUsuarios> ListarUsuarios()
         {
             try
@@ -44,11 +59,6 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
                 return Enumerable.Empty<tbUsuarios>();
             }
         }
-
-       
-
-
-       
 
         public ServiceResult InsertarUsuario(tbUsuarios item)
         {

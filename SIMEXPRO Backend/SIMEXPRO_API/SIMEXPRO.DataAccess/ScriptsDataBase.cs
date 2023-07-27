@@ -114,16 +114,38 @@ namespace SIMEXPRO.DataAccess
         public static string EliminarFormasEnvio = "Gral.UDP_tbFormas_Envio_Eliminar";
         #endregion
 
+        #region Empleados
+        public static string ListarEmpleados    = "Gral.UDP_tbEmpleados_Listar";
+        public static string InsertarEmpleados  = "gral.UDP_tbEmpleados_Insertar";
+        public static string EditarEmpleados    = "gral.UDP_tbEmpleados_Editar";
+        public static string EliminarEmpleados  = "gral.UDP_tbEmpleados_Eliminar";
+        #endregion
+
+        #region Unidad de Medidas
+        public static string ListarUnidadMedidas    = "Gral.UDP_tbUnidadMedidas_Listar";
+        public static string InsertarUnidadMedidas  = "Gral.UDP_tbUnidadMedidas_Insertar";
+        public static string EditarUnidadMedidas    = "Gral.UDP_tbUnidadMedidas_Editar";
+        public static string EliminarUnidadMedidas  = "Gral.UDP_tbUnidadMedidas_Eliminar";
+        #endregion
+
+
+        #endregion
+
+
+        #region Aduanas
+
 
         #endregion
 
 
 
+
+
         #region Ejemplos
-        /*public static string ListarDetallesDirecciones = "gral.UDP_tbDirecciones_ListarDetalles ";
-        public static string InsertarDirecciones = "gral.UDP_tbDirecciones_Insert";
-        public static string EditarDirecciones = "gral.UDP_tbDirecciones_Update";
-        public static string EliminarDirecciones = "gral.UDP_tbDirecciones_Delete";*/
+        /*ppublic static string Listar = "acce.UDP_VW_tbUsuarios_Listar";
+        public static string Insertar = "acce.UDP_tbUsuarios_Insertar";
+        public static string Editar = "acce.UDP_tbUsuarios_Editar";
+        public static string Eliminar = "acce.UDP_tbUsuarios_Eliminar";*/
 
         #endregion
 

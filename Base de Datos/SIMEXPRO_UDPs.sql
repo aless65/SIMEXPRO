@@ -523,6 +523,64 @@ END
 GO
 
 
+--*************   Iniciar Sesion  ****************
+
+CREATE OR ALTER PROCEDURE Acce.UDP_IniciarSesion /*'juan', 'awsd'*/
+	@usua_Nombre			NVARCHAR(150),
+	@usua_Contrasenia		NVARCHAR(MAX)
+AS
+BEGIN
+	BEGIN TRY
+		DECLARE @contrasenaEncriptada NVARCHAR(MAX)=(SELECT HASHBYTES('SHA2_512', @usua_Contrasenia));
+
+		IF EXISTS (SELECT * FROM Acce.tbUsuarios WHERE usua_Nombre = @usua_Nombre AND usua_Contrasenia = @contrasenaEncriptada)
+			BEGIN
+				SELECT * FROM Acce.tbUsuarios WHERE usua_Nombre = @usua_Nombre AND usua_Contrasenia = @contrasenaEncriptada
+			END
+		ELSE
+			BEGIN
+				SELECT 0
+			END
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
+--*************   Cambiar Contraseña  ****************
+
+CREATE OR ALTER PROCEDURE Acce.UDP_CambiarContrasena /* 'juan', 'skf@ks.com', 'awsd' */
+	@usua_Nombre			NVARCHAR(150),
+	@usua_Correo			NVARCHAR(200),
+	@usua_Contrasenia		NVARCHAR(MAX)
+AS
+BEGIN
+	BEGIN TRY
+		IF EXISTS (SELECT * FROM Acce.tbUsuarios WHERE usua_Nombre = @usua_Nombre AND usua_Correo = @usua_Correo)
+			BEGIN 
+				DECLARE @NuevaContrasenaEncriptada NVARCHAR(MAX)=(SELECT HASHBYTES('SHA2_512', @usua_Contrasenia));
+
+				UPDATE Acce.tbUsuarios
+				SET usua_Contrasenia = @NuevaContrasenaEncriptada
+				WHERE usua_Nombre = @usua_Nombre AND usua_Correo = @usua_Correo
+
+				SELECT 1
+			END
+		ELSE
+			BEGIN
+				SELECT 0
+			END
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
+
+
+
 
 -----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS GENERAL
 
@@ -1880,12 +1938,124 @@ END
 GO
 
 
+--************UNIDAD DE MEDIDA******************--
+
+/*Listar UNIDAD DE MEDIDA*/
+CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_Listar
+AS
+BEGIN
+SELECT	unme_Id											,
+		unme_Descripcion								,
+		unidadMedidas.usua_UsuarioCreacion				,
+		usuarioCreacion.usua_Nombre						AS usuarioCreacionNombre,
+		unme_FechaCreacion								,
+		unidadMedidas.usua_UsuarioModificacion			,
+		usuarioModificacion.usua_Nombre					AS usuarioModificacionNombre,
+		unme_FechaModificacion							,
+		unme_Estado								
+FROM Gral.tbUnidadMedidas unidadMedidas
+		INNER JOIN Acce.tbUsuarios usuarioCreacion		ON unidadMedidas.usua_UsuarioCreacion = usuarioCreacion.usua_Id
+		LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON unidadMedidas.usua_UsuarioModificacion = usuarioModificacion.usua_Id
+WHERE unme_Estado = 1
+END
+GO
+/*Insertar UNIDAD DE MEDIDA*/
+CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_Insertar
+(
+	@unme_Descripcion		NVARCHAR(500),
+	@usua_UsuarioCreacion	INT,
+	@unme_FechaCreacion		DATETIME
+)
+AS
+BEGIN 
+	BEGIN TRY
+		IF EXISTS (SELECT *
+					 FROM Gral.tbUnidadMedidas
+					WHERE unme_Descripcion = @unme_Descripcion
+					  AND unme_Estado = 0) 
+		BEGIN
+			UPDATE Gral.tbUnidadMedidas
+			   SET unme_Estado = 1
+			 WHERE unme_Descripcion = @unme_Descripcion
+			   AND unme_Estado = 0
+		END
+		ELSE
+		BEGIN
+			INSERT INTO Gral.tbUnidadMedidas (unme_Descripcion, usua_UsuarioCreacion, unme_FechaCreacion)
+			VALUES (@unme_Descripcion, @usua_UsuarioCreacion, @unme_FechaCreacion)
+		END
+
+		SELECT 1 AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Mensaje de error: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+/*Editar UNIDAD DE MEDIDA*/
+CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_Editar
+(
+	@unme_Id					INT,
+	@unme_Descripcion			NVARCHAR(500),
+	@usua_UsuarioModificacion	INT,
+	@unme_FechaModificacion		DATETIME
+)
+AS
+BEGIN 
+	BEGIN TRY
+		UPDATE Gral.tbUnidadMedidas
+		   SET unme_Descripcion = @unme_Descripcion,
+			   usua_UsuarioModificacion = @usua_UsuarioModificacion,
+			   unme_FechaModificacion = @unme_FechaModificacion
+		 WHERE unme_Id = @unme_Id
+		   AND unme_Estado = 1
+			
+		SELECT 1 AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
+
+/*Eliminar UNIDAD DE MEDIDA*/
+CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_Eliminar
+(
+	@unme_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@unme_FechaEliminacion		DATETIME
+)
+AS
+BEGIN 
+	BEGIN TRY
+		DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'unme_Id', @unme_Id, 'Gral.tbUnidadMedidas', @respuesta OUTPUT
+		
+		IF(@respuesta) = 1
+			BEGIN
+				UPDATE Gral.tbUnidadMedidas
+				   SET unme_Estado = 0,
+					   usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+					   unme_FechaEliminacion = @unme_FechaEliminacion
+				 WHERE unme_Id = @unme_Id
+				   AND unme_Estado = 1
+			END
+
+		SELECT @respuesta AS Resultado
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
+	END CATCH
+END
+GO
 
 -----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS MÓDULO ADUANA
 
 
---------------------------------------------UDPS Para contrato de adhesión-------------------------------------------
+--*************** UDPS Para Tabla Personas ************--
 
+/*Insertar Personas*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbPersonas_Insertar
 (
 	@pers_RTN					VARCHAR(20),
@@ -1929,6 +2099,7 @@ BEGIN
 END
 GO
 
+/*Editar Personas*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbPersonas_Editar
 (
 	@pers_Id 					INT,
@@ -1965,6 +2136,9 @@ BEGIN
 END
 GO
 
+--*************** UDPS Para Tabla Comersiante Individual ************--
+
+/*Insertar Comersiante Individual*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbComercianteIndividual_Insertar
 (
   	@pers_Id                           	INT,
@@ -2020,6 +2194,7 @@ BEGIN
 END
 GO
 
+/*Editar Comersiante Individual*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbComercianteIndividual_Editar
 (
 	@coin_Id							INT,
@@ -2064,6 +2239,9 @@ BEGIN
 END
 GO
 
+--*************** UDPS Para Tabla Persona Natural ************--
+
+/*Insertar Persona Natural*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbPersonaNatural_Insertar
 (
 	@pers_Id					INT,
@@ -6241,117 +6419,8 @@ BEGIN
 	END CATCH
 END
 GO
---************UNIDAD DE MEDIDA******************--
-/*Listar UNIDAD DE MEDIDA*/
-CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_Listar
-AS
-BEGIN
-SELECT	unme_Id											,
-		unme_Descripcion								,
-		unidadMedidas.usua_UsuarioCreacion				,
-		usuarioCreacion.usua_Nombre						AS usuarioCreacionNombre,
-		unme_FechaCreacion								,
-		unidadMedidas.usua_UsuarioModificacion			,
-		usuarioModificacion.usua_Nombre					AS usuarioModificacionNombre,
-		unme_FechaModificacion							,
-		unme_Estado								
-FROM Gral.tbUnidadMedidas unidadMedidas
-		INNER JOIN Acce.tbUsuarios usuarioCreacion		ON unidadMedidas.usua_UsuarioCreacion = usuarioCreacion.usua_Id
-		LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON unidadMedidas.usua_UsuarioModificacion = usuarioModificacion.usua_Id
-WHERE unme_Estado = 1
-END
-GO
-/*Insertar UNIDAD DE MEDIDA*/
-CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_Insertar
-(
-	@unme_Descripcion		NVARCHAR(500),
-	@usua_UsuarioCreacion	INT,
-	@unme_FechaCreacion		DATETIME
-)
-AS
-BEGIN 
-	BEGIN TRY
-		IF EXISTS (SELECT *
-					 FROM Gral.tbUnidadMedidas
-					WHERE unme_Descripcion = @unme_Descripcion
-					  AND unme_Estado = 0) 
-		BEGIN
-			UPDATE Gral.tbUnidadMedidas
-			   SET unme_Estado = 1
-			 WHERE unme_Descripcion = @unme_Descripcion
-			   AND unme_Estado = 0
-		END
-		ELSE
-		BEGIN
-			INSERT INTO Gral.tbUnidadMedidas (unme_Descripcion, usua_UsuarioCreacion, unme_FechaCreacion)
-			VALUES (@unme_Descripcion, @usua_UsuarioCreacion, @unme_FechaCreacion)
-		END
-
-		SELECT 1 AS Resultado
-	END TRY
-	BEGIN CATCH
-		SELECT 'Mensaje de error: ' + ERROR_MESSAGE() AS Resultado
-	END CATCH
-END
-GO
-/*Editar UNIDAD DE MEDIDA*/CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_Editar
-(
-	@unme_Id					INT,
-	@unme_Descripcion			NVARCHAR(500),
-	@usua_UsuarioModificacion	INT,
-	@unme_FechaModificacion		DATETIME
-)
-AS
-BEGIN 
-	BEGIN TRY
-		UPDATE Gral.tbUnidadMedidas
-		   SET unme_Descripcion = @unme_Descripcion,
-			   usua_UsuarioModificacion = @usua_UsuarioModificacion,
-			   unme_FechaModificacion = @unme_FechaModificacion
-		 WHERE unme_Id = @unme_Id
-		   AND unme_Estado = 1
-			
-		SELECT 1 AS Resultado
-	END TRY
-	BEGIN CATCH
-		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
-	END CATCH
-END
-GO
-
-/*Eliminar UNIDAD DE MEDIDA*/
-CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_Eliminar
-(
-	@unme_Id					INT,
-	@usua_UsuarioEliminacion	INT,
-	@unme_FechaEliminacion		DATETIME
-)
-AS
-BEGIN 
-	BEGIN TRY
-		DECLARE @respuesta INT
-		EXEC dbo.UDP_ValidarReferencias 'unme_Id', @unme_Id, 'Gral.tbUnidadMedidas', @respuesta OUTPUT
-		
-		IF(@respuesta) = 1
-			BEGIN
-				UPDATE Gral.tbUnidadMedidas
-				   SET unme_Estado = 0,
-					   usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-					   unme_FechaEliminacion = @unme_FechaEliminacion
-				 WHERE unme_Id = @unme_Id
-				   AND unme_Estado = 1
-			END
-
-		SELECT @respuesta AS Resultado
-	END TRY
-	BEGIN CATCH
-		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
-	END CATCH
-END
-GO
 --************CONDICIONES******************--
 /*Listar CONDICIONES*/
-GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Listar
 	@deva_Id			INT
 AS

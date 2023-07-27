@@ -65,20 +65,18 @@ namespace SIMEXPRO.API.Middleware
             }
             else
             {
+
                 if (context.Response.StatusCode == 200)
                 {
-
                     var secret = await keyVaultClient.GetSecretAsync($"{keyVaultEndpoint}secrets/{APIKEY}");
                     var apiKey = secret.Value;
                     context.Response.Headers.Add("Authorization", "Bearer " + apiKey);
                     await _next(context);
-                    return;
                 }
                 else
                 {
-                    context.Response.Headers.Remove("Authorization");
+                    context.Response.Headers.Add("Authorization", "Bearer" + "no access");
                     await _next(context);
-                    return;
                 }
             }
 

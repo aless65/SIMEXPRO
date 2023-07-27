@@ -134,7 +134,7 @@ namespace SIMEXPRO.DataAccess
         #region Revision de Calidad
         public static string ListarRevisionDeCalidad = "Prod.UDP_tbRevisionDeCalidad_Listar";
         public static string InsertaRevisionDeCalidad = "Prod.UDP_tbRevisionDeCalidad_Insertar";
-        public static string EditarRevisionDeCalidad = "Adua.UDP_tbRevisionDeCalidad_Editar";
+        public static string EditarRevisionDeCalidad = "Prod.UDP_tbRevisionDeCalidad_Editar";
         
         #endregion
 

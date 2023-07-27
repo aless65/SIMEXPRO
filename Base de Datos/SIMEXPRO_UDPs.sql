@@ -1,7 +1,6 @@
 
 
 ---***********VALIDACIÓN DE ELIMINAR**************---
-
 GO
 CREATE OR ALTER PROCEDURE dbo.UDP_ValidarReferencias
 	(@Id_Nombre		NVARCHAR(250),
@@ -131,7 +130,7 @@ GO
 --END
 --GO
 
---EXEC acce.UDP_tbUsuarios_Insertar 'juan', '123', 'skf@ks.com', 1, 'zfdsf', 1, 1, 1, '2023-08-13'
+--EXEC acce.UDP_tbUsuarios_Insertar 'juan', '123', 'skf@ks.com', 1, '', 1, 1, 1,'2023-08-13'
 
 /*Insertar Usuarios*/
 CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Insertar
@@ -8846,9 +8845,11 @@ SELECT	remo_Id,
 		remo_Fecha, 
 		remo_TotalDia, 
 		remo_TotalDanado, 
-		crea.usua_Nombre usua_UsuarioCreacion, 
+		rmd.usua_UsuarioCreacion, 
+		crea.usua_Nombre AS usua_NombreUsuarioCreacion, 
 		remo_FechaCreacion, 
-		modi.usua_Nombre usua_UsuarioModificacion, 
+		rmd.usua_UsuarioModificacion,
+		modi.usua_Nombre AS usua_NombreUsuarioModificacion, 
 		remo_FechaModificacion, 
 		remo_Estado 
 FROM	Prod.tbReporteModuloDia rmd 

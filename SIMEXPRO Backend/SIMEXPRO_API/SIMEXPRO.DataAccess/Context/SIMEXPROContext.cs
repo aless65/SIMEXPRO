@@ -12,13 +12,15 @@ namespace SIMEXPRO.DataAccess.Context
     {
         public SIMEXPROContext()
         {
-        }
+            
+    }
 
         public SIMEXPROContext(DbContextOptions<SIMEXPROContext> options)
             : base(options)
         {
         }
 
+        public static string ConexionSimexpro { get; internal set; }
         public virtual DbSet<tbAduanas> tbAduanas { get; set; }
         public virtual DbSet<tbAldeas> tbAldeas { get; set; }
         public virtual DbSet<tbAranceles> tbAranceles { get; set; }

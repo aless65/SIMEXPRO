@@ -1,3 +1,33 @@
+C:\Users\LAB02\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\bin\Debug\net5.0\SIMEXPRO.DataAccess.deps.json
+C:\Users\LAB02\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\bin\Debug\net5.0\SIMEXPRO.DataAccess.dll
+C:\Users\LAB02\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\bin\Debug\net5.0\ref\SIMEXPRO.DataAccess.dll
+C:\Users\LAB02\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\bin\Debug\net5.0\SIMEXPRO.DataAccess.pdb
+C:\Users\LAB02\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\bin\Debug\net5.0\SIMEXPRO.Entities.dll
+C:\Users\LAB02\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\bin\Debug\net5.0\SIMEXPRO.Entities.pdb
+C:\Users\LAB02\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\obj\Debug\net5.0\SIMEXPRO.DataAccess.csproj.AssemblyReference.cache
+C:\Users\LAB02\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\obj\Debug\net5.0\SIMEXPRO.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LAB02\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\obj\Debug\net5.0\SIMEXPRO.DataAccess.AssemblyInfoInputs.cache
+C:\Users\LAB02\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\obj\Debug\net5.0\SIMEXPRO.DataAccess.AssemblyInfo.cs
+C:\Users\LAB02\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\obj\Debug\net5.0\SIMEXPRO.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\LAB02\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\obj\Debug\net5.0\SIMEXPRO.DataAccess.csproj.CopyComplete
+C:\Users\LAB02\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\obj\Debug\net5.0\SIMEXPRO.DataAccess.dll
+C:\Users\LAB02\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\obj\Debug\net5.0\ref\SIMEXPRO.DataAccess.dll
+C:\Users\LAB02\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\obj\Debug\net5.0\SIMEXPRO.DataAccess.pdb
+C:\Users\PC\Documents\GitHub\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\bin\Debug\net5.0\SIMEXPRO.DataAccess.deps.json
+C:\Users\PC\Documents\GitHub\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\bin\Debug\net5.0\SIMEXPRO.DataAccess.dll
+C:\Users\PC\Documents\GitHub\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\bin\Debug\net5.0\ref\SIMEXPRO.DataAccess.dll
+C:\Users\PC\Documents\GitHub\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\bin\Debug\net5.0\SIMEXPRO.DataAccess.pdb
+C:\Users\PC\Documents\GitHub\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\bin\Debug\net5.0\SIMEXPRO.Entities.dll
+C:\Users\PC\Documents\GitHub\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\bin\Debug\net5.0\SIMEXPRO.Entities.pdb
+C:\Users\PC\Documents\GitHub\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\obj\Debug\net5.0\SIMEXPRO.DataAccess.csproj.AssemblyReference.cache
+C:\Users\PC\Documents\GitHub\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\obj\Debug\net5.0\SIMEXPRO.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PC\Documents\GitHub\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\obj\Debug\net5.0\SIMEXPRO.DataAccess.AssemblyInfoInputs.cache
+C:\Users\PC\Documents\GitHub\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\obj\Debug\net5.0\SIMEXPRO.DataAccess.AssemblyInfo.cs
+C:\Users\PC\Documents\GitHub\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\obj\Debug\net5.0\SIMEXPRO.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\PC\Documents\GitHub\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\obj\Debug\net5.0\SIMEXPRO.DataAccess.csproj.CopyComplete
+C:\Users\PC\Documents\GitHub\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\obj\Debug\net5.0\SIMEXPRO.DataAccess.dll
+C:\Users\PC\Documents\GitHub\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\obj\Debug\net5.0\ref\SIMEXPRO.DataAccess.dll
+C:\Users\PC\Documents\GitHub\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\obj\Debug\net5.0\SIMEXPRO.DataAccess.pdb
 C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\bin\Debug\net5.0\SIMEXPRO.DataAccess.deps.json
 C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\bin\Debug\net5.0\SIMEXPRO.DataAccess.dll
 C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.DataAccess\bin\Debug\net5.0\ref\SIMEXPRO.DataAccess.dll

@@ -11,35 +11,14 @@ namespace SIMEXPRO.DataAccess
 
         #region Acceso
 
-            #region Usuarios
-            public static string ListarUsuarios = "acce.UDP_VW_tbUsuarios_Listar";
-            public static string InsertarUsuarios = "acce.UDP_tbUsuarios_Insertar";
-            public static string EditarUsuarios = "acce.UDP_tbUsuarios_Editar";
-            public static string EliminarUsuarios = "acce.UDP_tbUsuarios_Eliminar";
-            #endregion
+        #region Usuarios
+        public static string ListarUsuarios = "acce.UDP_VW_tbUsuarios_Listar";
+        public static string InsertarUsuarios = "acce.UDP_tbUsuarios_Insertar";
+        public static string EditarUsuarios = "acce.UDP_tbUsuarios_Editar";
+        public static string EliminarUsuarios = "acce.UDP_tbUsuarios_Eliminar";
 
-            #region Pantallas
-            public static string ListarPantallas = "Acce.UDP_tbPantallas_Listar";
+        public static string IniciarSesion = "Acce.UDP_IniciarSesion";
         #endregion
-
-            #region Roles
-            public static string ListarRoles        = "Acce.UDP_tbRoles_Listar";
-            public static string InsertarRoles      = "Acce.UDP_tbRoles_Insertar";
-            public static string EditarRoles        = "Acce.UDP_tbRoles_Editar";
-            public static string EliminarRoles      = "Acce.UDP_tbRoles_Eliminar";
-        #endregion
-
-            #region RolesXPantallas
-            public static string ListarRolesXPantallas      = "Acce.UDP_tbRolesXPantallas_Listar";
-            public static string InsertarRolesXPantallas    = "Acce.UDP_tbRolesXPantallas_Insertar";
-            public static string EditarRolesXPantallas      = "Acce.UDP_tbRolesXPantallas_Editar";
-            public static string EliminarRolesXPantallas    = "Acce.UDP_tbRolesXPantallas_Eliminar";
-        #endregion
-
-            #region Login
-            public static string IniciarSesion      = "Acce.UDP_IniciarSesion";
-            public static string CambiarContrasena  = "Acce.UDP_CambiarContrasena";
-            #endregion
 
         #endregion
 
@@ -91,6 +70,8 @@ namespace SIMEXPRO.DataAccess
         public static string ListarCiudades = "Gral.UDP_tbCiudades_Listar";
         public static string InsertarCiudades = "Gral.UDP_tbCiudades_Insertar";
         public static string EditarCiudades = "Gral.UDP_tbCiudades_Editar";
+        public static string EliminarCiudades = "Adua.UDP_tbAduanas_Eliminar";
+
         #endregion
 
         #region Provincias
@@ -120,19 +101,11 @@ namespace SIMEXPRO.DataAccess
         #endregion
 
         #region Empleados
-        public static string ListarEmpleados    = "Gral.UDP_tbEmpleados_Listar";
-        public static string InsertarEmpleados  = "gral.UDP_tbEmpleados_Insertar";
-        public static string EditarEmpleados    = "gral.UDP_tbEmpleados_Editar";
-        public static string EliminarEmpleados  = "gral.UDP_tbEmpleados_Eliminar";
+        public static string ListarEmpleados = "Gral.UDP_tbEmpleados_Listar";
+        public static string InsertarEmpleados = "gral.UDP_tbEmpleados_Insertar";
+        public static string EditarEmpleados = "gral.UDP_tbEmpleados_Editar";
+        public static string EliminarEmpleados = "gral.UDP_tbEmpleados_Eliminar";
         #endregion
-
-        #region Unidad de Medidas
-        public static string ListarUnidadMedidas    = "Gral.UDP_tbUnidadMedidas_Listar";
-        public static string InsertarUnidadMedidas  = "Gral.UDP_tbUnidadMedidas_Insertar";
-        public static string EditarUnidadMedidas    = "Gral.UDP_tbUnidadMedidas_Editar";
-        public static string EliminarUnidadMedidas  = "Gral.UDP_tbUnidadMedidas_Eliminar";
-        #endregion
-
 
         #endregion
 

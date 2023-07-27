@@ -131,7 +131,7 @@ BEGIN
 END
 GO
 
---EXEC acce.UDP_tbUsuarios_Insertar 'juan', '123', 'skf@ks.com', 1, 'zfdsf', 1, 1, '2023-08-13'
+--EXEC acce.UDP_tbUsuarios_Insertar 'juan', '123', 'skf@ks.com', 1, '', 1, 1, 1,'2023-08-13'
 
 /*Insertar Usuarios*/
 CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Insertar

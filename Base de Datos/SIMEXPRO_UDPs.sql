@@ -1906,7 +1906,7 @@ BEGIN
 					ofic_Id, 
 					escv_Id, 
 					ofpr_Id, 
-					fopr_Id, 
+					pers_FormaRepresentacion, 
 					pers_escvRepresentante, 
 					pers_OfprRepresentante, 
 					usua_UsuarioCreacion, 
@@ -1950,7 +1950,7 @@ BEGIN
 				   ofic_Id					= @ofic_Id, 					
 				   escv_Id					= @escv_Id, 					
 				   ofpr_Id					= @ofpr_Id, 					
-				   fopr_Id					= @fopr_Id, 					
+				   pers_FormaRepresentacion	= @fopr_Id, 					
 				   pers_escvRepresentante	= @pers_escvRepresentante, 		
 				   pers_OfprRepresentante	= @pers_OfprRepresentante, 		
 				   usua_UsuarioCreacion		= @usua_UsuarioCreacion,      	
@@ -1986,7 +1986,7 @@ BEGIN
 	BEGIN TRY
 		INSERT INTO Adua.tbComercianteIndividual 
 					(pers_Id,                           	
-					fopr_Id,                           	
+					pers_FormaRepresentacion,                           	
 					colo_Id,                           	
 					coin_PuntoReferencia,			  	
 					coin_ColoniaRepresentante,		  	
@@ -2042,7 +2042,7 @@ BEGIN
 	BEGIN TRY
 		 UPDATE Adua.tbComercianteIndividual 
 			SET pers_Id								= @pers_Id,                           	
-				fopr_Id								= @fopr_Id,                           	
+				pers_FormaRepresentacion			= @fopr_Id,                           	
 				colo_Id								= @colo_Id,                           	
 				coin_PuntoReferencia				= @coin_PuntoReferencia,			  	
 				coin_ColoniaRepresentante			= @coin_ColoniaRepresentante,		  	
@@ -2052,8 +2052,8 @@ BEGIN
 				coin_TelefonoFijo					= @coin_TelefonoFijo,				    
 				coin_CorreoElectronico				= @coin_CorreoElectronico,		    	
 				coin_CorreoElectronicoAlternativo	= @coin_CorreoElectronicoAlternativo, 	
-				usua_UsuarioCreacion				= @usua_UsuarioCreacion,       		
-				coin_FechaCreacion					= @coin_FechaCreacion
+				usua_UsuarioCreacion				= @usua_UsuarioModificacion,       		
+				coin_FechaCreacion					= @coin_FechaModificacion
 		  WHERE coin_Id = @coin_Id
 
 		SELECT 1 AS Resultado
@@ -2199,8 +2199,8 @@ BEGIN
 					colo_Id,							  	
 					peju_PuntoReferencia,					
 					peju_ColoniaRepresentante,				
-					peju_NumeroLocalReprentante,		  	
-					peju_PuntoReferenciaReprentante,	  	
+					peju_NumeroLocalRepresentante,		  	
+					peju_PuntoReferenciaRepresentante,	  	
 					peju_TelefonoEmpresa,					
 					peju_TelefonoFijoRepresentanteLegal, 	
 					peju_TelefonoRepresentanteLegal,	  	
@@ -2240,7 +2240,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbPersonaJuridica_Editar
 	@peju_PuntoReferencia					NVARCHAR(200),
 	@peju_ColoniaRepresentante				INT,
 	@peju_NumeroLocalRepresentante		  	NVARCHAR(200),
-	@peju_PuntoReferenciaReprentante	  	NVARCHAR(200),
+	@peju_PuntoReferenciaRepresentante	  	NVARCHAR(200),
 	@peju_TelefonoEmpresa					NVARCHAR(200),
 	@peju_TelefonoFijoRepresentanteLegal 	NVARCHAR(200),
 	@peju_TelefonoRepresentanteLegal	  	NVARCHAR(200),
@@ -3515,7 +3515,7 @@ BEGIN
 		INNER JOIN Adua.tbBaseCalculos baca                     ON baca.base_Id = decla.decl_Id 
 		LEFT  JOIN Adua.tbTiposIdentificacion tipo				ON duca.duca_Tipo_Iden_Exportador = tipo.iden_Id
 		LEFT  JOIN Adua.tbIncoterm icot                         ON icot.inco_Id = deva.inco_Id 
-		Inner join Adua.tbItems item                            ON item.item_Id
+		--Inner join Adua.tbItems item                            ON item.item_Id
 END
 GO
 
@@ -4904,7 +4904,7 @@ BEGIN
 		,declaracionDeValor.[deva_Id]
 		,declaracionDeValor.deva_numero_contrato
 		,declaracionDeValor.deva_Declaracion_Mercancia
- 		,declaracionDeValor.deva_Lugar_Embarque
+ 		,declaracionDeValor.emba_Id
  		,declaracionDeValor.deva_Lugar_Entrega
   		,documentoPdf.[dpdf_CA]
 		,documentoPdf.[dpdf_DVA]
@@ -10111,4 +10111,3 @@ AS BEGIN
 
 END
 GO
-

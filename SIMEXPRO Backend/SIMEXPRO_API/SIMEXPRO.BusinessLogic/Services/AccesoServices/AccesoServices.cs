@@ -12,13 +12,13 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
 {
     public class AccesoServices
     {
-        private readonly usuariosRepository _usuariosRepository;
+        private readonly UsuariosRepository _usuariosRepository;
         private readonly RolesPorPantallaRepository _rolesPorPantallaRepository;
         private readonly RolesRepository _rolesRepository;
         private readonly PantallasRepository _pantallasRepository;
         private readonly UsuariosHistorialRepository _usuariosHistorialRepository;
 
-        public AccesoServices(PantallasRepository pantallasRepository, RolesRepository rolesRepository, RolesPorPantallaRepository rolesPorPantallaRepository, usuariosRepository usuariosRepository, UsuariosHistorialRepository usuariosHistorialRepository)
+        public AccesoServices(PantallasRepository pantallasRepository, RolesRepository rolesRepository, RolesPorPantallaRepository rolesPorPantallaRepository, UsuariosRepository usuariosRepository, UsuariosHistorialRepository usuariosHistorialRepository)
         {
             _usuariosRepository = usuariosRepository;
             _rolesPorPantallaRepository = rolesPorPantallaRepository;
@@ -31,6 +31,25 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
         #endregion
 
         #region Usuarios
+
+        public ServiceResult IniciarSesion(string usua_Nombre, string usua_Contrasenia)
+        {
+            var resultado = new ServiceResult();
+            try
+            {
+                var usuario = _usuariosRepository.Login(usua_Nombre, usua_Contrasenia);
+
+                if (usuario.usua_Nombre == null)
+                    return resultado.Forbidden("El usuario o contraseña son incorrectos");
+                else
+                    return resultado.Ok(usuario);
+            } 
+            catch (Exception ex)
+            {
+                return resultado.Error(ex.Message);
+            }
+        }
+
         public IEnumerable<tbUsuarios> ListarUsuarios()
         {
             try
@@ -44,11 +63,6 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
                 return Enumerable.Empty<tbUsuarios>();
             }
         }
-
-       
-
-
-       
 
         public ServiceResult InsertarUsuario(tbUsuarios item)
         {

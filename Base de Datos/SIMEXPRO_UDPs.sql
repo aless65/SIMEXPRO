@@ -3372,6 +3372,1861 @@ BEGIN
 	END CATCH
 END
 GO
+
+--****************************************** DECLARACIÓN DE VALOR ******************************************--
+/*Vista que trae todos los campos de la parte  1 del formulario de la declaración de valor, incluso los que están en 
+  otras tablas conectadas a tbDeclaraciones_Valor (no se incluyen las facturas ni las condiciones)*/
+GO
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_ValorCompleto_Listar
+AS
+BEGIN
+	SELECT [deva_Id]							--AS declaracionId, 
+		   ,[deva_Aduana_Ingreso_Id]				--AS aduanaIngresoId, 
+		   ,aduaIngreso.adua_Nombre				--AS aduanaIngresoNombre,
+		   ,[deva_Aduana_Despacho_Id]			--AS aduanaDespachoId, 
+		   ,aduaDespacho.adua_Nombre				--AS aduanaDespachoNombre,
+		   ,[deva_Declaracion_Mercancia]			--AS declaracionMercancia, 
+		   ,[deva_Fecha_Aceptacion]				--AS declaracionFechaAceptacion, 
+
+		   ,deva.[impo_Id]						--AS importadorId, 
+		   ,declaImpo.decl_Nombre_Raso			AS importadorNombreRazonSocial
+		   ,impo.impo_RTN						AS importadorRTN
+		   ,impo.impo_NumRegistro				AS importadorNumeroRegistro
+		   ,declaImpo.decl_Direccion_Exacta		AS importadorDireccionExacta
+		   ,declaImpo.decl_Correo_Electronico	AS importadorCorreo
+		   ,declaImpo.decl_Telefono				AS importadorTelefono
+		   ,declaImpo.decl_Fax					AS importadorFax
+		   ,declaImpo.ciud_Id					AS importadorCiudad
+		   ,impo.nico_Id							
+		   ,nico.nico_Descripcion				
+		   ,impo.impo_NivelComercial_Otro		
+
+		   ,deva.[pvde_Id]						--AS proveedorId, 
+		   ,declaProv.decl_Nombre_Raso			AS proveedorNombreRazonSocial
+		   ,declaProv.decl_Direccion_Exacta		AS proveedorDireccionExacta
+		   ,declaProv.decl_Correo_Electronico	AS proveedorCorreo
+		   ,declaProv.decl_Telefono				AS proveedorTelefono
+		   ,declaProv.decl_Fax					AS proveedorFax
+		   ,declaProv.ciud_Id					AS proveedorCiudad
+		   ,prov.coco_Id						--AS proveedorCondicionComercialId,
+		   ,coco.coco_Descripcion				--AS proveedorCondicionComercialDescripcion,
+		   ,prov.pvde_Condicion_Otra			--AS proveedorCondicionComercialOtra,
+
+		   ,deva.[inte_Id]						--AS intermediarioId, 
+		   ,declaInte.decl_Nombre_Raso			AS intermediarioNombreRazonSocial
+		   ,declaInte.decl_Direccion_Exacta		AS intermediarioDireccionExacta
+		   ,declaInte.decl_Correo_Electronico	AS intermediarioCorreo
+		   ,declaInte.decl_Telefono				AS intermediarioTelefono
+		   ,declaInte.decl_Fax					AS intermediarioFax
+		   ,declaInte.ciud_Id					AS intermediarioCiudad
+		   ,inte.tite_Id						--AS tipoIntermediarioId,
+		   ,tite.tite_Descripcion				--AS tipoIntermediarioDescripcion,
+
+		   ,[deva_Lugar_Entrega]					--AS declaracionLugarEntrega, 
+		   ,deva.[inco_Id]							--AS incotermId, 
+		   ,inco.inco_Descripcion
+		   ,[deva_numero_contrato]				--AS declaracionNumContrato, 
+		   ,[deva_Fecha_Contrato]				--AS declaracionFechaContrato, 
+		   ,deva.[foen_Id]							--AS formaEnvioId, 
+		   ,foen.foen_Descripcion
+		   ,[deva_Forma_Envio_Otra]				--AS formaEnvioOtra, 
+		   ,[deva_Pago_Efectuado]				--AS declaracionPagoEfectuado, 
+		   ,[fopa_Id]							--AS formaPagoId, 
+		   ,[deva_Forma_Pago_Otra]				--AS formaPagoOtra, 
+		   ,[emba_Id]							--AS declaracionLugarEmbarque, 
+		   ,[pais_Exportacion_Id]				--AS paisExportacionId, 
+		   ,[deva_Fecha_Exportacion]			--	AS declaracionFechaExportacion, 
+		   ,[mone_Id]							--AS monedaId, 
+		   ,[mone_Otra]							--AS monedaOtra, 
+		   ,[deva_Conversion_Dolares]			--AS conversionDolares, 
+		   ,[deva_Condiciones]					--AS declaracionCondiciones, 
+		   ,deva.[usua_UsuarioCreacion]			--AS usuaCreacionId, 
+		   ,[deva_FechaCreacion]				--AS fechaCreacion, 
+		   ,deva.[usua_UsuarioModificacion]		--AS usuarioModificacionId, 
+		   ,[deva_FechaModificacion]			--AS fechaModificacion, 
+		   --,deva.[usua_UsuarioEliminacion]		--AS usuarioEliminacionId, 
+		   --,[deva_FechaEliminacion]				--AS fechaEliminacion, 
+		   ,[deva_Estado]						--AS declaracionEstado
+	FROM   [Adua].[tbDeclaraciones_Valor] deva 
+		   INNER JOIN [Adua].[tbAduanas] aduaIngreso			ON deva.deva_Aduana_Ingreso_Id = aduaIngreso.adua_Id
+		   INNER JOIN [Adua].[tbAduanas] aduaDespacho			ON deva.deva_Aduana_Despacho_Id = aduaDespacho.adua_Id
+		   INNER JOIN [Adua].[tbImportadores] impo				ON deva.impo_Id = impo.impo_Id
+		   INNER JOIN [Adua].[tbDeclarantes] declaImpo			ON impo.decl_Id = declaImpo.decl_Id
+		   INNER JOIN [Adua].[tbNivelesComerciales] nico		ON impo.nico_Id = nico.nico_Id
+		   INNER JOIN [Adua].[tbProveedoresDeclaracion] prov	ON prov.pvde_Id = deva.pvde_Id
+		   INNER JOIN [Adua].[tbDeclarantes] declaProv			ON prov.decl_Id = declaProv.decl_Id
+		   INNER JOIN [Adua].[tbCondicionesComerciales] coco	ON prov.coco_Id = coco.coco_Id
+		   LEFT JOIN  [Adua].[tbIntermediarios] inte			ON inte.inte_Id = deva.inte_Id
+		   LEFT JOIN  [Adua].[tbDeclarantes] declaInte			ON declaInte.decl_Id = inte.decl_Id
+		   LEFT JOIN  [Adua].[tbTipoIntermediario] tite			ON inte.tite_Id = tite.tite_Id
+		   LEFT JOIN  [Adua].[tbIncoterm] inco					ON inco.inco_Id = deva.inco_Id
+		   LEFT JOIN  [Gral].[tbFormas_Envio] foen				ON foen.foen_Id = deva.foen_Id
+END
+GO
+
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclarantes_Insertar
+	@decl_Nombre_Raso				NVARCHAR(250),
+	@decl_Direccion_Exacta			NVARCHAR(250),
+	@ciud_Id						INT,
+	@decl_Correo_Electronico		NVARCHAR(150),
+	@decl_Telefono					NVARCHAR(50),
+	@decl_Fax						NVARCHAR(50),
+	@usua_UsuarioCreacion			INT,
+	@decl_FechaCreacion				DATETIME,
+	@decl_Id						INT OUTPUT
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO [Adua].[tbDeclarantes](decl_Nombre_Raso, 
+										   decl_Direccion_Exacta, 
+										   ciud_Id, 
+										   decl_Correo_Electronico, 
+										   decl_Telefono, 
+										   decl_Fax, 
+										   usua_UsuarioCreacion, 
+										   decl_FechaCreacion)
+		VALUES(@decl_Nombre_Raso,
+			   @decl_Direccion_Exacta,
+			   @ciud_Id,
+			   @decl_Correo_Electronico,
+			   @decl_Telefono,
+			   @decl_Fax,
+			   @usua_UsuarioCreacion,
+			   @decl_FechaCreacion)
+
+		SET @decl_Id = SCOPE_IDENTITY()
+
+		RETURN @decl_Id
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclarantes_Editar
+	@decl_Id						INT,
+	@decl_Nombre_Raso				NVARCHAR(250),
+	@decl_Direccion_Exacta			NVARCHAR(250),
+	@ciud_Id						INT,
+	@decl_Correo_Electronico		NVARCHAR(150),
+	@decl_Telefono					NVARCHAR(50),
+	@decl_Fax						NVARCHAR(50),
+	@usua_UsuarioModificacion		INT,
+	@decl_FechaModificacion			DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		
+		UPDATE [Adua].[tbDeclarantes]
+		SET decl_Nombre_Raso = @decl_Nombre_Raso, 
+			decl_Direccion_Exacta = @decl_Direccion_Exacta, 
+			ciud_Id = @ciud_Id, 
+			decl_Correo_Electronico = @decl_Correo_Electronico, 
+			decl_Telefono = @decl_Telefono, 
+			decl_Fax = @decl_Fax, 
+			usua_UsuarioModificacion = @usua_UsuarioModificacion, 
+			decl_FechaModificacion = @decl_FechaModificacion
+		WHERE decl_Id = @decl_Id
+
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab1_Insertar 
+	@deva_Aduana_Ingreso_Id				INT,
+	@deva_Aduana_Despacho_Id			INT,
+	@deva_Fecha_Aceptacion				DATETIME,
+	@decl_Nombre_Raso					NVARCHAR(250),
+	@impo_RTN							NVARCHAR(40),
+	@impo_NumRegistro					NVARCHAR(40),
+	@decl_Direccion_Exacta				NVARCHAR(250),
+	@ciud_Id							INT,
+	@decl_Correo_Electronico			NVARCHAR(150),
+	@decl_Telefono						NVARCHAR(50),
+	@decl_Fax							NVARCHAR(50),
+	@nico_Id							INT,
+	@impo_NivelComercial_Otro			NVARCHAR(300),
+	@usua_UsuarioCreacion				INT,
+	@deva_FechaCreacion					DATETIME
+AS
+BEGIN
+	BEGIN TRANSACTION 
+	BEGIN TRY
+		
+		DECLARE @decl_Id INT;
+
+		EXEC adua.UDP_tbDeclarantes_Insertar @decl_Nombre_Raso,
+										   @decl_Direccion_Exacta,
+										   @ciud_Id,
+										   @decl_Correo_Electronico,
+										   @decl_Telefono,
+										   @decl_Fax,
+										   @usua_UsuarioCreacion,
+										   @deva_FechaCreacion,
+										   @decl_Id OUTPUT
+
+		--INSERT INTO [Adua].[tbDeclaraciones_ValorHistorial]()
+
+		INSERT INTO [Adua].[tbImportadores](nico_Id, 
+											decl_Id, 
+											impo_NivelComercial_Otro, 
+											impo_RTN, 
+											impo_NumRegistro, 
+											usua_UsuarioCreacion, 
+											impo_FechaCreacion)
+		VALUES(@nico_Id, 
+			   @decl_Id,
+			   @impo_NivelComercial_Otro,
+			   @impo_RTN,
+			   @impo_NumRegistro,
+			   @usua_UsuarioCreacion,
+			   @deva_FechaCreacion)
+
+		DECLARE @impo_Id INT = SCOPE_IDENTITY()
+
+		INSERT INTO [Adua].[tbDeclaraciones_Valor](deva_Aduana_Ingreso_Id, 
+												   deva_Aduana_Despacho_Id, 
+												   deva_Fecha_Aceptacion, 
+												   impo_Id, 
+												   usua_UsuarioCreacion, 
+												   deva_FechaCreacion)
+		VALUES(@deva_Aduana_Ingreso_Id,
+			   @deva_Aduana_Despacho_Id,
+			   @deva_Fecha_Aceptacion,
+			   @impo_Id,
+			   @usua_UsuarioCreacion,
+			   @deva_FechaCreacion)
+
+
+		DECLARE @deva_Id INT = SCOPE_IDENTITY()
+
+		INSERT INTO [Adua].[tbDeclaraciones_ValorHistorial](deva_Id, 
+															deva_Aduana_Ingreso_Id, 
+															deva_Aduana_Despacho_Id,  
+															deva_Fecha_Aceptacion, 
+															impo_Id,
+															hdev_UsuarioAccion, 
+															hdev_FechaAccion, 
+															hdev_Accion)
+		VALUES (@deva_Id,
+				@deva_Aduana_Ingreso_Id,
+				@deva_Aduana_Despacho_Id,
+				@deva_Fecha_Aceptacion,
+				@impo_Id,
+				@usua_UsuarioCreacion,
+				@deva_FechaCreacion,
+				'Insertar tab1')
+
+		SELECT @deva_Id
+
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+		ROLLBACK TRAN
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab1_Editar 
+	@deva_Id							INT,
+	@deva_Aduana_Ingreso_Id				INT,
+	@deva_Aduana_Despacho_Id			INT,
+	@deva_Fecha_Aceptacion				DATETIME,
+	@decl_Nombre_Raso					NVARCHAR(250),
+	@impo_RTN							NVARCHAR(40),
+	@impo_NumRegistro					NVARCHAR(40),
+	@decl_Direccion_Exacta				NVARCHAR(250),
+	@ciud_Id							INT,
+	@decl_Correo_Electronico			NVARCHAR(150),
+	@decl_Telefono						NVARCHAR(50),
+	@decl_Fax							NVARCHAR(50),
+	@nico_Id							INT,
+	@impo_NivelComercial_Otro			NVARCHAR(300),
+	@usua_UsuarioModificacion			INT,
+	@deva_FechaModificacion				DATETIME
+AS
+BEGIN
+	BEGIN TRANSACTION 
+	BEGIN TRY
+		
+		DECLARE @decl_Id INT;
+
+		SET @decl_Id = (SELECT decl_Id
+						FROM [Adua].[tbImportadores]
+						WHERE impo_Id = (SELECT impo_Id 
+										 FROM [Adua].[tbDeclaraciones_Valor]
+										 WHERE deva_Id = @deva_Id))
+
+		EXEC adua.UDP_tbDeclarantes_Editar @decl_Id,
+										   @decl_Nombre_Raso,
+										   @decl_Direccion_Exacta,
+										   @ciud_Id,
+										   @decl_Correo_Electronico,
+										   @decl_Telefono,
+										   @decl_Fax,
+										   @usua_UsuarioModificacion,
+										   @deva_FechaModificacion
+
+		DECLARE @impo_Id INT = (SELECT impo_Id 
+								FROM [Adua].[tbDeclaraciones_Valor]
+								WHERE deva_Id = @deva_Id)
+
+		UPDATE [Adua].[tbImportadores]
+		SET		nico_Id = @nico_Id, 
+			    decl_Id = @decl_Id, 
+			    impo_NivelComercial_Otro = @impo_NivelComercial_Otro, 
+			    impo_RTN = @impo_RTN, 
+			    impo_NumRegistro = @impo_NumRegistro, 
+			    usua_UsuarioModificacion = @usua_UsuarioModificacion, 
+			    impo_FechaModificacion = @deva_FechaModificacion
+		WHERE impo_Id = @impo_Id
+
+
+		UPDATE [Adua].[tbDeclaraciones_Valor]
+		SET deva_Aduana_Ingreso_Id = @deva_Aduana_Ingreso_Id, 
+			deva_Aduana_Despacho_Id = @deva_Aduana_Despacho_Id, 
+			deva_Fecha_Aceptacion = @deva_Fecha_Aceptacion, 
+			impo_Id = @impo_Id,
+			usua_UsuarioModificacion = @usua_UsuarioModificacion,
+			deva_FechaModificacion = @deva_FechaModificacion
+		WHERE deva_Id = @deva_Id
+
+
+		INSERT INTO [Adua].[tbDeclaraciones_ValorHistorial](deva_Id, 
+															deva_Aduana_Ingreso_Id, 
+															deva_Aduana_Despacho_Id, 
+															deva_Declaracion_Mercancia, 
+															deva_Fecha_Aceptacion, 
+															impo_Id, 
+															pvde_Id, 
+															inte_Id, 
+															deva_Lugar_Entrega, 
+															pais_Entrega_Id, 
+															inco_Id, 
+															inco_Version, 
+															deva_numero_contrato, 
+															deva_Fecha_Contrato, 
+															foen_Id, 
+															deva_Forma_Envio_Otra, 
+															deva_Pago_Efectuado, 
+															fopa_Id, 
+															deva_Forma_Pago_Otra, 
+															emba_Id, 
+															pais_Exportacion_Id, 
+															deva_Fecha_Exportacion, 
+															mone_Id, 
+															mone_Otra, 
+															deva_Conversion_Dolares, 
+															deva_Condiciones,
+															hdev_UsuarioAccion, 
+															hdev_FechaAccion, 
+															hdev_Accion)
+		SELECT deva_Id, 
+			   deva_Aduana_Ingreso_Id, 
+			   deva_Aduana_Despacho_Id, 
+			   deva_Declaracion_Mercancia, 
+			   deva_Fecha_Aceptacion, 
+			   impo_Id, 
+			   pvde_Id, 
+			   inte_Id, 
+			   deva_Lugar_Entrega, 
+			   pais_Entrega_Id, 
+			   inco_Id, 
+			   inco_Version, 
+			   deva_numero_contrato, 
+			   deva_Fecha_Contrato, 
+			   foen_Id, 
+			   deva_Forma_Envio_Otra, 
+			   deva_Pago_Efectuado, 
+			   fopa_Id, 
+			   deva_Forma_Pago_Otra, 
+			   emba_Id, 
+			   pais_Exportacion_Id, 
+			   deva_Fecha_Exportacion, 
+			   mone_Id, 
+			   mone_Otra, 
+			   deva_Conversion_Dolares, 
+			   deva_Condiciones,
+			   @usua_UsuarioModificacion,
+			   @deva_FechaModificacion,
+			   'Editar tab1'
+		FROM [Adua].[tbDeclaraciones_Valor]
+		WHERE deva_Id = @deva_Id
+
+		SELECT 1
+
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+		ROLLBACK TRAN
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab2_Insertar
+	@deva_Id						INT,
+	@prov_decl_Nombre_Raso			NVARCHAR(250),
+	@prov_decl_Direccion_Exacta		NVARCHAR(250),
+	@prov_ciud_Id					INT,
+	@prov_decl_Correo_Electronico	NVARCHAR(150),
+	@prov_decl_Telefono				NVARCHAR(50),
+	@prov_decl_Fax					NVARCHAR(50),
+	@coco_Id						INT,
+	@pvde_Condicion_Otra			NVARCHAR(30),
+	@inte_decl_Nombre_Raso			NVARCHAR(250),
+	@inte_decl_Direccion_Exacta		NVARCHAR(250),
+	@inte_ciud_Id					INT,
+	@inte_decl_Correo_Electronico	NVARCHAR(150),
+	@inte_decl_Telefono				NVARCHAR(50),
+	@inte_decl_Fax					NVARCHAR(50),
+	@tite_Id						INT,
+	@inte_Tipo_Otro					NVARCHAR(30),
+	@usua_UsuarioCreacion			INT,
+	@deva_FechaCreacion				DATETIME
+AS
+BEGIN
+	BEGIN TRANSACTION 
+	BEGIN TRY
+
+		DECLARE @prov_decl_Id INT;
+		DECLARE @inte_decl_Id INT;
+		
+		EXEC adua.UDP_tbDeclarantes_Insertar @prov_decl_Nombre_Raso,
+										   @prov_decl_Direccion_Exacta,
+										   @prov_ciud_Id,
+										   @prov_decl_Correo_Electronico,
+										   @prov_decl_Telefono,
+										   @prov_decl_Fax,
+										   @usua_UsuarioCreacion,
+										   @deva_FechaCreacion,
+										   @prov_decl_Id OUTPUT
+
+		INSERT INTO [Adua].[tbProveedoresDeclaracion](coco_Id, 
+													  pvde_Condicion_Otra, 
+													  decl_Id, 
+													  usua_UsuarioCreacion, 
+													  pvde_FechaCreacion)
+		VALUES(@coco_Id, 
+			   @pvde_Condicion_Otra,
+			   @prov_decl_Id,
+			   @usua_UsuarioCreacion,
+			   @deva_FechaCreacion)
+
+		DECLARE @prov_Id INT = SCOPE_IDENTITY()
+
+		EXEC adua.UDP_tbDeclarantes_Insertar @inte_decl_Nombre_Raso,
+										   @inte_decl_Direccion_Exacta,
+										   @inte_ciud_Id,
+										   @inte_decl_Correo_Electronico,
+										   @inte_decl_Telefono,
+										   @inte_decl_Fax,
+										   @usua_UsuarioCreacion,
+										   @deva_FechaCreacion,
+										   @inte_decl_Id OUTPUT
+
+
+		INSERT INTO [Adua].[tbIntermediarios](tite_Id, 
+											  inte_Tipo_Otro,
+											  decl_Id, 
+											  usua_UsuarioCreacion, 
+											  inte_FechaCreacion)
+		VALUES (@tite_Id, 
+				@inte_Tipo_Otro, 
+				@inte_decl_Id,
+				@usua_UsuarioCreacion,
+				@deva_FechaCreacion)
+
+		DECLARE @inte_Id INT = SCOPE_IDENTITY()
+
+		UPDATE [Adua].[tbDeclaraciones_Valor]
+		SET [inte_Id] = @inte_Id,
+			[pvde_Id] = @prov_Id
+		WHERE [deva_Id] = @deva_Id
+
+		INSERT INTO [Adua].[tbDeclaraciones_ValorHistorial](deva_Id, 
+															deva_Aduana_Ingreso_Id, 
+															deva_Aduana_Despacho_Id, 
+															deva_Declaracion_Mercancia, 
+															deva_Fecha_Aceptacion, 
+															impo_Id, 
+															pvde_Id, 
+															inte_Id, 
+															hdev_UsuarioAccion, 
+															hdev_FechaAccion, 
+															hdev_Accion)
+		SELECT deva_Id,
+			   deva_Aduana_Ingreso_Id,
+			   deva_Aduana_Despacho_Id,
+			   deva_Declaracion_Mercancia,
+			   deva_Fecha_Aceptacion,
+			   impo_Id,
+			   @prov_Id,
+			   @inte_Id,
+			   @usua_UsuarioCreacion,
+			   @deva_FechaCreacion,
+			   'Insertar tab2'
+		FROM [Adua].[tbDeclaraciones_Valor]
+		WHERE deva_Id = @deva_Id
+
+		SELECT 1
+			
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+		ROLLBACK TRAN
+	END CATCH
+END
+
+GO
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab2_Editar
+	@deva_Id						INT,
+	@prov_decl_Nombre_Raso			NVARCHAR(250),
+	@prov_decl_Direccion_Exacta		NVARCHAR(250),
+	@prov_ciud_Id					INT,
+	@prov_decl_Correo_Electronico	NVARCHAR(150),
+	@prov_decl_Telefono				NVARCHAR(50),
+	@prov_decl_Fax					NVARCHAR(50),
+	@coco_Id						INT,
+	@pvde_Condicion_Otra			NVARCHAR(30),
+	@inte_decl_Nombre_Raso			NVARCHAR(250),
+	@inte_decl_Direccion_Exacta		NVARCHAR(250),
+	@inte_ciud_Id					INT,
+	@inte_decl_Correo_Electronico	NVARCHAR(150),
+	@inte_decl_Telefono				NVARCHAR(50),
+	@inte_decl_Fax					NVARCHAR(50),
+	@tite_Id						INT,
+	@inte_Tipo_Otro					NVARCHAR(30),
+	@usua_UsuarioModificacion		INT,
+	@deva_FechaModificacion			DATETIME
+AS
+BEGIN
+	BEGIN TRANSACTION 
+	BEGIN TRY
+
+		DECLARE @prov_decl_Id INT = (SELECT decl_Id
+									 FROM [Adua].[tbProveedoresDeclaracion]
+									 WHERE pvde_Id = (SELECT pvde_Id
+													  FROM [Adua].[tbDeclaraciones_Valor]
+													  WHERE deva_Id = @deva_Id));
+		DECLARE @inte_decl_Id INT = (SELECT decl_Id
+									 FROM [Adua].[tbIntermediarios]
+									 WHERE inte_Id = (SELECT inte_Id
+													  FROM [Adua].[tbDeclaraciones_Valor]
+													  WHERE deva_Id = @deva_Id));
+		
+		EXEC adua.UDP_tbDeclarantes_Editar @prov_decl_Id,
+										   @prov_decl_Nombre_Raso,
+										   @prov_decl_Direccion_Exacta,
+										   @prov_ciud_Id,
+										   @prov_decl_Correo_Electronico,
+										   @prov_decl_Telefono,
+										   @prov_decl_Fax,
+										   @usua_UsuarioModificacion,
+										   @deva_FechaModificacion
+
+		DECLARE @pvde_Id INT = (SELECT pvde_Id
+								FROM [Adua].[tbDeclaraciones_Valor]
+								WHERE deva_Id = @deva_Id)
+
+		UPDATE [Adua].[tbProveedoresDeclaracion]
+		SET coco_Id = @coco_Id, 
+			pvde_Condicion_Otra = @pvde_Condicion_Otra, 
+			decl_Id = @prov_decl_Id, 
+			usua_UsuarioModificacion = @usua_UsuarioModificacion, 
+			pvde_FechaModificacion = @deva_FechaModificacion
+		WHERE pvde_Id = @pvde_Id
+
+
+		EXEC adua.UDP_tbDeclarantes_Editar @inte_decl_Id,
+										   @inte_decl_Nombre_Raso,
+										   @inte_decl_Direccion_Exacta,
+										   @inte_ciud_Id,
+										   @inte_decl_Correo_Electronico,
+										   @inte_decl_Telefono,
+										   @inte_decl_Fax,
+										   @usua_UsuarioModificacion,
+										   @deva_FechaModificacion
+
+		DECLARE @inte_Id INT = (SELECT inte_Id
+								FROM [Adua].[tbDeclaraciones_Valor]
+								WHERE deva_Id = @deva_Id)
+
+		UPDATE [Adua].[tbIntermediarios]
+		SET tite_Id = @tite_Id, 
+			inte_Tipo_Otro = @inte_Tipo_Otro,
+			decl_Id = @inte_decl_Id, 
+			usua_UsuarioModificacion = @usua_UsuarioModificacion,
+			inte_FechaModificacion = @deva_FechaModificacion
+		WHERE inte_Id = @inte_Id
+
+		UPDATE [Adua].[tbDeclaraciones_Valor]
+		SET [inte_Id] = @inte_Id,
+			[pvde_Id] = @pvde_Id
+		WHERE [deva_Id] = @deva_Id
+
+		INSERT INTO [Adua].[tbDeclaraciones_ValorHistorial](deva_Id, 
+															deva_Aduana_Ingreso_Id, 
+															deva_Aduana_Despacho_Id, 
+															deva_Declaracion_Mercancia, 
+															deva_Fecha_Aceptacion, 
+															impo_Id, 
+															pvde_Id, 
+															inte_Id, 
+															deva_Lugar_Entrega, 
+															pais_Entrega_Id, 
+															inco_Id, 
+															inco_Version, 
+															deva_numero_contrato, 
+															deva_Fecha_Contrato, 
+															foen_Id, 
+															deva_Forma_Envio_Otra, 
+															deva_Pago_Efectuado, 
+															fopa_Id, 
+															deva_Forma_Pago_Otra, 
+															emba_Id, 
+															pais_Exportacion_Id, 
+															deva_Fecha_Exportacion, 
+															mone_Id, 
+															mone_Otra, 
+															deva_Conversion_Dolares, 
+															deva_Condiciones,
+															hdev_UsuarioAccion, 
+															hdev_FechaAccion, 
+															hdev_Accion)
+		SELECT deva_Id, 
+			   deva_Aduana_Ingreso_Id, 
+			   deva_Aduana_Despacho_Id, 
+			   deva_Declaracion_Mercancia, 
+			   deva_Fecha_Aceptacion, 
+			   impo_Id, 
+			   pvde_Id, 
+			   inte_Id, 
+			   deva_Lugar_Entrega, 
+			   pais_Entrega_Id, 
+			   inco_Id, 
+			   inco_Version, 
+			   deva_numero_contrato, 
+			   deva_Fecha_Contrato, 
+			   foen_Id, 
+			   deva_Forma_Envio_Otra, 
+			   deva_Pago_Efectuado, 
+			   fopa_Id, 
+			   deva_Forma_Pago_Otra, 
+			   emba_Id, 
+			   pais_Exportacion_Id, 
+			   deva_Fecha_Exportacion, 
+			   mone_Id, 
+			   mone_Otra, 
+			   deva_Conversion_Dolares, 
+			   deva_Condiciones,
+			   @usua_UsuarioModificacion,
+			   @deva_FechaModificacion,
+			   'Editar tab2'
+		FROM [Adua].[tbDeclaraciones_Valor]
+		WHERE deva_Id = @deva_Id
+
+		SELECT 1
+			
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+		ROLLBACK TRAN
+	END CATCH
+END
+GO
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab3_Insertar 
+	@deva_Id					INT,	
+	@deva_Lugar_Entrega			NVARCHAR(800),
+	@pais_Entrega_Id			INT,
+	@inco_Id					INT,
+	@inco_Version				NVARCHAR(10),
+	@deva_numero_contrato		NVARCHAR(200),
+	@deva_Fecha_Contrato		DATE,
+	@foen_Id					INT,
+	@deva_Forma_Envio_Otra		NVARCHAR(500),
+	@deva_Pago_Efectuado		BIT,
+	@fopa_Id					INT,
+	@deva_Forma_Pago_Otra		NVARCHAR(200),
+	@emba_Id					INT,
+	@pais_Exportacion_Id		INT,
+	@deva_Fecha_Exportacion		DATE,
+	@mone_Id					INT,
+	@mone_Otra					NVARCHAR(200),
+	@deva_Conversion_Dolares	DECIMAL(18,2),
+	@deva_UsuarioCreacion		INT,
+	@deva_FechaCreacion			DATETIME
+AS 
+BEGIN
+	BEGIN TRANSACTION
+	BEGIN TRY
+
+			UPDATE [Adua].[tbDeclaraciones_Valor]
+			SET deva_Lugar_Entrega = @deva_Lugar_Entrega,
+				pais_Entrega_Id = @pais_Entrega_Id,
+				inco_Id = @inco_Id,
+				inco_Version = @inco_Version,
+				deva_numero_contrato = @deva_numero_contrato,
+				deva_Fecha_Contrato = @deva_Fecha_Contrato,
+				foen_Id = @foen_Id,
+				deva_Forma_Envio_Otra = @deva_Forma_Envio_Otra,
+				deva_Pago_Efectuado = @deva_Pago_Efectuado,
+				fopa_Id = @fopa_Id,
+				deva_Forma_Pago_Otra = @deva_Forma_Pago_Otra,
+				emba_Id = @emba_Id,
+				pais_Exportacion_Id = @pais_Exportacion_Id,
+				deva_Fecha_Exportacion = @deva_Fecha_Exportacion,
+				mone_Id = @mone_Id,
+				mone_Otra = @mone_Otra,
+				deva_Conversion_Dolares = @deva_Conversion_Dolares
+			WHERE deva_id = @deva_Id
+
+			INSERT INTO [Adua].[tbDeclaraciones_ValorHistorial](deva_Id, 
+																deva_Aduana_Ingreso_Id, 
+																deva_Aduana_Despacho_Id, 
+																deva_Declaracion_Mercancia, 
+																deva_Fecha_Aceptacion, 
+																impo_Id, 
+																pvde_Id, 
+																inte_Id, 
+																deva_Lugar_Entrega, 
+																pais_Entrega_Id,
+																inco_Id, 
+																inco_Version,
+																deva_numero_contrato, 
+																deva_Fecha_Contrato, 
+																foen_Id, 
+																deva_Forma_Envio_Otra, 
+																deva_Pago_Efectuado, 
+																fopa_Id, 
+																deva_Forma_Pago_Otra, 
+																emba_Id, 
+																pais_Exportacion_Id, 
+																deva_Fecha_Exportacion, 
+																mone_Id, 
+																mone_Otra, 
+																deva_Conversion_Dolares, 
+																hdev_UsuarioAccion, 
+																hdev_FechaAccion, 
+																hdev_Accion)
+
+				SELECT deva_Id, 
+					   deva_Aduana_Ingreso_Id, 
+					   deva_Aduana_Despacho_Id, 
+					   deva_Declaracion_Mercancia, 
+					   deva_Fecha_Aceptacion, 
+					   impo_Id, 
+					   pvde_Id, 
+					   inte_Id, 
+					   @deva_Lugar_Entrega,
+					   @pais_Entrega_Id,
+					   @inco_Id, 
+					   @inco_Version,
+					   @deva_numero_contrato, 
+					   @deva_Fecha_Contrato, 
+					   @foen_Id, 
+					   @deva_Forma_Envio_Otra, 
+					   @deva_Pago_Efectuado, 
+					   @fopa_Id, 
+					   @deva_Forma_Pago_Otra, 
+					   @emba_Id, 
+					   @pais_Exportacion_Id, 
+					   @deva_Fecha_Exportacion, 
+					   @mone_Id, 
+					   @mone_Otra, 
+					   @deva_Conversion_Dolares, 
+					   @deva_UsuarioCreacion, 
+					   @deva_FechaCreacion, 
+					   'Insertar tab3'
+				FROM [Adua].[tbDeclaraciones_Valor]
+				WHERE deva_Id = @deva_Id
+
+			SELECT 1
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+		ROLLBACK TRAN
+	END CATCH
+END
+
+GO
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab3_Editar 
+	@deva_Id					INT,	
+	@deva_Lugar_Entrega			NVARCHAR(800),
+	@pais_Entrega_Id			INT,
+	@inco_Id					INT,
+	@inco_Version				NVARCHAR(10),
+	@deva_numero_contrato		NVARCHAR(200),
+	@deva_Fecha_Contrato		DATE,
+	@foen_Id					INT,
+	@deva_Forma_Envio_Otra		NVARCHAR(500),
+	@deva_Pago_Efectuado		BIT,
+	@fopa_Id					INT,
+	@deva_Forma_Pago_Otra		NVARCHAR(200),
+	@emba_Id					INT,
+	@pais_Exportacion_Id		INT,
+	@deva_Fecha_Exportacion		DATE,
+	@mone_Id					INT,
+	@mone_Otra					NVARCHAR(200),
+	@deva_Conversion_Dolares	DECIMAL(18,2),
+	@deva_UsuarioModificacion	INT,
+	@deva_FechaModificacion		DATETIME
+AS 
+BEGIN
+	BEGIN TRANSACTION
+	BEGIN TRY
+
+			UPDATE [Adua].[tbDeclaraciones_Valor]
+			SET deva_Lugar_Entrega = @deva_Lugar_Entrega,
+				pais_Entrega_Id = @pais_Entrega_Id,
+				inco_Id = @inco_Id,
+				inco_Version = @inco_Version,
+				deva_numero_contrato = @deva_numero_contrato,
+				deva_Fecha_Contrato = @deva_Fecha_Contrato,
+				foen_Id = @foen_Id,
+				deva_Forma_Envio_Otra = @deva_Forma_Envio_Otra,
+				deva_Pago_Efectuado = @deva_Pago_Efectuado,
+				fopa_Id = @fopa_Id,
+				deva_Forma_Pago_Otra = @deva_Forma_Pago_Otra,
+				emba_Id = @emba_Id,
+				pais_Exportacion_Id = @pais_Exportacion_Id,
+				deva_Fecha_Exportacion = @deva_Fecha_Exportacion,
+				mone_Id = @mone_Id,
+				mone_Otra = @mone_Otra,
+				deva_Conversion_Dolares = @deva_Conversion_Dolares
+			WHERE deva_id = @deva_Id
+
+			INSERT INTO [Adua].[tbDeclaraciones_ValorHistorial](deva_Id, 
+															deva_Aduana_Ingreso_Id, 
+															deva_Aduana_Despacho_Id, 
+															deva_Declaracion_Mercancia, 
+															deva_Fecha_Aceptacion, 
+															impo_Id, 
+															pvde_Id, 
+															inte_Id, 
+															deva_Lugar_Entrega, 
+															pais_Entrega_Id, 
+															inco_Id, 
+															inco_Version, 
+															deva_numero_contrato, 
+															deva_Fecha_Contrato, 
+															foen_Id, 
+															deva_Forma_Envio_Otra, 
+															deva_Pago_Efectuado, 
+															fopa_Id, 
+															deva_Forma_Pago_Otra, 
+															emba_Id, 
+															pais_Exportacion_Id, 
+															deva_Fecha_Exportacion, 
+															mone_Id, 
+															mone_Otra, 
+															deva_Conversion_Dolares, 
+															deva_Condiciones,
+															hdev_UsuarioAccion, 
+															hdev_FechaAccion, 
+															hdev_Accion)
+			SELECT deva_Id, 
+				   deva_Aduana_Ingreso_Id, 
+				   deva_Aduana_Despacho_Id, 
+				   deva_Declaracion_Mercancia, 
+				   deva_Fecha_Aceptacion, 
+				   impo_Id, 
+				   pvde_Id, 
+				   inte_Id, 
+				   deva_Lugar_Entrega, 
+				   pais_Entrega_Id, 
+				   inco_Id, 
+				   inco_Version, 
+				   deva_numero_contrato, 
+				   deva_Fecha_Contrato, 
+				   foen_Id, 
+				   deva_Forma_Envio_Otra, 
+				   deva_Pago_Efectuado, 
+				   fopa_Id, 
+				   deva_Forma_Pago_Otra, 
+				   emba_Id, 
+				   pais_Exportacion_Id, 
+				   deva_Fecha_Exportacion, 
+				   mone_Id, 
+				   mone_Otra, 
+				   deva_Conversion_Dolares, 
+				   deva_Condiciones,
+				   @deva_UsuarioModificacion,
+				   @deva_FechaModificacion,
+				   'Editar tab3'
+			FROM [Adua].[tbDeclaraciones_Valor]
+			WHERE deva_Id = @deva_Id
+
+			SELECT 1
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+		ROLLBACK TRAN
+	END CATCH
+END
+
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbFacturas_Listar
+	@deva_Id				INT
+AS
+BEGIN
+	SELECT fact_Id, 
+		   deva_Id, 
+		   fact_Fecha, 
+		   fact.usua_UsuarioCreacion, 
+		   usuaCrea.usua_Nombre					AS usuarioCreacionNombre,
+		   fact_FechaCreacion, 
+		   fact.usua_UsuarioModificacion, 
+		   usuaModifica.usua_Nombre				AS usuarioModificacionNombre,
+		   fact_FechaModificacion, 
+		   fact_Estado
+	FROM [Adua].[tbFacturas] fact 
+	INNER JOIN [Acce].[tbUsuarios] usuaCrea		ON fact.usua_UsuarioCreacion = usuaCrea.usua_Id 
+	LEFT JOIN [Acce].[tbUsuarios] usuaModifica  ON fact.usua_UsuarioModificacion = usuaModifica.usua_Id
+	WHERE deva_Id = @deva_Id
+END
+
+
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbFacturas_Insertar
+	@deva_Id					INT, 
+	@fact_Fecha					DATE, 
+	@usua_UsuarioCreacion		INT, 
+	@fact_FechaCreacion			DATETIME
+AS
+BEGIN
+	BEGIN TRANSACTION
+	BEGIN TRY
+		INSERT INTO [Adua].[tbFacturas](deva_Id, 
+										fact_Fecha, 
+										usua_UsuarioCreacion, 
+										fact_FechaCreacion)
+		VALUES(@deva_Id, 
+			   @fact_Fecha, 
+			   @usua_UsuarioCreacion, 
+			   @fact_FechaCreacion)
+
+		SELECT SCOPE_IDENTITY()
+
+
+		INSERT INTO [Adua].[tbFacturasHistorial](fact_Id, 
+												 deva_Id, 
+												 fect_Fecha, 
+												 hfact_UsuarioAccion, 
+												 hfact_FechaAccion, 
+												 hfact_Accion)
+		VALUES (SCOPE_IDENTITY(),
+				@deva_Id, 
+			    @fact_Fecha, 
+			    @usua_UsuarioCreacion, 
+			    @fact_FechaCreacion,
+				'Insertar')
+
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+		ROLLBACK TRAN
+	END CATCH 
+END
+
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbItems_Listar 
+	@fact_Id				INT
+AS
+BEGIN
+	SELECT item_Id, 
+	       fact_Id, 
+		   item_Cantidad, 
+		   item_PesoNeto, 
+		   item_PesoBruto, 
+		   unme_Id, 
+		   item_IdentificacionComercialMercancias, 
+		   item_CaracteristicasMercancias, 
+		   item_Marca, 
+		   item_Modelo, 
+		   merc_Id, 
+		   pais_IdOrigenMercancia, 
+		   item_ClasificacionArancelaria, 
+		   item_ValorUnitario, 
+		   item_GastosDeTransporte, 
+		   item_ValorTransaccion, 
+		   item_Seguro, 
+		   item_OtrosGastos, 
+		   item_ValorAduana, 
+		   item_CuotaContingente, 
+		   item_ReglasAccesorias, 
+		   item_CriterioCertificarOrigen,
+		   item.usua_UsuarioCreacion, 
+		   usuaCrea.usua_Nombre					AS usuarioCreacionNombre,
+		   item_FechaCreacion, 
+		   item.usua_UsuarioModificacion, 
+		   usuaModifica.usua_Nombre				AS usuarioModificacionNombre,
+		   item_FechaModificacion, 
+		   item_Estado
+	FROM [Adua].[tbItems] item 
+	INNER JOIN [Acce].[tbUsuarios] usuaCrea		ON item.usua_UsuarioCreacion = usuaCrea.usua_Id 
+	LEFT JOIN [Acce].[tbUsuarios] usuaModifica  ON item.usua_UsuarioModificacion = usuaModifica.usua_Id
+	WHERE fact_Id = @fact_Id
+END
+
+
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbItems_Insertar
+	@fact_Id									INT, 
+	@item_Cantidad								INT, 
+	@item_PesoNeto								DECIMAL(18,2), 
+	@item_PesoBruto								DECIMAL(18,2), 
+	@unme_Id									INT, 
+	@item_IdentificacionComercialMercancias		NVARCHAR(300), 
+	@item_CaracteristicasMercancias				NVARCHAR(400), 
+	@item_Marca									NVARCHAR(50), 
+	@item_Modelo								NVARCHAR(100), 
+	@merc_Id									INT, 
+	@pais_IdOrigenMercancia						INT, 
+	@item_ClasificacionArancelaria				CHAR(16), 
+	@item_ValorUnitario							DECIMAL(18,2), 
+	@item_GastosDeTransporte					DECIMAL(18,2), 
+	@item_ValorTransaccion						DECIMAL(18,2), 
+	@item_Seguro								DECIMAL(18,2), 
+	@item_OtrosGastos							DECIMAL(18,2), 
+	@item_ValorAduana							DECIMAL(18,2), 
+	@item_CuotaContingente						DECIMAL(18,2), 
+	@item_ReglasAccesorias						NVARCHAR(MAX), 
+	@item_CriterioCertificarOrigen				NVARCHAR(MAX), 
+	@usua_UsuarioCreacion						INT, 
+	@item_FechaCreacion							DATETIME
+AS
+BEGIN
+	BEGIN TRANSACTION
+	BEGIN TRY
+		INSERT INTO [Adua].[tbItems](fact_Id, 
+									 item_Cantidad, 
+									 item_PesoNeto, 
+									 item_PesoBruto, 
+									 unme_Id, 
+									 item_IdentificacionComercialMercancias, 
+									 item_CaracteristicasMercancias, 
+									 item_Marca, 
+									 item_Modelo, 
+									 merc_Id, 
+									 pais_IdOrigenMercancia, 
+									 item_ClasificacionArancelaria, 
+									 item_ValorUnitario, 
+									 item_GastosDeTransporte, 
+									 item_ValorTransaccion, 
+									 item_Seguro, 
+									 item_OtrosGastos, 
+									 item_ValorAduana, 
+									 item_CuotaContingente, 
+									 item_ReglasAccesorias, 
+									 item_CriterioCertificarOrigen, 
+									 usua_UsuarioCreacion, 
+									 item_FechaCreacion)
+		VALUES (@fact_Id, 
+				@item_Cantidad, 
+				@item_PesoNeto, 
+				@item_PesoBruto, 
+				@unme_Id, 
+				@item_IdentificacionComercialMercancias, 
+				@item_CaracteristicasMercancias, 
+				@item_Marca, 
+				@item_Modelo, 
+				@merc_Id, 
+				@pais_IdOrigenMercancia, 
+				@item_ClasificacionArancelaria, 
+				@item_ValorUnitario, 
+				@item_GastosDeTransporte, 
+				@item_ValorTransaccion, 
+				@item_Seguro, 
+				@item_OtrosGastos, 
+				@item_ValorAduana, 
+				@item_CuotaContingente, 
+				@item_ReglasAccesorias, 
+				@item_CriterioCertificarOrigen, 
+				@usua_UsuarioCreacion, 
+				@item_FechaCreacion)
+
+		DECLARE @item_Id INT = SCOPE_IDENTITY()
+
+		INSERT INTO [Adua].[tbItemsHistorial](item_Id, 
+											  fact_Id, 
+											  item_Cantidad, 
+											  item_PesoNeto, 
+											  item_PesoBruto, 
+											  unme_Id, 
+											  item_IdentificacionComercialMercancias, 
+											  item_CaracteristicasMercancias, 
+											  item_Marca, 
+											  item_Modelo, 
+											  merc_Id, 
+											  pais_IdOrigenMercancia, 
+											  item_ClasificacionArancelaria, 
+											  item_ValorUnitario, 
+											  item_GastosDeTransporte, 
+											  item_ValorTransaccion, 
+											  item_Seguro, 
+											  item_OtrosGastos, 
+											  item_ValorAduana, 
+											  item_CuotaContingente, 
+											  item_ReglasAccesorias, 
+											  item_CriterioCertificarOrigen, 
+											  hduc_UsuarioAccion, 
+											  hduc_FechaAccion, 
+											  hduc_Accion)
+
+			VALUES (@item_Id, 
+					@fact_Id, 
+					@item_Cantidad, 
+					@item_PesoNeto, 
+					@item_PesoBruto, 
+					@unme_Id, 
+					@item_IdentificacionComercialMercancias, 
+					@item_CaracteristicasMercancias, 
+					@item_Marca, 
+					@item_Modelo, 
+					@merc_Id, 
+					@pais_IdOrigenMercancia, 
+					@item_ClasificacionArancelaria, 
+					@item_ValorUnitario, 
+					@item_GastosDeTransporte, 
+					@item_ValorTransaccion, 
+					@item_Seguro, 
+					@item_OtrosGastos, 
+					@item_ValorAduana, 
+					@item_CuotaContingente, 
+					@item_ReglasAccesorias, 
+					@item_CriterioCertificarOrigen,
+					@usua_UsuarioCreacion, 
+					@item_FechaCreacion,
+					'Insertar')
+
+		SELECT 1
+
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+		ROLLBACK TRAN
+	END CATCH
+END
+
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbItems_Editar
+	@item_Id									INT,
+	@fact_Id									INT, 
+	@item_Cantidad								INT, 
+	@item_PesoNeto								DECIMAL(18,2), 
+	@item_PesoBruto								DECIMAL(18,2), 
+	@unme_Id									INT, 
+	@item_IdentificacionComercialMercancias		NVARCHAR(300), 
+	@item_CaracteristicasMercancias				NVARCHAR(400), 
+	@item_Marca									NVARCHAR(50), 
+	@item_Modelo								NVARCHAR(100), 
+	@merc_Id									INT, 
+	@pais_IdOrigenMercancia						INT, 
+	@item_ClasificacionArancelaria				CHAR(16), 
+	@item_ValorUnitario							DECIMAL(18,2), 
+	@item_GastosDeTransporte					DECIMAL(18,2), 
+	@item_ValorTransaccion						DECIMAL(18,2), 
+	@item_Seguro								DECIMAL(18,2), 
+	@item_OtrosGastos							DECIMAL(18,2), 
+	@item_ValorAduana							DECIMAL(18,2), 
+	@item_CuotaContingente						DECIMAL(18,2), 
+	@item_ReglasAccesorias						NVARCHAR(MAX), 
+	@item_CriterioCertificarOrigen				NVARCHAR(MAX), 
+	@usua_UsuarioModificacion					INT, 
+	@item_FechaModificacion						DATETIME
+AS
+BEGIN
+	BEGIN TRANSACTION
+	BEGIN TRY
+		
+		UPDATE [Adua].[tbItems]
+		SET fact_Id = @fact_Id, 
+			item_Cantidad = @item_Cantidad, 
+			item_PesoNeto = @item_PesoNeto, 
+			item_PesoBruto = @item_PesoBruto, 
+			unme_Id = @unme_Id, 
+			item_IdentificacionComercialMercancias = @item_IdentificacionComercialMercancias, 
+			item_CaracteristicasMercancias = @item_CaracteristicasMercancias, 
+			item_Marca = @item_Marca, 
+			item_Modelo = @item_Modelo, 
+			merc_Id = @merc_Id, 
+			pais_IdOrigenMercancia = @pais_IdOrigenMercancia, 
+			item_ClasificacionArancelaria = @item_ClasificacionArancelaria, 
+			item_ValorUnitario = @item_ValorUnitario, 
+			item_GastosDeTransporte = @item_GastosDeTransporte, 
+			item_ValorTransaccion = @item_ValorTransaccion, 
+			item_Seguro = @item_Seguro, 
+			item_OtrosGastos = @item_OtrosGastos, 
+			item_ValorAduana = @item_ValorAduana, 
+			item_CuotaContingente = @item_CuotaContingente, 
+			item_ReglasAccesorias = @item_ReglasAccesorias, 
+			item_CriterioCertificarOrigen = @item_CriterioCertificarOrigen, 
+			usua_UsuarioModificacion = @usua_UsuarioModificacion, 
+			item_FechaModificacion = @item_FechaModificacion
+		WHERE item_Id = @item_Id
+
+		INSERT INTO [Adua].[tbItemsHistorial](item_Id, 
+											  fact_Id, 
+											  item_Cantidad, 
+											  item_PesoNeto, 
+											  item_PesoBruto, 
+											  unme_Id, 
+											  item_IdentificacionComercialMercancias, 
+											  item_CaracteristicasMercancias, 
+											  item_Marca, 
+											  item_Modelo, 
+											  merc_Id, 
+											  pais_IdOrigenMercancia, 
+											  item_ClasificacionArancelaria, 
+											  item_ValorUnitario, 
+											  item_GastosDeTransporte, 
+											  item_ValorTransaccion, 
+											  item_Seguro, 
+											  item_OtrosGastos, 
+											  item_ValorAduana, 
+											  item_CuotaContingente, 
+											  item_ReglasAccesorias, 
+											  item_CriterioCertificarOrigen, 
+											  hduc_UsuarioAccion, 
+											  hduc_FechaAccion, 
+											  hduc_Accion)
+
+			VALUES (@item_Id, 
+					@fact_Id, 
+					@item_Cantidad, 
+					@item_PesoNeto, 
+					@item_PesoBruto, 
+					@unme_Id, 
+					@item_IdentificacionComercialMercancias, 
+					@item_CaracteristicasMercancias, 
+					@item_Marca, 
+					@item_Modelo, 
+					@merc_Id, 
+					@pais_IdOrigenMercancia, 
+					@item_ClasificacionArancelaria, 
+					@item_ValorUnitario, 
+					@item_GastosDeTransporte, 
+					@item_ValorTransaccion, 
+					@item_Seguro, 
+					@item_OtrosGastos, 
+					@item_ValorAduana, 
+					@item_CuotaContingente, 
+					@item_ReglasAccesorias, 
+					@item_CriterioCertificarOrigen,
+					@usua_UsuarioModificacion, 
+					@item_FechaModificacion,
+					'Editar')
+
+		SELECT 1
+
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+		ROLLBACK TRAN
+	END CATCH
+END
+
+
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbBaseCalculos_Listar
+	@deva_Id			INT
+AS
+BEGIN
+	SELECT base_Id, 
+		   deva_Id, 
+		   base_PrecioFactura, 
+		   base_PagosIndirectos, 
+		   base_PrecioReal, 
+		   base_MontCondicion, 
+		   base_MontoReversion, 
+		   base_ComisionCorrelaje,
+		   base_Gasto_Envase_Embalaje, 
+		   base_ValoresMateriales_Incorporado, 
+		   base_Valor_Materiales_Utilizados, 
+		   base_Valor_Materiales_Consumidos, 
+		   base_Valor_Ingenieria_Importado, 
+		   base_Valor_Canones, 
+		   base_Gasto_TransporteM_Importada, 
+		   base_Gastos_Carga_Importada, 
+		   base_Costos_Seguro, 
+		   base_Total_Ajustes_Precio_Pagado, 
+		   base_Gastos_Asistencia_Tecnica, 
+		   base_Gastos_Transporte_Posterior,
+		   base_Derechos_Impuestos, 
+		   base_Monto_Intereses, 
+		   base_Deducciones_Legales, 
+		   base_Total_Deducciones_Precio, 
+		   base_Valor_Aduana, 
+		   usua_UsuarioCreacion, 
+		   base_FechaCreacion, 
+		   usua_UsuarioModificacion, 
+		   base_FechaModificacion
+	FROM [Adua].[tbBaseCalculos]
+	WHERE deva_Id = @deva_Id
+END
+
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbBaseCalculos_Insertar 
+	@deva_Id								INT, 
+	@base_PrecioFactura						DECIMAL(18,2), 
+	@base_PagosIndirectos					DECIMAL(18,2), 
+	@base_PrecioReal						DECIMAL(18,2), 
+	@base_MontCondicion						DECIMAL(18,2), 
+	@base_MontoReversion					DECIMAL(18,2), 
+	@base_ComisionCorrelaje					DECIMAL(18,2),
+	@base_Gasto_Envase_Embalaje				DECIMAL(18,2), 
+	@base_ValoresMateriales_Incorporado		DECIMAL(18,2), 
+	@base_Valor_Materiales_Utilizados		DECIMAL(18,2), 
+	@base_Valor_Materiales_Consumidos		DECIMAL(18,2), 
+	@base_Valor_Ingenieria_Importado		DECIMAL(18,2), 
+	@base_Valor_Canones						DECIMAL(18,2), 
+	@base_Gasto_TransporteM_Importada		DECIMAL(18,2), 
+	@base_Gastos_Carga_Importada			DECIMAL(18,2), 
+	@base_Costos_Seguro						DECIMAL(18,2), 
+	@base_Total_Ajustes_Precio_Pagado		DECIMAL(18,2), 
+	@base_Gastos_Asistencia_Tecnica			DECIMAL(18,2),
+	@base_Gastos_Transporte_Posterior		DECIMAL(18,2),
+	@base_Derechos_Impuestos				DECIMAL(18,2), 
+	@base_Monto_Intereses					DECIMAL(18,2), 
+	@base_Deducciones_Legales				DECIMAL(18,2), 
+	@base_Total_Deducciones_Precio			DECIMAL(18,2), 
+	@base_Valor_Aduana						DECIMAL(18,2), 
+	@usua_UsuarioCreacion					INT, 
+	@base_FechaCreacion						DATETIME
+AS
+BEGIN
+	BEGIN TRANSACTION
+	BEGIN TRY
+		INSERT INTO [Adua].[tbBaseCalculos](deva_Id, 
+											base_PrecioFactura, 
+											base_PagosIndirectos, 
+											base_PrecioReal, 
+											base_MontCondicion, 
+											base_MontoReversion, 
+											base_ComisionCorrelaje, 
+											base_Gasto_Envase_Embalaje, 
+											base_ValoresMateriales_Incorporado, 
+											base_Valor_Materiales_Utilizados, 
+											base_Valor_Materiales_Consumidos, 
+											base_Valor_Ingenieria_Importado, 
+											base_Valor_Canones, 
+											base_Gasto_TransporteM_Importada, 
+											base_Gastos_Carga_Importada, 
+											base_Costos_Seguro, 
+											base_Total_Ajustes_Precio_Pagado, 
+											base_Gastos_Asistencia_Tecnica, 
+											base_Gastos_Transporte_Posterior, 
+											base_Derechos_Impuestos, 
+											base_Monto_Intereses, 
+											base_Deducciones_Legales, 
+											base_Total_Deducciones_Precio, 
+											base_Valor_Aduana, 
+											usua_UsuarioCreacion, 
+											base_FechaCreacion)
+		VALUES (@deva_Id, 
+				@base_PrecioFactura, 
+				@base_PagosIndirectos, 
+				@base_PrecioReal, 
+				@base_MontCondicion, 
+				@base_MontoReversion, 
+				@base_ComisionCorrelaje, 
+				@base_Gasto_Envase_Embalaje, 
+				@base_ValoresMateriales_Incorporado, 
+				@base_Valor_Materiales_Utilizados, 
+				@base_Valor_Materiales_Consumidos, 
+				@base_Valor_Ingenieria_Importado, 
+				@base_Valor_Canones, 
+				@base_Gasto_TransporteM_Importada, 
+				@base_Gastos_Carga_Importada, 
+				@base_Costos_Seguro, 
+				@base_Total_Ajustes_Precio_Pagado, 
+				@base_Gastos_Asistencia_Tecnica, 
+				@base_Gastos_Transporte_Posterior, 
+				@base_Derechos_Impuestos, 
+				@base_Monto_Intereses, 
+				@base_Deducciones_Legales, 
+				@base_Total_Deducciones_Precio, 
+				@base_Valor_Aduana, 
+				@usua_UsuarioCreacion, 
+				@base_FechaCreacion)
+
+		INSERT INTO [Adua].[tbBaseCalculosHistorial](base_Id,
+													 deva_Id, 
+													 base_PrecioFactura, 
+													 base_PagosIndirectos, 
+													 base_PrecioReal, 
+													 base_MontCondicion, 
+													 base_MontoReversion, 
+													 base_ComisionCorrelaje, 
+													 base_Gasto_Envase_Embalaje, 
+													 base_ValoresMateriales_Incorporado, 
+													 base_Valor_Materiales_Utilizados, 
+													 base_Valor_Materiales_Consumidos, 
+													 base_Valor_Ingenieria_Importado, 
+													 base_Valor_Canones, 
+													 base_Gasto_TransporteM_Importada, 
+													 base_Gastos_Carga_Importada, 
+													 base_Costos_Seguro, 
+													 base_Total_Ajustes_Precio_Pagado, 
+													 base_Gastos_Asistencia_Tecnica, 
+													 base_Gastos_Transporte_Posterior, 
+													 base_Derechos_Impuestos, 
+													 base_Monto_Intereses, 
+													 base_Deducciones_Legales, 
+													 base_Total_Deducciones_Precio, 
+													 base_Valor_Aduana, 
+													 hbas_UsuarioAccion,
+													 hbas_FechaAccion,
+													 hbas_Accion)
+		VALUES (SCOPE_IDENTITY(),
+				@deva_Id, 
+				@base_PrecioFactura, 
+				@base_PagosIndirectos, 
+				@base_PrecioReal, 
+				@base_MontCondicion, 
+				@base_MontoReversion, 
+				@base_ComisionCorrelaje, 
+				@base_Gasto_Envase_Embalaje, 
+				@base_ValoresMateriales_Incorporado, 
+				@base_Valor_Materiales_Utilizados, 
+				@base_Valor_Materiales_Consumidos, 
+				@base_Valor_Ingenieria_Importado, 
+				@base_Valor_Canones, 
+				@base_Gasto_TransporteM_Importada, 
+				@base_Gastos_Carga_Importada, 
+				@base_Costos_Seguro, 
+				@base_Total_Ajustes_Precio_Pagado, 
+				@base_Gastos_Asistencia_Tecnica, 
+				@base_Gastos_Transporte_Posterior, 
+				@base_Derechos_Impuestos, 
+				@base_Monto_Intereses, 
+				@base_Deducciones_Legales, 
+				@base_Total_Deducciones_Precio, 
+				@base_Valor_Aduana, 
+				@usua_UsuarioCreacion, 
+				@base_FechaCreacion,
+				'Insertar')
+
+		SELECT 1
+
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+		ROLLBACK TRAN
+	END CATCH
+END
+
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbBaseCalculos_Editar 
+	@base_Id								INT,
+	@deva_Id								INT, 
+	@base_PrecioFactura						DECIMAL(18,2), 
+	@base_PagosIndirectos					DECIMAL(18,2), 
+	@base_PrecioReal						DECIMAL(18,2), 
+	@base_MontCondicion						DECIMAL(18,2), 
+	@base_MontoReversion					DECIMAL(18,2), 
+	@base_ComisionCorrelaje					DECIMAL(18,2),
+	@base_Gasto_Envase_Embalaje				DECIMAL(18,2), 
+	@base_ValoresMateriales_Incorporado		DECIMAL(18,2), 
+	@base_Valor_Materiales_Utilizados		DECIMAL(18,2), 
+	@base_Valor_Materiales_Consumidos		DECIMAL(18,2), 
+	@base_Valor_Ingenieria_Importado		DECIMAL(18,2), 
+	@base_Valor_Canones						DECIMAL(18,2), 
+	@base_Gasto_TransporteM_Importada		DECIMAL(18,2), 
+	@base_Gastos_Carga_Importada			DECIMAL(18,2), 
+	@base_Costos_Seguro						DECIMAL(18,2), 
+	@base_Total_Ajustes_Precio_Pagado		DECIMAL(18,2), 
+	@base_Gastos_Asistencia_Tecnica			DECIMAL(18,2),
+	@base_Gastos_Transporte_Posterior		DECIMAL(18,2),
+	@base_Derechos_Impuestos				DECIMAL(18,2), 
+	@base_Monto_Intereses					DECIMAL(18,2), 
+	@base_Deducciones_Legales				DECIMAL(18,2), 
+	@base_Total_Deducciones_Precio			DECIMAL(18,2), 
+	@base_Valor_Aduana						DECIMAL(18,2), 
+	@usua_UsuarioModificacion				INT, 
+	@base_FechaModificacion					DATE
+AS
+BEGIN
+	BEGIN TRANSACTION
+	BEGIN TRY
+		UPDATE [Adua].[tbBaseCalculos]
+		SET		deva_Id = @deva_Id, 
+				base_PrecioFactura = @base_PrecioFactura, 
+				base_PagosIndirectos = @base_PagosIndirectos, 
+				base_PrecioReal = @base_PrecioReal, 
+				base_MontCondicion = @base_MontCondicion, 
+				base_MontoReversion = @base_MontoReversion, 
+				base_ComisionCorrelaje = @base_ComisionCorrelaje, 
+				base_Gasto_Envase_Embalaje = @base_Gasto_Envase_Embalaje, 
+				base_ValoresMateriales_Incorporado = @base_ValoresMateriales_Incorporado, 
+				base_Valor_Materiales_Utilizados = @base_Valor_Materiales_Utilizados, 
+				base_Valor_Materiales_Consumidos = @base_Valor_Materiales_Consumidos, 
+				base_Valor_Ingenieria_Importado = @base_Valor_Ingenieria_Importado, 
+				base_Valor_Canones = @base_Valor_Canones, 
+				base_Gasto_TransporteM_Importada = @base_Gasto_TransporteM_Importada, 
+				base_Gastos_Carga_Importada = @base_Gastos_Carga_Importada, 
+				base_Costos_Seguro = @base_Costos_Seguro, 
+				base_Total_Ajustes_Precio_Pagado = @base_Total_Ajustes_Precio_Pagado, 
+				base_Gastos_Asistencia_Tecnica = @base_Gastos_Asistencia_Tecnica, 
+				base_Gastos_Transporte_Posterior = @base_Gastos_Transporte_Posterior, 
+				base_Derechos_Impuestos = @base_Derechos_Impuestos, 
+				base_Monto_Intereses = @base_Monto_Intereses, 
+				base_Deducciones_Legales = @base_Deducciones_Legales, 
+				base_Total_Deducciones_Precio = @base_Total_Deducciones_Precio, 
+				base_Valor_Aduana = @base_Valor_Aduana, 
+				usua_UsuarioModificacion = @usua_UsuarioModificacion, 
+				base_FechaModificacion = @base_FechaModificacion
+		WHERE base_Id = @base_Id
+
+		INSERT INTO [Adua].[tbBaseCalculosHistorial](base_Id,
+													 deva_Id, 
+													 base_PrecioFactura, 
+													 base_PagosIndirectos, 
+													 base_PrecioReal, 
+													 base_MontCondicion, 
+													 base_MontoReversion, 
+													 base_ComisionCorrelaje, 
+													 base_Gasto_Envase_Embalaje, 
+													 base_ValoresMateriales_Incorporado, 
+													 base_Valor_Materiales_Utilizados, 
+													 base_Valor_Materiales_Consumidos, 
+													 base_Valor_Ingenieria_Importado, 
+													 base_Valor_Canones, 
+													 base_Gasto_TransporteM_Importada, 
+													 base_Gastos_Carga_Importada, 
+													 base_Costos_Seguro, 
+													 base_Total_Ajustes_Precio_Pagado, 
+													 base_Gastos_Asistencia_Tecnica, 
+													 base_Gastos_Transporte_Posterior, 
+													 base_Derechos_Impuestos, 
+													 base_Monto_Intereses, 
+													 base_Deducciones_Legales, 
+													 base_Total_Deducciones_Precio, 
+													 base_Valor_Aduana, 
+													 hbas_UsuarioAccion,
+													 hbas_FechaAccion,
+													 hbas_Accion)
+		VALUES (@base_Id,
+				@deva_Id, 
+				@base_PrecioFactura, 
+				@base_PagosIndirectos, 
+				@base_PrecioReal, 
+				@base_MontCondicion, 
+				@base_MontoReversion, 
+				@base_ComisionCorrelaje, 
+				@base_Gasto_Envase_Embalaje, 
+				@base_ValoresMateriales_Incorporado, 
+				@base_Valor_Materiales_Utilizados, 
+				@base_Valor_Materiales_Consumidos, 
+				@base_Valor_Ingenieria_Importado, 
+				@base_Valor_Canones, 
+				@base_Gasto_TransporteM_Importada, 
+				@base_Gastos_Carga_Importada, 
+				@base_Costos_Seguro, 
+				@base_Total_Ajustes_Precio_Pagado, 
+				@base_Gastos_Asistencia_Tecnica, 
+				@base_Gastos_Transporte_Posterior, 
+				@base_Derechos_Impuestos, 
+				@base_Monto_Intereses, 
+				@base_Deducciones_Legales, 
+				@base_Total_Deducciones_Precio, 
+				@base_Valor_Aduana, 
+				@usua_UsuarioModificacion, 
+				@base_FechaModificacion,
+				'Editar')
+
+		SELECT 1
+
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+		ROLLBACK TRAN
+	END CATCH
+END
+
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbDeclaraciones_Valor_Eliminar
+	@deva_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@deva_FechaEliminacion		DATETIME
+AS
+BEGIN
+	BEGIN TRANSACTION 
+	BEGIN TRY
+		INSERT INTO [Adua].[tbBaseCalculosHistorial](base_Id, 
+													 deva_Id, 
+													 base_PrecioFactura, 
+													 base_PagosIndirectos, 
+													 base_PrecioReal, 
+													 base_MontCondicion, 
+													 base_MontoReversion, 
+													 base_ComisionCorrelaje, 
+													 base_Gasto_Envase_Embalaje, 
+													 base_ValoresMateriales_Incorporado, 
+													 base_Valor_Materiales_Utilizados, 
+													 base_Valor_Materiales_Consumidos, 
+													 base_Valor_Ingenieria_Importado, 
+													 base_Valor_Canones, 
+													 base_Gasto_TransporteM_Importada, 
+													 base_Gastos_Carga_Importada, 
+													 base_Costos_Seguro, 
+													 base_Total_Ajustes_Precio_Pagado, 
+													 base_Gastos_Asistencia_Tecnica, 
+													 base_Gastos_Transporte_Posterior, 
+													 base_Derechos_Impuestos, 
+													 base_Monto_Intereses, 
+													 base_Deducciones_Legales, 
+													 base_Total_Deducciones_Precio, 
+													 base_Valor_Aduana, 
+													 hbas_UsuarioAccion, 
+													 hbas_FechaAccion, 
+													 hbas_Accion)
+			SELECT base_Id, 
+				   deva_Id, 
+				   base_PrecioFactura, 
+				   base_PagosIndirectos, 
+				   base_PrecioReal, 
+				   base_MontCondicion, 
+				   base_MontoReversion, 
+				   base_ComisionCorrelaje, 
+				   base_Gasto_Envase_Embalaje, 
+				   base_ValoresMateriales_Incorporado, 
+				   base_Valor_Materiales_Utilizados, 
+				   base_Valor_Materiales_Consumidos, 
+				   base_Valor_Ingenieria_Importado, 
+				   base_Valor_Canones, 
+				   base_Gasto_TransporteM_Importada, 
+				   base_Gastos_Carga_Importada, 
+				   base_Costos_Seguro, 
+				   base_Total_Ajustes_Precio_Pagado, 
+				   base_Gastos_Asistencia_Tecnica, 
+				   base_Gastos_Transporte_Posterior, 
+				   base_Derechos_Impuestos, 
+				   base_Monto_Intereses, 
+				   base_Deducciones_Legales, 
+				   base_Total_Deducciones_Precio, 
+				   base_Valor_Aduana,
+				   @usua_UsuarioEliminacion,
+				   @deva_FechaEliminacion,
+				   'Eliminar'
+			FROM [Adua].[tbBaseCalculos]
+			WHERE deva_Id = @deva_Id
+
+		DELETE [Adua].[tbBaseCalculos]
+		WHERE deva_Id =  @deva_Id
+		
+-------------------------------------------------------------------------------------	
+		INSERT INTO [Adua].[tbCondicionesHistorial](codi_Id, 
+													deva_Id, 
+													codi_Restricciones_Utilizacion, 
+													codi_Indicar_Restricciones_Utilizacion, 
+													codi_Depende_Precio_Condicion, 
+													codi_Indicar_Existe_Condicion, 
+													codi_Condicionada_Revertir, 
+													codi_Vinculacion_Comprador_Vendedor, 
+													codi_Tipo_Vinculacion, 
+													codi_Vinculacion_Influye_Precio, 
+													codi_Pagos_Descuentos_Indirectos, 
+													codi_Concepto_Monto_Declarado, 
+													codi_Existen_Canones, 
+													codi_Indicar_Canones,
+													hcod_UsuarioAccion, 
+													hcod_FechaAccion, 
+													hcod_Accion)
+		SELECT codi_Id, 
+			   deva_Id, 
+			   codi_Restricciones_Utilizacion, 
+			   codi_Indicar_Restricciones_Utilizacion, 
+			   codi_Depende_Precio_Condicion, 
+			   codi_Indicar_Existe_Condicion, 
+			   codi_Condicionada_Revertir, 
+			   codi_Vinculacion_Comprador_Vendedor, 
+			   codi_Tipo_Vinculacion, 
+			   codi_Vinculacion_Influye_Precio, 
+			   codi_Pagos_Descuentos_Indirectos, 
+			   codi_Concepto_Monto_Declarado, 
+			   codi_Existen_Canones, 
+			   codi_Indicar_Canones, 
+			   @usua_UsuarioEliminacion,
+			   @deva_FechaEliminacion,
+			   'Eliminar'
+		FROM [Adua].[tbCondiciones]
+		WHERE deva_Id = @deva_Id
+
+		DELETE [Adua].[tbCondiciones]
+		WHERE deva_Id = @deva_Id
+		
+-------------------------------------------------------------------------------------	
+		DECLARE @fact_Id INT = (SELECT fact_Id
+								FROM [Adua].[tbFacturas]
+								WHERE deva_Id = @deva_Id)
+
+		INSERT INTO [Adua].[tbItemsHistorial](item_Id, 
+											  fact_Id, 
+											  item_Cantidad, 
+											  item_PesoNeto, 
+											  item_PesoBruto, 
+											  unme_Id, 
+											  item_IdentificacionComercialMercancias, 
+											  item_CaracteristicasMercancias, 
+											  item_Marca, 
+											  item_Modelo, 
+											  merc_Id, 
+											  pais_IdOrigenMercancia, 
+											  item_ClasificacionArancelaria, 
+											  item_ValorUnitario, 
+											  item_GastosDeTransporte, 
+											  item_ValorTransaccion, 
+											  item_Seguro, 
+											  item_OtrosGastos, 
+											  item_ValorAduana, 
+											  item_CuotaContingente, 
+											  item_ReglasAccesorias, 
+											  item_CriterioCertificarOrigen, 
+											  hduc_UsuarioAccion, 
+											  hduc_FechaAccion, 
+											  hduc_Accion)
+		SELECT item_Id, 
+			   fact_Id, 
+			   item_Cantidad, 
+			   item_PesoNeto, 
+			   item_PesoBruto, 
+			   unme_Id, 
+			   item_IdentificacionComercialMercancias, 
+			   item_CaracteristicasMercancias, 
+			   item_Marca, 
+			   item_Modelo, 
+			   merc_Id, 
+			   pais_IdOrigenMercancia, 
+			   item_ClasificacionArancelaria, 
+			   item_ValorUnitario, 
+			   item_GastosDeTransporte, 
+			   item_ValorTransaccion, 
+			   item_Seguro, 
+			   item_OtrosGastos, 
+			   item_ValorAduana, 
+			   item_CuotaContingente, 
+			   item_ReglasAccesorias, 
+			   item_CriterioCertificarOrigen, 
+			   @usua_UsuarioEliminacion,
+			   @deva_FechaEliminacion,
+			   'Eliminar'
+		FROM [Adua].[tbItems]
+		WHERE fact_Id = @fact_Id
+
+
+		DELETE [Adua].[tbItems]
+		WHERE fact_Id = @fact_Id
+
+-------------------------------------------------------------------------------------		
+		INSERT INTO [Adua].[tbFacturasHistorial](fact_Id, 
+												 deva_Id, 
+												 fect_Fecha, 
+												 hfact_UsuarioAccion, 
+												 hfact_FechaAccion, 
+												 hfact_Accion)
+		SELECT fact_Id, 
+			   deva_Id, 
+			   fact_Fecha, 
+			   @usua_UsuarioEliminacion,
+			   @deva_FechaEliminacion,
+			   'Eliminar'
+		FROM [Adua].[tbFacturas]
+		WHERE deva_Id = @deva_Id
+
+		DELETE [Adua].[tbFacturas]
+		WHERE deva_Id = @deva_Id
+		
+-------------------------------------------------------------------------------------	
+		INSERT INTO [Adua].[tbDeclaraciones_ValorHistorial](deva_Id, 
+															deva_Aduana_Ingreso_Id, 
+															deva_Aduana_Despacho_Id, 
+															deva_Declaracion_Mercancia, 
+															deva_Fecha_Aceptacion, 
+															impo_Id, 
+															pvde_Id, 
+															inte_Id, 
+															deva_Lugar_Entrega, 
+															pais_Entrega_Id,
+															inco_Id, 
+															inco_Version,
+															deva_numero_contrato, 
+															deva_Fecha_Contrato, 
+															foen_Id, 
+															deva_Forma_Envio_Otra, 
+															deva_Pago_Efectuado, 
+															fopa_Id, 
+															deva_Forma_Pago_Otra, 
+															emba_Id, 
+															pais_Exportacion_Id, 
+															deva_Fecha_Exportacion, 
+															mone_Id, 
+															mone_Otra, 
+															deva_Conversion_Dolares, 
+															deva_Condiciones, 
+															hdev_UsuarioAccion, 
+															hdev_FechaAccion, 
+															hdev_Accion)
+		SELECT deva_Id, 
+			   deva_Aduana_Ingreso_Id, 
+			   deva_Aduana_Despacho_Id, 
+			   deva_Declaracion_Mercancia, 
+			   deva_Fecha_Aceptacion, 
+			   impo_Id, 
+			   pvde_Id, 
+			   inte_Id, 
+			   deva_Lugar_Entrega, 
+			   pais_Entrega_Id, 
+			   inco_Id, 
+			   inco_Version, 
+			   deva_numero_contrato, 
+			   deva_Fecha_Contrato, 
+			   foen_Id, 
+			   deva_Forma_Envio_Otra, 
+			   deva_Pago_Efectuado, 
+			   fopa_Id, 
+			   deva_Forma_Pago_Otra, 
+			   emba_Id, 
+			   pais_Exportacion_Id, 
+			   deva_Fecha_Exportacion, 
+			   mone_Id, 
+			   mone_Otra, 
+			   deva_Conversion_Dolares, 
+			   deva_Condiciones,
+			   @usua_UsuarioEliminacion,
+			   @deva_FechaEliminacion,
+			   'Eliminar'
+		FROM [Adua].[tbDeclaraciones_Valor]
+		WHERE deva_Id = @deva_Id
+
+		DELETE [Adua].[tbDeclaraciones_Valor]
+		WHERE deva_Id = @deva_Id
+
+		SELECT 1
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+		ROLLBACK TRAN
+	END CATCH
+END
+
+go
 --****************************************** DUCA ******************************************--
 
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDuca_Listar
@@ -3921,104 +5776,104 @@ END
 GO
 
 /* Insertar Declarantes*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbDeclarantes_Insertar 
-	@decl_Nombre_Raso			NVARCHAR(250), 
-	@decl_Direccion_Exacta		NVARCHAR(250), 
-	@ciud_Id					INT, 
-	@decl_Correo_Electronico	NVARCHAR(150), 
-	@decl_Telefono				NVARCHAR(50), 
-	@decl_Fax					NVARCHAR(50), 
-	@usua_UsuarioCreacion		INT,
-	@decl_FechaCreacion			DATETIME
-AS
-BEGIN
-	SET @decl_FechaCreacion = GETDATE();
-	BEGIN TRY
-		IF EXISTS(SELECT decl_Id FROM Adua.tbDeclarantes WHERE decl_Nombre_Raso = @decl_Nombre_Raso AND decl_Direccion_Exacta = @decl_Direccion_Exacta AND ciud_Id = @ciud_Id AND decl_Correo_Electronico = @decl_Correo_Electronico AND decl_Telefono = @decl_Telefono AND decl_Fax = @decl_Fax  AND decl_Estado = 0)
-			BEGIN
-				UPDATE	Adua.tbDeclarantes
-				SET		decl_Estado = 1
-				WHERE decl_Nombre_Raso = @decl_Nombre_Raso AND decl_Direccion_Exacta = @decl_Direccion_Exacta AND ciud_Id = @ciud_Id AND decl_Correo_Electronico = @decl_Correo_Electronico AND decl_Telefono = @decl_Telefono AND decl_Fax = @decl_Fax 
+--CREATE OR ALTER PROCEDURE Adua.UDP_tbDeclarantes_Insertar 
+--	@decl_Nombre_Raso			NVARCHAR(250), 
+--	@decl_Direccion_Exacta		NVARCHAR(250), 
+--	@ciud_Id					INT, 
+--	@decl_Correo_Electronico	NVARCHAR(150), 
+--	@decl_Telefono				NVARCHAR(50), 
+--	@decl_Fax					NVARCHAR(50), 
+--	@usua_UsuarioCreacion		INT,
+--	@decl_FechaCreacion			DATETIME
+--AS
+--BEGIN
+--	SET @decl_FechaCreacion = GETDATE();
+--	BEGIN TRY
+--		IF EXISTS(SELECT decl_Id FROM Adua.tbDeclarantes WHERE decl_Nombre_Raso = @decl_Nombre_Raso AND decl_Direccion_Exacta = @decl_Direccion_Exacta AND ciud_Id = @ciud_Id AND decl_Correo_Electronico = @decl_Correo_Electronico AND decl_Telefono = @decl_Telefono AND decl_Fax = @decl_Fax  AND decl_Estado = 0)
+--			BEGIN
+--				UPDATE	Adua.tbDeclarantes
+--				SET		decl_Estado = 1
+--				WHERE decl_Nombre_Raso = @decl_Nombre_Raso AND decl_Direccion_Exacta = @decl_Direccion_Exacta AND ciud_Id = @ciud_Id AND decl_Correo_Electronico = @decl_Correo_Electronico AND decl_Telefono = @decl_Telefono AND decl_Fax = @decl_Fax 
 				
-				SELECT 1
-			END
-		ELSE
-			BEGIN
-				INSERT INTO Adua.tbDeclarantes ([decl_Nombre_Raso], [decl_Direccion_Exacta], [ciud_Id], [decl_Correo_Electronico], [decl_Telefono], [decl_Fax], [usua_UsuarioCreacion], [decl_FechaCreacion], [usua_UsuarioModificacion], [decl_FechaModificacion], [decl_Estado])
-				VALUES (@decl_Nombre_Raso,@decl_Direccion_Exacta,@ciud_Id,@decl_Correo_Electronico,@decl_Telefono,@decl_Fax,@usua_UsuarioCreacion,@decl_FechaCreacion,NULL,NULL,1);
+--				SELECT 1
+--			END
+--		ELSE
+--			BEGIN
+--				INSERT INTO Adua.tbDeclarantes ([decl_Nombre_Raso], [decl_Direccion_Exacta], [ciud_Id], [decl_Correo_Electronico], [decl_Telefono], [decl_Fax], [usua_UsuarioCreacion], [decl_FechaCreacion], [usua_UsuarioModificacion], [decl_FechaModificacion], [decl_Estado])
+--				VALUES (@decl_Nombre_Raso,@decl_Direccion_Exacta,@ciud_Id,@decl_Correo_Electronico,@decl_Telefono,@decl_Fax,@usua_UsuarioCreacion,@decl_FechaCreacion,NULL,NULL,1);
 				
-				SELECT 1
-			END
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END
+--				SELECT 1
+--			END
+--	END TRY
+--	BEGIN CATCH
+--		SELECT 0
+--	END CATCH
+--END
 
-GO
+--GO
 
-/* Editar Declarantes*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbDeclarantes_Editar 
-	@decl_Id					INT,
-	@decl_Nombre_Raso			NVARCHAR(250), 
-	@decl_Direccion_Exacta		NVARCHAR(250), 
-	@ciud_Id					INT, 
-	@decl_Correo_Electronico	NVARCHAR(150), 
-	@decl_Telefono				NVARCHAR(50), 
-	@decl_Fax					NVARCHAR(50), 
-	@usua_UsuarioModificacion	INT,
-	@decl_FechaModificacion		DATETIME
-AS
-BEGIN
-	SET @decl_FechaModificacion = GETDATE();
-	BEGIN TRY
-		UPDATE [Adua].[tbDeclarantes]
-		   SET [decl_Nombre_Raso] = @decl_Nombre_Raso
-			  ,[decl_Direccion_Exacta] = @decl_Direccion_Exacta
-			  ,[ciud_Id] = @ciud_Id
-			  ,[decl_Correo_Electronico] = @decl_Correo_Electronico
-			  ,[decl_Telefono] = @decl_Telefono
-			  ,[decl_Fax] = @decl_Fax
-			  ,[usua_UsuarioModificacion] = @usua_UsuarioModificacion
-			  ,[decl_FechaModificacion] = @decl_FechaModificacion
-		 WHERE decl_Id = @decl_Id
+--/* Editar Declarantes*/
+--CREATE OR ALTER PROCEDURE Adua.UDP_tbDeclarantes_Editar 
+--	@decl_Id					INT,
+--	@decl_Nombre_Raso			NVARCHAR(250), 
+--	@decl_Direccion_Exacta		NVARCHAR(250), 
+--	@ciud_Id					INT, 
+--	@decl_Correo_Electronico	NVARCHAR(150), 
+--	@decl_Telefono				NVARCHAR(50), 
+--	@decl_Fax					NVARCHAR(50), 
+--	@usua_UsuarioModificacion	INT,
+--	@decl_FechaModificacion		DATETIME
+--AS
+--BEGIN
+--	SET @decl_FechaModificacion = GETDATE();
+--	BEGIN TRY
+--		UPDATE [Adua].[tbDeclarantes]
+--		   SET [decl_Nombre_Raso] = @decl_Nombre_Raso
+--			  ,[decl_Direccion_Exacta] = @decl_Direccion_Exacta
+--			  ,[ciud_Id] = @ciud_Id
+--			  ,[decl_Correo_Electronico] = @decl_Correo_Electronico
+--			  ,[decl_Telefono] = @decl_Telefono
+--			  ,[decl_Fax] = @decl_Fax
+--			  ,[usua_UsuarioModificacion] = @usua_UsuarioModificacion
+--			  ,[decl_FechaModificacion] = @decl_FechaModificacion
+--		 WHERE decl_Id = @decl_Id
 
-		 SELECT 1
-	END  TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END
+--		 SELECT 1
+--	END  TRY
+--	BEGIN CATCH
+--		SELECT 0
+--	END CATCH
+--END
 
-GO
+--GO
 
-/* Eliminar Declarantes*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbDeclarantes_Eliminar 
-	@decl_Id					INT,
-	@usua_UsuarioEliminacion	INT,
-	@decl_FechaEliminacion		DATETIME
-AS
-BEGIN
-	SET @decl_FechaEliminacion = GETDATE()
-	BEGIN TRY
-		DECLARE @respuesta INT
-		EXEC dbo.UDP_ValidarReferencias 'decl_Id', @decl_Id, 'Adua.tbDeclarantes', @respuesta OUTPUT
+--/* Eliminar Declarantes*/
+--CREATE OR ALTER PROCEDURE Adua.UDP_tbDeclarantes_Eliminar 
+--	@decl_Id					INT,
+--	@usua_UsuarioEliminacion	INT,
+--	@decl_FechaEliminacion		DATETIME
+--AS
+--BEGIN
+--	SET @decl_FechaEliminacion = GETDATE()
+--	BEGIN TRY
+--		DECLARE @respuesta INT
+--		EXEC dbo.UDP_ValidarReferencias 'decl_Id', @decl_Id, 'Adua.tbDeclarantes', @respuesta OUTPUT
 
-		SELECT @respuesta AS Resultado
-		IF(@respuesta = 1)
-		BEGIN
-			UPDATE	Adua.tbDeclarantes
-			SET		decl_Estado = 0,
-					usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-					decl_FechaEliminacion = @decl_FechaEliminacion
-			WHERE decl_Id = @decl_Id
-		END
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END
-GO
+--		SELECT @respuesta AS Resultado
+--		IF(@respuesta = 1)
+--		BEGIN
+--			UPDATE	Adua.tbDeclarantes
+--			SET		decl_Estado = 0,
+--					usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+--					decl_FechaEliminacion = @decl_FechaEliminacion
+--			WHERE decl_Id = @decl_Id
+--		END
+--	END TRY
+--	BEGIN CATCH
+--		SELECT 0
+--	END CATCH
+--END
+--GO
 
 --*****Tipos de documento*****--
 --CREATE OR ALTER VIEW tbTipoDocumento

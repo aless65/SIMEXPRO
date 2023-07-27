@@ -70,6 +70,8 @@ namespace SIMEXPRO.DataAccess
         public static string ListarCiudades = "Gral.UDP_tbCiudades_Listar";
         public static string InsertarCiudades = "Gral.UDP_tbCiudades_Insertar";
         public static string EditarCiudades = "Gral.UDP_tbCiudades_Editar";
+        public static string EliminarCiudades = "Adua.UDP_tbAduanas_Eliminar";
+
         #endregion
 
         #region Provincias

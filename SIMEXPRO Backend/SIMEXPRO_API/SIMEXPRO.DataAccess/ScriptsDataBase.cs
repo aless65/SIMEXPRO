@@ -34,6 +34,11 @@ namespace SIMEXPRO.DataAccess
             public static string InsertarRolesXPantallas    = "Acce.UDP_tbRolesXPantallas_Insertar";
             public static string EditarRolesXPantallas      = "Acce.UDP_tbRolesXPantallas_Editar";
             public static string EliminarRolesXPantallas    = "Acce.UDP_tbRolesXPantallas_Eliminar";
+        #endregion
+
+            #region Login
+            public static string IniciarSesion      = "Acce.UDP_IniciarSesion";
+            public static string CambiarContrasena  = "Acce.UDP_CambiarContrasena";
             #endregion
 
         #endregion

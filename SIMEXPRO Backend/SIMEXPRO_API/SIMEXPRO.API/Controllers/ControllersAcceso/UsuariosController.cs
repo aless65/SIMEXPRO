@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SIMEXPRO.API.Models.ModelsAcceso;
 using SIMEXPRO.BussinessLogic.Services.AccesoServices;
@@ -10,6 +11,8 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.API.Controllers.ControllersAcceso
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UsuariosController : Controller
     {
         private readonly AccesoServices _accesoServices;
@@ -20,6 +23,8 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
             _accesoServices = accesoService;
             _mapper = mapper;
         }
+
+        [HttpGet("ListarUsuarios")]
         public IActionResult Index()
         {
             return View();
@@ -28,13 +33,20 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
         [HttpGet("Login")]
         public IActionResult InicioSesion(string usua_Nombre, string usua_Contrasenia)
         {
-            //var resultadoMapeado = _mapper.Map<tbUsuarios>(item);
 
             var respuesta = _accesoServices.IniciarSesion(usua_Nombre, usua_Contrasenia);
 
-            respuesta.Data = _mapper.Map<UsuariosViewModel>(respuesta.Data);
+            if(respuesta.Code == 200)
+            {
+                respuesta.Data = _mapper.Map<UsuariosViewModel>(respuesta.Data);
 
-            return Ok(respuesta);
+                return Ok(respuesta);
+
+            }
+            else
+            {
+                return Unauthorized(respuesta);
+            }
         }
     }
 }

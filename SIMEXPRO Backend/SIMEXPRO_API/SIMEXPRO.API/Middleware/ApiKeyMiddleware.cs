@@ -25,12 +25,6 @@ namespace SIMEXPRO.API.Middleware
 
         public async Task InvokeAsync(HttpContext context)
         {
-            if (!context.Request.Headers.TryGetValue(APIKEY, out var extractedApiKey))
-            {
-                context.Response.StatusCode = 401;
-                await context.Response.WriteAsync("Api Key was not provided ");
-                return;
-            }
 
             var keyVaultEndpoint = "https://simexpro.vault.azure.net/"; // Replace with your Key Vault URI
             var azureServiceTokenProvider = new AzureServiceTokenProvider();
@@ -38,27 +32,56 @@ namespace SIMEXPRO.API.Middleware
                 new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback)
             );
 
-            try
+            if (context.Request.Path != "/api/Usuarios/Login")
             {
-                // Retrieve the API key from Azure Key Vault
-                var secret = await keyVaultClient.GetSecretAsync($"{keyVaultEndpoint}secrets/{APIKEY}");
-                var apiKey = secret.Value;
-
-                if (!apiKey.Equals(extractedApiKey))
+                if (!context.Request.Headers.TryGetValue(APIKEY, out var extractedApiKey))
                 {
                     context.Response.StatusCode = 401;
-                    await context.Response.WriteAsync("Unauthorized client");
+                    await context.Response.WriteAsync("Api Key was not provided ");
+                    return;
+                }
+
+                try
+                {
+                    // Retrieve the API key from Azure Key Vault
+                    var secret = await keyVaultClient.GetSecretAsync($"{keyVaultEndpoint}secrets/{APIKEY}");
+                    var apiKey = secret.Value;
+
+                    if (!apiKey.Equals(extractedApiKey))
+                    {
+                        context.Response.StatusCode = 401;
+                        await context.Response.WriteAsync("Unauthorized client");
+                        return;
+                    }
+                }
+                catch (KeyVaultErrorException)
+                {
+                    context.Response.StatusCode = 500;
+                    await context.Response.WriteAsync("Failed to retrieve API Key from Azure Key Vault");
+                    return;
+                }
+
+                await _next(context);
+            }
+            else
+            {
+                if (context.Response.StatusCode == 200)
+                {
+
+                    var secret = await keyVaultClient.GetSecretAsync($"{keyVaultEndpoint}secrets/{APIKEY}");
+                    var apiKey = secret.Value;
+                    context.Response.Headers.Add("Authorization", "Bearer " + apiKey);
+                    await _next(context);
+                    return;
+                }
+                else
+                {
+                    context.Response.Headers.Remove("Authorization");
+                    await _next(context);
                     return;
                 }
             }
-            catch (KeyVaultErrorException)
-            {
-                context.Response.StatusCode = 500;
-                await context.Response.WriteAsync("Failed to retrieve API Key from Azure Key Vault");
-                return;
-            }
 
-            await _next(context);
         }
     }
 

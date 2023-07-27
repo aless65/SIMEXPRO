@@ -295,13 +295,13 @@ namespace SIMEXPRO.DataAccess
         #endregion
 
         #region Orden de Compra
-        //public static string ListarOrdenCompra    = "Prod.UDP_tbOrdenCompra_Listar";
+        public static string ListarOrdenCompra      = "Prod.UDP_tbOrdenCompra_Listado";
         public static string InsertarOrdenCompra    = "Prod.UDP_tbOrdenCompra_Insertar";
         public static string EditarOrdenCompra      = "Prod.UDP_tbOrdenCompra_Editar";
         #endregion
-        
+
         #region Orden de Compra Detalles
-        //public static string ListarOrdenCompraDetalles    = "Prod.UDP_tbOrdenCompraDetalles_Listar";
+        public static string ListarOrdenCompraDetalles      = "Prod.UDP_tbOrdenCompraDetalle_Listado";
         public static string InsertarOrdenCompraDetalles    = "Prod.UDP_tbOrdenCompraDetalles_Insertar";
         public static string EditarOrdenCompraDetalles      = "Prod.UDP_tbOrdenCompraDetalles_Editar";
         #endregion

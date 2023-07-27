@@ -8219,6 +8219,51 @@ GO
 
 -----------------------------------------------/UDPS Para orden de compra---------------------------------------------
 
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompra_Listado
+AS
+BEGIN
+
+	SELECT	 ordenCompra.[orco_Id]
+	-- Informacion del cliente
+			,ordenCompra.[orco_IdCliente]
+			,cliente.[clie_Nombre_O_Razon_Social]
+			,cliente.[clie_Direccion]
+			,cliente.[clie_RTN]
+			,cliente.[clie_Nombre_Contacto]
+			,cliente.[clie_Numero_Contacto]
+			,cliente.[clie_Correo_Electronico]
+			,cliente.[clie_FAX]
+
+			,ordenCompra.[orco_FechaEmision]
+			,ordenCompra.[orco_FechaLimite]
+			,ordenCompra.[orco_MetodoPago]
+			,ordenCompra.[orco_Materiales]
+
+	--Informacion del Embalaje
+			,ordenCompra.[orco_IdEmbalaje]
+			,tipoEmbajale.tiem_Descripcion
+
+			,ordenCompra.[orco_EstadoOrdenCompra]
+			,ordenCompra.[orco_DireccionEntrega]
+			,ordenCompra.[usua_UsuarioCreacion]
+			,usuarioCreacion.usua_Nombre
+			,ordenCompra.[orco_FechaCreacion]
+			,ordenCompra.[usua_UsuarioModificacion]
+			,usuarioModificacion.usua_Nombre
+			,ordenCompra.[orco_FechaModificacion]
+			,ordenCompra.[orco_Estado]
+	  FROM  [Prod].[tbOrdenCompra]						ordenCompra
+			INNER JOIN Prod.tbClientes					cliente				ON ordenCompra.orco_IdCliente  = cliente.clie_Id
+			INNER JOIN Prod.tbTipoEmbalaje				tipoEmbajale		ON ordenCompra.orco_IdEmbalaje = tipoEmbajale.tiem_Id
+		    INNER JOIN  Acce.tbUsuarios					usuarioCreacion		ON ordenCompra.usua_UsuarioCreacion			= usuarioCreacion.usua_Id
+			INNER JOIN  Acce.tbUsuarios					usuarioModificacion ON ordenCompra.usua_UsuarioModificacion		= usuarioModificacion.usua_Id
+
+	
+
+END
+GO
+
 CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompra_Insertar
 (
 	@orco_IdCliente				INT,
@@ -8306,6 +8351,52 @@ GO
 -----------------------------------------------/UDPS Para orden de compra---------------------------------------------
 
 --------------------------------------------UDPS Para orden de compra detalle-----------------------------------------
+
+GO
+CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalle_Listado
+@orco_Id			INT
+AS
+BEGIN
+
+	SELECT	 ordenCompraDetalle.[code_Id]
+			,ordenCompraDetalle.[orco_Id]
+			,ordenCompraDetalle.[code_CantidadPrenda]
+			,ordenCompraDetalle.[esti_Id]
+			,estilo.esti_Descripcion
+			,ordenCompraDetalle.[tall_Id]
+			,ordenCompraDetalle.[code_Sexo]
+			,ordenCompraDetalle.[colr_Id]
+			,colores.colr_Codigo
+			,colores.colr_Nombre
+			,ordenCompraDetalle.[code_Documento]
+			,ordenCompraDetalle.[code_Medidas]
+			,ordenCompraDetalle.[proc_IdComienza]
+			,procesoComienza.proc_Descripcion
+			,ordenCompraDetalle.[proc_IdActual]
+			,procesoActual.proc_Descripcion
+			,ordenCompraDetalle.[code_Unidad]
+			,ordenCompraDetalle.[code_Valor]
+			,ordenCompraDetalle.[code_Impuesto]
+			,ordenCompraDetalle.[code_Descuento]
+			,ordenCompraDetalle.[code_EspecificacionEmbalaje]
+			,ordenCompraDetalle.[usua_UsuarioCreacion]
+			,usuarioCreacion.usua_Nombre
+			,ordenCompraDetalle.[code_FechaCreacion]
+			,ordenCompraDetalle.[usua_UsuarioModificacion]
+			,usuarioModificacion.usua_Nombre
+			,ordenCompraDetalle.[code_FechaModificacion]
+			,ordenCompraDetalle.[code_Estado]
+	  FROM	[Prod].[tbOrdenCompraDetalles]			ordenCompraDetalle
+			INNER JOIN	Prod.tbEstilos				estilo						ON	ordenCompraDetalle.esti_Id						= estilo.esti_Id
+			INNER JOIN	Prod.tbTallas				talla						ON	ordenCompraDetalle.tall_Id						= talla.tall_Id
+			INNER JOIN  Prod.tbColores				colores						ON	ordenCompraDetalle.colr_Id						= colores.colr_Id
+			INNER JOIN  Prod.tbProcesos				procesoComienza				ON	ordenCompraDetalle.proc_IdComienza				= procesoComienza.proc_Id
+			INNER JOIN  Prod.tbProcesos				procesoActual				ON	ordenCompraDetalle.proc_IdActual				= procesoActual.proc_Id
+			INNER JOIN  Acce.tbUsuarios				usuarioCreacion				ON  ordenCompraDetalle.usua_UsuarioCreacion			= usuarioCreacion.usua_Id
+			INNER JOIN  Acce.tbUsuarios				usuarioModificacion			ON  ordenCompraDetalle.usua_UsuarioModificacion		= usuarioModificacion.usua_Id
+			WHERE ordenCompraDetalle.orco_Id	=	@orco_Id
+END
+GO
 
 CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Insertar
 (

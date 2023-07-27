@@ -4,11 +4,15 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.KeyVault;
+using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.AzureKeyVault;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using SIMEXPRO.API.Middleware;
 using SIMEXPRO.BussinessLogic;
 using System;
 using System.Collections.Generic;
@@ -42,16 +46,33 @@ namespace SIMEXPRO.API
            );
 
 
-            services.DataAccess(Configuration.GetConnectionString("ConectarPrograma"));
+            // Configure Azure Key Vault
+            var configBuilder = new ConfigurationBuilder();
+            var keyVaultEndpoint = "https://simexpro.vault.azure.net/"; // Replace with your Key Vault URI
+            var azureServiceTokenProvider = new AzureServiceTokenProvider();
+            var keyVaultClient = new KeyVaultClient(
+                new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback)
+            );
+            configBuilder.AddAzureKeyVault(keyVaultEndpoint, keyVaultClient, new DefaultKeyVaultSecretManager());
+
+            // Add your other configuration sources, e.g., appsettings.json, user secrets, etc.
+            configBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                        .AddUserSecrets<Startup>()
+                        .AddEnvironmentVariables();
+
+            var configuration = configBuilder.Build();
+            services.AddSingleton(configuration);
+
+
+            services.DataAccess(Configuration.GetConnectionString("ConexionSimexpro"));
             services.BussinessLogic();
-            services.AddAutoMapper(x => x.AddProfile<MappingProfileExntensions>(), AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(x => x.AddProfile<MappingProfileExtensions>(), AppDomain.CurrentDomain.GetAssemblies());
             services.AddControllers();
 
             services.AddMvc();
             services.AddControllersWithViews();
             services.AddControllers();
             AddSwagger(services);
-
         }
 
         private void AddSwagger(IServiceCollection services)
@@ -72,6 +93,38 @@ namespace SIMEXPRO.API
                         Url = new Uri("https://foo.com/"),
                     }
                 });
+
+                //options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                //{
+                //    Description = "Standard Authorization header using the Bearer scheme (\"bearer {token}\")",
+                //    In = ParameterLocation.Header,
+                //    Name = "Authorization",
+                //    Type = SecuritySchemeType.ApiKey,
+                //    //    Scheme = "ApiKeyScheme"
+                //});
+
+                options.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
+                {
+                    Description = "ApiKey must appear in header",
+                    Type = SecuritySchemeType.ApiKey,
+                    Name = "XApiKey",
+                    In = ParameterLocation.Header,
+                    Scheme = "ApiKeyScheme"
+                });
+                var key = new OpenApiSecurityScheme()
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "ApiKey"
+                    },
+                    In = ParameterLocation.Header
+                };
+                var requirement = new OpenApiSecurityRequirement
+                    {
+                             { key, new List<string>() }
+                    };
+                options.AddSecurityRequirement(requirement);
             });
         }
 
@@ -85,13 +138,17 @@ namespace SIMEXPRO.API
                 //app.UseHttpsRedirection();
             }
 
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Events_Company_R.API v1"));
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Events_Company_R.API v1");
+            });
             app.UseHttpsRedirection();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Foo API V1");
+                c.EnableValidator();
             });
             app.UseRouting();
 
@@ -99,6 +156,7 @@ namespace SIMEXPRO.API
             app.UseCors("AllowFlutter");
 
             app.UseAuthorization();
+            app.UseMiddleware<ApiKeyMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace SIMEXPRO.API.Models.ModelsProduccion
+{
+    public class AreasViewModel
+    {
+        public int tipa_Id { get; set; }
+        public string tipa_area { get; set; }
+        public int proc_Id { get; set; }
+        public int usua_UsuarioCreacion { get; set; }
+        public DateTime tipa_FechaCreacion { get; set; }
+        public int? usua_UsuarioModificacion { get; set; }
+        public DateTime? tipa_FechaModificacion { get; set; }
+        public int? usua_UsuarioEliminacion { get; set; }
+        public DateTime? tipa_FechaEliminacion { get; set; }
+        public bool? tipa_Estado { get; set; }
+
+    }
+}

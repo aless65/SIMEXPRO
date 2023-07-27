@@ -6,6 +6,7 @@ import {
   Icon,
   InputLabel,
   TextField,
+  InputAdornment
 } from "@mui/material";
 import * as React from "react";
 import Stack from "@mui/material/Stack";
@@ -129,14 +130,14 @@ function Persona_Juridica_Agregar() {
 
   return (
     <Card sx={{ minWidth: 275, margin: "40px" }}>
-           <CardMedia
+      <CardMedia
         component="img"
         height="200"
         image="https://i.ibb.co/cFBKy66/CONTRATO-DE-ADHESI-N-PERSONA-JURIDICA.png"
         alt="Encabezado de la carta"
       />
       <CardContent sx={{ textAlign: "center" }}>
-        
+
       </CardContent>
 
       <Box sx={{ bgcolor: "background.paper", width: "100%" }}>
@@ -194,6 +195,7 @@ function Persona_Juridica_Agregar() {
                     style={{ borderRadius: "10px" }}
                     required
                     label="RTN Solicitante"
+                    InputProps={{ startAdornment: <InputAdornment position="start" />, }}
                   />
                 </FormControl>
               </Grid>
@@ -203,40 +205,42 @@ function Persona_Juridica_Agregar() {
 
               <Grid item xs={6}>
                 <FormControl fullWidth>
-                  <InputLabel htmlFor="grouped-native-select">
-                    Oficina donde presenta la solicitud y documentación
-                  </InputLabel>
-                  <Select
-                    style={{ borderRadius: "3px" }}
-                    required
-                    label="Oficina donde presenta la solicitud y documentación"
+                  <InputLabel htmlFor="grouped-native-select">Oficna donde se presente la solicitud y documentación</InputLabel>
+                  <TextField
+                    style={{ borderRadius: '3px' }}
+                    label="Oficna donde se presente la solicitud y documentación"
+                    select
+                    placeholder="Oficna donde se presente la solicitud y documentación"
+                    InputProps={{ startAdornment: <InputAdornment position="start" />, }}
                   />
                 </FormControl>
               </Grid>
 
               <Grid item xs={6}>
                 <FormControl fullWidth>
-                  <InputLabel htmlFor="grouped-native-select">
-                    Estado civil de la Empresa
-                  </InputLabel>
-                  <Select
-                    style={{ borderRadius: "3px" }}
-                    required
-                    label="Estado civil del Representante Legal"
+                  <InputLabel htmlFor="grouped-native-select">Estado Civil de la Empresa</InputLabel>
+                  <TextField
+                    style={{ borderRadius: '3px' }}
+                    label="Estado Civil de la Empresa"
+                    select
+                    placeholder="Estado Civil de la Empresa"
+                    InputProps={{ startAdornment: <InputAdornment position="start" />, }}
                   />
                 </FormControl>
               </Grid>
 
               <Grid item xs={6}>
                 <FormControl fullWidth>
-                  <InputLabel htmlFor="grouped-native-select">
-                    Profesión u oficio de la Empresa
-                  </InputLabel>
-                  <Select
-                    style={{ borderRadius: "3px" }}
-                    required
-                    label=" Profesión u oficio  Representante Legal"
+
+                  <InputLabel htmlFor="grouped-native-select">Profesión u oficio de la empresa</InputLabel>
+                  <TextField
+                    style={{ borderRadius: '3px' }}
+                    label="Tipo Identificacion"
+                    select
+                    placeholder="Tipo Identificacion"
+                    InputProps={{ startAdornment: <InputAdornment position="start" />, }}
                   />
+
                   <Typography
                     variant="body2"
                     gutterBottom
@@ -309,29 +313,29 @@ function Persona_Juridica_Agregar() {
 
             <Grid container spacing={3}>
               <Grid item xs={6}>
-                <FormControl fullWidth>
-                  <InputLabel htmlFor="grouped-native-select">
-                    Estado
-                  </InputLabel>
-                  <Select
-                    style={{ borderRadius: "3px" }}
-                    required
-                    label="Estado"
-                  />
-                </FormControl>
+              <FormControl fullWidth>
+                    <InputLabel htmlFor="grouped-native-select">Esatdo</InputLabel>
+                    <TextField
+                      style={{ borderRadius: '3px' }}
+                      label="Esatdo"
+                      select
+                      placeholder="Estado"
+                      InputProps={{startAdornment: <InputAdornment position="start" />,}}
+                    />
+                  </FormControl>
               </Grid>
 
               <Grid item xs={6}>
-                <FormControl fullWidth>
-                  <InputLabel htmlFor="grouped-native-select">
-                    Ciudad
-                  </InputLabel>
-                  <Select
-                    style={{ borderRadius: "3px" }}
-                    required
-                    label="Ciudad"
-                  />
-                </FormControl>
+              <FormControl fullWidth>
+                    <InputLabel htmlFor="grouped-native-select">Ciudad</InputLabel>
+                    <TextField
+                      style={{ borderRadius: '3px' }}
+                      label="Ciudad"
+                      select
+                      placeholder="Ciudad"
+                      InputProps={{startAdornment: <InputAdornment position="start" />,}}
+                    />
+                  </FormControl>
               </Grid>
 
               <Grid item xs={6}>
@@ -340,7 +344,8 @@ function Persona_Juridica_Agregar() {
                     style={{ borderRadius: "10px" }}
                     required
                     label="Aldea"
-                  />
+                    InputProps={{startAdornment: <InputAdornment position="start" />,}}
+                    />
                 </FormControl>
               </Grid>
 
@@ -350,7 +355,8 @@ function Persona_Juridica_Agregar() {
                     style={{ borderRadius: "10px" }}
                     required
                     label="Dirección Exacta"
-                  />
+                    InputProps={{startAdornment: <InputAdornment position="start" />,}}
+                    />
                 </FormControl>
               </Grid>
 
@@ -410,29 +416,29 @@ function Persona_Juridica_Agregar() {
 
             <Grid container spacing={3}>
               <Grid item xs={6}>
-                <FormControl fullWidth>
-                  <InputLabel htmlFor="grouped-native-select">
-                    Estado
-                  </InputLabel>
-                  <Select
-                    style={{ borderRadius: "3px" }}
-                    required
-                    label="Estado"
-                  />
-                </FormControl>
+              <FormControl fullWidth>
+                    <InputLabel htmlFor="grouped-native-select">Estado</InputLabel>
+                    <TextField
+                      style={{ borderRadius: '3px' }}
+                      label="Esatdo"
+                      select
+                      placeholder="Esatdo"
+                      InputProps={{startAdornment: <InputAdornment position="start" />,}}
+                    />
+                  </FormControl>
               </Grid>
 
               <Grid item xs={6}>
-                <FormControl fullWidth>
-                  <InputLabel htmlFor="grouped-native-select">
-                    Ciudad
-                  </InputLabel>
-                  <Select
-                    style={{ borderRadius: "3px" }}
-                    required
-                    label="Ciudad"
-                  />
-                </FormControl>
+              <FormControl fullWidth>
+                    <InputLabel htmlFor="grouped-native-select">Ciudad</InputLabel>
+                    <TextField
+                      style={{ borderRadius: '3px' }}
+                      label="Ciudad"
+                      select
+                      placeholder="Ciudad"
+                      InputProps={{startAdornment: <InputAdornment position="start" />,}}
+                    />
+                  </FormControl>
               </Grid>
 
               <Grid item xs={6}>
@@ -441,7 +447,8 @@ function Persona_Juridica_Agregar() {
                     style={{ borderRadius: "10px" }}
                     required
                     label="Aldea"
-                  />
+                    InputProps={{startAdornment: <InputAdornment position="start" />,}}
+                    />
                 </FormControl>
               </Grid>
 
@@ -451,7 +458,8 @@ function Persona_Juridica_Agregar() {
                     style={{ borderRadius: "10px" }}
                     required
                     label="Dirección Exacta"
-                  />
+                    InputProps={{startAdornment: <InputAdornment position="start" />,}}
+                    />
                 </FormControl>
               </Grid>
 
@@ -517,7 +525,8 @@ function Persona_Juridica_Agregar() {
                     style={{ borderRadius: "10px" }}
                     required
                     label="Número de teléfono fijo de la Empresa"
-                  />
+                    InputProps={{startAdornment: <InputAdornment position="start" />,}}
+                    />
                 </FormControl>
               </Grid>
 
@@ -527,7 +536,8 @@ function Persona_Juridica_Agregar() {
                     style={{ borderRadius: "10px" }}
                     required
                     label="Número de teléfono celular de la Empresa"
-                  />
+                    InputProps={{startAdornment: <InputAdornment position="start" />,}}
+                    />
                 </FormControl>
               </Grid>
 
@@ -537,7 +547,8 @@ function Persona_Juridica_Agregar() {
                     style={{ borderRadius: "10px" }}
                     required
                     label="Número de teléfono celular del Representante Legal"
-                  />
+                    InputProps={{startAdornment: <InputAdornment position="start" />,}}
+                    />
                 </FormControl>
               </Grid>
 
@@ -549,7 +560,8 @@ function Persona_Juridica_Agregar() {
                     style={{ borderRadius: "10px" }}
                     required
                     label="Correo electrónico donde notificar "
-                  />
+                    InputProps={{startAdornment: <InputAdornment position="start" />,}}
+                    />
                   <Typography
                     variant="body2"
                     gutterBottom
@@ -574,7 +586,8 @@ function Persona_Juridica_Agregar() {
                     style={{ borderRadius: "10px" }}
                     required
                     label="Codigo de verificacion de correo electrónico donde notificar "
-                  />
+                    InputProps={{startAdornment: <InputAdornment position="start" />,}}
+                    />
                   <Typography
                     variant="body2"
                     gutterBottom
@@ -598,7 +611,8 @@ function Persona_Juridica_Agregar() {
                     style={{ borderRadius: "10px" }}
                     required
                     label="Correo electrónico alternativo"
-                  />
+                    InputProps={{startAdornment: <InputAdornment position="start" />,}}
+                    />
                 </FormControl>
               </Grid>
 
@@ -608,7 +622,8 @@ function Persona_Juridica_Agregar() {
                     style={{ borderRadius: "10px" }}
                     required
                     label="Codigo de verificacion de correo electrónico alternativo"
-                  />
+                    InputProps={{startAdornment: <InputAdornment position="start" />,}}
+                    />
                 </FormControl>
               </Grid>
 
@@ -663,7 +678,8 @@ function Persona_Juridica_Agregar() {
                     style={{ borderRadius: "10px" }}
                     required
                     label="Registro Tributario Nacional (RTN) de la Sociedad Mercantil"
-                  />
+                    InputProps={{startAdornment: <InputAdornment position="start" />,}}
+                    />
                 </FormControl>
               </Grid>
 
@@ -673,7 +689,8 @@ function Persona_Juridica_Agregar() {
                     style={{ borderRadius: "10px" }}
                     required
                     label="Documento o Tarjeta de Identidad del representante Legal"
-                  />
+                    InputProps={{startAdornment: <InputAdornment position="start" />,}}
+                    />
                 </FormControl>
               </Grid>
 
@@ -683,7 +700,8 @@ function Persona_Juridica_Agregar() {
                     style={{ borderRadius: "10px" }}
                     required
                     label="Documento o Tarjeta de Identidad del representante legal"
-                  />
+                    InputProps={{startAdornment: <InputAdornment position="start" />,}}
+                    />
                 </FormControl>
               </Grid>
 
@@ -693,7 +711,8 @@ function Persona_Juridica_Agregar() {
                     style={{ borderRadius: "10px" }}
                     required
                     label="Escritura Pública de Constitución y sus modificaciones si las hubiera"
-                  />
+                    InputProps={{startAdornment: <InputAdornment position="start" />,}}
+                    />
                   <Typography
                     variant="body2"
                     gutterBottom

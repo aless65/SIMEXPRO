@@ -3613,6 +3613,8 @@ BEGIN
 	END CATCH
 END
 GO
+
+
 --************MARCAS******************--
 /*Listar marcas*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbMarcas_Listar
@@ -6456,7 +6458,7 @@ BEGIN
 END
 GO
 
---Execute Prod.UDP_tbBoletinPago_Insertar 1,7,'2023-02-01',2,'observaciones','# declaracion','rtn542451162','preimpreso','declarante',520.00,500.00,'15145454','encabezado',1,1,1,'01-02-2023'
+--Execute Adua.UDP_tbBoletinPago_Insertar 1,7,'2023-02-01',2,'observaciones','# declaracion','rtn542451162','preimpreso','declarante',520.00,500.00,'15145454','encabezado',1,1,1,'01-02-2023'
 --NO VA
 /*Editar boletin de pago*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbBoletinPago_Editar

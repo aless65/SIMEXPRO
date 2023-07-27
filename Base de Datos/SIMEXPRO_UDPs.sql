@@ -97,41 +97,41 @@ AS
 GO
 
 /*Listar Usuarios*/
-CREATE OR ALTER PROCEDURE acce.UDP_VW_tbUsuarios_Listar
-AS
-BEGIN
-	SELECT usua.usua_Id, 
-		   usua.usua_Nombre, 
-		   usua.usua_Contrasenia, 
-		   usua.usua_Correo, 
-		   usua.role_Id,
-		   rol.role_Descripcion, 
-		   usua.usua_EsAdmin,
-		   usua.empl_Id,
-		   (empl_Nombres + ' ' + empl_Apellidos) AS empleadoNombreCompleto, 
-		   usua.usua_UsuarioCreacion, 
-		   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
-		   usua.usua_FechaCreacion, 
-	       usua.usua_UsuarioModificacion, 
-		   usuaModifica.usua_Nombre AS usuarioModificacionNombre, 
-		   usua.usua_FechaModificacion,
-		   usuaElimina.usua_Nombre AS usuarioEliminacionNombre, 
-		   usua.usua_FechaEliminacion,
-		   usua.usua_Estado,
-		   empl.empl_CorreoElectronicO	
-	FROM Acce.tbUsuarios usua LEFT JOIN Acce.tbRoles rol
-	ON usua.role_Id = rol.role_Id
-	LEFT JOIN Gral.tbEmpleados empl
-	ON empl.empl_Id = usua.empl_Id 
-	LEFT JOIN acce.tbUsuarios usuaCrea
-	ON usua.usua_UsuarioCreacion = usuaCrea.usua_Id
-	LEFT JOIN acce.tbUsuarios usuaModifica
-	ON usua.usua_UsuarioModificacion = usuaModifica.usua_Id LEFT JOIN acce.tbUsuarios usuaElimina
-	ON usua.usua_UsuarioEliminacion = usuaElimina.usua_Id
-END
-GO
+--CREATE OR ALTER PROCEDURE acce.UDP_VW_tbUsuarios_Listar
+--AS
+--BEGIN
+--	SELECT usua.usua_Id, 
+--		   usua.usua_Nombre, 
+--		   usua.usua_Contrasenia, 
+--		   usua.usua_Correo, 
+--		   usua.role_Id,
+--		   rol.role_Descripcion, 
+--		   usua.usua_EsAdmin,
+--		   usua.empl_Id,
+--		   (empl_Nombres + ' ' + empl_Apellidos) AS empleadoNombreCompleto, 
+--		   usua.usua_UsuarioCreacion, 
+--		   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
+--		   usua.usua_FechaCreacion, 
+--	       usua.usua_UsuarioModificacion, 
+--		   usuaModifica.usua_Nombre AS usuarioModificacionNombre, 
+--		   usua.usua_FechaModificacion,
+--		   usuaElimina.usua_Nombre AS usuarioEliminacionNombre, 
+--		   usua.usua_FechaEliminacion,
+--		   usua.usua_Estado,
+--		   empl.empl_CorreoElectronicO	
+--	FROM Acce.tbUsuarios usua LEFT JOIN Acce.tbRoles rol
+--	ON usua.role_Id = rol.role_Id
+--	LEFT JOIN Gral.tbEmpleados empl
+--	ON empl.empl_Id = usua.empl_Id 
+--	LEFT JOIN acce.tbUsuarios usuaCrea
+--	ON usua.usua_UsuarioCreacion = usuaCrea.usua_Id
+--	LEFT JOIN acce.tbUsuarios usuaModifica
+--	ON usua.usua_UsuarioModificacion = usuaModifica.usua_Id LEFT JOIN acce.tbUsuarios usuaElimina
+--	ON usua.usua_UsuarioEliminacion = usuaElimina.usua_Id
+--END
+--GO
 
---EXEC acce.UDP_tbUsuarios_Insertar 'juan', '123', 'skf@ks.com', 1, 'zfdsf', 1, 1, '2023-08-13'
+--EXEC acce.UDP_tbUsuarios_Insertar 'juan', '123', 'skf@ks.com', 1, 'zfdsf', 1, 1, 1, '2023-08-13'
 
 /*Insertar Usuarios*/
 CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Insertar
@@ -220,7 +220,7 @@ BEGIN
 					'Insertar')
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH 
 END
 GO
@@ -525,7 +525,7 @@ GO
 
 --*************   Iniciar Sesion  ****************
 
-CREATE OR ALTER PROCEDURE Acce.UDP_IniciarSesion /*'juan', 'awsd'*/
+CREATE OR ALTER PROCEDURE Acce.UDP_IniciarSesion /*'juan', '123'*/
 	@usua_Nombre			NVARCHAR(150),
 	@usua_Contrasenia		NVARCHAR(MAX)
 AS
@@ -533,9 +533,22 @@ BEGIN
 	BEGIN TRY
 		DECLARE @contrasenaEncriptada NVARCHAR(MAX)=(SELECT HASHBYTES('SHA2_512', @usua_Contrasenia));
 
-		IF EXISTS (SELECT * FROM Acce.tbUsuarios WHERE usua_Nombre = @usua_Nombre AND usua_Contrasenia = @contrasenaEncriptada)
+		IF EXISTS (SELECT * 
+				   FROM Acce.tbUsuarios 
+				   WHERE usua_Nombre = @usua_Nombre 
+				   AND usua_Contrasenia = @contrasenaEncriptada
+				   AND usua_Estado = 1)
 			BEGIN
-				SELECT * FROM Acce.tbUsuarios WHERE usua_Nombre = @usua_Nombre AND usua_Contrasenia = @contrasenaEncriptada
+				SELECT usua_Id,
+					   usua_Nombre,
+					   usua_Correo,
+					   empl_Id,
+					   usua_Image,
+					   role_Id,
+					   usua_EsAdmin
+				FROM Acce.tbUsuarios 
+				WHERE usua_Nombre = @usua_Nombre 
+				AND usua_Contrasenia = @contrasenaEncriptada
 			END
 		ELSE
 			BEGIN

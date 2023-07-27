@@ -37,20 +37,20 @@ C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API
 C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\obj\Debug\net5.0\SIMEXPRO.BusinessLogic.AssemblyInfoInputs.cache
 C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\obj\Debug\net5.0\SIMEXPRO.BusinessLogic.AssemblyInfo.cs
 C:\Users\LAB02\Desktop\SIMEXPRRO DIVIDIDO\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\obj\Debug\net5.0\SIMEXPRO.BusinessLogic.csproj.CoreCompileInputs.cache
-C:\Users\LAB01\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\bin\Debug\net5.0\SIMEXPRO.BusinessLogic.deps.json
-C:\Users\LAB01\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\bin\Debug\net5.0\SIMEXPRO.BusinessLogic.dll
-C:\Users\LAB01\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\bin\Debug\net5.0\ref\SIMEXPRO.BusinessLogic.dll
-C:\Users\LAB01\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\bin\Debug\net5.0\SIMEXPRO.BusinessLogic.pdb
-C:\Users\LAB01\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\bin\Debug\net5.0\SIMEXPRO.DataAccess.dll
-C:\Users\LAB01\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\bin\Debug\net5.0\SIMEXPRO.Entities.dll
-C:\Users\LAB01\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\bin\Debug\net5.0\SIMEXPRO.DataAccess.pdb
-C:\Users\LAB01\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\bin\Debug\net5.0\SIMEXPRO.Entities.pdb
-C:\Users\LAB01\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\obj\Debug\net5.0\SIMEXPRO.BusinessLogic.csproj.AssemblyReference.cache
-C:\Users\LAB01\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\obj\Debug\net5.0\SIMEXPRO.BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\LAB01\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\obj\Debug\net5.0\SIMEXPRO.BusinessLogic.AssemblyInfoInputs.cache
-C:\Users\LAB01\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\obj\Debug\net5.0\SIMEXPRO.BusinessLogic.AssemblyInfo.cs
-C:\Users\LAB01\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\obj\Debug\net5.0\SIMEXPRO.BusinessLogic.csproj.CoreCompileInputs.cache
-C:\Users\LAB01\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\obj\Debug\net5.0\SIMEXPRO.BusinessLogic.csproj.CopyComplete
-C:\Users\LAB01\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\obj\Debug\net5.0\SIMEXPRO.BusinessLogic.dll
-C:\Users\LAB01\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\obj\Debug\net5.0\ref\SIMEXPRO.BusinessLogic.dll
-C:\Users\LAB01\Desktop\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\obj\Debug\net5.0\SIMEXPRO.BusinessLogic.pdb
+C:\Users\LAB01\Documents\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\bin\Debug\net5.0\SIMEXPRO.BusinessLogic.deps.json
+C:\Users\LAB01\Documents\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\bin\Debug\net5.0\SIMEXPRO.BusinessLogic.dll
+C:\Users\LAB01\Documents\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\bin\Debug\net5.0\ref\SIMEXPRO.BusinessLogic.dll
+C:\Users\LAB01\Documents\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\bin\Debug\net5.0\SIMEXPRO.BusinessLogic.pdb
+C:\Users\LAB01\Documents\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\bin\Debug\net5.0\SIMEXPRO.DataAccess.dll
+C:\Users\LAB01\Documents\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\bin\Debug\net5.0\SIMEXPRO.Entities.dll
+C:\Users\LAB01\Documents\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\bin\Debug\net5.0\SIMEXPRO.DataAccess.pdb
+C:\Users\LAB01\Documents\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\bin\Debug\net5.0\SIMEXPRO.Entities.pdb
+C:\Users\LAB01\Documents\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\obj\Debug\net5.0\SIMEXPRO.BusinessLogic.csproj.AssemblyReference.cache
+C:\Users\LAB01\Documents\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\obj\Debug\net5.0\SIMEXPRO.BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LAB01\Documents\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\obj\Debug\net5.0\SIMEXPRO.BusinessLogic.AssemblyInfoInputs.cache
+C:\Users\LAB01\Documents\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\obj\Debug\net5.0\SIMEXPRO.BusinessLogic.AssemblyInfo.cs
+C:\Users\LAB01\Documents\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\obj\Debug\net5.0\SIMEXPRO.BusinessLogic.csproj.CoreCompileInputs.cache
+C:\Users\LAB01\Documents\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\obj\Debug\net5.0\SIMEXPRO.BusinessLogic.csproj.CopyComplete
+C:\Users\LAB01\Documents\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\obj\Debug\net5.0\SIMEXPRO.BusinessLogic.dll
+C:\Users\LAB01\Documents\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\obj\Debug\net5.0\ref\SIMEXPRO.BusinessLogic.dll
+C:\Users\LAB01\Documents\SIMEXPRO\SIMEXPRO Backend\SIMEXPRO_API\SIMEXPRO.BusinessLogic\obj\Debug\net5.0\SIMEXPRO.BusinessLogic.pdb

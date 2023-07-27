@@ -6639,11 +6639,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\LAB01\\Desktop\\SIMEXPRO\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj",
+      "projectUniqueName": "C:\\Users\\LAB01\\Documents\\SIMEXPRO\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj",
       "projectName": "SIMEXPRO.BusinessLogic",
-      "projectPath": "C:\\Users\\LAB01\\Desktop\\SIMEXPRO\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj",
+      "projectPath": "C:\\Users\\LAB01\\Documents\\SIMEXPRO\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj",
       "packagesPath": "C:\\Users\\LAB01\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\LAB01\\Desktop\\SIMEXPRO\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\obj\\",
+      "outputPath": "C:\\Users\\LAB01\\Documents\\SIMEXPRO\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\LAB01\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6660,8 +6660,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\LAB01\\Desktop\\SIMEXPRO\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.DataAccess\\SIMEXPRO.DataAccess.csproj": {
-              "projectPath": "C:\\Users\\LAB01\\Desktop\\SIMEXPRO\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.DataAccess\\SIMEXPRO.DataAccess.csproj"
+            "C:\\Users\\LAB01\\Documents\\SIMEXPRO\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.DataAccess\\SIMEXPRO.DataAccess.csproj": {
+              "projectPath": "C:\\Users\\LAB01\\Documents\\SIMEXPRO\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.DataAccess\\SIMEXPRO.DataAccess.csproj"
             }
           }
         }

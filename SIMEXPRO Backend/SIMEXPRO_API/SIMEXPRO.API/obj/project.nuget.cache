@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iijky2rVh6mfZLCIeXpkZaAkSaithEheT6rMrArj7FpNtD2+CFtloGu/jZRkZhoSy50iS4inRol9vjE3pnbc1A==",
+  "dgSpecHash": "Ar5DxpTxAi8stLPneIgbmQjAjtYgpUfV9dAdK9GsOgwfFRTQ8vMSrNzhjzJSfEaPP92Ft6U2kWV8aPdfAnHiZw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\LAB01\\Desktop\\SIMEXPRO\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.API\\SIMEXPRO.API.csproj",
+  "projectFilePath": "C:\\Users\\LAB01\\Documents\\SIMEXPRO\\SIMEXPRO Backend\\SIMEXPRO_API\\SIMEXPRO.API\\SIMEXPRO.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\LAB01\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
     "C:\\Users\\LAB01\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\7.0.0\\automapper.extensions.microsoft.dependencyinjection.7.0.0.nupkg.sha512",

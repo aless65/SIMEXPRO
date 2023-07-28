@@ -30,6 +30,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
 
             var parameters = new DynamicParameters();
 
+            parameters.Add("@duca_No_Correlativo_Referencia", item.duca_No_Correlativo_Referencia, DbType.String, ParameterDirection.Input);
+            parameters.Add("@FechaAceptacion", item.duca_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
 
             var resultado = db.QueryFirst<int>(ScriptsDataBase.InsertarDucaTAP1, parameters, commandType: CommandType.StoredProcedure);
 
@@ -47,7 +49,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
 
             var parameters = new DynamicParameters();
-        
+            parameters.Add("@duca_No_Duca", item.duca_No_Duca, DbType.Int32, ParameterDirection.Input);
 
             var resultado = db.QueryFirst<int>(ScriptsDataBase.InsertarDucaTAP2, parameters, commandType: CommandType.StoredProcedure);
 

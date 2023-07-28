@@ -8392,7 +8392,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrden_Insertar
+CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrden_Insertar --1,'10-16-2004', '10-16-2004', 1,1,1,1, '10-16-2004'  
 (
 	@asor_OrdenDetId			INT,
 	@asor_FechaInicio			DATETIME,
@@ -8424,7 +8424,7 @@ BEGIN
 					@usua_UsuarioCreacion,		
 					@asor_FechaCreacion)
 		
-		SELECT SCOPE_IDENTITY() AS Resultado
+		SELECT SCOPE_IDENTITY() 
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
@@ -8441,8 +8441,8 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrden_Editar
 	@asor_Cantidad				INT,
 	@proc_Id					INT,
 	@empl_Id					INT,
-	@usua_UsuarioCreacion		INT,
-	@asor_FechaCreacion			DATETIME
+	@usua_UsuarioModificacion	INT,
+	@asor_FechaModificacion		DATETIME
 )
 AS
 BEGIN
@@ -8454,9 +8454,11 @@ BEGIN
 				asor_Cantidad			= @asor_Cantidad,	
 				proc_Id					= @proc_Id,
 				empl_Id					= @empl_Id,
-				usua_UsuarioCreacion	= @usua_UsuarioCreacion,	
-				asor_FechaCreacion		= @asor_FechaCreacion
+				usua_UsuarioModificacion= @usua_UsuarioModificacion,	
+				asor_FechaModificacion	= @asor_FechaModificacion
 		  WHERE asor_Id	= @asor_Id
+
+			SELECT 1
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
@@ -8504,7 +8506,7 @@ INNER JOIN Acce.tbUsuarios usuarioCreacion		ON AsignacionesOrdenDetalle.usua_Usu
 END
 GO
 
-CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrdenDetalle_Insertar
+CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrdenDetalle_Insertar 
 (
 	@lote_Id					INT, 
 	@adet_Cantidad				INT, 
@@ -11771,23 +11773,24 @@ SELECT colr_Id,
 	   Modificacion.usua_Nombre AS UsuarioNombreModificacion,
 	   colores.colr_FechaModificacion, 
 	   colores.usua_UsuarioEliminacion,
-	   Eliminacion.usua_Nombre AS UsuarioNombreEliminacion,
+		Eliminacion.usua_Nombre AS UsuarioNombreEliminacion,
 	   colores.colr_FechaEliminacion,
 	   colores.colr_Estado 
 FROM   Prod.tbColores colores
 INNER JOIN Acce.tbUsuarios Creacion
 ON Creacion.usua_Id = colores.usua_UsuarioCreacion
-INNER JOIN Acce.tbUsuarios Modificacion
+LEFT JOIN Acce.tbUsuarios Modificacion
 ON Modificacion.usua_Id = colores.usua_UsuarioModificacion
-INNER JOIN Acce.tbUsuarios Eliminacion
+LEFT JOIN Acce.tbUsuarios Eliminacion
 ON Eliminacion.usua_Id = colores.usua_UsuarioEliminacion
+WHERE colr_Estado = 1
 
 END
 GO
 
 
 /*Insertar Colores*/
-CREATE OR ALTER PROC Prod.UDP_tbColores_Insertar
+CREATE OR ALTER PROC Prod.UDP_tbColores_Insertar --'verde','22', 1,'10.16-2004'
 @colr_Nombre NVARCHAR(100),
 @colr_Codigo NVARCHAR(100),
 @usua_UsuarioCreacion INT,
@@ -11795,15 +11798,16 @@ CREATE OR ALTER PROC Prod.UDP_tbColores_Insertar
 AS BEGIN
 
 BEGIN TRY
-INSERT INTO Prod.tbColores(colr_Nombre, 
+		INSERT INTO Prod.tbColores(colr_Nombre, 
 					       colr_Codigo,
 						   usua_UsuarioCreacion, 
 						   colr_FechaCreacion)
-VALUES (@colr_Nombre, 
-		@colr_Codigo,
-		@usua_UsuarioCreacion, 
-		@colr_FechaCreacion)
+		VALUES (@colr_Nombre, 
+				@colr_Codigo,
+				@usua_UsuarioCreacion, 
+				@colr_FechaCreacion)
 
+		SELECT 1
 END TRY
 
 BEGIN CATCH
@@ -11831,6 +11835,8 @@ UPDATE Prod.tbColores SET colr_Nombre = @colr_Nombre,
 						  colr_FechaModificacion = @colr_FechaModificacion
 					  WHERE colr_Id = @colr_Id
 
+					  SELECT 1
+
 END TRY
 
 BEGIN CATCH
@@ -11844,14 +11850,14 @@ GO
 
 
 /*Eliminar Colores*/
-CREATE OR ALTER PROC Prod.UDP_tbColores_Eliminar
+CREATE OR ALTER PROC Prod.UDP_tbColores_Eliminar 
 @colr_Id INT,
 @usua_UsuarioEliminacion INT,
 @colr_FechaEliminacion DATETIME
 AS BEGIN
 	BEGIN TRY
 		DECLARE @respuesta INT
-		EXEC dbo.UDP_ValidarReferencias 'colr_Id', @colr_Id, 'Prod.tbOrdenCompraDetalles', @respuesta OUTPUT
+		EXEC dbo.UDP_ValidarReferencias 'colr_Id', @colr_Id, 'Prod.tbColores', @respuesta OUTPUT
 
 		
 		IF(@respuesta) = 1
@@ -11862,6 +11868,8 @@ AS BEGIN
 						colr_FechaEliminacion = @colr_FechaEliminacion
 				  WHERE colr_Id = @colr_Id
 					AND colr_Estado = 1
+
+					
 			END
 
 		SELECT @respuesta AS Resultado

@@ -2603,8 +2603,8 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbPersonaJuridica_Insertar
 	@colo_Id							  	INT,
 	@peju_PuntoReferencia					NVARCHAR(200),
 	@peju_ColoniaRepresentante				INT,
-	@peju_NumeroLocalReprentante		  	NVARCHAR(200),
-	@peju_PuntoReferenciaReprentante	  	NVARCHAR(200),
+	@peju_NumeroLocalRepresentante		  	NVARCHAR(200),
+	@peju_PuntoReferenciaRepresentante	  	NVARCHAR(200),
 	@peju_TelefonoEmpresa					NVARCHAR(200),
 	@peju_TelefonoFijoRepresentanteLegal 	NVARCHAR(200),
 	@peju_TelefonoRepresentanteLegal	  	NVARCHAR(200),
@@ -2636,8 +2636,8 @@ BEGIN
 					@colo_Id,							  	
 					@peju_PuntoReferencia,					
 					@peju_ColoniaRepresentante,				
-					@peju_NumeroLocalReprentante,		  	
-					@peju_PuntoReferenciaReprentante,	  	
+					@peju_NumeroLocalRepresentante,		  	
+					@peju_PuntoReferenciaRepresentante,	  	
 					@peju_TelefonoEmpresa,					
 					@peju_TelefonoFijoRepresentanteLegal, 	
 					@peju_TelefonoRepresentanteLegal,	  	
@@ -5113,7 +5113,87 @@ BEGIN
 		ROLLBACK TRAN
 	END CATCH
 END
+GO
 
+CREATE OR ALTER PROCEDURE Adua.UDP_tbItems_Eliminar
+@item_Id					INT,
+@item_FechaEliminacion		DATETIME,
+@usua_UsuarioEliminacion	INT
+AS
+BEGIN
+	BEGIN TRANSACTION
+	BEGIN TRY
+	DECLARE @respuesta INT
+	EXEC dbo.UDP_ValidarReferencias 'item_Id', @item_Id,'Adua.tbItems',@respuesta OUTPUT
+
+	SELECT @respuesta AS Resultado
+	IF(@respuesta) = 1
+		BEGIN
+			
+		INSERT INTO [Adua].[tbItemsHistorial](item_Id, 
+											  fact_Id, 
+											  item_Cantidad, 
+											  item_PesoNeto, 
+											  item_PesoBruto, 
+											  unme_Id, 
+											  item_IdentificacionComercialMercancias, 
+											  item_CaracteristicasMercancias, 
+											  item_Marca, 
+											  item_Modelo, 
+											  merc_Id, 
+											  pais_IdOrigenMercancia, 
+											  item_ClasificacionArancelaria, 
+											  item_ValorUnitario, 
+											  item_GastosDeTransporte, 
+											  item_ValorTransaccion, 
+											  item_Seguro, 
+											  item_OtrosGastos, 
+											  item_ValorAduana, 
+											  item_CuotaContingente, 
+											  item_ReglasAccesorias, 
+											  item_CriterioCertificarOrigen, 
+											  hduc_UsuarioAccion, 
+											  hduc_FechaAccion, 
+											  hduc_Accion)
+		SELECT item_Id, 
+			   fact_Id, 
+			   item_Cantidad, 
+			   item_PesoNeto, 
+			   item_PesoBruto, 
+			   unme_Id, 
+			   item_IdentificacionComercialMercancias, 
+			   item_CaracteristicasMercancias, 
+			   item_Marca, 
+			   item_Modelo, 
+			   merc_Id, 
+			   pais_IdOrigenMercancia, 
+			   item_ClasificacionArancelaria, 
+			   item_ValorUnitario, 
+			   item_GastosDeTransporte, 
+			   item_ValorTransaccion, 
+			   item_Seguro, 
+			   item_OtrosGastos, 
+			   item_ValorAduana, 
+			   item_CuotaContingente, 
+			   item_ReglasAccesorias, 
+			   item_CriterioCertificarOrigen, 
+			   @usua_UsuarioEliminacion,
+			   @item_FechaEliminacion,
+			   'Eliminar'
+				FROM [Adua].[tbItems]
+				WHERE item_Id = @item_Id
+
+			DELETE FROM Adua.tbItems
+			WHERE item_Id = @item_Id
+		END
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()	
+		ROLLBACK TRAN
+	END CATCH
+END
+GO
 
 GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbBaseCalculos_Listar
@@ -7039,7 +7119,8 @@ BEGIN
 			lili_Total, 
 			lili_ModalidadPago, 
 			lili_TotalGral, 
-			liquiLinea.item_Id
+			liquiLinea.item_Id,
+
 	FROM	[Adua].[tbLiquidacionPorLinea] liquiLinea 
 	INNER JOIN [Adua].[tbItems] Items ON liquiLinea.item_Id = Items.item_Id
 END

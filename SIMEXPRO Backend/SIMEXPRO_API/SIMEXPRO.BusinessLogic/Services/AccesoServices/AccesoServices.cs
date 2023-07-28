@@ -50,17 +50,18 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
             }
         }
 
-        public IEnumerable<tbUsuarios> ListarUsuarios()
+        public ServiceResult ListarUsuarios()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _usuariosRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
 
-                return Enumerable.Empty<tbUsuarios>();
+                return result.Error(ex.Message);
             }
         }
 

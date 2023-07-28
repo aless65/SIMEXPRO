@@ -31,8 +31,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@pais_Id", item.pais_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@tran_Chasis", item.tran_Chasis, DbType.String, ParameterDirection.Input);
             parametros.Add("@marca_Id", item.marca_Id, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@tran_IdRemolques", item.tran_Remolque, DbType.String, ParameterDirection.Input);
-            parametros.Add("@tran_CantCarg", item.tran_CantCarga, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@tran_IdRemolque", item.tran_Remolque, DbType.String, ParameterDirection.Input);
+            parametros.Add("@tran_CantCarga", item.tran_CantCarga, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@tran_NumDispositivoSeguridad", item.tran_NumDispositivoSeguridad, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@tran_Equipamiento", item.tran_Equipamiento, DbType.String, ParameterDirection.Input);
             parametros.Add("@tran_TipoCarga", item.tran_TipoCarga, DbType.String, ParameterDirection.Input);
@@ -40,8 +40,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@usua_UsuarioCreacio", item.usua_UsuarioCreacio, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@tran_FechaCreacion", item.tran_FechaCreacion, DbType.String, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarTransporte, parametros, commandType: CommandType.StoredProcedure);
-            result.MessageStatus = answer;
+            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarTransporte, parametros, commandType: CommandType.StoredProcedure);
+            result.CodeStatus = answer;
             return result;
         }
 
@@ -64,17 +64,17 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@pais_Id", item.pais_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@tran_Chasis", item.tran_Chasis, DbType.String, ParameterDirection.Input);
             parametros.Add("@marca_Id", item.marca_Id, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@tran_IdRemolques", item.tran_Remolque, DbType.String, ParameterDirection.Input);
-            parametros.Add("@tran_CantCarg", item.tran_CantCarga, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@tran_IdRemolque", item.tran_Remolque, DbType.String, ParameterDirection.Input);
+            parametros.Add("@tran_CantCarga", item.tran_CantCarga, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@tran_NumDispositivoSeguridad", item.tran_NumDispositivoSeguridad, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@tran_Equipamiento", item.tran_Equipamiento, DbType.String, ParameterDirection.Input);
             parametros.Add("@tran_TipoCarga", item.tran_TipoCarga, DbType.String, ParameterDirection.Input);
             parametros.Add("@tran_IdContenedor", item.tran_IdContenedor, DbType.String, ParameterDirection.Input);
-            parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@tran_FechaModificacion", item.tran_FechaModificacion, DbType.String, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioCreacio", item.usua_UsuarioCreacio, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@tran_FechaCreacion", item.tran_FechaCreacion, DbType.String, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarTransporte, parametros, commandType: CommandType.StoredProcedure);
-            result.MessageStatus = answer;
+            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarTransporte, parametros, commandType: CommandType.StoredProcedure);
+            result.CodeStatus = answer;
             return result;
         }
     }

@@ -33,8 +33,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@alde_FechaCreacion", item.alde_FechaCreacion, DbType.String, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarAldeas, parametros, commandType: CommandType.StoredProcedure);
-            result.MessageStatus = answer;
+            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarAldeas, parametros, commandType: CommandType.StoredProcedure);
+            result.CodeStatus = answer;
             return result;
         }
 
@@ -59,8 +59,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@alde_FechaCreacion", item.alde_FechaCreacion, DbType.String, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarAldeas, parametros, commandType: CommandType.StoredProcedure);
-            result.MessageStatus = answer;
+            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarAldeas, parametros, commandType: CommandType.StoredProcedure);
+            result.CodeStatus = answer;
             return result;
         }
     }

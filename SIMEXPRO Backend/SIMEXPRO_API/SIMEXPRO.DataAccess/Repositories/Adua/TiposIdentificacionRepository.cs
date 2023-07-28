@@ -22,8 +22,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@iden_FechaEliminacion", item.iden_FechaEliminacion, DbType.String, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarTiposIdentificacion, parametros, commandType: CommandType.StoredProcedure);
-            result.MessageStatus = answer;
+            var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarTiposIdentificacion, parametros, commandType: CommandType.StoredProcedure);
+            result.CodeStatus = answer;
             return result;
         }
 
@@ -42,8 +42,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@iden_FechaCreacion", item.iden_FechaCreacion, DbType.String, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarTiposIdentificacion, parametros, commandType: CommandType.StoredProcedure);
-            result.MessageStatus = answer;
+            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarTiposIdentificacion, parametros, commandType: CommandType.StoredProcedure);
+            result.CodeStatus = answer;
             return result;
         }
 
@@ -66,8 +66,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@iden_FechaModificacion", item.iden_FechaModificacion, DbType.String, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarTiposIdentificacion, parametros, commandType: CommandType.StoredProcedure);
-            result.MessageStatus = answer;
+            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarTiposIdentificacion, parametros, commandType: CommandType.StoredProcedure);
+            result.CodeStatus = answer;
             return result;
         }
     }

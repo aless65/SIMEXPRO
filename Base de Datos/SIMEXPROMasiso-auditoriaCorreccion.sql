@@ -1,6 +1,5 @@
 /*
 		DROP DATABASE SIMEXPRO
-
 		GO
 		DROP SCHEMA Adua
 		GO

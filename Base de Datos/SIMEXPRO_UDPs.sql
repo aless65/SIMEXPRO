@@ -1972,7 +1972,7 @@ WHERE unme_Estado = 1
 END
 GO
 /*Insertar UNIDAD DE MEDIDA*/
-CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_Insertar
+CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_Insertar --'111', 1, '10-16-2004'
 (
 	@unme_Descripcion		NVARCHAR(500),
 	@usua_UsuarioCreacion	INT,

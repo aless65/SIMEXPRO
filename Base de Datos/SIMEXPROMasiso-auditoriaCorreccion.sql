@@ -407,7 +407,7 @@ CREATE TABLE Gral.tbUnidadMedidas
 	
 		usua_UsuarioEliminacion 		INT,
 		unme_FechaEliminacion		    DATETIME 		DEFAULT NULL,
-		unme_Estado						BIT
+		unme_Estado						BIT				DEFAULT 1,
 
 CONSTRAINT PK_Gral_tbUnidadMedida_unme_Id PRIMARY KEY (unme_Id),
 CONSTRAINT FK_Acce_tbUsuarios_Gral_tbUnidadesMedidas_unme_UsuarioCreacion 		FOREIGN KEY (usua_UsuarioCreacion) REFERENCES Acce.tbUsuarios(usua_Id),

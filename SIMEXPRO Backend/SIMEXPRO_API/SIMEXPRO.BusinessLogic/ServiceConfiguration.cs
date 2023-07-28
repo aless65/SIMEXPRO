@@ -61,7 +61,7 @@ namespace SIMEXPRO.BussinessLogic
             services.AddScoped<IncotermRepository>();
             services.AddScoped<IntermediarioRepository>();
             services.AddScoped<ItemsHistorialRepository>();
-            services.AddScoped<ItemsRepository>();
+            //services.AddScoped<ItemsRepository>();
             services.AddScoped<LiquidacionGeneralHistorialRepository>();
             services.AddScoped<LiquidacionGeneralRepository>();
             services.AddScoped<LiquidacionPorLineaRepository>();

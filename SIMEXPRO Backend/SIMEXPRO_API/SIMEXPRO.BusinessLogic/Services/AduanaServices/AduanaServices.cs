@@ -43,7 +43,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         private readonly IncotermRepository                         _incotermRepository;
         private readonly IntermediarioRepository                    _intermediarioRepository;
         private readonly ItemsHistorialRepository                   _itemsHistorialRepository;
-        private readonly ItemsRepository                            _itemsRepository;
+        //private readonly ItemsRepository                            _itemsRepository;
         private readonly LiquidacionGeneralHistorialRepository      _liquidacionGeneralHistorialRepository;
         private readonly LiquidacionGeneralRepository               _liquidacionGeneralRepository;
         private readonly LiquidacionPorLineaRepository              _liquidacionPorLineaRepository;
@@ -70,7 +70,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                                 DucaRepository DucaRepository, EstadoBoletinRepository EstadoBoletinRepository, EstadoMercanciasRepository EstadoMercanciasRepository, FacturasHistorialRepository FacturasHistorialRepository,
                                 FacturasRepository FacturasRepository, FormasdePagoRepository FormasdePagoRepository, ImportadoresRepository ImportadoresRepository, ImpuestosporAracelRepository ImpuestosporAracelRepository,
                                 ImpuestosRepository ImpuestosRepository, IncotermRepository IncotermRepository, IntermediarioRepository IntermediarioRepository, ItemsHistorialRepository ItemsHistorialRepository,
-                                ItemsRepository ItemsRepository, LiquidacionGeneralHistorialRepository LiquidacionGeneralHistorialRepository, LiquidacionGeneralRepository LiquidacionGeneralRepository,
+                                //ItemsRepository ItemsRepository, LiquidacionGeneralHistorialRepository LiquidacionGeneralHistorialRepository, LiquidacionGeneralRepository LiquidacionGeneralRepository,
                                 LiquidacionPorLineaRepository LiquidacionPorLineaRepository, LugaresEmbarqueRepository LugaresEmbarqueRepository, MarcasRepository MarcasRepository, ModoTransporteRepository ModoTransporteRepository,
                                 NivelesComercialesRepository NivelesComercialesRepository, PersonaJuridicaRepository PersonaJuridicaRepository, PersonaNaturalRepository PersonaNaturalRepository, PersonasRepository PersonasRepository,
                                 ProveedoresDeclaracionRepository ProveedoresDeclaracionRepository, TipoDocumentoRepository TipoDocumentoRepository, TipoIntermediarioRepository TipoIntermediarioRepository,
@@ -108,9 +108,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             _incotermRepository = IncotermRepository;
             _intermediarioRepository = IntermediarioRepository;
             _itemsHistorialRepository = ItemsHistorialRepository;
-            _itemsRepository = ItemsRepository;
-            _liquidacionGeneralHistorialRepository = LiquidacionGeneralHistorialRepository;
-            _liquidacionGeneralRepository = LiquidacionGeneralRepository;
+            //_itemsRepository = ItemsRepository;
+            //_liquidacionGeneralHistorialRepository = LiquidacionGeneralHistorialRepository;
+            //_liquidacionGeneralRepository = LiquidacionGeneralRepository;
             _liquidacionPorLineaRepository = LiquidacionPorLineaRepository;
             _lugaresEmbarqueRepository = LugaresEmbarqueRepository;
             _marcasRepository = MarcasRepository;
@@ -3391,105 +3391,105 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Items
-        public IEnumerable<tbItems> ListarItems()
-        {
-            try
-            {
-                var list = _itemsRepository.List();
-                return list;
-            }
-            catch (Exception ex)
-            {
-                return Enumerable.Empty<tbItems>();
-            }
-        }
+        //public IEnumerable<tbItems> ListarItems()
+        //{
+        //    try
+        //    {
+        //        var list = _itemsRepository.List();
+        //        return list;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Enumerable.Empty<tbItems>();
+        //    }
+        //}
 
-        public ServiceResult InsertarItems(tbItems item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (1 == 1)
-                {
-                    var map = _itemsRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
+        //public ServiceResult InsertarItems(tbItems item)
+        //{
+        //    var result = new ServiceResult();
+        //    try
+        //    {
+        //        if (1 == 1)
+        //        {
+        //            var map = _itemsRepository.Insert(item);
+        //            if (map.CodeStatus > 0)
+        //            {
+        //                return result.Ok(map);
+        //            }
+        //            else
+        //            {
+        //                map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+        //                return result.Error(map);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return result.Error(ex.Message);
+        //    }
+        //}
 
-        public ServiceResult ActualizarItems(tbItems item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (1 == 1)
-                {
-                    var map = _itemsRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
+        //public ServiceResult ActualizarItems(tbItems item)
+        //{
+        //    var result = new ServiceResult();
+        //    try
+        //    {
+        //        if (1 == 1)
+        //        {
+        //            var map = _itemsRepository.Update(item);
+        //            if (map.CodeStatus > 0)
+        //            {
+        //                return result.Ok(map);
+        //            }
+        //            else
+        //            {
+        //                map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+        //                return result.Error(map);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return result.Error(ex.Message);
+        //    }
+        //}
 
-        public ServiceResult EliminarItems(tbItems item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (1 == 1)
-                {
-                    var map = _itemsRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
+        //public ServiceResult EliminarItems(tbItems item)
+        //{
+        //    var result = new ServiceResult();
+        //    try
+        //    {
+        //        if (1 == 1)
+        //        {
+        //            var map = _itemsRepository.Delete(item);
+        //            if (map.CodeStatus > 0)
+        //            {
+        //                return result.Ok(map);
+        //            }
+        //            else
+        //            {
+        //                map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+        //                return result.Error(map);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return result.Error(ex.Message);
+        //    }
+        //}
         #endregion
 
         #region LiquidacionGeneralHistorial

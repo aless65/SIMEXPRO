@@ -11,57 +11,57 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
 {
     public class AduanaServices
     {
-        private readonly AduanasRepository                          _aduanasRepository;
-        private readonly ArancelesRepository                        _arancelesRepository;
-        private readonly BaseCalculosHistorialRepository            _baseCalculosHistorialRepository;
-        private readonly BaseCalculosRepository                     _baseCalculosRepository;
-        private readonly BoletinPagoRepository                      _boletinPagoRepository;
-        private readonly CodigoImpuestoRepository                   _codigoImpuestoRepository;
-        private readonly ComercianteIndividualRepository            _comercianteIndividualRepository;
-        private readonly ConceptoPagoRepository                     _conceptoPagoRepository;
-        private readonly CondicionesRepository                      _condicionesRepository;
-        private readonly CondicionesHistorialRepository             _condicionesHistorialRepository;
-        private readonly CondicionesComercialesRepository           _condicionesComercialesRepository;
-        private readonly ConductorRepository                        _conductorRepository;
-        private readonly Declaraciones_ValorHistorialRepository     _declaraciones_ValorHistorialRepository;
-        private readonly Declaraciones_ValorRepository              _declaraciones_ValorRepository;
-        private readonly DeclarantesRepository                      _declarantesRepository;
-        private readonly DocumentosContratosRepository              _documentosContratosRepository;
-        private readonly DocumentosdeSoporteRepository              _documentosdeSoporteRepository;
-        private readonly DocumentosPDFHistorialRepository           _documentosPDFHistorialRepository;
-        private readonly DocumentosPDFRepository                    _documentosPDFRepository;
-        private readonly DucaHistorialRepository                    _ducaHistorialRepository;
-        private readonly DucaRepository                             _ducaRepository;
-        private readonly EstadoBoletinRepository                    _estadoBoletinRepository;
-        private readonly EstadoMercanciasRepository                 _estadoMercanciasRepository;
-        private readonly FacturasHistorialRepository                _facturasHistorialRepository;
-        private readonly FacturasRepository                         _facturasRepository;
-        private readonly FormasdePagoRepository                     _formasdePagoRepository;
-        private readonly ImportadoresRepository                     _importadoresRepository;
-        private readonly ImpuestosporAracelRepository               _impuestosporAracelRepository;
-        private readonly ImpuestosRepository                        _impuestosRepository;
-        private readonly IncotermRepository                         _incotermRepository;
-        private readonly IntermediarioRepository                    _intermediarioRepository;
-        private readonly ItemsHistorialRepository                   _itemsHistorialRepository;
-        private readonly ItemsRepository                            _itemsRepository;
-        private readonly LiquidacionGeneralHistorialRepository      _liquidacionGeneralHistorialRepository;
-        private readonly LiquidacionGeneralRepository               _liquidacionGeneralRepository;
-        private readonly LiquidacionPorLineaRepository              _liquidacionPorLineaRepository;
-        private readonly LugaresEmbarqueRepository                  _lugaresEmbarqueRepository;
-        private readonly MarcasRepository                           _marcasRepository;
-        private readonly ModoTransporteRepository                   _modoTransporteRepository;
-        private readonly NivelesComercialesRepository               _nivelesComercialesRepository;
-        private readonly PersonaJuridicaRepository                  _personaJuridicaRepository;
-        private readonly PersonaNaturalRepository                   _personaNaturalRepository;
-        private readonly PersonasRepository                         _personasRepository;
-        private readonly ProveedoresDeclaracionRepository           _proveedoresDeclaracionRepository;
-        private readonly TipoDocumentoRepository                    _tipoDocumentoRepository;
-        private readonly TipoIntermediarioRepository                _tipoIntermediarioRepository;
-        private readonly TipoLiquidacionRepository                  _tipoLiquidacionRepository;
-        private readonly TiposIdentificacionRepository              _tiposIdentificacionRepository;
-        private readonly TransporteRepository                       _transporteRepository;
+        private readonly AduanasRepository _aduanasRepository;
+        private readonly ArancelesRepository _arancelesRepository;
+        private readonly BaseCalculosHistorialRepository _baseCalculosHistorialRepository;
+        private readonly BaseCalculosRepository _baseCalculosRepository;
+        private readonly BoletinPagoRepository _boletinPagoRepository;
+        private readonly CodigoImpuestoRepository _codigoImpuestoRepository;
+        private readonly ComercianteIndividualRepository _comercianteIndividualRepository;
+        private readonly ConceptoPagoRepository _conceptoPagoRepository;
+        private readonly CondicionesRepository _condicionesRepository;
+        private readonly CondicionesHistorialRepository _condicionesHistorialRepository;
+        private readonly CondicionesComercialesRepository _condicionesComercialesRepository;
+        private readonly ConductorRepository _conductorRepository;
+        private readonly Declaraciones_ValorHistorialRepository _declaraciones_ValorHistorialRepository;
+        private readonly Declaraciones_ValorRepository _declaraciones_ValorRepository;
+        private readonly DeclarantesRepository _declarantesRepository;
+        private readonly DocumentosContratosRepository _documentosContratosRepository;
+        private readonly DocumentosdeSoporteRepository _documentosdeSoporteRepository;
+        private readonly DocumentosPDFHistorialRepository _documentosPDFHistorialRepository;
+        private readonly DocumentosPDFRepository _documentosPDFRepository;
+        private readonly DucaHistorialRepository _ducaHistorialRepository;
+        private readonly DucaRepository _ducaRepository;
+        private readonly EstadoBoletinRepository _estadoBoletinRepository;
+        private readonly EstadoMercanciasRepository _estadoMercanciasRepository;
+        private readonly FacturasHistorialRepository _facturasHistorialRepository;
+        private readonly FacturasRepository _facturasRepository;
+        private readonly FormasdePagoRepository _formasdePagoRepository;
+        private readonly ImportadoresRepository _importadoresRepository;
+        private readonly ImpuestosporAracelRepository _impuestosporAracelRepository;
+        private readonly ImpuestosRepository _impuestosRepository;
+        private readonly IncotermRepository _incotermRepository;
+        private readonly IntermediarioRepository _intermediarioRepository;
+        private readonly ItemsHistorialRepository _itemsHistorialRepository;
+        private readonly ItemsRepository _itemsRepository;
+        private readonly LiquidacionGeneralHistorialRepository _liquidacionGeneralHistorialRepository;
+        private readonly LiquidacionGeneralRepository _liquidacionGeneralRepository;
+        private readonly LiquidacionPorLineaRepository _liquidacionPorLineaRepository;
+        private readonly LugaresEmbarqueRepository _lugaresEmbarqueRepository;
+        private readonly MarcasRepository _marcasRepository;
+        private readonly ModoTransporteRepository _modoTransporteRepository;
+        private readonly NivelesComercialesRepository _nivelesComercialesRepository;
+        private readonly PersonaJuridicaRepository _personaJuridicaRepository;
+        private readonly PersonaNaturalRepository _personaNaturalRepository;
+        private readonly PersonasRepository _personasRepository;
+        private readonly ProveedoresDeclaracionRepository _proveedoresDeclaracionRepository;
+        private readonly TipoDocumentoRepository _tipoDocumentoRepository;
+        private readonly TipoIntermediarioRepository _tipoIntermediarioRepository;
+        private readonly TipoLiquidacionRepository _tipoLiquidacionRepository;
+        private readonly TiposIdentificacionRepository _tiposIdentificacionRepository;
+        private readonly TransporteRepository _transporteRepository;
 
-        public AduanaServices(  AduanasRepository AduanasRepository, ArancelesRepository ArancelesRepository, BaseCalculosHistorialRepository BaseCalculosHistorialRepository, BaseCalculosRepository BaseCalculosRepository,  BoletinPagoRepository BoletinPagoRepository,
+        public AduanaServices(AduanasRepository AduanasRepository, ArancelesRepository ArancelesRepository, BaseCalculosHistorialRepository BaseCalculosHistorialRepository, BaseCalculosRepository BaseCalculosRepository, BoletinPagoRepository BoletinPagoRepository,
                                 CodigoImpuestoRepository CodigoImpuestoRepository, ComercianteIndividualRepository ComercianteIndividualRepository, ConceptoPagoRepository ConceptoPagoRepository,
                                 CondicionesRepository CondicionesRepository, CondicionesHistorialRepository CondicionesHistorialRepository, CondicionesComercialesRepository CondicionesComercialesRepository,
                                 ConductorRepository ConductorRepository, Declaraciones_ValorHistorialRepository Declaraciones_ValorHistorialRepository, Declaraciones_ValorRepository Declaraciones_ValorRepository,
@@ -98,7 +98,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             _ducaHistorialRepository = DucaHistorialRepository;
             _ducaRepository = DucaRepository;
             _estadoBoletinRepository = EstadoBoletinRepository;
-            _estadoMercanciasRepository = EstadoMercanciasRepository; 
+            _estadoMercanciasRepository = EstadoMercanciasRepository;
             _facturasHistorialRepository = FacturasHistorialRepository;
             _facturasRepository = FacturasRepository;
             _formasdePagoRepository = FormasdePagoRepository;
@@ -117,7 +117,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             _modoTransporteRepository = ModoTransporteRepository;
             _nivelesComercialesRepository = NivelesComercialesRepository;
             _personaJuridicaRepository = PersonaJuridicaRepository;
-            _personaNaturalRepository = PersonaNaturalRepository; 
+            _personaNaturalRepository = PersonaNaturalRepository;
             _personasRepository = PersonasRepository;
             _proveedoresDeclaracionRepository = ProveedoresDeclaracionRepository;
             _tipoDocumentoRepository = TipoDocumentoRepository;
@@ -1773,7 +1773,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         }
 
         public ServiceResult InsertarDocumentosdeSoporte(tbDocumentosDeSoporte item)
-        {                                                
+        {
             var result = new ServiceResult();
             try
             {
@@ -4309,6 +4309,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region PersonaNatural
+        //public ServiceResult ListarPersonaNatural()
+        //{
+        //    var result = new ServiceResult();
+        //    try
+        //    {
+        //        var list = _personaNaturalRepository.List();
+        //        return result.Ok(list);
+        //    }
+        //    catch (Exception ex) { return result.Error(ex.Message); }
+        //}
+
         public IEnumerable<tbPersonaNatural> ListarPersonaNatural()
         {
             try
@@ -4411,6 +4422,20 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Personas
+        //public ServiceResult ListarPersonas()
+        //{
+        //    var result = new ServiceResult();
+        //    try
+        //    {
+        //        var list = _personasRepository.List();
+        //        return result.Ok(list);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return result.Error(ex.Message);
+        //    }
+        //}
+
         public IEnumerable<tbPersonas> ListarPersonas()
         {
             try
@@ -4615,6 +4640,20 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region TipoDocumento
+        //public ServiceResult ListarTipoDocumento()
+        //{
+        //    var result = new ServiceResult();
+        //    try
+        //    {
+        //        var list = _tipoDocumentoRepository.List();
+        //        return result.Ok(list);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return result.Error(ex.Message);
+        //    }
+        //}
+
         public IEnumerable<tbTipoDocumento> ListarTipoDocumento()
         {
             try
@@ -4717,6 +4756,20 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region TipoIntermediario
+        //public ServiceResult ListarTipoIntermediario()
+        //{
+        //    var result = new ServiceResult();
+        //    try
+        //    {
+        //        var list = _tipoIntermediarioRepository.List();
+        //        return result.Ok(list);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return result.Error(ex.Message);
+        //    }
+        //}
+
         public IEnumerable<tbTipoIntermediario> ListarTipoIntermediario()
         {
             try
@@ -4819,6 +4872,20 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region TipoLiquidacion
+        //public ServiceResult ListarTipoLiquidacion()
+        //{
+        //    var resultado = new ServiceResult();
+        //    try
+        //    {
+        //        var list = _tipoLiquidacionRepository.List();
+        //        return resultado.Ok(list);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return resultado.Error(ex.Message);
+        //    }
+        //}
+
         public IEnumerable<tbTipoLiquidacion> ListarTipoLiquidacion()
         {
             try
@@ -4921,6 +4988,20 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region TiposIdentificacion
+        //public ServiceResult ListarTiposIdentificacion()
+        //{
+        //    var resultado = new ServiceResult();
+        //    try
+        //    {
+        //        var list = _tiposIdentificacionRepository.List();
+        //        return resultado.Ok(list);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return resultado.Error(ex.Message);
+        //    }
+        //}
+
         public IEnumerable<tbTiposIdentificacion> ListarTiposIdentificacion()
         {
             try
@@ -5023,6 +5104,21 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Transporte
+        //public ServiceResult ListarTransporte()
+        //{
+        //    var resultado = new ServiceResult();
+
+        //    try
+        //    {
+        //        var list = _transporteRepository.List();
+        //        return resultado.Ok(list);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return resultado.Error(ex.Message);
+        //    }
+        //}
+
         public IEnumerable<tbTransporte> ListarTransporte()
         {
             try

@@ -63,6 +63,21 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         }
 
         #region Aldeas
+        //public ServiceResult ListarAldeas()
+        //{
+        //    var resultado = new ServiceResult();
+
+        //    try
+        //    {
+        //        var list = _aldeasRepository.List();
+        //        return resultado.Ok(list);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return resultado.Error(ex.Message);
+        //    }
+        //}
+
         public IEnumerable<tbAldeas> ListarAldeas()
         {
             try
@@ -165,6 +180,20 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Cargos
+        //public ServiceResult ListarCargos()
+        //{
+        //    var resultado = new ServiceResult();
+        //    try
+        //    {
+        //        var list = _cargosRepository.List();
+        //        return resultado.Ok(list);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return resultado.Error(ex.Message);
+        //    }
+        //}
+
         public IEnumerable<tbCargos> ListarCargos()
         {
             try

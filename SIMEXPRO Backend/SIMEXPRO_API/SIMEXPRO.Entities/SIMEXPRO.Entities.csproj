@@ -4,4 +4,33 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Include="obj\Debug\net5.0\.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" />
+    <Compile Include="obj\Debug\net5.0\SIMEXPRO.Entities.AssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="bin\Debug\net5.0\SIMEXPRO.Entities.deps.json" />
+    <Content Include="obj\Debug\net5.0\SIMEXPRO.Entities.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\project.assets.json" />
+    <Content Include="obj\SIMEXPRO.Entities.csproj.nuget.dgspec.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\Debug\net5.0\ref\SIMEXPRO.Entities.dll" />
+    <None Include="bin\Debug\net5.0\SIMEXPRO.Entities.dll" />
+    <None Include="bin\Debug\net5.0\SIMEXPRO.Entities.pdb" />
+    <None Include="obj\Debug\net5.0\ref\SIMEXPRO.Entities.dll" />
+    <None Include="obj\Debug\net5.0\SIMEXPRO.Entities.AssemblyInfoInputs.cache" />
+    <None Include="obj\Debug\net5.0\SIMEXPRO.Entities.assets.cache" />
+    <None Include="obj\Debug\net5.0\SIMEXPRO.Entities.csproj.AssemblyReference.cache" />
+    <None Include="obj\Debug\net5.0\SIMEXPRO.Entities.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Debug\net5.0\SIMEXPRO.Entities.dll" />
+    <None Include="obj\Debug\net5.0\SIMEXPRO.Entities.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="obj\Debug\net5.0\SIMEXPRO.Entities.pdb" />
+    <None Include="obj\project.nuget.cache" />
+    <None Include="obj\SIMEXPRO.Entities.csproj.nuget.g.props" />
+    <None Include="obj\SIMEXPRO.Entities.csproj.nuget.g.targets" />
+  </ItemGroup>
+
 </Project>

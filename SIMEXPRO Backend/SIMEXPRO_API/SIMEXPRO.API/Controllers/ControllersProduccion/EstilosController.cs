@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SIMEXPRO.API.Models.ModelsProduccion;
 using SIMEXPRO.BussinessLogic.Services.ProduccionServices;
+using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +23,42 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             _produccionServices = produccionServices;
             _mapper = mapper;
         }
+
+
+        [HttpGet("Listado")]
+        public IActionResult Index()
+        {
+            var listado = _produccionServices.ListarEstilos();
+            var listadoMapeado = _mapper.Map<IEnumerable<EstilosViewModel>>(listado);
+            return Ok(listadoMapeado);
+        }
+
+
+        [HttpPost("Insert")]
+        public IActionResult Insert(EstilosViewModel estilosViewModel)
+        {
+            var item = _mapper.Map<tbEstilos>(estilosViewModel);
+            var respuesta = _produccionServices.InsertarEstilos(item);
+            return Ok(respuesta);
+        }
+
+
+        [HttpPost("Update")]
+        public IActionResult Update(EstilosViewModel estilosViewModel)
+        {
+            var item = _mapper.Map<tbEstilos>(estilosViewModel);
+            var respuesta = _produccionServices.ActualizarEstilos(item);
+            return Ok(respuesta);
+        }
+
+        [HttpPost("Delete")]
+        public IActionResult Delete(EstilosViewModel estilosViewModel)
+        {
+            var item = _mapper.Map<tbEstilos>(estilosViewModel);
+            var respuesta = _produccionServices.EliminarEstilos(item);
+            return Ok(respuesta);
+        }
+
+
     }
 }

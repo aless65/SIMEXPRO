@@ -1,4 +1,6 @@
-﻿using SIMEXPRO.Entities.Entities;
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
+using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +28,9 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
 
         public IEnumerable<tbConceptoPago> List()
         {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+
+            //var resultado = db.QueryFirst<IEnumerable<tbConceptoPago>>(ScriptsDataBase )
             throw new NotImplementedException();
         }
 

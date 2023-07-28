@@ -8694,14 +8694,19 @@ SELECT	clie.clie_Id					,
 		clie.clie_Direccion				,
 		clie.clie_FAX					,
 		clie.clie_RTN					,
-		usu.usua_Nombre					AS usarioCreacion,
+		clie.usua_UsuarioCreacion		,
+		usu.usua_Nombre					AS usuarioNombreCreacion,
 		clie.clie_FechaCreacion			,
-		usu1.usua_Nombre				AS usuarioModificacion,
+		clie.usua_UsuarioModificacion	,
+		usu1.usua_Nombre				AS usuarioNombreModificacion,
 		clie.clie_FechaModificacion		,
+		clie.usua_UsuarioEliminacion	,
+		usu2.usua_Nombre				AS usuarioNombreEliminacion,
 		clie.clie_Estado				
 FROM	Prod.tbClientes clie 
 		INNER JOIN Acce.tbUsuarios usu	ON usu.usua_Id = clie.usua_UsuarioCreacion 
 		LEFT JOIN Acce.tbUsuarios usu1	ON usu1.usua_Id = clie.usua_UsuarioModificacion
+		lEFT JOIN Acce.tbUsuarios usu2	ON usu2.usua_Id = clie.usua_UsuarioEliminacion
 WHERE	clie_Estado = 1
 END
 
@@ -9099,7 +9104,7 @@ BEGIN
 END
 GO
 --************AREA******************--
-/*Listar Area*/
+/*Listar Area*/ 
 CREATE OR ALTER PROCEDURE Prod.UDP_tbArea_Listar
 AS
 BEGIN
@@ -9107,10 +9112,13 @@ SELECT	tipa_Id							,
 		tipa_area						,
 		pro.proc_Id						,
 		pro.proc_Descripcion			,
-		crea.usua_Nombre 				AS usarioCreacion,			 
+		area.usua_UsuarioCreacion		,
+		crea.usua_Nombre 				AS usarioCreacion,	
 		tipa_FechaCreacion				,
+		area.usua_UsuarioModificacion	,
 		modi.usua_Nombre  				AS usuarioModificacion,
 		tipa_FechaModificacion			,
+		area.usua_UsuarioEliminacion	,
 		elim.usua_Nombre 				AS usuarioEliminacion,
 		tipa_FechaEliminacion			,
 		tipa_Estado 					
@@ -10340,27 +10348,6 @@ FROM	[Prod].[tbCategoria] cate
 		LEFT JOIN [Acce].[tbUsuarios] usuaModifica	ON cate.usua_UsuarioModificacion = usuaCrea.usua_Id 
 		LEFT JOIN [Acce].[tbUsuarios] usuaElimina	ON cate.usua_UsuarioEliminacion = usuaCrea.usua_Id 
 WHERE cate_Estado = 1
-
-	SELECT cate_Id							AS categoriaId, 
-		   cate_Descripcion					AS categoriaDescripcion, 
-		   cate.usua_UsuarioCreacion		AS usuarioCreacion, 
-		   usuaCrea.usua_Nombre				AS usuarioCreacionNombre,
-		   cate_FechaCreacion				AS fechaCreacion, 
-		   cate.usua_UsuarioModificacion	AS usuarioModificacion, 
-		   usuaModifica.usua_Nombre			AS usuarioModificacionNombre,
-		   cate_FechaModificacion			AS fechaModificacion,
-		   cate.usua_UsuarioEliminacion		AS usuarioEliminacion, 
-		   usuaElimina.usua_Nombre			AS usuarioEliminacionNombre,
-		   cate_FechaEliminacion			AS fechaEliminacion, 
-		   cate_Estado						AS categoriaEstado
-	  FROM Prod.tbCategoria cate 
-INNER JOIN Acce.tbUsuarios usuaCrea
-		ON cate.usua_UsuarioCreacion = usuaCrea.usua_Id 
- LEFT JOIN Acce.tbUsuarios usuaModifica
-		ON cate.usua_UsuarioModificacion = usuaCrea.usua_Id 
- LEFT JOIN Acce.tbUsuarios usuaElimina
-		ON cate.usua_UsuarioEliminacion = usuaCrea.usua_Id 
-	 WHERE cate_Estado = 1
 
 END
 GO
@@ -11777,14 +11764,14 @@ AS BEGIN
 SELECT colr_Id,
 	   colr_Nombre,
 	   colr_Codigo,
-	   colores.usua_UsuarioCreacion AS UsuCreacion, 
-	   Creacion.usua_Nombre,
+	   colores.usua_UsuarioCreacion, 
+	   Creacion.usua_Nombre AS UsuarioNombreCreacion,
 	   colores.colr_FechaCreacion,
-	   colores.usua_UsuarioModificacion AS usuModificacion,
-	   Modificacion.usua_Nombre,
+	   colores.usua_UsuarioModificacion,
+	   Modificacion.usua_Nombre AS UsuarioNombreModificacion,
 	   colores.colr_FechaModificacion, 
-	   colores.usua_UsuarioEliminacion AS usuEliminacion,
-	   Eliminacion.usua_Nombre,
+	   colores.usua_UsuarioEliminacion,
+	   Eliminacion.usua_Nombre AS UsuarioNombreEliminacion,
 	   colores.colr_FechaEliminacion,
 	   colores.colr_Estado 
 FROM   Prod.tbColores colores

@@ -38,6 +38,9 @@ namespace Events_Company_R.API.Extentions
             #region Producción
             CreateMap<ProcesosViewModel, tbProcesos>().ReverseMap();
             CreateMap<ReporteModuloDiaViewModel, tbReporteModuloDia>().ReverseMap();
+            CreateMap<ReporteModuloDiaDetalleViewModel, tbReporteModuloDiaDetalle>().ReverseMap();
+            CreateMap<RevisionDeCalidadViewModel, tbRevisionDeCalidad>().ReverseMap();
+            CreateMap<SubCategoriaViewModel, tbSubcategoria>().ReverseMap();
             CreateMap<EstilosViewModel, tbEstilos>().ReverseMap();
             CreateMap<FuncionesMaquinaViewModel, tbFuncionesMaquina>().ReverseMap();
             #endregion

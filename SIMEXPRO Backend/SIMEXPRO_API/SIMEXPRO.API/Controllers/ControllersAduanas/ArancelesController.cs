@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SIMEXPRO.API.Models.ModelsAduana;
 using SIMEXPRO.BussinessLogic.Services.EventoServices;
@@ -12,47 +13,50 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CodigoImpuestoController : Controller
+    public class ArancelesController : ControllerBase
     {
+
         private readonly AduanaServices _aduanaServices;
         private readonly IMapper _mapper;
 
-        public CodigoImpuestoController(AduanaServices AduanaServices, IMapper mapper)
+        public ArancelesController(AduanaServices AduanaServices, IMapper mapper)
         {
             _aduanaServices = AduanaServices;
             _mapper = mapper;
         }
 
+
         [HttpGet("Listado")]
         public IActionResult Index()
         {
-            var listado = _aduanaServices.ListarCodigoImpuesto();
-            var mapped = _mapper.Map<IEnumerable<CodigoImpuestoViewModel>>(listado);
+            var listado = _aduanaServices.ListarAranceles();
+            var mapped = _mapper.Map<IEnumerable<ArancelesViewModel>>(listado);
             return Ok(mapped);
         }
 
         [HttpPost("Insertar")]
-        public IActionResult Insertar(CodigoImpuestoViewModel codigoImpuesto)
+        public IActionResult Insertar(ArancelesViewModel aranceles)
         {
-            var mapped = _mapper.Map<tbCodigoImpuesto>(codigoImpuesto);
-            var datos = _aduanaServices.InsertarCodigoImpuesto(mapped);
+            var mapped = _mapper.Map<tbAranceles>(aranceles);
+            var datos = _aduanaServices.InsertarAranceles(mapped);
             return Ok(datos);
         }
 
         [HttpPost("Editar")]
-        public IActionResult Editar(CodigoImpuestoViewModel codigoImpuesto)
+        public IActionResult Editar(ArancelesViewModel aranceles)
         {
-            var mapped = _mapper.Map<tbCodigoImpuesto>(codigoImpuesto);
-            var datos = _aduanaServices.ActualizarCodigoImpuesto(mapped);
+            var mapped = _mapper.Map<tbAranceles>(aranceles);
+            var datos = _aduanaServices.ActualizarAranceles(mapped);
             return Ok(datos);
         }
 
         [HttpPost("Eliminar")]
-        public IActionResult Eliminar(CodigoImpuestoViewModel codigoImpuesto)
+        public IActionResult Eliminar(ArancelesViewModel aranceles)
         {
-            var mapped = _mapper.Map<tbCodigoImpuesto>(codigoImpuesto);
-            var datos = _aduanaServices.EliminarCodigoImpuesto(mapped);
+            var mapped = _mapper.Map<tbAranceles>(aranceles);
+            var datos = _aduanaServices.EliminarAranceles(mapped);
             return Ok(datos);
         }
+
     }
 }

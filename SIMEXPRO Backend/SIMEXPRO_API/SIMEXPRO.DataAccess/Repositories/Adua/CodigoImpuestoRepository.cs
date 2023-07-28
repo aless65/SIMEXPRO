@@ -22,7 +22,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@coim_FechaEliminacion", item.coim_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
             var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarCodigoImpuesto, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
-            return result
+            return result;
         }
 
         public tbCodigoImpuesto Find(int? id)
@@ -40,7 +40,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@coim_FechaCreacion", item.coim_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
             var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarCodigoImpuesto, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
-            return result
+            return result;
         }
 
         public IEnumerable<tbCodigoImpuesto> List()

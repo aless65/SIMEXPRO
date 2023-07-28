@@ -14,15 +14,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
     {
         public RequestStatus Delete(tbBaseCalculos item)
         {
-            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
-            RequestStatus result = new RequestStatus();
-            var parametros = new DynamicParameters();
-            parametros.Add("@base_Id", item.base_Id, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@base_FechaModificacion", item.base_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarBaseCalculo, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
-            return result;
+            throw new NotImplementedException();
+
         }
 
         public tbBaseCalculos Find(int? id)
@@ -62,7 +55,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
 
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@base_FechaCreacion", item.base_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarBaseCalculo, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarBaseCalculos, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
             return result;
         }
@@ -71,7 +64,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();
-            return db.Query<tbBaseCalculos>(ScriptsDataBase.ListarBaseCalculo, null, commandType: CommandType.StoredProcedure);
+            return db.Query<tbBaseCalculos>(ScriptsDataBase.ListarBaseCalculos, null, commandType: CommandType.StoredProcedure);
 
         }
 
@@ -108,7 +101,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
 
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@base_FechaModificacion", item.base_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarBaseCalculo, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarBaseCalculos, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
             return result;
         }

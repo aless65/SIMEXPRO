@@ -50,17 +50,19 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
             }
         }
 
-        public IEnumerable<tbUsuarios> ListarUsuarios()
+        public ServiceResult ListarUsuarios()
         {
+            var result = new ServiceResult();
+
             try
             {
                 var list = _usuariosRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
 
-                return Enumerable.Empty<tbUsuarios>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -159,17 +161,19 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
         #endregion
 
         #region Roles Por Pantalla
-        public IEnumerable<tbRolesXPantallas> Pantallas_Por_Rol(tbRolesXPantallas item)
+        public ServiceResult Pantallas_Por_Rol(tbRolesXPantallas item)
         {
+            var result = new ServiceResult();
+
             try
             {
-                var list = _rolesPorPantallaRepository.List();
-                return list;
+                var list = _rolesPorPantallaRepository.List(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
 
-                return Enumerable.Empty<tbRolesXPantallas>();
+                return result.Error(ex.Message);
             }
         }
         public IEnumerable<tbRolesXPantallas> PantallasPorRoleView(tbRolesXPantallas item)
@@ -250,17 +254,18 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
         #endregion
 
         #region Roles
-        public IEnumerable<tbRoles> ListarRoles()
+        public ServiceResult ListarRoles()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _rolesRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
 
-                return Enumerable.Empty<tbRoles>();
+                return result.Error(ex.Message);
             }
         }
 

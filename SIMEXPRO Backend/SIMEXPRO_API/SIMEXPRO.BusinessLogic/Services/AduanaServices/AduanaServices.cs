@@ -127,16 +127,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             _transporteRepository = TransporteRepository;
         }
         #region Aduanas
-        public IEnumerable<tbAduanas> ListarAduanas()
+        public ServiceResult ListarAduanas()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _aduanasRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbAduanas>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -229,16 +230,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Aranceles
-        public IEnumerable<tbAranceles> ListarAranceles()
+        public ServiceResult ListarAranceles()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _arancelesRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbAranceles>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -331,16 +333,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region BaseCalculosHistorial
-        public IEnumerable<tbBaseCalculosHistorial> ListarBaseCalculosHistorial()
+        public ServiceResult ListarBaseCalculosHistorial()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _baseCalculosHistorialRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbBaseCalculosHistorial>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -433,16 +436,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region BaseCalculos
-        public IEnumerable<tbBaseCalculos> ListarBaseCalculos()
+        public ServiceResult ListarBaseCalculos()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _baseCalculosRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbBaseCalculos>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -535,16 +539,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region BoletinPago
-        public IEnumerable<tbBoletinPago> ListarBoletinPago()
+        public ServiceResult ListarBoletinPago()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _boletinPagoRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbBoletinPago>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -637,16 +642,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region CodigoImpuesto
-        public IEnumerable<tbCodigoImpuesto> ListarCodigoImpuesto()
+        public ServiceResult ListarCodigoImpuesto()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _codigoImpuestoRepository.List();
-                return list;
+                return result.Ok(list); 
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbCodigoImpuesto>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -739,16 +745,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region ComercianteIndividual
-        public IEnumerable<tbComercianteIndividual> ListarComercianteIndividual()
+        public ServiceResult ListarComercianteIndividual()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _comercianteIndividualRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbComercianteIndividual>();
+                return result.Error(ex.Message);
             }
         }
 

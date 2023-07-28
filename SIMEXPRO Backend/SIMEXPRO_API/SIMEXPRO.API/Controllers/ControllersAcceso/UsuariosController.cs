@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SIMEXPRO.API.Models.ModelsAcceso;
 using SIMEXPRO.BussinessLogic.Services.AccesoServices;
@@ -13,8 +13,9 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuariosController : Controller
+    public class UsuariosController : ControllerBase
     {
+
         private readonly AccesoServices _accesoServices;
         private readonly IMapper _mapper;
 
@@ -24,10 +25,12 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
             _mapper = mapper;
         }
 
-        [HttpGet("ListarUsuarios")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
-            return View();
+            var listado = _accesoServices.ListarUsuarios();
+            var mapped = _mapper.Map<IEnumerable<tbUsuarios>>(listado);
+            return Ok(listado);
         }
 
         [HttpGet("Login")]
@@ -36,7 +39,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
 
             var respuesta = _accesoServices.IniciarSesion(usua_Nombre, usua_Contrasenia);
 
-            if(respuesta.Code == 200)
+            if (respuesta.Code == 200)
             {
                 respuesta.Data = _mapper.Map<UsuariosViewModel>(respuesta.Data);
 
@@ -48,5 +51,32 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
                 return StatusCode(203, respuesta);
             }
         }
+
+
+
+        [HttpPost("Insertar")]
+        public IActionResult Insertar(UsuariosViewModel usuarios)
+        {
+            var mapped = _mapper.Map<tbUsuarios>(usuarios);
+            var datos = _accesoServices.InsertarUsuario(mapped);
+            return Ok(datos);
+        }
+
+        [HttpPost("Editar")]
+        public IActionResult Editar(UsuariosViewModel usuarios)
+        {
+            var mapped = _mapper.Map<tbUsuarios>(usuarios);
+            var datos = _accesoServices.ActualizarUsuario(mapped);
+            return Ok(datos);
+        }
+
+        [HttpPost("Eliminar")]
+        public IActionResult Eliminar(UsuariosViewModel usuarios)
+        {
+            var mapped = _mapper.Map<tbUsuarios>(usuarios);
+            var datos = _accesoServices.DeleteUsuario(mapped);
+            return Ok(datos);
+        }
+
     }
 }

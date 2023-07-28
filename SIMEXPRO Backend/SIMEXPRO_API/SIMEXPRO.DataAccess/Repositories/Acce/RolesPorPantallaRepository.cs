@@ -18,7 +18,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
              parametros.Add("@role_Id", item.role_Id, DbType.Int32, ParameterDirection.Input);
-              var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarRolesPantalla, parametros, commandType: CommandType.StoredProcedure);
+              var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarRolesXPantallas, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
             return result;
         }
@@ -37,7 +37,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             parametros.Add("@role_Id", item.role_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@ropa_FechaCreacion", item.ropa_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarRolesPantalla, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarRolesXPantallas, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
             return result;
         }
@@ -48,7 +48,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
              parametros.Add("@role_Id", item.role_Id, DbType.Int32, ParameterDirection.Input);
-            return db.Query<tbRolesXPantallas>(ScriptsDataBase.ListarRolesPantalla, parametros, commandType: CommandType.StoredProcedure);
+            return db.Query<tbRolesXPantallas>(ScriptsDataBase.ListarRolesXPantallas, parametros, commandType: CommandType.StoredProcedure);
            
         }
 
@@ -64,7 +64,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             var parametros = new DynamicParameters();
             parametros.Add("@pant_Id", item.pant_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@role_Id", item.role_Id, DbType.Int32, ParameterDirection.Input);
-             var answer = db.QueryFirst<int>(ScriptsDataBase.EditarRolesPantalla, parametros, commandType: CommandType.StoredProcedure);
+             var answer = db.QueryFirst<int>(ScriptsDataBase.EditarRoles, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
             return result;
         }

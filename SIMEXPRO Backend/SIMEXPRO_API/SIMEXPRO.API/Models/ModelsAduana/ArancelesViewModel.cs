@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.API.Models.ModelsAduana
 {
-    public class BaseCalculosViewModel
+    public class ArancelesViewModel
     {
         public int base_Id { get; set; }
         public int deva_Id { get; set; }

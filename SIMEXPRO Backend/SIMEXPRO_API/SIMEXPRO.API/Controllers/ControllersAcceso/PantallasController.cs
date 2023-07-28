@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.API.Controllers.ControllersAcceso
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class PantallasController : Controller
     {
         private readonly AccesoServices _accesoServices;

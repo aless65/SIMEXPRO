@@ -110,15 +110,270 @@ namespace SIMEXPRO.DataAccess
 
         #endregion
 
-
         #region Aduanas
 
+        #region Aduanas
+        public static string ListarAduanas = "Adua.UDP_tbAduanas_Listar";
+        public static string InsertarAduanas = "Adua.UDP_tbAduanas_Insertar";
+        public static string EditarAduanas = "Adua.UDP_tbAduanas_Editar";
+        public static string EliminarAduanas = "Adua.UDP_tbAduanas_Eliminar";
+        #endregion
+
+        #region Aranceles
+        public static string ListarAranceles = "Adua.UDP_tbAranceles_Listar";
+        public static string InsertarAranceles = "Adua.UDP_tbAranceles_Insertar";
+        public static string EditarAranceles = "Adua.UDP_tbAranceles_Editar";
+        #endregion
+
+        #region Base Calculos
+        public static string ListarBaseCalculos = "Adua.UDP_tbBaseCalculos_Listar";
+        public static string InsertarBaseCalculos = "Adua.UDP_tbBaseCalculos_Insertar";
+        public static string EditarBaseCalculos = "Adua.UDP_tbBaseCalculos_Editar";
+        #endregion
+
+        #region Boletin de Pago
+        public static string ListarBoletinPago = "Adua.UDP_tbBoletinPago_Listar";
+        public static string InsertarBoletinPago = "Adua.UDP_tbBoletinPago_Insertar";
+        public static string EditarBoletinPago = "Adua.UDP_tbBoletinPago_Editar";
+        public static string EliminarBoletinPago = "Adua.UDP_tbBoletinPago_Eliminar";
+        #endregion
+
+        #region Codigo Impuesto
+        public static string ListarCodigoImpuesto = "Adua.UDP_tbCodigoImpuesto_Listar";
+        public static string InsertarCodigoImpuesto = "Adua.UDP_tbCodigoImpuesto_Insertar";
+        public static string EditarCodigoImpuesto = "Adua.UDP_tbCodigoImpuesto_Editar";
+        public static string EliminarCodigoImpuesto = "Adua.UDP_tbCodigoImpuesto_Eliminar";
+        #endregion
+
+        #region Comerciante Individual
+        public static string ListarComercianteIndividual = "Adua.UDP_tbComercianteIndividual_Listar";
+        public static string InsertarComercianteIndividual = "Adua.UDP_tbComercianteIndividual_Insertar";
+        public static string EditarComercianteIndividual = "Adua.UDP_tbComercianteIndividual_Editar";
+        #endregion
+
+        #region Concepto  de Pago 
+        public static string ListarConceptoPago = "Adua.UDP_tbConceptoPago_Listar";
+        public static string InsertarConceptoPago = "Adua.UDP_tbConceptoPago_Insertar";
+        public static string EditarConceptoPago = "Adua.UDP_tbConceptoPago_Editar";
+        #endregion
+
+        #region Condiciones 
+        public static string ListarCondiciones = "Adua.UDP_tbCondiciones_Listar";
+        public static string InsertarCondiciones = "Adua.UDP_tbCondiciones_Insertar";
+        public static string EditarCondiciones = "Adua.UDP_tbCondiciones_Editar";
+        #endregion
+
+        #region Condiciones Comerciales
+        public static string ListarCondicionesComerciales = "Adua.UDP_tbCondicionesComerciales_Listar";
+        public static string InsertarCondicionesComerciales = "Adua.UDP_tbCondicionesComerciales_Insertar";
+        public static string EditarCondicionesComerciales = "Adua.UDP_tbCondicionesComerciales_Editar";
+        public static string EliminarCondicionesComerciales = "Adua.UDP_tbCondicionesComerciales_Eliminar";
+        #endregion
+
+        #region Conductor
+        public static string ListarConductor = "adua.UDP_tbConductor_Listar";
+        public static string InsertarConductor = "Adua.UDP_tbConductor_Insert";
+        public static string EditarConductor = "Adua.UDP_tbConductor_Editar";
+        public static string EliminarConductor = "Adua.UDP_tbConductor_Eliminar";
+        #endregion
+
+        #region Declaraciones de Valor
+        public static string ListarDeclaracionesValor = "adua.UDP_tbDeclaraciones_ValorCompleto_Listar";
+
+        public static string InsertarDeclaracionesValorTAP1 = "adua.UDP_tbDeclaraciones_Valor_Tab1_Insertar";
+        public static string EditarDeclaracionesValorTAP1 = "adua.UDP_tbDeclaraciones_Valor_Tab1_Editar";
+
+        public static string InsertarDeclaracionesValorTAP2 = "adua.UDP_tbDeclaraciones_Valor_Tab2_Insertar";
+        public static string EditarDeclaracionesValorTAP2 = "adua.UDP_tbDeclaraciones_Valor_Tab2_Editar";
+
+        public static string InsertarDeclaracionesValorTAP3 = "adua.UDP_tbDeclaraciones_Valor_Tab3_Insertar";
+        public static string EditarDeclaracionesValorTAP3 = "adua.UDP_tbDeclaraciones_Valor_Tab3_Editar";
+
+        public static string EliminarDeclaracionesValor = "Adua.UDP_tbDeclaraciones_Valor_Eliminar";
+        #endregion
+
+        #region Declarantes
+        public static string ListarDeclarantes = "Adua.UDP_tbDeclarantes_Listar";
+        public static string InsertarDeclarantes = "adua.UDP_tbDeclarantes_Insertar";
+        public static string EditarDeclarantes = "adua.UDP_tbDeclarantes_Editar";
+        public static string EliminarDeclarantes = "Adua.UDP_tbDeclarantes_Eliminar";
+        #endregion
+
+        #region Documentos Contrato
+        public static string ListarDocumentosContratos = "Adua.UDP_tbDocumentosContratos_Listar";
+        public static string InsertarDocumentosContratos = "Adua.UDP_tbDocumentosContratos_Insertar";
+        public static string EditarDocumentosContratos = "Adua.UDP_tbDocumentosContratos_Editar";
+        public static string EliminarDocumentosContratos = "Adua.UDP_tbDocumentosContratos_Eliminar";
+        #endregion
+
+        #region Documentos de Soporte
+        public static string ListarDocumentosSoporte = "Adua.UDP_tbDocumentosDeSoporte_Listar";
+        public static string InsertarDocumentosSoporte = "Adua.UDP_tbDocumentosDeSoporte_Insertar";
+        #endregion
+
+        #region Documentos PDF
+        public static string ListarDocumentosPDF = "Adua.UDP_tbDocumentosPDF_Listar";
+        public static string InsertarDocumentosPDF = "Adua.UDP_tbDocumentosPDF_Insertar";
+        public static string EditarDocumentosPDF = "Adua.UDP_tbDocumentosPDF_Editar";
+        public static string EliminarDocumentosPDF = "Adua.UDP_tbDocumentosPDF_Eliminar";
+        #endregion
+
+        #region Duca
+        public static string ListarDuca = "Adua.UDP_tbDuca_Listar";
+
+        public static string InsertarDucaTAP1 = "Adua.UDP_tbDuca_InsertarTab1";
+        public static string EditarDucaTAP1 = "Adua.UDP_tbDuca_EditarTab1";
+
+        public static string InsertarDucaTAP2 = "Adua.UDP_tbDuca_InsertarTab2";
+        public static string EditarDucaTAP2 = "Adua.UDP_tbDuca_EditarTab2";
+
+        public static string InsertarDucaTAP3 = "Adua.UDP_tbDuca_InsertarTab3";
+        public static string EditarDucaTAP3 = "Adua.UDP_tbDuca_EditarTab3";
+        #endregion
+
+        #region Estado Boletin
+        public static string ListarEstadoBoletin = "Adua.UDP_tbEstadoBoletin_Listar";
+        public static string InsertarEstadoBoletin = "Adua.UDP_tbEstadoBoletin_Insertar";
+        public static string EditarEstadoBoletin = "Adua.UDP_tbEstadoBoletin_Editar";
+        #endregion
+
+        #region Estado Mercancias
+        public static string ListarEstadoMercancias = "Adua.UDP_VW_tbEstadoMercancias_Listar";
+        public static string InsertarEstadoMercancias = "Adua.UDP_tbEstadoMercancias_Insertar";
+        public static string EditarEstadoMercancias = "Adua.UDP_tbEstadoMercancias_Editar";
+        public static string EliminarEstadoMercancias = "Adua.UDP_tbEstadoMercancias_Eliminar";
+        #endregion
+
+        #region Facturas
+        public static string ListarFacturas = "Adua.UDP_tbFacturas_Listar";
+        public static string InsertarFacturas = "Adua.UDP_tbFacturas_Insertar";
+        #endregion
+
+        #region Formas de Pago
+        public static string ListarFormasdePago = "Adua.UDP_tbFormadePago_Listar";
+        public static string InsertarFormasdePago = "Adua.UDP_tbFormasdePago_Insertar";
+        public static string EditarFormasdePago = "Adua.UDP_tbFormasdePago_Editar";
+        public static string EliminarFormasdePago = "Adua.UDP_tbFormasdePago_Eliminar";
+        #endregion
+
+        #region Impuestos
+        public static string ListarImpuestos = "Adua.UDP_tbImpuestos_Listar";
+        public static string InsertarImpuestos = "Adua.UDP_tbImpuestos_Insertar";
+        public static string EditarImpuestos = "Adua.UDP_tbImpuestos_Editar";
+        #endregion
+
+        #region Impuestos Por Arancel
+        public static string ListarImpuestosPorArancel = "Adua.UDP_tbImpuestosPorArancel_Listar";
+        public static string InsertarImpuestosPorArancel = "Adua.UDP_tbImpuestosPorArancel_Insertar";
+        public static string EditarImpuestosPorArancel = "Adua.UDP_tbImpuestosPorArancel_Editar";
+        #endregion
+
+        #region Incoterm
+        public static string ListarIncoterm = "adua.UDP_tbIncoterm_Listar";
+        public static string InsertarIncoterm = "adua.UDP_tbIncoterm_Insertar";
+        public static string EditarIncoterm = "adua.UDP_tbIncoterm_Editar";
+        #endregion
+
+        #region Items
+        public static string ListarItems = "Adua.UDP_tbItems_Listar";
+        public static string InsertarItems = "Adua.UDP_tbItems_Insertar";
+        public static string EditarItems = "Adua.UDP_tbItems_Editar";
+        #endregion
+
+        #region Liquidacion General
+        public static string ListarLiquidacionGeneral = "Adua.UDP_tbLiquidacionGeneral_Listar";
+        public static string InsertarLiquidacionGeneral = "Adua.UDP_tbLiquidacionGeneral_Insertar";
+        public static string EditarLiquidacionGeneral = "Adua.UDP_tbLiquidacionGeneral_Editar";
+        #endregion
+
+        #region Liquidacion Por Linea
+        public static string ListarLiquidacionPorLinea = "adua.UDP_tbLiquidacionPorLinea_Listar";
+        public static string InsertarLiquidacionPorLinea = "adua.UDP_tbLiquidacionPorLinea_Insertar";
+        public static string EditarLiquidacionPorLinea = "adua.UDP_tbLiquidacionPorLinea_Editar";
+        #endregion
+
+        #region Lugares de Embarque
+        public static string ListarLugaresEmbarque = "Adua.UDP_tbLugaresEmbarque_Listar";
+        public static string InsertarLugaresEmbarque = "Adua.UDP_tbLugaresEmbarque_Insertar";
+        public static string EditarLugaresEmbarque = "Adua.UDP_tbLugaresEmbarque_Editar";
+        public static string EliminarLugaresEmbarque = "Adua.UDP_tbLugaresEmbarque_Eliminar";
+        #endregion
+
+        #region Marcas
+        public static string ListarMarcas = "Adua.UDP_tbMarcas_Listar";
+        public static string InsertarMarcas = "Adua.UDP_tbMarcas_Insertar";
+        public static string EditarMarcas = "Adua.UDP_tbMarcas_Editar";
+        public static string EliminarMarcas = "Adua.UDP_tbMarcas_Eliminar";
+        #endregion
+
+        #region Modo Transporte
+        public static string ListarModoTransporte = "Adua.UDP_tbModoTransporte_Listar";
+        public static string InsertarModoTransporte = "Adua.UDP_tbModoTransporte_Insertar";
+        public static string EditarModoTransporte = "Adua.UDP_tbModoTransporte_Editar";
+        #endregion
+
+        #region Niveles Comerciales
+        public static string ListarNivelesComerciales = "Adua.UDP_tbNivelesComerciales_Listar";
+        public static string InsertarNivelesComerciales = "Adua.UDP_tbNivelesComerciales_Insertar";
+        public static string EditarNivelesComerciales = "Adua.UDP_tbNivelesComerciales_Editar";
+        public static string EliminarNivelesComerciales = "Adua.UDP_tbNivelesComerciales_Eliminar";
+        #endregion
+
+        #region Persona Juridica
+        public static string ListarPersonaJuridica = "Adua.UDP_tbPersonaJuridica_Listar";
+        public static string InsertarPersonaJuridica = "Adua.UDP_tbPersonaJuridica_Insertar";
+        public static string EditarPersonaJuridica = "Adua.UDP_tbPersonaJuridica_Editar";
+        #endregion
+
+        #region Persona Natural
+        public static string ListarPersonaNatural = "Adua.UDP_tbPersonaNatural_Listar";
+        public static string InsertarPersonaNatural = "Adua.UDP_tbPersonaNatural_Insertar";
+        public static string EditarPersonaNatural = "Adua.UDP_tbPersonaNatural_Editar";
+        #endregion
+
+        #region Personas
+        public static string ListarPersonas = "Adua.UDP_tbPersonas_Listar";
+        public static string InsertarPersonas = "Adua.UDP_tbPersonas_Insertar";
+        public static string EditarPersonas = "Adua.UDP_tbPersonas_Editar";
+        #endregion
+
+        #region Tipo Documentos
+        public static string ListarTipoDocumento = "Adua.UDP_tbTipoDocumento_Listar";
+        public static string InsertarTipoDocumento = "Adua.UDP_tbTipoDocumento_Insertar";
+        public static string EditarTipoDocumento = "Adua.UDP_tbTipoDocumento_Editar";
+        #endregion
+
+        #region Tipo Intermediario
+        public static string ListarTipoIntermediario = "Adua.UDP_tbTipoIntermediario_Listar";
+        public static string InsertarTipoIntermediario = "Adua.UDP_tbTipoIntermediario_Insertar";
+        public static string EditarTipoIntermediario = "Adua.UDP_tbTipoIntermediario_Editar";
+        public static string EliminarTipoIntermediario = "Adua.UDP_tbTipoIntermediario_Eliminar";
+        #endregion
+
+        #region Tipo Liquidación
+        public static string ListarTipoLiquidacion = "Adua.UDP_tbTipoLiquidacion_Listar";
+        public static string InsertarTipoLiquidacion = "Adua.UDP_tbTipoLiquidacion_Insertar";
+        public static string EditarTipoLiquidacion = "Adua.UDP_tbTipoLiquidacion_Editar";
+        #endregion
+
+        #region Tipo Identificacion
+        public static string ListarTiposIdentificacion = "Adua.UDP_tbTiposIdentificacion_Listar";
+        public static string InsertarTiposIdentificacion = "Adua.UDP_tbTiposIdentificacion_Insertar";
+        public static string EditarTiposIdentificacion = "Adua.UDP_tbTiposIdentificacion_Editar";
+        public static string EliminarTiposIdentificacion = " Adua.UDP_tbTiposIdentificacion_Eliminar";
+        #endregion
+
+        #region Transporte
+        public static string ListarTransporte = "Adua.UDP_tbTransporte_Listar";
+        public static string InsertarTransporte = "Adua.UDP_tbTransporte_Insert";
+        public static string EditarTransporte = "Adua.UDP_tbTransporte_Editar";
+        #endregion
 
         #endregion
 
 
         #region Produccion
-  
+
         #region Procesos
         public static string ListarProcesos     = "Prod.UDP_tbProcesos_Listar";
         public static string InsertarProcesos   = "Prod.UDP_tbProcesos_Insertar";

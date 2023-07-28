@@ -4024,18 +4024,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _nivelesComercialesRepository.Insert(item);
+                if (map.CodeStatus > 0)
                 {
-                    var map = _nivelesComercialesRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
+                    return result.Ok(map);
+                }
+                else
+                {
                         
-                        return result.Error(map);
-                    }
+                    return result.Error(map);
                 }
                 else
                 {
@@ -4053,22 +4050,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _nivelesComercialesRepository.Update(item);
+                if (map.CodeStatus > 0)
                 {
-                    var map = _nivelesComercialesRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -4082,22 +4072,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _nivelesComercialesRepository.Delete(item);
+                if (map.CodeStatus > 0)
                 {
-                    var map = _nivelesComercialesRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -4127,22 +4110,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _personaJuridicaRepository.Insert(item);
+                if (map.CodeStatus > 0)
                 {
-                    var map = _personaJuridicaRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)

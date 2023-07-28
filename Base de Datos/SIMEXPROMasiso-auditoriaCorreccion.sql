@@ -2330,7 +2330,7 @@ CREATE TABLE Adua.tbDuca(
 	duca_Codigo_Transportista		NVARCHAR(200) NULL,
 	duca_PesoBrutoTotal             DECIMAL(20,8),
 	duca_PesoNetoTotal              DECIMAL(20,8),
-	motr_id                 		INT NULL,
+	motr_Id                 		INT NULL,
 	duca_Transportista_Nombre		NVARCHAR(MAX) NULL,
 	duca_Conductor_Id				INT NULL,
 	duca_Codigo_Tipo_Documento		CHAR(3) NOT NULL,

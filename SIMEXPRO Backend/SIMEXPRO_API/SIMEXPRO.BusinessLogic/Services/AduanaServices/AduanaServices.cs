@@ -2167,40 +2167,79 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Duca
-        public IEnumerable<tbDuca> ListarDuca()
+        public ServiceResult ListarDuca()
         {
+            var result = new ServiceResult();
+
             try
             {
                 var list = _ducaRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbDuca>();
+                return result.Error(ex.Message);
             }
         }
 
-        public ServiceResult InsertarDuca(tbDuca item)
+        public ServiceResult InsertarDucaTap1(tbDuca item)
         {
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _ducaRepository.Insert(item);
+
+                if (map.CodeStatus > 0)
                 {
-                    var map = _ducaRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult InsertarDucaTap2(tbDuca item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _ducaRepository.InsertTap2(item);
+
+                if (map.CodeStatus > 0)
+                {
+                    return result.Ok(map);
+                }
+                else
+                {
+                    return result.Error(map);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult InsertarDucaTap3(tbDuca item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _ducaRepository.InsertTap3(item);
+
+                if (map.CodeStatus > 0)
+                {
+                    return result.Ok(map);
+                }
+                else
+                {
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2214,22 +2253,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _ducaRepository.Update(item);
+
+                if (map.CodeStatus > 0)
                 {
-                    var map = _ducaRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)

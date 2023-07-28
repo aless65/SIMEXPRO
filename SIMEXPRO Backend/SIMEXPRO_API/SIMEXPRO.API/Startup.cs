@@ -1,5 +1,5 @@
 using AutoMapper;
-using Events_Company_R.API.Extentions;
+using SIMEXPRO.API.Extentions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -45,24 +45,24 @@ namespace SIMEXPRO.API
             }
            );
 
+            #region Comentar Para que no pida token de acceso
+            //// Configure Azure Key Vault
+            //var configBuilder = new ConfigurationBuilder();
+            //var keyVaultEndpoint = "https://simexpro.vault.azure.net/"; // Replace with your Key Vault URI
+            //var azureServiceTokenProvider = new AzureServiceTokenProvider();
+            //var keyVaultClient = new KeyVaultClient(
+            //    new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback)
+            //);
+            //configBuilder.AddAzureKeyVault(keyVaultEndpoint, keyVaultClient, new DefaultKeyVaultSecretManager());
 
-            // Configure Azure Key Vault
-            var configBuilder = new ConfigurationBuilder();
-            var keyVaultEndpoint = "https://simexpro.vault.azure.net/"; // Replace with your Key Vault URI
-            var azureServiceTokenProvider = new AzureServiceTokenProvider();
-            var keyVaultClient = new KeyVaultClient(
-                new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback)
-            );
-            configBuilder.AddAzureKeyVault(keyVaultEndpoint, keyVaultClient, new DefaultKeyVaultSecretManager());
+            //// Add your other configuration sources, e.g., appsettings.json, user secrets, etc.
+            //configBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            //            .AddUserSecrets<Startup>()
+            //            .AddEnvironmentVariables();
 
-            // Add your other configuration sources, e.g., appsettings.json, user secrets, etc.
-            configBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                        .AddUserSecrets<Startup>()
-                        .AddEnvironmentVariables();
-
-            var configuration = configBuilder.Build();
-            services.AddSingleton(configuration);
-
+            //var configuration = configBuilder.Build();
+            //services.AddSingleton(configuration);
+            #endregion
 
             services.DataAccess(Configuration.GetConnectionString("ConexionSimexpro"));
             services.BussinessLogic();

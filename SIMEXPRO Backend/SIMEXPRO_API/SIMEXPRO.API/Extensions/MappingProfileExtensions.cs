@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SIMEXPRO.API.Models;
 using SIMEXPRO.API.Models.ModelsAcceso;
+using SIMEXPRO.API.Models.ModelsAduana;
 using SIMEXPRO.API.Models.ModelsProduccion;
 using SIMEXPRO.Entities.Entities;
 using System;
@@ -8,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Events_Company_R.API.Extentions
+namespace SIMEXPRO.API.Extentions
 {
     public class MappingProfileExtensions : Profile
     {
@@ -32,7 +33,7 @@ namespace Events_Company_R.API.Extentions
             #endregion
 
             #region Aduana
-
+            CreateMap<DucaViewModel, tbDuca>().ReverseMap();
             #endregion
 
             #region Producción

@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.API.Controllers.ControllersAduanas
 {
-    public class AduanasController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AduanasController : ControllerBase
     {
         private readonly AduanaServices _aduanaServices;
         private readonly IMapper _mapper;
@@ -18,9 +20,12 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             _aduanaServices = AduanaServices;
             _mapper = mapper;
         }
-        public IActionResult Index()
+
+        [HttpGet("Listado")]
+        public IActionResult List()
         {
-            return View();
+            var list = _aduanaServices.ListarAduanas();
+            return Ok(list);
         }
 
     }

@@ -11,6 +11,20 @@ namespace SIMEXPRO.DataAccess
 
         #region Acceso
 
+        #region rol
+        public static string ListarRoles = "Acce.UDP_tbRoles_Listar";
+        public static string InsertarRoles = "Acce.UDP_tbRoles_Insertar";
+        public static string EditarRoles = "Acce.UDP_tbRoles_Editar";
+        public static string EliminarRoles = "Acce.UDP_tbRoles_Eliminar";
+        #endregion
+
+        #region rol por pantalla
+        public static string ListarRolesPantalla = "Acce.UDP_tbRolesXPantallas_Listar";
+        public static string InsertarRolesPantalla = "Acce.UDP_tbRolesXPantallas_Insertar";
+        public static string EditarRolesPantalla = "Acce.UDP_tbRolesXPantallas_Editar";
+        public static string EliminarRolesPantalla = "Acce.UDP_tbRolesXPantallas_Eliminar";
+        #endregion
+
         #region Usuarios
         public static string ListarUsuarios = "acce.UDP_VW_tbUsuarios_Listar";
         public static string InsertarUsuarios = "acce.UDP_tbUsuarios_Insertar";
@@ -113,12 +127,39 @@ namespace SIMEXPRO.DataAccess
 
         #region Aduanas
 
+        #region Aduanas
+        public static string ListarAduanas = "Adua.UDP_tbAduanas_Listar";
+        public static string InsertarAduanas = "Adua.UDP_tbAduanas_Insertar";
+        public static string EditarAduanas = "Adua.UDP_tbAduanas_Editar";
+        public static string EliminarAduanas = "Adua.UDP_tbAduanas_Eliminar";
+        #endregion
+
+        #region Aduanas
+        public static string ListarAranceles = "Adua.UDP_tbAranceles_Listar";
+        public static string InsertarAranceles = "Adua.UDP_tbAranceles_Insertar";
+        public static string EditarAranceles = "Adua.UDP_tbAranceles_Editar";
+        #endregion
+
+        #region CodigoImpuesto
+        public static string ListarCodigoImpuesto = "Adua.UDP_tbCodigoImpuesto_Listar";
+        public static string InsertarCodigoImpuesto = "Adua.UDP_tbCodigoImpuesto_Insertar";
+        public static string EditarCodigoImpuesto = "Adua.UDP_tbCodigoImpuesto_Editar";
+        public static string EliminarCodigoImpuesto = "Adua.UDP_tbCodigoImpuesto_Eliminar";
+        #endregion
+
+
+        #region ComercianteIndividual
+        public static string ListarComercianteIndividual = "Adua.UDP_tbComercianteIndividual_Listar";
+        public static string InsertarComercianteIndividual = "Adua.UDP_tbComercianteIndividual_Insertar";
+        public static string EditarComercianteIndividual = "Adua.UDP_tbComercianteIndividual_Editar";
+        #endregion
+
 
         #endregion
 
 
         #region Produccion
-  
+
         #region Procesos
         public static string ListarProcesos     = "Prod.UDP_tbProcesos_Listar";
         public static string InsertarProcesos   = "Prod.UDP_tbProcesos_Insertar";

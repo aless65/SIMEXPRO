@@ -1,6 +1,9 @@
-﻿using SIMEXPRO.Entities.Entities;
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
+using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +14,13 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
     {
         public RequestStatus Delete(tbRolesXPantallas item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+             parametros.Add("@role_Id", item.role_Id, DbType.Int32, ParameterDirection.Input);
+              var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarRolesPantalla, parametros, commandType: CommandType.StoredProcedure);
+            result.CodeStatus = answer;
+            return result;
         }
 
         public tbRolesXPantallas Find(int? id)
@@ -21,7 +30,26 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
 
         public RequestStatus Insert(tbRolesXPantallas item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@pant_Id", item.pant_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@role_Id", item.role_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@ropa_FechaCreacion", item.ropa_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarRolesPantalla, parametros, commandType: CommandType.StoredProcedure);
+            result.CodeStatus = answer;
+            return result;
+        }
+
+        public IEnumerable<tbRolesXPantallas> List(tbRolesXPantallas item)
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+             parametros.Add("@role_Id", item.role_Id, DbType.Int32, ParameterDirection.Input);
+            return db.Query<tbRolesXPantallas>(ScriptsDataBase.ListarRolesPantalla, parametros, commandType: CommandType.StoredProcedure);
+           
         }
 
         public IEnumerable<tbRolesXPantallas> List()
@@ -31,7 +59,14 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
 
         public RequestStatus Update(tbRolesXPantallas item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@pant_Id", item.pant_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@role_Id", item.role_Id, DbType.Int32, ParameterDirection.Input);
+             var answer = db.QueryFirst<int>(ScriptsDataBase.EditarRolesPantalla, parametros, commandType: CommandType.StoredProcedure);
+            result.CodeStatus = answer;
+            return result;
         }
     }
 }

@@ -15,6 +15,8 @@ namespace SIMEXPRO.Entities.Entities
 
         public int coin_Id { get; set; }
         public int pers_Id { get; set; }
+
+        public int fopr_Id { get; set; }
         public bool pers_FormaRepresentacion { get; set; }
         public int colo_Id { get; set; }
         public string coin_PuntoReferencia { get; set; }

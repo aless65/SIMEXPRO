@@ -14,21 +14,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
     {
         public RequestStatus Delete(tbIntermediarios item)
         {
-            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
-
-            var parametros = new DynamicParameters();
-
-            parametros.Add("@inte_Id", item.inte_Id, DbType.String, ParameterDirection.Input);
-            parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.String, ParameterDirection.Input);
-            parametros.Add("@inte_FechaEliminacion", item.inte_FechaEliminacion, DbType.String, ParameterDirection.Input);
-
-            var resultado = db.QueryFirst<tbIntermediarios>(ScriptsDataBase.IniciarSesion, parametros, commandType: CommandType.StoredProcedure);
-            RequestStatus requestStatus = new RequestStatus()
-            {
-                CodeStatus = resultado.tite_Id,
-                MessageStatus = resultado.inte_FechaCreacion.ToString()
-            };
-            return requestStatus;
+            throw new NotImplementedException();
         }
 
         public tbIntermediarios Find(int? id)

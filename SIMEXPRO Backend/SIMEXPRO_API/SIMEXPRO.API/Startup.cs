@@ -156,7 +156,8 @@ namespace SIMEXPRO.API
             app.UseCors("AllowFlutter");
 
             app.UseAuthorization();
-            app.UseMiddleware<ApiKeyMiddleware>();
+            //app.UseMiddleware<StatusCodeMiddleware>();
+            //app.UseMiddleware<ApiKeyMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

@@ -4814,6 +4814,7 @@ BEGIN
 END
 
 GO
+/* LISTAR items*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbItems_Listar 
 	@fact_Id				INT
 AS

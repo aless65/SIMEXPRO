@@ -8060,14 +8060,16 @@ BEGIN
 		SELECT	tbcp.copa_Id, 
 				tbcp.copa_Descripcion, 
 				tbcp.usua_UsuarioCreacion, 
+				usu.usua_Nombre						AS usuaCreacion,
 				tbcp.copa_FechaCreacion, 
 				tbcp.usua_UsuarioModificacion, 
+				usu2.usua_Nombre					AS usuaModificacion,
 				tbcp.copa_FechaModificacion, 
 				tbcp.copa_Estado
 		FROM	[Adua].[tbConceptoPago]	   tbcp
 				INNER JOIN Acce.tbUsuarios usu			ON 	tbcp.usua_UsuarioCreacion		= usu.usua_Id 
 				LEFT  JOIN Acce.tbUsuarios usu2			ON	tbcp.usua_UsuarioModificacion	= usu2.usua_Id
-		WHERE	tbcp.copa_Estado = 1 
+		WHERE	tbcp.copa_Estado = 1  
 END
 GO
 

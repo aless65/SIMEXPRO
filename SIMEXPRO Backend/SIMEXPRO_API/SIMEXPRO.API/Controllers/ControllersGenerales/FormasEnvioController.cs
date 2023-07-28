@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using SIMEXPRO.API.Models;
 using SIMEXPRO.BussinessLogic.Services.GeneralServices;
+using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +20,58 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             _generalesServices = generalesService;
             _mapper = mapper;
         }
+        
+        
+        [HttpGet("Listado")]
         public IActionResult Index()
         {
-            return View();
+            var listado = _generalesServices.ListarFormas_Envio();
+            var listadoMapeado = _mapper.Map<IEnumerable<Formas_EnvioViewModel>>(listado);
+            return Ok(listadoMapeado);
+        }
+
+
+        [HttpPost("Insert")]
+        public IActionResult Insert(Formas_EnvioViewModel formas_EnvioViewModel)
+        {
+            var item = _mapper.Map<tbFormas_Envio>(formas_EnvioViewModel);
+            var respuesta = _generalesServices.InsertarFormas_Envio(item);
+            return Ok(respuesta);
+        }
+
+
+        [HttpPost("Update")]
+        public IActionResult Update(Formas_EnvioViewModel formas_EnvioViewModel)
+        {
+            var item = _mapper.Map<tbFormas_Envio>(formas_EnvioViewModel);
+            var respuesta = _generalesServices.ActualizarFormas_Envio(item);
+            return Ok(respuesta);
+        }
+
+        [HttpPost("Delete")]
+        public IActionResult Delete(Formas_EnvioViewModel formas_EnvioViewModel)
+        {
+            var item = _mapper.Map<tbFormas_Envio>(formas_EnvioViewModel
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                );
+            var respuesta = _generalesServices.EliminarCiudades(item);
+            return Ok(respuesta);
         }
     }
 }

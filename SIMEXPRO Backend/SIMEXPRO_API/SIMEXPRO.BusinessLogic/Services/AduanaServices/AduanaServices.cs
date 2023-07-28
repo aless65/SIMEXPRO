@@ -154,7 +154,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -183,7 +183,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -212,7 +212,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -256,7 +256,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -285,7 +285,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -314,7 +314,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -358,7 +358,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -387,7 +387,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -416,7 +416,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -460,7 +460,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -489,7 +489,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -518,7 +518,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -562,7 +562,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -591,7 +591,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -620,7 +620,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -664,7 +664,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -693,7 +693,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -722,7 +722,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -766,7 +766,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -795,7 +795,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -824,7 +824,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -868,7 +868,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -897,7 +897,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -926,7 +926,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -970,7 +970,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -999,7 +999,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1028,7 +1028,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1072,7 +1072,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1101,7 +1101,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1130,7 +1130,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1174,7 +1174,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1203,7 +1203,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1232,7 +1232,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1276,7 +1276,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1305,7 +1305,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1334,7 +1334,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1378,7 +1378,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1407,7 +1407,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1436,7 +1436,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1480,7 +1480,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1509,7 +1509,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1538,7 +1538,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1582,7 +1582,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1611,7 +1611,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1640,7 +1640,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1684,7 +1684,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1713,7 +1713,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1742,7 +1742,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1786,7 +1786,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1815,7 +1815,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1844,7 +1844,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1888,7 +1888,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1917,7 +1917,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1946,7 +1946,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1990,7 +1990,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2019,7 +2019,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2048,7 +2048,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2092,7 +2092,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2121,7 +2121,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2150,7 +2150,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2194,7 +2194,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2223,7 +2223,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2252,7 +2252,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2296,7 +2296,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2325,7 +2325,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2354,7 +2354,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2398,7 +2398,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2427,7 +2427,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2456,7 +2456,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2500,7 +2500,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2529,7 +2529,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2558,7 +2558,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2602,7 +2602,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2631,7 +2631,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2660,7 +2660,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2704,7 +2704,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2733,7 +2733,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2762,7 +2762,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2806,7 +2806,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2835,7 +2835,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2864,7 +2864,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2908,7 +2908,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2937,7 +2937,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2966,7 +2966,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3010,7 +3010,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3039,7 +3039,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3068,7 +3068,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3112,7 +3112,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3141,7 +3141,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3170,7 +3170,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3214,7 +3214,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3243,7 +3243,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3272,7 +3272,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3316,7 +3316,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3345,7 +3345,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3374,7 +3374,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3391,16 +3391,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Items
-        public IEnumerable<tbItems> ListarItems()
+        public ServiceResult ListarItems()
         {
+            var resultado = new ServiceResult();
             try
             {
                 var list = _itemsRepository.List();
-                return list;
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbItems>();
+                return resultado.Error(ex.Message);
             }
         }
 
@@ -3409,22 +3410,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _itemsRepository.Insert(item);
+                if (map.CodeStatus > 0)
                 {
-                    var map = _itemsRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -3438,22 +3431,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _itemsRepository.Update(item);
+                if (map.CodeStatus > 0)
                 {
-                    var map = _itemsRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -3466,23 +3451,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         {
             var result = new ServiceResult();
             try
-            {
-                if (1 == 1)
+        {
+                var map = _itemsRepository.Delete(item);
+                if (map.CodeStatus > 0)
                 {
-                    var map = _itemsRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -3520,7 +3497,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3549,7 +3526,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3578,7 +3555,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3595,16 +3572,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region LiquidacionGeneral
-        public IEnumerable<tbLiquidacionGeneral> ListarLiquidacionGeneral()
+        public ServiceResult ListarLiquidacionGeneral()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _liquidacionGeneralRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbLiquidacionGeneral>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -3613,22 +3591,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _liquidacionGeneralRepository.Insert(item);
+                if (map.CodeStatus > 0)
                 {
-                    var map = _liquidacionGeneralRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -3642,23 +3612,16 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _liquidacionGeneralRepository.Update(item);
+                if (map.CodeStatus > 0)
                 {
-                    var map = _liquidacionGeneralRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                {   
+                    return result.Error(map);
                 }
+               
             }
             catch (Exception ex)
             {
@@ -3671,22 +3634,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _liquidacionGeneralRepository.Delete(item);
+                if (map.CodeStatus > 0)
                 {
-                    var map = _liquidacionGeneralRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -3724,7 +3679,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3753,7 +3708,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3782,7 +3737,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3826,7 +3781,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3855,7 +3810,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3884,7 +3839,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3928,7 +3883,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3957,7 +3912,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3986,7 +3941,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4030,7 +3985,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4059,7 +4014,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4088,7 +4043,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4132,7 +4087,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4161,7 +4116,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4190,7 +4145,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4234,7 +4189,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4263,7 +4218,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4292,7 +4247,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4336,7 +4291,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4365,7 +4320,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4394,7 +4349,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4438,7 +4393,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4467,7 +4422,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4496,7 +4451,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4540,7 +4495,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4569,7 +4524,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4598,7 +4553,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4642,7 +4597,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4671,7 +4626,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4700,7 +4655,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4744,7 +4699,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4773,7 +4728,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4802,7 +4757,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4846,7 +4801,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4875,7 +4830,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4904,7 +4859,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4948,7 +4903,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4977,7 +4932,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -5006,7 +4961,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -5050,7 +5005,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -5079,7 +5034,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -5108,7 +5063,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }

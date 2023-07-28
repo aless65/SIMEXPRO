@@ -14,7 +14,15 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
     {
         public RequestStatus Delete(tbItems item)
         {
-            throw new NotImplementedException();
+            RequestStatus result = new();
+
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            var parametros = new DynamicParameters();
+            parametros.Add("@item_Id", item.item_Id, DbType.Int32, ParameterDirection.Input);
+
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarItems, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
+            return result;
         }
 
         public tbItems Find(int? id)
@@ -51,17 +59,18 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@item_ReglasAccesorias", item.item_ReglasAccesorias, DbType.String, ParameterDirection.Input);
             parametros.Add("@item_CriterioCertificarOrigen", item.item_CriterioCertificarOrigen, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@item_FechaCreacion", item.item_FechaCreacion, DbType.String, ParameterDirection.Input);
+            parametros.Add("@item_FechaCreacion", item.item_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
 
 
-            var answer = db.QueryFirst<string>(ScriptsDataBase., parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarItems, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
             return result;
         }
 
         public IEnumerable<tbItems> List()
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            return db.Query<tbItems>(ScriptsDataBase.ListarItems, null, commandType: CommandType.StoredProcedure);
         }
 
         public RequestStatus Update(tbItems item)
@@ -94,10 +103,10 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@item_ReglasAccesorias", item.item_ReglasAccesorias, DbType.String, ParameterDirection.Input);
             parametros.Add("@item_CriterioCertificarOrigen", item.item_CriterioCertificarOrigen, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@item_FechaModificacion", item.item_FechaModificacion, DbType.String, ParameterDirection.Input);
+            parametros.Add("@item_FechaModificacion", item.item_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
 
 
-            var answer = db.QueryFirst<string>(ScriptsDataBase., parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarItems, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
             return result;
         }

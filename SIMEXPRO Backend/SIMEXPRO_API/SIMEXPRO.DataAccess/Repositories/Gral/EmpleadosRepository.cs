@@ -1,6 +1,9 @@
-﻿using SIMEXPRO.Entities.Entities;
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
+using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +14,15 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
     {
         public RequestStatus Delete(tbEmpleados item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@empl_Id", item.empl_Id,DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion,DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@empl_FechaEliminacion", item.empl_FechaEliminacion,DbType.DateTime, ParameterDirection.Input);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarEmpleados, parametros, commandType: CommandType.StoredProcedure);
+            result.CodeStatus = answer;
+            return result;
         }
 
         public tbEmpleados Find(int? id)
@@ -21,17 +32,59 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
 
         public RequestStatus Insert(tbEmpleados item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@empl_Nombres", item.empl_Nombres, DbType.String, ParameterDirection.Input);
+            parametros.Add("@empl_Apellidos", item.empl_Apellidos, DbType.String, ParameterDirection.Input);
+            parametros.Add("@empl_DNI", item.empl_DNI, DbType.String, ParameterDirection.Input);
+            parametros.Add("@escv_Id", item.escv_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@empl_Sexo", item.empl_Sexo, DbType.String, ParameterDirection.Input);
+            parametros.Add("@empl_FechaNacimiento", item.empl_FechaNacimiento, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@empl_Telefono", item.empl_Telefono, DbType.String, ParameterDirection.Input);
+            parametros.Add("@empl_DireccionExacta", item.empl_DireccionExacta, DbType.String, ParameterDirection.Input);
+            parametros.Add("@pvin_Id", item.pvin_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@carg_Id", item.carg_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@empl_CorreoElectronico", item.empl_CorreoElectronico, DbType.String, ParameterDirection.Input);
+            parametros.Add("@empl_EsAduana", item.empl_EsAduana, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@empl_FechaCreacion", item.empl_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarEmpleados, parametros, commandType: CommandType.StoredProcedure);
+            result.CodeStatus = answer;
+            return result;
         }
 
         public IEnumerable<tbEmpleados> List()
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            var parametros = new DynamicParameters();
+            return db.Query<tbEmpleados>(ScriptsDataBase.ListarEmpleados, null, commandType: CommandType.StoredProcedure);
         }
 
         public RequestStatus Update(tbEmpleados item)
         {
-            throw new NotImplementedException();
+
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@empl_Id", item.empl_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@empl_Nombres", item.empl_Nombres, DbType.String, ParameterDirection.Input);
+            parametros.Add("@empl_Apellidos", item.empl_Apellidos, DbType.String, ParameterDirection.Input);
+            parametros.Add("@empl_DNI", item.empl_DNI, DbType.String, ParameterDirection.Input);
+            parametros.Add("@escv_Id", item.escv_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@empl_Sexo", item.empl_Sexo, DbType.String, ParameterDirection.Input);
+            parametros.Add("@empl_FechaNacimiento", item.empl_FechaNacimiento, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@empl_Telefono", item.empl_Telefono, DbType.String, ParameterDirection.Input);
+            parametros.Add("@empl_DireccionExacta", item.empl_DireccionExacta, DbType.String, ParameterDirection.Input);
+            parametros.Add("@pvin_Id", item.pvin_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@carg_Id", item.carg_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@empl_CorreoElectronico", item.empl_CorreoElectronico, DbType.String, ParameterDirection.Input);
+            parametros.Add("@empl_EsAduana", item.empl_EsAduana, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@empl_FechaModificacion", item.empl_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarEmpleados, parametros, commandType: CommandType.StoredProcedure);
+            result.CodeStatus = answer;
+            return result;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
             _mapper = mapper;
         }
 
-        [HttpGet("ListarUsuarios")]
+        [HttpGet("Listado")]
         public IActionResult Index()
         {
             return View();

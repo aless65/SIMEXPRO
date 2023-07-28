@@ -1,6 +1,9 @@
-﻿using SIMEXPRO.Entities.Entities;
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
+using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +29,11 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
 
         public IEnumerable<tbModulos> List()
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+
+            var result = db.Query<tbModulos>(ScriptsDataBase.ListarReporteModuloDia, null, commandType: System.Data.CommandType.StoredProcedure);
+
+            return result;
         }
 
         public RequestStatus Update(tbModulos item)

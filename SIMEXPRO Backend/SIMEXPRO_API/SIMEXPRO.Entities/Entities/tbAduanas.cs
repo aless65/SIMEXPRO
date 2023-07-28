@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 namespace SIMEXPRO.Entities.Entities
 {
-    public partial class tbAduanas
+    public partial class tbmodulos
     {
-        public tbAduanas()
+        public tbmodulos()
         {
             tbDeclaraciones_Valordeva_Aduana_Despacho = new HashSet<tbDeclaraciones_Valor>();
             tbDeclaraciones_Valordeva_Aduana_Ingreso = new HashSet<tbDeclaraciones_Valor>();

@@ -127,7 +127,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             _transporteRepository = TransporteRepository;
         }
         #region Aduanas
-        public IEnumerable<tbAduanas> ListarAduanas()
+        public IEnumerable<tbmodulos> ListarAduanas()
         {
             try
             {
@@ -136,11 +136,11 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbAduanas>();
+                return Enumerable.Empty<tbmodulos>();
             }
         }
 
-        public ServiceResult InsertarAduanas(tbAduanas item)
+        public ServiceResult InsertarAduanas(tbmodulos item)
         {
             var result = new ServiceResult();
             try
@@ -169,7 +169,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        public ServiceResult ActualizarAduanas(tbAduanas item)
+        public ServiceResult ActualizarAduanas(tbmodulos item)
         {
             var result = new ServiceResult();
             try
@@ -198,7 +198,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        public ServiceResult EliminarAduanas(tbAduanas item)
+        public ServiceResult EliminarAduanas(tbmodulos item)
         {
             var result = new ServiceResult();
             try

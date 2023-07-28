@@ -841,16 +841,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region ConceptoPago
-        public IEnumerable<tbConceptoPago> ListarConceptoPago()
+        public ServiceResult ListarConceptoPago()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _conceptoPagoRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbConceptoPago>();
+                return result.Error(ex.Message);
             }
         }
 

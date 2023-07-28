@@ -54,8 +54,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@item_FechaCreacion", item.item_FechaCreacion, DbType.String, ParameterDirection.Input);
 
 
-            var answer = db.QueryFirst<string>(ScriptsDataBase., parametros, commandType: CommandType.StoredProcedure);
-            result.MessageStatus = answer;
+            //var answer = db.QueryFirst<string>(ScriptsDataBase., parametros, commandType: CommandType.StoredProcedure);
+            //result.MessageStatus = answer;
             return result;
         }
 
@@ -97,8 +97,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@item_FechaModificacion", item.item_FechaModificacion, DbType.String, ParameterDirection.Input);
 
 
-            var answer = db.QueryFirst<string>(ScriptsDataBase., parametros, commandType: CommandType.StoredProcedure);
-            result.MessageStatus = answer;
+            //var answer = db.QueryFirst<string>(ScriptsDataBase., parametros, commandType: CommandType.StoredProcedure);
+            //result.MessageStatus = answer;
             return result;
         }
     }

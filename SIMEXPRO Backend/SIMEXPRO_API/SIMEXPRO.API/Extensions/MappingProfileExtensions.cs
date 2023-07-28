@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SIMEXPRO.API.Models;
 using SIMEXPRO.API.Models.ModelsAcceso;
+using SIMEXPRO.API.Models.ModelsAduana;
 using SIMEXPRO.API.Models.ModelsProduccion;
 using SIMEXPRO.Entities.Entities;
 using System;
@@ -32,7 +33,7 @@ namespace Events_Company_R.API.Extentions
             #endregion
 
             #region Aduana
-
+            CreateMap<ConceptoPagoViewModel, tbConceptoPago>().ReverseMap();
             #endregion
 
             #region Producción
@@ -42,12 +43,11 @@ namespace Events_Company_R.API.Extentions
 
             #region Acceso
 
-            #endregion
-
             CreateMap<UsuariosViewModel, tbUsuarios>().ReverseMap();
             CreateMap<PantallasViewModel, tbPantallas>().ReverseMap();
             CreateMap<RolesViewModel, tbRoles>().ReverseMap();
             CreateMap<RolesPorPantallasViewModel, tbRolesXPantallas>().ReverseMap();
+            #endregion
         }
     }
 }

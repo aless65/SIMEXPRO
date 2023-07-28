@@ -37,7 +37,7 @@ namespace SIMEXPRO.API
             {
                 option.AddPolicy("AllowFlutter", builder =>
                 {
-                    builder.SetIsOriginAllowed(origen => new Uri(origen).Host == "localhost") //NOMBNRE DEL SERVIDOR
+                    builder.SetIsOriginAllowed(origen => new Uri(origen).Host == "localhost") //NOMBRE DEL SERVIDOR
                     .AllowAnyHeader()
                     .AllowAnyMethod();
                 }
@@ -47,21 +47,21 @@ namespace SIMEXPRO.API
 
 
             // Configure Azure Key Vault
-            //var configBuilder = new ConfigurationBuilder();
-            //var keyVaultEndpoint = "https://simexpro.vault.azure.net/"; // Replace with your Key Vault URI
-            //var azureServiceTokenProvider = new AzureServiceTokenProvider();
-            //var keyVaultClient = new KeyVaultClient(
-            //    new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback)
-            //);
-            //configBuilder.AddAzureKeyVault(keyVaultEndpoint, keyVaultClient, new DefaultKeyVaultSecretManager());
+            var configBuilder = new ConfigurationBuilder();
+            var keyVaultEndpoint = "https://simexpro.vault.azure.net/"; // Replace with your Key Vault URI
+            var azureServiceTokenProvider = new AzureServiceTokenProvider();
+            var keyVaultClient = new KeyVaultClient(
+                new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback)
+            );
+            configBuilder.AddAzureKeyVault(keyVaultEndpoint, keyVaultClient, new DefaultKeyVaultSecretManager());
 
-            //// Add your other configuration sources, e.g., appsettings.json, user secrets, etc.
-            //configBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-            //            .AddUserSecrets<Startup>()
-            //            .AddEnvironmentVariables();
+            // Add your other configuration sources, e.g., appsettings.json, user secrets, etc.
+            configBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                        .AddUserSecrets<Startup>()
+                        .AddEnvironmentVariables();
 
-            //var configuration = configBuilder.Build();
-            //services.AddSingleton(configuration);
+            var configuration = configBuilder.Build();
+            services.AddSingleton(configuration);
 
 
             services.DataAccess(Configuration.GetConnectionString("ConexionSimexpro"));

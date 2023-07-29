@@ -7119,7 +7119,7 @@ BEGIN
 			lili_Total, 
 			lili_ModalidadPago, 
 			lili_TotalGral, 
-			liquiLinea.item_Id,
+			liquiLinea.item_Id
 
 	FROM	[Adua].[tbLiquidacionPorLinea] liquiLinea 
 	INNER JOIN [Adua].[tbItems] Items ON liquiLinea.item_Id = Items.item_Id

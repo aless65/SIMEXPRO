@@ -4034,10 +4034,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                         
                     return result.Error(map);
                 }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
             }
             catch (Exception ex)
             {

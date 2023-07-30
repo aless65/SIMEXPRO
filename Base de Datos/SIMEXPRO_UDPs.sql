@@ -541,11 +541,15 @@ BEGIN
 				SELECT usua_Id,
 					   usua_Nombre,
 					   usua_Correo,
-					   empl_Id,
+					   usua.empl_Id,
+					   CONCAT(empl.empl_Nombres, ' ', empl.empl_Apellidos) AS emplNombreCompleto,
 					   usua_Image,
-					   role_Id,
+					   usua.role_Id,
+					   rol.role_Descripcion,
 					   usua_EsAdmin
-				FROM Acce.tbUsuarios 
+				FROM Acce.tbUsuarios usua
+				LEFT JOIN Acce.tbRoles rol				ON usua.role_Id = rol.role_Id
+				LEFT JOIN Gral.tbEmpleados empl			ON usua.empl_Id = empl.empl_Id
 				WHERE usua_Nombre = @usua_Nombre 
 				AND usua_Contrasenia = @contrasenaEncriptada
 			END
@@ -8074,7 +8078,7 @@ END
 GO
 
 --Insertar
-CREATE OR ALTER PROC Adua.UDP_tbConceptoPago_Insertar
+CREATE OR ALTER PROC Adua.UDP_tbConceptoPago_Insertar 
 @copa_Descripcion			NVARCHAR(200),
 @usua_UsuarioCreacion		INT,
 @copa_FechaCreacion			DATETIME
@@ -8123,23 +8127,13 @@ CREATE OR ALTER PROC Adua.UDP_tbConceptoPago_Editar
 AS
 BEGIN
 	BEGIN TRY
-		IF NOT EXISTS (SELECT * FROM [Adua].[tbConceptoPago]
-							WHERE copa_Descripcion = @copa_Descripcion
-							AND copa_Estado = 1)
-			BEGIN
-					UPDATE	[Adua].[tbConceptoPago]
+		UPDATE	[Adua].[tbConceptoPago]
 					SET		copa_Descripcion			=	@copa_Descripcion,
 							usua_UsuarioModificacion	=	@usua_UsuarioModificacion,
 							copa_FechaModificacion		=	@copa_FechaModificacion
 					WHERE	copa_Id						=	@copa_Id
 				
 					SELECT 1
-
-			END
-		ELSE
-			BEGIN
-					SELECT 2
-			END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()

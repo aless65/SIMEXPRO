@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SIMEXPRO.API.Models.ModelsAduana;
 using SIMEXPRO.BussinessLogic.Services.EventoServices;
+using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,40 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             var respuesta = _aduanaServices.ListarConceptoPago();
             
             if(respuesta.Code == 200)
+            {
+                return Ok(respuesta);
+            }
+            else
+            {
+                return BadRequest(respuesta);
+            }
+        }
+
+        [HttpPost("Insertar")]
+        public IActionResult Insert(ConceptoPagoViewModel concepto)
+        {
+            var item = _mapper.Map<tbConceptoPago>(concepto);
+
+            var respuesta = _aduanaServices.InsertarConceptoPago(item);
+
+            if (respuesta.Code == 200)
+            {
+                return Ok(respuesta);
+            }
+            else
+            {
+                return BadRequest(respuesta);
+            }
+        }
+
+        [HttpPost("Editar")]
+        public IActionResult Update(ConceptoPagoViewModel concepto)
+        {
+            var item = _mapper.Map<tbConceptoPago>(concepto);
+
+            var respuesta = _aduanaServices.ActualizarConceptoPago(item);
+
+            if (respuesta.Code == 200)
             {
                 return Ok(respuesta);
             }

@@ -51,26 +51,8 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         [HttpPost("Delete")]
         public IActionResult Delete(Formas_EnvioViewModel formas_EnvioViewModel)
         {
-            var item = _mapper.Map<tbFormas_Envio>(formas_EnvioViewModel
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                );
-            var respuesta = _generalesServices.EliminarCiudades(item);
+            var item = _mapper.Map<tbFormas_Envio>(formas_EnvioViewModel);         
+            var respuesta = _generalesServices.EliminarFormas_Envio(item);
             return Ok(respuesta);
         }
     }

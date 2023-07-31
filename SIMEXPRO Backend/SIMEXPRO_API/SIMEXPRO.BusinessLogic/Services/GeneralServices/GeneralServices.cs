@@ -267,16 +267,17 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Ciudades
-        public IEnumerable<tbCiudades> ListarCiudades()
+        public ServiceResult ListarCiudades()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _ciudadesRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbCiudades>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -369,18 +370,22 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Colonias
-        public IEnumerable<tbColonias> ListarColonias()
+  
+        public ServiceResult ListarColonias()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _coloniasRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbColonias>();
+                return result.Error(ex.Message);
             }
         }
+
+
 
         public ServiceResult InsertarColonias(tbColonias item)
         {
@@ -471,16 +476,17 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Empleados
-        public IEnumerable<tbEmpleados> ListarEmpleados()
+        public ServiceResult ListarEmpleados()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _empleadosRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbEmpleados>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -573,16 +579,17 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region EstadosCiviles
-        public IEnumerable<tbEstadosCiviles> ListarEstadosCiviles()
+        public ServiceResult ListarEstadosCiviles()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _estadosCivilesRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbEstadosCiviles>();
+                return result.Error(ex.Message);
             }
         }
 

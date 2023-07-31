@@ -24,7 +24,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
             _mapper = mapper;
         }
 
-        [HttpGet("ListarUsuarios")]
+        [HttpGet("Listado")]
         public IActionResult Index()
         {
             return View();
@@ -45,7 +45,8 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
             }
             else
             {
-                return StatusCode(203, respuesta);
+                //HttpContext.Items["StatusCode"] = 502;
+                return Unauthorized(respuesta);
             }
         }
     }

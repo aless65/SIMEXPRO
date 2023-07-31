@@ -35,6 +35,7 @@ namespace SIMEXPRO.API.Extentions
             #region Aduana
             CreateMap<DucaViewModel, tbDuca>().ReverseMap();
             CreateMap<ConceptoPagoViewModel, tbConceptoPago>().ReverseMap();
+            CreateMap<EstadoBoletinViewModel, tbEstadoBoletin>().ReverseMap();
             #endregion
 
             #region Producción

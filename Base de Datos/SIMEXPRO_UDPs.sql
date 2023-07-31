@@ -3254,6 +3254,7 @@ FROM	Adua.tbEstadoBoletin esbo
 WHERE	esbo_Estadoo = 1
 END 
 GO
+
 /*Insertar Estado boletin*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbEstadoBoletin_Insertar
 @esbo_Descripcion		NVARCHAR(200),

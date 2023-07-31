@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.API.Models.ModelsAduana
 {
-    public class EstadoBoletinRepositoyViewModel
+    public class EstadoBoletinViewModel
     {
         public int esbo_Id { get; set; }
         public string esbo_Descripcion { get; set; }

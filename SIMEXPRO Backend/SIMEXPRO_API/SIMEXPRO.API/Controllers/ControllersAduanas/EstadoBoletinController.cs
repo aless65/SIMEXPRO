@@ -5,9 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SIMEXPRO.API.Models.ModelsAduana;
 
 namespace SIMEXPRO.API.Controllers.ControllersAduanas
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class EstadoBoletinController : Controller
     {
         private readonly AduanaServices _aduanaServices;
@@ -18,9 +21,16 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             _aduanaServices = AduanaServices;
             _mapper = mapper;
         }
-        public IActionResult Index()
+
+        [HttpGet("Listado")]
+        public IActionResult List()
         {
-            return View();
+            var list = _aduanaServices.ListarEstadoBoletin();
+
+            list.Data = _mapper.Map<IEnumerable<EstadoBoletinViewModel>>(list.Data);
+
+            return Ok(list);
         }
+
     }
 }

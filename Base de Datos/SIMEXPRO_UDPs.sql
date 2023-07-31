@@ -2708,9 +2708,11 @@ GO
 
 --**********LUGARES EMBARQUE**********--
 /*Listar lugares embarque*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Listar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Listar 
+@emba_Codigo	CHAR(5)
 AS
 BEGIN
+	SELECT @emba_Codigo = SUBSTRING(@emba_Codigo ,1,2)
 	SELECT lugar.emba_Id,
 	       lugar.emba_Codigo, 
 		   lugar.emba_Descripcion, 
@@ -2728,7 +2730,8 @@ BEGIN
 	       INNER JOIN Acce.tbUsuarios usuaCrea			ON lugar.usua_UsuarioCreacion     = usuaCrea.usua_Id 
 		   LEFT JOIN  Acce.tbUsuarios usuaModifica		ON lugar.usua_UsuarioModificacion = usuaModifica.usua_Id 
 		   LEFT JOIN  Acce.tbUsuarios usuaElimi		    ON lugar.usua_UsuarioEliminacion  = usuaElimi.usua_Id 
-	 WHERE emba_Estado = 1
+	 WHERE SUBSTRING(lugar.emba_Codigo,1,2) = @emba_Codigo AND
+			emba_Estado = 1
 END
 GO
 

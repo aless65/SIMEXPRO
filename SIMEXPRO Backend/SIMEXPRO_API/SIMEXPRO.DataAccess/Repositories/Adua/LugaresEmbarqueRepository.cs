@@ -49,10 +49,19 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             return result;
         }
 
-        public IEnumerable<tbLugaresEmbarque> List()
+        public IEnumerable<tbLugaresEmbarque> List(string codigo)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
-            return db.Query<tbLugaresEmbarque>(ScriptsDataBase.ListarLugaresEmbarque, null, commandType: CommandType.StoredProcedure);
+
+            var parametros = new DynamicParameters();
+
+            parametros.Add("@emba_Codigo", codigo, DbType.String, ParameterDirection.Input);
+            return db.Query<tbLugaresEmbarque>(ScriptsDataBase.ListarLugaresEmbarque, parametros, commandType: CommandType.StoredProcedure);
+        }
+
+        public IEnumerable<tbLugaresEmbarque> List()
+        {
+            throw new NotImplementedException();
         }
 
         public RequestStatus Update(tbLugaresEmbarque item)

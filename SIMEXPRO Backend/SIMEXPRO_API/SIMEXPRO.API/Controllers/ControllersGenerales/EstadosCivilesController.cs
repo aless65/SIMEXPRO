@@ -31,9 +31,8 @@ namespace SIMEXPRO.API.Controllers
         public IActionResult ListarEstadosCiviles()
         {
             var list = _generalesServices.ListarEstadosCiviles();
-            var listadoMapeado = _mapper.Map<IEnumerable<EstadosCivilesViewModel>>(list);
 
-            return Ok(listadoMapeado);
+            return Ok(list);
         }
 
         //[HttpPost("InsertarEstadoCivil")]

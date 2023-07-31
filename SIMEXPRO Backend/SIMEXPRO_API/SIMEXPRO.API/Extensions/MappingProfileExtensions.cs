@@ -34,6 +34,10 @@ namespace Events_Company_R.API.Extentions
 
             #region Aduana
             CreateMap<ConceptoPagoViewModel, tbConceptoPago>().ReverseMap();
+            CreateMap<ItemsViewModel, tbItems>().ReverseMap();
+            CreateMap<LiquidacionGeneralViewModel, tbLiquidacionGeneral>().ReverseMap();
+            CreateMap<LiquidacionPorLineaViewModel, tbLiquidacionPorLinea>().ReverseMap();
+            CreateMap<LugaresEmbarqueViewModel, tbLugaresEmbarque>().ReverseMap();
             #endregion
 
             #region Producción

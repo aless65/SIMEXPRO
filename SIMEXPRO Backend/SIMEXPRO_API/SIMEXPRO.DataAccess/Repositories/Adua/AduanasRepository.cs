@@ -36,6 +36,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
             parametros.Add("@adua_Nombre", item.adua_Nombre, DbType.String, ParameterDirection.Input);
+            parametros.Add("@adua_Codigo", item.adua_Codigo, DbType.String, ParameterDirection.Input);
             parametros.Add("@adua_Direccion_Exacta", item.adua_Direccion_Exacta, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@adua_FechaCreacion", item.adua_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
@@ -58,6 +59,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             var parametros = new DynamicParameters();
             parametros.Add("@adua_Id", item.adua_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@adua_Nombre", item.adua_Nombre, DbType.String, ParameterDirection.Input);
+            parametros.Add("@adua_Codigo", item.adua_Codigo, DbType.String, ParameterDirection.Input);
             parametros.Add("@adua_Direccion_Exacta", item.adua_Direccion_Exacta, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@adua_FechaModificacion", item.adua_FechaModificacion, DbType.DateTime, ParameterDirection.Input);

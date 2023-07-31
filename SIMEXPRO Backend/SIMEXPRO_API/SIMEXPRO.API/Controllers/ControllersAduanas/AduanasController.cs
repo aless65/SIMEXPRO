@@ -28,11 +28,11 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         public IActionResult Index()
         {
             var listado = _aduanaServices.ListarAduanas();
-            var mapped = _mapper.Map<IEnumerable<AduanasViewModel>>(listado);
+            var mapped = _mapper.Map<IEnumerable<AduanasViewModel>>(listado.Data);
             return Ok(mapped);
         }
 
-        [HttpPost("Insertar")]
+        [HttpPost("Insertar")] 
         public IActionResult Insertar(AduanasViewModel aduanas)
         {
             var mapped = _mapper.Map<tbAduanas>(aduanas);

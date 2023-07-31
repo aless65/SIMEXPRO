@@ -29,9 +29,9 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
             parametros.Add("@deva_Id", item.deva_Id, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@base_PrecioFactura ", item.base_PrecioFactura, DbType.Decimal, ParameterDirection.Input);
+            parametros.Add("@base_PrecioFactura ",  item.base_PrecioFactura, DbType.Decimal, ParameterDirection.Input);
             parametros.Add("@base_PagosIndirectos", item.base_PagosIndirectos, DbType.Decimal, ParameterDirection.Input);
-            parametros.Add("@base_PrecioReal ", item.base_PrecioReal, DbType.Decimal, ParameterDirection.Input);
+            parametros.Add("@base_PrecioReal ",     item.base_PrecioReal, DbType.Decimal, ParameterDirection.Input);
             parametros.Add("@base_MontCondicion ", item.base_MontCondicion, DbType.Decimal, ParameterDirection.Input);
             parametros.Add("@base_MontoReversion", item.base_MontoReversion, DbType.Decimal, ParameterDirection.Input);
             parametros.Add("@base_ComisionCorrelaje", item.base_ComisionCorrelaje, DbType.Decimal, ParameterDirection.Input);

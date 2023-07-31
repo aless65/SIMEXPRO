@@ -30,10 +30,10 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
-            parametros.Add("@usua_Id", item.usua_Nombre, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@usua_Id", item.usua_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_FechaEliminacion ", item.usua_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarRoles, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarUsuarios, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
             return result;
         }
@@ -54,10 +54,10 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             parametros.Add("@empl_Id", item.empl_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_Image", item.usua_Image, DbType.String, ParameterDirection.Input);
             parametros.Add("@role_Id", item.role_Id, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@usua_EsAdmin", item.usua_Image, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@usua_EsAdmin", item.usua_EsAdmin, DbType.Boolean, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_FechaCreacion ", item.usua_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarRoles, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarUsuarios, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
             return result;
         }
@@ -69,22 +69,22 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             return db.Query<tbUsuarios>(ScriptsDataBase.ListarUsuarios, null, commandType: CommandType.StoredProcedure);
         }
 
+      
         public RequestStatus Update(tbUsuarios item)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
-            parametros.Add("@usua_Id", item.usua_Nombre, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@usua_Nombre", item.usua_Nombre, DbType.String, ParameterDirection.Input);
+            parametros.Add("@usua_Id", item.usua_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_Contrasenia", item.usua_Contrasenia, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_Correo", item.usua_Correo, DbType.String, ParameterDirection.Input);
             parametros.Add("@empl_Id", item.empl_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_Image", item.usua_Image, DbType.String, ParameterDirection.Input);
             parametros.Add("@role_Id", item.role_Id, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@usua_EsAdmin", item.usua_Image, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@usua_UsuarioModificacio", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@usua_FechaModificacion ", item.usua_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarRoles, parametros, commandType: CommandType.StoredProcedure);
+            parametros.Add("@usua_EsAdmin", item.usua_EsAdmin, DbType.Boolean, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@usua_FechaModificacion", item.usua_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarUsuarios, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
             return result;
         }

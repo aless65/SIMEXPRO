@@ -18,8 +18,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
             parametros.Add("@role_Id", item.role_Id, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@role_FechaEliminacion", item.role_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@role_FechaEliminacion", item.role_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
             var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarRoles, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
             return result;

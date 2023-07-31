@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SIMEXPRO.API.Models.ModelsAcceso;
 using SIMEXPRO.BussinessLogic.Services.AccesoServices;
@@ -11,22 +10,26 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.API.Controllers.ControllersAcceso
 {
+
     [Route("api/[controller]")]
     [ApiController]
-    public class RolesPorPantallaController : ControllerBase
+
+    public class RolesPorPantallasController : Controller
     {
         private readonly AccesoServices _accesoServices;
         private readonly IMapper _mapper;
 
-        public RolesPorPantallaController(AccesoServices accesoService, IMapper mapper)
+        public RolesPorPantallasController(AccesoServices accesoService, IMapper mapper)
         {
             _accesoServices = accesoService;
             _mapper = mapper;
         }
 
-        [HttpGet("Listado")]
-        public IActionResult Index(tbRolesXPantallas rolesPantalla)
+        [HttpPost("Listado")]
+        public IActionResult Index(int role_Id)
         {
+            tbRolesXPantallas rolesPantalla = new tbRolesXPantallas();
+            rolesPantalla.role_Id = role_Id;
             var listado = _accesoServices.Pantallas_Por_Rol(rolesPantalla);
             var mapped = _mapper.Map<IEnumerable<RolesPorPantallasViewModel>>(listado);
             return Ok(mapped);

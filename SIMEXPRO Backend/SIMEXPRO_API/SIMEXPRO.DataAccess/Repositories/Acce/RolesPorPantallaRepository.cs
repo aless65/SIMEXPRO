@@ -42,7 +42,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             return result;
         }
 
-        public IEnumerable<tbRolesXPantallas> List(tbRolesXPantallas item)
+        public IEnumerable<tbRolesXPantallas> Lista(tbRolesXPantallas item)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();

@@ -28,7 +28,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         public IActionResult Index()
         {
             var listado = _aduanaServices.ListarComercianteIndividual();
-            var mapped = _mapper.Map<IEnumerable<ComercianteIndividual>>(listado);
+            var mapped = _mapper.Map<IEnumerable<ComercianteIndividual>>(listado.Data);
             return Ok(mapped);
         }
 

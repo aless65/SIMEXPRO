@@ -96,38 +96,40 @@ AS
 GO
 
 /*Listar Usuarios*/
---CREATE OR ALTER PROCEDURE acce.UDP_VW_tbUsuarios_Listar
---AS
---BEGIN
---	SELECT usua.usua_Id, 
---		   usua.usua_Nombre, 
---		   usua.usua_Contrasenia, 
---		   usua.usua_Correo, 
---		   usua.role_Id,
---		   rol.role_Descripcion, 
---		   usua.usua_EsAdmin,
---		   usua.empl_Id,
---		   (empl_Nombres + ' ' + empl_Apellidos) AS empleadoNombreCompleto, 
---		   usua.usua_UsuarioCreacion, 
---		   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
---		   usua.usua_FechaCreacion, 
---	       usua.usua_UsuarioModificacion, 
---		   usuaModifica.usua_Nombre AS usuarioModificacionNombre, 
---		   usua.usua_FechaModificacion,
---		   usuaElimina.usua_Nombre AS usuarioEliminacionNombre, 
---		   usua.usua_FechaEliminacion,
---		   usua.usua_Estado,
---		   empl.empl_CorreoElectronicO	
---	FROM Acce.tbUsuarios usua LEFT JOIN Acce.tbRoles rol
---	ON usua.role_Id = rol.role_Id
---	LEFT JOIN Gral.tbEmpleados empl
---	ON empl.empl_Id = usua.empl_Id 
---	LEFT JOIN acce.tbUsuarios usuaCrea
---	ON usua.usua_UsuarioCreacion = usuaCrea.usua_Id
---	LEFT JOIN acce.tbUsuarios usuaModifica
---	ON usua.usua_UsuarioModificacion = usuaModifica.usua_Id LEFT JOIN acce.tbUsuarios usuaElimina
---	ON usua.usua_UsuarioEliminacion = usuaElimina.usua_Id
---END
+CREATE OR ALTER PROCEDURE acce.UDP_VW_tbUsuarios_Listar
+AS
+BEGIN
+	SELECT usua.usua_Id, 
+		   usua.usua_Nombre, 
+		   usua.usua_Contrasenia, 
+		   usua.usua_Correo, 
+		   usua.role_Id,
+		   rol.role_Descripcion, 
+		   usua.usua_EsAdmin,
+		   usua.empl_Id,
+		   (empl_Nombres + ' ' + empl_Apellidos) AS empleadoNombreCompleto, 
+		   usua.usua_UsuarioCreacion, 
+		   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
+		   usua.usua_FechaCreacion, 
+	       usua.usua_UsuarioModificacion, 
+		   usuaModifica.usua_Nombre AS usuarioModificacionNombre, 
+		   usua.usua_FechaModificacion,
+		   usuaElimina.usua_Nombre AS usuarioEliminacionNombre, 
+		   usua.usua_FechaEliminacion,
+		   usua.usua_Estado,
+		   empl.empl_CorreoElectronicO	
+	FROM Acce.tbUsuarios usua LEFT JOIN Acce.tbRoles rol
+	ON usua.role_Id = rol.role_Id
+	LEFT JOIN Gral.tbEmpleados empl
+	ON empl.empl_Id = usua.empl_Id 
+	LEFT JOIN acce.tbUsuarios usuaCrea
+	ON usua.usua_UsuarioCreacion = usuaCrea.usua_Id
+	LEFT JOIN acce.tbUsuarios usuaModifica
+	ON usua.usua_UsuarioModificacion = usuaModifica.usua_Id LEFT JOIN acce.tbUsuarios usuaElimina
+	ON usua.usua_UsuarioEliminacion = usuaElimina.usua_Id
+	where usua.usua_Estado = 1
+
+END
 --GO
 
 --EXEC acce.UDP_tbUsuarios_Insertar 'juan', '123', 'skf@ks.com', 1, '', 1, 1, 1,'2023-08-13'
@@ -2933,11 +2935,14 @@ FROM	Adua.tbAduanas adu
 		INNER JOIN Acce.tbUsuarios usu		ON adu.usua_UsuarioCreacion = usu.usua_Id 
 		LEFT JOIN Acce.tbUsuarios usu2		ON usu2.usua_UsuarioModificacion = adu.usua_UsuarioModificacion 
 WHERE	adu.adua_Estado = 1
-END 
 
+
+END 
+select GETDATE()
 /*Aduanas Crear */
 GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Insertar 
+	@adua_Codigo				char(4),
    @adua_Nombre                NVARCHAR(MAX),
    @adua_Direccion_Exacta      NVARCHAR(MAX), 
    @usua_UsuarioCreacion       INT,  
@@ -2967,13 +2972,15 @@ BEGIN
 		   BEGIN 
 		     INSERT INTO Adua.tbAduanas
 			 (adua_Nombre, 
+			  [adua_Codigo],
 			  adua_Direccion_Exacta, 
 			  usua_UsuarioCreacion, 
 			  adua_FechaCreacion			  
 			 )
 			 VALUES 
 			 ( 
-			 @adua_Nombre,          
+			 @adua_Nombre,     
+			 @adua_Codigo,     
 			 @adua_Direccion_Exacta,
 			 @usua_UsuarioCreacion, 
 			 @adua_FechaCreacion   
@@ -2989,7 +2996,8 @@ go
 
 /*Aduanas Editar*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Editar 
- @adua_Id                   INT, 
+ @adua_Id                   INT,
+ @adua_Codigo				char(4), 
  @adua_Nombre               NVARCHAR(MAX), 
  @adua_Direccion_Exacta     NVARCHAR(MAX),   
  @usua_UsuarioModificacion  INT, 
@@ -2999,7 +3007,8 @@ BEGIN
    BEGIN TRY   
      
 	   UPDATE  Adua.tbAduanas 
-	   SET adua_Nombre = @adua_Nombre, 
+	   SET adua_Nombre = @adua_Nombre,
+			[adua_Codigo] = @adua_Codigo
 	       adua_Direccion_Exacta = @adua_Direccion_Exacta, 		   
 		   usua_UsuarioModificacion = @usua_UsuarioModificacion, 
 		   adua_FechaModificacion = @adua_FechaModificacion

@@ -45,6 +45,11 @@ namespace Events_Company_R.API.Extentions
 
             CreateMap<ProcesosViewModel, tbProcesos>().ReverseMap();
             CreateMap<ReporteModuloDiaViewModel, tbReporteModuloDia>().ReverseMap();
+            CreateMap<tbModulos, ModulosViewModel>().ReverseMap();
+            CreateMap<tbOrde_Ensa_Acab_Etiq, OrdeEnsaAcabEtiqViewModel>().ReverseMap();
+            CreateMap<tbOrdenCompra, OrdenCompraViewModel>().ReverseMap();
+            CreateMap<tbOrdenCompraDetalles, OrdenCompraDetalleViewModel>().ReverseMap();
+
             #endregion
 
             #region Acceso

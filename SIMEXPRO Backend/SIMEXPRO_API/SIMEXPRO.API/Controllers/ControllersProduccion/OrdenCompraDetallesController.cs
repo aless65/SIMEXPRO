@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SIMEXPRO.API.Models.ModelsProduccion;
 using SIMEXPRO.BussinessLogic.Services.ProduccionServices;
+using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +22,40 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         {
             _produccionServices = produccionServices;
             _mapper = mapper;
+        }
+
+
+        [HttpGet("Listado")]
+        public IActionResult Index()
+        {
+            var listado = _produccionServices.ListarOrdenCompraDetalles();
+            var listadoMapeado = _mapper.Map<IEnumerable<OrdenCompraDetalleViewModel>>(listado);
+            return Ok(listadoMapeado);
+        }
+
+
+        [HttpPost("Insert")]
+        public IActionResult Insert(OrdenCompraDetalleViewModel ordenCompraDetalleViewModel)
+        {
+            var item = _mapper.Map<tbOrdenCompraDetalles>(ordenCompraDetalleViewModel);
+            var respuesta = _produccionServices.InsertarOrdenCompraDetalles(item);
+            return Ok(respuesta);
+        }
+
+        [HttpPost("Update")]
+        public IActionResult Update(OrdeEnsaAcabEtiqViewModel ordenCompraDetalleViewModel)
+        {
+            var item = _mapper.Map<tbOrdenCompraDetalles>(ordenCompraDetalleViewModel);
+            var respuesta = _produccionServices.ActualizarOrdenCompraDetalles(item);
+            return Ok(respuesta);
+        }
+
+        [HttpPost("Delete")]
+        public IActionResult Delete(OrdenCompraDetalleViewModel ordenCompraDetalleViewModel)
+        {
+            var item = _mapper.Map<tbOrdenCompraDetalles>(ordenCompraDetalleViewModel);
+            var respuesta = _produccionServices.EliminarOrdenCompraDetalles(item);
+            return Ok(respuesta);
         }
     }
 }

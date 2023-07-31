@@ -528,6 +528,13 @@ namespace SIMEXPRO.DataAccess
         public static string EliminarMateriales = "Prod.UDP_tbMateriales_Eliminar";
         #endregion
 
+        #region Modulos
+        public static string ListarModulos = "Prod.UDP_tbModulos_Listar";
+        public static string InsertarModulos = "Prod.UDP_tbModulos_Insertar";
+        public static string EditarModulos = "Prod.UDP_tbModulos_Editar";
+        public static string EliminarModulos = "Prod.UDP_tbModulos_Eliminar";
+        #endregion
+
         #region Materiales Brindar
         public static string ListarMaterialesBrindar = "prod.UDP_tbMaterialesBrindar_Listar";
         public static string InsertarMaterialesBrindar = "prod.UDP_tbMaterialesBrindar_Insertar";

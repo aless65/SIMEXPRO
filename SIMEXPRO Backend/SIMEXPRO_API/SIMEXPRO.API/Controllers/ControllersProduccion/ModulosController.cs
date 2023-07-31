@@ -35,25 +35,25 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
 
 
         [HttpPost("Insert")]
-        public IActionResult Insert(ModulosViewModel areasViewModel)
+        public IActionResult Insert(ModulosViewModel modulosViewModel)
         {
-            var item = _mapper.Map<tbModulos>(areasViewModel);
+            var item = _mapper.Map<tbModulos>(modulosViewModel);
             var respuesta = _produccionServices.InsertarModulos(item);
             return Ok(respuesta);
         }
 
         [HttpPost("Update")]
-        public IActionResult Update(ModulosViewModel areasViewModel)
+        public IActionResult Update(ModulosViewModel modulosViewModel)
         {
-            var item = _mapper.Map<tbModulos>(areasViewModel);
+            var item = _mapper.Map<tbModulos>(modulosViewModel);
             var respuesta = _produccionServices.ActualizarModulos(item);
             return Ok(respuesta);
         }
 
         [HttpPost("Delete")]
-        public IActionResult Delete(ModulosViewModel categoriaViewModel)
+        public IActionResult Delete(ModulosViewModel modulosViewModel)
         {
-            var item = _mapper.Map<tbModulos>(categoriaViewModel);
+            var item = _mapper.Map<tbModulos>(modulosViewModel);
             var respuesta = _produccionServices.EliminarModulos (item);
             return Ok(respuesta);
         }

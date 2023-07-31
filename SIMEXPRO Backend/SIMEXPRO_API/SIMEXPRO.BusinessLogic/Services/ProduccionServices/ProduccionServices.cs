@@ -1745,7 +1745,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region orde_Ensa_Acab_EtiqRepository
-        public IEnumerable<tbOrde_Ensa_Acab_Etiq> Listarorde_Ensa_Acab_EtiqRepository()
+        public IEnumerable<tbOrde_Ensa_Acab_Etiq> Listarorde_Ensa_Acab_Etiq()
         {
             try
             {
@@ -1758,7 +1758,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             }
         }
 
-        public ServiceResult InsertarModelos(tbOrde_Ensa_Acab_Etiq item)
+        public ServiceResult Insertarorde_Ensa_Acab_Etiq(tbOrde_Ensa_Acab_Etiq item)
         {
             var result = new ServiceResult();
             try
@@ -1787,7 +1787,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             }
         }
 
-        public ServiceResult ActualizarModelos(tbOrde_Ensa_Acab_Etiq item)
+        public ServiceResult Actualizarorde_Ensa_Acab_Etiq(tbOrde_Ensa_Acab_Etiq item)
         {
             var result = new ServiceResult();
             try
@@ -1816,7 +1816,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             }
         }
 
-        public ServiceResult EliminarModelos(tbOrde_Ensa_Acab_Etiq item)
+        public ServiceResult Eliminarorde_Ensa_Acab_Etiq(tbOrde_Ensa_Acab_Etiq item)
         {
             var result = new ServiceResult();
             try

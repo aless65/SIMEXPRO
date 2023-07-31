@@ -151,7 +151,7 @@ namespace SIMEXPRO.DataAccess
         public static string EditarComercianteIndividual = "Adua.UDP_tbComercianteIndividual_Editar";
         #endregion
 
-        #region Concepto  de Pago 
+        #region Concepto de Pago 
         public static string ListarConceptoPago = "Adua.UDP_tbConceptoPago_Listar";
         public static string InsertarConceptoPago = "Adua.UDP_tbConceptoPago_Insertar";
         public static string EditarConceptoPago = "Adua.UDP_tbConceptoPago_Editar";
@@ -278,6 +278,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarItems = "Adua.UDP_tbItems_Listar";
         public static string InsertarItems = "Adua.UDP_tbItems_Insertar";
         public static string EditarItems = "Adua.UDP_tbItems_Editar";
+        public static string EliminarItems = "Adua.UDP_tbItems_Eliminar";
         #endregion
 
         #region Liquidacion General

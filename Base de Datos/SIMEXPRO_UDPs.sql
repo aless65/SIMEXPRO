@@ -541,11 +541,15 @@ BEGIN
 				SELECT usua_Id,
 					   usua_Nombre,
 					   usua_Correo,
-					   empl_Id,
+					   usua.empl_Id,
+					   CONCAT(empl.empl_Nombres, ' ', empl.empl_Apellidos) AS emplNombreCompleto,
 					   usua_Image,
-					   role_Id,
+					   usua.role_Id,
+					   rol.role_Descripcion,
 					   usua_EsAdmin
-				FROM Acce.tbUsuarios 
+				FROM Acce.tbUsuarios usua
+				LEFT JOIN Acce.tbRoles rol				ON usua.role_Id = rol.role_Id
+				LEFT JOIN Gral.tbEmpleados empl			ON usua.empl_Id = empl.empl_Id
 				WHERE usua_Nombre = @usua_Nombre 
 				AND usua_Contrasenia = @contrasenaEncriptada
 			END
@@ -2603,8 +2607,8 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbPersonaJuridica_Insertar
 	@colo_Id							  	INT,
 	@peju_PuntoReferencia					NVARCHAR(200),
 	@peju_ColoniaRepresentante				INT,
-	@peju_NumeroLocalReprentante		  	NVARCHAR(200),
-	@peju_PuntoReferenciaReprentante	  	NVARCHAR(200),
+	@peju_NumeroLocalRepresentante		  	NVARCHAR(200),
+	@peju_PuntoReferenciaRepresentante	  	NVARCHAR(200),
 	@peju_TelefonoEmpresa					NVARCHAR(200),
 	@peju_TelefonoFijoRepresentanteLegal 	NVARCHAR(200),
 	@peju_TelefonoRepresentanteLegal	  	NVARCHAR(200),
@@ -2636,8 +2640,8 @@ BEGIN
 					@colo_Id,							  	
 					@peju_PuntoReferencia,					
 					@peju_ColoniaRepresentante,				
-					@peju_NumeroLocalReprentante,		  	
-					@peju_PuntoReferenciaReprentante,	  	
+					@peju_NumeroLocalRepresentante,		  	
+					@peju_PuntoReferenciaRepresentante,	  	
 					@peju_TelefonoEmpresa,					
 					@peju_TelefonoFijoRepresentanteLegal, 	
 					@peju_TelefonoRepresentanteLegal,	  	
@@ -5113,7 +5117,87 @@ BEGIN
 		ROLLBACK TRAN
 	END CATCH
 END
+GO
 
+CREATE OR ALTER PROCEDURE Adua.UDP_tbItems_Eliminar
+@item_Id					INT,
+@item_FechaEliminacion		DATETIME,
+@usua_UsuarioEliminacion	INT
+AS
+BEGIN
+	BEGIN TRANSACTION
+	BEGIN TRY
+	DECLARE @respuesta INT
+	EXEC dbo.UDP_ValidarReferencias 'item_Id', @item_Id,'Adua.tbItems',@respuesta OUTPUT
+
+	SELECT @respuesta AS Resultado
+	IF(@respuesta) = 1
+		BEGIN
+			
+		INSERT INTO [Adua].[tbItemsHistorial](item_Id, 
+											  fact_Id, 
+											  item_Cantidad, 
+											  item_PesoNeto, 
+											  item_PesoBruto, 
+											  unme_Id, 
+											  item_IdentificacionComercialMercancias, 
+											  item_CaracteristicasMercancias, 
+											  item_Marca, 
+											  item_Modelo, 
+											  merc_Id, 
+											  pais_IdOrigenMercancia, 
+											  item_ClasificacionArancelaria, 
+											  item_ValorUnitario, 
+											  item_GastosDeTransporte, 
+											  item_ValorTransaccion, 
+											  item_Seguro, 
+											  item_OtrosGastos, 
+											  item_ValorAduana, 
+											  item_CuotaContingente, 
+											  item_ReglasAccesorias, 
+											  item_CriterioCertificarOrigen, 
+											  hduc_UsuarioAccion, 
+											  hduc_FechaAccion, 
+											  hduc_Accion)
+		SELECT item_Id, 
+			   fact_Id, 
+			   item_Cantidad, 
+			   item_PesoNeto, 
+			   item_PesoBruto, 
+			   unme_Id, 
+			   item_IdentificacionComercialMercancias, 
+			   item_CaracteristicasMercancias, 
+			   item_Marca, 
+			   item_Modelo, 
+			   merc_Id, 
+			   pais_IdOrigenMercancia, 
+			   item_ClasificacionArancelaria, 
+			   item_ValorUnitario, 
+			   item_GastosDeTransporte, 
+			   item_ValorTransaccion, 
+			   item_Seguro, 
+			   item_OtrosGastos, 
+			   item_ValorAduana, 
+			   item_CuotaContingente, 
+			   item_ReglasAccesorias, 
+			   item_CriterioCertificarOrigen, 
+			   @usua_UsuarioEliminacion,
+			   @item_FechaEliminacion,
+			   'Eliminar'
+				FROM [Adua].[tbItems]
+				WHERE item_Id = @item_Id
+
+			DELETE FROM Adua.tbItems
+			WHERE item_Id = @item_Id
+		END
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()	
+		ROLLBACK TRAN
+	END CATCH
+END
+GO
 
 GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbBaseCalculos_Listar
@@ -7036,6 +7120,7 @@ BEGIN
 			lili_ModalidadPago, 
 			lili_TotalGral, 
 			liquiLinea.item_Id
+
 	FROM	[Adua].[tbLiquidacionPorLinea] liquiLinea 
 	INNER JOIN [Adua].[tbItems] Items ON liquiLinea.item_Id = Items.item_Id
 END
@@ -7975,19 +8060,21 @@ BEGIN
 		SELECT	tbcp.copa_Id, 
 				tbcp.copa_Descripcion, 
 				tbcp.usua_UsuarioCreacion, 
+				usu.usua_Nombre						AS usuaCreacion,
 				tbcp.copa_FechaCreacion, 
 				tbcp.usua_UsuarioModificacion, 
+				usu2.usua_Nombre					AS usuaModificacion,
 				tbcp.copa_FechaModificacion, 
 				tbcp.copa_Estado
 		FROM	[Adua].[tbConceptoPago]	   tbcp
 				INNER JOIN Acce.tbUsuarios usu			ON 	tbcp.usua_UsuarioCreacion		= usu.usua_Id 
 				LEFT  JOIN Acce.tbUsuarios usu2			ON	tbcp.usua_UsuarioModificacion	= usu2.usua_Id
-		WHERE	tbcp.copa_Estado = 1 
+		WHERE	tbcp.copa_Estado = 1  
 END
 GO
 
 --Insertar
-CREATE OR ALTER PROC Adua.UDP_tbConceptoPago_Insertar
+CREATE OR ALTER PROC Adua.UDP_tbConceptoPago_Insertar 
 @copa_Descripcion			NVARCHAR(200),
 @usua_UsuarioCreacion		INT,
 @copa_FechaCreacion			DATETIME
@@ -8036,23 +8123,13 @@ CREATE OR ALTER PROC Adua.UDP_tbConceptoPago_Editar
 AS
 BEGIN
 	BEGIN TRY
-		IF NOT EXISTS (SELECT * FROM [Adua].[tbConceptoPago]
-							WHERE copa_Descripcion = @copa_Descripcion
-							AND copa_Estado = 1)
-			BEGIN
-					UPDATE	[Adua].[tbConceptoPago]
+		UPDATE	[Adua].[tbConceptoPago]
 					SET		copa_Descripcion			=	@copa_Descripcion,
 							usua_UsuarioModificacion	=	@usua_UsuarioModificacion,
 							copa_FechaModificacion		=	@copa_FechaModificacion
 					WHERE	copa_Id						=	@copa_Id
 				
 					SELECT 1
-
-			END
-		ELSE
-			BEGIN
-					SELECT 2
-			END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()

@@ -406,7 +406,7 @@
          "ObjectType": 0
       }
    ],
-   "UiHint": "DESKTOP-QEULE6U\\SQLEXPRESSLOCAL.SIMEXPRO",
+   "UiHint": "practicaahm.SIMEXPRO",
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": true,
    "UseDbContextSplitting": false,

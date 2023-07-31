@@ -40,7 +40,7 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
                 var usuario = _usuariosRepository.Login(usua_Nombre, usua_Contrasenia);
 
                 if (usuario.usua_Nombre == null)
-                    return resultado.Forbidden("El usuario o contraseña son incorrectos");
+                    return resultado.Unauthorized("El usuario o contraseña son incorrectos");
                 else
                     return resultado.Ok(usuario);
             } 

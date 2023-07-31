@@ -34,21 +34,30 @@ namespace SIMEXPRO.API.Extentions
 
             #region Aduana
             CreateMap<DucaViewModel, tbDuca>().ReverseMap();
+            CreateMap<ConceptoPagoViewModel, tbConceptoPago>().ReverseMap();
             #endregion
 
             #region Producción
             CreateMap<ProcesosViewModel, tbProcesos>().ReverseMap();
             CreateMap<ReporteModuloDiaViewModel, tbReporteModuloDia>().ReverseMap();
+            CreateMap<ReporteModuloDiaDetalleViewModel, tbReporteModuloDiaDetalle>().ReverseMap();
+            CreateMap<RevisionDeCalidadViewModel, tbRevisionDeCalidad>().ReverseMap();
+            CreateMap<SubCategoriaViewModel, tbSubcategoria>().ReverseMap();
+            CreateMap<EstilosViewModel, tbEstilos>().ReverseMap();
+            CreateMap<FuncionesMaquinaViewModel, tbFuncionesMaquina>().ReverseMap();
+            CreateMap<TallasViewModel, tbTallas>().ReverseMap();
+            CreateMap<TipoEmbalajeViewModel, tbTipoEmbalaje>().ReverseMap();
+
             #endregion
 
             #region Acceso
-
-            #endregion
-
             CreateMap<UsuariosViewModel, tbUsuarios>().ReverseMap();
             CreateMap<PantallasViewModel, tbPantallas>().ReverseMap();
             CreateMap<RolesViewModel, tbRoles>().ReverseMap();
             CreateMap<RolesPorPantallasViewModel, tbRolesXPantallas>().ReverseMap();
+            #endregion
+
+
         }
     }
 }

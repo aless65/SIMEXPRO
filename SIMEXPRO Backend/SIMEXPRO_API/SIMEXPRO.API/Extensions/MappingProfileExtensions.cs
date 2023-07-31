@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using SIMEXPRO.API.Models;
 using SIMEXPRO.API.Models.ModelsAcceso;
-using SIMEXPRO.API.Models.ModelsAduana;
 using SIMEXPRO.API.Models.ModelsProduccion;
 using SIMEXPRO.Entities.Entities;
 using System;
@@ -33,16 +32,17 @@ namespace Events_Company_R.API.Extentions
             #endregion
 
             #region Aduana
-            CreateMap<AduanasViewModel, tbAduanas>().ReverseMap();
-            CreateMap<AracelesViewModel, tbAranceles>().ReverseMap();
-            CreateMap<ArancelesViewModel, tbBaseCalculos>().ReverseMap();
-            CreateMap<BoletinPagoViewModel, tbBoletinPago>().ReverseMap();
-            CreateMap<CodigoImpuestoViewModel, tbCodigoImpuesto>().ReverseMap();
-            CreateMap<CondicionesComercialesViewModel, tbComercianteIndividual>().ReverseMap();
 
             #endregion
 
             #region Producción
+
+            CreateMap<AreasViewModel, tbArea>().ReverseMap();
+            CreateMap<AsignacionesOrdenViewModel, tbAsignacionesOrden>().ReverseMap();
+            CreateMap<CategoriaViewModel, tbCategoria>().ReverseMap();
+            CreateMap<ClientesViewModel, tbClientes>().ReverseMap();
+            CreateMap<ColoresViewModel, tbColores>().ReverseMap();
+
             CreateMap<ProcesosViewModel, tbProcesos>().ReverseMap();
             CreateMap<ReporteModuloDiaViewModel, tbReporteModuloDia>().ReverseMap();
             #endregion

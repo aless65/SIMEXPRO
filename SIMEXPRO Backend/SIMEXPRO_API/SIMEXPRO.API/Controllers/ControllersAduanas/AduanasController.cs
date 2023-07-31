@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SIMEXPRO.API.Models.ModelsAduana;
 using SIMEXPRO.BussinessLogic.Services.EventoServices;
@@ -13,9 +12,8 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AduanasController : ControllerBase
+    public class AduanasController : Controller
     {
-
         private readonly AduanaServices _aduanaServices;
         private readonly IMapper _mapper;
 

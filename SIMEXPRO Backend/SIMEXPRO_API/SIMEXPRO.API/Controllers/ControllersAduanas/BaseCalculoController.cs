@@ -9,7 +9,6 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace SIMEXPRO.API.Controllers.ControllersAduanas
-    //Dise;o y desarrollo de software parte 2
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -29,12 +28,12 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         public IActionResult Index()
         {
             var listado = _aduanaServices.ListarBaseCalculos();
-            var mapped = _mapper.Map<IEnumerable<tbBaseCalculos>>(listado);
+            var mapped = _mapper.Map<IEnumerable<ArancelesViewModel>>(listado);
             return Ok(mapped);
         }
 
         [HttpPost("Insertar")]
-        public IActionResult Insertar(tbBaseCalculos baseCalculo)
+        public IActionResult Insertar(ArancelesViewModel baseCalculo)
         {
             var mapped = _mapper.Map<tbBaseCalculos>(baseCalculo);
             var datos = _aduanaServices.InsertarBaseCalculos(mapped);
@@ -42,13 +41,13 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         }
 
         [HttpPost("Editar")]
-        public IActionResult Editar(tbBaseCalculos baseCalculo)
+        public IActionResult Editar(ArancelesViewModel baseCalculo)
         {
             var mapped = _mapper.Map<tbBaseCalculos>(baseCalculo);
             var datos = _aduanaServices.ActualizarBaseCalculos(mapped);
             return Ok(datos);
         }
 
-      
+
     }
 }

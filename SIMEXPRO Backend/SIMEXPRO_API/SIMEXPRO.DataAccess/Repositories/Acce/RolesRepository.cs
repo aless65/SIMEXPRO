@@ -18,7 +18,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
             parametros.Add("@role_Id", item.role_Id, DbType.Int32, ParameterDirection.Input);
-             parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@role_FechaEliminacion", item.role_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
             var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarRoles, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
@@ -38,7 +38,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             parametros.Add("@role_Descripcion", item.role_Descripcion, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@role_FechaCreacion", item.role_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarCiudades, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarRoles, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
             return result;
         }

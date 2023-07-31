@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SIMEXPRO.API.Models.ModelsAcceso;
 using SIMEXPRO.BussinessLogic.Services.AccesoServices;
@@ -13,9 +13,8 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuariosController : ControllerBase
+    public class UsuariosController : Controller
     {
-
         private readonly AccesoServices _accesoServices;
         private readonly IMapper _mapper;
 
@@ -77,6 +76,5 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
             var datos = _accesoServices.DeleteUsuario(mapped);
             return Ok(datos);
         }
-
     }
 }

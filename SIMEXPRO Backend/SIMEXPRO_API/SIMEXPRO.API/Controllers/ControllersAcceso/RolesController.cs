@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SIMEXPRO.API.Models.ModelsAcceso;
 using SIMEXPRO.BussinessLogic.Services.AccesoServices;
@@ -13,7 +12,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RolesController : ControllerBase
+    public class RolesController : Controller
     {
         private readonly AccesoServices _accesoServices;
         private readonly IMapper _mapper;
@@ -23,6 +22,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
             _accesoServices = accesoService;
             _mapper = mapper;
         }
+
 
         [HttpGet("Listado")]
         public IActionResult Index()
@@ -55,7 +55,6 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
             var datos = _accesoServices.DeleteRol(mapped);
             return Ok(datos);
         }
-
 
     }
 }

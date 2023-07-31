@@ -17,8 +17,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
-             parametros.Add("@role_Id", item.role_Id, DbType.Int32, ParameterDirection.Input);
-              var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarRolesXPantallas, parametros, commandType: CommandType.StoredProcedure);
+            parametros.Add("@role_Id", item.role_Id, DbType.Int32, ParameterDirection.Input);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarRolesXPantallas, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
             return result;
         }
@@ -47,9 +47,9 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
-             parametros.Add("@role_Id", item.role_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@role_Id", item.role_Id, DbType.Int32, ParameterDirection.Input);
             return db.Query<tbRolesXPantallas>(ScriptsDataBase.ListarRolesXPantallas, parametros, commandType: CommandType.StoredProcedure);
-           
+
         }
 
         public IEnumerable<tbRolesXPantallas> List()
@@ -64,7 +64,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             var parametros = new DynamicParameters();
             parametros.Add("@pant_Id", item.pant_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@role_Id", item.role_Id, DbType.Int32, ParameterDirection.Input);
-             var answer = db.QueryFirst<int>(ScriptsDataBase.EditarRoles, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarRolesXPantallas, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
             return result;
         }

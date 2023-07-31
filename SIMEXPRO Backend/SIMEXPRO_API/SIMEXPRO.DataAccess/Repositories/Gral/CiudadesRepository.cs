@@ -16,7 +16,6 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
         public RequestStatus Delete(tbCiudades item)
         {
             throw new NotImplementedException();
-
         }
 
         public tbCiudades Find(int? id)

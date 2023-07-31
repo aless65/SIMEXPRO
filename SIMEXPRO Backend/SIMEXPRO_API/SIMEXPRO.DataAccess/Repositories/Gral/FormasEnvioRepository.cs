@@ -52,7 +52,6 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
 
         public RequestStatus Update(tbFormas_Envio item)
         {
-
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();

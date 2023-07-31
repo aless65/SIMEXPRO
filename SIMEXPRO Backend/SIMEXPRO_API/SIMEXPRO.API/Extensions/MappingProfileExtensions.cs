@@ -40,21 +40,38 @@ namespace Events_Company_R.API.Extentions
             CreateMap<TipoDocumentoViewModel, tbTipoDocumento>().ReverseMap();
             CreateMap<PersonasViewModel, tbPersonas>().ReverseMap();
             CreateMap<PersonaNaturalViewModel, tbPersonaNatural>().ReverseMap();            
+            CreateMap<ConceptoPagoViewModel, tbConceptoPago>().ReverseMap();
             #endregion
 
             #region Producción
+
+            CreateMap<AreasViewModel, tbArea>().ReverseMap();
+            CreateMap<AsignacionesOrdenViewModel, tbAsignacionesOrden>().ReverseMap();
+            CreateMap<AsignacionesOrdenDetalleViewModel, tbAsignacionesOrdenDetalle>().ReverseMap();
+            CreateMap<CategoriaViewModel, tbCategoria>().ReverseMap();
+            CreateMap<ClientesViewModel, tbClientes>().ReverseMap();
+            CreateMap<ColoresViewModel, tbColores>().ReverseMap();
+
             CreateMap<ProcesosViewModel, tbProcesos>().ReverseMap();
             CreateMap<ReporteModuloDiaViewModel, tbReporteModuloDia>().ReverseMap();
+            CreateMap<ReporteModuloDiaDetalleViewModel, tbReporteModuloDiaDetalle>().ReverseMap();
+            CreateMap<RevisionDeCalidadViewModel, tbRevisionDeCalidad>().ReverseMap();
+            CreateMap<SubCategoriaViewModel, tbSubcategoria>().ReverseMap();
+            CreateMap<EstilosViewModel, tbEstilos>().ReverseMap();
+            CreateMap<FuncionesMaquinaViewModel, tbFuncionesMaquina>().ReverseMap();
+            CreateMap<TallasViewModel, tbTallas>().ReverseMap();
+            CreateMap<TipoEmbalajeViewModel, tbTipoEmbalaje>().ReverseMap();
+
             #endregion
 
             #region Acceso
-
-            #endregion
-
             CreateMap<UsuariosViewModel, tbUsuarios>().ReverseMap();
             CreateMap<PantallasViewModel, tbPantallas>().ReverseMap();
             CreateMap<RolesViewModel, tbRoles>().ReverseMap();
             CreateMap<RolesPorPantallasViewModel, tbRolesXPantallas>().ReverseMap();
+            #endregion
+
+
         }
     }
 }

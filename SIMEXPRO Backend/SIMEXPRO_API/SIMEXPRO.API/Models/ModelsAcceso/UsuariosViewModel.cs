@@ -22,5 +22,8 @@ namespace SIMEXPRO.API.Models.ModelsAcceso
         public int? usua_UsuarioEliminacion { get; set; }
         public DateTime? usua_FechaEliminacion { get; set; }
         public bool? usua_Estado { get; set; }
+
+        public string role_Descripcion { get; set; }
+        public string emplNombreCompleto { get; set; }
     }
 }

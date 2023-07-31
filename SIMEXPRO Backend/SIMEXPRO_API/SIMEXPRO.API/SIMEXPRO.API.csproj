@@ -12,6 +12,118 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="obj\Debug\net5.0\.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" />
+    <Compile Include="obj\Debug\net5.0\SIMEXPRO.API.AssemblyInfo.cs" />
+    <Compile Include="obj\Debug\net5.0\SIMEXPRO.API.MvcApplicationPartsAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="bin\Debug\net5.0\appsettings.Development.json" />
+    <Content Include="bin\Debug\net5.0\appsettings.json" />
+    <Content Include="bin\Debug\net5.0\SIMEXPRO.API.deps.json" />
+    <Content Include="bin\Debug\net5.0\SIMEXPRO.API.runtimeconfig.dev.json" />
+    <Content Include="bin\Debug\net5.0\SIMEXPRO.API.runtimeconfig.json" />
+    <Content Include="obj\Debug\net5.0\SIMEXPRO.API.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\net5.0\staticwebassets\SIMEXPRO.API.StaticWebAssets.xml" />
+    <Content Include="obj\project.assets.json" />
+    <Content Include="obj\SIMEXPRO.API.csproj.nuget.dgspec.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\Debug\net5.0\AutoMapper.dll" />
+    <None Include="bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll" />
+    <None Include="bin\Debug\net5.0\Dapper.dll" />
+    <None Include="bin\Debug\net5.0\Humanizer.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.AspNetCore.Http.Features.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.Azure.KeyVault.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.Azure.KeyVault.WebKey.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.Azure.Services.AppAuthentication.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.Bcl.AsyncInterfaces.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.Data.SqlClient.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.DotNet.PlatformAbstractions.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.Extensions.Configuration.Abstractions.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.Extensions.Configuration.AzureKeyVault.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.Extensions.Configuration.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.Extensions.Configuration.FileExtensions.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.Extensions.Configuration.Json.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.Extensions.Configuration.UserSecrets.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.Extensions.DependencyModel.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.Extensions.FileProviders.Abstractions.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.Extensions.FileProviders.Physical.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.Extensions.FileSystemGlobbing.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.Identity.Client.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.IdentityModel.Clients.ActiveDirectory.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.OpenApi.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.Rest.ClientRuntime.Azure.dll" />
+    <None Include="bin\Debug\net5.0\Microsoft.Rest.ClientRuntime.dll" />
+    <None Include="bin\Debug\net5.0\Newtonsoft.Json.dll" />
+    <None Include="bin\Debug\net5.0\ref\SIMEXPRO.API.dll" />
+    <None Include="bin\Debug\net5.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll" />
+    <None Include="bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll" />
+    <None Include="bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb" />
+    <None Include="bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll" />
+    <None Include="bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb" />
+    <None Include="bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll" />
+    <None Include="bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb" />
+    <None Include="bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll" />
+    <None Include="bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb" />
+    <None Include="bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll" />
+    <None Include="bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll" />
+    <None Include="bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll" />
+    <None Include="bin\Debug\net5.0\SIMEXPRO.API.dll" />
+    <None Include="bin\Debug\net5.0\SIMEXPRO.API.exe" />
+    <None Include="bin\Debug\net5.0\SIMEXPRO.API.pdb" />
+    <None Include="bin\Debug\net5.0\SIMEXPRO.BusinessLogic.dll" />
+    <None Include="bin\Debug\net5.0\SIMEXPRO.BusinessLogic.pdb" />
+    <None Include="bin\Debug\net5.0\SIMEXPRO.DataAccess.dll" />
+    <None Include="bin\Debug\net5.0\SIMEXPRO.DataAccess.pdb" />
+    <None Include="bin\Debug\net5.0\SIMEXPRO.Entities.dll" />
+    <None Include="bin\Debug\net5.0\SIMEXPRO.Entities.pdb" />
+    <None Include="bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll" />
+    <None Include="bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll" />
+    <None Include="bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll" />
+    <None Include="bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll" />
+    <None Include="bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll" />
+    <None Include="bin\Debug\net5.0\System.IO.Pipelines.dll" />
+    <None Include="bin\Debug\net5.0\System.Runtime.Caching.dll" />
+    <None Include="bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll" />
+    <None Include="bin\Debug\net5.0\System.Security.Cryptography.ProtectedData.dll" />
+    <None Include="bin\Debug\net5.0\System.Text.Encodings.Web.dll" />
+    <None Include="bin\Debug\net5.0\System.Text.Json.dll" />
+    <None Include="obj\Debug\net5.0\apphost.exe" />
+    <None Include="obj\Debug\net5.0\ref\SIMEXPRO.API.dll" />
+    <None Include="obj\Debug\net5.0\SIMEXPRO.API.AssemblyInfoInputs.cache" />
+    <None Include="obj\Debug\net5.0\SIMEXPRO.API.assets.cache" />
+    <None Include="obj\Debug\net5.0\SIMEXPRO.API.csproj.AssemblyReference.cache" />
+    <None Include="obj\Debug\net5.0\SIMEXPRO.API.csproj.CopyComplete" />
+    <None Include="obj\Debug\net5.0\SIMEXPRO.API.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Debug\net5.0\SIMEXPRO.API.dll" />
+    <None Include="obj\Debug\net5.0\SIMEXPRO.API.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="obj\Debug\net5.0\SIMEXPRO.API.genruntimeconfig.cache" />
+    <None Include="obj\Debug\net5.0\SIMEXPRO.API.MvcApplicationPartsAssemblyInfo.cache" />
+    <None Include="obj\Debug\net5.0\SIMEXPRO.API.pdb" />
+    <None Include="obj\Debug\net5.0\SIMEXPRO.API.RazorTargetAssemblyInfo.cache" />
+    <None Include="obj\Debug\net5.0\staticwebassets\SIMEXPRO.API.StaticWebAssets.Manifest.cache" />
+    <None Include="obj\project.nuget.cache" />
+    <None Include="obj\SIMEXPRO.API.csproj.nuget.g.props" />
+    <None Include="obj\SIMEXPRO.API.csproj.nuget.g.targets" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" />

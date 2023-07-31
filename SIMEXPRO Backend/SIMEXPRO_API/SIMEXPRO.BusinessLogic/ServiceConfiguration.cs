@@ -140,7 +140,6 @@ namespace SIMEXPRO.BussinessLogic
             services.AddScoped<AccesoServices>();
             services.AddScoped<ProduccionServices>();
             services.AddScoped<AduanaServices>();
-            
         }
     }
 }

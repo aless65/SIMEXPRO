@@ -12,15 +12,13 @@ namespace SIMEXPRO.DataAccess.Context
     {
         public SIMEXPROContext()
         {
-            
-    }
+        }
 
         public SIMEXPROContext(DbContextOptions<SIMEXPROContext> options)
             : base(options)
         {
         }
 
-        public static string ConexionSimexpro { get; internal set; }
         public virtual DbSet<tbAduanas> tbAduanas { get; set; }
         public virtual DbSet<tbAldeas> tbAldeas { get; set; }
         public virtual DbSet<tbAranceles> tbAranceles { get; set; }
@@ -345,6 +343,12 @@ namespace SIMEXPRO.DataAccess.Context
                 entity.Property(e => e.adet_FechaCreacion).HasColumnType("datetime");
 
                 entity.Property(e => e.adet_FechaModificacion).HasColumnType("datetime");
+
+                entity.HasOne(d => d.asor)
+                    .WithMany(p => p.tbAsignacionesOrdenDetalle)
+                    .HasForeignKey(d => d.asor_Id)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Prod_tbAsignacionesModuloDetalle_tbtbAsignacionesOrden_asor_Id");
 
                 entity.HasOne(d => d.lote)
                     .WithMany(p => p.tbAsignacionesOrdenDetalle)
@@ -4622,6 +4626,8 @@ namespace SIMEXPRO.DataAccess.Context
                 entity.Property(e => e.unme_Descripcion)
                     .IsRequired()
                     .HasMaxLength(500);
+
+                entity.Property(e => e.unme_Estado).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.unme_FechaCreacion).HasColumnType("datetime");
 

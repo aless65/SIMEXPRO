@@ -28,7 +28,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarUnidadMedidas();
-            var listadoMapeado = _mapper.Map<IEnumerable<UnidadMedidaViewModel>>(listado);
+            var listadoMapeado = _mapper.Map<IEnumerable<UnidadMedidaViewModel>>(listado.Data);
             return Ok(listadoMapeado);
         }
 

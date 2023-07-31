@@ -27,10 +27,11 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarProveedores();
-            var listadoMapeado = _mapper.Map<IEnumerable<ProveedoresViewModel>>(listado);
+            var listadoMapeado = _mapper.Map<IEnumerable<ProveedoresViewModel>>(listado.Data);
             return Ok(listadoMapeado);
         }
 
+       
         [HttpPost("Insert")]
         public IActionResult Insert(ProveedoresViewModel proveedoresViewModel)
         {

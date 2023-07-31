@@ -20,7 +20,7 @@ namespace SIMEXPRO.Entities.Entities
 
         public int ciud_Id { get; set; }
         public string ciud_Nombre { get; set; }
-        
+
         [NotMapped]
         public int pvin_Id { get; set; }
 

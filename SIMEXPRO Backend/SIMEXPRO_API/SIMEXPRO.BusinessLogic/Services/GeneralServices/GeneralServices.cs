@@ -1185,16 +1185,17 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Provincias
-        public IEnumerable<tbProvincias> ListarProvincias()
+        public ServiceResult ListarProvincias()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _provinciasRepository.List();
-                return list;
+                return result.Ok(list);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return Enumerable.Empty<tbProvincias>();
+                return result.Error(e.Message);
             }
         }
 
@@ -1287,18 +1288,21 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Proveedores
-        public IEnumerable<tbProveedores> ListarProveedores()
+
+        public ServiceResult ListarProveedores()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _proveedoresRepository.List();
-                return list;
+                return result.Ok(list);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return Enumerable.Empty<tbProveedores>();
+                return result.Error(e.Message);
             }
         }
+        
 
         public ServiceResult InsertarProveedores(tbProveedores item)
         {
@@ -1389,16 +1393,18 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region UnidadMedidas
-        public IEnumerable<tbUnidadMedidas> ListarUnidadMedidas()
+
+        public ServiceResult ListarUnidadMedidas()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _unidadMedidasRepository.List();
-                return list;
+                return result.Ok(list);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return Enumerable.Empty<tbUnidadMedidas>();
+                return result.Error(e.Message);
             }
         }
 

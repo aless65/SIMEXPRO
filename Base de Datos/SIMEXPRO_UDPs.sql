@@ -8489,6 +8489,7 @@ GO
 -------------------------------------------UDPS Para Asignaciones Orden detalle---------------------------------------
 
 CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrdenDetalle_Listado
+	@asor_Id INT
 AS
 BEGIN
 	SELECT adet_Id,						
@@ -8503,6 +8504,8 @@ BEGIN
 	  FROM Prod.tbAsignacionesOrdenDetalle		AS AsignacionesOrdenDetalle
 INNER JOIN Acce.tbUsuarios usuarioCreacion		ON AsignacionesOrdenDetalle.usua_UsuarioCreacion = usuarioCreacion.usua_Id
  LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON AsignacionesOrdenDetalle.usua_UsuarioModificacion = usuarioModificacion.usua_Id
+WHERE 	AsignacionesOrdenDetalle.asor_Id = @asor_Id
+
 END
 GO
 
@@ -8510,19 +8513,23 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrdenDetalle_Insertar
 (
 	@lote_Id					INT, 
 	@adet_Cantidad				INT, 
+	@asor_Id					INT,
 	@usua_UsuarioCreacion		INT,
 	@adet_FechaCreacion			DATETIME
+	
 )
 AS
 BEGIN
 	BEGIN TRY
 		INSERT INTO Prod.tbAsignacionesOrdenDetalle
 					(lote_Id,					
-					adet_Cantidad,				
+					adet_Cantidad,
+					asor_Id,
 					usua_UsuarioCreacion,		
 					adet_FechaCreacion)
 			VALUES (@lote_Id,					
-					@adet_Cantidad,				
+					@adet_Cantidad,
+					@asor_Id,
 					@usua_UsuarioCreacion,		
 					@adet_FechaCreacion)
 	
@@ -8539,17 +8546,19 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrdenDetalle_Editar
 	@adet_Id					INT,
 	@lote_Id					INT, 
 	@adet_Cantidad				INT, 
-	@usua_UsuarioCreacion		INT,
-	@adet_FechaCreacion			DATETIME
+	@asor_Id					INT,
+	@usua_Modificacion			INT,
+	@adet_FechaModificacion		DATETIME
 )	
 AS
 BEGIN
 	BEGIN TRY
 		UPDATE Prod.tbAsignacionesOrdenDetalle
-		   SET lote_Id				= @lote_Id,					 
-			   adet_Cantidad		= @adet_Cantidad,					
-			   usua_UsuarioCreacion	= @usua_UsuarioCreacion,		
-			   adet_FechaCreacion	= @adet_FechaCreacion
+		   SET lote_Id					= @lote_Id,					 
+			   adet_Cantidad			= @adet_Cantidad,	
+			   asor_Id					= @asor_Id,
+			   usua_UsuarioModificacion	= @usua_Modificacion,		
+			   adet_FechaModificacion	= @adet_FechaModificacion
 		 WHERE adet_Id = @adet_Id
 
 		 SELECT 1 AS Resultado

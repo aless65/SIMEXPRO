@@ -28,7 +28,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarProvincias();
-            var listadoMapeado = _mapper.Map<IEnumerable<ProvinciasViewModel>>(listado);
+            var listadoMapeado = _mapper.Map<IEnumerable<ProvinciasViewModel>>(listado.Data);
             return Ok(listadoMapeado);
         }
 

@@ -39,6 +39,7 @@ namespace Events_Company_R.API.Extentions
 
             CreateMap<AreasViewModel, tbArea>().ReverseMap();
             CreateMap<AsignacionesOrdenViewModel, tbAsignacionesOrden>().ReverseMap();
+            CreateMap<AsignacionesOrdenDetalleViewModel, tbAsignacionesOrdenDetalle>().ReverseMap();
             CreateMap<CategoriaViewModel, tbCategoria>().ReverseMap();
             CreateMap<ClientesViewModel, tbClientes>().ReverseMap();
             CreateMap<ColoresViewModel, tbColores>().ReverseMap();

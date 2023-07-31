@@ -872,7 +872,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 }
                 else
                 {
-
                     return result.Error(map);
                 }
             }
@@ -3305,115 +3304,115 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region ItemsHistorial
-        public ServiceResult ListarItemsHistorial()
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var list = _itemsHistorialRepository.List();
-                return result.Ok(list);
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
+        //public ServiceResult ListarItemsHistorial()
+        //{
+        //    var result = new ServiceResult();
+        //    try
+        //    {
+        //        var list = _itemsHistorialRepository.List();
+        //        return result.Ok(list);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return result.Error(ex.Message);
+        //    }
+        //}
 
-        public ServiceResult InsertarItemsHistorial(tbItemsHistorial item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (1 == 1)
-                {
-                    var map = _itemsHistorialRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
+        //public ServiceResult InsertarItemsHistorial(tbItemsHistorial item)
+        //{
+        //    var result = new ServiceResult();
+        //    try
+        //    {
+        //        if (1 == 1)
+        //        {
+        //            var map = _itemsHistorialRepository.Insert(item);
+        //            if (map.CodeStatus > 0)
+        //            {
+        //                return result.Ok(map);
+        //            }
+        //            else
+        //            {
                         
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
+        //                return result.Error(map);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return result.Error(ex.Message);
+        //    }
+        //}
 
-        public ServiceResult ActualizarItemsHistorial(tbItemsHistorial item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (1 == 1)
-                {
-                    var map = _itemsHistorialRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
+        //public ServiceResult ActualizarItemsHistorial(tbItemsHistorial item)
+        //{
+        //    var result = new ServiceResult();
+        //    try
+        //    {
+        //        if (1 == 1)
+        //        {
+        //            var map = _itemsHistorialRepository.Update(item);
+        //            if (map.CodeStatus > 0)
+        //            {
+        //                return result.Ok(map);
+        //            }
+        //            else
+        //            {
                         
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
+        //                return result.Error(map);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return result.Error(ex.Message);
+        //    }
+        //}
 
-        public ServiceResult EliminarItemsHistorial(tbItemsHistorial item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (1 == 1)
-                {
-                    var map = _itemsHistorialRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
+        //public ServiceResult EliminarItemsHistorial(tbItemsHistorial item)
+        //{
+        //    var result = new ServiceResult();
+        //    try
+        //    {
+        //        if (1 == 1)
+        //        {
+        //            var map = _itemsHistorialRepository.Delete(item);
+        //            if (map.CodeStatus > 0)
+        //            {
+        //                return result.Ok(map);
+        //            }
+        //            else
+        //            {
                         
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
+        //                return result.Error(map);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return result.Error(ex.Message);
+        //    }
+        //}
         #endregion
 
         #region Items
-        public ServiceResult ListarItems()
+        public ServiceResult ListarItems(tbItems item)
         {
             var resultado = new ServiceResult();
             try
             {
-                var list = _itemsRepository.List();
+                var list = _itemsRepository.List(item);
                 return resultado.Ok(list);
             }
             catch (Exception ex)
@@ -3468,15 +3467,22 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         {
             var result = new ServiceResult();
             try
-        {
-                var map = _itemsRepository.Delete(item);
-                if (map.CodeStatus > 0)
+            {
+                if (item.item_Id != 0)
                 {
-                    return result.Ok(map);
+                    var map = _itemsRepository.Delete(item);
+                    if (map.CodeStatus > 0)
+                    {
+                        return result.Ok(map);
+                    }
+                    else
+                    {
+                        return result.Error(map);
+                    }
                 }
                 else
                 {
-                    return result.Error(map);
+                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
                 }
             }
             catch (Exception ex)
@@ -3749,12 +3755,12 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region LugaresEmbarque
-        public ServiceResult ListarLugaresEmbarque()
+        public ServiceResult ListarLugaresEmbarque(string codigo)
         {
             var result = new ServiceResult();
             try
             {
-                var list = _lugaresEmbarqueRepository.List();
+                var list = _lugaresEmbarqueRepository.List(codigo);
                 return result.Ok(list);
             }
             catch (Exception ex)

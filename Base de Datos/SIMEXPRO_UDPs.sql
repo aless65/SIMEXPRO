@@ -2708,9 +2708,11 @@ GO
 
 --**********LUGARES EMBARQUE**********--
 /*Listar lugares embarque*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Listar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Listar 
+@emba_Codigo	CHAR(5)
 AS
 BEGIN
+	SELECT @emba_Codigo = SUBSTRING(@emba_Codigo ,1,2)
 	SELECT lugar.emba_Id,
 	       lugar.emba_Codigo, 
 		   lugar.emba_Descripcion, 
@@ -2728,7 +2730,8 @@ BEGIN
 	       INNER JOIN Acce.tbUsuarios usuaCrea			ON lugar.usua_UsuarioCreacion     = usuaCrea.usua_Id 
 		   LEFT JOIN  Acce.tbUsuarios usuaModifica		ON lugar.usua_UsuarioModificacion = usuaModifica.usua_Id 
 		   LEFT JOIN  Acce.tbUsuarios usuaElimi		    ON lugar.usua_UsuarioEliminacion  = usuaElimi.usua_Id 
-	 WHERE emba_Estado = 1
+	 WHERE SUBSTRING(lugar.emba_Codigo,1,2) = @emba_Codigo AND
+			emba_Estado = 1
 END
 GO
 
@@ -4286,6 +4289,7 @@ BEGIN
 
 		DECLARE @prov_decl_Id INT;
 		DECLARE @inte_decl_Id INT;
+		DECLARE @inte_Id INT;
 		
 		EXEC adua.UDP_tbDeclarantes_Insertar @prov_decl_Nombre_Raso,
 										   @prov_decl_Direccion_Exacta,
@@ -4310,29 +4314,34 @@ BEGIN
 
 		DECLARE @prov_Id INT = SCOPE_IDENTITY()
 
-		EXEC adua.UDP_tbDeclarantes_Insertar @inte_decl_Nombre_Raso,
-										   @inte_decl_Direccion_Exacta,
-										   @inte_ciud_Id,
-										   @inte_decl_Correo_Electronico,
-										   @inte_decl_Telefono,
-										   @inte_decl_Fax,
-										   @usua_UsuarioCreacion,
-										   @deva_FechaCreacion,
-										   @inte_decl_Id OUTPUT
+		IF(@inte_decl_Nombre_Raso IS NOT NULL)
+			BEGIN
+
+				EXEC adua.UDP_tbDeclarantes_Insertar @inte_decl_Nombre_Raso,
+												   @inte_decl_Direccion_Exacta,
+												   @inte_ciud_Id,
+												   @inte_decl_Correo_Electronico,
+												   @inte_decl_Telefono,
+												   @inte_decl_Fax,
+												   @usua_UsuarioCreacion,
+												   @deva_FechaCreacion,
+												   @inte_decl_Id OUTPUT
 
 
-		INSERT INTO [Adua].[tbIntermediarios](tite_Id, 
-											  inte_Tipo_Otro,
-											  decl_Id, 
-											  usua_UsuarioCreacion, 
-											  inte_FechaCreacion)
-		VALUES (@tite_Id, 
-				@inte_Tipo_Otro, 
-				@inte_decl_Id,
-				@usua_UsuarioCreacion,
-				@deva_FechaCreacion)
+				INSERT INTO [Adua].[tbIntermediarios](tite_Id, 
+													  inte_Tipo_Otro,
+													  decl_Id, 
+													  usua_UsuarioCreacion, 
+													  inte_FechaCreacion)
+				VALUES (@tite_Id, 
+						@inte_Tipo_Otro, 
+						@inte_decl_Id,
+						@usua_UsuarioCreacion,
+						@deva_FechaCreacion)
 
-		DECLARE @inte_Id INT = SCOPE_IDENTITY()
+				SET @inte_Id = SCOPE_IDENTITY()
+				
+			END
 
 		UPDATE [Adua].[tbDeclaraciones_Valor]
 		SET [inte_Id] = @inte_Id,

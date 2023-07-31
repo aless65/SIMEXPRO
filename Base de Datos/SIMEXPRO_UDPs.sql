@@ -2995,30 +2995,30 @@ END
 go
 
 /*Aduanas Editar*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Editar 
- @adua_Id                   INT,
- @adua_Codigo				char(4), 
- @adua_Nombre               NVARCHAR(MAX), 
- @adua_Direccion_Exacta     NVARCHAR(MAX),   
- @usua_UsuarioModificacion  INT, 
- @adua_FechaModificacion    DATETIME
-AS
-BEGIN 
-   BEGIN TRY   
+	CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Editar 
+	 @adua_Id                   INT,
+	 @adua_Codigo				char(4), 
+	 @adua_Nombre               NVARCHAR(MAX), 
+	 @adua_Direccion_Exacta     NVARCHAR(MAX),   
+	 @usua_UsuarioModificacion  INT, 
+	 @adua_FechaModificacion    DATETIME
+	AS
+	BEGIN 
+	   BEGIN TRY   
      
-	   UPDATE  Adua.tbAduanas 
-	   SET adua_Nombre = @adua_Nombre,
-			[adua_Codigo] = @adua_Codigo
-	       adua_Direccion_Exacta = @adua_Direccion_Exacta, 		   
-		   usua_UsuarioModificacion = @usua_UsuarioModificacion, 
-		   adua_FechaModificacion = @adua_FechaModificacion
-	   WHERE  adua_Id = @adua_Id
-	   SELECT 1
-	END TRY
-   BEGIN CATCH
-      SELECT 0
-    END CATCH
-END
+		   UPDATE  Adua.tbAduanas 
+		   SET adua_Nombre = @adua_Nombre,
+				[adua_Codigo] = @adua_Codigo,
+			   adua_Direccion_Exacta = @adua_Direccion_Exacta, 		   
+			   usua_UsuarioModificacion = @usua_UsuarioModificacion, 
+			   adua_FechaModificacion = @adua_FechaModificacion
+		   WHERE  adua_Id = @adua_Id
+		   SELECT 1
+		END TRY
+	   BEGIN CATCH
+		  SELECT 0
+		END CATCH
+	END
 
 
 GO
@@ -6398,7 +6398,7 @@ BEGIN
 		   LEFT JOIN Adua.tbCodigoImpuesto codigoIm     ON boletin.coim_Id                  = codigoIm.coim_Id
 	 WHERE boen_Estado = 1
 END
-GO
+
 
 /*Insertar boletin de pago*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbBoletinPago_Insertar 

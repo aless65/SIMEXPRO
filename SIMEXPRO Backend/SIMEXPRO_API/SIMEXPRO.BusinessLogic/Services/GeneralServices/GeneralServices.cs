@@ -63,33 +63,33 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         }
 
         #region Aldeas
-        //public ServiceResult ListarAldeas()
-        //{
-        //    var resultado = new ServiceResult();
-
-        //    try
-        //    {
-        //        var list = _aldeasRepository.List();
-        //        return resultado.Ok(list);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return resultado.Error(ex.Message);
-        //    }
-        //}
-
-        public IEnumerable<tbAldeas> ListarAldeas()
+        public ServiceResult ListarAldeas()
         {
+            var resultado = new ServiceResult();
+
             try
             {
                 var list = _aldeasRepository.List();
-                return list;
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbAldeas>();
+                return resultado.Error(ex.Message);
             }
         }
+
+        //public IEnumerable<tbAldeas> ListarAldeas()
+        //{
+        //    try
+        //    {
+        //        var list = _aldeasRepository.List();
+        //        return list;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Enumerable.Empty<tbAldeas>();
+        //    }
+        //}
 
         public ServiceResult InsertarAldeas(tbAldeas item)
         {
@@ -180,32 +180,32 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Cargos
-        //public ServiceResult ListarCargos()
-        //{
-        //    var resultado = new ServiceResult();
-        //    try
-        //    {
-        //        var list = _cargosRepository.List();
-        //        return resultado.Ok(list);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return resultado.Error(ex.Message);
-        //    }
-        //}
-
-        public IEnumerable<tbCargos> ListarCargos()
+        public ServiceResult ListarCargos()
         {
+            var resultado = new ServiceResult();
             try
             {
                 var list = _cargosRepository.List();
-                return list;
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbCargos>();
+                return resultado.Error(ex.Message);
             }
         }
+
+        //public IEnumerable<tbCargos> ListarCargos()
+        //{
+        //    try
+        //    {
+        //        var list = _cargosRepository.List();
+        //        return list;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Enumerable.Empty<tbCargos>();
+        //    }
+        //}
 
         public ServiceResult InsertarCargos(tbCargos item)
         {

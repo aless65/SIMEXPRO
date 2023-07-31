@@ -1,4 +1,6 @@
 
+USE SIMEXPRO
+GO
 
 ---***********VALIDACIÓN DE ELIMINAR**************---
 GO
@@ -2071,36 +2073,39 @@ GO
 CREATE OR ALTER PROC Adua.UDP_tbPersonas_Listar
 AS
 BEGIN
-		SELECT	tbp.pers_Id								, 
-				tbp.pers_RTN							, 
-				tbp.ofic_Id								,
-				tbof.ofic_Nombre						,
-				tbp.escv_Id								, 
-				tbec.escv_Nombre						,
-				tbp.ofpr_Id								, 
-				tbp.pers_FormaRepresentacion			, 
-				tbp.pers_escvRepresentante				,
-				tbec2.escv_Nombre						,
-				tbp.pers_OfprRepresentante				,
-				tbop2.ofpr_Nombre						,
-				tbp.usua_UsuarioCreacion				, 
-				tbp.pers_FechaCreacion					, 
-				usu.usua_Nombre							AS usuarioCreacion,
-				tbp.usua_UsuarioModificacion			,
-				usu2.usua_Nombre						AS usuarioModificacion, 
-				tbp.pers_FechaModificacion				, 
-				tbp.pers_Estado
-		FROM	[Adua].[tbPersonas]						tbp
-				INNER JOIN Acce.tbUsuarios				usu			ON 	tbp.usua_UsuarioCreacion		= usu.usua_Id 
-				LEFT  JOIN Acce.tbUsuarios				usu2		ON	tbp.usua_UsuarioModificacion	= usu2.usua_Id
-				INNER JOIN Gral.tbEstadosCiviles		tbec		ON	tbp.escv_Id						= tbec.escv_Id
-				INNER JOIN Gral.tbOficinas				tbof		ON	tbp.ofic_Id						= tbof.ofic_Id
-				INNER JOIN Gral.tbOficio_Profesiones	tbop		ON	tbp.ofpr_Id						= tbop.ofpr_Id
-				LEFT  JOIN Gral.tbEstadosCiviles		tbec2		ON	tbp.pers_escvRepresentante		= tbec2.escv_Id
-				INNER JOIN Gral.tbOficio_Profesiones	tbop2		ON	tbp.pers_OfprRepresentante		= tbop.ofpr_Id
-		WHERE	tbp.pers_Estado = 1
+		SELECT	Personas.pers_Id, 
+				Personas.pers_RTN, 
+				Personas.ofic_Id,
+				Oficina.ofic_Nombre,
+				Personas.escv_Id, 
+				Civil.escv_Nombre,
+				Personas.ofpr_Id, 
+				Profesion.ofpr_Nombre,
 
+				Personas.pers_FormaRepresentacion, 
+				Personas.pers_escvRepresentante,
+				Civil2.escv_Nombre,
+				Personas.pers_OfprRepresentante,
+				Profesion2.ofpr_Nombre,
 
+				Personas.usua_UsuarioCreacion, 
+				Personas.pers_FechaCreacion, 
+				Usuario1.usua_Nombre				AS usuarioCreacion,
+				Personas.usua_UsuarioModificacion,
+				Usuario2.usua_Nombre				AS usuarioModificacion, 
+				Personas.pers_FechaModificacion, 
+				Personas.pers_Estado
+
+		FROM	[Adua].[tbPersonas]				AS	Personas
+		INNER JOIN	Gral.tbOficinas				AS	Oficina		ON Personas.ofic_Id						= Oficina.ofic_Id
+		INNER JOIN	Gral.tbEstadosCiviles		AS	Civil		ON Personas.escv_Id						= Civil.escv_Id
+		INNER JOIN	Gral.tbOficio_Profesiones	AS	Profesion	ON Personas.ofpr_Id						= Profesion.ofpr_Id
+		INNER JOIN	Acce.tbUsuarios				AS	Usuario1	ON Personas.usua_UsuarioCreacion		= Usuario1.usua_Id
+		LEFT JOIN	Acce.tbUsuarios				AS	Usuario2	ON Personas.usua_UsuarioModificacion	= Usuario2.usua_Id
+
+		LEFT JOIN	Gral.tbOficio_Profesiones	AS	Profesion2	ON Personas.pers_OfprRepresentante		= Profesion2.ofpr_Id
+		LEFT JOIN	Gral.tbEstadosCiviles		AS	Civil2		ON Personas.pers_escvRepresentante		= Civil2.escv_Id
+		WHERE	Personas.pers_Estado = 1
 END
 GO
 

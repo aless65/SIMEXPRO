@@ -27,7 +27,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarCargos();
-            var listadoMapeado = _mapper.Map<IEnumerable<CargosViewModel>>(listado);
+            var listadoMapeado = _mapper.Map<IEnumerable<CargosViewModel>>(listado.Data);
             return Ok(listadoMapeado);
         }
 

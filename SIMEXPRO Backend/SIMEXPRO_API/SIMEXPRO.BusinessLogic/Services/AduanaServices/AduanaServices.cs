@@ -4309,29 +4309,29 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region PersonaNatural
-        //public ServiceResult ListarPersonaNatural()
-        //{
-        //    var result = new ServiceResult();
-        //    try
-        //    {
-        //        var list = _personaNaturalRepository.List();
-        //        return result.Ok(list);
-        //    }
-        //    catch (Exception ex) { return result.Error(ex.Message); }
-        //}
-
-        public IEnumerable<tbPersonaNatural> ListarPersonaNatural()
+        public ServiceResult ListarPersonaNatural()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _personaNaturalRepository.List();
-                return list;
+                return result.Ok(list);
             }
-            catch (Exception ex)
-            {
-                return Enumerable.Empty<tbPersonaNatural>();
-            }
+            catch (Exception ex) { return result.Error(ex.Message); }
         }
+
+        //public IEnumerable<tbPersonaNatural> ListarPersonaNatural()
+        //{
+        //    try
+        //    {
+        //        var list = _personaNaturalRepository.List();
+        //        return list;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Enumerable.Empty<tbPersonaNatural>();
+        //    }
+        //}
 
         public ServiceResult InsertarPersonaNatural(tbPersonaNatural item)
         {
@@ -4422,32 +4422,32 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Personas
-        //public ServiceResult ListarPersonas()
-        //{
-        //    var result = new ServiceResult();
-        //    try
-        //    {
-        //        var list = _personasRepository.List();
-        //        return result.Ok(list);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return result.Error(ex.Message);
-        //    }
-        //}
-
-        public IEnumerable<tbPersonas> ListarPersonas()
+        public ServiceResult ListarPersonas()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _personasRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbPersonas>();
+                return result.Error(ex.Message);
             }
         }
+
+        //public IEnumerable<tbPersonas> ListarPersonas()
+        //{
+        //    try
+        //    {
+        //        var list = _personasRepository.List();
+        //        return list;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Enumerable.Empty<tbPersonas>();
+        //    }
+        //}
 
         public ServiceResult InsertarPersonas(tbPersonas item)
         {
@@ -4640,32 +4640,32 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region TipoDocumento
-        //public ServiceResult ListarTipoDocumento()
-        //{
-        //    var result = new ServiceResult();
-        //    try
-        //    {
-        //        var list = _tipoDocumentoRepository.List();
-        //        return result.Ok(list);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return result.Error(ex.Message);
-        //    }
-        //}
-
-        public IEnumerable<tbTipoDocumento> ListarTipoDocumento()
+        public ServiceResult ListarTipoDocumento()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _tipoDocumentoRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbTipoDocumento>();
+                return result.Error(ex.Message);
             }
         }
+
+        //public IEnumerable<tbTipoDocumento> ListarTipoDocumento()
+        //{
+        //    try
+        //    {
+        //        var list = _tipoDocumentoRepository.List();
+        //        return list;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Enumerable.Empty<tbTipoDocumento>();
+        //    }
+        //}
 
         public ServiceResult InsertarTipoDocumento(tbTipoDocumento item)
         {
@@ -4756,32 +4756,32 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region TipoIntermediario
-        //public ServiceResult ListarTipoIntermediario()
-        //{
-        //    var result = new ServiceResult();
-        //    try
-        //    {
-        //        var list = _tipoIntermediarioRepository.List();
-        //        return result.Ok(list);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return result.Error(ex.Message);
-        //    }
-        //}
-
-        public IEnumerable<tbTipoIntermediario> ListarTipoIntermediario()
+        public ServiceResult ListarTipoIntermediario()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _tipoIntermediarioRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbTipoIntermediario>();
+                return result.Error(ex.Message);
             }
         }
+
+        //public IEnumerable<tbTipoIntermediario> ListarTipoIntermediario()
+        //{
+        //    try
+        //    {
+        //        var list = _tipoIntermediarioRepository.List();
+        //        return list;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Enumerable.Empty<tbTipoIntermediario>();
+        //    }
+        //}
 
         public ServiceResult InsertarTipoIntermediario(tbTipoIntermediario item)
         {
@@ -4872,32 +4872,32 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region TipoLiquidacion
-        //public ServiceResult ListarTipoLiquidacion()
-        //{
-        //    var resultado = new ServiceResult();
-        //    try
-        //    {
-        //        var list = _tipoLiquidacionRepository.List();
-        //        return resultado.Ok(list);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return resultado.Error(ex.Message);
-        //    }
-        //}
-
-        public IEnumerable<tbTipoLiquidacion> ListarTipoLiquidacion()
+        public ServiceResult ListarTipoLiquidacion()
         {
+            var resultado = new ServiceResult();
             try
             {
                 var list = _tipoLiquidacionRepository.List();
-                return list;
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbTipoLiquidacion>();
+                return resultado.Error(ex.Message);
             }
         }
+
+        //public IEnumerable<tbTipoLiquidacion> ListarTipoLiquidacion()
+        //{
+        //    try
+        //    {
+        //        var list = _tipoLiquidacionRepository.List();
+        //        return list;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Enumerable.Empty<tbTipoLiquidacion>();
+        //    }
+        //}
 
         public ServiceResult InsertarTipoLiquidacion(tbTipoLiquidacion item)
         {
@@ -5104,33 +5104,33 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Transporte
-        //public ServiceResult ListarTransporte()
-        //{
-        //    var resultado = new ServiceResult();
-
-        //    try
-        //    {
-        //        var list = _transporteRepository.List();
-        //        return resultado.Ok(list);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return resultado.Error(ex.Message);
-        //    }
-        //}
-
-        public IEnumerable<tbTransporte> ListarTransporte()
+        public ServiceResult ListarTransporte()
         {
+            var resultado = new ServiceResult();
+
             try
             {
                 var list = _transporteRepository.List();
-                return list;
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbTransporte>();
+                return resultado.Error(ex.Message);
             }
         }
+
+        //public IEnumerable<tbTransporte> ListarTransporte()
+        //{
+        //    try
+        //    {
+        //        var list = _transporteRepository.List();
+        //        return list;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Enumerable.Empty<tbTransporte>();
+        //    }
+        //}
 
         public ServiceResult InsertarTransporte(tbTransporte item)
         {

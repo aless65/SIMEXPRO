@@ -27,7 +27,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarAldeas();
-            var listadoMapeado = _mapper.Map<IEnumerable<AldeasViewModel>>(listado);
+            var listadoMapeado = _mapper.Map<IEnumerable<AldeasViewModel>>(listado.Data);
             return Ok(listadoMapeado);
         }
 

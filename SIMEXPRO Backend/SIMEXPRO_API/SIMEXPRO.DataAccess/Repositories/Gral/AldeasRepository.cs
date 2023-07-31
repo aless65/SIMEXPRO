@@ -43,7 +43,6 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();
             return db.Query<tbAldeas>(ScriptsDataBase.ListarAldeas, null, commandType: CommandType.StoredProcedure);
-
         }
 
         public RequestStatus Update(tbAldeas item)
@@ -56,8 +55,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@alde_Id", item.alde_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@alde_Nombre", item.alde_Nombre, DbType.String, ParameterDirection.Input);
             parametros.Add("@ciud_Id", item.ciud_Id, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@alde_FechaCreacion", item.alde_FechaCreacion, DbType.String, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@alde_FechaModificacion", item.alde_FechaModificacion, DbType.String, ParameterDirection.Input);
 
             var answer = db.QueryFirst<int>(ScriptsDataBase.EditarAldeas, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;

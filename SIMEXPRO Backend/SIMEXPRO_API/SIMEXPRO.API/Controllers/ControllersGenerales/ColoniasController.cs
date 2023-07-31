@@ -32,7 +32,6 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(listadoMapeado);
         }
 
-
         [HttpPost("Insert")]
         public IActionResult Insert(ColoniasViewModel coloniasViewModel)
         {
@@ -40,7 +39,6 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             var respuesta = _generalesServices.InsertarColonias(item);
             return Ok(respuesta);
         }
-
 
         [HttpPost("Update")]
         public IActionResult Update(ColoniasViewModel coloniasViewModel)
@@ -57,8 +55,5 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             var respuesta = _generalesServices.EliminarColonias(item);
             return Ok(respuesta);
         }
-
-
-
     }
 }

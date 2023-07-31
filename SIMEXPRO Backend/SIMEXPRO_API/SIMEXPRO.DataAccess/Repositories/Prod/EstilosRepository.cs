@@ -58,7 +58,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
-            parametros.Add("@esti_Id", item.esti_Id, DbType.String, ParameterDirection.Input);
+            parametros.Add("@esti_Id", item.esti_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@esti_Descripcion", item.esti_Descripcion, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@esti_FechaModificacion", item.esti_FechaModificacion, DbType.DateTime, ParameterDirection.Input);

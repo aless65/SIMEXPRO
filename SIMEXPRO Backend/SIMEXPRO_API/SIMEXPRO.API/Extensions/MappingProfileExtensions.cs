@@ -44,6 +44,9 @@ namespace Events_Company_R.API.Extentions
             CreateMap<SubCategoriaViewModel, tbSubcategoria>().ReverseMap();
             CreateMap<EstilosViewModel, tbEstilos>().ReverseMap();
             CreateMap<FuncionesMaquinaViewModel, tbFuncionesMaquina>().ReverseMap();
+            CreateMap<TallasViewModel, tbTallas>().ReverseMap();
+            CreateMap<TipoEmbalajeViewModel, tbTipoEmbalaje>().ReverseMap();
+
             #endregion
 
             #region Acceso

@@ -14,15 +14,16 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
     {
         public RequestStatus Delete(tbItems item)
         {
-            RequestStatus result = new();
+            //RequestStatus result = new();
 
-            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
-            var parametros = new DynamicParameters();
-            parametros.Add("@item_Id", item.item_Id, DbType.Int32, ParameterDirection.Input);
+            //using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            //var parametros = new DynamicParameters();
+            //parametros.Add("@item_Id", item.item_Id, DbType.Int32, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarItems, parametros, commandType: CommandType.StoredProcedure);
-            result.MessageStatus = answer;
-            return result;
+            //var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarItems, parametros, commandType: CommandType.StoredProcedure);
+            //result.MessageStatus = answer;
+            //return result;
+            throw new NotImplementedException();
         }
 
         public tbItems Find(int? id)

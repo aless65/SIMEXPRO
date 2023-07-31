@@ -4178,10 +4178,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 var list = _personaNaturalRepository.List();
                 return result.Ok(list);
             }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
             catch (Exception ex) { return result.Error(ex.Message); }
         }
 

@@ -1,6 +1,9 @@
-﻿using SIMEXPRO.Entities.Entities;
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
+using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,17 +24,39 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
 
         public RequestStatus Insert(tbImpuestos item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@aran_Codigo", item.aran_Codigo, DbType.String, ParameterDirection.Input);
+            parametros.Add("@impu_Descripcion", item.impu_Descripcion, DbType.String, ParameterDirection.Input);
+            parametros.Add("@impu_Impuesto", item.impu_Impuesto, DbType.Decimal, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@impu_FechaCreacion", item.impu_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarImpuestos, parametros, commandType: CommandType.StoredProcedure);
+            result.CodeStatus = answer;
+            return result;
         }
 
         public IEnumerable<tbImpuestos> List()
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            var parametros = new DynamicParameters();
+            return db.Query<tbImpuestos>(ScriptsDataBase.ListarImpuestos, null, commandType: CommandType.StoredProcedure);
         }
 
         public RequestStatus Update(tbImpuestos item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@aran_Codigo", item.aran_Codigo, DbType.String, ParameterDirection.Input);
+            parametros.Add("@impu_Descripcion", item.impu_Descripcion, DbType.String, ParameterDirection.Input);
+            parametros.Add("@impu_Impuesto", item.impu_Impuesto, DbType.Decimal, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@impu_FechaModificacion", item.impu_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarImpuestos, parametros, commandType: CommandType.StoredProcedure);
+            result.CodeStatus = answer;
+            return result;
         }
     }
 }

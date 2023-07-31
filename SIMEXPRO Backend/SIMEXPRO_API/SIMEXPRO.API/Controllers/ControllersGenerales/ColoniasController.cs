@@ -28,8 +28,8 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarColonias();
-            var listadoMapeado = _mapper.Map<IEnumerable<ColoniasViewModel>>(listado.Data);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<ColoniasViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
 

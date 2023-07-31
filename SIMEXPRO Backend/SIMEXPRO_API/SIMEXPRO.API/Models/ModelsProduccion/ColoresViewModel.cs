@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,6 +18,16 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public int? usua_UsuarioEliminacion { get; set; }
         public DateTime? colr_FechaEliminacion { get; set; }
         public bool? colr_Estado { get; set; }
+
+
+        [NotMapped]
+        public string UsuarioNombreCreacion { get; set; }
+
+        [NotMapped]
+        public string UsuarioNombreModificacion { get; set; }
+
+        [NotMapped]
+        public string UsuarioNombreEliminacion { get; set; }
 
 
     }

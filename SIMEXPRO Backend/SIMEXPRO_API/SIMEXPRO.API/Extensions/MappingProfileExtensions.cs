@@ -38,6 +38,7 @@ namespace Events_Company_R.API.Extentions
             CreateMap<LiquidacionGeneralViewModel, tbLiquidacionGeneral>().ReverseMap();
             CreateMap<LiquidacionPorLineaViewModel, tbLiquidacionPorLinea>().ReverseMap();
             CreateMap<LugaresEmbarqueViewModel, tbLugaresEmbarque>().ReverseMap();
+            CreateMap<MarcasViewModel, tbMarcas>().ReverseMap();
             #endregion
 
             #region Producción

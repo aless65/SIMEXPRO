@@ -23,11 +23,12 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             _generalesServices = generalesService;
             _mapper = mapper;
         }
+
         [HttpGet("Listado")]
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarColonias();
-            var listadoMapeado = _mapper.Map<IEnumerable<ColoniasViewModel>>(listado);
+            var listadoMapeado = _mapper.Map<IEnumerable<ColoniasViewModel>>(listado.Data);
             return Ok(listadoMapeado);
         }
 

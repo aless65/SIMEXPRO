@@ -1,6 +1,9 @@
-﻿using SIMEXPRO.Entities.Entities;
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
+using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,17 +24,51 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
 
         public RequestStatus Insert(tbFormasdePago item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+
+            var parameters = new DynamicParameters();
+
+            parameters.Add("@fopa_Descripcion", item.fopa_Descripcion, DbType.String, ParameterDirection.Input);
+            parameters.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@fopa_FechaCreacion", item.fopa_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
+
+            var resultado = db.QueryFirst<int>(ScriptsDataBase.InsertarFormasdePago, parameters, commandType: CommandType.StoredProcedure);
+
+            RequestStatus request = new()
+            {
+                CodeStatus = resultado,
+                MessageStatus = "Estado insert"
+            };
+
+            return request;
         }
 
         public IEnumerable<tbFormasdePago> List()
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            return db.Query<tbFormasdePago>(ScriptsDataBase.ListarFormasdePago, null, commandType: System.Data.CommandType.StoredProcedure);
         }
 
         public RequestStatus Update(tbFormasdePago item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+
+            var parameters = new DynamicParameters();
+
+            parameters.Add("@fopa_id", item.fopa_Id, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@fopa_Descripcion", item.fopa_Descripcion, DbType.String, ParameterDirection.Input);
+            parameters.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@fopa_FechaModificacion", item.fopa_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
+
+            var resultado = db.QueryFirst<int>(ScriptsDataBase.EditarFormasdePago, parameters, commandType: CommandType.StoredProcedure);
+
+            RequestStatus request = new()
+            {
+                CodeStatus = resultado,
+                MessageStatus = "Estado update"
+            };
+
+            return request;
         }
     }
 }

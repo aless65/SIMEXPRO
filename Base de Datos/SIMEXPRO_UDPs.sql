@@ -2815,9 +2815,9 @@ AS
 BEGIN 
 SELECT	fopa_Id							,
         fopa_Descripcion				,
-		usu.usua_Nombre					AS usarioCreacion,
+		usu.usua_Nombre					AS usua_NombreCreacion,
 		fopa_FechaCreacion				,
-		usu1.usua_Nombre				AS usuarioModificacion,
+		usu1.usua_Nombre				AS usua_NombreModificacion,
 		fopa_FechaModificacion			,
 		fopa_Estado						
 FROM	Adua.tbFormasdePago form 
@@ -11757,12 +11757,12 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbModelosMaquina_Insertar
 	@mmaq_Nombre				NVARCHAR(250),
 	@marq_Id					INT,
 	@func_Id					INT,
-	@mmaq_Imagen				NVARCHAR(MAX),
+	@momq_Imagen				NVARCHAR(MAX),
 	@usua_UsuarioCreacion		INT,
 	@mmaq_FechaCreacion			DATETIME
 AS
 BEGIN
-	BEGIN TRY
+	BEGIN TRY	
 			BEGIN
 				INSERT INTO Prod.tbModelosMaquina (mmaq_Nombre, 
 				                                   marq_Id, 

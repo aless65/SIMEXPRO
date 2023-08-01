@@ -36,6 +36,7 @@ namespace SIMEXPRO.API.Extentions
             CreateMap<DucaViewModel, tbDuca>().ReverseMap();
             CreateMap<ConceptoPagoViewModel, tbConceptoPago>().ReverseMap();
             CreateMap<EstadoBoletinViewModel, tbEstadoBoletin>().ReverseMap();
+            CreateMap<FormasDePagoViewModel, tbFormasdePago>().ReverseMap();
             CreateMap<ItemsViewModel, tbItems>().ReverseMap();
             CreateMap<LiquidacionGeneralViewModel, tbLiquidacionGeneral>().ReverseMap();
             CreateMap<LiquidacionPorLineaViewModel, tbLiquidacionPorLinea>().ReverseMap();

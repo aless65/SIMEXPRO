@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SIMEXPRO.API.Models.ModelsAduana;
+using SIMEXPRO.Entities.Entities;
 
 namespace SIMEXPRO.API.Controllers.ControllersAduanas
 {
@@ -32,5 +33,20 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             return Ok(list);
         }
 
+        [HttpPost("Insertar")]
+        public IActionResult Insert(EstadoBoletinViewModel item)
+        {
+            var result = _aduanaServices.InsertarEstadoBoletin(_mapper.Map<tbEstadoBoletin>(item));
+
+            return Ok(result);
+        }
+
+        [HttpPost("Editar")]
+        public IActionResult Update(EstadoBoletinViewModel item)
+        {
+            var result = _aduanaServices.ActualizarEstadoBoletin(_mapper.Map<tbEstadoBoletin>(item));
+
+            return Ok(result);
+        }
     }
 }

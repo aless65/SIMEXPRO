@@ -1847,11 +1847,11 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Orden Compra Detalles
-        public IEnumerable<tbOrdenCompraDetalles> ListarOrdenCompraDetalles()
+        public IEnumerable<tbOrdenCompraDetalles> ListarOrdenCompraDetalles(tbOrdenCompraDetalles item)
         {
             try
             {
-                var list = _ordenCompraDetallesRepository.List();
+                var list = _ordenCompraDetallesRepository.List(item);
                 return list;
             }
             catch (Exception ex)
@@ -2051,11 +2051,11 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Pedidos Orden Detalles
-        public IEnumerable<tbPedidosOrdenDetalle> ListarPedidosOrdenDetalle()
+        public IEnumerable<tbPedidosOrdenDetalle> ListarPedidosOrdenDetalle(tbPedidosOrdenDetalle item)
         {
             try
             {
-                var list = _pedidosOrdenDetallesRepository.List();
+                var list = _pedidosOrdenDetallesRepository.List(item);
                 return list;
             }
             catch (Exception ex)

@@ -38,7 +38,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@orco_FechaCreacion", item.orco_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarOrde_Ensa_Acab_Etiq, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarOrdenCompra, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
             return result;
         }
@@ -55,7 +55,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
-            parametros.Add("@orco_Id", item.orco_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@code_Id", item.orco_IdCliente, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@orco_IdCliente", item.orco_IdCliente, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@orco_FechaEmision", item.orco_FechaEmision, DbType.DateTime, ParameterDirection.Input);
             parametros.Add("@orco_FechaLimite", item.orco_FechaLimite, DbType.DateTime, ParameterDirection.Input);
@@ -67,7 +67,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@orco_FechaModificacion", item.orco_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarOrde_Ensa_Acab_Etiq, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarOrdenCompra, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
             return result;
         }

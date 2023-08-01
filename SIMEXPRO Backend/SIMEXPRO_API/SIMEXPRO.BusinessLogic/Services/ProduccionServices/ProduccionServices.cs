@@ -1654,7 +1654,6 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             }
         }
         #endregion
-
         #region Modulos
         public IEnumerable<tbModulos> ListarModulos()
         {
@@ -1758,7 +1757,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region orde_Ensa_Acab_EtiqRepository
-        public IEnumerable<tbOrde_Ensa_Acab_Etiq> Listarorde_Ensa_Acab_EtiqRepository()
+        public IEnumerable<tbOrde_Ensa_Acab_Etiq> Listarorde_Ensa_Acab_Etiq()
         {
             try
             {
@@ -1771,7 +1770,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             }
         }
 
-        public ServiceResult InsertarModelos(tbOrde_Ensa_Acab_Etiq item)
+        public ServiceResult Insertarorde_Ensa_Acab_Etiq(tbOrde_Ensa_Acab_Etiq item)
         {
             var result = new ServiceResult();
             try
@@ -1800,7 +1799,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             }
         }
 
-        public ServiceResult ActualizarModelos(tbOrde_Ensa_Acab_Etiq item)
+        public ServiceResult Actualizarorde_Ensa_Acab_Etiq(tbOrde_Ensa_Acab_Etiq item)
         {
             var result = new ServiceResult();
             try
@@ -1829,7 +1828,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             }
         }
 
-        public ServiceResult EliminarModelos(tbOrde_Ensa_Acab_Etiq item)
+        public ServiceResult Eliminarorde_Ensa_Acab_Etiq(tbOrde_Ensa_Acab_Etiq item)
         {
             var result = new ServiceResult();
             try
@@ -1860,11 +1859,11 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Orden Compra Detalles
-        public IEnumerable<tbOrdenCompraDetalles> ListarOrdenCompraDetalles()
+        public IEnumerable<tbOrdenCompraDetalles> ListarOrdenCompraDetalles(tbOrdenCompraDetalles item)
         {
             try
             {
-                var list = _ordenCompraDetallesRepository.List();
+                var list = _ordenCompraDetallesRepository.List(item);
                 return list;
             }
             catch (Exception ex)
@@ -2064,11 +2063,11 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Pedidos Orden Detalles
-        public IEnumerable<tbPedidosOrdenDetalle> ListarPedidosOrdenDetalle()
+        public IEnumerable<tbPedidosOrdenDetalle> ListarPedidosOrdenDetalle(tbPedidosOrdenDetalle item)
         {
             try
             {
-                var list = _pedidosOrdenDetallesRepository.List();
+                var list = _pedidosOrdenDetallesRepository.List(item);
                 return list;
             }
             catch (Exception ex)

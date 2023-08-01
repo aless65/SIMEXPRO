@@ -135,6 +135,7 @@ END
 --EXEC acce.UDP_tbUsuarios_Insertar 'juan', '123', 'skf@ks.com', 1, '', 1, 1, 1,'2023-08-13'
 
 /*Insertar Usuarios*/
+GO
 CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Insertar
 	@usua_Nombre			NVARCHAR(150),
 	@usua_Contrasenia		NVARCHAR(MAX),
@@ -6401,6 +6402,7 @@ END
 
 
 /*Insertar boletin de pago*/
+GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbBoletinPago_Insertar 
 	@liqu_Id                 INT, 
 	@tipl_Id                 INT, 

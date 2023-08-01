@@ -14,7 +14,23 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
     {
         public RequestStatus Delete(tbFormasdePago item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+
+            var parameters = new DynamicParameters();
+
+            parameters.Add("@fopa_id", item.fopa_Id, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@fopa_FechaEliminacion", item.fopa_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
+
+            var resultado = db.QueryFirst<int>(ScriptsDataBase.EliminarFormasdePago, parameters, commandType: CommandType.StoredProcedure);
+
+            RequestStatus request = new()
+            {
+                CodeStatus = resultado,
+                MessageStatus = "Estado delete"
+            };
+
+            return request;
         }
 
         public tbFormasdePago Find(int? id)

@@ -2845,7 +2845,6 @@ BEGIN
 		    UPDATE Adua.tbFormasdePago
 			SET fopa_Estado = 1
 			WHERE fopa_Descripcion=@fopa_Descripcion
-			SELECT 1
 		 END
 		ELSE 
 		 BEGIN
@@ -2860,8 +2859,8 @@ BEGIN
 			  @fopa_FechaCreacion  
 			)
          END
-		 
-		END TRY 
+		 SELECT 1
+	END TRY 
 	BEGIN CATCH
 	   SELECT 0	
 	END CATCH    
@@ -3246,9 +3245,9 @@ AS
 BEGIN
 SELECT	esbo_Id								,
 		esbo_Descripcion					, 
-		crea.usua_Nombre					AS usarioCreacion,
+		crea.usua_Nombre					AS usua_NombreCreacion,
 		esbo_FechaCreacion					,
-		modi.usua_Nombre					AS usuarioModificacion,
+		modi.usua_Nombre					AS usua_NombreModificacion,
 		esbo_FechaModificacion				,
 		esbo_Estadoo 						
 FROM	Adua.tbEstadoBoletin esbo 

@@ -8,6 +8,11 @@ namespace SIMEXPRO.Entities.Entities
 {
     public partial class tbAsignacionesOrden
     {
+        public tbAsignacionesOrden()
+        {
+            tbAsignacionesOrdenDetalle = new HashSet<tbAsignacionesOrdenDetalle>();
+        }
+
         public int asor_Id { get; set; }
         public int asor_OrdenDetId { get; set; }
         public DateTime asor_FechaInicio { get; set; }
@@ -24,5 +29,6 @@ namespace SIMEXPRO.Entities.Entities
         public virtual tbProcesos proc { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }
+        public virtual ICollection<tbAsignacionesOrdenDetalle> tbAsignacionesOrdenDetalle { get; set; }
     }
 }

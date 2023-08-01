@@ -20,6 +20,9 @@ namespace SIMEXPRO.Entities.Entities
         public int colo_Id { get; set; }
         public string colo_Nombre { get; set; }
         public int? alde_Id { get; set; }
+
+        [NotMapped]
+        public string alde_Nombre { get; set; }
         public int? ciud_Id { get; set; }
         [NotMapped]
         public string ciud_Nombre { get; set; }

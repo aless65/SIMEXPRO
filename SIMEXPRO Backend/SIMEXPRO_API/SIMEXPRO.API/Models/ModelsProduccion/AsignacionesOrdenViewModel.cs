@@ -19,5 +19,6 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public int? usua_UsuarioModificacion { get; set; }
         public DateTime? asor_FechaModificacion { get; set; }
 
+
     }
 }

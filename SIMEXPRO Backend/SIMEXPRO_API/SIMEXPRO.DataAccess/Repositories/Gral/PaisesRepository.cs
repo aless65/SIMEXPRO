@@ -1,9 +1,6 @@
-﻿using Dapper;
-using Microsoft.Data.SqlClient;
-using SIMEXPRO.Entities.Entities;
+﻿using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,16 +21,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
 
         public RequestStatus Insert(tbPaises item)
         {
-            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
-            RequestStatus result = new RequestStatus();
-            var parametros = new DynamicParameters();
-            parametros.Add("@pais_Codigo", item.pais_Codigo, DbType.String, ParameterDirection.Input);
-            parametros.Add("@pais_Nombre", item.pais_Nombre, DbType.String, ParameterDirection.Input);
-            parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@pais_FechaCreacion", item.pais_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarPaises, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
-            return result;
+            throw new NotImplementedException();
         }
 
         public IEnumerable<tbPaises> List()

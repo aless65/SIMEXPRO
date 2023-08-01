@@ -135,9 +135,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 var list = _aduanasRepository.List();
                 return result.Ok(list);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return result.Error(ex.Message);
+                return result.Error(e.Message);
             }
         }
 
@@ -231,15 +231,18 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
 
         #region Aranceles
         public ServiceResult ListarAranceles()
-        {var result = new ServiceResult();
+        {
+
+            var resultado = new ServiceResult();
+
             try
             {
                 var list = _arancelesRepository.List();
-                return result.Ok(list);
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
-                return result.Error(ex.Message);
+                return resultado.Error(ex.Message);
             }
         }
 
@@ -333,15 +336,18 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
 
         #region BaseCalculosHistorial
         public ServiceResult ListarBaseCalculosHistorial()
-        {var result = new ServiceResult();
+        {
+            var resultado = new ServiceResult();
+
+
             try
             {
                 var list = _baseCalculosHistorialRepository.List();
-                return result.Ok(list);
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
-                return result.Error(ex.Message);
+                return resultado.Error(ex.Message);
             }
         }
 
@@ -539,15 +545,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #region BoletinPago
         public ServiceResult ListarBoletinPago()
         {
-            var result = new ServiceResult();
+            var resultado = new ServiceResult();
+
+
             try
             {
                 var list = _boletinPagoRepository.List();
-                return result.Ok(list);
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
-                return result.Error(ex.Message);
+                return resultado.Error(ex.Message);
             }
         }
 
@@ -642,15 +650,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #region CodigoImpuesto
         public ServiceResult ListarCodigoImpuesto()
         {
-            var result = new ServiceResult();
+            var resultado = new ServiceResult();
+
+
             try
             {
                 var list = _codigoImpuestoRepository.List();
-                return result.Ok(list);
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
-                return result.Error(ex.Message);
+                return resultado.Error(ex.Message);
             }
         }
 
@@ -745,15 +755,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #region ComercianteIndividual
         public ServiceResult ListarComercianteIndividual()
         {
-            var result = new ServiceResult();
+            var resultado = new ServiceResult();
+
+
             try
             {
                 var list = _comercianteIndividualRepository.List();
-                return result.Ok(list);
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
-                return result.Error(ex.Message);
+                return resultado.Error(ex.Message);
             }
         }
 

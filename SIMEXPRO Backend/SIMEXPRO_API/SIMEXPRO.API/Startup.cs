@@ -46,7 +46,7 @@ namespace SIMEXPRO.API
            );
 
 
-            //// Configure Azure Key Vault
+            // Configure Azure Key Vault
             //var configBuilder = new ConfigurationBuilder();
             //var keyVaultEndpoint = "https://simexpro.vault.azure.net/"; // Replace with your Key Vault URI
             //var azureServiceTokenProvider = new AzureServiceTokenProvider();

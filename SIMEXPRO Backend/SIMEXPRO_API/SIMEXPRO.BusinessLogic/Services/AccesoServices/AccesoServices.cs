@@ -52,16 +52,17 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
 
         public ServiceResult ListarUsuarios()
         {
-            var result = new ServiceResult();
+            ServiceResult datos = new();
+
             try
             {
                 var list = _usuariosRepository.List();
-                return result.Ok(list);
+                return datos.Ok(list);
             }
             catch (Exception ex)
             {
 
-                return result.Error(ex.Message);
+                return datos.Error(ex.Message);
             }
         }
 
@@ -164,7 +165,7 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
         {
             try
             {
-                var list = _rolesPorPantallaRepository.List();
+                var list = _rolesPorPantallaRepository.Lista(item);
                 return list;
             }
             catch (Exception ex)

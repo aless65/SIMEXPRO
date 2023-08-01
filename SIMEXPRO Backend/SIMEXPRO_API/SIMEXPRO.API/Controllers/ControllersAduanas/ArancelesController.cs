@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SIMEXPRO.API.Models.ModelsAduana;
 using SIMEXPRO.BussinessLogic.Services.EventoServices;
@@ -12,12 +13,13 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BaseCalculoController : Controller
+    public class ArancelesController : ControllerBase
     {
+
         private readonly AduanaServices _aduanaServices;
         private readonly IMapper _mapper;
 
-        public BaseCalculoController(AduanaServices AduanaServices, IMapper mapper)
+        public ArancelesController(AduanaServices AduanaServices, IMapper mapper)
         {
             _aduanaServices = AduanaServices;
             _mapper = mapper;
@@ -27,27 +29,34 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         [HttpGet("Listado")]
         public IActionResult Index()
         {
-            var listado = _aduanaServices.ListarBaseCalculos();
+            var listado = _aduanaServices.ListarAranceles();
             var mapped = _mapper.Map<IEnumerable<ArancelesViewModel>>(listado);
             return Ok(mapped);
         }
 
         [HttpPost("Insertar")]
-        public IActionResult Insertar(ArancelesViewModel baseCalculo)
+        public IActionResult Insertar(ArancelesViewModel aranceles)
         {
-            var mapped = _mapper.Map<tbBaseCalculos>(baseCalculo);
-            var datos = _aduanaServices.InsertarBaseCalculos(mapped);
+            var mapped = _mapper.Map<tbAranceles>(aranceles);
+            var datos = _aduanaServices.InsertarAranceles(mapped);
             return Ok(datos);
         }
 
         [HttpPost("Editar")]
-        public IActionResult Editar(ArancelesViewModel baseCalculo)
+        public IActionResult Editar(ArancelesViewModel aranceles)
         {
-            var mapped = _mapper.Map<tbBaseCalculos>(baseCalculo);
-            var datos = _aduanaServices.ActualizarBaseCalculos(mapped);
+            var mapped = _mapper.Map<tbAranceles>(aranceles);
+            var datos = _aduanaServices.ActualizarAranceles(mapped);
             return Ok(datos);
         }
 
+        [HttpPost("Eliminar")]
+        public IActionResult Eliminar(ArancelesViewModel aranceles)
+        {
+            var mapped = _mapper.Map<tbAranceles>(aranceles);
+            var datos = _aduanaServices.EliminarAranceles(mapped);
+            return Ok(datos);
+        }
 
     }
 }

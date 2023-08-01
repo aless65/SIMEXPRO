@@ -41,6 +41,13 @@ namespace Events_Company_R.API.Extentions
             CreateMap<PersonasViewModel, tbPersonas>().ReverseMap();
             CreateMap<PersonaNaturalViewModel, tbPersonaNatural>().ReverseMap();            
             CreateMap<ConceptoPagoViewModel, tbConceptoPago>().ReverseMap();
+            CreateMap<AduanasViewModel, tbAduanas>().ReverseMap();
+            CreateMap<AracelesViewModel, tbAranceles>().ReverseMap();
+            CreateMap<ArancelesViewModel, tbBaseCalculos>().ReverseMap();
+            CreateMap<BoletinPagoViewModel, tbBoletinPago>().ReverseMap();
+            CreateMap<CodigoImpuestoViewModel, tbCodigoImpuesto>().ReverseMap();
+            CreateMap<CondicionesComercialesViewModel, tbComercianteIndividual>().ReverseMap();
+
             #endregion
 
             #region Producción
@@ -70,7 +77,6 @@ namespace Events_Company_R.API.Extentions
             CreateMap<RolesViewModel, tbRoles>().ReverseMap();
             CreateMap<RolesPorPantallasViewModel, tbRolesXPantallas>().ReverseMap();
             #endregion
-
 
         }
     }

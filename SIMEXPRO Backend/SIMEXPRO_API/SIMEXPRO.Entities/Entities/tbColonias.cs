@@ -21,21 +21,14 @@ namespace SIMEXPRO.Entities.Entities
         public string colo_Nombre { get; set; }
         public int? alde_Id { get; set; }
         public int? ciud_Id { get; set; }
-
-
         [NotMapped]
         public string ciud_Nombre { get; set; }
-
         [NotMapped]
         public string alde_Nombre { get; set; }
-
         [NotMapped]
         public string UsuarioCreacionNombre { get; set; }
-
         [NotMapped]
         public string UsuarioModificacionNombre { get; set; }
-
-
         public int usua_UsuarioCreacion { get; set; }
         public DateTime colo_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }

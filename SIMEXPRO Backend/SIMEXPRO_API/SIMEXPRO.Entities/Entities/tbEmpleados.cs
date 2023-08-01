@@ -49,7 +49,6 @@ namespace SIMEXPRO.Entities.Entities
         public int? usuarioEliminacionNombre { get; set; }
         public DateTime? empl_FechaEliminacion { get; set; }
         public bool? empl_Estado { get; set; }
-
         public virtual tbCargos carg { get; set; }
         public virtual tbEstadosCiviles escv { get; set; }
         public virtual tbProvincias pvin { get; set; }

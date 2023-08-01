@@ -27,8 +27,6 @@ namespace SIMEXPRO.Entities.Entities
         [NotMapped]
         public string ciud_Nombre { get; set; }
         [NotMapped]
-        public string alde_Nombre { get; set; }
-        [NotMapped]
         public string UsuarioCreacionNombre { get; set; }
         [NotMapped]
         public string UsuarioModificacionNombre { get; set; }

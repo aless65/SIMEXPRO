@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using SIMEXPRO.API.Models;
 using SIMEXPRO.BussinessLogic.Services.GeneralServices;
+using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -16,14 +16,11 @@ namespace SIMEXPRO.API.Middleware
     public class ApiKeyMiddleware
     {
         private readonly RequestDelegate _next;
-        //private readonly Encryption _encryption;
         private const string APIKEY = "XApiKey";
         private const string ENCRYPTION = "EncryptionKey";
         private readonly IConfiguration _configuration;
 
-        public ApiKeyMiddleware(RequestDelegate next, IConfiguration configuration
-                                //, Encryption encryption
-            )
+        public ApiKeyMiddleware(RequestDelegate next, IConfiguration configuration)
         {
             _next = next;
             _configuration = configuration;
@@ -33,40 +30,40 @@ namespace SIMEXPRO.API.Middleware
         public async Task InvokeAsync(HttpContext context)
         {
 
-            //var keyVaultEndpoint = "https://simexpro.vault.azure.net/"; // Replace with your Key Vault URI
-            //var azureServiceTokenProvider = new AzureServiceTokenProvider();
-            //var keyVaultClient = new KeyVaultClient(
-            //    new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback)
-            //);
+            var keyVaultEndpoint = "https://simexpro.vault.azure.net/"; // Replace with your Key Vault URI
+            var azureServiceTokenProvider = new AzureServiceTokenProvider();
+            var keyVaultClient = new KeyVaultClient(
+                new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback)
+            );
 
-            //if (context.Request.Path != "/api/Usuarios/Login")
-            //{
-            //    if (!context.Request.Headers.TryGetValue(APIKEY, out var extractedApiKey))
-            //    {
-            //        context.Response.StatusCode = 401;
-            //        await context.Response.WriteAsync("Api Key was not provided ");
-            //        return;
-            //    }
+            if (context.Request.Path != "/api/Usuarios/Login")
+            {
+                if (!context.Request.Headers.TryGetValue(APIKEY, out var extractedApiKey))
+                {
+                    context.Response.StatusCode = 401;
+                    await context.Response.WriteAsync("Api Key was not provided ");
+                    return;
+                }
 
-            //    try
-            //    {
-            //        // Retrieve the API key from Azure Key Vault
-            //        var secret = await keyVaultClient.GetSecretAsync($"{keyVaultEndpoint}secrets/{APIKEY}");
-            //        var apiKey = secret.Value;
+                try
+                {
+                    // Retrieve the API key from Azure Key Vault
+                    var secret = await keyVaultClient.GetSecretAsync($"{keyVaultEndpoint}secrets/{APIKEY}");
+                    var apiKey = secret.Value;
 
-            //        if (!apiKey.Equals(extractedApiKey))
-            //        {
-            //            context.Response.StatusCode = 401;
-            //            await context.Response.WriteAsync("Unauthorized client");
-            //            return;
-            //        }
-            //    }
-            //    catch (KeyVaultErrorException)
-            //    {
-            //        context.Response.StatusCode = 500;
-            //        await context.Response.WriteAsync("Failed to retrieve API Key from Azure Key Vault");
-            //        return;
-            //    }
+                    if (!apiKey.Equals(extractedApiKey))
+                    {
+                        context.Response.StatusCode = 401;
+                        await context.Response.WriteAsync("Unauthorized client");
+                        return;
+                    }
+                }
+                catch (KeyVaultErrorException)
+                {
+                    context.Response.StatusCode = 500;
+                    await context.Response.WriteAsync("Failed to retrieve API Key from Azure Key Vault");
+                    return;
+                }
 
                 await _next(context);
             }
@@ -93,21 +90,19 @@ namespace SIMEXPRO.API.Middleware
                 }
             }
 
-            //    if (context.Response.StatusCode == 200)
-            //    {
-            //        var secret = await keyVaultClient.GetSecretAsync($"{keyVaultEndpoint}secrets/{APIKEY}");
-            //        var apiKey = secret.Value;
-            //        context.Response.Headers.Add("Authorization", "Bearer " + apiKey);
-            //        await _next(context);
-            //    }
-            //    else
-            //    {
-            //        context.Response.Headers.Add("Authorization", "Bearer" + "no access");
-            //        await _next(context);
-            //    }
-            //}
-
+            if (context.Response.StatusCode == 200)
+            {
+                var secret = await keyVaultClient.GetSecretAsync($"{keyVaultEndpoint}secrets/{APIKEY}");
+                var apiKey = secret.Value;
+                context.Response.Headers.Add("Authorization", "Bearer " + apiKey);
+                await _next(context);
+            }
+            else
+            {
+                context.Response.Headers.Add("Authorization", "Bearer" + "no access");
+                await _next(context);
+            }
         }
-    }
 
+    }
 }

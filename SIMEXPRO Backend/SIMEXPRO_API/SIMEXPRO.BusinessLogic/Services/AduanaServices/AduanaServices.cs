@@ -877,7 +877,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 var map = _conceptoPagoRepository.Insert(item);
                 if (map.CodeStatus > 1)
                 {
-                    var map = _conceptoPagoRepository.Insert(item);
                     if (map.CodeStatus > 0)
                     {
                         return result.Ok(map);
@@ -908,7 +907,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
 
                 if (map.CodeStatus > 1)
                 {
-                    var map = _conceptoPagoRepository.Update(item);
                     if (map.CodeStatus > 0)
                     {
                         return result.Ok(map);

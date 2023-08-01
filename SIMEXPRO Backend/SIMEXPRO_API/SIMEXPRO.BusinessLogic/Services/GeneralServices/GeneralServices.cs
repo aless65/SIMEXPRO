@@ -63,16 +63,18 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         }
 
         #region Aldeas
-        public IEnumerable<tbAldeas> ListarAldeas()
+        public ServiceResult ListarAldeas()
         {
+            var resultado = new ServiceResult();
+
             try
             {
                 var list = _aldeasRepository.List();
-                return list;
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbAldeas>();
+                return resultado.Error(ex.Message);
             }
         }
 
@@ -165,16 +167,17 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Cargos
-        public IEnumerable<tbCargos> ListarCargos()
+        public ServiceResult ListarCargos()
         {
+            var resultado = new ServiceResult();
             try
             {
                 var list = _cargosRepository.List();
-                return list;
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbCargos>();
+                return resultado.Error(ex.Message);
             }
         }
 

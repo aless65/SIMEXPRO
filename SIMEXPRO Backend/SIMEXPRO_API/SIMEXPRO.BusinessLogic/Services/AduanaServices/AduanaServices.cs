@@ -232,7 +232,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #region Aranceles
         public ServiceResult ListarAranceles()
         {
-
             var resultado = new ServiceResult();
 
             try

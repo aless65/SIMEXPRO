@@ -3998,6 +3998,7 @@ CREATE OR ALTER PROCEDURE adua.UDP_tbDeclarantes_Editar
 	@decl_Correo_Electronico		NVARCHAR(150),
 	@decl_Telefono					NVARCHAR(50),
 	@decl_Fax						NVARCHAR(50),
+	@decl_NumeroIdentificacion		NVARCHAR(50),
 	@usua_UsuarioModificacion		INT,
 	@decl_FechaModificacion			DATETIME
 AS
@@ -4184,6 +4185,7 @@ BEGIN
 										   @decl_Correo_Electronico,
 										   @decl_Telefono,
 										   @decl_Fax,
+										   @impo_RTN,
 										   @usua_UsuarioModificacion,
 										   @deva_FechaModificacion
 
@@ -4414,6 +4416,7 @@ CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab2_Editar
 	@prov_decl_Correo_Electronico	NVARCHAR(150),
 	@prov_decl_Telefono				NVARCHAR(50),
 	@prov_decl_Fax					NVARCHAR(50),
+	@prov_RTN						NVARCHAR(50),
 	@coco_Id						INT,
 	@pvde_Condicion_Otra			NVARCHAR(30),
 	@inte_decl_Nombre_Raso			NVARCHAR(250),
@@ -4422,6 +4425,7 @@ CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab2_Editar
 	@inte_decl_Correo_Electronico	NVARCHAR(150),
 	@inte_decl_Telefono				NVARCHAR(50),
 	@inte_decl_Fax					NVARCHAR(50),
+	@inte_RTN						NVARCHAR(50),
 	@tite_Id						INT,
 	@inte_Tipo_Otro					NVARCHAR(30),
 	@usua_UsuarioModificacion		INT,
@@ -4449,6 +4453,7 @@ BEGIN
 										   @prov_decl_Correo_Electronico,
 										   @prov_decl_Telefono,
 										   @prov_decl_Fax,
+										   @prov_RTN,
 										   @usua_UsuarioModificacion,
 										   @deva_FechaModificacion
 
@@ -4465,27 +4470,32 @@ BEGIN
 		WHERE pvde_Id = @pvde_Id
 
 
-		EXEC adua.UDP_tbDeclarantes_Editar @inte_decl_Id,
+		IF(@inte_decl_Nombre_Raso IS NOT NULL)
+			BEGIN
+				EXEC adua.UDP_tbDeclarantes_Editar @inte_decl_Id,
 										   @inte_decl_Nombre_Raso,
 										   @inte_decl_Direccion_Exacta,
 										   @inte_ciud_Id,
 										   @inte_decl_Correo_Electronico,
 										   @inte_decl_Telefono,
 										   @inte_decl_Fax,
+										   @inte_RTN,
 										   @usua_UsuarioModificacion,
 										   @deva_FechaModificacion
 
-		DECLARE @inte_Id INT = (SELECT inte_Id
-								FROM [Adua].[tbDeclaraciones_Valor]
-								WHERE deva_Id = @deva_Id)
+				DECLARE @inte_Id INT = (SELECT inte_Id
+										FROM [Adua].[tbDeclaraciones_Valor]
+										WHERE deva_Id = @deva_Id)
 
-		UPDATE [Adua].[tbIntermediarios]
-		SET tite_Id = @tite_Id, 
-			inte_Tipo_Otro = @inte_Tipo_Otro,
-			decl_Id = @inte_decl_Id, 
-			usua_UsuarioModificacion = @usua_UsuarioModificacion,
-			inte_FechaModificacion = @deva_FechaModificacion
-		WHERE inte_Id = @inte_Id
+				UPDATE [Adua].[tbIntermediarios]
+				SET tite_Id = @tite_Id, 
+					inte_Tipo_Otro = @inte_Tipo_Otro,
+					decl_Id = @inte_decl_Id, 
+					usua_UsuarioModificacion = @usua_UsuarioModificacion,
+					inte_FechaModificacion = @deva_FechaModificacion
+				WHERE inte_Id = @inte_Id
+
+		END
 
 		UPDATE [Adua].[tbDeclaraciones_Valor]
 		SET [inte_Id] = @inte_Id,

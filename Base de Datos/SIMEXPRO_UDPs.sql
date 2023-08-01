@@ -9645,13 +9645,14 @@ BEGIN
 	       usuaModifica.usua_Nombre						AS usuarioModificaNombre,
 	       mate.mate_Estado
       FROM Prod.tbMateriales mate 
-	       INNER JOIN Acce.tbUsuarios usuaCrea			ON mate.usua_UsuarioCreacion = usuaCrea.usua_Id 
+	       INNER JOIN Acce.tbUsuarios usuaCrea			ON mate.usua_UsuarioCreacion     = usuaCrea.usua_Id 
 	       LEFT JOIN Acce.tbUsuarios usuaModifica		ON mate.usua_UsuarioModificacion = usuaCrea.usua_Id 
-	       INNER JOIN Prod.tbSubcategoria subc			ON mate.subc_Id = subc.subc_Id
+	       LEFT JOIN Prod.tbSubcategoria subc			ON mate.subc_Id                  = subc.subc_Id
 	 WHERE mate_Estado = 1
 
 END
 GO
+
 
 /*Insertar materiales*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMateriales_Insertar
@@ -9715,9 +9716,9 @@ BEGIN
 			BEGIN
 				UPDATE	Prod.tbMateriales
 				   SET	mate_Estado = 0
+				 WHERE  mate_Id     = @mate_Id
 			END
 					SELECT 1
-
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -10825,19 +10826,24 @@ CREATE OR ALTER PROC prod.UDP_tbMaterialesBrindar_Listar
 AS
 BEGIN
 	SELECT	mabr_Id, 
-			code_Id, 
-			mate_Id, 
+			mabr.code_Id, 
+			ordeC.code_CantidadPrenda,
+			mabr.mate_Id, 
+			mate.mate_Descripcion,
 			mabr_Cantidad, 
 			mabr.usua_UsuarioCreacion, 
 			usuCrea.usua_Nombre              AS usuarioCreacionNombre,
 			mabr_FechaCreacion,
 			mabr.usua_UsuarioModificacion,
-			usuModi.usua_Nombre             AS usuarioModificacionNombre,
+			usuModi.usua_Nombre              AS usuarioModificacionNombre,
 			mabr_FechaModificacion, 
 			mabr_Estado
 	  FROM  Prod.tbMaterialesBrindar mabr
-	        INNER JOIN Acce.tbUsuarios usuCrea ON usuCrea.usua_Id = mabr.usua_UsuarioCreacion
-			INNER JOIN Acce.tbUsuarios usuModi ON usuModi.usua_Id = mabr.usua_UsuarioModificacion
+	        INNER JOIN Acce.tbUsuarios usuCrea           ON usuCrea.usua_Id = mabr.usua_UsuarioCreacion
+			LEFT JOIN Acce.tbUsuarios usuModi            ON usuModi.usua_Id = mabr.usua_UsuarioModificacion
+			LEFT JOIN Prod.tbOrdenCompraDetalles ordeC   ON ordeC.code_Id   = mabr.code_Id
+			LEFT JOIN Prod.tbMateriales mate             ON mate.mate_Id    = mabr.mate_Id
+	  WHERE mabr_Estado = 1
 END
 
 GO
@@ -11108,39 +11114,33 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbLotes_Listar
 AS BEGIN
 
 SELECT lote_Id, 
-	   materiales.mate_Descripcion,
 	   lotes.mate_Id, 
-	   UnidadesMedida.unme_Id,
-	   lote_Observaciones,
+	   materiales.mate_Descripcion,
+	   lotes.unme_Id,
+	   UnidadesMedida.unme_Descripcion,
+	   lotes.lote_Observaciones,
 	   lote_Stock,
 	   lote_CantIngresada,
 	   areas.tipa_area,
-	   areas.tipa_id,
-	   UsuCreacion.usua_Nombre AS UsuarioCreacion,
+	   lotes.tipa_id,
+	   UsuCreacion.usua_Nombre        AS UsuarioCreacion,
 	   lotes.usua_UsuarioCreacion,
 	   lotes.lote_FechaCreacion, 
-	   UsuModificacion.usua_Nombre AS UsuarioModificacion,
+	   UsuModificacion.usua_Nombre    AS UsuarioModificacion,
 	   lotes.usua_UsuarioModificacion,
 	   lotes.lote_FechaModificacion, 
-	   UsuEliminacion.usua_Nombre AS UsuarioEliminacion,
+	   UsuEliminacion.usua_Nombre     AS UsuarioEliminacion,
 	   lotes.usua_UsuarioEliminacion, 
 	   lotes.lote_FechaEliminacion, 
 	   lotes.lote_Estado
   FROM Prod.tbLotes lotes
-	   INNER JOIN Prod.tbMateriales AS materiales
-	   ON lotes.mate_Id = materiales.mate_Id
-	   INNER JOIN Prod.tbArea AS areas
-	   ON lotes.tipa_id = areas.tipa_id
-	   INNER JOIN Acce.tbUsuarios AS UsuCreacion
-	   ON lotes.usua_UsuarioCreacion = UsuCreacion.usua_Id
-	   INNER JOIN Acce.tbUsuarios AS UsuModificacion
-	   ON lotes.usua_UsuarioModificacion = UsuModificacion.usua_Id
-	   INNER JOIN Acce.tbUsuarios AS UsuEliminacion
-	   ON lotes.usua_UsuarioEliminacion = UsuEliminacion.usua_Id
-	   INNER JOIN Gral.tbUnidadMedidas AS UnidadesMedida
-	   ON lotes.unme_Id = UnidadesMedida.unme_Id
-  WHERE lotes.lote_Estado = 1
-
+	   LEFT JOIN Prod.tbMateriales    AS materiales        ON lotes.mate_Id                  = materiales.mate_Id
+	   LEFT JOIN Prod.tbArea          AS areas             ON lotes.tipa_id                  = areas.tipa_id
+	   LEFT JOIN Acce.tbUsuarios      AS UsuCreacion       ON lotes.usua_UsuarioCreacion     = UsuCreacion.usua_Id
+	   LEFT JOIN Acce.tbUsuarios      AS UsuModificacion   ON lotes.usua_UsuarioModificacion = UsuModificacion.usua_Id
+	   LEFT JOIN Acce.tbUsuarios      AS UsuEliminacion    ON lotes.usua_UsuarioEliminacion  = UsuEliminacion.usua_Id
+	   LEFT JOIN Gral.tbUnidadMedidas AS UnidadesMedida    ON lotes.unme_Id                  = UnidadesMedida.unme_Id
+ WHERE lotes.lote_Estado                                                                     = 1
 END
 GO
 
@@ -11174,10 +11174,9 @@ BEGIN TRY
 							 @lote_Observaciones,
 							 @usua_UsuarioCreacion,
 							 @lote_FechaCreacion)
+    SELECT 1
 END TRY
-
 BEGIN CATCH
-
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
 
 END CATCH
@@ -11196,49 +11195,53 @@ CREATE OR ALTER PROC Prod.UDP_tbLotes_Editar
 @usua_UsuarioModificacion INT,
 @lote_FechaModificacion	  DATETIME
 AS BEGIN
+BEGIN TRY
+	UPDATE Prod.tbLotes 
+	                    SET  mate_Id                   = @mate_Id, 
+						     unme_Id                   = @unme_Id,
+						     lote_Stock                = @lote_Stock, 
+							 lote_CantIngresada        = @lote_CantIngresada, 
+							 tipa_Id                   = @tipa_Id, 
+							 lote_Observaciones        = @lote_Observcaciones,
+							 usua_UsuarioModificacion  = @usua_UsuarioModificacion,
+							 lote_FechaModificacion    = @lote_FechaModificacion
+					   WHERE lote_Id                   = @lote_Id
+					  SELECT 1
+END TRY
+BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 
-	UPDATE Prod.tbLotes SET  mate_Id = @mate_Id, 
-						     unme_Id = @unme_Id,
-						     lote_Stock = @lote_Stock, 
-							 lote_CantIngresada = @lote_CantIngresada, 
-							 tipa_Id = @tipa_Id, 
-							 lote_Observaciones = @lote_Observcaciones,
-							 usua_UsuarioModificacion = @usua_UsuarioModificacion,
-							 lote_FechaModificacion = lote_FechaModificacion
-						WHERE lote_Id = @lote_Id
+END CATCH
 END	
 
 GO
 
 
-CREATE OR ALTER PROC Prod.UDP_tbLotes_Eliminar
-@lote_Id					INT,
-@usua_UsuarioEliminacion    INT,
-@lote_FechaEliminacion      DATETIME
-
-AS BEGIN
-
+/*Eliminar lotes*/
+CREATE OR ALTER PROCEDURE Prod.UDP_tbLotes_Eliminar 
+	@lote_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@lote_FechaEliminacion		DATETIME
+AS
+BEGIN
 	BEGIN TRY
 		DECLARE @respuesta INT
-		EXEC dbo.UDP_ValidarReferencias 'lote_Id', @lote_Id, 'Prod.tbAsignacionesOrdenDetalle', @respuesta OUTPUT
+		EXEC dbo.UDP_ValidarReferencias 'lote_Id', @lote_Id, 'Prod.tbLotes', @respuesta OUTPUT
 
-		
 		IF(@respuesta) = 1
-			BEGIN
-				 UPDATE Prod.tbLotes
-					SET lote_Estado = 0,
-						usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-						lote_FechaEliminacion = @lote_FechaEliminacion
-				  WHERE lote_Id = @lote_Id 
-					AND lote_Estado = 1
-			END
-
+		BEGIN
+			UPDATE Prod.tbLotes
+			   SET lote_Estado             = 0,
+				   usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+				   lote_FechaEliminacion   = @lote_FechaEliminacion
+			 WHERE lote_Id                 = @lote_Id
+		END
+		
 		SELECT @respuesta AS Resultado
 	END TRY
 	BEGIN CATCH
-			SELECT 'Error Message: '+ ERROR_MESSAGE();	
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
-
 END
 GO
 
@@ -11508,21 +11511,23 @@ BEGIN
 	
 	SELECT	maqu_Id,
 		    maqu_NumeroSerie,
+			maqu.mmaq_Id,
 			maqu.modu_Id,		    
 			modu.modu_Nombre                    AS Modulo,
-			usu.usua_Id                         AS IdUsuarioCrea,
+			maqu.usua_UsuarioCreacion,
 		    usu.usua_Nombre                     AS UsuarioCreaNombre,
-		    usu1.usua_Id                        AS IdUsuarioModifica,
+		    maqu.usua_UsuarioModificacion,
 		    usu1.usua_Nombre                    AS UsuarioModificaNombre,
 			usu2.usua_Nombre                    AS usuarioEliminacionNombre,
 			maqu.usua_UsuarioEliminacion,
 			maqu_Estado
      FROM	Prod.tbMaquinas maqu		
-            INNER JOIN Prod.tbModulos modu      ON modu.modu_Id                  = maqu.modu_Id
-            INNER JOIN [Acce].[tbUsuarios] usu  ON usu.usua_Id                   = maqu.usua_UsuarioCreacion
-            LEFT JOIN Acce.tbUsuarios usu1      ON usu1.usua_UsuarioModificacion = maqu.usua_UsuarioModificacion
-            LEFT JOIN Acce.tbUsuarios usu2      ON usu2.usua_UsuarioEliminacion  = maqu.usua_UsuarioEliminacion
-     WHERE  maqu.maqu_Estado                                                     = 1
+            LEFT JOIN  Prod.tbModulos modu         ON modu.modu_Id                   = maqu.modu_Id
+            LEFT JOIN  Acce.tbUsuarios usu         ON usu.usua_Id                    = maqu.usua_UsuarioCreacion
+            LEFT JOIN   Acce.tbUsuarios usu1       ON usu1.usua_UsuarioModificacion  = maqu.usua_UsuarioModificacion
+            LEFT JOIN   Acce.tbUsuarios usu2       ON usu2.usua_UsuarioEliminacion   = maqu.usua_UsuarioEliminacion
+			LEFT JOIN  Prod.tbModelosMaquina molM  ON molM.mmaq_Id                   = maqu.mmaq_Id
+     WHERE  maqu.maqu_Estado                                                         = 1
 END
 GO
 
@@ -11556,7 +11561,7 @@ END
 GO
 
 /*Editar Maquinas*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinas_Editar
+CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinas_Editar 
 	@maqu_Id				    INT,
 	@maqu_NumeroSerie		    NVARCHAR(100),
 	@modu_Id                    INT,
@@ -11622,20 +11627,23 @@ GO
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMarcasMaquinas_Listar
 AS
 BEGIN
-	SELECT  mrqu.marq_Id,
+	 SELECT mrqu.marq_Id,
 		    mrqu.marq_Nombre,
 			mrqu.usua_UsuarioCreacion,
-			Usu.usua_Nombre                     AS UsuarioCreacion,
+			Usu.usua_Nombre                                AS UsuarioCreacionNombre,
             mrqu.marq_FechaCreacion,
             mrqu.usua_UsuarioModificacion,
-			usu1.usua_Nombre                    AS UsuarioModificador, 
+			usu1.usua_Nombre                               AS UsuarioModificadorNombre, 
             mrqu.marq_FechaModificacion,
-		    mrqu.[marq_Estado] AS Estado
-    FROM    Prod.tbMarcasMaquina mrqu 
-	INNER JOIN Acce.tbUsuarios usu                 ON usu.usua_Id        = mrqu.usua_UsuarioCreacion
-	INNER JOIN Acce.tbUsuarios usu1                ON usu1.usua_Id       =  mrqu.usua_UsuarioModificacion
-	INNER JOIN Acce.tbUsuarios usuElimina          ON usuElimina.usua_Id =  mrqu.usua_UsuarioEliminacion
-    WHERE	mrqu.marq_Estado                                             = 1
+			mrqu.usua_UsuarioEliminacion,
+			usuElimina.usua_Nombre                         AS usuarioEliminacionNombre,
+			mrqu.marq_FechaEliminacion,
+		    mrqu.marq_Estado
+       FROM Prod.tbMarcasMaquina mrqu 
+	        LEFT JOIN Acce.tbUsuarios usu                 ON usu.usua_Id        = mrqu.usua_UsuarioCreacion
+	        LEFT JOIN Acce.tbUsuarios usu1                ON usu1.usua_Id       =  mrqu.usua_UsuarioModificacion
+	        LEFT JOIN Acce.tbUsuarios usuElimina          ON usuElimina.usua_Id =  mrqu.usua_UsuarioEliminacion
+      WHERE mrqu.marq_Estado                                                    = 1
 END
 GO
 
@@ -11647,25 +11655,18 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbMarcasMaquina_Insertar
 AS
 BEGIN
 	BEGIN TRY
-		IF EXISTS(SELECT marq_Id FROM Prod.tbMarcasMaquina WHERE marq_Nombre = @marq_Nombre AND marq_Estado = 0)
-			BEGIN
-				UPDATE	Prod.tbMarcasMaquina
-				SET		marq_Estado = 1
-				WHERE   marq_Nombre = @marq_Nombre
-				SELECT 1
-			END
-		ELSE
-			BEGIN
-				INSERT INTO Prod.tbMarcasMaquina ([marq_Nombre], [usua_UsuarioCreacion], [marq_FechaCreacion], [usua_UsuarioModificacion], [marq_FechaModificacion], [marq_Estado])
-				VALUES(@marq_Nombre,@usua_UsuarioCreacion,@marq_FechaCreacion,NULL,NULL,1)
-				SELECT 1
-			END
+	INSERT INTO Prod.tbMarcasMaquina (marq_Nombre,
+	                                  usua_UsuarioCreacion,
+									  marq_FechaCreacion)
+	     VALUES (@marq_Nombre,
+		         @usua_UsuarioCreacion,
+				 @marq_FechaCreacion)
+	SELECT 1
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
-
 GO
 
 /*Editar procedimiento de listar MarcasMaquina*/
@@ -11678,10 +11679,10 @@ AS
 BEGIN
 	BEGIN TRY
 		UPDATE	Prod.tbMarcasMaquina
-		SET		marq_Nombre = @marq_Nombre,
+		SET		marq_Nombre              = @marq_Nombre,
 				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				marq_FechaModificacion = @marq_FechaModificacion
-		WHERE	marq_Id  = @marq_Id
+				marq_FechaModificacion   = @marq_FechaModificacion
+		WHERE	marq_Id                  = @marq_Id
 		SELECT 1
 	END TRY
 	BEGIN CATCH
@@ -11707,11 +11708,13 @@ BEGIN
 			IF(@respuesta) = 1
 				BEGIN
 					UPDATE	Prod.tbMarcasMaquina
-					SET		marq_Estado = 0,
+					SET		marq_Estado             = 0,
 							usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-							marq_FechaEliminacion = @marq_FechaEliminacion
+							marq_FechaEliminacion   = @marq_FechaEliminacion
 					WHERE	marq_Id = @marq_Id
+
 				END
+				SELECT @respuesta AS Resultado
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()	
@@ -11776,7 +11779,7 @@ BEGIN
 				     VALUES (@mmaq_Nombre,
 					         @marq_Id,
 							 @func_Id,
-							 @momq_Imagen,
+							 @mmaq_Imagen,
 							 @usua_UsuarioCreacion,
 							 @mmaq_FechaCreacion)
 				     SELECT  1

@@ -28,8 +28,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         public IActionResult Index()
         {
             var listado = _produccionServices.ListarMateriales();
-            var listadoMapeado = _mapper.Map<IEnumerable<MaterialesViewModel>>(listado);
-            return Ok(listadoMapeado);
+            return Ok(listado);
         }
 
 

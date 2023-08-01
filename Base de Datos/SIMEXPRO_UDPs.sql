@@ -340,7 +340,8 @@ BEGIN
 	SELECT	pant_Id,
 			pant_Nombre,
 			pant_URL,
-			pant_Icono
+			pant_Icono,
+			pant_Esquema
 	FROM	Acce.tbPantallas
 END
 GO
@@ -3945,11 +3946,13 @@ CREATE OR ALTER PROCEDURE adua.UDP_tbDeclarantes_Insertar
 	@decl_Fax						NVARCHAR(50),
 	@usua_UsuarioCreacion			INT,
 	@decl_FechaCreacion				DATETIME,
+	@decl_NumeroIdentificacion		NVARCHAR(50),
 	@decl_Id						INT OUTPUT
 AS
 BEGIN
 	BEGIN TRY
-		INSERT INTO [Adua].[tbDeclarantes](decl_Nombre_Raso, 
+		INSERT INTO [Adua].[tbDeclarantes](decl_NumeroIdentificacion,
+										   decl_Nombre_Raso, 
 										   decl_Direccion_Exacta, 
 										   ciud_Id, 
 										   decl_Correo_Electronico, 
@@ -3957,7 +3960,8 @@ BEGIN
 										   decl_Fax, 
 										   usua_UsuarioCreacion, 
 										   decl_FechaCreacion)
-		VALUES(@decl_Nombre_Raso,
+		VALUES(@decl_NumeroIdentificacion,
+			   @decl_Nombre_Raso,
 			   @decl_Direccion_Exacta,
 			   @ciud_Id,
 			   @decl_Correo_Electronico,
@@ -4067,6 +4071,7 @@ BEGIN
 										   @decl_Fax,
 										   @usua_UsuarioCreacion,
 										   @deva_FechaCreacion,
+										   @impo_RTN,
 										   @decl_Id OUTPUT
 
 		--INSERT INTO [Adua].[tbDeclaraciones_ValorHistorial]()
@@ -4273,6 +4278,7 @@ CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab2_Insertar
 	@prov_decl_Correo_Electronico	NVARCHAR(150),
 	@prov_decl_Telefono				NVARCHAR(50),
 	@prov_decl_Fax					NVARCHAR(50),
+	@prov_RTN						NVARCHAR(50),
 	@coco_Id						INT,
 	@pvde_Condicion_Otra			NVARCHAR(30),
 	@inte_decl_Nombre_Raso			NVARCHAR(250),
@@ -4281,6 +4287,7 @@ CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab2_Insertar
 	@inte_decl_Correo_Electronico	NVARCHAR(150),
 	@inte_decl_Telefono				NVARCHAR(50),
 	@inte_decl_Fax					NVARCHAR(50),
+	@inte_RTN						NVARCHAR(50),
 	@tite_Id						INT,
 	@inte_Tipo_Otro					NVARCHAR(30),
 	@usua_UsuarioCreacion			INT,
@@ -4302,6 +4309,7 @@ BEGIN
 										   @prov_decl_Fax,
 										   @usua_UsuarioCreacion,
 										   @deva_FechaCreacion,
+										   @prov_RTN,
 										   @prov_decl_Id OUTPUT
 
 		INSERT INTO [Adua].[tbProveedoresDeclaracion](coco_Id, 
@@ -4328,6 +4336,7 @@ BEGIN
 												   @inte_decl_Fax,
 												   @usua_UsuarioCreacion,
 												   @deva_FechaCreacion,
+												   @inte_RTN,
 												   @inte_decl_Id OUTPUT
 
 

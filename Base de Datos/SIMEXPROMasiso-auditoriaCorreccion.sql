@@ -98,6 +98,7 @@ CREATE TABLE Acce.tbPantallas(
 		pant_Nombre					NVARCHAR(100),
 		pant_URL					NVARCHAR(100),
 		pant_Icono					NVARCHAR(50),
+		pant_Esquema				NVARCHAR(100),
 
 		usua_UsuarioCreacion 		INT				NOT NULL,
 		pant_FechaCreacion 			DATETIME 		NOT NULL,
@@ -542,7 +543,7 @@ CREATE TABLE Adua.tbFormasdePago(
 
    CREATE TABLE Adua.tbDeclarantes(
    		decl_Id                  		INT 			IDENTITY(1,1),
-		decl_NumeroIdentificacion		VARCHAR(20),
+		decl_NumeroIdentificacion		NVARCHAR(50),
    		decl_Nombre_Raso         		NVARCHAR(250) 	NOT NULL,
    		decl_Direccion_Exacta    		NVARCHAR(250) 	NOT NULL,
    		ciud_Id                  		INT             NOT NULL,

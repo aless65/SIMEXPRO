@@ -43,24 +43,26 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
                     return resultado.Forbidden("El usuario o contraseña son incorrectos");
                 else
                     return resultado.Ok(usuario);
-            } 
+            }
             catch (Exception ex)
             {
                 return resultado.Error(ex.Message);
             }
         }
 
-        public IEnumerable<tbUsuarios> ListarUsuarios()
+        public ServiceResult ListarUsuarios()
         {
+            ServiceResult datos = new();
+
             try
             {
                 var list = _usuariosRepository.List();
-                return list;
+                return datos.Ok(list);
             }
             catch (Exception ex)
             {
 
-                return Enumerable.Empty<tbUsuarios>();
+                return datos.Error(ex.Message);
             }
         }
 
@@ -163,7 +165,7 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
         {
             try
             {
-                var list = _rolesPorPantallaRepository.List();
+                var list = _rolesPorPantallaRepository.Lista(item);
                 return list;
             }
             catch (Exception ex)
@@ -185,7 +187,7 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
                 return Enumerable.Empty<tbRolesXPantallas>();
             }
         }
-        
+
         //public IEnumerable<tbRolesXPantallas> FindRoles(tbRolesXPantallas item)
         //{
         //    try
@@ -328,6 +330,7 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
         }
 
         #endregion
+
 
         #region Pantallas
 

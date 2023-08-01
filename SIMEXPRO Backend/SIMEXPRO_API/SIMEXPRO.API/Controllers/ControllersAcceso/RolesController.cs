@@ -19,6 +19,10 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
 
         public RolesController(AccesoServices accesoService, IMapper mapper)
         {
+
+
+
+
             _accesoServices = accesoService;
             _mapper = mapper;
         }
@@ -28,7 +32,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
         public IActionResult Index()
         {
             var listado = _accesoServices.ListarRoles();
-            var mapped = _mapper.Map<IEnumerable<RolesViewModel>>(listado);
+            var mapped = _mapper.Map<IEnumerable<RolesViewModel>>(listado.Data);
             return Ok(mapped);
         }
 

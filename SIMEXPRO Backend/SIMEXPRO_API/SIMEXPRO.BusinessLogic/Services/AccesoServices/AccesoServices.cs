@@ -161,17 +161,19 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
         #endregion
 
         #region Roles Por Pantalla
-        public IEnumerable<tbRolesXPantallas> Pantallas_Por_Rol(tbRolesXPantallas item)
+        public ServiceResult Pantallas_Por_Rol(tbRolesXPantallas item)
         {
+            var resultado = new ServiceResult();
+
             try
             {
                 var list = _rolesPorPantallaRepository.Lista(item);
-                return list;
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
 
-                return Enumerable.Empty<tbRolesXPantallas>();
+                return resultado.Ok(ex.Message);
             }
         }
         public IEnumerable<tbRolesXPantallas> PantallasPorRoleView(tbRolesXPantallas item)
@@ -252,17 +254,19 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
         #endregion
 
         #region Roles
-        public IEnumerable<tbRoles> ListarRoles()
+        public ServiceResult ListarRoles()
         {
+            var resultado = new ServiceResult();
+
             try
             {
                 var list = _rolesRepository.List();
-                return list;
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
 
-                return Enumerable.Empty<tbRoles>();
+                return resultado.Error(ex.Message);
             }
         }
 

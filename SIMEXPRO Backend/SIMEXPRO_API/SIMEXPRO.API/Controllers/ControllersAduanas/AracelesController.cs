@@ -30,7 +30,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         public IActionResult Index()
         {
             var listado = _aduanaServices.ListarAranceles();
-            var mapped = _mapper.Map<IEnumerable<ArancelesViewModel>>(listado);
+            var mapped = _mapper.Map<IEnumerable<ArancelesViewModel>>(listado.Data);
             return Ok(mapped);
         }
 

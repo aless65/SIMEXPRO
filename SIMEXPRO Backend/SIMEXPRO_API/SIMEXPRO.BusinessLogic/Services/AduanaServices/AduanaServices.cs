@@ -651,7 +651,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         {
             var resultado = new ServiceResult();
 
-
             try
             {
                 var list = _codigoImpuestoRepository.List();

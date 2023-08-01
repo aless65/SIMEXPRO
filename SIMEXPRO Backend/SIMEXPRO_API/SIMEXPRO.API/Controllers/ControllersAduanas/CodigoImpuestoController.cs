@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using SIMEXPRO.API.Models.ModelsAduana;
 using SIMEXPRO.BussinessLogic.Services.EventoServices;
+using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +10,8 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.API.Controllers.ControllersAduanas
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CodigoImpuestoController : Controller
     {
         private readonly AduanaServices _aduanaServices;
@@ -18,9 +22,37 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             _aduanaServices = AduanaServices;
             _mapper = mapper;
         }
+
+        [HttpGet("Listado")]
         public IActionResult Index()
         {
-            return View();
+            var listado = _aduanaServices.ListarCodigoImpuesto();
+            var mapped = _mapper.Map<IEnumerable<CodigoImpuestoViewModel>>(listado.Data);
+            return Ok(mapped);
+        }
+
+        [HttpPost("Insertar")]
+        public IActionResult Insertar(CodigoImpuestoViewModel codigoImpuesto)
+        {
+            var mapped = _mapper.Map<tbCodigoImpuesto>(codigoImpuesto);
+            var datos = _aduanaServices.InsertarCodigoImpuesto(mapped);
+            return Ok(datos);
+        }
+
+        [HttpPost("Editar")]
+        public IActionResult Editar(CodigoImpuestoViewModel codigoImpuesto)
+        {
+            var mapped = _mapper.Map<tbCodigoImpuesto>(codigoImpuesto);
+            var datos = _aduanaServices.ActualizarCodigoImpuesto(mapped);
+            return Ok(datos);
+        }
+
+        [HttpPost("Eliminar")]
+        public IActionResult Eliminar(CodigoImpuestoViewModel codigoImpuesto)
+        {
+            var mapped = _mapper.Map<tbCodigoImpuesto>(codigoImpuesto);
+            var datos = _aduanaServices.EliminarCodigoImpuesto(mapped);
+            return Ok(datos);
         }
     }
 }

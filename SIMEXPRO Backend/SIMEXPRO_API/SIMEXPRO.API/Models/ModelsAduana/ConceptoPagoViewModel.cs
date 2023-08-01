@@ -10,7 +10,6 @@ namespace SIMEXPRO.API.Models.ModelsAduana
         public int copa_Id { get; set; }
         public string copa_Descripcion { get; set; }
         public int usua_UsuarioCreacion { get; set; }
-        public string usuaCreacion { get; set; }
         public DateTime copa_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
         public string usuaModificacion { get; set; }

@@ -1,6 +1,5 @@
 /*
 		DROP DATABASE SIMEXPRO
-
 		GO
 		DROP SCHEMA Adua
 		GO
@@ -99,6 +98,7 @@ CREATE TABLE Acce.tbPantallas(
 		pant_Nombre					NVARCHAR(100),
 		pant_URL					NVARCHAR(100),
 		pant_Icono					NVARCHAR(50),
+		pant_Esquema				NVARCHAR(100),
 
 		usua_UsuarioCreacion 		INT				NOT NULL,
 		pant_FechaCreacion 			DATETIME 		NOT NULL,
@@ -407,7 +407,7 @@ CREATE TABLE Gral.tbUnidadMedidas
 	
 		usua_UsuarioEliminacion 		INT,
 		unme_FechaEliminacion		    DATETIME 		DEFAULT NULL,
-		unme_Estado						BIT
+		unme_Estado						BIT				DEFAULT 1,
 
 CONSTRAINT PK_Gral_tbUnidadMedida_unme_Id PRIMARY KEY (unme_Id),
 CONSTRAINT FK_Acce_tbUsuarios_Gral_tbUnidadesMedidas_unme_UsuarioCreacion 		FOREIGN KEY (usua_UsuarioCreacion) REFERENCES Acce.tbUsuarios(usua_Id),
@@ -543,7 +543,7 @@ CREATE TABLE Adua.tbFormasdePago(
 
    CREATE TABLE Adua.tbDeclarantes(
    		decl_Id                  		INT 			IDENTITY(1,1),
-		decl_NumeroIdentificacion		VARCHAR(20),
+		decl_NumeroIdentificacion		NVARCHAR(50),
    		decl_Nombre_Raso         		NVARCHAR(250) 	NOT NULL,
    		decl_Direccion_Exacta    		NVARCHAR(250) 	NOT NULL,
    		ciud_Id                  		INT             NOT NULL,
@@ -2012,17 +2012,19 @@ CREATE TABLE Prod.tbAsignacionesOrdenDetalle(
 	adet_Id						INT IDENTITY(1,1), 
 	lote_Id						INT NOT NULL, 
 	adet_Cantidad				INT NOT NULL, 
-	
+	asor_Id						INT NOT NULL,
+
 	usua_UsuarioCreacion		INT NOT NULL,
 	adet_FechaCreacion			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT DEFAULT NULL,
 	adet_FechaModificacion		DATETIME DEFAULT NULL,
-	--usua_UsuarioEliminacion		INT DEFAULT NULL,
+	--usua_UsuarioEliminacion	INT DEFAULT NULL,
 	--amod_FechaEliminacion		DATETIME DEFAULT NULL,
-	--adet_Estado					BIT DEFAULT 1 
+	--adet_Estado				BIT DEFAULT 1 
 
 	CONSTRAINT PK_Prod_tbAsignacionesModuloDetalle_adet_Id								PRIMARY KEY (adet_Id),
 	CONSTRAINT FK_Prod_tbAsignacionesModuloDetalle_tbLotes_lote_Id						FOREIGN KEY (lote_Id)				   REFERENCES Prod.tbLotes (lote_Id),
+	CONSTRAINT FK_Prod_tbAsignacionesModuloDetalle_tbtbAsignacionesOrden_asor_Id		FOREIGN KEY	(asor_Id)				   REFERENCES Prod.tbAsignacionesOrden(asor_Id),	
 	CONSTRAINT FK_Prod_tbAsignacionesModuloDetalle_tbUsuarios_amod_UsuCrea				FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbAsignacionesModuloDetalle_tbUsuarios_amod_UsuModifica			FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	--CONSTRAINT FK_Prod_tbAsignacionesModuloDetalle_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)

@@ -120,7 +120,7 @@ namespace SIMEXPRO.DataAccess.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+            modelBuilder.HasAnnotation("Relational:Collation", "Modern_Spanish_CI_AS");
 
             modelBuilder.Entity<tbAduanas>(entity =>
             {
@@ -343,6 +343,12 @@ namespace SIMEXPRO.DataAccess.Context
                 entity.Property(e => e.adet_FechaCreacion).HasColumnType("datetime");
 
                 entity.Property(e => e.adet_FechaModificacion).HasColumnType("datetime");
+
+                entity.HasOne(d => d.asor)
+                    .WithMany(p => p.tbAsignacionesOrdenDetalle)
+                    .HasForeignKey(d => d.asor_Id)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Prod_tbAsignacionesModuloDetalle_tbtbAsignacionesOrden_asor_Id");
 
                 entity.HasOne(d => d.lote)
                     .WithMany(p => p.tbAsignacionesOrdenDetalle)
@@ -4620,6 +4626,8 @@ namespace SIMEXPRO.DataAccess.Context
                 entity.Property(e => e.unme_Descripcion)
                     .IsRequired()
                     .HasMaxLength(500);
+
+                entity.Property(e => e.unme_Estado).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.unme_FechaCreacion).HasColumnType("datetime");
 

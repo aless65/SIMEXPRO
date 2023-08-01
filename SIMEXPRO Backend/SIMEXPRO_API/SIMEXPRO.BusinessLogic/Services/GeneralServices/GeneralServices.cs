@@ -63,33 +63,18 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         }
 
         #region Aldeas
-        public ServiceResult ListarAldeas()
+        public IEnumerable<tbAldeas> ListarAldeas()
         {
-            var resultado = new ServiceResult();
-
             try
             {
                 var list = _aldeasRepository.List();
-                return resultado.Ok(list);
+                return list;
             }
             catch (Exception ex)
             {
-                return resultado.Error(ex.Message);
+                return Enumerable.Empty<tbAldeas>();
             }
         }
-
-        //public IEnumerable<tbAldeas> ListarAldeas()
-        //{
-        //    try
-        //    {
-        //        var list = _aldeasRepository.List();
-        //        return list;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Enumerable.Empty<tbAldeas>();
-        //    }
-        //}
 
         public ServiceResult InsertarAldeas(tbAldeas item)
         {
@@ -180,32 +165,18 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Cargos
-        public ServiceResult ListarCargos()
+        public IEnumerable<tbCargos> ListarCargos()
         {
-            var resultado = new ServiceResult();
             try
             {
                 var list = _cargosRepository.List();
-                return resultado.Ok(list);
+                return list;
             }
             catch (Exception ex)
             {
-                return resultado.Error(ex.Message);
+                return Enumerable.Empty<tbCargos>();
             }
         }
-
-        //public IEnumerable<tbCargos> ListarCargos()
-        //{
-        //    try
-        //    {
-        //        var list = _cargosRepository.List();
-        //        return list;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Enumerable.Empty<tbCargos>();
-        //    }
-        //}
 
         public ServiceResult InsertarCargos(tbCargos item)
         {
@@ -296,17 +267,16 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Ciudades
-        public ServiceResult ListarCiudades()
+        public IEnumerable<tbCiudades> ListarCiudades()
         {
-            var result = new ServiceResult();
             try
             {
                 var list = _ciudadesRepository.List();
-                return result.Ok(list);
+                return list;
             }
             catch (Exception ex)
             {
-                return result.Error(ex.Message);
+                return Enumerable.Empty<tbCiudades>();
             }
         }
 
@@ -399,22 +369,18 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Colonias
-  
-        public ServiceResult ListarColonias()
+        public IEnumerable<tbColonias> ListarColonias()
         {
-            var result = new ServiceResult();
             try
             {
                 var list = _coloniasRepository.List();
-                return result.Ok(list);
+                return list;
             }
             catch (Exception ex)
             {
-                return result.Error(ex.Message);
+                return Enumerable.Empty<tbColonias>();
             }
         }
-
-
 
         public ServiceResult InsertarColonias(tbColonias item)
         {
@@ -505,17 +471,16 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Empleados
-        public ServiceResult ListarEmpleados()
+        public IEnumerable<tbEmpleados> ListarEmpleados()
         {
-            var result = new ServiceResult();
             try
             {
                 var list = _empleadosRepository.List();
-                return result.Ok(list);
+                return list;
             }
             catch (Exception ex)
             {
-                return result.Error(ex.Message);
+                return Enumerable.Empty<tbEmpleados>();
             }
         }
 
@@ -608,17 +573,16 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region EstadosCiviles
-        public ServiceResult ListarEstadosCiviles()
+        public IEnumerable<tbEstadosCiviles> ListarEstadosCiviles()
         {
-            var result = new ServiceResult();
             try
             {
                 var list = _estadosCivilesRepository.List();
-                return result.Ok(list);
+                return list;
             }
             catch (Exception ex)
             {
-                return result.Error(ex.Message);
+                return Enumerable.Empty<tbEstadosCiviles>();
             }
         }
 

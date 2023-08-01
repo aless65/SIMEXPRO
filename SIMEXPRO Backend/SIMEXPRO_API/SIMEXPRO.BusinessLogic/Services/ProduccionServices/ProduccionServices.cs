@@ -738,18 +738,16 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Estilos
-        public ServiceResult ListarEstilos()
+        public IEnumerable<tbEstilos> ListarEstilos()
         {
-            var result = new ServiceResult();
             try
             {
                 var list = _estilosRepository.List();
-                return result.Ok(list);
+                return list;
             }
             catch (Exception ex)
             {
-
-                return result.Error(ex.Message);
+                return Enumerable.Empty<tbEstilos>();
             }
         }
 
@@ -842,19 +840,16 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Funciones Maquina
-
-        public ServiceResult ListarFuncionesMaquina()
+        public IEnumerable<tbFuncionesMaquina> ListarFuncionesMaquina()
         {
-            var result = new ServiceResult();
             try
             {
                 var list = _funcionesMaquinaRepository.List();
-                return result.Ok(list);
+                return list;
             }
             catch (Exception ex)
             {
-
-                return result.Error(ex.Message);
+                return Enumerable.Empty<tbFuncionesMaquina>();
             }
         }
 
@@ -1763,7 +1758,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region orde_Ensa_Acab_EtiqRepository
-        public IEnumerable<tbOrde_Ensa_Acab_Etiq> Listarorde_Ensa_Acab_Etiq()
+        public IEnumerable<tbOrde_Ensa_Acab_Etiq> Listarorde_Ensa_Acab_EtiqRepository()
         {
             try
             {
@@ -1776,7 +1771,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             }
         }
 
-        public ServiceResult Insertarorde_Ensa_Acab_Etiq(tbOrde_Ensa_Acab_Etiq item)
+        public ServiceResult InsertarModelos(tbOrde_Ensa_Acab_Etiq item)
         {
             var result = new ServiceResult();
             try
@@ -1805,7 +1800,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             }
         }
 
-        public ServiceResult Actualizarorde_Ensa_Acab_Etiq(tbOrde_Ensa_Acab_Etiq item)
+        public ServiceResult ActualizarModelos(tbOrde_Ensa_Acab_Etiq item)
         {
             var result = new ServiceResult();
             try
@@ -1834,7 +1829,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             }
         }
 
-        public ServiceResult Eliminarorde_Ensa_Acab_Etiq(tbOrde_Ensa_Acab_Etiq item)
+        public ServiceResult EliminarModelos(tbOrde_Ensa_Acab_Etiq item)
         {
             var result = new ServiceResult();
             try
@@ -1865,11 +1860,11 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Orden Compra Detalles
-        public IEnumerable<tbOrdenCompraDetalles> ListarOrdenCompraDetalles(tbOrdenCompraDetalles item)
+        public IEnumerable<tbOrdenCompraDetalles> ListarOrdenCompraDetalles()
         {
             try
             {
-                var list = _ordenCompraDetallesRepository.List(item);
+                var list = _ordenCompraDetallesRepository.List();
                 return list;
             }
             catch (Exception ex)
@@ -2069,11 +2064,11 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Pedidos Orden Detalles
-        public IEnumerable<tbPedidosOrdenDetalle> ListarPedidosOrdenDetalle(tbPedidosOrdenDetalle item)
+        public IEnumerable<tbPedidosOrdenDetalle> ListarPedidosOrdenDetalle()
         {
             try
             {
-                var list = _pedidosOrdenDetallesRepository.List(item);
+                var list = _pedidosOrdenDetallesRepository.List();
                 return list;
             }
             catch (Exception ex)

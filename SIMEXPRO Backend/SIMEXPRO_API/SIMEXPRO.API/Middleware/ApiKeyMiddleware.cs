@@ -65,6 +65,7 @@ namespace SIMEXPRO.API.Middleware
             //}
             //else
             //{
+
             //    if (context.Response.StatusCode == 200)
             //    {
             //        var secret = await keyVaultClient.GetSecretAsync($"{keyVaultEndpoint}secrets/{APIKEY}");
@@ -78,7 +79,6 @@ namespace SIMEXPRO.API.Middleware
             //        await _next(context);
             //    }
             //}
-
 
         }
     }

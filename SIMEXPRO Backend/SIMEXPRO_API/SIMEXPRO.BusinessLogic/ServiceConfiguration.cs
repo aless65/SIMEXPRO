@@ -1,7 +1,6 @@
 ﻿
 using Microsoft.Extensions.DependencyInjection;
 using SIMEXPRO.BussinessLogic.Services.AccesoServices;
-using SIMEXPRO.BussinessLogic.Services.EventoServices;
 using SIMEXPRO.BussinessLogic.Services.GeneralServices;
 using SIMEXPRO.BussinessLogic.Services.ProduccionServices;
 using SIMEXPRO.DataAccess.Repositories.Acce;
@@ -139,7 +138,7 @@ namespace SIMEXPRO.BussinessLogic
             services.AddScoped<GeneralServices>();
             services.AddScoped<AccesoServices>();
             services.AddScoped<ProduccionServices>();
-            services.AddScoped<AduanaServices>();
+            
         }
     }
 }

@@ -40,7 +40,7 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
                 var usuario = _usuariosRepository.Login(usua_Nombre, usua_Contrasenia);
 
                 if (usuario.usua_Nombre == null)
-                    return resultado.Unauthorized("El usuario o contraseña son incorrectos");
+                    return resultado.Forbidden("El usuario o contraseña son incorrectos");
                 else
                     return resultado.Ok(usuario);
             } 
@@ -50,19 +50,17 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
             }
         }
 
-        public ServiceResult ListarUsuarios()
+        public IEnumerable<tbUsuarios> ListarUsuarios()
         {
-            ServiceResult datos = new();
-
             try
             {
                 var list = _usuariosRepository.List();
-                return datos.Ok(list);
+                return list;
             }
             catch (Exception ex)
             {
 
-                return datos.Error(ex.Message);
+                return Enumerable.Empty<tbUsuarios>();
             }
         }
 
@@ -165,7 +163,7 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
         {
             try
             {
-                var list = _rolesPorPantallaRepository.Lista(item);
+                var list = _rolesPorPantallaRepository.List();
                 return list;
             }
             catch (Exception ex)

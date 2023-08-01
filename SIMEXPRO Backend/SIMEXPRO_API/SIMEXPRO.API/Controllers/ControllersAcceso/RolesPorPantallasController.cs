@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.API.Controllers.ControllersAcceso
 {
-    public class RolesController : Controller
+    public class RolesPorPantallasController : Controller
     {
         private readonly AccesoServices _accesoServices;
         private readonly IMapper _mapper;
 
-        public RolesController(AccesoServices accesoService, IMapper mapper)
+        public RolesPorPantallasController(AccesoServices accesoService, IMapper mapper)
         {
             _accesoServices = accesoService;
             _mapper = mapper;

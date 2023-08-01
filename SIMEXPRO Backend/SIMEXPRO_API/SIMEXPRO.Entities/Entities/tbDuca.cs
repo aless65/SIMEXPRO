@@ -56,8 +56,8 @@ namespace SIMEXPRO.Entities.Entities
         public bool? duca_Estado { get; set; }
 
         public virtual tbDeclaraciones_Valor deva { get; set; }
-        public virtual tbmodulos duca_AduanaRegistroNavigation { get; set; }
-        public virtual tbmodulos duca_AduanaSalidaNavigation { get; set; }
+        public virtual tbAduanas duca_AduanaRegistroNavigation { get; set; }
+        public virtual tbAduanas duca_AduanaSalidaNavigation { get; set; }
         public virtual tbConductor duca_Conductor { get; set; }
         public virtual tbPaises duca_Pais_DestinoNavigation { get; set; }
         public virtual tbPaises duca_Pais_Emision_ExportadorNavigation { get; set; }

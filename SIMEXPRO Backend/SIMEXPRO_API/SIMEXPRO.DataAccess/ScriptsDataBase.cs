@@ -303,7 +303,6 @@ namespace SIMEXPRO.DataAccess
         public static string ListarItems = "Adua.UDP_tbItems_Listar";
         public static string InsertarItems = "Adua.UDP_tbItems_Insertar";
         public static string EditarItems = "Adua.UDP_tbItems_Editar";
-        public static string EliminarItems = "Adua.UDP_tbItems_Eliminar";
         #endregion
 
         #region Liquidacion General
@@ -396,8 +395,6 @@ namespace SIMEXPRO.DataAccess
         #endregion
 
         #endregion
-
-
 
         #region Produccion
 
@@ -529,13 +526,6 @@ namespace SIMEXPRO.DataAccess
         public static string InsertarMateriales = "Prod.UDP_tbMateriales_Insertar";
         public static string EditarMateriales = "Prod.UDP_tbMateriales_Editar";
         public static string EliminarMateriales = "Prod.UDP_tbMateriales_Eliminar";
-        #endregion
-
-        #region Modulos
-        public static string ListarModulos = "Prod.UDP_tbModulos_Listar";
-        public static string InsertarModulos = "Prod.UDP_tbModulos_Insertar";
-        public static string EditarModulos = "Prod.UDP_tbModulos_Editar";
-        public static string EliminarModulos = "Prod.UDP_tbModulos_Eliminar";
         #endregion
 
         #region Materiales Brindar

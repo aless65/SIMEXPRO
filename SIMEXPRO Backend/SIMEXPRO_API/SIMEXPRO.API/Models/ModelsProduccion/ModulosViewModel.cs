@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,14 +20,6 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public bool? modu_Estado { get; set; }
 
 
-        [NotMapped]
-        public string empleado_Nombre { get; set; }
-        [NotMapped]
-        public string proc_Descripcion { get; set; }
-        [NotMapped]
-        public string UsuarioCreacion { get; set; }
-        [NotMapped]
-        public string UsuarioModifica { get; set; }
 
     }
 }

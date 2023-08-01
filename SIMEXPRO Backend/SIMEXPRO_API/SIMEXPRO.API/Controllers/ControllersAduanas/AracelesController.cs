@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.API.Controllers.ControllersAduanas
 {
-    public class CodigoImpuestoController : Controller
+    public class AracelesController : Controller
     {
         private readonly AduanaServices _aduanaServices;
         private readonly IMapper _mapper;
 
-        public CodigoImpuestoController(AduanaServices AduanaServices, IMapper mapper)
+        public AracelesController(AduanaServices AduanaServices, IMapper mapper)
         {
             _aduanaServices = AduanaServices;
             _mapper = mapper;
@@ -22,5 +22,6 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         {
             return View();
         }
+
     }
 }

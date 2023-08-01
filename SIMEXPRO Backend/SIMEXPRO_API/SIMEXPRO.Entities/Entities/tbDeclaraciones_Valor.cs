@@ -49,8 +49,8 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime? deva_FechaModificacion { get; set; }
         public bool? deva_Estado { get; set; }
 
-        public virtual tbmodulos deva_Aduana_Despacho { get; set; }
-        public virtual tbmodulos deva_Aduana_Ingreso { get; set; }
+        public virtual tbAduanas deva_Aduana_Despacho { get; set; }
+        public virtual tbAduanas deva_Aduana_Ingreso { get; set; }
         public virtual tbLugaresEmbarque emba { get; set; }
         public virtual tbFormas_Envio foen { get; set; }
         public virtual tbFormasdePago fopa { get; set; }

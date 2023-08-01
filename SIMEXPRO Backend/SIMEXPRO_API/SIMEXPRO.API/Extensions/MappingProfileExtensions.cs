@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using SIMEXPRO.API.Models;
 using SIMEXPRO.API.Models.ModelsAcceso;
-using SIMEXPRO.API.Models.ModelsAduana;
 using SIMEXPRO.API.Models.ModelsProduccion;
 using SIMEXPRO.Entities.Entities;
 using System;
@@ -33,20 +32,6 @@ namespace Events_Company_R.API.Extentions
             #endregion
 
             #region Aduana
-            CreateMap<TransportesViewModel, tbTransporte>().ReverseMap();
-            CreateMap<TiposIdentificacionViewModel, tbTiposIdentificacion>().ReverseMap();
-            CreateMap<TipoLiquidacionViewModel, tbTipoLiquidacion>().ReverseMap();
-            CreateMap<TipoIntermediarioViewModel, tbTipoIntermediario>().ReverseMap();
-            CreateMap<TipoDocumentoViewModel, tbTipoDocumento>().ReverseMap();
-            CreateMap<PersonasViewModel, tbPersonas>().ReverseMap();
-            CreateMap<PersonaNaturalViewModel, tbPersonaNatural>().ReverseMap();            
-            CreateMap<ConceptoPagoViewModel, tbConceptoPago>().ReverseMap();
-            CreateMap<AduanasViewModel, tbAduanas>().ReverseMap();
-            CreateMap<AracelesViewModel, tbAranceles>().ReverseMap();
-            CreateMap<ArancelesViewModel, tbBaseCalculos>().ReverseMap();
-            CreateMap<BoletinPagoViewModel, tbBoletinPago>().ReverseMap();
-            CreateMap<CodigoImpuestoViewModel, tbCodigoImpuesto>().ReverseMap();
-            CreateMap<CondicionesComercialesViewModel, tbComercianteIndividual>().ReverseMap();
 
             #endregion
 
@@ -61,31 +46,16 @@ namespace Events_Company_R.API.Extentions
 
             CreateMap<ProcesosViewModel, tbProcesos>().ReverseMap();
             CreateMap<ReporteModuloDiaViewModel, tbReporteModuloDia>().ReverseMap();
-            CreateMap<ReporteModuloDiaDetalleViewModel, tbReporteModuloDiaDetalle>().ReverseMap();
-            CreateMap<RevisionDeCalidadViewModel, tbRevisionDeCalidad>().ReverseMap();
-            CreateMap<SubCategoriaViewModel, tbSubcategoria>().ReverseMap();
-            CreateMap<EstilosViewModel, tbEstilos>().ReverseMap();
-            CreateMap<FuncionesMaquinaViewModel, tbFuncionesMaquina>().ReverseMap();
-            CreateMap<TallasViewModel, tbTallas>().ReverseMap();
-            CreateMap<TipoEmbalajeViewModel, tbTipoEmbalaje>().ReverseMap();
-            CreateMap<tbModulos, ModulosViewModel>().ReverseMap();
-            CreateMap<tbOrde_Ensa_Acab_Etiq, OrdeEnsaAcabEtiqViewModel>().ReverseMap();
-            CreateMap<tbOrdenCompra, OrdenCompraViewModel>().ReverseMap();
-            CreateMap<tbOrdenCompraDetalles, OrdenCompraDetalleViewModel>().ReverseMap();
-            CreateMap<tbPedidosOrden, PedidosOrdenViewModel>().ReverseMap();
-            CreateMap<tbPedidosOrdenDetalle, PedidosOrdenDetalleViewModel>().ReverseMap();
-            CreateMap<tbPedidosProduccion, PedidosProduccionViewModel>().ReverseMap();
-            CreateMap<tbPedidosProduccionDetalles, PedidosProduccionDetalleViewModel>().ReverseMap();
-
             #endregion
 
             #region Acceso
+
+            #endregion
+
             CreateMap<UsuariosViewModel, tbUsuarios>().ReverseMap();
             CreateMap<PantallasViewModel, tbPantallas>().ReverseMap();
             CreateMap<RolesViewModel, tbRoles>().ReverseMap();
             CreateMap<RolesPorPantallasViewModel, tbRolesXPantallas>().ReverseMap();
-            #endregion
-
         }
     }
 }

@@ -2173,23 +2173,23 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbPersonas_Editar
 	@pers_FormaRepresentacion	BIT,
 	@pers_escvRepresentante		INT,
 	@pers_OfprRepresentante		INT,
-	@usua_UsuarioCreacion		INT,
-	@pers_FechaCreacion			DATETIME
+	@usua_UsuarioModificacion	INT,
+	@pers_FechaModificacion		DATETIME
 )
 AS
 BEGIN
 	BEGIN TRY
-			UPDATE Adua.tbPersonas 
-			   SET pers_RTN					= @pers_RTN, 					
-				   ofic_Id					= @ofic_Id, 					
-				   escv_Id					= @escv_Id, 					
-				   ofpr_Id					= @ofpr_Id, 					
-				   pers_FormaRepresentacion	= @pers_FormaRepresentacion, 					
-				   pers_escvRepresentante	= @pers_escvRepresentante, 		
-				   pers_OfprRepresentante	= @pers_OfprRepresentante, 		
-				   usua_UsuarioCreacion		= @usua_UsuarioCreacion,      	
-				   pers_FechaCreacion		= @pers_FechaCreacion
-			 WHERE pers_Id = @pers_Id
+			UPDATE	Adua.tbPersonas 
+			   SET	pers_RTN					= @pers_RTN, 					
+					ofic_Id						= @ofic_Id, 					
+					escv_Id						= @escv_Id, 					
+					ofpr_Id						= @ofpr_Id, 					
+					pers_FormaRepresentacion	= @pers_FormaRepresentacion, 					
+					pers_escvRepresentante		= @pers_escvRepresentante, 		
+					pers_OfprRepresentante		= @pers_OfprRepresentante, 		
+					usua_UsuarioModificacion	= @usua_UsuarioModificacion,      	
+					pers_FechaModificacion		= @pers_FechaModificacion
+			 WHERE	pers_Id = @pers_Id
 
 		SELECT 1 AS Resultado
 	END TRY
@@ -3752,15 +3752,15 @@ GO
 
 /*Insertar Tipos Identificacion*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTiposIdentificacion_Insertar 
-	@iden_Descripcion		NVARCHAR(75),
-	@iden_UsuCrea	        INT,
-	@iden_FechaCrea         DATETIME
+	@iden_Descripcion			NVARCHAR(75),
+	@usua_UsuarioCreacion	    INT,
+	@iden_FechaCreacion         DATETIME
 AS 
 BEGIN
 	
 	BEGIN TRY
 		INSERT INTO Adua.tbTiposIdentificacion(iden_Descripcion, usua_UsuarioCreacion, iden_FechaCreacion)
-		VALUES(@iden_Descripcion, @iden_UsuCrea, @iden_FechaCrea)
+		VALUES(@iden_Descripcion, @usua_UsuarioCreacion, @iden_FechaCreacion)
 
 		SELECT 1
 	END TRY
@@ -3773,15 +3773,17 @@ GO
 
 /*Editar Tipos Identificacion*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTiposIdentificacion_Editar 
-	@iden_Id				INT,
-	@iden_Descripcion	    NVARCHAR(150),
-	@iden_UsuModifica       INT,
-	@iden_FechaModi         DATETIME
+	@iden_Id					INT,
+	@iden_Descripcion			NVARCHAR(150),
+	@usua_UsuarioModificacion   INT,
+	@iden_FechaModificacion		DATETIME
 AS
 BEGIN
 	BEGIN TRY
 		UPDATE  Adua.tbTiposIdentificacion
-		SET		iden_Descripcion = @iden_Descripcion
+		SET		iden_Descripcion = @iden_Descripcion,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				iden_FechaModificacion = @iden_FechaModificacion
 		WHERE	iden_Id = @iden_Id
 
 		SELECT 1

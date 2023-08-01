@@ -14,15 +14,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
     {
         public RequestStatus Delete(tbColonias item)
         {
-            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
-            RequestStatus result = new RequestStatus();
-            var parametros = new DynamicParameters();
-            parametros.Add("@colo_Id", item.colo_Id, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@colo_FechaEliminacion", item.colo_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarColonias, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
-            return result;
+            throw new NotImplementedException();
         }
 
         public tbColonias Find(int? id)

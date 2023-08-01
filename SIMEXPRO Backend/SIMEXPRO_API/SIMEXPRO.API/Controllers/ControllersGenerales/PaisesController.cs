@@ -10,8 +10,6 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.API.Controllers.ControllersGenerales
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class PaisesController : Controller
     {
         private readonly GeneralServices _generalesServices;
@@ -22,10 +20,9 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             _generalesServices = generalesService;
             _mapper = mapper;
         }
-        [HttpGet("Listado")]
         public IActionResult Index()
         {
-            var listado = _generalesServices.ListarColonias();
+            var listado = _generalesServices.ListarPaises();
             var listadoMapeado = _mapper.Map<IEnumerable<PaisesViewModel>>(listado);
             return Ok(listadoMapeado);
         }
@@ -48,12 +45,12 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
-        public IActionResult Delete(PaisesViewModel paisesViewModel)
-        {
-            var item = _mapper.Map<tbPaises>(paisesViewModel);
-            var respuesta = _generalesServices.EliminarPaises(item);
-            return Ok(respuesta);
-        }
+        //[HttpPost("Delete")]
+        //public IActionResult Delete(PaisesViewModel paisesViewModel)
+        //{
+        //    var item = _mapper.Map<tbPaises>(paisesViewModel);
+        //    var respuesta = _generalesServices.EliminarPaises(item);
+        //    return Ok(respuesta);
+        //}
     }
 }

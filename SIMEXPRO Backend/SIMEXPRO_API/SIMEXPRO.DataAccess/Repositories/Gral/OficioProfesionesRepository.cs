@@ -24,23 +24,14 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
 
         public RequestStatus Insert(tbOficio_Profesiones item)
         {
-            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
-            RequestStatus result = new RequestStatus();
-            var parametros = new DynamicParameters();
-            parametros.Add("@ofpr_Nombre", item.ofpr_Nombre, DbType.String, ParameterDirection.Input);
-            parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@ofpr_FechaCreacion", item.ofpr_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarOficioProfesion, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
-            return result;
+            throw new NotImplementedException();
         }
 
         public IEnumerable<tbOficio_Profesiones> List()
         {
-            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
-            var parametros = new DynamicParameters();
-            return db.Query<tbOficio_Profesiones>(ScriptsDataBase.ListarOficioProfesion, null, commandType: CommandType.StoredProcedure);
+            throw new NotImplementedException();
         }
+
 
         public RequestStatus Update(tbOficio_Profesiones item)
         {
@@ -49,8 +40,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             var parametros = new DynamicParameters();
             parametros.Add("@ofpr_Id", item.ofpr_Id, DbType.String, ParameterDirection.Input);
             parametros.Add("@ofpr_Nombre", item.ofpr_Nombre, DbType.String, ParameterDirection.Input);
-            parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@ofpr_FechaCreacion", item.ofpr_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@ofpr_FechaModificacion", item.ofpr_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
             var answer = db.QueryFirst<int>(ScriptsDataBase.EditarOficioProfesion, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
             return result;

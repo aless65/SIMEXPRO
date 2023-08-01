@@ -33,16 +33,42 @@ namespace Events_Company_R.API.Extentions
             #endregion
 
             #region Aduana
+            CreateMap<AduanasViewModel, tbAduanas>().ReverseMap();
+            CreateMap<ArancelesViewModel, tbAranceles>().ReverseMap();
+            CreateMap<BaseCalculosViewModel, tbBaseCalculos>().ReverseMap();
+            CreateMap<BoletinPagoViewModel, tbBoletinPago>().ReverseMap();
+            CreateMap<CodigoImpuestoViewModel, tbCodigoImpuesto>().ReverseMap();
+            CreateMap<CondicionesComercialesViewModel, tbComercianteIndividual>().ReverseMap();
+
+            CreateMap<TransportesViewModel, tbTransporte>().ReverseMap();
+            CreateMap<TiposIdentificacionViewModel, tbTiposIdentificacion>().ReverseMap();
+            CreateMap<TipoLiquidacionViewModel, tbTipoLiquidacion>().ReverseMap();
+            CreateMap<TipoIntermediarioViewModel, tbTipoIntermediario>().ReverseMap();
+            CreateMap<TipoDocumentoViewModel, tbTipoDocumento>().ReverseMap();
+            CreateMap<PersonasViewModel, tbPersonas>().ReverseMap();
+            CreateMap<PersonaNaturalViewModel, tbPersonaNatural>().ReverseMap();
             CreateMap<ConceptoPagoViewModel, tbConceptoPago>().ReverseMap();
             CreateMap<ItemsViewModel, tbItems>().ReverseMap();
             CreateMap<LiquidacionGeneralViewModel, tbLiquidacionGeneral>().ReverseMap();
             CreateMap<LiquidacionPorLineaViewModel, tbLiquidacionPorLinea>().ReverseMap();
             CreateMap<LugaresEmbarqueViewModel, tbLugaresEmbarque>().ReverseMap();
+            CreateMap<MarcasViewModel, tbMarcas>().ReverseMap();
+            CreateMap<NivelesComercialesViewModel, tbNivelesComerciales>().ReverseMap();
+            CreateMap<PersonaJuridicaViewModel, tbPersonaJuridica>().ReverseMap();
             #endregion
 
             #region Producción
+
+            CreateMap<AreasViewModel, tbArea>().ReverseMap();
+            CreateMap<AsignacionesOrdenViewModel, tbAsignacionesOrden>().ReverseMap();
+            CreateMap<AsignacionesOrdenDetalleViewModel, tbAsignacionesOrdenDetalle>().ReverseMap();
+            CreateMap<CategoriaViewModel, tbCategoria>().ReverseMap();
+            CreateMap<ClientesViewModel, tbClientes>().ReverseMap();
+            CreateMap<ColoresViewModel, tbColores>().ReverseMap();
+
             CreateMap<ProcesosViewModel, tbProcesos>().ReverseMap();
             CreateMap<ReporteModuloDiaViewModel, tbReporteModuloDia>().ReverseMap();
+
             CreateMap<ReporteModuloDiaDetalleViewModel, tbReporteModuloDiaDetalle>().ReverseMap();
             CreateMap<RevisionDeCalidadViewModel, tbRevisionDeCalidad>().ReverseMap();
             CreateMap<SubCategoriaViewModel, tbSubcategoria>().ReverseMap();
@@ -55,6 +81,17 @@ namespace Events_Company_R.API.Extentions
             CreateMap<MarcasMaquinaViewModel, tbMarcasMaquina>().ReverseMap();
             CreateMap<MaterialesViewModel, tbMateriales>().ReverseMap();
             CreateMap<MaterialesBrindarViewModel, tbMaterialesBrindar>().ReverseMap();
+
+
+            CreateMap<tbModulos, ModulosViewModel>().ReverseMap();
+            CreateMap<tbOrde_Ensa_Acab_Etiq, OrdeEnsaAcabEtiqViewModel>().ReverseMap();
+            CreateMap<tbOrdenCompra, OrdenCompraViewModel>().ReverseMap();
+            CreateMap<tbOrdenCompraDetalles, OrdenCompraDetalleViewModel>().ReverseMap();
+            CreateMap<tbPedidosOrden, PedidosOrdenViewModel>().ReverseMap();
+            CreateMap<tbPedidosOrdenDetalle, PedidosOrdenDetalleViewModel>().ReverseMap();
+            CreateMap<tbPedidosProduccion, PedidosProduccionViewModel>().ReverseMap();
+            CreateMap<tbPedidosProduccionDetalles, PedidosProduccionDetalleViewModel>().ReverseMap();
+
             #endregion
 
             #region Acceso
@@ -62,8 +99,8 @@ namespace Events_Company_R.API.Extentions
             CreateMap<PantallasViewModel, tbPantallas>().ReverseMap();
             CreateMap<RolesViewModel, tbRoles>().ReverseMap();
             CreateMap<RolesPorPantallasViewModel, tbRolesXPantallas>().ReverseMap();
-            #endregion
 
+            #endregion
 
         }
     }

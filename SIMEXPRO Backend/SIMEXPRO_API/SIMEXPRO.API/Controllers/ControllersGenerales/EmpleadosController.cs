@@ -10,8 +10,6 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.API.Controllers.ControllersGenerales
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class EmpleadosController : Controller
     {
         private readonly GeneralServices _generalesServices;
@@ -22,12 +20,11 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             _generalesServices = generalesService;
             _mapper = mapper;
         }
-        [HttpGet("Listado")]
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarEmpleados();
-            var listadoMapeado = _mapper.Map<IEnumerable<EmpleadosViewModel>>(listado);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<EmpleadosViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
 

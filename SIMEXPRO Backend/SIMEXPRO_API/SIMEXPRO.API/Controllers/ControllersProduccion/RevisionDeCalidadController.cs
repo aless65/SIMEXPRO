@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SIMEXPRO.API.Models.ModelsProduccion;
 using SIMEXPRO.BussinessLogic.Services.ProduccionServices;
-using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,31 +21,5 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             _produccionServices = produccionServices;
             _mapper = mapper;
         }
-
-        [HttpGet("Listado")]
-        public IActionResult Index()
-        {
-            var listado = _produccionServices.ListarRevisionDeCalidad();
-            var listadoMapeado = _mapper.Map<IEnumerable<RevisionDeCalidadViewModel>>(listado);
-            return Ok(listadoMapeado);
-        }
-        
-        [HttpPost("Insert")]
-        public IActionResult Insert(RevisionDeCalidadViewModel RevisionDeCalidadViewModel)
-        {
-            var item = _mapper.Map<tbRevisionDeCalidad>(RevisionDeCalidadViewModel);
-            var respuesta = _produccionServices.InsertarRevisionDeCalidad(item);
-            return Ok(respuesta);
-        }
-       
-        [HttpPost("Editar")]
-        public IActionResult Editar(RevisionDeCalidadViewModel RevisionDeCalidadViewModel)
-        {
-            var item = _mapper.Map<tbRevisionDeCalidad>(RevisionDeCalidadViewModel);
-            var respuesta = _produccionServices.ActualizarRevisionDeCalidad(item);
-            return Ok(respuesta);
-        }
-
-        
     }
 }

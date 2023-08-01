@@ -28,6 +28,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             var listado = _generalesServices.ListarFormas_Envio();
             var listadoMapeado = _mapper.Map<IEnumerable<Formas_EnvioViewModel>>(listado);
             return Ok(listadoMapeado);
+
         }
 
 

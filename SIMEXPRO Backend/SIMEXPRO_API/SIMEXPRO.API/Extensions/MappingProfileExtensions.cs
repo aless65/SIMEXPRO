@@ -36,6 +36,11 @@ namespace SIMEXPRO.API.Extentions
             CreateMap<DucaViewModel, tbDuca>().ReverseMap();
             CreateMap<ConceptoPagoViewModel, tbConceptoPago>().ReverseMap();
             CreateMap<EstadoBoletinViewModel, tbEstadoBoletin>().ReverseMap();
+            CreateMap<ItemsViewModel, tbItems>().ReverseMap();
+            CreateMap<LiquidacionGeneralViewModel, tbLiquidacionGeneral>().ReverseMap();
+            CreateMap<LiquidacionPorLineaViewModel, tbLiquidacionPorLinea>().ReverseMap();
+            CreateMap<LugaresEmbarqueViewModel, tbLugaresEmbarque>().ReverseMap();
+            CreateMap<MarcasViewModel, tbMarcas>().ReverseMap();
             #endregion
 
             #region Producción
@@ -48,7 +53,11 @@ namespace SIMEXPRO.API.Extentions
             CreateMap<FuncionesMaquinaViewModel, tbFuncionesMaquina>().ReverseMap();
             CreateMap<TallasViewModel, tbTallas>().ReverseMap();
             CreateMap<TipoEmbalajeViewModel, tbTipoEmbalaje>().ReverseMap();
-
+            CreateMap<LotesViewModel, tbLotes>().ReverseMap();
+            CreateMap<MaquinasViewModel, tbMaquinas>().ReverseMap();
+            CreateMap<MarcasMaquinaViewModel, tbMarcasMaquina>().ReverseMap();
+            CreateMap<MaterialesViewModel, tbMateriales>().ReverseMap();
+            CreateMap<MaterialesBrindarViewModel, tbMaterialesBrindar>().ReverseMap();
             #endregion
 
             #region Acceso

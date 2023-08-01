@@ -30,7 +30,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
             return View();
         }
 
-        [HttpGet("Login")]
+        [HttpPost("Login")]
         public IActionResult InicioSesion(string usua_Nombre, string usua_Contrasenia)
         {
 

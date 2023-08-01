@@ -14,9 +14,9 @@ namespace SIMEXPRO.Entities.Entities
             Inverseusua_UsuarioCreacionNavigation = new HashSet<tbUsuarios>();
             Inverseusua_UsuarioEliminacionNavigation = new HashSet<tbUsuarios>();
             Inverseusua_UsuarioModificacionNavigation = new HashSet<tbUsuarios>();
-            tbAduanasusua_UsuarioCreacionNavigation = new HashSet<tbAduanas>();
-            tbAduanasusua_UsuarioEliminacionNavigation = new HashSet<tbAduanas>();
-            tbAduanasusua_UsuarioModificacionNavigation = new HashSet<tbAduanas>();
+            tbAduanasusua_UsuarioCreacionNavigation = new HashSet<tbmodulos>();
+            tbAduanasusua_UsuarioEliminacionNavigation = new HashSet<tbmodulos>();
+            tbAduanasusua_UsuarioModificacionNavigation = new HashSet<tbmodulos>();
             tbAldeasusua_UsuarioCreacionNavigation = new HashSet<tbAldeas>();
             tbAldeasusua_UsuarioEliminacionNavigation = new HashSet<tbAldeas>();
             tbAldeasusua_UsuarioModificacionNavigation = new HashSet<tbAldeas>();
@@ -267,9 +267,9 @@ namespace SIMEXPRO.Entities.Entities
         public virtual ICollection<tbUsuarios> Inverseusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbUsuarios> Inverseusua_UsuarioEliminacionNavigation { get; set; }
         public virtual ICollection<tbUsuarios> Inverseusua_UsuarioModificacionNavigation { get; set; }
-        public virtual ICollection<tbAduanas> tbAduanasusua_UsuarioCreacionNavigation { get; set; }
-        public virtual ICollection<tbAduanas> tbAduanasusua_UsuarioEliminacionNavigation { get; set; }
-        public virtual ICollection<tbAduanas> tbAduanasusua_UsuarioModificacionNavigation { get; set; }
+        public virtual ICollection<tbmodulos> tbAduanasusua_UsuarioCreacionNavigation { get; set; }
+        public virtual ICollection<tbmodulos> tbAduanasusua_UsuarioEliminacionNavigation { get; set; }
+        public virtual ICollection<tbmodulos> tbAduanasusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbAldeas> tbAldeasusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbAldeas> tbAldeasusua_UsuarioEliminacionNavigation { get; set; }
         public virtual ICollection<tbAldeas> tbAldeasusua_UsuarioModificacionNavigation { get; set; }

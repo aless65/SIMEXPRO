@@ -68,6 +68,14 @@ namespace Events_Company_R.API.Extentions
             CreateMap<FuncionesMaquinaViewModel, tbFuncionesMaquina>().ReverseMap();
             CreateMap<TallasViewModel, tbTallas>().ReverseMap();
             CreateMap<TipoEmbalajeViewModel, tbTipoEmbalaje>().ReverseMap();
+            CreateMap<tbModulos, ModulosViewModel>().ReverseMap();
+            CreateMap<tbOrde_Ensa_Acab_Etiq, OrdeEnsaAcabEtiqViewModel>().ReverseMap();
+            CreateMap<tbOrdenCompra, OrdenCompraViewModel>().ReverseMap();
+            CreateMap<tbOrdenCompraDetalles, OrdenCompraDetalleViewModel>().ReverseMap();
+            CreateMap<tbPedidosOrden, PedidosOrdenViewModel>().ReverseMap();
+            CreateMap<tbPedidosOrdenDetalle, PedidosOrdenDetalleViewModel>().ReverseMap();
+            CreateMap<tbPedidosProduccion, PedidosProduccionViewModel>().ReverseMap();
+            CreateMap<tbPedidosProduccionDetalles, PedidosProduccionDetalleViewModel>().ReverseMap();
 
             #endregion
 

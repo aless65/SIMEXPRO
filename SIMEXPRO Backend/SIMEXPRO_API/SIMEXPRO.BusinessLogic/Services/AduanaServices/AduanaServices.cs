@@ -141,7 +141,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        public ServiceResult InsertarAduanas(tbAduanas item)
+        public ServiceResult InsertarAduanas(tbmodulos item)
         {
             var result = new ServiceResult();
             try
@@ -170,7 +170,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        public ServiceResult ActualizarAduanas(tbAduanas item)
+        public ServiceResult ActualizarAduanas(tbmodulos item)
         {
             var result = new ServiceResult();
             try
@@ -199,7 +199,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        public ServiceResult EliminarAduanas(tbAduanas item)
+        public ServiceResult EliminarAduanas(tbmodulos item)
         {
             var result = new ServiceResult();
             try

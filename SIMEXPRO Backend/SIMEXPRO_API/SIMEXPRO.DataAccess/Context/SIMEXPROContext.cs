@@ -18,7 +18,7 @@ namespace SIMEXPRO.DataAccess.Context
             : base(options)
         {
         }
-
+        //public static string ConexionSimexpro { get; internal set; }
         public virtual DbSet<tbAduanas> tbAduanas { get; set; }
         public virtual DbSet<tbAldeas> tbAldeas { get; set; }
         public virtual DbSet<tbAranceles> tbAranceles { get; set; }
@@ -122,7 +122,7 @@ namespace SIMEXPRO.DataAccess.Context
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
-            modelBuilder.Entity<tbAduanas>(entity =>
+            modelBuilder.Entity<tbmodulos>(entity =>
             {
                 entity.HasKey(e => e.adua_Id)
                     .HasName("PK_Adua_tbAduanas_adua_Id");

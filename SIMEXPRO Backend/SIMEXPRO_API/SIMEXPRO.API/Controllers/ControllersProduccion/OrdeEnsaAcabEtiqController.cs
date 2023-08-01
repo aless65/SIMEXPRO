@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SIMEXPRO.API.Models.ModelsProduccion;
 using SIMEXPRO.BussinessLogic.Services.ProduccionServices;
+using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +23,33 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             _produccionServices = produccionServices;
             _mapper = mapper;
         }
+
+        
+        [HttpGet("Listado")]
+        public IActionResult Index()
+           {
+            var listado = _produccionServices.Listarorde_Ensa_Acab_Etiq();
+            var listadoMapeado = _mapper.Map<IEnumerable<OrdeEnsaAcabEtiqViewModel>>(listado);
+            return Ok(listadoMapeado);
+        }
+
+
+        [HttpPost("Insert")]
+        public IActionResult Insert(OrdeEnsaAcabEtiqViewModel ordeEnsaAcabEtiqViewModel)
+        {
+            var item = _mapper.Map<tbOrde_Ensa_Acab_Etiq>(ordeEnsaAcabEtiqViewModel);
+            var respuesta = _produccionServices.Insertarorde_Ensa_Acab_Etiq(item);
+            return Ok(respuesta);
+        }
+
+        [HttpPost("Update")]
+        public IActionResult Update(OrdeEnsaAcabEtiqViewModel ordeEnsaAcabEtiqViewModel)
+        {
+            var item = _mapper.Map<tbOrde_Ensa_Acab_Etiq>(ordeEnsaAcabEtiqViewModel);
+            var respuesta = _produccionServices.Actualizarorde_Ensa_Acab_Etiq(item);
+            return Ok(respuesta);
+        }
+
+       
     }
 }

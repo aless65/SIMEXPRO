@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.DataAccess.Repositories.Adua
 {
-    public class AduanasRepository : IRepository<tbAduanas>
+    public class AduanasRepository : IRepository<tbmodulos>
     {
-        public RequestStatus Delete(tbAduanas item)
+        public RequestStatus Delete(tbmodulos item)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();
@@ -25,12 +25,12 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             return result;
         }
 
-        public tbAduanas Find(int? id)
+        public tbmodulos Find(int? id)
         {
             throw new NotImplementedException();
         }
 
-        public RequestStatus Insert(tbAduanas item)
+        public RequestStatus Insert(tbmodulos item)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();
@@ -45,14 +45,14 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             return result;
         }
 
-        public IEnumerable<tbAduanas> List()
+        public IEnumerable<tbmodulos> List()
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();
             return db.Query<tbAduanas>(ScriptsDataBase.ListarAduanas, null, commandType: CommandType.StoredProcedure);
         }
 
-        public RequestStatus Update(tbAduanas item)
+        public RequestStatus Update(tbmodulos item)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();

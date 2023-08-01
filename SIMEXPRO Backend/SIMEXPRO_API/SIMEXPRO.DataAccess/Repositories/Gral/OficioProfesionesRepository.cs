@@ -42,6 +42,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             return db.Query<tbOficio_Profesiones>(ScriptsDataBase.ListarOficioProfesion, null, commandType: CommandType.StoredProcedure);
         }
 
+
         public RequestStatus Update(tbOficio_Profesiones item)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);

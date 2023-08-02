@@ -24,6 +24,7 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime? subc_FechaEliminacion { get; set; }
         public bool? subc_Estado { get; set; }
 
+        public virtual tbCategoria cate { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioEliminacionNavigation { get; set; }
         public virtual ICollection<tbMateriales> tbMateriales { get; set; }

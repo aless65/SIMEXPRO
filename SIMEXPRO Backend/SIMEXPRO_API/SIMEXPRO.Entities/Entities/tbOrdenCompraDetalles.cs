@@ -38,6 +38,7 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime? code_FechaModificacion { get; set; }
         public bool? code_Estado { get; set; }
 
+        public virtual tbColores colr { get; set; }
         public virtual tbEstilos esti { get; set; }
         public virtual tbOrdenCompra orco { get; set; }
         public virtual tbProcesos proc_IdComienzaNavigation { get; set; }

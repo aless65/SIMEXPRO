@@ -28,6 +28,7 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime? orco_FechaModificacion { get; set; }
         public bool? orco_Estado { get; set; }
 
+        public virtual tbClientes orco_IdClienteNavigation { get; set; }
         public virtual tbTipoEmbalaje orco_IdEmbalajeNavigation { get; set; }
         public virtual tbFormasdePago orco_MetodoPagoNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }

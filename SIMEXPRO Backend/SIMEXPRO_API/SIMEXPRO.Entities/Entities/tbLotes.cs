@@ -32,6 +32,7 @@ namespace SIMEXPRO.Entities.Entities
 
         public virtual tbOrdenCompraDetalles code { get; set; }
         public virtual tbMateriales mate { get; set; }
+        public virtual tbArea tipa { get; set; }
         public virtual tbUnidadMedidas unme { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioEliminacionNavigation { get; set; }

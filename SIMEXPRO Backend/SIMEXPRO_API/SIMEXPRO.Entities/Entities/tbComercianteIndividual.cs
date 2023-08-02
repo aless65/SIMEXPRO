@@ -31,6 +31,8 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime? coin_FechaModificacion { get; set; }
         public bool? coin_Estado { get; set; }
 
+        public virtual tbColonias coin_ColoniaRepresentanteNavigation { get; set; }
+        public virtual tbColonias colo { get; set; }
         public virtual tbPersonas pers { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }

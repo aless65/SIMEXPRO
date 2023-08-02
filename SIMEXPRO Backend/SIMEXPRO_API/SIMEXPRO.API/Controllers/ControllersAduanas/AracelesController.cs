@@ -29,12 +29,12 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         public IActionResult Index()
         {
             var listado = _aduanaServices.ListarAranceles();
-            var mapped = _mapper.Map<IEnumerable<ArancelesViewModel>>(listado.Data);
+            var mapped = _mapper.Map<IEnumerable<AracelesViewModel>>(listado.Data);
             return Ok(mapped);
         }
 
         [HttpPost("Insertar")]
-        public IActionResult Insertar(ArancelesViewModel aranceles)
+        public IActionResult Insertar(AracelesViewModel aranceles)
         {
             var mapped = _mapper.Map<tbAranceles>(aranceles);
             var datos = _aduanaServices.InsertarAranceles(mapped);
@@ -42,7 +42,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         }
 
         [HttpPost("Editar")]
-        public IActionResult Editar(ArancelesViewModel aranceles)
+        public IActionResult Editar(AracelesViewModel aranceles)
         {
             var mapped = _mapper.Map<tbAranceles>(aranceles);
             var datos = _aduanaServices.ActualizarAranceles(mapped);
@@ -50,7 +50,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         }
 
         [HttpPost("Eliminar")]
-        public IActionResult Eliminar(ArancelesViewModel aranceles)
+        public IActionResult Eliminar(AracelesViewModel aranceles)
         {
             var mapped = _mapper.Map<tbAranceles>(aranceles);
             var datos = _aduanaServices.EliminarAranceles(mapped);

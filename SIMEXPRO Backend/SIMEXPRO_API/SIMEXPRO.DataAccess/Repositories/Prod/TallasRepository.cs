@@ -44,7 +44,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             var parametros = new DynamicParameters();
             return db.Query<tbTallas>(ScriptsDataBase.ListarTallas, null, commandType: CommandType.StoredProcedure);
         }
-       
+
 
         public RequestStatus Update(tbTallas item)
         {

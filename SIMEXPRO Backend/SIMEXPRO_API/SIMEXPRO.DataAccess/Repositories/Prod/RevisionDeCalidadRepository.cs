@@ -48,9 +48,9 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             return db.Query<tbRevisionDeCalidad>(ScriptsDataBase.ListarRevisionDeCalidad, null, commandType: CommandType.StoredProcedure);
         }
 
-      
 
-      
+
+
         public RequestStatus Update(tbRevisionDeCalidad item)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);

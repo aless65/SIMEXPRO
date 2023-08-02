@@ -10,8 +10,8 @@ namespace SIMEXPRO.Entities.Entities
     {
         public tbAduanas()
         {
-            tbDeclaraciones_Valordeva_Aduana_Despacho = new HashSet<tbDeclaraciones_Valor>();
-            tbDeclaraciones_Valordeva_Aduana_Ingreso = new HashSet<tbDeclaraciones_Valor>();
+            tbDeclaraciones_Valordeva_AduanaDespacho = new HashSet<tbDeclaraciones_Valor>();
+            tbDeclaraciones_Valordeva_AduanaIngreso = new HashSet<tbDeclaraciones_Valor>();
             tbDucaduca_AduanaRegistroNavigation = new HashSet<tbDuca>();
             tbDucaduca_AduanaSalidaNavigation = new HashSet<tbDuca>();
         }
@@ -31,8 +31,8 @@ namespace SIMEXPRO.Entities.Entities
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioEliminacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }
-        public virtual ICollection<tbDeclaraciones_Valor> tbDeclaraciones_Valordeva_Aduana_Despacho { get; set; }
-        public virtual ICollection<tbDeclaraciones_Valor> tbDeclaraciones_Valordeva_Aduana_Ingreso { get; set; }
+        public virtual ICollection<tbDeclaraciones_Valor> tbDeclaraciones_Valordeva_AduanaDespacho { get; set; }
+        public virtual ICollection<tbDeclaraciones_Valor> tbDeclaraciones_Valordeva_AduanaIngreso { get; set; }
         public virtual ICollection<tbDuca> tbDucaduca_AduanaRegistroNavigation { get; set; }
         public virtual ICollection<tbDuca> tbDucaduca_AduanaSalidaNavigation { get; set; }
     }

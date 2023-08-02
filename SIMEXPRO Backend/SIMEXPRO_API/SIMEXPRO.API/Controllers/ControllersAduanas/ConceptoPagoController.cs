@@ -27,8 +27,8 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         public IActionResult Index()
         {
             var respuesta = _aduanaServices.ListarConceptoPago();
-            
-            if(respuesta.Code == 200)
+
+            if (respuesta.Code == 200)
             {
                 return Ok(respuesta);
             }

@@ -42,6 +42,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             return db.Query<tbOficio_Profesiones>(ScriptsDataBase.ListarOficioProfesion, null, commandType: CommandType.StoredProcedure);
         }
 
+
         public RequestStatus Update(tbOficio_Profesiones item)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
@@ -49,8 +50,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             var parametros = new DynamicParameters();
             parametros.Add("@ofpr_Id", item.ofpr_Id, DbType.String, ParameterDirection.Input);
             parametros.Add("@ofpr_Nombre", item.ofpr_Nombre, DbType.String, ParameterDirection.Input);
-            parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@ofpr_FechaCreacion", item.ofpr_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@ofpr_FechaModificacion", item.ofpr_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
             var answer = db.QueryFirst<int>(ScriptsDataBase.EditarOficioProfesion, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
             return result;

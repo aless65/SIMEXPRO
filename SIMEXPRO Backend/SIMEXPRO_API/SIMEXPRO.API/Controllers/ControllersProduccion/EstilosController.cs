@@ -25,12 +25,11 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         }
 
 
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _produccionServices.ListarEstilos();
-            var listadoMapeado = _mapper.Map<IEnumerable<EstilosViewModel>>(listado);
-            return Ok(listadoMapeado);
+            return Ok(listado);
         }
 
 

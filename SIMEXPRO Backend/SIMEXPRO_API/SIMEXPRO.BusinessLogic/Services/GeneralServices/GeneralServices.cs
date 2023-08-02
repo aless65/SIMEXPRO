@@ -63,16 +63,18 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         }
 
         #region Aldeas
-        public IEnumerable<tbAldeas> ListarAldeas()
+        public ServiceResult ListarAldeas()
         {
+            var resultado = new ServiceResult();
+
             try
             {
                 var list = _aldeasRepository.List();
-                return list;
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbAldeas>();
+                return resultado.Error(ex.Message);
             }
         }
 
@@ -165,16 +167,17 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Cargos
-        public IEnumerable<tbCargos> ListarCargos()
+        public ServiceResult ListarCargos()
         {
+            var resultado = new ServiceResult();
             try
             {
                 var list = _cargosRepository.List();
-                return list;
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbCargos>();
+                return resultado.Error(ex.Message);
             }
         }
 
@@ -370,7 +373,6 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Colonias
-  
         public ServiceResult ListarColonias()
         {
             var result = new ServiceResult();
@@ -384,7 +386,6 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
                 return result.Error(ex.Message);
             }
         }
-
 
 
         public ServiceResult InsertarColonias(tbColonias item)
@@ -579,17 +580,16 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region EstadosCiviles
-        public ServiceResult ListarEstadosCiviles()
+        public IEnumerable<tbEstadosCiviles> ListarEstadosCiviles()
         {
-            var result = new ServiceResult();
             try
             {
                 var list = _estadosCivilesRepository.List();
-                return result.Ok(list);
+                return list;
             }
             catch (Exception ex)
             {
-                return result.Error(ex.Message);
+                return Enumerable.Empty<tbEstadosCiviles>();
             }
         }
 
@@ -1192,16 +1192,17 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Provincias
-        public IEnumerable<tbProvincias> ListarProvincias()
+        public ServiceResult ListarProvincias()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _provinciasRepository.List();
-                return list;
+                return result.Ok(list);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return Enumerable.Empty<tbProvincias>();
+                return result.Error(e.Message);
             }
         }
 
@@ -1294,18 +1295,21 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Proveedores
-        public IEnumerable<tbProveedores> ListarProveedores()
+
+        public ServiceResult ListarProveedores()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _proveedoresRepository.List();
-                return list;
+                return result.Ok(list);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return Enumerable.Empty<tbProveedores>();
+                return result.Error(e.Message);
             }
         }
+        
 
         public ServiceResult InsertarProveedores(tbProveedores item)
         {
@@ -1396,16 +1400,18 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region UnidadMedidas
-        public IEnumerable<tbUnidadMedidas> ListarUnidadMedidas()
+
+        public ServiceResult ListarUnidadMedidas()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _unidadMedidasRepository.List();
-                return list;
+                return result.Ok(list);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return Enumerable.Empty<tbUnidadMedidas>();
+                return result.Error(e.Message);
             }
         }
 

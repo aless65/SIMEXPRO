@@ -32,18 +32,18 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
 
         #region Usuarios
 
-        public ServiceResult IniciarSesion(string usua_Nombre, string usua_Contrasenia)
+        public ServiceResult IniciarSesion(tbUsuarios item)
         {
             var resultado = new ServiceResult();
             try
             {
-                var usuario = _usuariosRepository.Login(usua_Nombre, usua_Contrasenia);
+                var usuario = _usuariosRepository.Login(item);
 
                 if (usuario.usua_Nombre == null)
-                    return resultado.Unauthorized("El usuario o contraseña son incorrectos");
+                    return resultado.Forbidden("El usuario o contraseña son incorrectos");
                 else
                     return resultado.Ok(usuario);
-            } 
+            }
             catch (Exception ex)
             {
                 return resultado.Error(ex.Message);
@@ -52,16 +52,17 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
 
         public ServiceResult ListarUsuarios()
         {
-            var resultado = new ServiceResult();
+            ServiceResult datos = new();
 
             try
             {
                 var list = _usuariosRepository.List();
-                return resultado.Ok(list);
+                return datos.Ok(list);
             }
             catch (Exception ex)
             {
-                return resultado.Error(ex.Message);
+
+                return datos.Error(ex.Message);
             }
         }
 
@@ -164,7 +165,7 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
         {
             try
             {
-                var list = _rolesPorPantallaRepository.List();
+                var list = _rolesPorPantallaRepository.Lista(item);
                 return list;
             }
             catch (Exception ex)
@@ -186,7 +187,7 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
                 return Enumerable.Empty<tbRolesXPantallas>();
             }
         }
-        
+
         //public IEnumerable<tbRolesXPantallas> FindRoles(tbRolesXPantallas item)
         //{
         //    try
@@ -329,6 +330,7 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
         }
 
         #endregion
+
 
         #region Pantallas
 

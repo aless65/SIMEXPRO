@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SIMEXPRO.API.Models;
+using SIMEXPRO.API.Models.ModelsProduccion;
 using SIMEXPRO.BussinessLogic.Services.ProduccionServices;
+using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +24,32 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             _produccionServices = produccionServices;
             _mapper = mapper;
         }
+
+        [HttpGet("Listar")]
+        public IActionResult Index()
+        {
+            var listado = _produccionServices.ListarAreas();
+            var listadoMapeado = _mapper.Map<IEnumerable<AreasViewModel>>(listado.Data);
+            return Ok(listadoMapeado);
+        }
+
+
+        [HttpPost("Insert")]
+        public IActionResult Insert(AreasViewModel areasViewModel)
+        {
+            var item = _mapper.Map<tbArea>(areasViewModel);
+            var respuesta = _produccionServices.InsertarAreas(item);
+            return Ok(respuesta);
+        }
+
+        [HttpPost("Update")]
+        public IActionResult Update(AreasViewModel areasViewModel)
+        {
+            var item = _mapper.Map<tbArea>(areasViewModel);
+            var respuesta = _produccionServices.ActualizarAreas(item);
+            return Ok(respuesta);
+        }
+
         
     }
 }

@@ -113,16 +113,17 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
 
 
         #region Areas
-        public IEnumerable<tbArea> ListarAreas()
+        public ServiceResult ListarAreas()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _areasRepository.List();
-                return list;
+                return result.Ok(list);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return Enumerable.Empty<tbArea>();
+                return result.Error(e.Message);
             }
         }
 
@@ -215,19 +216,22 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Asignacion Orden Detalles
-        public IEnumerable<tbAsignacionesOrdenDetalle> ListarAsignacionOrdenDetalle()
+
+
+        public ServiceResult ListarAsignacionOrdenDetalle(int asor_Id)
         {
+            var result = new ServiceResult();
             try
             {
-                var list = _asignacionesOrdenDetalleRepository.List();
-                return list;
+                var list = _asignacionesOrdenDetalleRepository.List(asor_Id);
+                return result.Ok(list);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return Enumerable.Empty<tbAsignacionesOrdenDetalle>();
+                return result.Error(e.Message);
             }
         }
-
+        
         public ServiceResult InsertarAsignacionOrdenDetalle(tbAsignacionesOrdenDetalle item)
         {
             var result = new ServiceResult();
@@ -317,19 +321,21 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Asignacion Orden
-        public IEnumerable<tbAsignacionesOrden> ListarAsignacionOrden()
+
+        public ServiceResult ListarAsignacionOrden()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _asignacionesOrdenRepository.List();
-                return list;
+                return result.Ok(list);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return Enumerable.Empty<tbAsignacionesOrden>();
+                return result.Error(e.Message);
             }
         }
-
+       
         public ServiceResult InsertarAsignacionOrden(tbAsignacionesOrden item)
         {
             var result = new ServiceResult();
@@ -419,18 +425,21 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Categorias
-        public IEnumerable<tbCategoria> ListarCategorias()
+
+        public ServiceResult ListarCategorias()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _categoriasRepository.List();
-                return list;
+                return result.Ok(list);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return Enumerable.Empty<tbCategoria>();
+                return result.Error(e.Message);
             }
         }
+       
 
         public ServiceResult InsertarCategorias(tbCategoria item)
         {
@@ -521,19 +530,21 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Clientes
-        public IEnumerable<tbClientes> ListarClientes()
+
+        public ServiceResult ListarClientes()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _clientesRepository.List();
-                return list;
+                return result.Ok(list);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return Enumerable.Empty<tbClientes>();
+                return result.Error(e.Message);
             }
         }
-
+       
         public ServiceResult InsertarClientes(tbClientes item)
         {
             var result = new ServiceResult();
@@ -623,16 +634,18 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Colores
-        public IEnumerable<tbColores> ListarColores()
+
+        public ServiceResult ListarColores()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _coloresRepository.List();
-                return list;
+                return result.Ok(list);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return Enumerable.Empty<tbColores>();
+                return result.Error(e.Message);
             }
         }
 
@@ -725,18 +738,16 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Estilos
-        public ServiceResult ListarEstilos()
+        public IEnumerable<tbEstilos> ListarEstilos()
         {
-            var result = new ServiceResult();
             try
             {
                 var list = _estilosRepository.List();
-                return result.Ok(list);
+                return list;
             }
             catch (Exception ex)
             {
-
-                return result.Error(ex.Message);
+                return Enumerable.Empty<tbEstilos>();
             }
         }
 
@@ -829,21 +840,19 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Funciones Maquina
-
-        public ServiceResult ListarFuncionesMaquina()
+        public IEnumerable<tbFuncionesMaquina> ListarFuncionesMaquina()
         {
-            var result = new ServiceResult();
             try
             {
                 var list = _funcionesMaquinaRepository.List();
-                return result.Ok(list);
+                return list;
             }
             catch (Exception ex)
             {
-
-                return result.Error(ex.Message);
+                return Enumerable.Empty<tbFuncionesMaquina>();
             }
         }
+
 
         public ServiceResult InsertarFuncionesMaquina(tbFuncionesMaquina item)
         {
@@ -934,16 +943,17 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Lotes
-        public IEnumerable<tbLotes> ListarLotes()
+        public ServiceResult ListarLotes()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _lotesRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbLotes>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -1138,18 +1148,20 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Maquinas
-        public IEnumerable<tbMaquinas> ListarMaquinas()
+        public ServiceResult ListarMaquinas()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _maquinasRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbMaquinas>();
+                return result.Error(ex.Message);
             }
         }
+
 
         public ServiceResult InsertarMaquinas(tbMaquinas item)
         {
@@ -1240,18 +1252,20 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Marcas Maquina
-        public IEnumerable<tbMarcasMaquina> ListarMarcasMaquina()
+        public ServiceResult ListarMarcasMaquina()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _marcasMaquinaRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbMarcasMaquina>();
+                return result.Error(ex.Message);
             }
         }
+
 
         public ServiceResult InsertarMarcasMaquina(tbMarcasMaquina item)
         {
@@ -1342,16 +1356,17 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Materiales Brindados
-        public IEnumerable<tbMaterialesBrindar> ListarMaterialesBrindados()
+        public ServiceResult ListarMaterialesBrindados()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _materialesBrindarRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbMaterialesBrindar>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -1444,16 +1459,17 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Materiales
-        public IEnumerable<tbMateriales> ListarMateriales()
+        public ServiceResult ListarMateriales()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _materialesRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbMateriales>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -1546,16 +1562,17 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Modelos Maquina
-        public IEnumerable<tbModelosMaquina> ListarModelosMaquina()
+        public ServiceResult ListarModelosMaquina()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _modelosMaquinaRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbModelosMaquina>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -1646,7 +1663,6 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             }
         }
         #endregion
-
         #region Modulos
         public IEnumerable<tbModulos> ListarModulos()
         {
@@ -1750,7 +1766,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region orde_Ensa_Acab_EtiqRepository
-        public IEnumerable<tbOrde_Ensa_Acab_Etiq> Listarorde_Ensa_Acab_EtiqRepository()
+        public IEnumerable<tbOrde_Ensa_Acab_Etiq> Listarorde_Ensa_Acab_Etiq()
         {
             try
             {
@@ -1763,7 +1779,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             }
         }
 
-        public ServiceResult InsertarModelos(tbOrde_Ensa_Acab_Etiq item)
+        public ServiceResult Insertarorde_Ensa_Acab_Etiq(tbOrde_Ensa_Acab_Etiq item)
         {
             var result = new ServiceResult();
             try
@@ -1792,7 +1808,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             }
         }
 
-        public ServiceResult ActualizarModelos(tbOrde_Ensa_Acab_Etiq item)
+        public ServiceResult Actualizarorde_Ensa_Acab_Etiq(tbOrde_Ensa_Acab_Etiq item)
         {
             var result = new ServiceResult();
             try
@@ -1821,7 +1837,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             }
         }
 
-        public ServiceResult EliminarModelos(tbOrde_Ensa_Acab_Etiq item)
+        public ServiceResult Eliminarorde_Ensa_Acab_Etiq(tbOrde_Ensa_Acab_Etiq item)
         {
             var result = new ServiceResult();
             try
@@ -1852,11 +1868,11 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Orden Compra Detalles
-        public IEnumerable<tbOrdenCompraDetalles> ListarOrdenCompraDetalles()
+        public IEnumerable<tbOrdenCompraDetalles> ListarOrdenCompraDetalles(tbOrdenCompraDetalles item)
         {
             try
             {
-                var list = _ordenCompraDetallesRepository.List();
+                var list = _ordenCompraDetallesRepository.List(item);
                 return list;
             }
             catch (Exception ex)
@@ -2056,11 +2072,11 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Pedidos Orden Detalles
-        public IEnumerable<tbPedidosOrdenDetalle> ListarPedidosOrdenDetalle()
+        public IEnumerable<tbPedidosOrdenDetalle> ListarPedidosOrdenDetalle(tbPedidosOrdenDetalle item)
         {
             try
             {
-                var list = _pedidosOrdenDetallesRepository.List();
+                var list = _pedidosOrdenDetallesRepository.List(item);
                 return list;
             }
             catch (Exception ex)

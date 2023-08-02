@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.API.Controllers.ControllersGenerales
 {
+
+    [Route("api/[controller]")]
+    [ApiController]
+
     public class FormasEnvioController : Controller
     {
         private readonly GeneralServices _generalesServices;

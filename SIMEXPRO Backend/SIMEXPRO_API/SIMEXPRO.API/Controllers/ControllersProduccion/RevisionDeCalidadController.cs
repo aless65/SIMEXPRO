@@ -31,7 +31,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             var listadoMapeado = _mapper.Map<IEnumerable<RevisionDeCalidadViewModel>>(listado);
             return Ok(listadoMapeado);
         }
-        
+
         [HttpPost("Insert")]
         public IActionResult Insert(RevisionDeCalidadViewModel RevisionDeCalidadViewModel)
         {
@@ -39,7 +39,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             var respuesta = _produccionServices.InsertarRevisionDeCalidad(item);
             return Ok(respuesta);
         }
-       
+
         [HttpPost("Editar")]
         public IActionResult Editar(RevisionDeCalidadViewModel RevisionDeCalidadViewModel)
         {
@@ -48,6 +48,6 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        
+
     }
 }

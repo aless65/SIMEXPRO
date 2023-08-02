@@ -45,9 +45,9 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             return db.Query<tbReporteModuloDia>(ScriptsDataBase.ListarReporteModuloDia, null, commandType: CommandType.StoredProcedure);
         }
 
-      
 
-       
+
+
 
         public RequestStatus Update(tbReporteModuloDia item)
         {

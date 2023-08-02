@@ -10,6 +10,7 @@ namespace SIMEXPRO.Entities.Entities
     {
         public tbOrdenCompraDetalles()
         {
+            tbLotes = new HashSet<tbLotes>();
             tbMaterialesBrindar = new HashSet<tbMaterialesBrindar>();
             tbOrde_Ensa_Acab_Etiq = new HashSet<tbOrde_Ensa_Acab_Etiq>();
             tbReporteModuloDiaDetalle = new HashSet<tbReporteModuloDiaDetalle>();
@@ -44,6 +45,7 @@ namespace SIMEXPRO.Entities.Entities
         public virtual tbTallas tall { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }
+        public virtual ICollection<tbLotes> tbLotes { get; set; }
         public virtual ICollection<tbMaterialesBrindar> tbMaterialesBrindar { get; set; }
         public virtual ICollection<tbOrde_Ensa_Acab_Etiq> tbOrde_Ensa_Acab_Etiq { get; set; }
         public virtual ICollection<tbReporteModuloDiaDetalle> tbReporteModuloDiaDetalle { get; set; }

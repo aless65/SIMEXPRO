@@ -28,7 +28,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         [HttpGet("Listado")]
         public IActionResult Index()
         {
-            var listado = _generalesServices.ListarCiudades();
+            var listado = _generalesServices.ListarMonedas();
             var listadoMapeado = _mapper.Map<IEnumerable<MonedasViewModel>>(listado);
             return Ok(listadoMapeado);
         }

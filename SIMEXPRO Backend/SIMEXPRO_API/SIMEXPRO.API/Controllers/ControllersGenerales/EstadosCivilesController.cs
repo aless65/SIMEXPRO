@@ -27,7 +27,7 @@ namespace SIMEXPRO.API.Controllers
         }
 
 
-        [HttpGet("ListarEstadosCiviles")]
+        [HttpGet("Listar")]
         public IActionResult ListarEstadosCiviles()
         {
             var list = _generalesServices.ListarEstadosCiviles();

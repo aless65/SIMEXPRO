@@ -56,7 +56,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
             parametros.Add("@foen_Id", item.foen_Id, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@foen_Descripcion", item.foen_Descripcion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@foen_Descripcion", item.foen_Descripcion, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@foen_FechaModificacion", item.foen_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
             var answer = db.QueryFirst<int>(ScriptsDataBase.EditarFormasEnvio, parametros, commandType: CommandType.StoredProcedure);

@@ -3142,17 +3142,16 @@ END
 	
 
 
---EXEC adua.UDP_tbDeclaraciones_Valor_Tab1_Insertar 2, 1, '2023-07-12', 'NOMBRE DE RAZÓN JAJA NO SÉ XD', '0501-2005-632458', '05012005632458', 'dirección perrona', 2, 'empresa@empresa.com', '85478965', null, 2, null, 1, '2023-07-12'
+--EXEC adua.UDP_tbDeclaraciones_Valor_Tab1_Insertar 10, 5, '2023-07-12', 'NOMBRE DE RAZÓN JAJA NO SÉ XD', '0501-2005-632458', '05012005632458', 'dirección perrona', 2, 'empresa@empresa.com', '85478965', null, 2, null, 1, '2023-07-12'
 --GO
 
---EXEC adua.UDP_tbDeclaraciones_Valor_Tab2_Insertar 1, 'OTRA RAZÓN WTF', 'HOGAR DULCE HOGAR', 
---												3, 'asjds@sdl.com', '45874589', null, 2, null, 'MÁS NOMBRES WN', 
---												'CASA EVERYWHERE', 2, 'ASD@MSD.COM', '5874786554', null, 1, null, 1, '2023-07-20'
+--EXEC adua.UDP_tbDeclaraciones_Valor_Tab2_Insertar 1, 'OTRA RAZÓN WTF', 'HOGAR DULCE HOGAR', 3, 'asjds@sdl.com', '45874589', null, '1',2, null, 'MÁS NOMBRES WN', 'CASA EVERYWHERE', 2, 'ASD@MSD.COM', '5874786554', null, '2 ',1, null, 1, '2023-07-20'
+
 --GO
 
 --GO
---EXEC adua.UDP_tbDeclaraciones_Valor_Tab3_Insertar 1, 'lolol' , 2, 2, '??', null, '2023-03-01', 2, null, 1, 6, null, 1, 10, 
---													'2023-05-02', 5, null, null, 1, '2023-07-22 22:59:01'
+--EXEC adua.UDP_tbDeclaraciones_Valor_Tab3_Insertar 1, 'lolol' , 2, 2, '??', null, '2023-03-01', 2, null, 1, 6, null, 1, 10, '2023-05-02', 5, null, null, 1, '2023-07-22 22:59:01'
+
 --EXEC Adua.UDP_tbFacturas_Insertar 1, '2023-05-21', 1, '2023-07-23 01:11:45'
 --EXEC Adua.UDP_tbItems_Insertar 1, 4, 25, 28, 4, 'IDENTIFICACIÓN NI IDEA DE QUIÉN SOS', 'CARACTERÍSTICAS DE MI PRODUCTO UWUWUW CARACARACRACARA', 'NISSAN', 'VALOLOL', 2, 25, '123.324.24.255.1', 451.15, null, null, null, null, null, null, null, null, 1, '2023-07-23 01:11:45'
 --EXEC Adua.UDP_tbItems_Editar 1, 1, 4, 25, 28, 4, 'PIPIPIPI', 'EDITANDO TODO PAPÁ', 'O CHEVROLET?', 'LOLSIOTO', 1, 42, '723.324.24.255.1', 485, 4582, 1111, null, 222, 5555, 145, 25, null, 1, '2023-07-23 01:11:45'

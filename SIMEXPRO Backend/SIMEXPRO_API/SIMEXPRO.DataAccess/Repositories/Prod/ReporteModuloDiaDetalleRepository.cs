@@ -32,7 +32,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@rdet_TotalDanado", item.rdet_TotalDanado, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@code_Id", item.code_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-           
+
             var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarReporteModuloDiaDetalle, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
             return result;
@@ -45,7 +45,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             return db.Query<tbReporteModuloDiaDetalle>(ScriptsDataBase.ListarReporteModuloDiaDetalle, null, commandType: CommandType.StoredProcedure);
         }
 
-      
+
         public RequestStatus Update(tbReporteModuloDiaDetalle item)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);

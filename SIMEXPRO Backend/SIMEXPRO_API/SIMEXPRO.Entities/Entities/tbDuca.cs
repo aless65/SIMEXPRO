@@ -11,6 +11,7 @@ namespace SIMEXPRO.Entities.Entities
         public tbDuca()
         {
             tbBoletinPago = new HashSet<tbBoletinPago>();
+            tbDocumentosDeSoporte = new HashSet<tbDocumentosDeSoporte>();
             tbLiquidacionGeneral = new HashSet<tbLiquidacionGeneral>();
             tbPedidosOrden = new HashSet<tbPedidosOrden>();
         }
@@ -49,6 +50,7 @@ namespace SIMEXPRO.Entities.Entities
         public int? duca_Conductor_Id { get; set; }
         public string duca_Codigo_Tipo_Documento { get; set; }
         public DateTime duca_FechaVencimiento { get; set; }
+        public string duca_CanalAsignado { get; set; }
         public int usua_UsuarioCreacion { get; set; }
         public DateTime duca_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
@@ -69,6 +71,7 @@ namespace SIMEXPRO.Entities.Entities
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbBoletinPago> tbBoletinPago { get; set; }
+        public virtual ICollection<tbDocumentosDeSoporte> tbDocumentosDeSoporte { get; set; }
         public virtual ICollection<tbLiquidacionGeneral> tbLiquidacionGeneral { get; set; }
         public virtual ICollection<tbPedidosOrden> tbPedidosOrden { get; set; }
     }

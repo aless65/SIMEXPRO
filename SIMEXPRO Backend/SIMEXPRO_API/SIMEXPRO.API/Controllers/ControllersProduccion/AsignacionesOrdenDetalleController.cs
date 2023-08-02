@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SIMEXPRO.API.Models.ModelsProduccion;
 using SIMEXPRO.BussinessLogic.Services.ProduccionServices;
+using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +25,37 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         }
 
 
+        [HttpGet("Listar")]
+        public IActionResult Index(int asor_Id)
+        {
+            var listado = _produccionServices.ListarAsignacionOrdenDetalle(asor_Id);
+            var listadoMapeado = _mapper.Map<IEnumerable<AsignacionesOrdenDetalleViewModel>>(listado.Data);
+            return Ok(listadoMapeado);
+        }
 
+        [HttpPost("Insert")]
+        public IActionResult Insert(AsignacionesOrdenDetalleViewModel asignacionesOrdenDetalleViewModel)
+        {
+            var item = _mapper.Map<tbAsignacionesOrdenDetalle>(asignacionesOrdenDetalleViewModel);
+            var respuesta = _produccionServices.InsertarAsignacionOrdenDetalle(item);
+            return Ok(respuesta);
+        }
+
+        [HttpPost("Update")]
+        public IActionResult Update(AsignacionesOrdenDetalleViewModel asignacionesOrdenDetalleViewModel)
+        {
+            var item = _mapper.Map<tbAsignacionesOrdenDetalle>(asignacionesOrdenDetalleViewModel);
+            var respuesta = _produccionServices.ActualizarAsignacionOrdenDetalle(item);
+            return Ok(respuesta);
+        }
+
+        [HttpPost("Delete")]
+        public IActionResult Delete(AsignacionesOrdenDetalleViewModel asignacionesOrdenDetalleViewModel)
+        {
+            var item = _mapper.Map<tbAsignacionesOrdenDetalle>(asignacionesOrdenDetalleViewModel);
+            var respuesta = _produccionServices.EliminarAsignacionOrdenDetalle(item);
+            return Ok(respuesta);
+        }
 
     }
 }

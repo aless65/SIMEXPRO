@@ -52,11 +52,13 @@ namespace SIMEXPRO.Entities.Entities
         public virtual tbAduanas deva_AduanaDespacho { get; set; }
         public virtual tbAduanas deva_AduanaIngreso { get; set; }
         public virtual tbLugaresEmbarque emba { get; set; }
+        public virtual tbFormas_Envio foen { get; set; }
         public virtual tbFormasdePago fopa { get; set; }
         public virtual tbImportadores impo { get; set; }
         public virtual tbIncoterm inco { get; set; }
         public virtual tbIntermediarios inte { get; set; }
         public virtual tbMonedas mone { get; set; }
+        public virtual tbPaises pais_Exportacion { get; set; }
         public virtual tbProveedoresDeclaracion pvde { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }

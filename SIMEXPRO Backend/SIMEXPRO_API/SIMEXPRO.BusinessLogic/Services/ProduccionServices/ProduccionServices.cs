@@ -1562,16 +1562,17 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Modelos Maquina
-        public IEnumerable<tbModelosMaquina> ListarModelosMaquina()
+        public ServiceResult ListarModelosMaquina()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _modelosMaquinaRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbModelosMaquina>();
+                return result.Error(ex.Message);
             }
         }
 

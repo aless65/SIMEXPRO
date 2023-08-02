@@ -43,6 +43,7 @@ namespace SIMEXPRO.Entities.Entities
 
         public virtual tbFacturas fact { get; set; }
         public virtual tbEstadoMercancias merc { get; set; }
+        public virtual tbPaises pais_IdOrigenMercanciaNavigation { get; set; }
         public virtual tbUnidadMedidas unme { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }

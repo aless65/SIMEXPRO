@@ -9,9 +9,11 @@
 		GO
 		DROP SCHEMA Gral
 		GO
-	*/
-
+		*/
+	/*
 	CREATE DATABASE SIMEXPRO
+	--Primero crear y luego correr scipt
+	*/
 	GO
 	USE SIMEXPRO
 	GO
@@ -764,30 +766,33 @@ CREATE TABLE Adua.tbDeclaraciones_Valor
 
 CREATE TABLE Adua.tbDeclaraciones_ValorHistorial
 (
-		hdev_Id 						INT IDENTITY(1,1),
-		deva_Id							INT,
-		deva_Aduana_Ingreso_Id 			INT 			NOT NULL, 
-		deva_Aduana_Despacho_Id 		INT 			NOT NULL,
-		deva_Declaracion_Mercancia 		NVARCHAR(500),
-		deva_Fecha_Aceptacion 			DATETIME,
+		hdev_Id							INT IDENTITY(1,1),
+		deva_Id 						INT,
+		deva_AduanaIngresoId 			INT NOT NULL, 
+		deva_AduanaDespachoId 			INT NOT NULL,
+		deva_DeclaracionMercancia 		NVARCHAR(500),
+		deva_FechaAceptacion 			DATETIME,
 		impo_Id 						INT,
 		pvde_Id 						INT,
 		inte_Id 						INT,
-		deva_Lugar_Entrega 				NVARCHAR(800),
+		deva_LugarEntrega 				NVARCHAR(800),
+		pais_EntregaId					INT,
 		inco_Id 						INT,
-		deva_numero_contrato 			NVARCHAR(200),
-		deva_Fecha_Contrato 			DATETIME,
+		inco_Version					NVARCHAR(10),
+		deva_NumeroContrato 			NVARCHAR(200),
+		deva_FechaContrato 				DATE,
 		foen_Id 						INT,
-		deva_Forma_Envio_Otra 			NVARCHAR(500),
-		deva_Pago_Efectuado 			BIT,
+		deva_FormaEnvioOtra 			NVARCHAR(500),
+		deva_PagoEfectuado 				BIT,
 		fopa_Id 						INT,
-		deva_Forma_Pago_Otra 			NVARCHAR(200),
+		deva_FormaPagoOtra	 			NVARCHAR(200),
 		emba_Id 						INT,
-		pais_Exportacion_Id 			INT,
-		deva_Fecha_Exportacion  		DATETIME,
+		--pais_Embarque_Id 				INT,
+		pais_ExportacionId 				INT,
+		deva_FechaExportacion  			DATE,
 		mone_Id 						INT,
 		mone_Otra 						NVARCHAR(200),
-		deva_Conversion_Dolares 		DECIMAL(18,2),
+		deva_ConversionDolares 			DECIMAL(18,2),
 		deva_Condiciones 				NVARCHAR(MAX),
 
 		hdev_UsuarioAccion 				INT,

@@ -4078,9 +4078,7 @@ BEGIN
 		DECLARE @decl_Id INT;
 		DECLARE @impo_Id INT;
 
-		IF NOT EXISTS (SELECT impo_RTN
-					   FROM [Adua].[tbImportadores]
-					   WHERE impo_RTN = @impo_RTN)
+		IF NOT EXISTS (SELECT impo_RTN FROM [Adua].[tbImportadores] WHERE impo_RTN = @impo_RTN)
 		BEGIN
 
 			EXEC adua.UDP_tbDeclarantes_Insertar @decl_Nombre_Raso,
@@ -4188,6 +4186,7 @@ BEGIN
 	BEGIN TRY
 		
 		DECLARE @decl_Id INT;
+		DECLARE @impo_Id INT
 
 		SET @decl_Id = (SELECT decl_Id
 						FROM Adua.tbImportadores
@@ -4195,30 +4194,68 @@ BEGIN
 										 FROM Adua.tbDeclaraciones_Valor
 										 WHERE deva_Id = @deva_Id))
 
-		EXEC adua.UDP_tbDeclarantes_Editar @decl_Id,
-										   @decl_Nombre_Raso,
-										   @decl_Direccion_Exacta,
-										   @ciud_Id,
-										   @decl_Correo_Electronico,
-										   @decl_Telefono,
-										   @decl_Fax,
-										   @impo_RTN,
-										   @usua_UsuarioModificacion,
-										   @deva_FechaModificacion
 
-		DECLARE @impo_Id INT = (SELECT impo_Id 
-								FROM Adua.tbDeclaraciones_Valor
-								WHERE deva_Id = @deva_Id)
+		IF EXISTS	(SELECT impo_RTN  FROM [Adua].[tbImportadores] WHERE impo_RTN = @impo_RTN) --Si existe el Importador se editara
+			BEGIN 
+				EXEC adua.UDP_tbDeclarantes_Editar @decl_Id,
+												   @decl_Nombre_Raso,
+												   @decl_Direccion_Exacta,
+												   @ciud_Id,
+												   @decl_Correo_Electronico,
+												   @decl_Telefono,
+												   @decl_Fax,
+												   @impo_RTN,
+												   @usua_UsuarioModificacion,
+												   @deva_FechaModificacion
 
-		UPDATE Adua.tbImportadores
-		SET		nico_Id = @nico_Id, 
-			    decl_Id = @decl_Id, 
-			    impo_NivelComercial_Otro = @impo_NivelComercial_Otro, 
-			    impo_RTN = @impo_RTN, 
-			    impo_NumRegistro = @impo_NumRegistro, 
-			    usua_UsuarioModificacion = @usua_UsuarioModificacion, 
-			    impo_FechaModificacion = @deva_FechaModificacion
-		WHERE impo_Id = @impo_Id
+				SET @impo_Id  = (SELECT impo_Id 
+										FROM Adua.tbDeclaraciones_Valor
+										WHERE deva_Id = @deva_Id)
+
+				UPDATE Adua.tbImportadores
+				SET		nico_Id = @nico_Id, 
+						decl_Id = @decl_Id, 
+						impo_NivelComercial_Otro = @impo_NivelComercial_Otro, 
+						impo_RTN = @impo_RTN, 
+						impo_NumRegistro = @impo_NumRegistro, 
+						usua_UsuarioModificacion = @usua_UsuarioModificacion, 
+						impo_FechaModificacion = @deva_FechaModificacion
+				WHERE	impo_Id = @impo_Id
+			END
+			ELSE -- Sino existe se agregara como un nuevo registro
+
+				BEGIN
+
+					EXEC adua.UDP_tbDeclarantes_Insertar @decl_Nombre_Raso,
+											     @decl_Direccion_Exacta,
+											     @ciud_Id,
+											     @decl_Correo_Electronico,
+											     @decl_Telefono,
+											     @decl_Fax,
+											     @usua_UsuarioModificacion,
+											     @deva_FechaModificacion,
+											     @impo_RTN,
+											     @decl_Id OUTPUT
+			
+
+					INSERT INTO Adua.tbImportadores(nico_Id, 
+												decl_Id, 
+												impo_NivelComercial_Otro, 
+												impo_RTN, 
+												impo_NumRegistro, 
+												usua_UsuarioCreacion, 
+												impo_FechaCreacion)
+										VALUES(@nico_Id, 
+											   @decl_Id,
+											   @impo_NivelComercial_Otro,
+											   @impo_RTN,
+											   @impo_NumRegistro,
+											   @usua_UsuarioModificacion,
+											   @deva_FechaModificacion)
+
+					SET @impo_Id = SCOPE_IDENTITY()
+				END
+		
 
 
 		UPDATE Adua.tbDeclaraciones_Valor
@@ -4329,60 +4366,80 @@ BEGIN
 		DECLARE @prov_decl_Id INT;
 		DECLARE @inte_decl_Id INT;
 		DECLARE @inte_Id INT;
+		DECLARE @prov_Id INT
+
+			IF NOT EXISTS ( SELECT decl_Id FROM [Adua].tbDeclarantes WHERE decl_NumeroIdentificacion = @prov_RTN)
+				BEGIN
+					EXEC adua.UDP_tbDeclarantes_Insertar @prov_decl_Nombre_Raso,
+													   @prov_decl_Direccion_Exacta,
+													   @prov_ciud_Id,
+													   @prov_decl_Correo_Electronico,
+													   @prov_decl_Telefono,
+													   @prov_decl_Fax,
+													   @usua_UsuarioCreacion,
+													   @deva_FechaCreacion,
+													   @prov_RTN,
+													   @prov_decl_Id OUTPUT
+
+					INSERT INTO Adua.tbProveedoresDeclaracion(	 coco_Id, 
+																  pvde_Condicion_Otra, 
+																  decl_Id, 
+																  usua_UsuarioCreacion, 
+																  pvde_FechaCreacion)
+															VALUES(@coco_Id, 
+																   @pvde_Condicion_Otra,
+																   @prov_decl_Id,
+																   @usua_UsuarioCreacion,
+																   @deva_FechaCreacion)
+
+					SET @prov_Id = SCOPE_IDENTITY()
+				END
+			ELSE
+				BEGIN
+					SET @prov_Id = (SELECT  pvde_Id
+								   FROM Adua.tbProveedoresDeclaracion
+								   WHERE pvde_Id = @prov_RTN)
+				END
 		
-		EXEC adua.UDP_tbDeclarantes_Insertar @prov_decl_Nombre_Raso,
-										   @prov_decl_Direccion_Exacta,
-										   @prov_ciud_Id,
-										   @prov_decl_Correo_Electronico,
-										   @prov_decl_Telefono,
-										   @prov_decl_Fax,
-										   @usua_UsuarioCreacion,
-										   @deva_FechaCreacion,
-										   @prov_RTN,
-										   @prov_decl_Id OUTPUT
-
-		INSERT INTO Adua.tbProveedoresDeclaracion(coco_Id, 
-													  pvde_Condicion_Otra, 
-													  decl_Id, 
-													  usua_UsuarioCreacion, 
-													  pvde_FechaCreacion)
-		VALUES(@coco_Id, 
-			   @pvde_Condicion_Otra,
-			   @prov_decl_Id,
-			   @usua_UsuarioCreacion,
-			   @deva_FechaCreacion)
-
-		DECLARE @prov_Id INT = SCOPE_IDENTITY()
+		
 
 		IF(@inte_decl_Nombre_Raso IS NOT NULL)
 			BEGIN
 
-				EXEC adua.UDP_tbDeclarantes_Insertar @inte_decl_Nombre_Raso,
-												   @inte_decl_Direccion_Exacta,
-												   @inte_ciud_Id,
-												   @inte_decl_Correo_Electronico,
-												   @inte_decl_Telefono,
-												   @inte_decl_Fax,
-												   @usua_UsuarioCreacion,
-												   @deva_FechaCreacion,
-												   @inte_RTN,
-												   @inte_decl_Id OUTPUT
+				IF NOT EXISTS (SELECT decl_Id FROM [Adua].tbDeclarantes WHERE decl_NumeroIdentificacion = @inte_RTN)
+					BEGIN
+						EXEC adua.UDP_tbDeclarantes_Insertar @inte_decl_Nombre_Raso,
+																@inte_decl_Direccion_Exacta,
+																@inte_ciud_Id,
+																@inte_decl_Correo_Electronico,
+																@inte_decl_Telefono,
+																@inte_decl_Fax,
+																@usua_UsuarioCreacion,
+																@deva_FechaCreacion,
+																@inte_RTN,
+																@inte_decl_Id OUTPUT
 
 
-				INSERT INTO Adua.tbIntermediarios(tite_Id, 
-													  inte_Tipo_Otro,
-													  decl_Id, 
-													  usua_UsuarioCreacion, 
-													  inte_FechaCreacion)
-				VALUES (@tite_Id, 
-						@inte_Tipo_Otro, 
-						@inte_decl_Id,
-						@usua_UsuarioCreacion,
-						@deva_FechaCreacion)
+							INSERT INTO Adua.tbIntermediarios(		tite_Id, 
+																	inte_Tipo_Otro,
+																	decl_Id, 
+																	usua_UsuarioCreacion, 
+																	inte_FechaCreacion)
+															VALUES (@tite_Id, 
+																	@inte_Tipo_Otro, 
+																	@inte_decl_Id,
+																	@usua_UsuarioCreacion,
+																	@deva_FechaCreacion)
 
-				SET @inte_Id = SCOPE_IDENTITY()
-				
-			END
+							SET @inte_Id = SCOPE_IDENTITY()
+					END
+				ELSE
+					BEGIN
+						SET @inte_Id = (SELECT inte_Id 
+									   FROM Adua.tbIntermediarios
+									   WHERE inte_Id =  @inte_RTN)
+					END
+			 END
 
 		UPDATE Adua.tbDeclaraciones_Valor
 		SET inte_Id = @inte_Id,
@@ -4424,6 +4481,7 @@ BEGIN
 	END CATCH
 END
 
+
 GO
 CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab2_Editar
 	@deva_Id						INT,
@@ -4462,55 +4520,124 @@ BEGIN
 									 WHERE inte_Id = (SELECT inte_Id
 													  FROM Adua.tbDeclaraciones_Valor
 													  WHERE deva_Id = @deva_Id));
-		
-		EXEC adua.UDP_tbDeclarantes_Editar @prov_decl_Id,
-										   @prov_decl_Nombre_Raso,
-										   @prov_decl_Direccion_Exacta,
-										   @prov_ciud_Id,
-										   @prov_decl_Correo_Electronico,
-										   @prov_decl_Telefono,
-										   @prov_decl_Fax,
-										   @prov_RTN,
-										   @usua_UsuarioModificacion,
-										   @deva_FechaModificacion
+		DECLARE @pvde_Id INT
+		DECLARE @inte_Id INT
 
-		DECLARE @pvde_Id INT = (SELECT pvde_Id
+		-- SI EXISTE UN PROVEEDOR CON ESE ID SE EDITA
+		IF EXISTS (SELECT decl_Id FROM [Adua].tbDeclarantes WHERE decl_NumeroIdentificacion = @prov_RTN)
+			BEGIN
+				EXEC adua.UDP_tbDeclarantes_Editar @prov_decl_Id,
+												   @prov_decl_Nombre_Raso,
+												   @prov_decl_Direccion_Exacta,
+												   @prov_ciud_Id,
+												   @prov_decl_Correo_Electronico,
+												   @prov_decl_Telefono,
+												   @prov_decl_Fax,
+												   @prov_RTN,
+												   @usua_UsuarioModificacion,
+												   @deva_FechaModificacion
+
+				SET @pvde_Id  = (SELECT pvde_Id
 								FROM Adua.tbDeclaraciones_Valor
 								WHERE deva_Id = @deva_Id)
 
-		UPDATE Adua.tbProveedoresDeclaracion
-		SET coco_Id = @coco_Id, 
-			pvde_Condicion_Otra = @pvde_Condicion_Otra, 
-			decl_Id = @prov_decl_Id, 
-			usua_UsuarioModificacion = @usua_UsuarioModificacion, 
-			pvde_FechaModificacion = @deva_FechaModificacion
-		WHERE pvde_Id = @pvde_Id
+				UPDATE Adua.tbProveedoresDeclaracion
+				SET coco_Id = @coco_Id, 
+					pvde_Condicion_Otra = @pvde_Condicion_Otra, 
+					decl_Id = @prov_decl_Id, 
+					usua_UsuarioModificacion = @usua_UsuarioModificacion, 
+					pvde_FechaModificacion = @deva_FechaModificacion
+				WHERE pvde_Id = @pvde_Id
+		
+			END
+			ELSE -- SI NO EXISTE UN PROVEEDOR CON ESE ID SE INSERTA
+				BEGIN
 
+					EXEC adua.UDP_tbDeclarantes_Insertar @prov_decl_Nombre_Raso,
+													   @prov_decl_Direccion_Exacta,
+													   @prov_ciud_Id,
+													   @prov_decl_Correo_Electronico,
+													   @prov_decl_Telefono,
+													   @prov_decl_Fax,
+													   @usua_UsuarioModificacion,
+													   @deva_FechaModificacion,
+													   @prov_RTN,
+													   @prov_decl_Id OUTPUT
+
+					INSERT INTO Adua.tbProveedoresDeclaracion(	 coco_Id, 
+																  pvde_Condicion_Otra, 
+																  decl_Id, 
+																  usua_UsuarioCreacion, 
+																  pvde_FechaCreacion)
+															VALUES(@coco_Id, 
+																   @pvde_Condicion_Otra,
+																   @prov_decl_Id,
+																   @usua_UsuarioModificacion,
+																	@deva_FechaModificacion)
+
+					SET @pvde_Id = SCOPE_IDENTITY()	
+				END
+
+
+		
 
 		IF(@inte_decl_Nombre_Raso IS NOT NULL)
 			BEGIN
-				EXEC adua.UDP_tbDeclarantes_Editar @inte_decl_Id,
-										   @inte_decl_Nombre_Raso,
-										   @inte_decl_Direccion_Exacta,
-										   @inte_ciud_Id,
-										   @inte_decl_Correo_Electronico,
-										   @inte_decl_Telefono,
-										   @inte_decl_Fax,
-										   @inte_RTN,
-										   @usua_UsuarioModificacion,
-										   @deva_FechaModificacion
+				-- SI EXISTE UN INTERMEDIARIO CON ESE ID SE EDITA
+				IF EXISTS	(SELECT decl_Id FROM [Adua].tbDeclarantes WHERE decl_NumeroIdentificacion = @inte_RTN)
+					BEGIN
 
-				DECLARE @inte_Id INT = (SELECT inte_Id
-										FROM Adua.tbDeclaraciones_Valor
-										WHERE deva_Id = @deva_Id)
+							EXEC adua.UDP_tbDeclarantes_Editar @inte_decl_Id,
+													   @inte_decl_Nombre_Raso,
+													   @inte_decl_Direccion_Exacta,
+													   @inte_ciud_Id,
+													   @inte_decl_Correo_Electronico,
+													   @inte_decl_Telefono,
+													   @inte_decl_Fax,
+													   @inte_RTN,
+													   @usua_UsuarioModificacion,
+													   @deva_FechaModificacion
 
-				UPDATE Adua.tbIntermediarios
-				SET tite_Id = @tite_Id, 
-					inte_Tipo_Otro = @inte_Tipo_Otro,
-					decl_Id = @inte_decl_Id, 
-					usua_UsuarioModificacion = @usua_UsuarioModificacion,
-					inte_FechaModificacion = @deva_FechaModificacion
-				WHERE inte_Id = @inte_Id
+							SET @inte_Id = (SELECT inte_Id
+													FROM Adua.tbDeclaraciones_Valor
+													WHERE deva_Id = @deva_Id)
+
+							UPDATE Adua.tbIntermediarios
+							SET tite_Id = @tite_Id, 
+								inte_Tipo_Otro = @inte_Tipo_Otro,
+								decl_Id = @inte_decl_Id, 
+								usua_UsuarioModificacion = @usua_UsuarioModificacion,
+								inte_FechaModificacion = @deva_FechaModificacion
+							WHERE inte_Id = @inte_Id
+
+					END
+					ELSE -- SI NO EXISTE UN INTERMEDIARIO CON ESE ID SE SE NSERTA
+						BEGIN
+							EXEC adua.UDP_tbDeclarantes_Insertar @inte_decl_Nombre_Raso,
+																@inte_decl_Direccion_Exacta,
+																@inte_ciud_Id,
+																@inte_decl_Correo_Electronico,
+																@inte_decl_Telefono,
+																@inte_decl_Fax,
+																@usua_UsuarioModificacion,
+																@deva_FechaModificacion,
+																@inte_RTN,
+																@inte_decl_Id OUTPUT
+
+
+							INSERT INTO Adua.tbIntermediarios(		tite_Id, 
+																	inte_Tipo_Otro,
+																	decl_Id, 
+																	usua_UsuarioCreacion, 
+																	inte_FechaCreacion)
+															VALUES (@tite_Id, 
+																	@inte_Tipo_Otro, 
+																	@inte_decl_Id,
+																	@usua_UsuarioModificacion,
+																	@deva_FechaModificacion)
+
+							SET @inte_Id = SCOPE_IDENTITY()
+						END
 
 		END
 

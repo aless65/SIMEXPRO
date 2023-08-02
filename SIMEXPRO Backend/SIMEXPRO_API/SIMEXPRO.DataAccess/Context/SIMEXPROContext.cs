@@ -4690,10 +4690,6 @@ namespace SIMEXPRO.DataAccess.Context
 
                 entity.Property(e => e.usua_Contrasenia).IsRequired();
 
-                entity.Property(e => e.usua_Correo)
-                    .IsRequired()
-                    .HasMaxLength(200);
-
                 entity.Property(e => e.usua_Estado).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.usua_FechaCreacion).HasColumnType("datetime");

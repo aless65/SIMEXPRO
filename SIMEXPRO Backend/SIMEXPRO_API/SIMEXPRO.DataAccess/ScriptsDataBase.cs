@@ -16,6 +16,9 @@ namespace SIMEXPRO.DataAccess
         public static string InsertarUsuarios = "acce.UDP_tbUsuarios_Insertar";
         public static string EditarUsuarios = "acce.UDP_tbUsuarios_Editar";
         public static string EliminarUsuarios = "acce.UDP_tbUsuarios_Eliminar";
+
+        public static string CorreoSegunUsuario = "acce.UDP_CorreoUsuario";
+        public static string CambiarContrasenia = "acce.UDP_CambiarContrasena";
         #endregion
 
         #region Pantallas

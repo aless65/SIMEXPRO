@@ -51,7 +51,36 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
             }
         }
 
+        [HttpGet("UsuarioCorreo")]
+        public IActionResult UsuarioCorreo(string usua_Nombre)
+        {
+            var respuesta = _accesoServices.UsuarioCorreo(usua_Nombre);
 
+            if (respuesta.Code == 200)
+            {
+                return Ok(respuesta);
+            }
+            else
+            {
+                return NotFound(respuesta);
+            }
+        }
+
+        [HttpPost("CambiarContrasenia")]
+        public IActionResult CambiarContrasenia(UsuariosViewModel item)
+        {
+            var mapped = _mapper.Map<tbUsuarios>(item);
+            var respuesta = _accesoServices.CambiarContrasenia(mapped);
+
+            if (respuesta.Code == 200)
+            {
+                return Ok(respuesta);
+            }
+            else
+            {
+                return BadRequest(respuesta);
+            }
+        }
 
         [HttpPost("Insertar")]
         public IActionResult Insertar(UsuariosViewModel usuarios)

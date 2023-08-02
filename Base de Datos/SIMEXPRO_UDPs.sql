@@ -64,52 +64,52 @@ GO
 --************USUARIOS******************--
 
 /*Vista usuarios*/
-CREATE OR ALTER VIEW acce.VW_tbUsuarios
-AS
-	SELECT usua.usua_Id AS usuarioId, 
-		   usua.usua_Nombre AS usuarioNombre, 
-		   usua.usua_Contrasenia AS usuarioContrasenia, 
-		   usua.usua_Correo AS usuarioCorreo, 
-		   usua.role_Id AS rolId,
-		   rol.role_Descripcion AS rolDescripcion, 
-		   usua.usua_EsAdmin,
-		   usua.empl_Id AS empleadoId,
-		   (empl_Nombres + ' ' + empl_Apellidos) AS empleadoNombreCompleto, 
-		   usua.usua_UsuarioCreacion AS usuarioCreacion, 
-		   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
-		   usua.usua_FechaCreacion AS usuarioFechaCreacion, 
-	       usua.usua_UsuarioModificacion AS usuarioModificacion, 
-		   usuaModifica.usua_Nombre AS usuarioModificacionNombre, 
-		   usua.usua_FechaModificacion AS usuarioFechaModificacion,
-		   usuaElimina.usua_Nombre AS usuarioEliminacionNombre, 
-		   usua.usua_FechaEliminacion AS usuarioFechaEliminacion,
-		   usua.usua_Estado AS usuarioEstado,
-		   empl.empl_CorreoElectronico AS empleadoCorreoElectronico	
-		   FROM Acce.tbUsuarios usua LEFT JOIN Acce.tbRoles rol
-		   ON usua.role_Id = rol.role_Id
-		   LEFT JOIN Gral.tbEmpleados empl
-		   ON empl.empl_Id = usua.empl_Id 
-		   LEFT JOIN acce.tbUsuarios usuaCrea
-		   ON usua.usua_UsuarioCreacion = usuaCrea.usua_Id
-		   LEFT JOIN acce.tbUsuarios usuaModifica
-		   ON usua.usua_UsuarioModificacion = usuaModifica.usua_Id LEFT JOIN acce.tbUsuarios usuaElimina
-		   ON usua.usua_UsuarioEliminacion = usuaElimina.usua_Id
+--CREATE OR ALTER VIEW acce.VW_tbUsuarios
+--AS
+--	SELECT usua.usua_Id AS usuarioId, 
+--		   usua.usua_Nombre AS usuarioNombre, 
+--		   usua.usua_Contrasenia AS usuarioContrasenia, 
+--		   usua.usua_Correo AS usuarioCorreo, 
+--		   usua.role_Id AS rolId,
+--		   rol.role_Descripcion AS rolDescripcion, 
+--		   usua.usua_EsAdmin,
+--		   usua.empl_Id AS empleadoId,
+--		   (empl_Nombres + ' ' + empl_Apellidos) AS empleadoNombreCompleto, 
+--		   usua.usua_UsuarioCreacion AS usuarioCreacion, 
+--		   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
+--		   usua.usua_FechaCreacion AS usuarioFechaCreacion, 
+--	       usua.usua_UsuarioModificacion AS usuarioModificacion, 
+--		   usuaModifica.usua_Nombre AS usuarioModificacionNombre, 
+--		   usua.usua_FechaModificacion AS usuarioFechaModificacion,
+--		   usuaElimina.usua_Nombre AS usuarioEliminacionNombre, 
+--		   usua.usua_FechaEliminacion AS usuarioFechaEliminacion,
+--		   usua.usua_Estado AS usuarioEstado,
+--		   empl.empl_CorreoElectronico AS empleadoCorreoElectronico	
+--		   FROM Acce.tbUsuarios usua LEFT JOIN Acce.tbRoles rol
+--		   ON usua.role_Id = rol.role_Id
+--		   LEFT JOIN Gral.tbEmpleados empl
+--		   ON empl.empl_Id = usua.empl_Id 
+--		   LEFT JOIN acce.tbUsuarios usuaCrea
+--		   ON usua.usua_UsuarioCreacion = usuaCrea.usua_Id
+--		   LEFT JOIN acce.tbUsuarios usuaModifica
+--		   ON usua.usua_UsuarioModificacion = usuaModifica.usua_Id LEFT JOIN acce.tbUsuarios usuaElimina
+--		   ON usua.usua_UsuarioEliminacion = usuaElimina.usua_Id
 		   
-GO
+--GO
 
 /*Listar Usuarios*/
-CREATE OR ALTER PROCEDURE acce.UDP_VW_tbUsuarios_Listar
+CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Listar
 AS
 BEGIN
 	SELECT usua.usua_Id, 
 		   usua.usua_Nombre, 
 		   usua.usua_Contrasenia, 
-		   usua.usua_Correo, 
 		   usua.role_Id,
 		   rol.role_Descripcion, 
 		   usua.usua_EsAdmin,
 		   usua.empl_Id,
 		   (empl_Nombres + ' ' + empl_Apellidos) AS empleadoNombreCompleto, 
+		   empl_CorreoElectronico,
 		   usua.usua_UsuarioCreacion, 
 		   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
 		   usua.usua_FechaCreacion, 
@@ -134,14 +134,13 @@ BEGIN
 END
 --GO
 
---EXEC acce.UDP_tbUsuarios_Insertar 'juan', '123', 'skf@ks.com', 1, '', 1, 1, 1,'2023-08-13'
+--EXEC acce.UDP_tbUsuarios_Insertar 'juan', '123', 1, '', 1, 1, 1,'2023-08-13'
 
 /*Insertar Usuarios*/
 GO
 CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Insertar
 	@usua_Nombre			NVARCHAR(150),
 	@usua_Contrasenia		NVARCHAR(MAX),
-	@usua_Correo			NVARCHAR(200),
 	@empl_Id				INT,
 	@usua_Image				NVARCHAR(500),
 	@role_Id				INT, 
@@ -164,7 +163,6 @@ BEGIN
 			UPDATE acce.tbUsuarios
 			SET	   usua_Estado = 1,
 				   usua_Contrasenia = @password,
-				   usua_Correo = @usua_Correo,
 				   empl_Id = @empl_Id,
 				   usua_Image = @usua_Image,
 				   role_Id = @role_Id,
@@ -178,7 +176,6 @@ BEGIN
 			BEGIN
 				INSERT INTO acce.tbUsuarios (usua_Nombre, 
 											 usua_Contrasenia, 
-											 usua_Correo, 
 											 empl_Id, 
 											 usua_Image, 
 											 role_Id, 
@@ -187,7 +184,6 @@ BEGIN
 											 usua_FechaCreacion)
 			VALUES(@usua_Nombre,
 					@password,
-					@usua_Correo,
 					@empl_Id,
 					@usua_Image,
 					@role_Id,
@@ -203,7 +199,6 @@ BEGIN
 			INSERT INTO acce.tbUsuariosHistorial (usua_Id,
 												  usua_Nombre, 
 												  usua_Contrasenia, 
-												  usua_Correo, 
 												  empl_Id, 
 												  usua_Image, 
 												  role_Id, 
@@ -214,7 +209,6 @@ BEGIN
 			VALUES( @usua_Id,
 					@usua_Nombre,
 					@password,
-					@usua_Correo,
 					@empl_Id,
 					@usua_Image,
 					@role_Id,
@@ -233,7 +227,6 @@ GO
 CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Editar
 	@usua_Id					INT,
 	@usua_Contrasenia			NVARCHAR(MAX),
-	@usua_Correo				NVARCHAR(200),
 	@empl_Id					INT,
 	@usua_Image					NVARCHAR(500),
 	@role_Id					INT, 
@@ -244,8 +237,7 @@ AS
 BEGIN
 	BEGIN TRY
 		UPDATE  acce.tbUsuarios
-		SET		usua_Correo = @usua_Correo,
-				empl_Id = @empl_Id,
+		SET		empl_Id = @empl_Id,
 				usua_Image = @usua_Image,
 				role_Id = @role_Id,
 				usua_EsAdmin = @usua_EsAdmin,
@@ -256,7 +248,6 @@ BEGIN
 		INSERT INTO acce.tbUsuariosHistorial (	usua_Id,
 												usua_Nombre, 
 												usua_Contrasenia, 
-												usua_Correo, 
 												empl_Id, 
 												usua_Image, 
 												role_Id, 
@@ -267,7 +258,6 @@ BEGIN
 			SELECT usua_Id,
 				   usua_Nombre, 
 				   usua_Contrasenia, 
-				   @usua_Correo, 
 				   @empl_Id, 
 				   @usua_Image, 
 				   @role_Id, 
@@ -304,7 +294,6 @@ BEGIN
 		INSERT INTO acce.tbUsuariosHistorial (	usua_Id,
 												usua_Nombre, 
 												usua_Contrasenia, 
-												usua_Correo, 
 												empl_Id, 
 												usua_Image, 
 												role_Id, 
@@ -315,7 +304,6 @@ BEGIN
 			SELECT usua_Id,
 				   usua_Nombre, 
 				   usua_Contrasenia, 
-				   usua_Correo, 
 				   empl_Id, 
 				   usua_Image, 
 				   role_Id, 
@@ -546,9 +534,9 @@ BEGIN
 			BEGIN
 				SELECT usua_Id,
 					   usua_Nombre,
-					   usua_Correo,
 					   usua.empl_Id,
 					   CONCAT(empl.empl_Nombres, ' ', empl.empl_Apellidos) AS emplNombreCompleto,
+					   empl_CorreoElectronico,
 					   usua_Image,
 					   usua.role_Id,
 					   rol.role_Descripcion,
@@ -570,29 +558,35 @@ BEGIN
 END
 GO
 
---*************   Cambiar Contraseña  ****************
+--*************   Correo según usuario  ****************--
+CREATE OR ALTER PROCEDURE Acce.UDP_CorreoUsuario 
+	@usua_Nombre		NVARCHAR(100)
+AS
+BEGIN
+	SELECT empl_CorreoElectronico 
+	FROM (VALUES(NULL))V(N)
+	LEFT JOIN [Gral].[tbEmpleados] empl
+	INNER JOIN [Acce].[tbUsuarios] usua	ON empl.empl_Id = usua.empl_Id
+	ON usua_Nombre = @usua_Nombre
+	AND usua_Estado = 1
+END
+GO
 
-CREATE OR ALTER PROCEDURE Acce.UDP_CambiarContrasena /* 'juan', 'skf@ks.com', 'awsd' */
+
+--*************   Cambiar Contraseña  ****************
+CREATE OR ALTER PROCEDURE Acce.UDP_CambiarContrasena /*'juan', 'awsd' */
 	@usua_Nombre			NVARCHAR(150),
-	@usua_Correo			NVARCHAR(200),
 	@usua_Contrasenia		NVARCHAR(MAX)
 AS
 BEGIN
 	BEGIN TRY
-		IF EXISTS (SELECT * FROM Acce.tbUsuarios WHERE usua_Nombre = @usua_Nombre AND usua_Correo = @usua_Correo)
-			BEGIN 
-				DECLARE @NuevaContrasenaEncriptada NVARCHAR(MAX)=(SELECT HASHBYTES('SHA2_512', @usua_Contrasenia));
+		DECLARE @NuevaContrasenaEncriptada NVARCHAR(MAX)=(SELECT HASHBYTES('SHA2_512', @usua_Contrasenia));
 
-				UPDATE Acce.tbUsuarios
-				SET usua_Contrasenia = @NuevaContrasenaEncriptada
-				WHERE usua_Nombre = @usua_Nombre AND usua_Correo = @usua_Correo
+		UPDATE Acce.tbUsuarios
+		SET usua_Contrasenia = @NuevaContrasenaEncriptada
+		WHERE usua_Nombre = @usua_Nombre 
 
-				SELECT 1
-			END
-		ELSE
-			BEGIN
-				SELECT 0
-			END
+		SELECT 1
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()

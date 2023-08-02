@@ -50,6 +50,42 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
             }
         }
 
+        public ServiceResult UsuarioCorreo(string usua_Nombre)
+        {
+            var resultado = new ServiceResult();
+            try
+            {
+                var correo = _usuariosRepository.UsuarioCorreo(usua_Nombre);
+
+                if (correo.MessageStatus == null)
+                    return resultado.NotFound("El usuario no está disponible");
+                else
+                    return resultado.Ok(correo);
+            }
+            catch (Exception ex)
+            {
+                return resultado.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult CambiarContrasenia(tbUsuarios item)
+        {
+            var resultado = new ServiceResult();
+            try
+            {
+                var correo = _usuariosRepository.CambiarContrasenia(item);
+
+                if (correo.MessageStatus == "1")
+                    return resultado.Ok("La contraseña ha sido actualizada");
+                else
+                    return resultado.Error(correo);
+            }
+            catch (Exception ex)
+            {
+                return resultado.Error(ex.Message);
+            }
+        }
+
         public ServiceResult ListarUsuarios()
         {
             ServiceResult datos = new();

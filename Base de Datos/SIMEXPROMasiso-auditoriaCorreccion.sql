@@ -12,7 +12,7 @@
 		*/
 	/*
 	CREATE DATABASE SIMEXPRO
-	--Primero crear y luego correr scipt
+	--Primero crear y luego correr script
 	*/
 	GO
 	--USE SIMEXPRO
@@ -34,7 +34,7 @@ CREATE TABLE Acce.tbUsuarios(
 		usua_Id 					INT IDENTITY(1,1),
 		usua_Nombre					NVARCHAR(100) 	NOT NULL,
 		usua_Contrasenia			NVARCHAR(MAX) 	NOT NULL,
-		usua_Correo					NVARCHAR(200) 	NOT NULL,
+		--usua_Correo					NVARCHAR(200) 	NOT NULL,
 		empl_Id						INT 			NOT NULL,
 		usua_Image					NVARCHAR(500) 	NULL,
 		role_Id						INT				NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE Acce.tbUsuariosHistorial(
 		usua_Id 					INT,
 		usua_Nombre					NVARCHAR(100),
 		usua_Contrasenia			NVARCHAR(MAX),
-		usua_Correo					NVARCHAR(200),
+		--usua_Correo					NVARCHAR(200),
 		empl_Id						INT,
 		usua_Image					NVARCHAR(500),
 		role_Id						INT,
@@ -70,7 +70,7 @@ CREATE TABLE Acce.tbUsuariosHistorial(
 GO
 
 INSERT INTO Acce.tbUsuarios
-VALUES ('prueba', '123', 'ddd', 1, '.jpg', 1, 1, 1,1, NULL, NULL,NULL,NULL,1)
+VALUES ('prueba', '123', 1, '.jpg', 1, 1, 1,1, NULL, NULL,NULL,NULL,1)
 GO
 
 CREATE TABLE Acce.tbRoles
@@ -2490,12 +2490,56 @@ CREATE TABLE Prod.tbRevisionDeCalidad(
 	reca_Estado					BIT DEFAULT 1
 
 	CONSTRAINT PK_Prod_tbRevisiondeCalidad_reca_Id 										PRIMARY KEY (reca_Id),
-	CONSTRAINT FK_Prod_tbRevisionDeCalidad_reca_Orden 									FOREIGN KEY (ensa_Id) 		   REFERENCES Prod.tbOrde_Ensa_Acab_Etiq(ensa_Id),
+	CONSTRAINT FK_Prod_tbRevisionDeCalidad_reca_Orden 									FOREIGN KEY (ensa_Id) 					REFERENCES Prod.tbOrde_Ensa_Acab_Etiq(ensa_Id),
 	CONSTRAINT FK_Prod_tbRevisionDeCalidad_tbUsuarios_reca_UsuarioCreacion				FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios 	(usua_Id),
 	CONSTRAINT FK_Prod_tbRevisionDeCalidad_tbUsuarios_reca_UsuarioModificacion			FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios 	(usua_Id),
 	--CONSTRAINT FK_Prod_tbRevisionDeCalidad_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
+
+-----------------Factura de exportación-------------------
+CREATE TABLE Prod.tbFacturasExportacion(
+	faex_Id						INT IDENTITY(1,1), 
+	duca_No_Duca				NVARCHAR(100) NOT NULL,
+	faex_Fecha					DATETIME	  NOT NULL,
+	orco_Id						INT			  NOT NULL,
+	faex_Total					DECIMAL		  NOT NULL,
+
+	usua_UsuarioCreacion		INT NOT NULL,
+	faex_FechaCreacion			DATETIME NOT NULL,
+	usua_UsuarioModificacion	INT DEFAULT NULL,
+	faex_FechaModificacion		DATETIME DEFAULT NULL
+
+	CONSTRAINT PK_Prod_tbFacturasExportacion_faex_Id									PRIMARY KEY(faex_Id),
+	CONSTRAINT FK_Prod_tbFacturasExportacion_Adua_tbDuca								FOREIGN KEY(duca_No_Duca)			   REFERENCES Adua.tbDuca	    (duca_No_Duca),
+	CONSTRAINT FK_Prod_tbFacturasExportacion_tbOrdenCompra_orco_Id						FOREIGN KEY(orco_Id)				   REFERENCES Prod.tbOrdenCompra(orco_Id),
+	CONSTRAINT FK_Prod_tbFacturasExportacion_Acce_tbUsuarios_usua_UsuarioCreacion		FOREIGN KEY(usua_UsuarioCreacion)	   REFERENCES Acce.tbUsuarios   (usua_Id),	
+	CONSTRAINT FK_Prod_tbFacturasExportacion_Acce_tbUsuarios_usua_UsuarioModificacion	FOREIGN KEY(usua_UsuarioModificacion)  REFERENCES Acce.tbUsuarios   (usua_Id)
+);
+GO
+
+CREATE TABLE Prod.tbFacturasExportacionDetalles(
+	fede_Id						INT IDENTITY(1,1),
+	faex_Id						INT			  NOT NULL, 
+	code_Id						INT			  NOT NULL,
+	fede_Cajas					INT			  NOT NULL,
+	fede_Cantidad				DECIMAL(18,2) NOT NULL,
+	fede_PrecioUnitario			DECIMAL(18,2) NOT NULL,
+	fede_TotalDetalle			DECIMAL(18,2) NOT NULL,
+
+	usua_UsuarioCreacion		INT NOT NULL,
+	fede_FechaCreacion			DATETIME NOT NULL,
+	usua_UsuarioModificacion	INT DEFAULT NULL,
+	fede_FechaModificacion		DATETIME DEFAULT NULL
+
+	CONSTRAINT PK_Prod_tbFacturasExportacionDetalles_fede_Id									PRIMARY KEY(fede_Id),
+	CONSTRAINT FK_Prod_tbFacturasExportacionDetalles_tbFacturasExportacion_faex_Id				FOREIGN KEY(faex_Id)				   REFERENCES Prod.tbFacturasExportacion(faex_Id),
+	CONSTRAINT FK_Prod_tbFacturasExportacionDetalles_tbOrdenCompraDetalles_code_Id				FOREIGN KEY(code_Id)				   REFERENCES Prod.tbOrdenCompraDetalles(code_Id),
+	CONSTRAINT FK_Prod_tbFacturasExportacionDetalles_Acce_tbUsuarios_usua_UsuarioCreacion		FOREIGN KEY(usua_UsuarioCreacion)	   REFERENCES Acce.tbUsuarios			(usua_Id),	
+	CONSTRAINT FK_Prod_tbFacturasExportacionDetalles_Acce_tbUsuarios_usua_UsuarioModificacion	FOREIGN KEY(usua_UsuarioModificacion)  REFERENCES Acce.tbUsuarios			(usua_Id)
+);
+GO
+
 --Seccion pt2
 
 CREATE TABLE Adua.tbLiquidacionGeneral(

@@ -17,6 +17,7 @@ namespace SIMEXPRO.Entities.Entities
         public int lote_Id { get; set; }
         public int mate_Id { get; set; }
         public int unme_Id { get; set; }
+        public int? code_Id { get; set; }
         public int lote_Stock { get; set; }
         public int lote_CantIngresada { get; set; }
         public string lote_Observaciones { get; set; }
@@ -29,8 +30,8 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime? lote_FechaEliminacion { get; set; }
         public bool? lote_Estado { get; set; }
 
+        public virtual tbOrdenCompraDetalles code { get; set; }
         public virtual tbMateriales mate { get; set; }
-        public virtual tbArea tipa { get; set; }
         public virtual tbUnidadMedidas unme { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioEliminacionNavigation { get; set; }

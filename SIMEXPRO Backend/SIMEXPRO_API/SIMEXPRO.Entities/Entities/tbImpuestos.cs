@@ -8,11 +8,6 @@ namespace SIMEXPRO.Entities.Entities
 {
     public partial class tbImpuestos
     {
-        public tbImpuestos()
-        {
-            tbImpuestosPorArancel = new HashSet<tbImpuestosPorArancel>();
-        }
-
         public int impu_Id { get; set; }
         public string aran_Codigo { get; set; }
         public string impu_Descripcion { get; set; }
@@ -25,6 +20,5 @@ namespace SIMEXPRO.Entities.Entities
 
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }
-        public virtual ICollection<tbImpuestosPorArancel> tbImpuestosPorArancel { get; set; }
     }
 }

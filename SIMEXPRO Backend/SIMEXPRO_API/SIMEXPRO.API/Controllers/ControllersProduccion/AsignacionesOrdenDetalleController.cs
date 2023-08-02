@@ -25,7 +25,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         }
 
 
-        [HttpPut("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index(int asor_Id)
         {
             var listado = _produccionServices.ListarAsignacionOrdenDetalle(asor_Id);

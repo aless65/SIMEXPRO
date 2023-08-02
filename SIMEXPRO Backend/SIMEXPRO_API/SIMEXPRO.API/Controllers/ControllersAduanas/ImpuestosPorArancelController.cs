@@ -22,9 +22,9 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             _aduanaServices = AduanaServices;
             _mapper = mapper;
         }
-        
-        
-        //[HttpGet("Listado")]
+
+
+        //[HttpGet("Listar")]
         //public IActionResult Index()
         //{
         //    var listado = _aduanasServices();

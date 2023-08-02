@@ -30,9 +30,6 @@ namespace SIMEXPRO.Entities.Entities
         public bool? pers_Estado { get; set; }
 
         public virtual tbEstadosCiviles escv { get; set; }
-        public virtual tbOficinas ofic { get; set; }
-        public virtual tbOficio_Profesiones ofpr { get; set; }
-        public virtual tbOficio_Profesiones pers_OfprRepresentanteNavigation { get; set; }
         public virtual tbEstadosCiviles pers_escvRepresentanteNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }

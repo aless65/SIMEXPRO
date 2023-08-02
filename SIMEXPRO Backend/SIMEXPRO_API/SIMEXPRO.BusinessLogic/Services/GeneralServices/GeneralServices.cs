@@ -373,18 +373,20 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Colonias
-        public IEnumerable<tbColonias> ListarColonias()
+        public ServiceResult ListarColonias()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _coloniasRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbColonias>();
+                return result.Error(ex.Message);
             }
         }
+
 
         public ServiceResult InsertarColonias(tbColonias item)
         {

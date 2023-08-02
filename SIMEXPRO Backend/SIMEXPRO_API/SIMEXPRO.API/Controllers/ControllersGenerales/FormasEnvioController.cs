@@ -24,8 +24,9 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             _generalesServices = generalesService;
             _mapper = mapper;
         }
-
-        [HttpGet("Listar")]
+        
+        
+        [HttpGet("Listado")]
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarFormas_Envio();

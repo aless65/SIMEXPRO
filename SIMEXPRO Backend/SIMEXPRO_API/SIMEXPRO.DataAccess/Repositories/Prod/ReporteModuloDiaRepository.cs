@@ -45,11 +45,25 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             return db.Query<tbReporteModuloDia>(ScriptsDataBase.ListarReporteModuloDia, null, commandType: CommandType.StoredProcedure);
         }
 
-      
+
+
+
 
         public RequestStatus Update(tbReporteModuloDia item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@remo_Id", item.remo_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@modu_Id", item.modu_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@remo_Fecha", item.remo_Fecha, DbType.Date, ParameterDirection.Input);
+            parametros.Add("@remo_TotalDia", item.remo_TotalDia, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@remo_TotalDanado", item.remo_TotalDanado, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@remo_FechaModificacion", item.remo_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarReporteModuloDia, parametros, commandType: CommandType.StoredProcedure);
+            result.CodeStatus = answer;
+            return result;
         }
     }
 }

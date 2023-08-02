@@ -26,7 +26,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         }
 
 
-        [HttpGet("Listar")]
+        [HttpGet("Listado")]
         public IActionResult Index()
         {
             var listado = _produccionServices.ListarProcesos();

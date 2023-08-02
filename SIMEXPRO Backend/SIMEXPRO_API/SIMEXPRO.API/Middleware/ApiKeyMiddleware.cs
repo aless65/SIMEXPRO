@@ -86,7 +86,7 @@ namespace SIMEXPRO.API.Middleware
                 else
                 {
                     await _next(context);
-                    context.Response.Headers.Add("Authorization", "Bearer" + "no access");
+                    context.Response.Headers.Add("Authorization", "no access");
                 }
             }
 

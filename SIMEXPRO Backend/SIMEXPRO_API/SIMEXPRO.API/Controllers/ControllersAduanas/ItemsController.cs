@@ -23,7 +23,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             _mapper = mapper;
         }
 
-        [HttpPut("Listar")]
+        [HttpGet("Listar")]
         public IActionResult Index(ItemsViewModel concepto)
         {
 

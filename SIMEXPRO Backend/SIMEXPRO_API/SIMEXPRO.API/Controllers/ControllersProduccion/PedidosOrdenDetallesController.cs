@@ -24,7 +24,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             _mapper = mapper;
         }
 
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index(tbPedidosOrdenDetalle item)
         {
             var listado = _produccionServices.ListarPedidosOrdenDetalle(item);

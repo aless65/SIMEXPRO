@@ -2577,18 +2577,20 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Facturas
-        public IEnumerable<tbFacturas> ListarFacturas()
+        public IEnumerable<tbFacturas> ListarFacturas(tbFacturas item)
         {
             try
             {
-                var list = _facturasRepository.List();
+                var list = _facturasRepository.List(item);
                 return list;
             }
             catch (Exception ex)
             {
+
                 return Enumerable.Empty<tbFacturas>();
             }
         }
+
 
         public ServiceResult InsertarFacturas(tbFacturas item)
         {

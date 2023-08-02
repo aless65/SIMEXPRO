@@ -1,5 +1,5 @@
 using AutoMapper;
-using Events_Company_R.API.Extentions;
+//using Events_Company_R.API.Extentions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using SIMEXPRO.API.Extentions;
 using SIMEXPRO.API.Middleware;
 using SIMEXPRO.BussinessLogic;
 using System;

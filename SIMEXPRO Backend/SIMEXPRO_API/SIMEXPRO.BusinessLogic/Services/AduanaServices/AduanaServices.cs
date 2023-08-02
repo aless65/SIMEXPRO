@@ -2169,16 +2169,18 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Duca
-        public IEnumerable<tbDuca> ListarDuca()
+        public ServiceResult ListarDuca()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _ducaRepository.List();
-                return list;
+
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbDuca>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -2301,16 +2303,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region EstadoBoletin
-        public IEnumerable<tbEstadoBoletin> ListarEstadoBoletin()
+        public ServiceResult ListarEstadoBoletin()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _estadoBoletinRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbEstadoBoletin>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -2654,16 +2657,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region FormasdePago
-        public IEnumerable<tbFormasdePago> ListarFormasdePago()
+        public ServiceResult ListarFormasdePago()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _formasdePagoRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbFormasdePago>();
+                return result.Error(ex.Message);
             }
         }
 

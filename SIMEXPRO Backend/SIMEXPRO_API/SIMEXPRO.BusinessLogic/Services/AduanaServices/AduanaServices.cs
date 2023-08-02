@@ -3088,16 +3088,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Incoterm
-        public IEnumerable<tbIncoterm> ListarIncoterm()
+        public ServiceResult ListarIncoterm()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _incotermRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbIncoterm>();
+                return result.Error(ex.Message);
             }
         }
 

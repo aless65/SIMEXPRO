@@ -853,6 +853,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             }
         }
 
+
         public ServiceResult InsertarFuncionesMaquina(tbFuncionesMaquina item)
         {
             var result = new ServiceResult();
@@ -942,16 +943,17 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Lotes
-        public IEnumerable<tbLotes> ListarLotes()
+        public ServiceResult ListarLotes()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _lotesRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbLotes>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -1146,18 +1148,20 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Maquinas
-        public IEnumerable<tbMaquinas> ListarMaquinas()
+        public ServiceResult ListarMaquinas()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _maquinasRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbMaquinas>();
+                return result.Error(ex.Message);
             }
         }
+
 
         public ServiceResult InsertarMaquinas(tbMaquinas item)
         {
@@ -1248,18 +1252,20 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Marcas Maquina
-        public IEnumerable<tbMarcasMaquina> ListarMarcasMaquina()
+        public ServiceResult ListarMarcasMaquina()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _marcasMaquinaRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbMarcasMaquina>();
+                return result.Error(ex.Message);
             }
         }
+
 
         public ServiceResult InsertarMarcasMaquina(tbMarcasMaquina item)
         {
@@ -1350,16 +1356,17 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Materiales Brindados
-        public IEnumerable<tbMaterialesBrindar> ListarMaterialesBrindados()
+        public ServiceResult ListarMaterialesBrindados()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _materialesBrindarRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbMaterialesBrindar>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -1452,16 +1459,17 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Materiales
-        public IEnumerable<tbMateriales> ListarMateriales()
+        public ServiceResult ListarMateriales()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _materialesRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbMateriales>();
+                return result.Error(ex.Message);
             }
         }
 

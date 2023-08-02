@@ -9,9 +9,11 @@
 		GO
 		DROP SCHEMA Gral
 		GO
-	*/
-
+		*/
+	/*
 	CREATE DATABASE SIMEXPRO
+	--Primero crear y luego correr scipt
+	*/
 	GO
 	USE SIMEXPRO
 	GO
@@ -709,31 +711,31 @@ CREATE TABLE Adua.tbLugaresEmbarque
 CREATE TABLE Adua.tbDeclaraciones_Valor
 (
 		deva_Id 						INT IDENTITY(1,1),
-		deva_Aduana_Ingreso_Id 			INT NOT NULL, 
-		deva_Aduana_Despacho_Id 		INT NOT NULL,
-		deva_Declaracion_Mercancia 		NVARCHAR(500),
-		deva_Fecha_Aceptacion 			DATETIME,
+		deva_AduanaIngresoId 			INT NOT NULL, 
+		deva_AduanaDespachoId 			INT NOT NULL,
+		deva_DeclaracionMercancia 		NVARCHAR(500),
+		deva_FechaAceptacion 			DATETIME,
 		impo_Id 						INT,
 		pvde_Id 						INT,
 		inte_Id 						INT,
-		deva_Lugar_Entrega 				NVARCHAR(800),
-		pais_Entrega_Id					INT,
+		deva_LugarEntrega 				NVARCHAR(800),
+		pais_EntregaId					INT,
 		inco_Id 						INT,
 		inco_Version					NVARCHAR(10),
-		deva_numero_contrato 			NVARCHAR(200),
-		deva_Fecha_Contrato 			DATE,
+		deva_NumeroContrato 			NVARCHAR(200),
+		deva_FechaContrato 				DATE,
 		foen_Id 						INT,
-		deva_Forma_Envio_Otra 			NVARCHAR(500),
-		deva_Pago_Efectuado 			BIT,
+		deva_FormaEnvioOtra 			NVARCHAR(500),
+		deva_PagoEfectuado 				BIT,
 		fopa_Id 						INT,
-		deva_Forma_Pago_Otra 			NVARCHAR(200),
+		deva_FormaPagoOtra	 			NVARCHAR(200),
 		emba_Id 						INT,
 		--pais_Embarque_Id 				INT,
-		pais_Exportacion_Id 			INT,
-		deva_Fecha_Exportacion  		DATE,
+		pais_ExportacionId 				INT,
+		deva_FechaExportacion  			DATE,
 		mone_Id 						INT,
 		mone_Otra 						NVARCHAR(200),
-		deva_Conversion_Dolares 		DECIMAL(18,2),
+		deva_ConversionDolares 			DECIMAL(18,2),
 		deva_Condiciones 				NVARCHAR(MAX),
 		usua_UsuarioCreacion 			INT,
 		deva_FechaCreacion  			DATETIME,
@@ -743,51 +745,54 @@ CREATE TABLE Adua.tbDeclaraciones_Valor
 		--deva_FechaEliminacion			DATETIME 			DEFAULT NULL,
 		deva_Estado 					BIT					NOT NULL DEFAULT 1,
 
-	CONSTRAINT Adua_tbDeclaraciones_Valor_deva_Id 								 PRIMARY KEY (deva_Id),
-	CONSTRAINT Adua_tbAduanas_Adua_tbDeclaraciones_Valor_deva_Aduana_Ingreso_Id  FOREIGN KEY (deva_Aduana_Ingreso_Id)  REFERENCES Adua.tbAduanas (adua_Id),
-	CONSTRAINT Adua_tbAduanas_Adua_tbDeclaraciones_Valor_deva_Aduana_Despacho_Id FOREIGN KEY (deva_Aduana_Despacho_Id) REFERENCES Adua.tbAduanas (adua_Id),
-	CONSTRAINT Adua_tbImportadores_Adua_tbDeclaraciones_Valor_impo_Id 			 FOREIGN KEY (impo_Id)				   REFERENCES Adua.tbImportadores (impo_Id),
-	CONSTRAINT Adua_tbProveedoresDeclaracion_Adua_tbDeclaraciones_Valor_pvde_Id  FOREIGN KEY (pvde_Id)                 REFERENCES Adua.tbProveedoresDeclaracion (pvde_Id),
-	CONSTRAINT Adua_tbIntermediarios_Adua_tbDeclaraciones_Valor_inte_Id 		 FOREIGN KEY (inte_Id)                 REFERENCES Adua.tbIntermediarios (inte_Id),
-	CONSTRAINT Adua_tbIncoterm_Adua_tbDeclaraciones_Valor_inco_Id 				 FOREIGN KEY (inco_Id)                 REFERENCES Adua.tbIncoterm (inco_Id),
-	CONSTRAINT Gral_tbFormas_Envio_Adua_tbDeclaraciones_Valor_foen_Id 			 FOREIGN KEY (foen_Id)                 REFERENCES Gral.tbFormas_Envio (foen_Id),
-	CONSTRAINT Adua_tbFormasdePago_Adua_tbDeclaraciones_Valor_fopa_Id 			 FOREIGN KEY (fopa_Id)                 REFERENCES Adua.tbFormasdePago (fopa_Id),
-	CONSTRAINT Adua_tbLugaresEmbarque_Adua_tbDeclaraciones_Valor_emba_Id 		 FOREIGN KEY (emba_Id)                 REFERENCES Adua.tbLugaresEmbarque (emba_Id),
+	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_deva_Id 												PRIMARY KEY (deva_Id),
+	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_deva_AduanaIngresoId_Adua_tbAduanas					FOREIGN KEY (deva_AduanaIngresoId)		REFERENCES Adua.tbAduanas (adua_Id),
+	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_deva_AduanaDespachoId_Adua_tbAduanas					FOREIGN KEY (deva_AduanaDespachoId)		REFERENCES Adua.tbAduanas (adua_Id),
+	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_impo_Id_Adua_tbImportadores							FOREIGN KEY (impo_Id)					REFERENCES Adua.tbImportadores (impo_Id),
+	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_pvde_Id_Adua_tbProveedoresDeclaracion					FOREIGN KEY (pvde_Id)					REFERENCES Adua.tbProveedoresDeclaracion (pvde_Id),
+	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_inte_Id_Adua_tbIntermediarios							FOREIGN KEY (inte_Id)					REFERENCES Adua.tbIntermediarios (inte_Id),
+	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_inco_Id_Adua_tbIncoterm								FOREIGN KEY (inco_Id)					REFERENCES Adua.tbIncoterm (inco_Id),
+	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_foen_Id_Gral_tbFormas_Envio_foen_Id 					FOREIGN KEY (foen_Id)					REFERENCES Gral.tbFormas_Envio (foen_Id),
+	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_fopa_Id_Adua_tbFormasdePago_fopa_Id					FOREIGN KEY (fopa_Id)					REFERENCES Adua.tbFormasdePago (fopa_Id),
+	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_emba_Id_Adua_tbLugaresEmbarque_emba_Id					FOREIGN KEY (emba_Id)					REFERENCES Adua.tbLugaresEmbarque (emba_Id),
+	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_pais_Exportacion_Id_Gral_tbPaises_pais_Exportacion_Id 	FOREIGN KEY (pais_ExportacionId) 		REFERENCES Gral.tbPaises (pais_Id),
+	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_mone_Id_Gral_tbMonedas_mone_Id							FOREIGN KEY (mone_Id) 					REFERENCES Gral.tbMonedas (mone_Id),
+	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios(usua_Id),
+	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios(usua_Id)
 	--CONSTRAINT Gral_tbPaises_Adua_tbDeclaraciones_Valor_pais_Embarque_Id 		 FOREIGN KEY (pais_Embarque_Id)    	   REFERENCES Gral.tbPaises (pais_Id),
-	CONSTRAINT Gral_tbPaises_tbDeclaraciones_Valor_pais_Exportacion_Id 			 FOREIGN KEY (pais_Exportacion_Id) 	   REFERENCES Gral.tbPaises (pais_Id),
-	CONSTRAINT Gral_tbMonedas_tbDeclaraciones_Valor_mone_Id 					 FOREIGN KEY (mone_Id) 				   REFERENCES Gral.tbMonedas (mone_Id),
-	CONSTRAINT FK_Acce_tbUsuarios_Adua_tbDeclaraciones_Valor_deva_UsuarioCreacion FOREIGN KEY (usua_UsuarioCreacion)   REFERENCES Acce.tbUsuarios(usua_Id),
-	CONSTRAINT FK_Acce_tbUsuarios_Adua_tbDeclaraciones_Valor_deva_usua_UsuarioModificacion FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios(usua_Id),
 	--CONSTRAINT FK_Acce_tbUsuarios_Adua_tbDeclaraciones_Valor_deva_usua_UsuarioEliminacion  FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios(usua_Id)
 )
 
 
 CREATE TABLE Adua.tbDeclaraciones_ValorHistorial
 (
-		hdev_Id 						INT IDENTITY(1,1),
-		deva_Id							INT,
-		deva_Aduana_Ingreso_Id 			INT 			NOT NULL, 
-		deva_Aduana_Despacho_Id 		INT 			NOT NULL,
-		deva_Declaracion_Mercancia 		NVARCHAR(500),
-		deva_Fecha_Aceptacion 			DATETIME,
+		hdev_Id							INT IDENTITY(1,1),
+		deva_Id 						INT,
+		deva_AduanaIngresoId 			INT NOT NULL, 
+		deva_AduanaDespachoId 			INT NOT NULL,
+		deva_DeclaracionMercancia 		NVARCHAR(500),
+		deva_FechaAceptacion 			DATETIME,
 		impo_Id 						INT,
 		pvde_Id 						INT,
 		inte_Id 						INT,
-		deva_Lugar_Entrega 				NVARCHAR(800),
+		deva_LugarEntrega 				NVARCHAR(800),
+		pais_EntregaId					INT,
 		inco_Id 						INT,
-		deva_numero_contrato 			NVARCHAR(200),
-		deva_Fecha_Contrato 			DATETIME,
+		inco_Version					NVARCHAR(10),
+		deva_NumeroContrato 			NVARCHAR(200),
+		deva_FechaContrato 				DATE,
 		foen_Id 						INT,
-		deva_Forma_Envio_Otra 			NVARCHAR(500),
-		deva_Pago_Efectuado 			BIT,
+		deva_FormaEnvioOtra 			NVARCHAR(500),
+		deva_PagoEfectuado 				BIT,
 		fopa_Id 						INT,
-		deva_Forma_Pago_Otra 			NVARCHAR(200),
+		deva_FormaPagoOtra	 			NVARCHAR(200),
 		emba_Id 						INT,
-		pais_Exportacion_Id 			INT,
-		deva_Fecha_Exportacion  		DATETIME,
+		--pais_Embarque_Id 				INT,
+		pais_ExportacionId 				INT,
+		deva_FechaExportacion  			DATE,
 		mone_Id 						INT,
 		mone_Otra 						NVARCHAR(200),
-		deva_Conversion_Dolares 		DECIMAL(18,2),
+		deva_ConversionDolares 			DECIMAL(18,2),
 		deva_Condiciones 				NVARCHAR(MAX),
 
 		hdev_UsuarioAccion 				INT,
@@ -2303,6 +2308,8 @@ CREATE TABLE Adua.tbTiposIdentificacion(
 );
 GO
 
+----**************IMPORTANTE****************----
+--duca_CanalAsignado: Verde = V, Rojo = R, Amarillo = As
 CREATE TABLE Adua.tbDuca(
 	duca_No_Duca					NVARCHAR(100),
 	duca_No_Correlativo_Referencia	NVARCHAR(MAX) NOT NULL,
@@ -2338,6 +2345,7 @@ CREATE TABLE Adua.tbDuca(
 	duca_Conductor_Id				INT NULL,
 	duca_Codigo_Tipo_Documento		CHAR(3) NOT NULL,
 	duca_FechaVencimiento			DATE NOT NULL,
+	duca_CanalAsignado				CHAR NOT NULL,
 
 	usua_UsuarioCreacion			INT NOT NULL,
 	duca_FechaCreacion				DATETIME NOT NULL,

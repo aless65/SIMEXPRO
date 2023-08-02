@@ -5,9 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SIMEXPRO.API.Models.ModelsAduana;
+using SIMEXPRO.Entities.Entities;
 
 namespace SIMEXPRO.API.Controllers.ControllersAduanas
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class LiquidacionGeneralController : Controller
     {
         private readonly AduanaServices _aduanaServices;
@@ -18,9 +22,54 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             _aduanaServices = AduanaServices;
             _mapper = mapper;
         }
+
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
-            return View();
+            var respuesta = _aduanaServices.ListarLiquidacionGeneral();
+
+            if (respuesta.Code == 200)
+            {
+                return Ok(respuesta);
+            }
+            else
+            {
+                return BadRequest(respuesta);
+            }
+        }
+
+        [HttpPost("Insertar")]
+        public IActionResult Insert(LiquidacionGeneralViewModel concepto)
+        {
+            var item = _mapper.Map<tbLiquidacionGeneral>(concepto);
+
+            var respuesta = _aduanaServices.InsertarLiquidacionGeneral(item);
+
+            if (respuesta.Code == 200)
+            {
+                return Ok(respuesta);
+            }
+            else
+            {
+                return BadRequest(respuesta);
+            }
+        }
+
+        [HttpPost("Editar")]
+        public IActionResult Update(LiquidacionGeneralViewModel concepto)
+        {
+            var item = _mapper.Map<tbLiquidacionGeneral>(concepto);
+
+            var respuesta = _aduanaServices.ActualizarLiquidacionGeneral(item);
+
+            if (respuesta.Code == 200)
+            {
+                return Ok(respuesta);
+            }
+            else
+            {
+                return BadRequest(respuesta);
+            }
         }
     }
 }

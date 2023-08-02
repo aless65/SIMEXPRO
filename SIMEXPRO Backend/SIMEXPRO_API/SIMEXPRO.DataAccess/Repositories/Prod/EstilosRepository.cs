@@ -1,6 +1,9 @@
-﻿using SIMEXPRO.Entities.Entities;
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
+using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +41,16 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
 
         public RequestStatus Update(tbEstilos item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@esti_Id", item.esti_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@esti_Descripcion", item.esti_Descripcion, DbType.String, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@esti_FechaModificacion", item.esti_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarEstilos, parametros, commandType: CommandType.StoredProcedure);
+            result.CodeStatus = answer;
+            return result;
         }
 
       

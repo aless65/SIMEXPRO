@@ -1,6 +1,9 @@
-﻿using SIMEXPRO.Entities.Entities;
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
+using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,12 +29,25 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
 
         public IEnumerable<tbPaises> List()
         {
-            throw new NotImplementedException();
+
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            var parametros = new DynamicParameters();
+            return db.Query<tbPaises>(ScriptsDataBase.ListarPaises, null, commandType: CommandType.StoredProcedure);
         }
 
         public RequestStatus Update(tbPaises item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@pais_Id", item.pais_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@pais_Codigo", item.pais_Codigo, DbType.String, ParameterDirection.Input);
+            parametros.Add("@pais_Nombre", item.pais_Nombre, DbType.String, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@pais_FechaModificacion", item.pais_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarPaises, parametros, commandType: CommandType.StoredProcedure);
+            result.CodeStatus = answer;
+            return result;
         }
     }
 }

@@ -17,18 +17,16 @@ namespace SIMEXPRO.Entities.Entities
             tbPersonaNatural = new HashSet<tbPersonaNatural>();
             tbProveedores = new HashSet<tbProveedores>();
         }
-
+        
         public int ciud_Id { get; set; }
-        public string ciud_Nombre { get; set; }
-
+        public string ciud_Nombre { get; set; }       
         [NotMapped]
-        public int pvin_Id { get; set; }
-
-
+        public string pais_Codigo { get; set; }
+        [NotMapped]
+        public string pais_Nombre { get; set; }       
+        public int pvin_Id { get; set; }        
         [NotMapped]
         public string pvin_Nombre { get; set; }
-
-
         [NotMapped]
         public string pvin_Codigo { get; set; }
         public int usua_UsuarioCreacion { get; set; }
@@ -37,8 +35,11 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime? ciud_FechaModificacion { get; set; }
         public int? usua_UsuarioEliminacion { get; set; }
         public DateTime? ciud_FechaEliminacion { get; set; }
+        [NotMapped]
+        public string UsuarioCreacionNombre { get; set; }
+        [NotMapped]
+        public string UsuarioModificadorNombre { get; set; }
         public bool? ciud_Estado { get; set; }
-
         public virtual tbProvincias pvin { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioEliminacionNavigation { get; set; }

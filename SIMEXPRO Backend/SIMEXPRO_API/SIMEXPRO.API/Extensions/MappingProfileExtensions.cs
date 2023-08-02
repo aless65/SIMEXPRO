@@ -48,6 +48,13 @@ namespace Events_Company_R.API.Extentions
             CreateMap<PersonasViewModel, tbPersonas>().ReverseMap();
             CreateMap<PersonaNaturalViewModel, tbPersonaNatural>().ReverseMap();
             CreateMap<ConceptoPagoViewModel, tbConceptoPago>().ReverseMap();
+            CreateMap<ItemsViewModel, tbItems>().ReverseMap();
+            CreateMap<LiquidacionGeneralViewModel, tbLiquidacionGeneral>().ReverseMap();
+            CreateMap<LiquidacionPorLineaViewModel, tbLiquidacionPorLinea>().ReverseMap();
+            CreateMap<LugaresEmbarqueViewModel, tbLugaresEmbarque>().ReverseMap();
+            CreateMap<MarcasViewModel, tbMarcas>().ReverseMap();
+            CreateMap<NivelesComercialesViewModel, tbNivelesComerciales>().ReverseMap();
+            CreateMap<PersonaJuridicaViewModel, tbPersonaJuridica>().ReverseMap();
             #endregion
 
             #region Producción
@@ -69,6 +76,11 @@ namespace Events_Company_R.API.Extentions
             CreateMap<FuncionesMaquinaViewModel, tbFuncionesMaquina>().ReverseMap();
             CreateMap<TallasViewModel, tbTallas>().ReverseMap();
             CreateMap<TipoEmbalajeViewModel, tbTipoEmbalaje>().ReverseMap();
+            CreateMap<LotesViewModel, tbLotes>().ReverseMap();
+            CreateMap<MaquinasViewModel, tbMaquinas>().ReverseMap();
+            CreateMap<MarcasMaquinaViewModel, tbMarcasMaquina>().ReverseMap();
+            CreateMap<MaterialesViewModel, tbMateriales>().ReverseMap();
+            CreateMap<MaterialesBrindarViewModel, tbMaterialesBrindar>().ReverseMap();
 
 
             CreateMap<tbModulos, ModulosViewModel>().ReverseMap();

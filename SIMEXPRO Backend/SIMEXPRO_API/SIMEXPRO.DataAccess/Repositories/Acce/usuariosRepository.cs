@@ -12,14 +12,14 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
 {
     public class UsuariosRepository : IRepository<tbUsuarios>
     {
-        public tbUsuarios Login(string usua_Nombre, string usua_Contrasenia)
+        public tbUsuarios Login(tbUsuarios item)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
 
             var parametros = new DynamicParameters();
 
-            parametros.Add("@usua_Nombre", usua_Nombre, DbType.String, ParameterDirection.Input);
-            parametros.Add("@usua_Contrasenia", usua_Contrasenia, DbType.String, ParameterDirection.Input);
+            parametros.Add("@usua_Nombre", item.usua_Nombre, DbType.String, ParameterDirection.Input);
+            parametros.Add("@usua_Contrasenia", item.usua_Contrasenia, DbType.String, ParameterDirection.Input);
 
             var resultado = db.QueryFirst<tbUsuarios>(ScriptsDataBase.IniciarSesion, parametros, commandType: CommandType.StoredProcedure);
             return resultado;

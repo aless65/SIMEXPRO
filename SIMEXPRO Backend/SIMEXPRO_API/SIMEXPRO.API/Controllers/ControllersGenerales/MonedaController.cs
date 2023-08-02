@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.API.Controllers.ControllersGenerales
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class MonedaController : Controller
     {
         private readonly GeneralServices _generalesServices;
@@ -20,6 +22,8 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             _generalesServices = generalesService;
             _mapper = mapper;
         }
+
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarMonedas();

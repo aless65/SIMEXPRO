@@ -4056,7 +4056,7 @@ GO
 
 CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab1_Insertar 
 	@deva_AduanaIngresoId				INT,
-	@deva_AduanaDespachoId			INT,
+	@deva_AduanaDespachoId				INT,
 	@deva_FechaAceptacion				DATETIME,
 	@decl_Nombre_Raso					NVARCHAR(250),
 	@impo_RTN							NVARCHAR(40),

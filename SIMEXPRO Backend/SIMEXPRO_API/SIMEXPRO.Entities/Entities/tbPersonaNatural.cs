@@ -28,7 +28,6 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime? pena_FechaModificacion { get; set; }
         public bool? pena_Estado { get; set; }
 
-        public virtual tbCiudades ciud { get; set; }
         public virtual tbPersonas pers { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }

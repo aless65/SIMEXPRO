@@ -8,11 +8,6 @@ namespace SIMEXPRO.Entities.Entities
 {
     public partial class tbAldeas
     {
-        public tbAldeas()
-        {
-            tbColonias = new HashSet<tbColonias>();
-        }
-
         public int alde_Id { get; set; }
         public string alde_Nombre { get; set; }
         public int ciud_Id { get; set; }
@@ -24,10 +19,8 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime? alde_FechaEliminacion { get; set; }
         public bool? alde_Estado { get; set; }
 
-        public virtual tbCiudades ciud { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioEliminacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }
-        public virtual ICollection<tbColonias> tbColonias { get; set; }
     }
 }

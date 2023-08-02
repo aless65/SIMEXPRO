@@ -32,8 +32,6 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime? peju_FechaModificacion { get; set; }
         public bool? peju_Estado { get; set; }
 
-        public virtual tbColonias colo { get; set; }
-        public virtual tbColonias peju_ColoniaRepresentanteNavigation { get; set; }
         public virtual tbProvincias peju_EstadoRepresentanteNavigation { get; set; }
         public virtual tbPersonas pers { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }

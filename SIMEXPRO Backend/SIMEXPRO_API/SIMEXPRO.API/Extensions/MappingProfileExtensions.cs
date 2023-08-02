@@ -81,6 +81,7 @@ namespace Events_Company_R.API.Extentions
             CreateMap<MarcasMaquinaViewModel, tbMarcasMaquina>().ReverseMap();
             CreateMap<MaterialesViewModel, tbMateriales>().ReverseMap();
             CreateMap<MaterialesBrindarViewModel, tbMaterialesBrindar>().ReverseMap();
+            CreateMap<ModelosMaquinaViewModel, tbModelosMaquina>().ReverseMap();
 
 
             CreateMap<tbModulos, ModulosViewModel>().ReverseMap();

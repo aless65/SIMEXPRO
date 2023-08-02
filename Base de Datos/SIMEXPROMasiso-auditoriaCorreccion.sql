@@ -15,7 +15,7 @@
 	--Primero crear y luego correr scipt
 	*/
 	GO
-	USE SIMEXPRO
+	--USE SIMEXPRO
 	GO
 	CREATE SCHEMA Adua
 	GO
@@ -1990,6 +1990,7 @@ CREATE TABLE Prod.tbLotes(
 	lote_Id   					INT IDENTITY(1,1),
 	mate_Id						INT NOT NULL,
 	unme_Id						INT NOT NULL,
+	code_Id						INT,
 	lote_Stock  				INT NOT NULL,
 	lote_CantIngresada			INT NOT NULL,
 	lote_Observaciones			NVARCHAR(500),
@@ -2006,6 +2007,7 @@ CREATE TABLE Prod.tbLotes(
 	CONSTRAINT PK_Prod_tbLotes_lote_Id PRIMARY KEY (lote_Id),
 	CONSTRAINT FK_Prod_tbLotes_mate_Id_Prod_tbMateriales_mate_Id	FOREIGN KEY (mate_Id) 					REFERENCES Prod.tbMateriales(mate_Id),
 	CONSTRAINT FK_Prod_tbLotes_unme_Id_Gral_tbUnidadMedidas_unme_Id	FOREIGN KEY (unme_Id) 					REFERENCES Gral.tbUnidadMedidas(unme_Id),
+	CONSTRAINT FK_Prod_tbLotes_Prod_tbOrdenCompraDetalles_code_Id	FOREIGN KEY (code_Id) 					REFERENCES Prod.tbOrdenCompraDetalles(code_Id),
 	CONSTRAINT FK_Prod_tbLotes_tipa_Id_Prod_tbTipoArea_tipa_Id		FOREIGN KEY (tipa_Id) 					REFERENCES Prod.tbArea(tipa_Id),
 	CONSTRAINT FK_Prod_tbLotes_tbUsuarios_lote_UsuCrea				FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbLotes_tbUsuarios_lote_UsuModifica			FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios (usua_Id),
@@ -2646,6 +2648,7 @@ GO
 CREATE TABLE Adua.tbDocumentosDeSoporte(
 	doso_Id						        INT IDENTITY(1,1),
 	tido_Id					        	INT NOT NULL,
+	duca_No_Duca						NVARCHAR(100) NOT NULL,
 	doso_NumeroDocumento		        NVARCHAR(15) NOT NULL,
 	doso_FechaEmision			        DATE,
 	doso_FechaVencimiento		        DATE,
@@ -2662,7 +2665,8 @@ CREATE TABLE Adua.tbDocumentosDeSoporte(
 	doso_FechaEliminacion				DATETIME DEFAULT NULL,
 	doso_Estado 				        BIT DEFAULT 1
 	CONSTRAINT PK_Adua_tbDocumentosDeSoporte_doso_Id PRIMARY KEY(doso_Id),
-	CONSTRAINT FK_Adua_tbTipoDocumento_tido_Id_Adua_tbDocumentosDeSoporte_tido_Id 	            	FOREIGN KEY(tido_Id) 			        	REFERENCES Adua.tbTipoDocumento(tido_Id),
+	CONSTRAINT FK_tbDocumentosDeSoporte_Adua_tbTipoDocumento_tido_Id	            				FOREIGN KEY (tido_Id) 			        	REFERENCES Adua.tbTipoDocumento(tido_Id),
+	CONSTRAINT FK_Adua_tbDocumentosDeSoporte_Adua_tbDuca_duca_No_Duca 	            				FOREIGN KEY (duca_No_Duca) 			        REFERENCES Adua.tbDuca		(duca_No_Duca),
 	CONSTRAINT FK_Adua_tbDocumentosDeSoporte_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioCreacion)     		REFERENCES Acce.tbUsuarios 	(usua_Id),
 	CONSTRAINT FK_Adua_tbDocumentosDeSoporte_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioModificacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id),
 	CONSTRAINT FK_Adua_tbDocumentosDeSoporte_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id 		FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)

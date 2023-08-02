@@ -146,10 +146,6 @@
          "ObjectType": 0
       },
       {
-         "Name": "[Adua].[tbImpuestosPorArancel]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[Adua].[tbIncoterm]",
          "ObjectType": 0
       },
@@ -238,14 +234,6 @@
          "ObjectType": 0
       },
       {
-         "Name": "[Gral].[tbCiudades]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[Gral].[tbColonias]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[Gral].[tbEmpleados]",
          "ObjectType": 0
       },
@@ -254,23 +242,7 @@
          "ObjectType": 0
       },
       {
-         "Name": "[Gral].[tbFormas_Envio]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[Gral].[tbMonedas]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[Gral].[tbOficinas]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[Gral].[tbOficio_Profesiones]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[Gral].[tbPaises]",
          "ObjectType": 0
       },
       {
@@ -286,27 +258,11 @@
          "ObjectType": 0
       },
       {
-         "Name": "[Prod].[tbArea]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[Prod].[tbAsignacionesOrden]",
          "ObjectType": 0
       },
       {
          "Name": "[Prod].[tbAsignacionesOrdenDetalle]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[Prod].[tbCategoria]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[Prod].[tbClientes]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[Prod].[tbColores]",
          "ObjectType": 0
       },
       {
@@ -406,7 +362,7 @@
          "ObjectType": 0
       }
    ],
-   "UiHint": "DESKTOP-E6OAL4S\\SERVIDORLOCALDM.",
+   "UiHint": "practicaahm.SIMEXPRO",
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": true,
    "UseDbContextSplitting": false,

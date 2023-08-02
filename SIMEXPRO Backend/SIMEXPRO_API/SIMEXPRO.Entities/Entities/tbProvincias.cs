@@ -10,7 +10,6 @@ namespace SIMEXPRO.Entities.Entities
     {
         public tbProvincias()
         {
-            tbCiudades = new HashSet<tbCiudades>();
             tbEmpleados = new HashSet<tbEmpleados>();
             tbPersonaJuridica = new HashSet<tbPersonaJuridica>();
         }
@@ -27,11 +26,9 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime? pvin_FechaEliminacion { get; set; }
         public bool? pvin_Estado { get; set; }
 
-        public virtual tbPaises pais { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioEliminacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }
-        public virtual ICollection<tbCiudades> tbCiudades { get; set; }
         public virtual ICollection<tbEmpleados> tbEmpleados { get; set; }
         public virtual ICollection<tbPersonaJuridica> tbPersonaJuridica { get; set; }
     }

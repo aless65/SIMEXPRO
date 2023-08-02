@@ -27,7 +27,6 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime? cont_FechaEliminacion { get; set; }
         public bool? cont_Estado { get; set; }
 
-        public virtual tbPaises pais_IdExpedicionNavigation { get; set; }
         public virtual tbTransporte tran { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioEliminacionNavigation { get; set; }

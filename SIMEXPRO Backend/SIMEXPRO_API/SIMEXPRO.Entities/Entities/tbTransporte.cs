@@ -32,7 +32,6 @@ namespace SIMEXPRO.Entities.Entities
         public bool? tran_Estado { get; set; }
 
         public virtual tbMarcas marca { get; set; }
-        public virtual tbPaises pais { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacioNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioEliminacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }

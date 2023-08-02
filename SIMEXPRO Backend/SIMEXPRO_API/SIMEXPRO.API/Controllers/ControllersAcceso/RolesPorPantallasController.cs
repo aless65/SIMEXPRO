@@ -25,7 +25,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
             _mapper = mapper;
         }
 
-        [HttpPost("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index(int role_Id)
         {
             tbRolesXPantallas rolesPantalla = new tbRolesXPantallas();

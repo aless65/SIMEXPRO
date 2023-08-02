@@ -32,12 +32,12 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
 
         #region Usuarios
 
-        public ServiceResult IniciarSesion(string usua_Nombre, string usua_Contrasenia)
+        public ServiceResult IniciarSesion(tbUsuarios item)
         {
             var resultado = new ServiceResult();
             try
             {
-                var usuario = _usuariosRepository.Login(usua_Nombre, usua_Contrasenia);
+                var usuario = _usuariosRepository.Login(item);
 
                 if (usuario.usua_Nombre == null)
                     return resultado.Forbidden("El usuario o contraseña son incorrectos");

@@ -21,9 +21,6 @@ namespace SIMEXPRO.Entities.Entities
             tbAldeasusua_UsuarioModificacionNavigation = new HashSet<tbAldeas>();
             tbArancelesusua_UsuarioCreacionNavigation = new HashSet<tbAranceles>();
             tbArancelesusua_UsuarioModificacionNavigation = new HashSet<tbAranceles>();
-            tbAreausua_UsuarioCreacionNavigation = new HashSet<tbArea>();
-            tbAreausua_UsuarioEliminacionNavigation = new HashSet<tbArea>();
-            tbAreausua_UsuarioModificacionNavigation = new HashSet<tbArea>();
             tbAsignacionesOrdenDetalleusua_UsuarioCreacionNavigation = new HashSet<tbAsignacionesOrdenDetalle>();
             tbAsignacionesOrdenDetalleusua_UsuarioModificacionNavigation = new HashSet<tbAsignacionesOrdenDetalle>();
             tbAsignacionesOrdenusua_UsuarioCreacionNavigation = new HashSet<tbAsignacionesOrden>();
@@ -35,24 +32,9 @@ namespace SIMEXPRO.Entities.Entities
             tbCargosusua_UsuarioCreacionNavigation = new HashSet<tbCargos>();
             tbCargosusua_UsuarioEliminacionNavigation = new HashSet<tbCargos>();
             tbCargosusua_UsuarioModificacionNavigation = new HashSet<tbCargos>();
-            tbCategoriausua_UsuarioCreacionNavigation = new HashSet<tbCategoria>();
-            tbCategoriausua_UsuarioEliminacionNavigation = new HashSet<tbCategoria>();
-            tbCategoriausua_UsuarioModificacionNavigation = new HashSet<tbCategoria>();
-            tbCiudadesusua_UsuarioCreacionNavigation = new HashSet<tbCiudades>();
-            tbCiudadesusua_UsuarioEliminacionNavigation = new HashSet<tbCiudades>();
-            tbCiudadesusua_UsuarioModificacionNavigation = new HashSet<tbCiudades>();
-            tbClientesusua_UsuarioCreacionNavigation = new HashSet<tbClientes>();
-            tbClientesusua_UsuarioEliminacionNavigation = new HashSet<tbClientes>();
-            tbClientesusua_UsuarioModificacionNavigation = new HashSet<tbClientes>();
             tbCodigoImpuestousua_UsuarioCreacionNavigation = new HashSet<tbCodigoImpuesto>();
             tbCodigoImpuestousua_UsuarioEliminacionNavigation = new HashSet<tbCodigoImpuesto>();
             tbCodigoImpuestousua_UsuarioModificacionNavigation = new HashSet<tbCodigoImpuesto>();
-            tbColoniasusua_UsuarioCreacionNavigation = new HashSet<tbColonias>();
-            tbColoniasusua_UsuarioEliminacionNavigation = new HashSet<tbColonias>();
-            tbColoniasusua_UsuarioModificacionNavigation = new HashSet<tbColonias>();
-            tbColoresusua_UsuarioCreacionNavigation = new HashSet<tbColores>();
-            tbColoresusua_UsuarioEliminacionNavigation = new HashSet<tbColores>();
-            tbColoresusua_UsuarioModificacionNavigation = new HashSet<tbColores>();
             tbComercianteIndividualusua_UsuarioCreacionNavigation = new HashSet<tbComercianteIndividual>();
             tbComercianteIndividualusua_UsuarioModificacionNavigation = new HashSet<tbComercianteIndividual>();
             tbConceptoPagousua_UsuarioCreacionNavigation = new HashSet<tbConceptoPago>();
@@ -96,9 +78,6 @@ namespace SIMEXPRO.Entities.Entities
             tbEstilosusua_UsuarioModificacionNavigation = new HashSet<tbEstilos>();
             tbFacturasusua_UsuarioCreacionNavigation = new HashSet<tbFacturas>();
             tbFacturasusua_UsuarioModificacionNavigation = new HashSet<tbFacturas>();
-            tbFormas_Enviousua_UsuarioCreacionNavigation = new HashSet<tbFormas_Envio>();
-            tbFormas_Enviousua_UsuarioEliminacionNavigation = new HashSet<tbFormas_Envio>();
-            tbFormas_Enviousua_UsuarioModificacionNavigation = new HashSet<tbFormas_Envio>();
             tbFormasdePagousua_UsuarioCreacionNavigation = new HashSet<tbFormasdePago>();
             tbFormasdePagousua_UsuarioEliminacionNavigation = new HashSet<tbFormasdePago>();
             tbFormasdePagousua_UsuarioModificacionNavigation = new HashSet<tbFormasdePago>();
@@ -108,8 +87,6 @@ namespace SIMEXPRO.Entities.Entities
             tbImportadoresusua_UsuarioCreacionNavigation = new HashSet<tbImportadores>();
             tbImportadoresusua_UsuarioEliminacionNavigation = new HashSet<tbImportadores>();
             tbImportadoresusua_UsuarioModificacionNavigation = new HashSet<tbImportadores>();
-            tbImpuestosPorArancelusua_UsuarioCreacionNavigation = new HashSet<tbImpuestosPorArancel>();
-            tbImpuestosPorArancelusua_UsuarioModificacionNavigation = new HashSet<tbImpuestosPorArancel>();
             tbImpuestosusua_UsuarioCreacionNavigation = new HashSet<tbImpuestos>();
             tbImpuestosusua_UsuarioModificacionNavigation = new HashSet<tbImpuestos>();
             tbIncotermusua_UsuarioCreacionNavigation = new HashSet<tbIncoterm>();
@@ -157,20 +134,12 @@ namespace SIMEXPRO.Entities.Entities
             tbNivelesComercialesusua_UsuarioCreacionNavigation = new HashSet<tbNivelesComerciales>();
             tbNivelesComercialesusua_UsuarioEliminacionNavigation = new HashSet<tbNivelesComerciales>();
             tbNivelesComercialesusua_UsuarioModificacionNavigation = new HashSet<tbNivelesComerciales>();
-            tbOficinasusua_UsuarioCreacionNavigation = new HashSet<tbOficinas>();
-            tbOficinasusua_UsuarioEliminacionNavigation = new HashSet<tbOficinas>();
-            tbOficinasusua_UsuarioModificacionNavigation = new HashSet<tbOficinas>();
-            tbOficio_Profesionesusua_UsuarioCreacionNavigation = new HashSet<tbOficio_Profesiones>();
-            tbOficio_Profesionesusua_UsuarioModificacionNavigation = new HashSet<tbOficio_Profesiones>();
             tbOrde_Ensa_Acab_Etiqusua_UsuarioCreacionNavigation = new HashSet<tbOrde_Ensa_Acab_Etiq>();
             tbOrde_Ensa_Acab_Etiqusua_UsuarioModificacionNavigation = new HashSet<tbOrde_Ensa_Acab_Etiq>();
             tbOrdenCompraDetallesusua_UsuarioCreacionNavigation = new HashSet<tbOrdenCompraDetalles>();
             tbOrdenCompraDetallesusua_UsuarioModificacionNavigation = new HashSet<tbOrdenCompraDetalles>();
             tbOrdenComprausua_UsuarioCreacionNavigation = new HashSet<tbOrdenCompra>();
             tbOrdenComprausua_UsuarioModificacionNavigation = new HashSet<tbOrdenCompra>();
-            tbPaisesusua_UsuarioCreacionNavigation = new HashSet<tbPaises>();
-            tbPaisesusua_UsuarioEliminacionNavigation = new HashSet<tbPaises>();
-            tbPaisesusua_UsuarioModificacionNavigation = new HashSet<tbPaises>();
             tbPantallasusua_UsuarioCreacionNavigation = new HashSet<tbPantallas>();
             tbPantallasusua_UsuarioModificacionNavigation = new HashSet<tbPantallas>();
             tbPedidosOrdenDetalleusua_UsuarioCreacionNavigation = new HashSet<tbPedidosOrdenDetalle>();
@@ -268,9 +237,6 @@ namespace SIMEXPRO.Entities.Entities
         public virtual ICollection<tbAldeas> tbAldeasusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbAranceles> tbArancelesusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbAranceles> tbArancelesusua_UsuarioModificacionNavigation { get; set; }
-        public virtual ICollection<tbArea> tbAreausua_UsuarioCreacionNavigation { get; set; }
-        public virtual ICollection<tbArea> tbAreausua_UsuarioEliminacionNavigation { get; set; }
-        public virtual ICollection<tbArea> tbAreausua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbAsignacionesOrdenDetalle> tbAsignacionesOrdenDetalleusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbAsignacionesOrdenDetalle> tbAsignacionesOrdenDetalleusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbAsignacionesOrden> tbAsignacionesOrdenusua_UsuarioCreacionNavigation { get; set; }
@@ -282,24 +248,9 @@ namespace SIMEXPRO.Entities.Entities
         public virtual ICollection<tbCargos> tbCargosusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbCargos> tbCargosusua_UsuarioEliminacionNavigation { get; set; }
         public virtual ICollection<tbCargos> tbCargosusua_UsuarioModificacionNavigation { get; set; }
-        public virtual ICollection<tbCategoria> tbCategoriausua_UsuarioCreacionNavigation { get; set; }
-        public virtual ICollection<tbCategoria> tbCategoriausua_UsuarioEliminacionNavigation { get; set; }
-        public virtual ICollection<tbCategoria> tbCategoriausua_UsuarioModificacionNavigation { get; set; }
-        public virtual ICollection<tbCiudades> tbCiudadesusua_UsuarioCreacionNavigation { get; set; }
-        public virtual ICollection<tbCiudades> tbCiudadesusua_UsuarioEliminacionNavigation { get; set; }
-        public virtual ICollection<tbCiudades> tbCiudadesusua_UsuarioModificacionNavigation { get; set; }
-        public virtual ICollection<tbClientes> tbClientesusua_UsuarioCreacionNavigation { get; set; }
-        public virtual ICollection<tbClientes> tbClientesusua_UsuarioEliminacionNavigation { get; set; }
-        public virtual ICollection<tbClientes> tbClientesusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbCodigoImpuesto> tbCodigoImpuestousua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbCodigoImpuesto> tbCodigoImpuestousua_UsuarioEliminacionNavigation { get; set; }
         public virtual ICollection<tbCodigoImpuesto> tbCodigoImpuestousua_UsuarioModificacionNavigation { get; set; }
-        public virtual ICollection<tbColonias> tbColoniasusua_UsuarioCreacionNavigation { get; set; }
-        public virtual ICollection<tbColonias> tbColoniasusua_UsuarioEliminacionNavigation { get; set; }
-        public virtual ICollection<tbColonias> tbColoniasusua_UsuarioModificacionNavigation { get; set; }
-        public virtual ICollection<tbColores> tbColoresusua_UsuarioCreacionNavigation { get; set; }
-        public virtual ICollection<tbColores> tbColoresusua_UsuarioEliminacionNavigation { get; set; }
-        public virtual ICollection<tbColores> tbColoresusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbComercianteIndividual> tbComercianteIndividualusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbComercianteIndividual> tbComercianteIndividualusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbConceptoPago> tbConceptoPagousua_UsuarioCreacionNavigation { get; set; }
@@ -343,9 +294,6 @@ namespace SIMEXPRO.Entities.Entities
         public virtual ICollection<tbEstilos> tbEstilosusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbFacturas> tbFacturasusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbFacturas> tbFacturasusua_UsuarioModificacionNavigation { get; set; }
-        public virtual ICollection<tbFormas_Envio> tbFormas_Enviousua_UsuarioCreacionNavigation { get; set; }
-        public virtual ICollection<tbFormas_Envio> tbFormas_Enviousua_UsuarioEliminacionNavigation { get; set; }
-        public virtual ICollection<tbFormas_Envio> tbFormas_Enviousua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbFormasdePago> tbFormasdePagousua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbFormasdePago> tbFormasdePagousua_UsuarioEliminacionNavigation { get; set; }
         public virtual ICollection<tbFormasdePago> tbFormasdePagousua_UsuarioModificacionNavigation { get; set; }
@@ -355,8 +303,6 @@ namespace SIMEXPRO.Entities.Entities
         public virtual ICollection<tbImportadores> tbImportadoresusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbImportadores> tbImportadoresusua_UsuarioEliminacionNavigation { get; set; }
         public virtual ICollection<tbImportadores> tbImportadoresusua_UsuarioModificacionNavigation { get; set; }
-        public virtual ICollection<tbImpuestosPorArancel> tbImpuestosPorArancelusua_UsuarioCreacionNavigation { get; set; }
-        public virtual ICollection<tbImpuestosPorArancel> tbImpuestosPorArancelusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbImpuestos> tbImpuestosusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbImpuestos> tbImpuestosusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbIncoterm> tbIncotermusua_UsuarioCreacionNavigation { get; set; }
@@ -404,20 +350,12 @@ namespace SIMEXPRO.Entities.Entities
         public virtual ICollection<tbNivelesComerciales> tbNivelesComercialesusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbNivelesComerciales> tbNivelesComercialesusua_UsuarioEliminacionNavigation { get; set; }
         public virtual ICollection<tbNivelesComerciales> tbNivelesComercialesusua_UsuarioModificacionNavigation { get; set; }
-        public virtual ICollection<tbOficinas> tbOficinasusua_UsuarioCreacionNavigation { get; set; }
-        public virtual ICollection<tbOficinas> tbOficinasusua_UsuarioEliminacionNavigation { get; set; }
-        public virtual ICollection<tbOficinas> tbOficinasusua_UsuarioModificacionNavigation { get; set; }
-        public virtual ICollection<tbOficio_Profesiones> tbOficio_Profesionesusua_UsuarioCreacionNavigation { get; set; }
-        public virtual ICollection<tbOficio_Profesiones> tbOficio_Profesionesusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbOrde_Ensa_Acab_Etiq> tbOrde_Ensa_Acab_Etiqusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbOrde_Ensa_Acab_Etiq> tbOrde_Ensa_Acab_Etiqusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbOrdenCompraDetalles> tbOrdenCompraDetallesusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbOrdenCompraDetalles> tbOrdenCompraDetallesusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbOrdenCompra> tbOrdenComprausua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbOrdenCompra> tbOrdenComprausua_UsuarioModificacionNavigation { get; set; }
-        public virtual ICollection<tbPaises> tbPaisesusua_UsuarioCreacionNavigation { get; set; }
-        public virtual ICollection<tbPaises> tbPaisesusua_UsuarioEliminacionNavigation { get; set; }
-        public virtual ICollection<tbPaises> tbPaisesusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbPantallas> tbPantallasusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbPantallas> tbPantallasusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbPedidosOrdenDetalle> tbPedidosOrdenDetalleusua_UsuarioCreacionNavigation { get; set; }

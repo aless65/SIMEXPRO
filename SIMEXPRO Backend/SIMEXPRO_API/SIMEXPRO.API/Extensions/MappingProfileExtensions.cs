@@ -53,6 +53,7 @@ namespace Events_Company_R.API.Extentions
             CreateMap<LiquidacionPorLineaViewModel, tbLiquidacionPorLinea>().ReverseMap();
             CreateMap<LugaresEmbarqueViewModel, tbLugaresEmbarque>().ReverseMap();
             CreateMap<MarcasViewModel, tbMarcas>().ReverseMap();
+            CreateMap<ModoTransporteViewModel, tbModoTransporte>().ReverseMap();
             CreateMap<NivelesComercialesViewModel, tbNivelesComerciales>().ReverseMap();
             CreateMap<PersonaJuridicaViewModel, tbPersonaJuridica>().ReverseMap();
             #endregion

@@ -61,6 +61,11 @@ namespace SIMEXPRO.Entities.Entities
         public virtual tbAduanas duca_AduanaRegistroNavigation { get; set; }
         public virtual tbAduanas duca_AduanaSalidaNavigation { get; set; }
         public virtual tbConductor duca_Conductor { get; set; }
+        public virtual tbPaises duca_Pais_DestinoNavigation { get; set; }
+        public virtual tbPaises duca_Pais_Emision_ExportadorNavigation { get; set; }
+        public virtual tbPaises duca_Pais_Emision_ImportadorNavigation { get; set; }
+        public virtual tbPaises duca_Pais_ExportacionNavigation { get; set; }
+        public virtual tbPaises duca_Pais_ProcedenciaNavigation { get; set; }
         public virtual tbTiposIdentificacion duca_Tipo_Iden_ExportadorNavigation { get; set; }
         public virtual tbModoTransporte motr { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }

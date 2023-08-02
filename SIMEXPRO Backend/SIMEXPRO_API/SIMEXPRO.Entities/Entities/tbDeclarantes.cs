@@ -31,6 +31,7 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime? decl_FechaEliminacion { get; set; }
         public bool? decl_Estado { get; set; }
 
+        public virtual tbCiudades ciud { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioEliminacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }

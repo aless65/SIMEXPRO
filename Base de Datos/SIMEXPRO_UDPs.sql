@@ -2824,9 +2824,9 @@ AS
 BEGIN 
 SELECT	fopa_Id							,
         fopa_Descripcion				,
-		usu.usua_Nombre					AS usarioCreacion,
+		usu.usua_Nombre					AS usua_NombreCreacion,
 		fopa_FechaCreacion				,
-		usu1.usua_Nombre				AS usuarioModificacion,
+		usu1.usua_Nombre				AS usua_NombreModificacion,
 		fopa_FechaModificacion			,
 		fopa_Estado						
 FROM	Adua.tbFormasdePago form 
@@ -2854,7 +2854,6 @@ BEGIN
 		    UPDATE Adua.tbFormasdePago
 			SET fopa_Estado = 1
 			WHERE fopa_Descripcion=@fopa_Descripcion
-			SELECT 1
 		 END
 		ELSE 
 		 BEGIN
@@ -2869,8 +2868,8 @@ BEGIN
 			  @fopa_FechaCreacion  
 			)
          END
-		 
-		END TRY 
+		 SELECT 1
+	END TRY 
 	BEGIN CATCH
 	   SELECT 0	
 	END CATCH    
@@ -3262,9 +3261,9 @@ AS
 BEGIN
 SELECT	esbo_Id								,
 		esbo_Descripcion					, 
-		crea.usua_Nombre					AS usarioCreacion,
+		crea.usua_Nombre					AS usua_NombreCreacion,
 		esbo_FechaCreacion					,
-		modi.usua_Nombre					AS usuarioModificacion,
+		modi.usua_Nombre					AS usua_NombreModificacion,
 		esbo_FechaModificacion				,
 		esbo_Estadoo 						
 FROM	Adua.tbEstadoBoletin esbo 
@@ -3273,6 +3272,7 @@ FROM	Adua.tbEstadoBoletin esbo
 WHERE	esbo_Estadoo = 1
 END 
 GO
+
 /*Insertar Estado boletin*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbEstadoBoletin_Insertar
 @esbo_Descripcion		NVARCHAR(200),
@@ -5989,37 +5989,35 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbDuca_Listar
 AS
 BEGIN
 	SELECT
-	
-
 	-- Identificación de la Declaración parte I --
 		duca_No_Correlativo_Referencia, 
 		duca_No_Duca, 
-		duca.deva_Id							AS 'Id declaracuión de valor', 
-		deva.deva_FechaAceptacion,
+		duca.deva_Id, 
+		deva.deva_Fecha_Aceptacion,
 
 	-- 4.1 Exportador / Proveedor -- 
 		decla.decl_NumeroIdentificacion,
-		duca_Tipo_Iden_Exportador				AS 'Tipo Ident ID', 
-		tipo.iden_Descripcion					AS 'Identificacion',
+		duca_Tipo_Iden_Exportador, 
+		tipo.iden_Descripcion,
 		duca_Pais_Emision_Exportador,
-		paisEE.pais_Nombre                      AS 'Nombre Pais emision exportador', 
+		paisEE.pais_Nombre, 
 		decla.decl_Nombre_Raso,
 		duca_DomicilioFiscal_Exportador, 
 
    -- Identificación de la Declaración parte II --
 		duca.duca_AduanaRegistro,
-		adua1.adua_Nombre						AS 'Aduana Registro Nombre',
+		adua1.adua_Nombre,
 		duca.duca_AduanaSalida,
-		adua2.adua_Nombre						AS 'Aduana Salida Nombre',
-		deva.deva_AduanaIngresoId,
-		adua3.adua_Nombre						AS 'Aduana Ingreso Nombre',
-		deva.deva_AduanaDespachoId,
-		adua4.adua_Nombre						AS 'Aduana Despacho Nombre',
+		adua2.adua_Nombre,
+		deva.deva_Aduana_Ingreso_Id,
+		adua3.adua_Nombre,
+		deva.deva_Aduana_Despacho_Id,
+		adua4.adua_Nombre,
 
 	-- 5.1  Iportador / Destinatario  --
 		duca_Numero_Id_Importador, 
 		duca_Pais_Emision_Importador,
-		paisEI.pais_Nombre                      AS 'Nombre Pais emision importador',
+		paisEI.pais_Nombre,
 		duca_DomicilioFiscal_Importador, 
 
     -- Identificación de la Declaración parte III --
@@ -6031,11 +6029,11 @@ BEGIN
 		
     -- Identificacion de la Declaracion parte IV
 		duca_Pais_Procedencia,
-		paisP.pais_Nombre                       AS 'Nombre pais procedencia', 
+		paisP.pais_Nombre, 
 		duca_Pais_Exportacion,
-		paisE.pais_Nombre                       AS 'Pais exportacion', 
+		paisE.pais_Nombre, 
 		duca_Pais_Destino,
-		paisD.pais_Nombre                       AS 'Pais destino', 
+		paisD.pais_Nombre, 
 		duca_Deposito_Aduanero,
 		duca_Lugar_Embarque,
 		duca_Lugar_Desembarque, 
@@ -6056,17 +6054,18 @@ BEGIN
 	--23.1 Conductor 
 	    cond.cont_Id,
 		cond.cont_Licencia,
-		paisc.pais_Nombre  AS 'Pais Expedicion',
-		cond.cont_Nombre +' '+cond.cont_Apellido AS 'Nombre y Apellido Conductor',
+		paisc.pais_Nombre,
+		cond.cont_Nombre,
+		cond.cont_Apellido,
 		cond.pais_IdExpedicion,		
 		duca_Conductor_Id, 
 
      -- Identificacion de la Declaracion parte V
 		trns.tran_Id,
 		trns.pais_Id,
-	    paist.pais_Nombre  AS 'Pais de registro',
+	    paist.pais_Nombre,
 		trns.marca_Id,
-		marc.marc_Descripcion AS 'Marca del Transporte',
+		marc.marc_Descripcion,
 		trns.tran_Chasis,
 		trns.tran_Remolque,
 		trns.tran_CantCarga,
@@ -6079,7 +6078,7 @@ BEGIN
 		baca.base_Gasto_TransporteM_Importada,
 		baca.base_Costos_Seguro,
 	    deva.inco_Id,
-		icot.inco_Descripcion AS 'Icoterm Descripcion',
+		icot.inco_Descripcion,
 		baca.base_Valor_Aduana,
 		deva.deva_ConversionDolares,
 	                               -------Otros gastos
@@ -6092,14 +6091,12 @@ BEGIN
       --Liquidacion general 
 	  
 	  --Mercancias
-	    
-
 
 		duca.usua_UsuarioCreacion,
-		usu1.usua_Nombre						AS  'Nombre usuario creador', 
+		usu1.usua_Nombre, 
 		duca_FechaCreacion, 
 		duca.usua_UsuarioModificacion, 
-		usu2.usua_Nombre						AS 'Nombre usuario modific',
+		usu2.usua_Nombre,
 		duca_FechaModificacion, 
 		duca_Estado
 	FROM Adua.tbDuca duca 
@@ -6173,7 +6170,6 @@ BEGIN
 		SET @Duca_Id = 'Error: ' + ERROR_MESSAGE();
 	END CATCH
 END
-
 GO
 
 /* Insertar Duca tab2*/
@@ -11960,12 +11956,12 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbModelosMaquina_Insertar
 	@mmaq_Nombre				NVARCHAR(250),
 	@marq_Id					INT,
 	@func_Id					INT,
-	@mmaq_Imagen				NVARCHAR(MAX),
+	@momq_Imagen				NVARCHAR(MAX),
 	@usua_UsuarioCreacion		INT,
 	@mmaq_FechaCreacion			DATETIME
 AS
 BEGIN
-	BEGIN TRY
+	BEGIN TRY	
 			BEGIN
 				INSERT INTO Prod.tbModelosMaquina (mmaq_Nombre, 
 				                                   marq_Id, 

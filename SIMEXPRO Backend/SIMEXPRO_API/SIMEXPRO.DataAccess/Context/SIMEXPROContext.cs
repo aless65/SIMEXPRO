@@ -12,6 +12,7 @@ namespace SIMEXPRO.DataAccess.Context
     {
         public SIMEXPROContext()
         {
+            
         }
 
         public SIMEXPROContext(DbContextOptions<SIMEXPROContext> options)

@@ -1,5 +1,5 @@
 using AutoMapper;
-using Events_Company_R.API.Extentions;
+using SIMEXPRO.API.Extentions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -45,8 +45,8 @@ namespace SIMEXPRO.API
             }
            );
 
-
-            // Configure Azure Key Vault
+            #region Comentar Para que no pida token de acceso
+            //// Configure Azure Key Vault
             //var configBuilder = new ConfigurationBuilder();
             //var keyVaultEndpoint = "https://simexpro.vault.azure.net/"; // Replace with your Key Vault URI
             //var azureServiceTokenProvider = new AzureServiceTokenProvider();
@@ -60,9 +60,9 @@ namespace SIMEXPRO.API
             //            .AddUserSecrets<Startup>()
             //            .AddEnvironmentVariables();
 
-           // var configuration = configBuilder.Build();
-           // services.AddSingleton(configuration);
-
+            //var configuration = configBuilder.Build();
+            //services.AddSingleton(configuration);
+            #endregion
 
             services.DataAccess(Configuration.GetConnectionString("ConexionSimexpro"));
             services.BussinessLogic();

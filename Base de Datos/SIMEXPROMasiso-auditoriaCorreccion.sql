@@ -2458,7 +2458,7 @@ CREATE TABLE Prod.tbPedidosOrdenDetalle(--No se podrá eliminar de ninguna maner
 	usua_UsuarioModificacion		INT DEFAULT NULL,
 	prod_FechaModificacion			DATETIME DEFAULT NULL,
 	--usua_UsuarioEliminacion	    INT	DEFAULT NULL,
-	--prod_FechaEliminacion		DATETIME DEFAULT NULL,
+	--prod_FechaEliminacion			DATETIME DEFAULT NULL,
 	prod_Estado						BIT DEFAULT 1
 	CONSTRAINT PK_Prod_tbPedidosOrdenDetalle_prod_Id PRIMARY KEY (prod_Id),
 	CONSTRAINT FK_Prod_tbPedidosOrdenDetalle_pedi_Id_Pro_tbPedidos		FOREIGN KEY (pedi_Id)	REFERENCES Prod.tbPedidosOrden(peor_Id),

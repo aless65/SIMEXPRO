@@ -49,12 +49,17 @@ namespace Events_Company_R.API.Extentions
             CreateMap<PersonaNaturalViewModel, tbPersonaNatural>().ReverseMap();
             CreateMap<ConceptoPagoViewModel, tbConceptoPago>().ReverseMap();
             CreateMap<ItemsViewModel, tbItems>().ReverseMap();
+            CreateMap<IncotermViewModel, tbIncoterm>().ReverseMap();
             CreateMap<LiquidacionGeneralViewModel, tbLiquidacionGeneral>().ReverseMap();
             CreateMap<LiquidacionPorLineaViewModel, tbLiquidacionPorLinea>().ReverseMap();
             CreateMap<LugaresEmbarqueViewModel, tbLugaresEmbarque>().ReverseMap();
             CreateMap<MarcasViewModel, tbMarcas>().ReverseMap();
+            CreateMap<ModoTransporteViewModel, tbModoTransporte>().ReverseMap();
             CreateMap<NivelesComercialesViewModel, tbNivelesComerciales>().ReverseMap();
             CreateMap<PersonaJuridicaViewModel, tbPersonaJuridica>().ReverseMap();
+
+            CreateMap<FacturasViewModel, tbFacturas>().ReverseMap();
+            CreateMap<EstadoMercanciasViewModel, tbEstadoMercancias>().ReverseMap();
             #endregion
 
             #region Producción

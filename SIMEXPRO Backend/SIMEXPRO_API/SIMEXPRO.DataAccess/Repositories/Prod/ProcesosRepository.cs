@@ -13,14 +13,14 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
 {
     public class ProcesosRepository : IRepository<tbProcesos>
     {
-       
+
 
         public tbProcesos Find(int? id)
         {
             throw new NotImplementedException();
         }
 
-       
+
         public RequestStatus Insert(tbProcesos item)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
@@ -29,7 +29,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@proc_Descripcion", item.proc_Descripcion, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@proc_FechaCreacion", item.proc_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
-           
+
             var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarProcesos, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
             return result;
@@ -55,7 +55,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
-            parametros.Add("@proc_Id", item.proc_Id, DbType.Int32, ParameterDirection.Input);       
+            parametros.Add("@proc_Id", item.proc_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@proc_FechaEliminacion", item.proc_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
 
@@ -72,6 +72,6 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             return db.Query<tbProcesos>(ScriptsDataBase.ListarProcesos, null, commandType: CommandType.StoredProcedure);
         }
 
-       
+
     }
 }

@@ -4076,36 +4076,50 @@ BEGIN
 	BEGIN TRY
 		
 		DECLARE @decl_Id INT;
+		DECLARE @impo_Id INT;
 
-		EXEC adua.UDP_tbDeclarantes_Insertar @decl_Nombre_Raso,
-										   @decl_Direccion_Exacta,
-										   @ciud_Id,
-										   @decl_Correo_Electronico,
-										   @decl_Telefono,
-										   @decl_Fax,
-										   @usua_UsuarioCreacion,
-										   @deva_FechaCreacion,
-										   @impo_RTN,
-										   @decl_Id OUTPUT
+		IF NOT EXISTS (SELECT impo_RTN
+					   FROM [Adua].[tbImportadores]
+					   WHERE impo_RTN = @impo_RTN)
+		BEGIN
+
+			EXEC adua.UDP_tbDeclarantes_Insertar @decl_Nombre_Raso,
+											     @decl_Direccion_Exacta,
+											     @ciud_Id,
+											     @decl_Correo_Electronico,
+											     @decl_Telefono,
+											     @decl_Fax,
+											     @usua_UsuarioCreacion,
+											     @deva_FechaCreacion,
+											     @impo_RTN,
+											     @decl_Id OUTPUT
+			
+
+			INSERT INTO Adua.tbImportadores(nico_Id, 
+												decl_Id, 
+												impo_NivelComercial_Otro, 
+												impo_RTN, 
+												impo_NumRegistro, 
+												usua_UsuarioCreacion, 
+												impo_FechaCreacion)
+			VALUES(@nico_Id, 
+				   @decl_Id,
+				   @impo_NivelComercial_Otro,
+				   @impo_RTN,
+				   @impo_NumRegistro,
+				   @usua_UsuarioCreacion,
+				   @deva_FechaCreacion)
+
+			SET @impo_Id = SCOPE_IDENTITY()
+		END
+		ELSE
+		BEGIN
+			SET @impo_Id = (SELECT impo_Id 
+								   FROM Adua.tbImportadores
+								   WHERE impo_RTN = @impo_RTN)
+		END	
 
 		--INSERT INTO Adua.tbDeclaraciones_ValorHistorial()
-
-		INSERT INTO Adua.tbImportadores(nico_Id, 
-											decl_Id, 
-											impo_NivelComercial_Otro, 
-											impo_RTN, 
-											impo_NumRegistro, 
-											usua_UsuarioCreacion, 
-											impo_FechaCreacion)
-		VALUES(@nico_Id, 
-			   @decl_Id,
-			   @impo_NivelComercial_Otro,
-			   @impo_RTN,
-			   @impo_NumRegistro,
-			   @usua_UsuarioCreacion,
-			   @deva_FechaCreacion)
-
-		DECLARE @impo_Id INT = SCOPE_IDENTITY()
 
 		INSERT INTO Adua.tbDeclaraciones_Valor(deva_AduanaIngresoId, 
 												   deva_AduanaDespachoId, 

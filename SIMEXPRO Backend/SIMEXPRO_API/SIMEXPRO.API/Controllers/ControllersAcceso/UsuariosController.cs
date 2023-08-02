@@ -33,10 +33,10 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
         }
 
         [HttpPost("Login")]
-        public IActionResult InicioSesion(string usua_Nombre, string usua_Contrasenia)
+        public IActionResult InicioSesion(UsuariosViewModel usuarios)
         {
-
-            var respuesta = _accesoServices.IniciarSesion(usua_Nombre, usua_Contrasenia);
+            var mapped = _mapper.Map<tbUsuarios>(usuarios);
+            var respuesta = _accesoServices.IniciarSesion(mapped);
 
             if (respuesta.Code == 200)
             {

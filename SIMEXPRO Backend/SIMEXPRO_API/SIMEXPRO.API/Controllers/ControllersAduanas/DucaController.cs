@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using SIMEXPRO.API.Models.ModelsAduana;
 using SIMEXPRO.BussinessLogic.Services.EventoServices;
-using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,9 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.API.Controllers.ControllersAduanas
 {
-    public class DucaController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class DucaController : ControllerBase
     {
         private readonly AduanaServices _aduanaServices;
         private readonly IMapper _mapper;
@@ -18,9 +22,18 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             _aduanaServices = AduanaServices;
             _mapper = mapper;
         }
-        public IActionResult Index()
+
+        [HttpGet("Listado")]
+        public IActionResult List()
         {
-            return View();
+            var list = _aduanaServices.ListarDuca();
+
+            list.Data = _mapper.Map<IEnumerable<DucaViewModel>>(list.Data);
+
+            return Ok(list);
         }
+
+
+
     }
 }

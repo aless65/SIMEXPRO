@@ -24,7 +24,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             _mapper = mapper;
         }
 
-        [HttpGet("Listar")]
+        [HttpGet("Listado")]
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarCiudades();

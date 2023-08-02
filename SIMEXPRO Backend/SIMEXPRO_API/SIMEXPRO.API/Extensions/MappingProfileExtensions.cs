@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Events_Company_R.API.Extentions
+namespace SIMEXPRO.API.Extentions
 {
     public class MappingProfileExtensions : Profile
     {
@@ -33,6 +33,7 @@ namespace Events_Company_R.API.Extentions
             #endregion
 
             #region Aduana
+            CreateMap<DucaViewModel, tbDuca>().ReverseMap();
             CreateMap<AduanasViewModel, tbAduanas>().ReverseMap();
             CreateMap<ArancelesViewModel, tbAranceles>().ReverseMap();
             CreateMap<BaseCalculosViewModel, tbBaseCalculos>().ReverseMap();
@@ -48,13 +49,20 @@ namespace Events_Company_R.API.Extentions
             CreateMap<PersonasViewModel, tbPersonas>().ReverseMap();
             CreateMap<PersonaNaturalViewModel, tbPersonaNatural>().ReverseMap();
             CreateMap<ConceptoPagoViewModel, tbConceptoPago>().ReverseMap();
+            CreateMap<EstadoBoletinViewModel, tbEstadoBoletin>().ReverseMap();
+            CreateMap<FormasDePagoViewModel, tbFormasdePago>().ReverseMap();
             CreateMap<ItemsViewModel, tbItems>().ReverseMap();
+            CreateMap<IncotermViewModel, tbIncoterm>().ReverseMap();
             CreateMap<LiquidacionGeneralViewModel, tbLiquidacionGeneral>().ReverseMap();
             CreateMap<LiquidacionPorLineaViewModel, tbLiquidacionPorLinea>().ReverseMap();
             CreateMap<LugaresEmbarqueViewModel, tbLugaresEmbarque>().ReverseMap();
             CreateMap<MarcasViewModel, tbMarcas>().ReverseMap();
+            CreateMap<ModoTransporteViewModel, tbModoTransporte>().ReverseMap();
             CreateMap<NivelesComercialesViewModel, tbNivelesComerciales>().ReverseMap();
             CreateMap<PersonaJuridicaViewModel, tbPersonaJuridica>().ReverseMap();
+
+            CreateMap<FacturasViewModel, tbFacturas>().ReverseMap();
+            CreateMap<EstadoMercanciasViewModel, tbEstadoMercancias>().ReverseMap();
             #endregion
 
             #region Producción

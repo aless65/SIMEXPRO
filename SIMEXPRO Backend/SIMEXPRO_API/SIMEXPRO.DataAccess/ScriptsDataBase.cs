@@ -75,6 +75,8 @@ namespace SIMEXPRO.DataAccess
         public static string ListarColonias = "gral.UDP_tbColonias_Listar";
         public static string InsertarColonias = "gral.UDP_tbColonias_Insertar";
         public static string EditarColonias = "gral.UDP_tbColonias_Editar";
+        public static string EliminarColonias = "gral.UDP_tbColonias_Eliminar";
+
         #endregion
 
         #region Monedas
@@ -93,6 +95,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarCiudades = "Gral.UDP_tbCiudades_Listar";
         public static string InsertarCiudades = "Gral.UDP_tbCiudades_Insertar";
         public static string EditarCiudades = "Gral.UDP_tbCiudades_Editar";
+        public static string EliminarCiudades = "Gral.UDP_tbCiudades_Eliminar";
         #endregion
 
         #region Provincias
@@ -306,6 +309,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarItems = "Adua.UDP_tbItems_Listar";
         public static string InsertarItems = "Adua.UDP_tbItems_Insertar";
         public static string EditarItems = "Adua.UDP_tbItems_Editar";
+        public static string EliminarItems = "Adua.UDP_tbItems_Eliminar";
         #endregion
 
         #region Liquidacion General

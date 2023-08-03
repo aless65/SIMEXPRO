@@ -33,7 +33,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(TipoIntermediarioViewModel tipoIntermediarioViewModel)
         {
             var item = _mapper.Map<tbTipoIntermediario>(tipoIntermediarioViewModel);
@@ -42,7 +42,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         }
 
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(TipoIntermediarioViewModel tipoIntermediarioViewModel)
         {
             var item = _mapper.Map<tbTipoIntermediario>(tipoIntermediarioViewModel);
@@ -50,7 +50,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
+        [HttpPost("Eliminar")]
         public IActionResult Delete(TipoIntermediarioViewModel tipoIntermediarioViewModel)
         {
             var item = _mapper.Map<tbTipoIntermediario>(tipoIntermediarioViewModel);

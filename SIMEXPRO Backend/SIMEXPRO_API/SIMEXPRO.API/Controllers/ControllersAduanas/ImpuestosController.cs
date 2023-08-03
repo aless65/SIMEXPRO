@@ -30,14 +30,14 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             var listadoMapeado = _mapper.Map<IEnumerable<ImpuestosViewModel>>(listado.Data);
             return Ok(listadoMapeado);
         }
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(ImpuestosViewModel impuestosViewModel)
         {
             var item = _mapper.Map<tbImpuestos>(impuestosViewModel);
             var respuesta = _aduanaServices.InsertarImpuestos(item);
             return Ok(respuesta);
         }
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(ImpuestosViewModel impuestosViewModel)
         {
             var item = _mapper.Map<tbImpuestos>(impuestosViewModel);
@@ -45,7 +45,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
+        [HttpPost("Eliminar")]
         public IActionResult Delete(ImpuestosViewModel impuestosViewModel)
         {
             var item = _mapper.Map<tbImpuestos>(impuestosViewModel);

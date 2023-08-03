@@ -1149,16 +1149,18 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region CondicionesComerciales
-        public IEnumerable<tbCondicionesComerciales> ListarCondicionesComerciales()
+
+        public ServiceResult ListarCondicionesComerciales()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _condicionesComercialesRepository.List();
-                return list;
+                return result.Ok(list);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return Enumerable.Empty<tbCondicionesComerciales>();
+                return result.Error(e.Message);
             }
         }
 
@@ -3799,22 +3801,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _liquidacionPorLineaRepository.Update(item);
+                if (map.CodeStatus > 0)
                 {
-                    var map = _liquidacionPorLineaRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)

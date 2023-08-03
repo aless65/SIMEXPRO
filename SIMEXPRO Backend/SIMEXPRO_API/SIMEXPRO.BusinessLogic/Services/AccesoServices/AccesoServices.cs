@@ -285,6 +285,19 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
                 return respuesta;
             }
         }
+        public ServiceResult DibujarMenu(tbRolesXPantallas item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _rolesPorPantallaRepository.DibujarMenu(item);
+                return result.Ok(map);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
         #endregion
 
         #region Roles

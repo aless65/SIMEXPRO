@@ -22,7 +22,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             _generalesServices = generalesService;
             _mapper = mapper;
         }
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarOficio_Profesiones();
@@ -31,7 +31,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(Oficio_ProfesionesViewModel oficio_ProfesionesViewModel)
         {
             var item = _mapper.Map<tbOficio_Profesiones>(oficio_ProfesionesViewModel);
@@ -40,7 +40,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(Oficio_ProfesionesViewModel oficio_ProfesionesViewModel)
         {
             var item = _mapper.Map<tbOficio_Profesiones>(oficio_ProfesionesViewModel);
@@ -48,7 +48,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
+        [HttpPost("Eliminar")]
         public IActionResult Delete(Oficio_ProfesionesViewModel oficio_ProfesionesViewModel)
         {
             var item = _mapper.Map<tbOficio_Profesiones>(oficio_ProfesionesViewModel);

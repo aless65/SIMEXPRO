@@ -31,7 +31,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(listado);
         }
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(MaquinasViewModel maquinasViewModel)
         {
             var item = _mapper.Map<tbMaquinas>(maquinasViewModel);
@@ -39,7 +39,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(MaquinasViewModel maquinasViewModel)
         {
             var item = _mapper.Map<tbMaquinas>(maquinasViewModel);
@@ -47,7 +47,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
+        [HttpPost("Eliminar")]
         public IActionResult Delete(MaquinasViewModel maquinasViewModel)
         {
             var item = _mapper.Map<tbMaquinas>(maquinasViewModel);

@@ -33,7 +33,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(ProvinciasViewModel provinciasViewModel)
         {
             var item = _mapper.Map<tbProvincias>(provinciasViewModel);
@@ -41,7 +41,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(ProvinciasViewModel provinciasViewModel)
         {
             var item = _mapper.Map<tbProvincias>(provinciasViewModel);

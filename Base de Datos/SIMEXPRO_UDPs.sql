@@ -97,6 +97,26 @@ GO
 		   
 --GO
 
+/*Dibujar menu*/
+CREATE OR ALTER PROCEDURE Acce.UDP_RolesPorPantalla_DibujadoMenu
+@role_ID    INT
+AS
+BEGIN
+SELECT    ropa_Id, 
+        pnt.pant_Id, 
+        pant_Nombre,
+        pant_URL,
+        pant_Icono,
+        pant_Esquema,
+        role_Id, 
+        pnt.usua_UsuarioCreacion, 
+        ropa_FechaCreacion
+FROM    Acce.tbRolesXPantallas rxp
+        INNER JOIN Acce.tbPantallas pnt ON rxp.pant_Id = pnt.pant_Id
+WHERE    role_Id = @role_ID
+END
+GO
+
 /*Listar Usuarios*/
 CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Listar
 AS
@@ -2931,6 +2951,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Listar
 AS
 BEGIN
 SELECT	adu.adua_Id							,
+		Adu.adua_Codigo						,
 		adu.adua_Nombre						,
 		adu.adua_Direccion_Exacta			,
 		usu.usua_Nombre						AS usarioCreacion,
@@ -6521,10 +6542,13 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbCondicionesComerciales_Listar
 AS
 
 SELECT	condi.coco_Id					,
+		condi.coco_Codigo				,
         condi.coco_Descripcion			,
-		usu.usua_Nombre					AS UsuarioCreacion,
+		condi.usua_UsuarioCreacion		,
+		usu.usua_Nombre					AS UsuarioNombreCreacion,
 		coco_FechaCreacion				,
-		usu1.usua_Nombre				AS UsuarioModificacion ,
+		condi.usua_UsuarioModificacion	,
+		usu1.usua_Nombre				AS UsuarioNombreModificacion,
 		coco_FechaModificacion			,
 		condi.coco_Estado				
 FROM	Adua.tbCondicionesComerciales condi 
@@ -6536,6 +6560,7 @@ WHERE	coco_Estado = 1
 /*Crear Condiciones comerciales*/
 GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbCondicionesComerciales_Insertar 
+ @coco_Codigo			CHAR(2),
  @coco_Descripcion		NVARCHAR(350), 
  @coco_UsuCreacion		INT, 
  @coco_FechaCreacion    DATETIME
@@ -6553,11 +6578,13 @@ BEGIN
 			ELSE 
 			  BEGIN 
 			     INSERT INTO Adua.tbCondicionesComerciales
-				 ( coco_Descripcion, 
+				 ( coco_Codigo,
+				   coco_Descripcion, 
 				   usua_UsuarioCreacion, 
 				   coco_FechaCreacion				     				 
 				 )
 				 VALUES(
+				  @coco_Codigo,
                   @coco_Descripcion,
 				  @coco_UsuCreacion,   
 				  @coco_FechaCreacion 					 
@@ -6566,7 +6593,7 @@ BEGIN
 			 END 
 	   END TRY
 	BEGIN CATCH
-	    SELECT 0
+	    SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH  
 END 
 
@@ -6575,6 +6602,7 @@ END
 GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbCondicionesComerciales_Editar 
    @coco_Id						INT,
+   @coco_Codigo					CHAR(2),
    @coco_Descripcion			NVARCHAR(150),
    @coco_UsuarioModificacion	INT,
    @coco_FechaModi				DATETIME
@@ -6582,9 +6610,10 @@ AS
 BEGIN 
       BEGIN TRY
 	      UPDATE Adua.tbCondicionesComerciales
-		  SET coco_Descripcion = @coco_Descripcion, 
-		      usua_UsuarioModificacion = @coco_UsuarioModificacion,
-			  coco_FechaModificacion = @coco_FechaModi
+		  SET	coco_Codigo = @coco_Codigo,
+				coco_Descripcion = @coco_Descripcion, 
+				usua_UsuarioModificacion = @coco_UsuarioModificacion,
+				coco_FechaModificacion = @coco_FechaModi
 		  WHERE coco_Id = @coco_Id
 		  SELECT 1
 	   END TRY 

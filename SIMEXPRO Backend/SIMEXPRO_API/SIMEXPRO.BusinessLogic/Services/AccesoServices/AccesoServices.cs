@@ -285,20 +285,17 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
                 return respuesta;
             }
         }
-        public RequestStatus DibujarMenu(tbRolesXPantallas item)
+        public ServiceResult DibujarMenu(tbRolesXPantallas item)
         {
+            var result = new ServiceResult();
             try
             {
-                var respuesta = _rolesPorPantallaRepository.DibujarMenu(item);
-                return respuesta;
+                var map = _rolesPorPantallaRepository.DibujarMenu(item);
+                return result.Ok(map);
             }
             catch (Exception ex)
             {
-                RequestStatus respuesta = new()
-                {
-                    MessageStatus = ex.Message
-                };
-                return respuesta;
+                return result.Error(ex.Message);
             }
         }
         #endregion

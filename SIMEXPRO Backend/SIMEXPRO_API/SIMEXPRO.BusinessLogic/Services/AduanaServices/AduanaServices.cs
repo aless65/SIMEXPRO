@@ -3794,22 +3794,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _liquidacionPorLineaRepository.Update(item);
+                if (map.CodeStatus > 0)
                 {
-                    var map = _liquidacionPorLineaRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)

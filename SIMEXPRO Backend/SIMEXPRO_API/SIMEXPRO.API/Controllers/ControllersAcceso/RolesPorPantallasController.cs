@@ -58,5 +58,13 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
             var datos = _accesoServices.DeleteRolxPantalla(mapped);
             return Ok(datos);
         }
+
+        [HttpPut("DibujarMenu")]
+        public IActionResult Dibujar(RolesPorPantallasViewModel rolesPantalla)
+        {
+            var mapped = _mapper.Map<tbRolesXPantallas>(rolesPantalla);
+            var datos = _accesoServices.DeleteRolxPantalla(mapped);
+            return Ok(datos);
+        }
     }
 }

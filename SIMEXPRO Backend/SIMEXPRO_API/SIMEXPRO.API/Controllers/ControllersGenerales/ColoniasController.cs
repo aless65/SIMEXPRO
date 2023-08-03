@@ -24,7 +24,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             _mapper = mapper;
         }
 
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarColonias();
@@ -32,7 +32,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(listado);
         }
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(ColoniasViewModel coloniasViewModel)
         {
             var item = _mapper.Map<tbColonias>(coloniasViewModel);
@@ -40,7 +40,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(ColoniasViewModel coloniasViewModel)
         {
             var item = _mapper.Map<tbColonias>(coloniasViewModel);
@@ -48,7 +48,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
+        [HttpPost("Eliminar")]
         public IActionResult Delete(ColoniasViewModel coloniasViewModel)
         {
             var item = _mapper.Map<tbColonias>(coloniasViewModel);

@@ -34,7 +34,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             return Ok(listadoMapeado);
         }
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(CondicionesComercialesViewModel clientesViewModel)
         {
             var item = _mapper.Map<tbCondicionesComerciales>(clientesViewModel);
@@ -42,7 +42,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             return Ok(respuesta);
         }
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(CondicionesComercialesViewModel clientesViewModel)
         {
             var item = _mapper.Map<tbCondicionesComerciales>(clientesViewModel);
@@ -50,7 +50,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
+        [HttpPost("Eliminar")]
         public IActionResult Delete(CondicionesComercialesViewModel clientesViewModel)
         {
             var item = _mapper.Map<tbCondicionesComerciales>(clientesViewModel);

@@ -10,6 +10,8 @@ using SIMEXPRO.Entities.Entities;
 
 namespace SIMEXPRO.API.Controllers.ControllersAduanas
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class IncotermController : Controller
     {
         private readonly AduanaServices _aduanaServices;
@@ -20,21 +22,21 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             _aduanaServices = AduanaServices;
             _mapper = mapper;
         }
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _aduanaServices.ListarIncoterm();
             var listadoMapeado = _mapper.Map<IEnumerable<IncotermViewModel>>(listado.Data);
             return Ok(listadoMapeado);
         }
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(IncotermViewModel incotermViewModel)
         {
             var item = _mapper.Map<tbIncoterm>(incotermViewModel);
             var respuesta = _aduanaServices.InsertarIncoterm(item);
             return Ok(respuesta);
         }
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(IncotermViewModel incotermViewModel)
         {
             var item = _mapper.Map<tbIncoterm>(incotermViewModel);

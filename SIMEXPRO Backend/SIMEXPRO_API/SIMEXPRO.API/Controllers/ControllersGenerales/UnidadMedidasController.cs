@@ -33,7 +33,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(UnidadMedidaViewModel unidadMedidaViewModel)
         {
             var item = _mapper.Map<tbUnidadMedidas>(unidadMedidaViewModel);
@@ -41,7 +41,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(UnidadMedidaViewModel unidadMedidaViewModel)
         {
             var item = _mapper.Map<tbUnidadMedidas>(unidadMedidaViewModel);
@@ -49,7 +49,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
+        [HttpPost("Eliminar")]
         public IActionResult Delete(UnidadMedidaViewModel unidadMedidaViewModel)
         {
             var item = _mapper.Map<tbUnidadMedidas>(unidadMedidaViewModel);

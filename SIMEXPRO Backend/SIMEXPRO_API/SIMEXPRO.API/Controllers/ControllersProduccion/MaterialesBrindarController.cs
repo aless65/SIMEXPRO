@@ -32,7 +32,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(MaterialesBrindarViewModel materialesBrindarViewModel)
         {
             var item = _mapper.Map<tbMaterialesBrindar>(materialesBrindarViewModel);
@@ -41,7 +41,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         }
 
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(MaterialesBrindarViewModel materialesBrindarViewModel)
         {
             var item = _mapper.Map<tbMaterialesBrindar>(materialesBrindarViewModel);

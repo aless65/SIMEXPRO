@@ -33,7 +33,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(listadoMapeado);
         }
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(ClientesViewModel clientesViewModel)
         {
             var item = _mapper.Map<tbClientes>(clientesViewModel);
@@ -41,7 +41,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(ClientesViewModel clientesViewModel)
         {
             var item = _mapper.Map<tbClientes>(clientesViewModel);
@@ -49,7 +49,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
+        [HttpPost("Eliminar")]
         public IActionResult Delete(ClientesViewModel clientesViewModel)
         {
             var item = _mapper.Map<tbClientes>(clientesViewModel);

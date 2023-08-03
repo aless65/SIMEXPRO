@@ -23,7 +23,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             _mapper = mapper;
         }
 
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult List()
         {
             var list = _aduanaServices.ListarFormasdePago();

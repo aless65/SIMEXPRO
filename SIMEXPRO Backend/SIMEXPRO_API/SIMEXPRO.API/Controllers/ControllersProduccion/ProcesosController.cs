@@ -26,7 +26,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         }
 
 
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _produccionServices.ListarProcesos();
@@ -35,7 +35,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(ProcesosViewModel ProcesosViewModel)
         {
             var item = _mapper.Map<tbProcesos>(ProcesosViewModel);

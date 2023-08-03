@@ -14,7 +14,21 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
     {
         public RequestStatus Delete(tbDeclaraciones_Valor item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+
+            var parametros = new DynamicParameters();
+
+            var resultado = new RequestStatus();
+
+            parametros.Add("@deva_Id", item.deva_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@deva_FechaEliminacion", item.deva_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
+
+            var respuesta = db.QueryFirst<string>(ScriptsDataBase.EliminarDeclaracionesValor, parametros, commandType: CommandType.StoredProcedure);
+
+            resultado.MessageStatus = respuesta;
+
+            return resultado;
         }
 
         public tbDeclaraciones_Valor Find(int? id)
@@ -98,9 +112,50 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             return resultado;
         }
 
+        public RequestStatus InsertTab3(tbDeclaraciones_Valor item)
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+
+            var parametros = new DynamicParameters();
+
+            var resultado = new RequestStatus();
+
+            parametros.Add("@deva_Id", item.deva_Id, DbType.Int32, ParameterDirection.Input);
+
+            parametros.Add("@deva_LugarEntrega", item.deva_LugarEntrega, DbType.String, ParameterDirection.Input);
+            parametros.Add("@pais_EntregaId", item.pais_EntregaId, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@inco_Id", item.inco_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@inco_Version", item.inco_Version, DbType.String, ParameterDirection.Input);
+            parametros.Add("@deva_NumeroContrato", item.deva_NumeroContrato, DbType.String, ParameterDirection.Input);
+            parametros.Add("@deva_FechaContrato", item.deva_FechaContrato, DbType.Date, ParameterDirection.Input);
+            parametros.Add("@foen_Id", item.foen_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@deva_FormaEnvioOtra", item.deva_FormaEnvioOtra, DbType.String, ParameterDirection.Input);
+            parametros.Add("@deva_PagoEfectuado", item.deva_PagoEfectuado, DbType.Binary, ParameterDirection.Input);
+            parametros.Add("@fopa_Id", item.fopa_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@deva_FormaPagoOtra", item.deva_FormaPagoOtra, DbType.String, ParameterDirection.Input);
+            parametros.Add("@emba_Id", item.emba_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@pais_ExportacionId", item.pais_ExportacionId, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@deva_FechaExportacion", item.deva_FechaExportacion, DbType.Date, ParameterDirection.Input);
+            parametros.Add("@mone_Id", item.mone_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@mone_Otra", item.mone_Otra, DbType.String, ParameterDirection.Input);
+            parametros.Add("@deva_ConversionDolares", item.deva_ConversionDolares, DbType.Decimal, ParameterDirection.Input);
+
+            parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@deva_FechaCreacion", item.deva_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
+
+            var respuesta = db.QueryFirst<string>(ScriptsDataBase.InsertarDeclaracionesValorTAP3, parametros, commandType: CommandType.StoredProcedure);
+
+            resultado.MessageStatus = respuesta;
+
+            return resultado;
+        }
+
         public IEnumerable<tbDeclaraciones_Valor> List()
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            var respuesta = db.Query<tbDeclaraciones_Valor>(ScriptsDataBase.ListarDeclaracionesValor, commandType: CommandType.StoredProcedure);
+
+            return respuesta;
         }
 
         public RequestStatus Update(tbDeclaraciones_Valor item)
@@ -174,6 +229,44 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@deva_FechaModificacion", item.deva_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
 
             var respuesta = db.QueryFirst<string>(ScriptsDataBase.EditarDeclaracionesValorTAP2, parametros, commandType: CommandType.StoredProcedure);
+
+            resultado.MessageStatus = respuesta;
+
+            return resultado;
+        }
+
+        public RequestStatus UpdateTab3(tbDeclaraciones_Valor item)
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+
+            var parametros = new DynamicParameters();
+
+            var resultado = new RequestStatus();
+
+            parametros.Add("@deva_Id", item.deva_Id, DbType.Int32, ParameterDirection.Input);
+
+            parametros.Add("@deva_LugarEntrega", item.deva_LugarEntrega, DbType.String, ParameterDirection.Input);
+            parametros.Add("@pais_EntregaId", item.pais_EntregaId, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@inco_Id", item.inco_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@inco_Version", item.inco_Version, DbType.String, ParameterDirection.Input);
+            parametros.Add("@deva_NumeroContrato", item.deva_NumeroContrato, DbType.String, ParameterDirection.Input);
+            parametros.Add("@deva_FechaContrato", item.deva_FechaContrato, DbType.Date, ParameterDirection.Input);
+            parametros.Add("@foen_Id", item.foen_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@deva_FormaEnvioOtra", item.deva_FormaEnvioOtra, DbType.String, ParameterDirection.Input);
+            parametros.Add("@deva_PagoEfectuado", item.deva_PagoEfectuado, DbType.Binary, ParameterDirection.Input);
+            parametros.Add("@fopa_Id", item.fopa_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@deva_FormaPagoOtra", item.deva_FormaPagoOtra, DbType.String, ParameterDirection.Input);
+            parametros.Add("@emba_Id", item.emba_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@pais_ExportacionId", item.pais_ExportacionId, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@deva_FechaExportacion", item.deva_FechaExportacion, DbType.Date, ParameterDirection.Input);
+            parametros.Add("@mone_Id", item.mone_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@mone_Otra", item.mone_Otra, DbType.String, ParameterDirection.Input);
+            parametros.Add("@deva_ConversionDolares", item.deva_ConversionDolares, DbType.Decimal, ParameterDirection.Input);
+
+            parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@deva_FechaModificacion", item.deva_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
+
+            var respuesta = db.QueryFirst<string>(ScriptsDataBase.EditarDeclaracionesValorTAP3, parametros, commandType: CommandType.StoredProcedure);
 
             resultado.MessageStatus = respuesta;
 

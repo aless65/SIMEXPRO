@@ -35,6 +35,7 @@ namespace SIMEXPRO.API.Extentions
             #region Aduana
             CreateMap<DucaViewModel, tbDuca>().ReverseMap();
             CreateMap<AduanasViewModel, tbAduanas>().ReverseMap();
+            CreateMap<Declaraciones_ValorViewModel, tbDeclaraciones_Valor>().ReverseMap();
             CreateMap<ArancelesViewModel, tbAranceles>().ReverseMap();
             CreateMap<BaseCalculosViewModel, tbBaseCalculos>().ReverseMap();
             CreateMap<BoletinPagoViewModel, tbBoletinPago>().ReverseMap();

@@ -3866,12 +3866,12 @@ BEGIN
 			deva_LugarEntrega, 
 			pais_EntregaId, 
 			inco.inco_Id, 
-			inco.inco_Descripcion
+			inco.inco_Descripcion,
 			inco_Version, 
 			deva_NumeroContrato, 
 			deva_FechaContrato, 
 			foen.foen_Id, 
-			foen.foen_Descripcion
+			foen.foen_Descripcion,
 
 			deva_FormaEnvioOtra, 
 			deva_PagoEfectuado, 
@@ -3901,7 +3901,7 @@ BEGIN
 			LEFT JOIN  Adua.tbIntermediarios inte			ON inte.inte_Id = deva.inte_Id
 			LEFT JOIN  Adua.tbDeclarantes declaInte			ON declaInte.decl_Id = inte.decl_Id
 			LEFT JOIN  Adua.tbIncoterm inco					ON deva.inco_Id = inco.inco_Id
-			LEFT JOIN  Gral.tbFormas_Envio foen				ON  deva.foen_Id = foen.foen_Id 
+			LEFT JOIN  Gral.tbFormas_Envio foen				ON deva.foen_Id = foen.foen_Id 
 	
 END
 GO
@@ -4727,22 +4727,22 @@ GO
 CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab3_Insertar 
 	@deva_Id					INT,	
 	@deva_LugarEntrega			NVARCHAR(800),
-	@pais_EntregaId			INT,
+	@pais_EntregaId				INT,
 	@inco_Id					INT,
 	@inco_Version				NVARCHAR(10),
 	@deva_NumeroContrato		NVARCHAR(200),
-	@deva_FechaContrato		DATE,
+	@deva_FechaContrato			DATE,
 	@foen_Id					INT,
 	@deva_FormaEnvioOtra		NVARCHAR(500),
-	@deva_PagoEfectuado		BIT,
+	@deva_PagoEfectuado			BIT,
 	@fopa_Id					INT,
-	@deva_FormaPagoOtra		NVARCHAR(200),
+	@deva_FormaPagoOtra			NVARCHAR(200),
 	@emba_Id					INT,
-	@pais_ExportacionId		INT,
+	@pais_ExportacionId			INT,
 	@deva_FechaExportacion		DATE,
 	@mone_Id					INT,
 	@mone_Otra					NVARCHAR(200),
-	@deva_ConversionDolares	DECIMAL(18,2),
+	@deva_ConversionDolares		DECIMAL(18,2),
 	@deva_UsuarioCreacion		INT,
 	@deva_FechaCreacion			DATETIME
 AS 
@@ -4839,18 +4839,18 @@ GO
 CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab3_Editar 
 	@deva_Id					INT,	
 	@deva_LugarEntrega			NVARCHAR(800),
-	@pais_EntregaId			INT,
+	@pais_EntregaId				INT,
 	@inco_Id					INT,
 	@inco_Version				NVARCHAR(10),
 	@deva_NumeroContrato		NVARCHAR(200),
-	@deva_FechaContrato		DATE,
+	@deva_FechaContrato			DATE,
 	@foen_Id					INT,
 	@deva_FormaEnvioOtra		NVARCHAR(500),
-	@deva_PagoEfectuado		BIT,
+	@deva_PagoEfectuado			BIT,
 	@fopa_Id					INT,
-	@deva_FormaPagoOtra		NVARCHAR(200),
+	@deva_FormaPagoOtra			NVARCHAR(200),
 	@emba_Id					INT,
-	@pais_ExportacionId		INT,
+	@pais_ExportacionId			INT,
 	@deva_FechaExportacion		DATE,
 	@mone_Id					INT,
 	@mone_Otra					NVARCHAR(200),

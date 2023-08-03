@@ -2189,16 +2189,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                var map = _ducaRepository.Insert(item);
+                var respuesta = _ducaRepository.Insert(item);
 
-                if (map.CodeStatus > 0)
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -2211,16 +2204,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                var map = _ducaRepository.InsertTap2(item);
+                var respuesta = _ducaRepository.InsertTap2(item);
 
-                if (map.CodeStatus > 0)
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -2233,16 +2219,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                var map = _ducaRepository.InsertTap3(item);
+                var respuesta = _ducaRepository.InsertTap3(item);
 
-                if (map.CodeStatus > 0)
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -2250,21 +2229,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        public ServiceResult ActualizarDuca(tbDuca item)
+        public ServiceResult ActualizarDucaTap1(tbDuca item)
         {
             var result = new ServiceResult();
             try
             {
-                var map = _ducaRepository.Update(item);
-
-                if (map.CodeStatus > 0)
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                var respuesta = _ducaRepository.Update(item);
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -2272,34 +2243,35 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        public ServiceResult EliminarDuca(tbDuca item)
+        public ServiceResult ActualizarDucaTap2(tbDuca item)
         {
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
-                {
-                    var map = _ducaRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _ducaRepository.UpdateTap2(item);
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
                 return result.Error(ex.Message);
             }
         }
+
+        public ServiceResult ActualizarDucaTap3(tbDocumentosDeSoporte item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var respuesta = _ducaRepository.UpdateTap3(item);
+                return result.Ok(respuesta);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+      
         #endregion
 
         #region EstadoBoletin

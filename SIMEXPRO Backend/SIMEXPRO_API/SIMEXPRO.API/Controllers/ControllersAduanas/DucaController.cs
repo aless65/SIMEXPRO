@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SIMEXPRO.API.Models.ModelsAduana;
 using SIMEXPRO.BussinessLogic.Services.EventoServices;
+using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,28 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             return Ok(list);
         }
 
+        [HttpPost("InsertPart1")]
+        public IActionResult InsertPart1(DucaViewModel item)
+        {
+            var result = _aduanaServices.InsertarDucaTap1(_mapper.Map<tbDuca>(item));
 
+            return Ok(result);
+        }
 
+        [HttpPost("InsertPart2")]
+        public IActionResult InsertPart2(DucaViewModel item)
+        {
+            var result = _aduanaServices.InsertarDucaTap2(_mapper.Map<tbDuca>(item));
+
+            return Ok(result);
+        }
+
+        [HttpPost("InsertPart3")]
+        public IActionResult InsertPart3(DocumentosDeSoporteViewModel item)
+        {
+            var result = _aduanaServices.InsertarDucaTap3(_mapper.Map<tbDocumentosDeSoporte>(item));
+
+            return Ok(result);
+        }
     }
 }

@@ -2228,7 +2228,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        public ServiceResult InsertarDucaTap3(tbDuca item)
+        public ServiceResult InsertarDucaTap3(tbDocumentosDeSoporte item)
         {
             var result = new ServiceResult();
             try

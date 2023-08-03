@@ -71,7 +71,38 @@ namespace SIMEXPRO.Entities.Entities
         public string cont_Apellido { get; set; }
 
         [NotMapped]
-        public string pais_Id { get; set; }
+        public int pais_Id { get; set; }
+
+        [NotMapped]
+        public int marca_Id { get; set; }
+
+        [NotMapped]
+        public string tran_Chasis { get; set; }
+
+        [NotMapped]
+        public string tran_Remolque { get; set; }
+
+        [NotMapped]
+        public int tran_CantCarga { get; set; }
+
+        [NotMapped]
+        public int tran_NumDispositivoSeguridad { get; set; }
+
+        [NotMapped]
+        public string tran_Equipamiento { get; set; }
+
+        [NotMapped]
+        public string tran_TipoCarga { get; set; }
+        
+        [NotMapped]
+        public string tran_IdContenedor { get; set; }
+
+        [NotMapped]
+        public int usua_UsuarioCreacio { get; set; }
+
+        [NotMapped]
+        public DateTime tran_FechaCreacion { get; set; }
+
 
         public virtual tbDeclaraciones_Valor deva { get; set; }
         public virtual tbAduanas duca_AduanaRegistroNavigation { get; set; }

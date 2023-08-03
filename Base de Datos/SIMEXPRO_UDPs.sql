@@ -2931,6 +2931,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Listar
 AS
 BEGIN
 SELECT	adu.adua_Id							,
+		Adu.adua_Codigo						,
 		adu.adua_Nombre						,
 		adu.adua_Direccion_Exacta			,
 		usu.usua_Nombre						AS usarioCreacion,

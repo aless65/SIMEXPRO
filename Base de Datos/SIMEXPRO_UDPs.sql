@@ -4050,7 +4050,7 @@ GO
 
 CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab1_Insertar 
 	@deva_AduanaIngresoId				INT,
-	@deva_AduanaDespachoId			INT,
+	@deva_AduanaDespachoId				INT,
 	@deva_FechaAceptacion				DATETIME,
 	@decl_Nombre_Raso					NVARCHAR(250),
 	@impo_RTN							NVARCHAR(40),
@@ -4070,6 +4070,7 @@ BEGIN
 	BEGIN TRY
 		
 		DECLARE @decl_Id INT;
+		DECLARE @impo_Id INT;
 
 		IF NOT EXISTS (SELECT impo_RTN FROM [Adua].[tbImportadores] WHERE impo_RTN = @impo_RTN)
 		BEGIN
@@ -4127,7 +4128,7 @@ BEGIN
 			   @usua_UsuarioCreacion,
 			   @deva_FechaCreacion)
 
-		DECLARE @impo_Id INT = SCOPE_IDENTITY()
+		SET @impo_Id = SCOPE_IDENTITY()
 
 		INSERT INTO Adua.tbDeclaraciones_Valor(deva_AduanaIngresoId, 
 												   deva_AduanaDespachoId, 
@@ -4296,7 +4297,7 @@ BEGIN
 															fopa_Id, 
 															deva_FormaPagoOtra, 
 															emba_Id, 
-															pais_Exportacion_Id, 
+															pais_ExportacionId, 
 															deva_FechaExportacion, 
 															mone_Id, 
 															mone_Otra, 
@@ -4323,7 +4324,7 @@ BEGIN
 			   fopa_Id, 
 			   deva_FormaPagoOtra, 
 			   emba_Id, 
-			   pais_Exportacion_Id, 
+			   pais_ExportacionId, 
 			   deva_FechaExportacion, 
 			   mone_Id, 
 			   mone_Otra, 
@@ -4674,7 +4675,7 @@ BEGIN
 															fopa_Id, 
 															deva_FormaPagoOtra, 
 															emba_Id, 
-															pais_Exportacion_Id, 
+															pais_ExportacionId, 
 															deva_FechaExportacion, 
 															mone_Id, 
 															mone_Otra, 
@@ -4701,7 +4702,7 @@ BEGIN
 			   fopa_Id, 
 			   deva_FormaPagoOtra, 
 			   emba_Id, 
-			   pais_Exportacion_Id, 
+			   pais_ExportacionId, 
 			   deva_FechaExportacion, 
 			   mone_Id, 
 			   mone_Otra, 
@@ -4726,7 +4727,7 @@ GO
 CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab3_Insertar 
 	@deva_Id					INT,	
 	@deva_LugarEntrega			NVARCHAR(800),
-	@pais_Entrega_Id			INT,
+	@pais_EntregaId			INT,
 	@inco_Id					INT,
 	@inco_Version				NVARCHAR(10),
 	@deva_NumeroContrato		NVARCHAR(200),
@@ -4737,7 +4738,7 @@ CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab3_Insertar
 	@fopa_Id					INT,
 	@deva_FormaPagoOtra		NVARCHAR(200),
 	@emba_Id					INT,
-	@pais_Exportacion_Id		INT,
+	@pais_ExportacionId		INT,
 	@deva_FechaExportacion		DATE,
 	@mone_Id					INT,
 	@mone_Otra					NVARCHAR(200),
@@ -4751,7 +4752,7 @@ BEGIN
 
 			UPDATE Adua.tbDeclaraciones_Valor
 			SET deva_LugarEntrega = @deva_LugarEntrega,
-				pais_Entrega_Id = @pais_Entrega_Id,
+				pais_EntregaId = @pais_EntregaId,
 				inco_Id = @inco_Id,
 				inco_Version = @inco_Version,
 				deva_NumeroContrato = @deva_NumeroContrato,
@@ -4762,7 +4763,7 @@ BEGIN
 				fopa_Id = @fopa_Id,
 				deva_FormaPagoOtra = @deva_FormaPagoOtra,
 				emba_Id = @emba_Id,
-				pais_Exportacion_Id = @pais_Exportacion_Id,
+				pais_ExportacionId = @pais_ExportacionId,
 				deva_FechaExportacion = @deva_FechaExportacion,
 				mone_Id = @mone_Id,
 				mone_Otra = @mone_Otra,
@@ -4787,7 +4788,7 @@ BEGIN
 																fopa_Id, 
 																deva_FormaPagoOtra, 
 																emba_Id, 
-																pais_Exportacion_Id, 
+																pais_ExportacionId, 
 																deva_FechaExportacion, 
 																mone_Id, 
 																mone_Otra, 
@@ -4814,7 +4815,7 @@ BEGIN
 					   @fopa_Id, 
 					   @deva_FormaPagoOtra, 
 					   @emba_Id, 
-					   @pais_Exportacion_Id, 
+					   @pais_ExportacionId, 
 					   @deva_FechaExportacion, 
 					   @mone_Id, 
 					   @mone_Otra, 
@@ -4838,7 +4839,7 @@ GO
 CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab3_Editar 
 	@deva_Id					INT,	
 	@deva_LugarEntrega			NVARCHAR(800),
-	@pais_Entrega_Id			INT,
+	@pais_EntregaId			INT,
 	@inco_Id					INT,
 	@inco_Version				NVARCHAR(10),
 	@deva_NumeroContrato		NVARCHAR(200),
@@ -4849,7 +4850,7 @@ CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab3_Editar
 	@fopa_Id					INT,
 	@deva_FormaPagoOtra		NVARCHAR(200),
 	@emba_Id					INT,
-	@pais_Exportacion_Id		INT,
+	@pais_ExportacionId		INT,
 	@deva_FechaExportacion		DATE,
 	@mone_Id					INT,
 	@mone_Otra					NVARCHAR(200),
@@ -4863,7 +4864,7 @@ BEGIN
 
 			UPDATE Adua.tbDeclaraciones_Valor
 			SET deva_LugarEntrega = @deva_LugarEntrega,
-				pais_Entrega_Id = @pais_Entrega_Id,
+				pais_EntregaId = @pais_EntregaId,
 				inco_Id = @inco_Id,
 				inco_Version = @inco_Version,
 				deva_NumeroContrato = @deva_NumeroContrato,
@@ -4874,7 +4875,7 @@ BEGIN
 				fopa_Id = @fopa_Id,
 				deva_FormaPagoOtra = @deva_FormaPagoOtra,
 				emba_Id = @emba_Id,
-				pais_Exportacion_Id = @pais_Exportacion_Id,
+				pais_ExportacionId = @pais_ExportacionId,
 				deva_FechaExportacion = @deva_FechaExportacion,
 				mone_Id = @mone_Id,
 				mone_Otra = @mone_Otra,
@@ -4899,7 +4900,7 @@ BEGIN
 															fopa_Id, 
 															deva_FormaPagoOtra, 
 															emba_Id, 
-															pais_Exportacion_Id, 
+															pais_ExportacionId, 
 															deva_FechaExportacion, 
 															mone_Id, 
 															mone_Otra, 
@@ -4926,7 +4927,7 @@ BEGIN
 				   fopa_Id, 
 				   deva_FormaPagoOtra, 
 				   emba_Id, 
-				   pais_Exportacion_Id, 
+				   pais_ExportacionId, 
 				   deva_FechaExportacion, 
 				   mone_Id, 
 				   mone_Otra, 
@@ -5925,7 +5926,7 @@ BEGIN
 															fopa_Id, 
 															deva_FormaPagoOtra, 
 															emba_Id, 
-															pais_Exportacion_Id, 
+															pais_ExportacionId, 
 															deva_FechaExportacion, 
 															mone_Id, 
 															mone_Otra, 
@@ -5952,7 +5953,7 @@ BEGIN
 			   fopa_Id, 
 			   deva_FormaPagoOtra, 
 			   emba_Id, 
-			   pais_Exportacion_Id, 
+			   pais_ExportacionId, 
 			   deva_FechaExportacion, 
 			   mone_Id, 
 			   mone_Otra, 
@@ -5987,7 +5988,7 @@ BEGIN
 		duca_No_Correlativo_Referencia, 
 		duca_No_Duca, 
 		duca.deva_Id, 
-		deva.deva_Fecha_Aceptacion,
+		deva.deva_FechaAceptacion,
 
 	-- 4.1 Exportador / Proveedor -- 
 		decla.decl_NumeroIdentificacion,
@@ -6003,9 +6004,9 @@ BEGIN
 		adua1.adua_Nombre,
 		duca.duca_AduanaSalida,
 		adua2.adua_Nombre,
-		deva.deva_Aduana_Ingreso_Id,
+		deva.deva_AduanaIngresoId,
 		adua3.adua_Nombre,
-		deva.deva_Aduana_Despacho_Id,
+		deva.deva_AduanaDespachoId,
 		adua4.adua_Nombre,
 
 	-- 5.1  Iportador / Destinatario  --
@@ -11950,7 +11951,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbModelosMaquina_Insertar
 	@mmaq_Nombre				NVARCHAR(250),
 	@marq_Id					INT,
 	@func_Id					INT,
-	@momq_Imagen				NVARCHAR(MAX),
+	@mmaq_Imagen				NVARCHAR(MAX),
 	@usua_UsuarioCreacion		INT,
 	@mmaq_FechaCreacion			DATETIME
 AS

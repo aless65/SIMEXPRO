@@ -1149,16 +1149,18 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region CondicionesComerciales
-        public IEnumerable<tbCondicionesComerciales> ListarCondicionesComerciales()
+
+        public ServiceResult ListarCondicionesComerciales()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _condicionesComercialesRepository.List();
-                return list;
+                return result.Ok(list);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return Enumerable.Empty<tbCondicionesComerciales>();
+                return result.Error(e.Message);
             }
         }
 

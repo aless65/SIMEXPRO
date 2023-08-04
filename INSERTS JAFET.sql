@@ -1,8 +1,3 @@
---DUCA--
-INSERT INTO [Adua].[tbDuca]
-()
-VALUES
-()
 
 GO
 --TIPO DE EMBALAJE--
@@ -146,81 +141,64 @@ GO
 --Pedidos Orden--
 
 
+DELETE FROM [Adua].[tbMarcas];
+DBCC CHECKIDENT('[Adua].[tbMarcas]', RESEED, 0);
 
+INSERT INTO [Adua].[tbMarcas]
+(marc_Descripcion, usua_UsuarioCreacion, marc_FechaCreacion, marc_Estado)
+VALUES
+('Toyota', 1, '4/30/2022', 1),
+('BMW', 1, '4/30/2022', 1),
+('Volkswagen', 1, '1/8/2022', 1),
+('Hyundai', 1, '3/21/2022', 1),
+('Chevrolet', 1, '8/30/2022', 1),
+('Honda', 1, '2/10/2022', 1),
+('Nissan', 1, '2/7/2022', 1);
 
+GO
 
-        INSERT INTO [Adua].[tbAranceles]
-        (aran_Codigo, aran_Descripcion, usua_UsuarioCreacion, aran_FechaCreacion)
-        VALUES
-        ('03.01',                       'PECES O PESCADOS, VIVOS',         1,         GETDATE()),
-        ('0301.1',                      'Peces ornamentales:',         1,         GETDATE()),
-        ('0301.11.00.00',               'De agua dulce',         1,         GETDATE()),
-        ('0301.19.00.00',               'Los demás',         1,         GETDATE()),
-        ('0301.9',                      'Los demás peces o pescados, vivos:',         1,         GETDATE()),
-        ('0301.91',                     'Truchas (Salmo trutta, Oncorhynchus mykiss, Oncorhynchus clarki, Oncorhynchus aguabonita, Oncorhynchus gilae, Oncorhynchus apache y Oncorhynchus chrysogaster):',         1,         GETDATE()),
-        ('0301.91.10.00',               'Larvas para repoblación',         1,         GETDATE()),
-        ('0301.91.90.00',               'Otras',         1,         GETDATE()),
-        ('0301.92',                     'Anguilas (Anguilla spp.):',         1,         GETDATE()),
-        ('0301.92.10.00',               'Larvas para repoblación',         1,         GETDATE()),
-        ('0301.92.90.00',               'Otras',         1,         GETDATE()),
-        ('0301.93',                     'Carpas (Cyprinus spp., Carassius spp., Ctenopharyngodon idellus, Hypophthalmichthys spp., Cirrhinus spp., Mylopharyngodon piceus, Catla catla, Labeo spp., Osteochilus hasselti, Leptobarbus hoeveni, Megalobrama spp.):',         1,         GETDATE()),
-        ('0301.93.10.00',               'Larvas para repoblación de las especies Cyprinus carpio, Carassius carassius, Ctenopharyngodon idellus, Hypophthalmichthys spp., Cirrhinus spp., Mylopharyngodon piceus',         1,         GETDATE()),
-        ('0301.93.10.00.01',            'Larva de carpa (Art. 8, Acuerdo N° 440-2016)',         1,         GETDATE()),
-        ('0301.93.20.00',               'Larvas para repoblación de las demás especies',         1,         GETDATE()),
-        ('0301.93.90.00',               'Otras',         1,         GETDATE()),
-        ('0301.94.00.00',               'Atunes comunes o de aleta azul, del Atlántico y del Pacífico (Thunnus thynnus, Thunnus orientalis)',         1,         GETDATE()),
-        ('0301.95.00.00',               'Atunes del sur (Thunnus maccoyii)',         1,         GETDATE()),
-        ('0301.99',                     'Los demás:',         1,         GETDATE()),
-        ('0301.99.10.00',               'Larvas para repoblación',         1,         GETDATE()),
-        ('0301.99.10.00.01',            'Alevines de Tilapia (Oreochromis sp) (Art. 8, Acuerdo N° 440-2016)',         1,         GETDATE()),
-        ('0301.99.10.00.02',            'Alevines de róbalo (Art. 8, Acuerdo N° 440-2016)',         1,         GETDATE()),
-        ('0301.99.10.00.03',            'Alevines de corvina (Art. 8, Acuerdo N° 440-2016)',         1,         GETDATE()),
-        ('0301.99.10.00.04',            'Alevines de bagre (Art. 8, Acuerdo N° 440-2016)',         1,         GETDATE()),
-        ('0301.99.10.00.05',            'Alevines de pargo (Art. 8, Acuerdo N° 440-2016)',         1,         GETDATE()),
-        ('0301.99.9',                   'Los demás:',         1,         GETDATE()),
-        ('0301.99.91.00',               'Atunes (del género Thunnus, excepto el Thunnus thynnus, Thunnus orientalis y Thunnus maccoyii), listados o bonitos de vientre rayado (Euthynnus (Katsuwonus) pelamis), sardinas (Sardina pilchardus, Sardinops spp.) y caballas (macarelas) (Scomber scombrus, Scomber australasicus, Scomber japonicus)',         1,         GETDATE()),
-        ('0301.99.99.00',               'Los demás',         1,         GETDATE()),
-        ('03.02',                       'PESCADO FRESCO O REFRIGERADO, EXCEPTO LOS FILETES Y DEMAS CARNE DE PESCADO DE LA PARTIDA 03.04',         1,         GETDATE()),
-        ('0302.1',                      'Salmónidos, excepto los despojos comestibles de pescado de las subpartidas 0302.91 a 0302.99:',         1,         GETDATE()),
-        ('0302.11.00.00',               'Truchas (Salmo trutta, Oncorhynchus mykiss, Oncorhynchus clarki, Oncorhynchus aguabonita, Oncorhynchus gilae, Oncorhynchus apache y Oncorhynchus chrysogaster)',         1,         GETDATE()),
-        ('0302.13.00.00',               'Salmones del Pacífico (Oncorhynchus nerka, Oncorhynchus gorbuscha, Oncorhynchus keta, Oncorhynchus tschawytscha, Oncorhynchus kisutch, Oncorhynchus masou y Oncorhynchus rhodurus)',         1,         GETDATE()),
-        ('0302.14.00.00',               'Salmones del Atlántico (Salmo salar) y salmones del Danubio (Hucho hucho)',         1,         GETDATE()),
-        ('0302.19.00.00',               'Los demás',         1,         GETDATE()),
-        ('0302.2',                      'Pescados planos (Pleuronectidae, Bothidae, Cynoglossidae, Soleidae, Scophthalmidae y Citharidae), excepto los despojos comestibles de pescado de las subpartidas 0302.91 a 0302.99:',         1,         GETDATE()),
-        ('0302.21.00.00',               'Fletanes (“halibut”) (Reinhardtius hippoglossoides, Hippoglossus hippoglossus, Hippoglossus stenolepis)',         1,         GETDATE()),
-        ('0302.22.00.00',               'Sollas (Pleuronectes platessa)',         1,         GETDATE()),
-        ('0302.23.00.00',               'Lenguados (Solea spp.)',         1,         GETDATE()),
-        ('0302.24.00.00',               'Rodaballos (“turbots”) (Psetta maxima)',         1,         GETDATE()),
-        ('0302.29.00.00',               'Los demás',         1,         GETDATE()),
-        ('0302.3',                      'Atunes (del género Thunnus), listados o bonitos de vientre rayado (Euthynnus (Katsuwonus) pelamis), excepto los despojos comestibles de pescado de las subpartidas 0302.91 a 0302.99:',         1,         GETDATE()),
-        ('0302.31.00.00',               'Albacoras o atunes blancos (thunnus alalunga)',         1,         GETDATE()),
-        ('0302.32.00.00',               'Atunes de aleta amarilla (rabiles) (Thunnus albacares)',         1,         GETDATE()),
-        ('0302.33.00.00',               'Listados o bonitos de vientre rayado',         1,         GETDATE()),
-        ('0302.34.00.00',               'Atunes ojo grande (Patudos) (Thunnus obesus)',         1,         GETDATE()),
-        ('0302.35.00.00',               'Atunes comunes o de aleta azul, del Atlántico y del Pacífico (Thunnus thynnus, Thunnus orientalis)',         1,         GETDATE()),
-        ('0302.36.00.00',               'Atunes del sur (Thunnus maccoyii)',         1,         GETDATE()),
-        ('0302.39.00.00',               'Los demás',         1,         GETDATE()),
-        ('0302.4',                      'Arenques (Clupea harengus, Clupea pallasii), anchoas		(Engraulis spp.), sardinas (Sardina pilchardus,				Sardinops	spp.),	sardinelas (Sardinella				spp.),		espadines		(Sprattus sprattus),			caballas (macarelas) (Scomber scombrus, Scomber australasicus, Scomber japonicus), caballas de la India (Rastrelliger spp.), carites (Scomberomorus spp.), jureles (Trachurus spp.), pámpanos (Caranx spp.), cobias				(Rachycentron				canadum), palometones			plateados		(Pampus		spp.), papardas del Pacífico (Cololabis saira), macarelas    (Decapterus	spp.),	capelanes (Mallotus villosus), peces espada (Xiphias gladius), bacoretas orientales (Euthynnus affinis),	bonitos		(Sarda spp.), agujas, marlines,				peces			vela			o			picudos (Istiophoridae), excepto	los	despojos comestibles de pescado de las subpartidas 0302.91 a 0302.99:',         1,         GETDATE()),
-        ('0302.41.00.00',               'Arenques (Clupea harengus, Clupea pallasii)',         1,         GETDATE()),
-        ('0302.42.00.00',               'Anchoas (Engraulis spp.)',         1,         GETDATE()),
-        ('0302.43.00.00',               'Sardinas (Sardina pilchardus, Sardinops spp.), sardinelas (Sardinella spp.) y espadines (Sprattus sprattus)',         1,         GETDATE()),
-        ('0302.44.00.00',               'Caballas (macarelas) (Scomber scombrus, Scomber australasicus, Scomber japonicus)',         1,         GETDATE()),
-        ('0302.45.00.00',               'Jureles (Trachurus spp.)',         1,         GETDATE()),
-        ('0302.46.00.00',               'Cobias (Rachycentron canadum)',         1,         GETDATE()),
-        ('0302.47.00.00',               'Peces espada (Xiphias gladius)',         1,         GETDATE()),
-        ('0302.49.00.00',               'Los demás',         1,         GETDATE()),
-        ('0302.5',                      'Pescados de las familias Bregmacerotidae, Euclichthyidae, Gadidae, Macrouridae, Melanonidae, Merlucciidae, Moridae y Muraenolepididae, excepto los despojos comestibles de pescado de las subpartidas 0302.91 a 0302.99:',         1,         GETDATE()),
-        ('0302.51.00.00',               'Bacalaos (Gadus morhua, Gadus ogac, Gadus macrocephalus)',         1,         GETDATE()),
-        ('0302.52.00.00',               'Eglefinos (Melanogrammus aeglefinus)',         1,         GETDATE()),
-        ('0302.53.00.00',               'Carboneros (Pollachius virens)',         1,         GETDATE()),
-        ('0302.54.00.00',               'Merluzas (Merluccius spp., Urophycis spp.)',         1,         GETDATE()),
-        ('0302.55.00.00',               'Abadejos de Alaska (Theragra chalcogramma)',         1,         GETDATE()),
-        ('0302.56.00.00',               'Bacaladillas (Micromesistius poutassou, Micromesistius australis)',         1,         GETDATE()),
-        ('0302.59.00.00',               'Los demás',         1,         GETDATE()),
-        ('0302.7',                      'Tilapias (Oreochromis spp.), bagres o peces gato (Pangasius spp., Silurus spp., Clarias spp., Ictalurus spp.), carpas (Cyprinus spp., Carassius spp., Ctenopharyngodon idellus, Hypophthalmichthys spp., Cirrhinus spp., Mylopharyngodon piceus, Catla catla, Labeo spp., Osteochilus hasselti, Leptobarbus hoeveni, Megalobrama spp.), anguilas (Anguilla spp.), percas del Nilo (Lates niloticus) y peces cabeza de serpiente (Channa spp.), excepto los despojos comestibles de pescado de las subpartidas 0302.91 a 0302.99:',         1,         GETDATE()),
-        ('0302.71.00.00',               'Tilapias (Oreochromis spp.)',         1,         GETDATE()),
-        ('0302.72.00.00',               'Bagres o peces gato (Pangasius spp., Silurus spp., Clarias spp., Ictalurus spp.)',         1,         GETDATE()),
-        ('',                     '',         1,         GETDATE()),
- 
+INSERT INTO [Adua].[tbTransporte]
+(pais_Id, tran_Chasis, marca_Id, tran_Remolque, tran_CantCarga, tran_NumDispositivoSeguridad, tran_Equipamiento, tran_TipoCarga, tran_IdContenedor, usua_UsuarioCreacio, tran_FechaCreacion, tran_Estado)
+VALUES
+(236, 'Chasis independiente',1,'----',1,2,'----','----','----',1,GETDATE(),1),
+(100, 'Chasis autoportante',1,'----',1,2,'----','----','----',1,GETDATE(),1),
+(37, 'Chasis monocasco',1,'----',1,2,'----','----','----',1,GETDATE(),1);
 
-	 
+GO
+
+INSERT INTO [Adua].[tbConductor]
+(cont_Nombre, cont_Apellido, cont_Licencia, pais_IdExpedicion, tran_Id, usua_UsuarioCreacion, cont_FechaCreacion, cont_Estado)
+VALUES
+('Juan David','Lopez','6420651011315844845',100,1,1,GETDATE(),1),
+('Pedro','Toledo','6420651011315844846',100,1,1,GETDATE(),1),
+('Sebastian','Santana','6420651011315844847',100,1,1,GETDATE(),1);
+
+GO
+
+INSERT INTO [Adua].[tbTiposIdentificacion]
+(iden_Descripcion, usua_UsuarioCreacion, iden_FechaCreacion, iden_Estado)
+VALUES
+('Tarjeta de Identidad',1,GETDATE(),1),
+('Pasaporte',1,GETDATE(),1),
+('Visa',1,GETDATE(),1);
+
+GO
+
+INSERT INTO [Adua].[tbIntermediarios]
+(tite_Id, inte_Tipo_Otro, decl_Id, usua_UsuarioCreacion, inte_FechaCreacion, inte_Estado)
+VALUES
+(1,'----',1,1,GETDATE(),1),
+(2,'----',1,1,GETDATE(),1),
+(3,'----',1,1,GETDATE(),1),
+(4,'----',1,1,GETDATE(),1),
+(5,'----',1,1,GETDATE(),1);
+
+GO
+
+INSERT INTO [Adua].[tbImportadores]
+(nico_Id, decl_Id, impo_NivelComercial_Otro, impo_RTN, impo_NumRegistro, usua_UsuarioCreacion, impo_FechaCreacion, impo_Estado)
+VALUES
+(1,5,'----','05012006017558','15048630',1,GETDATE(),1),
+(2,5,'----','13012005017558','15048630',1,GETDATE(),1),
+(3,5,'----','08032003017845','15048630',1,GETDATE(),1),
+(4,5,'----','07012006017021','15048630',1,GETDATE(),1);

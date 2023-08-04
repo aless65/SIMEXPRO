@@ -282,146 +282,147 @@
         ('0306.17.9', 'Otros', 1, GETDATE()),
         ('0306.17.91.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado', 1, GETDATE()),
         ('0306.17.99.00', 'Los demás', 1, GETDATE()),
-        ('0306.19', 'Los demás, incluidos la harina, polvo y "pellets" de crustáceos, aptos para la alimentación humana.', 1, GETDATE())
-        ('0306.19.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0306.19.90.00', 'Otros, incluidos la harina, polvo y “pellets” de crustáceos, aptos para la alimentación humana.', 1, GETDATE())
-        ('0306.3', 'Vivos, frescos o refrigerados.', 1, GETDATE())
-        ('0306.31', 'Langostas (Palinurus spp., Panulirus spp., Jasus spp.):', 1, GETDATE())
-        ('0306.31.10.00', 'Ahumadas, incluso peladas o cocidas antes o durante el ahumado.', 1, GETDATE())
-        ('0306.31.90.00', 'Otras.', 1, GETDATE())
-        ('0306.32', 'Bogavantes (Homarus spp.):', 1, GETDATE())
-        ('0306.32.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0306.32.90.00', 'Otros.', 1, GETDATE())
-        ('0306.33', 'Cangrejos (excepto macruros):', 1, GETDATE())
-        ('0306.33.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0306.33.90.00', 'Otros.', 1, GETDATE())
-        ('0306.34', 'Cigalas (Nephrops norvegicus):', 1, GETDATE())
-        ('0306.34.10.00', 'Ahumadas, incluso peladas o cocidas antes o durante el ahumado.', 1, GETDATE())
-        ('0306.34.90.00', 'Otras.', 1, GETDATE())
-        ('0306.35', 'Camarones, langostinos y demás decápodos Natantia, de agua fría (Pandalus spp., Crangon crangon):', 1, GETDATE())
-        ('0306.35.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0306.35.90.00', 'Otros.', 1, GETDATE())
-        ('0306.36', 'Los demás camarones, langostinos y demás decápodos Natantia:', 1, GETDATE())
-        ('0306.36.10.00', 'Larvas para la repoblación.', 1, GETDATE())
-        ('0306.36.91.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0306.36.99.00', 'Otros.', 1, GETDATE())
-        ('0306.39', 'Los demás, incluidos la harina, polvo y “pellets” de crustáceos, aptos para la alimentación humana:', 1, GETDATE())
-        ('0306.39.10.00', 'Harina, polvo y “pellets”.', 1, GETDATE())
-        ('0306.39.91.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0306.39.99.00', 'Otros.', 1, GETDATE())
-        ('0306.9', 'Los demás:', 1, GETDATE())
-        ('0306.91', 'Langostas (Palinurus spp., Panulirus spp., Jasus spp.):', 1, GETDATE())
-        ('0306.91.10.00', 'Ahumadas, incluso peladas o cocidas antes o durante el ahumado.', 1, GETDATE())
-        ('0306.91.90.00', 'Otras.', 1, GETDATE())
-        ('0306.92', 'Bogavantes (Homarus spp.) :', 1, GETDATE())
-        ('0306.92.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0306.92.90.00', 'Otros.', 1, GETDATE())
-        ('0306.93', 'Cangrejos (excepto macruros) :', 1, GETDATE())
-        ('0306.93.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0306.93.90.00', 'Otros.', 1, GETDATE())
-        ('0306.94', 'Cigalas (Nephrops norvegicus) :', 1, GETDATE())
-        ('0306.94.10.00', 'Ahumadas, incluso peladas o cocidas antes o durante el ahumado.', 1, GETDATE())
-        ('0306.94.90.00', 'Otras.', 1, GETDATE())
-        ('0306.95', 'Los demás camarones, langostinos y demás decápodos Natantia:', 1, GETDATE())
-        ('0306.95.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0306.95.90.00', 'Otros.', 1, GETDATE())
-        ('0306.99', 'Los demás, incluidos la harina, polvo y “pellets” de crustáceos, aptos para la alimentación humana:', 1, GETDATE())
-        ('0306.99.10.00', 'Harina, polvo y “pellets”.', 1, GETDATE())
-        ('0306.99.91.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0306.99.99.00', 'Otros.', 1, GETDATE())
-        ('0307.1', 'Ostras:', 1, GETDATE())
-        ('0307.11.00.00', 'Vivas, frescas o refrigeradas.', 1, GETDATE())
-        ('0307.12', 'Congeladas:', 1, GETDATE())
-        ('0307.12.10.00', 'Ahumadas, incluso peladas o cocidas antes o durante el ahumado.', 1, GETDATE())
-        ('0307.12.90.00', 'Otras.', 1, GETDATE())
-        ('0307.19', 'Las demás:', 1, GETDATE())
-        ('0307.19.10.00', 'Ahumadas, incluso peladas o cocidas antes o durante el ahumado.', 1, GETDATE())
-        ('0307.19.90.00', 'Otras.', 1, GETDATE())
-        ('0307.2', 'Veneras (vieiras), volandeiras y demás moluscos de los géneros Pecten, Chlamys o Placopecten:', 1, GETDATE())
-        ('0307.21.00.00', 'Vivos, frescos o refrigerados.', 1, GETDATE())
-        ('0307.22', 'Congelados:', 1, GETDATE())
-        ('0307.22.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0307.22.90.00', 'Otros.', 1, GETDATE())
-        ('0307.29', 'Los demás:', 1, GETDATE())
-        ('0307.29.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0307.29.90.00', 'Otros.', 1, GETDATE())
-        ('0307.3', 'Mejillones (Mytilus spp., Perna spp.):', 1, GETDATE())
-        ('0307.31.00.00', 'Vivos, frescos o refrigerados.', 1, GETDATE())
-        ('0307.32', 'Congelados:', 1, GETDATE())
-        ('0307.32.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0307.32.90.00', 'Otros.', 1, GETDATE())
-        ('0307.39', 'Los demás:', 1, GETDATE())
-        ('0307.39.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0307.39.90.00', 'Otros.', 1, GETDATE())
-        ('0307.4', 'Jibias (sepias) y globitos, calamares y potas:', 1, GETDATE())
-        ('0307.42.00.00', 'Vivos, frescos o refrigerados.', 1, GETDATE())
-        ('0307.43', 'Congelados:', 1, GETDATE())
-        ('0307.43.1', 'Calamares y potas, congelados, en presentación superior a 3 kg.', 1, GETDATE())
-        ('0307.43.11.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0307.43.19.00', 'Otros.', 1, GETDATE())
-        ('0307.43.9', 'Otros:', 1, GETDATE())
-        ('0307.43.91.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0307.43.99.00', 'Otros.', 1, GETDATE())
-        ('0307.49', 'Los demás:', 1, GETDATE())
-        ('0307.49.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0307.49.90.00', 'Otros.', 1, GETDATE())
-        ('0307.49.1', '+ + SUPRIMIDA + +', 1, GETDATE())
-        ('0307.49.11', '+ + SUPRIMIDA + +', 1, GETDATE())
-        ('0307.49.19', '+ + SUPRIMIDA + +', 1, GETDATE())
-        ('0307.49.9', '+ + SUPRIMIDA + +', 1, GETDATE())
-        ('0307.49.91', '+ + SUPRIMIDA + +', 1, GETDATE())
-        ('0307.49.99', '+ + SUPRIMIDA + +', 1, GETDATE())
-        ('0307.5', 'Pulpos (Octopus spp.):', 1, GETDATE())
-        ('0307.51.00.00', 'Vivos, frescos o refrigerados.', 1, GETDATE())
-        ('0307.52', 'Congelados:', 1, GETDATE())
-        ('0307.52.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0307.52.90.00', 'Otros.', 1, GETDATE())
-        ('0307.59', 'Los demás:', 1, GETDATE())
-        ('0307.59.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0307.59.90.00', 'Otros.', 1, GETDATE())
-        ('0307.60', 'Caracoles, excepto los de mar:', 1, GETDATE())
-        ('0307.60.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0307.60.90.00', 'Otros.', 1, GETDATE())
-        ('0307.7', 'Almejas, berberechos y arcas (familias Arcidae, Arcticidae, Cardiidae, Donacidae, Hiatellidae, Mactridae, Mesodesmatidae, Myidae, Semelidae, Solecurtidae, Solenidae, Tridacnidae y Veneridae):', 1, GETDATE())
-        ('0307.71.00.00', 'Vivos, frescos o refrigerados.', 1, GETDATE())
-        ('0307.72.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0307.72.90.00', 'Otros.', 1, GETDATE())
-        ('0307.79.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0307.79.90.00', 'Otros.', 1, GETDATE())
-        ('0307.81.00.00', 'Abulones u orejas de mar (Haliotis spp.), vivos, frescos o refrigerados.', 1, GETDATE())
-        ('0307.82.00.00', 'Cobos (caracoles de mar) (Strombus spp.), vivos, frescos o refrigerados.', 1, GETDATE())
-        ('0307.83.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0307.83.90.00', 'Otros.', 1, GETDATE())
-        ('0307.84.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0307.84.90.00', 'Otros.', 1, GETDATE())
-        ('0307.87.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0307.87.90.00', 'Otros.', 1, GETDATE())
-        ('0307.88.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0307.88.90.00', 'Otros.', 1, GETDATE())
-        ('0307.89.10.00', '+ + SUPRIMIDA + +', 1, GETDATE())
-        ('0307.89.90.00', '+ + SUPRIMIDA + +', 1, GETDATE())
-        ('0307.91.00.00', 'Vivos, frescos o refrigerados.', 1, GETDATE())
-        ('0307.92.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0307.92.90.00', 'Otros.', 1, GETDATE())
-        ('0307.99.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0307.99.90.00', 'Otros.', 1, GETDATE())
-        ('0308.11.00.00', 'Vivos, frescos o refrigerados.', 1, GETDATE())
-        ('0308.12.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0308.12.90.00', 'Otros.', 1, GETDATE())
-        ('0308.19.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0308.19.90.00', 'Otros.', 1, GETDATE())
-        ('0308.21.00.00', 'Vivos, frescos o refrigerados.', 1, GETDATE())
-        ('0308.22.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0308.22.90.00', 'Otros.', 1, GETDATE())
-        ('0308.29.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0308.29.90.00', 'Otros.', 1, GETDATE())
-        ('0308.30.10.00', 'Vivas, frescas o refrigeradas.', 1, GETDATE())
-        ('0308.30.91.00', 'Ahumadas, incluso peladas o cocidas antes o durante el ahumado.', 1, GETDATE())
-        ('0308.30.99.00', 'Las demás.', 1, GETDATE())
-        ('0308.90.10.00', 'Vivos, frescos o refrigerados.', 1, GETDATE())
-        ('0308.90.91.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE())
-        ('0308.90.99.00', 'Los demás.', 1, GETDATE())
+        ('0306.19', 'Los demás, incluidos la harina, polvo y "pellets" de crustáceos, aptos para la alimentación humana.', 1, GETDATE()),
+        ('0306.19.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0306.19.90.00', 'Otros, incluidos la harina, polvo y “pellets” de crustáceos, aptos para la alimentación humana.', 1, GETDATE()),
+        ('0306.3', 'Vivos, frescos o refrigerados.', 1, GETDATE()),
+        ('0306.31', 'Langostas (Palinurus spp., Panulirus spp., Jasus spp.):', 1, GETDATE()),
+        ('0306.31.10.00', 'Ahumadas, incluso peladas o cocidas antes o durante el ahumado.', 1, GETDATE()),
+        ('0306.31.90.00', 'Otras.', 1, GETDATE()),
+        ('0306.32', 'Bogavantes (Homarus spp.):', 1, GETDATE()),
+        ('0306.32.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0306.32.90.00', 'Otros.', 1, GETDATE()),
+        ('0306.33', 'Cangrejos (excepto macruros):', 1, GETDATE()),
+        ('0306.33.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0306.33.90.00', 'Otros.', 1, GETDATE()),
+        ('0306.34', 'Cigalas (Nephrops norvegicus):', 1, GETDATE()),
+        ('0306.34.10.00', 'Ahumadas, incluso peladas o cocidas antes o durante el ahumado.', 1, GETDATE()),
+        ('0306.34.90.00', 'Otras.', 1, GETDATE()),
+        ('0306.35', 'Camarones, langostinos y demás decápodos Natantia, de agua fría (Pandalus spp., Crangon crangon):', 1, GETDATE()),
+        ('0306.35.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0306.35.90.00', 'Otros.', 1, GETDATE()),
+        ('0306.36', 'Los demás camarones, langostinos y demás decápodos Natantia:', 1, GETDATE()),
+        ('0306.36.10.00', 'Larvas para la repoblación.', 1, GETDATE()),
+        ('0306.36.91.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0306.36.99.00', 'Otros.', 1, GETDATE()),
+        ('0306.39', 'Los demás, incluidos la harina, polvo y “pellets” de crustáceos, aptos para la alimentación humana:', 1, GETDATE()),
+        ('0306.39.10.00', 'Harina, polvo y “pellets”.', 1, GETDATE()),
+        ('0306.39.91.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0306.39.99.00', 'Otros.', 1, GETDATE()),
+        ('0306.9', 'Los demás:', 1, GETDATE()),
+        ('0306.91', 'Langostas (Palinurus spp., Panulirus spp., Jasus spp.):', 1, GETDATE()),
+        ('0306.91.10.00', 'Ahumadas, incluso peladas o cocidas antes o durante el ahumado.', 1, GETDATE()),
+        ('0306.91.90.00', 'Otras.', 1, GETDATE()),
+        ('0306.92', 'Bogavantes (Homarus spp.) :', 1, GETDATE()),
+        ('0306.92.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0306.92.90.00', 'Otros.', 1, GETDATE()),
+        ('0306.93', 'Cangrejos (excepto macruros) :', 1, GETDATE()),
+        ('0306.93.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0306.93.90.00', 'Otros.', 1, GETDATE()),
+        ('0306.94', 'Cigalas (Nephrops norvegicus) :', 1, GETDATE()),
+        ('0306.94.10.00', 'Ahumadas, incluso peladas o cocidas antes o durante el ahumado.', 1, GETDATE()),
+        ('0306.94.90.00', 'Otras.', 1, GETDATE()),
+        ('0306.95', 'Los demás camarones, langostinos y demás decápodos Natantia:', 1, GETDATE()),
+        ('0306.95.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0306.95.90.00', 'Otros.', 1, GETDATE()),
+        ('0306.99', 'Los demás, incluidos la harina, polvo y “pellets” de crustáceos, aptos para la alimentación humana:', 1, GETDATE()),
+        ('0306.99.10.00', 'Harina, polvo y “pellets”.', 1, GETDATE()),
+        ('0306.99.91.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0306.99.99.00', 'Otros.', 1, GETDATE()),
+        ('0307.1', 'Ostras:', 1, GETDATE()),
+        ('0307.11.00.00', 'Vivas, frescas o refrigeradas.', 1, GETDATE()),
+        ('0307.12', 'Congeladas:', 1, GETDATE()),
+        ('0307.12.10.00', 'Ahumadas, incluso peladas o cocidas antes o durante el ahumado.', 1, GETDATE()),
+        ('0307.12.90.00', 'Otras.', 1, GETDATE()),
+        ('0307.19', 'Las demás:', 1, GETDATE()),
+        ('0307.19.10.00', 'Ahumadas, incluso peladas o cocidas antes o durante el ahumado.', 1, GETDATE()),
+        ('0307.19.90.00', 'Otras.', 1, GETDATE()),
+        ('0307.2', 'Veneras (vieiras), volandeiras y demás moluscos de los géneros Pecten, Chlamys o Placopecten:', 1, GETDATE()),
+        ('0307.21.00.00', 'Vivos, frescos o refrigerados.', 1, GETDATE()),
+        ('0307.22', 'Congelados:', 1, GETDATE()),
+        ('0307.22.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0307.22.90.00', 'Otros.', 1, GETDATE()),
+        ('0307.29', 'Los demás:', 1, GETDATE()),
+        ('0307.29.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0307.29.90.00', 'Otros.', 1, GETDATE()),
+        ('0307.3', 'Mejillones (Mytilus spp., Perna spp.):', 1, GETDATE()),
+        ('0307.31.00.00', 'Vivos, frescos o refrigerados.', 1, GETDATE()),
+        ('0307.32', 'Congelados:', 1, GETDATE()),
+        ('0307.32.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0307.32.90.00', 'Otros.', 1, GETDATE()),
+        ('0307.39', 'Los demás:', 1, GETDATE()),
+        ('0307.39.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0307.39.90.00', 'Otros.', 1, GETDATE()),
+        ('0307.4', 'Jibias (sepias) y globitos, calamares y potas:', 1, GETDATE()),
+        ('0307.42.00.00', 'Vivos, frescos o refrigerados.', 1, GETDATE()),
+        ('0307.43', 'Congelados:', 1, GETDATE()),
+        ('0307.43.1', 'Calamares y potas, congelados, en presentación superior a 3 kg.', 1, GETDATE()),
+        ('0307.43.11.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0307.43.19.00', 'Otros.', 1, GETDATE()),
+        ('0307.43.9', 'Otros:', 1, GETDATE()),
+        ('0307.43.91.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0307.43.99.00', 'Otros.', 1, GETDATE()),
+        ('0307.49', 'Los demás:', 1, GETDATE()),
+        ('0307.49.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0307.49.90.00', 'Otros.', 1, GETDATE()),
+        ('0307.49.1', '+ + SUPRIMIDA + +', 1, GETDATE()),
+        ('0307.49.11', '+ + SUPRIMIDA + +', 1, GETDATE()),
+        ('0307.49.19', '+ + SUPRIMIDA + +', 1, GETDATE()),
+        ('0307.49.9', '+ + SUPRIMIDA + +', 1, GETDATE()),
+        ('0307.49.91', '+ + SUPRIMIDA + +', 1, GETDATE()),
+        ('0307.49.99', '+ + SUPRIMIDA + +', 1, GETDATE()),
+        ('0307.5', 'Pulpos (Octopus spp.):', 1, GETDATE()),
+        ('0307.51.00.00', 'Vivos, frescos o refrigerados.', 1, GETDATE()),
+        ('0307.52', 'Congelados:', 1, GETDATE()),
+        ('0307.52.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0307.52.90.00', 'Otros.', 1, GETDATE()),
+        ('0307.59', 'Los demás:', 1, GETDATE()),
+        ('0307.59.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0307.59.90.00', 'Otros.', 1, GETDATE()),
+        ('0307.60', 'Caracoles, excepto los de mar:', 1, GETDATE()),
+        ('0307.60.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0307.60.90.00', 'Otros.', 1, GETDATE()),
+        ('0307.7', 'Almejas, berberechos y arcas (familias Arcidae, Arcticidae, Cardiidae, Donacidae, Hiatellidae, Mactridae, Mesodesmatidae, Myidae, Semelidae, Solecurtidae, Solenidae, Tridacnidae y Veneridae):', 1, GETDATE()),
+        ('0307.71.00.00', 'Vivos, frescos o refrigerados.', 1, GETDATE()),
+        ('0307.72.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0307.72.90.00', 'Otros.', 1, GETDATE()),
+        ('0307.79.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0307.79.90.00', 'Otros.', 1, GETDATE()),
+        ('0307.81.00.00', 'Abulones u orejas de mar (Haliotis spp.), vivos, frescos o refrigerados.', 1, GETDATE()),
+        ('0307.82.00.00', 'Cobos (caracoles de mar) (Strombus spp.), vivos, frescos o refrigerados.', 1, GETDATE()),
+        ('0307.83.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0307.83.90.00', 'Otros.', 1, GETDATE()),
+        ('0307.84.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0307.84.90.00', 'Otros.', 1, GETDATE()),
+        ('0307.87.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0307.87.90.00', 'Otros.', 1, GETDATE()),
+        ('0307.88.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0307.88.90.00', 'Otros.', 1, GETDATE()),
+        ('0307.89.10.00', '+ + SUPRIMIDA + +', 1, GETDATE()),
+        ('0307.89.90.00', '+ + SUPRIMIDA + +', 1, GETDATE()),
+        ('0307.91.00.00', 'Vivos, frescos o refrigerados.', 1, GETDATE()),
+        ('0307.92.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0307.92.90.00', 'Otros.', 1, GETDATE()),
+        ('0307.99.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0307.99.90.00', 'Otros.', 1, GETDATE()),
+        ('0308.11.00.00', 'Vivos, frescos o refrigerados.', 1, GETDATE()),
+        ('0308.12.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0308.12.90.00', 'Otros.', 1, GETDATE()),
+        ('0308.19.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0308.19.90.00', 'Otros.', 1, GETDATE()),
+        ('0308.21.00.00', 'Vivos, frescos o refrigerados.', 1, GETDATE()),
+        ('0308.22.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0308.22.90.00', 'Otros.', 1, GETDATE()),
+        ('0308.29.10.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0308.29.90.00', 'Otros.', 1, GETDATE()),
+        ('0308.30.10.00', 'Vivas, frescas o refrigeradas.', 1, GETDATE()),
+        ('0308.30.91.00', 'Ahumadas, incluso peladas o cocidas antes o durante el ahumado.', 1, GETDATE()),
+        ('0308.30.99.00', 'Las demás.', 1, GETDATE()),
+        ('0308.90.10.00', 'Vivos, frescos o refrigerados.', 1, GETDATE()),
+        ('0308.90.91.00', 'Ahumados, incluso pelados o cocidos antes o durante el ahumado.', 1, GETDATE()),
+        ('0308.90.99.00', 'Los demás.', 1, GETDATE());
 
+		GO
 
         --CAPITULO 10
         INSERT INTO [Adua].[tbAranceles]
@@ -704,3 +705,222 @@
         ('1806.32.00.00', 'Sin rellenar', 1, GETDATE()),
         ('1806.90.00.00', 'Los demás', 1, GETDATE());
         
+		--CAPITULO 29
+        INSERT INTO [Adua].[tbAranceles]
+        (aran_Codigo, aran_Descripcion, usua_UsuarioCreacion, aran_FechaCreacion)
+        VALUES
+		('2901.10.00.00', 'Saturados', 1, GETDATE()),
+		('2901.21.00.00', 'Etileno', 1, GETDATE()),
+		('2901.22.00.00', 'Propeno (propileno)', 1, GETDATE()),
+		('2901.23.00.00', 'Buteno (butileno) y sus isómeros', 1, GETDATE()),
+		('2901.23.00.00.01', 'Polyisobutano hidrogenado (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2901.24.00.00', 'Buta-1,3-dieno e isopreno', 1, GETDATE()),
+		('2901.29.10.00', 'Acetileno', 1, GETDATE()),
+		('2901.29.90.00', 'Otros', 1, GETDATE()),
+		('2902.11.00.00', 'Ciclohexano', 1, GETDATE()),
+		('2902.19.10.00', 'Canfeno (3,3 dimetil-2-metilenor canfano)', 1, GETDATE()),
+		('2902.19.90.00', 'Otros', 1, GETDATE()),
+		('2902.20.00.00', 'Benceno', 1, GETDATE()),
+		('2902.30.00.00', 'Tolueno', 1, GETDATE()),
+		('2902.41.00.00', 'o-Xileno', 1, GETDATE()),
+		('2902.42.00.00', 'm-Xileno', 1, GETDATE()),
+		('2902.43.00.00', 'p-Xileno', 1, GETDATE()),
+		('2902.44.00.00', 'Mezclas de isómeros del xileno', 1, GETDATE()),
+	
+		('2902.50.00.00', 'Estireno', 1, GETDATE()),
+		('2902.60.00.00', 'Etilbenceno', 1, GETDATE()),
+		('2902.70.00.00', 'Cumeno', 1, GETDATE()),
+		('2902.90.00.00', 'Los demás', 1, GETDATE()),
+		('2902.90.00.00.01', 'Rhodigel (10H-9-oxaantranceno) (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2903.11.00.00', 'Clorometano (cloruro de metilo) y cloroetano (cloruro de etilo)', 1, GETDATE()),
+		('2903.12.00.00', 'Diclorometano (cloruro de metileno)', 1, GETDATE()),
+		('2903.13.00.00', 'Cloroformo (triclorometano)', 1, GETDATE()),
+		('2903.14.00.00', 'Tetracloruro de carbono', 1, GETDATE()),
+		('2903.15.00.00', 'Dicloruro de etileno (ISO) (1,2-dicloroetano)', 1, GETDATE()),
+		('2903.19.10.00', '1,1,1,-Tricloroetano (metilcloroformo)', 1, GETDATE()),
+		('2903.19.90.00', 'Otros', 1, GETDATE()),
+		('2903.21.00.00', 'Cloruro de vinilo (cloroetileno)', 1, GETDATE()),
+		('2903.22.00.00', 'Tricloroetileno', 1, GETDATE()),
+		('2903.23.00.00', 'Tetracloroetileno (percloroetileno)', 1, GETDATE()),
+		('2903.29.00.00', 'Los demás', 1, GETDATE()),
+		('2903.31.00.00', 'Dibromuro de etileno (ISO) (1,2-dibromoetano)', 1, GETDATE()),
+		('2903.39.10.00', '1,1,3,3,3-Pentafluoro-2-(trifluorometil) de 1- propeno (CAS 382-21-8)', 1, GETDATE()),
+		('2903.39.21.00', 'Difluorometano', 1, GETDATE()),
+		('2903.39.22.00', 'Trifluorometano', 1, GETDATE()),
+		('2903.39.29.00', 'Los demás', 1, GETDATE()),
+
+
+		('2902.50.00.00', 'Estireno', 1, GETDATE()),
+		('2902.60.00.00', 'Etilbenceno', 1, GETDATE()),
+		('2902.70.00.00', 'Cumeno', 1, GETDATE()),
+		('2902.90.00.00', 'Los demás', 1, GETDATE()),
+		('2902.90.00.00.01', 'Rhodigel (10H-9-oxaantranceno) (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2903.11.00.00', 'Clorometano (cloruro de metilo) y cloroetano (cloruro de etilo)', 1, GETDATE()),
+		('2903.12.00.00', 'Diclorometano (cloruro de metileno)', 1, GETDATE()),
+		('2903.13.00.00', 'Cloroformo (triclorometano)', 1, GETDATE()),
+		('2903.14.00.00', 'Tetracloruro de carbono', 1, GETDATE()),
+		('2903.15.00.00', 'Dicloruro de etileno (ISO) (1,2-dicloroetano)', 1, GETDATE()),
+		('2903.19.10.00', '1,1,1,-Tricloroetano (metilcloroformo)', 1, GETDATE()),
+		('2903.19.90.00', 'Otros', 1, GETDATE()),
+		('2903.21.00.00', 'Cloruro de vinilo (cloroetileno)', 1, GETDATE()),
+		('2903.22.00.00', 'Tricloroetileno', 1, GETDATE()),
+		('2903.23.00.00', 'Tetracloroetileno (percloroetileno)', 1, GETDATE()),
+		('2903.29.00.00', 'Los demás', 1, GETDATE()),
+		('2903.31.00.00', 'Dibromuro de etileno (ISO) (1,2-dibromoetano)', 1, GETDATE()),
+		('2903.39.10.00', '1,1,3,3,3-Pentafluoro-2-(trifluorometil) de 1- propeno (CAS 382-21-8)', 1, GETDATE()),
+		('2903.39.21.00', 'Difluorometano', 1, GETDATE()),
+		('2903.39.22.00', 'Trifluorometano', 1, GETDATE()),
+		('2903.39.29.00', 'Los demás', 1, GETDATE()),
+		
+		('2903.77.53.00', 'Tetraclorodifluoroetano', 1, GETDATE()),
+		('2903.77.54.00', 'Los demás clorofluoroetanos', 1, GETDATE()),
+		('2903.77.55.00', 'Heptaclorofluoropropanos, hexaclorodifluoropropanos', 1, GETDATE()),
+		('2903.77.56.00', 'Pentaclorotrifluoropropanos, tetraclorotetrafluoropropanos', 1, GETDATE()),
+		('2903.77.57.00', 'Tricloropentafluoropropanos, diclorohexafluoropropanos', 1, GETDATE()),
+		('2903.77.58.00', 'Cloroheptafluoropropanos', 1, GETDATE()),
+		('2903.77.59.00', 'Los demás clorofluoropropanos', 1, GETDATE()),
+		('2903.77.90.00', 'Otros', 1, GETDATE()),
+		('2903.78.00.00', 'Los demás derivados perhalogenados', 1, GETDATE()),
+		('2903.79.1', 'Clorofluorometanos:', 1, GETDATE()),
+		('2903.79.11.00', 'Diclorofluorometano', 1, GETDATE()),
+		('2903.79.19.00', 'Los demás', 1, GETDATE()),
+		('2903.79.2', 'Clorofluoroetanos:', 1, GETDATE()),
+		('2903.79.22.00', '2-cloro-1,1,1,2-tetrafluoroetano', 1, GETDATE()),
+		('2903.79.25.00', 'Triclorofluoroetanos', 1, GETDATE()),
+		('2903.79.29.00', 'Los demás', 1, GETDATE()),
+		('2903.79.30.00', 'Dibromocloropropano (DBCP)', 1, GETDATE()),
+		('2903.79.60.00', 'Bromofluorometano', 1, GETDATE()),
+		('2903.79.90.00', 'Otros', 1, GETDATE()),
+		('2903.81.00.00', '1,2,3,4,5,6-Hexaclorociclohexano (HCH (ISO)), incluido el lindano (ISO, DCI)', 1, GETDATE()),
+		('2903.82.10.00', 'Aldrina (ISO)', 1, GETDATE()),
+		('2903.82.20.00', 'Clordano (ISO)', 1, GETDATE()),
+		('2903.82.30.00', 'Heptacloro (ISO)', 1, GETDATE()),
+		('2903.83.00.00', 'Mirex (ISO) (CAS 2385-85-5)', 1, GETDATE()),
+		('2903.89.10.00', 'Canfecloro (Toxafeno) (CAS 8001-35-2)', 1, GETDATE()),
+
+		('2903.89.20', '+ + SUPRIMIDA + +', 1, GETDATE()),
+		('2903.89.90.00', 'Otros', 1, GETDATE()),
+		('2903.99', '+ + SUPRIMIDA + +', 1, GETDATE()),
+		('2903.99.10', '+ + SUPRIMIDA + +', 1, GETDATE()),
+		('2903.99.20', '+ + SUPRIMIDA + +', 1, GETDATE()),
+		('2903.99.90', '+ + SUPRIMIDA + +', 1, GETDATE()),
+		('2904.10.00.00', 'Derivados solamente sulfonados, sus sales y sus ésteres etílicos', 1, GETDATE()),
+		('2904.10.00.00.01', 'Acido Sulfónico (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2904.20.00.00', 'Derivados solamente nitrados o solamente nitrosados', 1, GETDATE()),
+		('2904.31.00.00', 'Ácido perfluorooctano sulfónico', 1, GETDATE()),
+		('2904.32.00.00', 'Perfluorooctano sulfonato de amonio', 1, GETDATE()),
+		('2904.33.00.00', 'Perfluorooctano sulfonato de litio', 1, GETDATE()),
+		('2904.34.00.00', 'Perfluorooctano sulfonato de potasio', 1, GETDATE()),
+		('2904.35.00.00', 'Las demás sales del ácido perfluorooctano sulfónico', 1, GETDATE()),
+
+		('2904.36.00.00', 'Fluoruro de perfluorooctano sulfonilo (CAS 375-72-4)', 1, GETDATE()),
+		('2904.91.00.00', 'Tricloronitrometano (cloropicrina) (CAS 76-06-2)', 1, GETDATE()),
+		('2904.99.10.00', 'Sulfonato de perfluorooctano (CAS 1763-23-1)', 1, GETDATE()),
+		('2904.99.90.00', 'Otros', 1, GETDATE()),
+		('2904.90', '+ + SUPRIMIDA + +', 1, GETDATE()),
+		('2904.90.10', '+ + SUPRIMIDA + +', 1, GETDATE()),
+		('2904.90.20', '+ + SUPRIMIDA + +', 1, GETDATE()),
+		('2904.90.90', '+ + SUPRIMIDA + +', 1, GETDATE()),
+		('2905.11.00.00', 'Metanol (alcohol metílico)', 1, GETDATE()),
+		('2905.11.00.00.01', 'Metanol', 1, GETDATE()),
+		('2905.12.00.00', 'Propan-1-ol (alcohol propílico) y propan-2-ol (alcohol isopropílico)', 1, GETDATE()),
+		('2905.12.00.00.01', 'Alcohol isopropílico (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2905.13.00.00', 'Butan-1-ol (alcohol n-butílico)', 1, GETDATE()),
+		('2905.14.00.00', 'Los demás butanoles', 1, GETDATE()),
+		('2905.16.00.00', 'Octanol (alcohol octílico) y sus isómeros', 1, GETDATE()),
+		('2905.17.00.00', 'Dodecan-1-ol (alcohol laurílico), hexadecan-1-ol (alcohol cetílico) y octadecan-1-ol (alcohol estearílico)', 1, GETDATE()),
+		('2905.17.00.00.01', 'Alcohol cetílico (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2905.17.00.00.02', 'Alcohol cetostearílico (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2905.17.00.00.03', 'Alcohol estearílico (producto farmacéutico para uso humano)', 1, GETDATE()),
+
+		('2905.17.00.00.04', 'Alcohol cetil estearílico (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2905.17.00.00.05', 'Octil dodecanol (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2905.19.10.00', 'Pentanol (alcohol amílico) y sus isómeros', 1, GETDATE()),
+		('2905.19.91.00', 'Alcohol pinacolílico (CAS 464-07-3)', 1, GETDATE()),
+		('2905.19.99.00', 'Los demás', 1, GETDATE()),
+		('2905.19.99.00.01', 'Feromona de agragación (Adenda, Acuerdo N° 469-A-2016)', 1, GETDATE()),
+		('2905.22.00.00', 'Alcoholes terpénicos acíclicos', 1, GETDATE()),
+		('2905.29.00.00', 'Los demás', 1, GETDATE()),
+		('2905.31.00.00', 'Etilenglicol (etanodiol)', 1, GETDATE()),
+		('2905.32.00.00', 'Propilenglicol (propan-1,2-diol)', 1, GETDATE()),
+		('2905.32.00.00.01', 'Propilenglicol (propano-1,2-diol) (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2905.39.00.00', 'Los demás', 1, GETDATE()),
+		('2905.39.00.00.01', 'Fenoterol HBr (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2905.41.00.00', '2-Etil-2-(hidroximetil)propan-1,3-diol (trimetilolpropano)', 1, GETDATE()),
+		('2905.42.00.00', 'Pentaeritritol (pentaeritrita)', 1, GETDATE()),
+		('2905.43.00.00', 'Manitol', 1, GETDATE()),
+		('2905.43.00.00.01', 'Manitol (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2905.44.00.00', 'D-glucitol (sorbitol)', 1, GETDATE()),
+		('2905.44.00.00.01', 'Sorbitol (d-glucitol) (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2905.45.00.00', 'Glicerol', 1, GETDATE()),
+		('2905.45.00.00.01', 'Glicerina USP (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2905.49.00.00', 'Los demás', 1, GETDATE()),
+
+		('2905.51.00.00', 'Etclorvinol (DCI)', 1, GETDATE()),
+		('2905.51.00.00.01', 'Etclorvinol (DCI) (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2905.59.00.00', 'Los demás', 1, GETDATE()),
+		('2906.11.00.00', 'Mentol', 1, GETDATE()),
+		('2906.11.00.00.01', 'Mentol presentado en cristales (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2906.12.00.00', 'Ciclohexanol, metilciclohexanoles y dimetilciclohexanoles', 1, GETDATE()),
+		('2906.13.00.00', 'Esteroles e inositoles', 1, GETDATE()),
+		('2906.13.00.00.01', 'Inositol (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2906.13.00.00.02', 'Esteroles e inositoles para la elaboración de alimentos para camarones (Art. 10, Acuerdo N° 440-2016)', 1, GETDATE()),
+		('2906.19.10.00', 'Terpineoles', 1, GETDATE()),
+		('2906.19.90.00', 'Otros', 1, GETDATE()),
+		('2906.21.00.00', 'Alcohol bencílico', 1, GETDATE()),
+		('2906.21.00.00.01', 'Alcohol Bencílico (fenicarbinol) (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2906.29.00.00', 'Los demás', 1, GETDATE()),
+		('2906.29.00.00.01', 'Etil Fenil-Alcohol (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2907.11.00.00', 'Fenol (hidroxibenceno) y sus sales', 1, GETDATE()),
+
+		('2907.11.00.00.01', 'Fenol (ácido fénico, hidroxibenceno) (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2907.12.00.00', 'Cresoles y sus sales', 1, GETDATE()),
+		('2907.12.00.00.01', 'Cresol (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2907.13.00.00', 'Octilfenol, nonilfenol y sus isómeros; sales de estos productos', 1, GETDATE()),
+		('2907.13.00.00.01', 'Nonyl Fenol (10 moles) (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2907.15.00.00', 'Naftoles y sus sales', 1, GETDATE()),
+		('2907.19.10.00', 'Xilenoles y sus sales', 1, GETDATE()),
+		('2907.19.90.00', 'Otros', 1, GETDATE()),
+		('2907.19.90.00.01', 'Butil Hidroxi Tolueno (BHT) (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2907.19.90.00.02', 'Timol (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2907.21.00.00', 'Resorcinol y sus sales', 1, GETDATE()),
+		('2907.21.00.00.01', 'Resorcina polvo cristalino (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2907.21.00.00.02', 'Resorcinol (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2907.22.00.00', 'Hidroquinona y sus sales', 1, GETDATE()),
+		('2907.22.00.00.01', 'Hidroquinona (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2907.23.00.00', '4,4-Isopropilidendifenol (bisfenol A, difenilolpropano) y sus sales', 1, GETDATE()),
+		('2907.29.10.00', 'Fenoles-alcoholes', 1, GETDATE()),
+		('2907.29.90.00', 'Otros', 1, GETDATE()),
+		('2908.11.00.00', 'Pentaclorofenol (ISO)', 1, GETDATE()),
+		('2908.19.00.00', 'Los demás', 1, GETDATE()),
+
+
+		('2908.91.00.00', 'Dinoseb (ISO) y sus sales', 1, GETDATE()),
+		('2908.92.00.00', '4,6-Dinitro-o-cresol (DNOC (ISO)) y sus sales', 1, GETDATE()),
+		('2908.99.10.00.01', 'Dobesilato de calcio (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2908.99.91.00', 'Acido pícrico (trinitrofenol) (CAS 88-89-1)', 1, GETDATE()),
+		('2908.99.99.00', 'Otros', 1, GETDATE()),
+		('2909.11.00.00', 'Eter dietílico (óxido de dietilo)', 1, GETDATE()),
+		('2909.19.00.00', 'Los demás', 1, GETDATE()),
+		('2909.30.10.00', 'Éteres de octabromodifenil', 1, GETDATE()),
+		('2909.30.20.00', 'Éteres de pentabromodifenilo', 1, GETDATE()),
+		('2909.30.90.00', 'Otros', 1, GETDATE()),
+		('2909.30.90.00.01', 'Anethol (producto farmacéutico para uso humano)', 1, GETDATE()),
+		
+		('2909.30.90.00.02', 'Orfenadrina citrato (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2909.41.00.00', '2,2\-Oxidietanol (dietilenglicol)', 1, GETDATE()),
+		('2909.43.00.00', 'Eteres monobutílicos del etilenglicol o del dietilenglicol', 1, GETDATE()),
+		('2909.44.10.00', 'Eteres monometílicos del etilenglicol o del dietilenglicol', 1, GETDATE()),
+		('2909.44.90.00', 'Otros', 1, GETDATE()),
+		('2909.49.00.00', 'Los demás', 1, GETDATE()),
+		('2909.49.00.00.01', 'Guayacolato de Glicerilo (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2909.50.00.00.01', 'Guayacol (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2909.50.00.00.02', 'Sulfoguayacol (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2909.50.00.00.03', 'Butil hidroxianisol (BHA) (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2909.50.00.00.04', 'Guaifenesina (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2909.50.00.00.05', 'Irgasán (triclosán) (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2909.50.00.00.06', 'Sulfoguayacolato de Potasio (producto farmacéutico para uso humano)', 1, GETDATE()),
+		('2909.60.00.00', 'Peróxidos de alcoholes, peróxidos de éteres, peróxidos de cetonas, y sus derivados halogenados, sulfonados, nitrados o nitrosados', 1, GETDATE()),
+		('2910.10.00.00', 'Oxirano (óxido de etileno)', 1, GETDATE()),
+		('2910.20.00.00', 'Metiloxirano (óxido de propileno)', 1, GETDATE()),
+		('2910.30.00.00', '1-Cloro-2,3-epoxipropano (epiclorhidrina)', 1, GETDATE());

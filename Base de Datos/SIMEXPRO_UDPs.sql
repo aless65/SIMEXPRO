@@ -4227,7 +4227,7 @@ BEGIN
 										 WHERE deva_Id = @deva_Id))
 
 
-		IF EXISTS (SELECT impo_RTN  FROM [Adua].[tbImportadores] WHERE impo_RTN = @impo_RTN) --Si existe el Importador se editara
+		IF EXISTS	(SELECT impo_RTN  FROM [Adua].[tbImportadores] WHERE impo_RTN = @impo_RTN) --Si existe el Importador se editara
 			BEGIN 
 				EXEC adua.UDP_tbDeclarantes_Editar @decl_Id,
 												   @decl_Nombre_Raso,
@@ -4241,10 +4241,10 @@ BEGIN
 												   @deva_FechaModificacion
 
 				SET @impo_Id  = (SELECT impo_Id 
-								 FROM Adua.tbDeclaraciones_Valor
-								 WHERE deva_Id = @deva_Id)
+										FROM Adua.tbDeclaraciones_Valor
+										WHERE deva_Id = @deva_Id)
 
-				UPDATE  Adua.tbImportadores
+				UPDATE Adua.tbImportadores
 				SET		nico_Id = @nico_Id, 
 						decl_Id = @decl_Id, 
 						impo_NivelComercial_Otro = @impo_NivelComercial_Otro, 
@@ -10541,27 +10541,6 @@ FROM	Prod.tbFuncionesMaquina func
 		LEFT JOIN Acce.tbUsuarios usuaElimina	ON func.usua_UsuarioEliminacion = usuaCrea.usua_Id 
 WHERE	func_Estado = 1
 
-	SELECT func_Id							AS funcionId, 
-		   func_Nombre						AS funcionNombre, 
-		   func.usua_UsuarioCreacion		AS usuarioCreacion, 
-		   usuaCrea.usua_Nombre				AS usuarioCreacionNombre,
-		   func_FechaCreacion				AS fechaCreacion, 
-		   func.usua_UsuarioModificacion	AS usuarioModificacion, 
-		   usuaModifica.usua_Nombre			AS usuarioModificacionNombre,
-		   func_FechaModificacion			AS fechaModificacion,
-		   func.usua_UsuarioEliminacion		AS usuarioEliminacion, 
-		   usuaElimina.usua_Nombre			AS usuarioEliminacionNombre,
-		   func_FechaEliminacion			AS fechaEliminacion, 
-		   func_Estado						AS funcionEstado
-	  FROM Prod.tbFuncionesMaquina func 
-INNER JOIN Acce.tbUsuarios usuaCrea
-		ON func.usua_UsuarioCreacion = usuaCrea.usua_Id 
- LEFT JOIN Acce.tbUsuarios usuaModifica
-		ON func.usua_UsuarioModificacion = usuaCrea.usua_Id 
- LEFT JOIN Acce.tbUsuarios usuaElimina
-		ON func.usua_UsuarioEliminacion = usuaCrea.usua_Id 
-	 WHERE func_Estado = 1
-
 END
 GO
 
@@ -10573,16 +10552,7 @@ CREATE OR ALTER PROCEDURE prod.UDP_tbFuncionesMaquina_Insertar
 AS 
 BEGIN
 	BEGIN TRY
-		IF EXISTS (SELECT * 
-					 FROM Prod.tbFuncionesMaquina
-					WHERE @func_Nombre = func_Nombre
-					  AND func_Estado = 0)
-		BEGIN
-			UPDATE Prod.tbFuncionesMaquina
-			   SET func_Estado = 1
-			 WHERE func_Nombre = @func_Nombre
-		END
-		ELSE 
+
 		BEGIN
 			INSERT INTO Prod.tbFuncionesMaquina (func_Nombre, usua_UsuarioCreacion, func_FechaCreacion)
 			VALUES(@func_Nombre, @usua_UsuarioCreacion, @func_FechaCreacion)

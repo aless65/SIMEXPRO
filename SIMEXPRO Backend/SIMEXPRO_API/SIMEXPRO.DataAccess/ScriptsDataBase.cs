@@ -456,7 +456,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarAreas = "Prod.UDP_tbArea_Listar";
         public static string InsertarAreas = "Prod.UDP_tbArea_Insertar";
         public static string EditarAreas = "Prod.UDP_tbArea_Editar";
-        public static string ElininarAreas = "Prod.UDP_tbArea_Eliminar";
+        public static string EliminarAreas = "Prod.UDP_tbArea_Eliminar";
         #endregion
 
         #region Asignaciones Orden

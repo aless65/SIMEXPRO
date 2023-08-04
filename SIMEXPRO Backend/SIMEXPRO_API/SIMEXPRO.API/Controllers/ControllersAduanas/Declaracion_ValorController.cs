@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace SIMEXPRO.API.Controllers.ControllersAduanas
 {
     [Route("api/[controller]")]
-    [ApiController]
+    //[ApiController]
     public class Declaracion_ValorController : ControllerBase
     {
         private readonly AduanaServices _aduanaServices;

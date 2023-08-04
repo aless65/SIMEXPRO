@@ -14,7 +14,8 @@
 	CREATE DATABASE SIMEXPRO
 	--Primero crear y luego correr script
 	*/
-	GO
+	--CREATE DATABASE SIMEXPRO
+	--GO
 	--USE SIMEXPRO
 	GO
 	CREATE SCHEMA Adua
@@ -524,51 +525,72 @@ CREATE TABLE Adua.tbCondicionesComerciales(
    GO
 
 CREATE TABLE Adua.tbFormasdePago(
-		fopa_Id							INT 			IDENTITY(1,1),
-		fopa_Descripcion				NVARCHAR(150) 	NOT NULL,
-		usua_UsuarioCreacion			INT 			NOT NULL,
-		fopa_FechaCreacion				DATETIME 		NOT NULL,
-		usua_UsuarioModificacion		INT,
-		fopa_FechaModificacion          DATETIME,
+	fopa_Id							INT 			IDENTITY(1,1),
+	fopa_Descripcion				NVARCHAR(150) 	NOT NULL,
+	usua_UsuarioCreacion			INT 			NOT NULL,
+	fopa_FechaCreacion				DATETIME 		NOT NULL,
+	usua_UsuarioModificacion		INT,
+	fopa_FechaModificacion          DATETIME,
 	
-		usua_UsuarioEliminacion		    INT,
-		fopa_FechaEliminacion           DATETIME,
-		fopa_Estado						BIT	 			NOT NULL DEFAULT 1,
+	usua_UsuarioEliminacion		    INT,
+	fopa_FechaEliminacion           DATETIME,
+	fopa_Estado						BIT	 			NOT NULL DEFAULT 1,
 
-   CONSTRAINT PK_Adua_tbFormasdePago_fopa_Id 		  PRIMARY KEY (fopa_Id),
-   CONSTRAINT UQ_Adua_tbFormasdePago_fopa_Descripcion UNIQUE(fopa_Descripcion),
-   CONSTRAINT FK_Acce_tbFormasdePago_Adua_tbIncoterm_Valor_fopa_UsuarioCreacion 		 FOREIGN KEY (usua_UsuarioCreacion) 	REFERENCES Acce.tbUsuarios(usua_Id),
-   CONSTRAINT FK_Acce_tbFormasdePago_Adua_tbIncoterm_Valor_fopa_usua_UsuarioModificacion FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios(usua_Id),
-   CONSTRAINT FK_Acce_tbFormasdePago_Adua_tbIncoterm_Valor_fopa_usua_UsuarioEliminacion  FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios(usua_Id)
-   );
-   GO
+CONSTRAINT PK_Adua_tbFormasdePago_fopa_Id 		  PRIMARY KEY (fopa_Id),
+CONSTRAINT UQ_Adua_tbFormasdePago_fopa_Descripcion UNIQUE(fopa_Descripcion),
+CONSTRAINT FK_Acce_tbFormasdePago_Adua_tbIncoterm_Valor_fopa_UsuarioCreacion 		 FOREIGN KEY (usua_UsuarioCreacion) 	REFERENCES Acce.tbUsuarios(usua_Id),
+CONSTRAINT FK_Acce_tbFormasdePago_Adua_tbIncoterm_Valor_fopa_usua_UsuarioModificacion FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios(usua_Id),
+CONSTRAINT FK_Acce_tbFormasdePago_Adua_tbIncoterm_Valor_fopa_usua_UsuarioEliminacion  FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios(usua_Id)
+);
+GO
 
-   CREATE TABLE Adua.tbDeclarantes(
-   		decl_Id                  		INT 			IDENTITY(1,1),
-		decl_NumeroIdentificacion		NVARCHAR(50),
-   		decl_Nombre_Raso         		NVARCHAR(250) 	NOT NULL,
-   		decl_Direccion_Exacta    		NVARCHAR(250) 	NOT NULL,
-   		ciud_Id                  		INT             NOT NULL,
-   		decl_Correo_Electronico  		NVARCHAR(150) 	NOT NULL,
-   		decl_Telefono            		NVARCHAR(50) 	NOT NULL,
-   		decl_Fax                 		NVARCHAR(50)	NULL, 
+CREATE TABLE Adua.tbDeclarantes(
+   	decl_Id                  		INT 			IDENTITY(1,1),
+	decl_NumeroIdentificacion		NVARCHAR(50),
+   	decl_Nombre_Raso         		NVARCHAR(250) 	NOT NULL,
+   	decl_Direccion_Exacta    		NVARCHAR(250) 	NOT NULL,
+   	ciud_Id                  		INT             NOT NULL,
+   	decl_Correo_Electronico  		NVARCHAR(150) 	NOT NULL,
+   	decl_Telefono            		NVARCHAR(50) 	NOT NULL,
+   	decl_Fax                 		NVARCHAR(50)	NULL, 
 
 
-   		usua_UsuarioCreacion            INT 			NOT NULL,
-   		decl_FechaCreacion				DATETIME 		NOT NULL,
-   		usua_UsuarioModificacion		INT,
-   		decl_FechaModificacion      	DATETIME,
-   		usua_UsuarioEliminacion			INT,
-   		decl_FechaEliminacion      		DATETIME,
-   		decl_Estado						BIT 			NOT NULL DEFAULT 1
+   	usua_UsuarioCreacion            INT 			NOT NULL,
+   	decl_FechaCreacion				DATETIME 		NOT NULL,
+   	usua_UsuarioModificacion		INT,
+   	decl_FechaModificacion      	DATETIME,
+   	--usua_UsuarioEliminacion			INT,
+   	--decl_FechaEliminacion      		DATETIME,
+   	decl_Estado						BIT 			NOT NULL DEFAULT 1
 
-   CONSTRAINT PK_Adua_tbDeclarantes_decl_Id PRIMARY KEY (decl_Id),
-   CONSTRAINT FK_Adua_tbDeclarantes_esta_Id_Adua_tbCiudades_ciud_Id 					FOREIGN KEY (ciud_Id) 					REFERENCES Gral.tbCiudades(ciud_Id),
-   CONSTRAINT FK_Acce_tbDeclarantes_Adua_tbIncoterm_Valor_fopa_UsuarioCreacion 			FOREIGN KEY (usua_UsuarioCreacion) 		REFERENCES Acce.tbUsuarios(usua_Id),
-   CONSTRAINT FK_Acce_tbDeclarantes_Adua_tbIncoterm_Valor_fopa_usua_UsuarioModificacion FOREIGN KEY (usua_UsuarioModificacion)  REFERENCES Acce.tbUsuarios(usua_Id),
-   CONSTRAINT FK_Acce_tbDeclarantes_Adua_tbIncoterm_Valor_fopa_usua_UsuarioEliminacion 	FOREIGN KEY (usua_UsuarioEliminacion)   REFERENCES Acce.tbUsuarios(usua_Id)
-   );
-   GO
+CONSTRAINT PK_Adua_tbDeclarantes_decl_Id PRIMARY KEY (decl_Id),
+CONSTRAINT FK_Adua_tbDeclarantes_esta_Id_Adua_tbCiudades_ciud_Id 					FOREIGN KEY (ciud_Id) 					REFERENCES Gral.tbCiudades(ciud_Id),
+CONSTRAINT FK_Acce_tbDeclarantes_Adua_tbIncoterm_Valor_fopa_UsuarioCreacion 			FOREIGN KEY (usua_UsuarioCreacion) 		REFERENCES Acce.tbUsuarios(usua_Id),
+CONSTRAINT FK_Acce_tbDeclarantes_Adua_tbIncoterm_Valor_fopa_usua_UsuarioModificacion FOREIGN KEY (usua_UsuarioModificacion)  REFERENCES Acce.tbUsuarios(usua_Id),
+--CONSTRAINT FK_Acce_tbDeclarantes_Adua_tbIncoterm_Valor_fopa_usua_UsuarioEliminacion 	FOREIGN KEY (usua_UsuarioEliminacion)   REFERENCES Acce.tbUsuarios(usua_Id)
+);
+GO
+
+
+CREATE TABLE Adua.tbDeclarantesHistorial(
+	hdec_Id							INT 			IDENTITY(1,1),
+   	decl_Id                  		INT,
+	decl_NumeroIdentificacion		NVARCHAR(50),
+   	decl_Nombre_Raso         		NVARCHAR(250) 	NOT NULL,
+   	decl_Direccion_Exacta    		NVARCHAR(250) 	NOT NULL,
+   	ciud_Id                  		INT             NOT NULL,
+   	decl_Correo_Electronico  		NVARCHAR(150) 	NOT NULL,
+   	decl_Telefono            		NVARCHAR(50) 	NOT NULL,
+   	decl_Fax                 		NVARCHAR(50)	NULL, 
+
+
+   	hdec_UsuarioModificacion		INT				NOT NULL,
+	hdec_FechaModificacion			DATETIME		NOT NULL
+
+CONSTRAINT PK_Adua_tbDeclarantesHistorial_hdec_Id PRIMARY KEY (hdec_Id),
+CONSTRAINT FK_Adua_tbDeclarantesHistorial_tbDeclarantes_decl_Id 						FOREIGN KEY (decl_Id) 					REFERENCES Adua.tbDeclarantes(decl_Id)
+);
+GO
 
 CREATE TABLE Adua.tbImportadores(
 		impo_Id                  		INT 			IDENTITY(1,1),
@@ -592,6 +614,23 @@ CREATE TABLE Adua.tbImportadores(
    CONSTRAINT FK_Acce_tbImportadores_Adua_tbIncoterm_Valor_impo_UsuarioCreacion 		 FOREIGN KEY (usua_UsuarioCreacion) 	REFERENCES Acce.tbUsuarios(usua_Id),
    CONSTRAINT FK_Acce_tbImportadores_Adua_tbIncoterm_Valor_impo_usua_UsuarioModificacion FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios(usua_Id),
    CONSTRAINT FK_Acce_tbImportadores_Adua_tbIncoterm_Valor_impo_usua_UsuarioEliminacion  FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios(usua_Id)
+);
+GO
+
+CREATE TABLE Adua.tbImportadoresHistorial(
+		himp_Id							INT				IDENTITY(1,1),
+		impo_Id                  		INT 			NOT NULL,
+		nico_Id                  		INT 			NOT NULL,
+		decl_Id							INT				NOT NULL,
+		impo_NivelComercial_Otro		NVARCHAR(300),
+		impo_RTN                 		NVARCHAR(40) 	NOT NULL,
+		impo_NumRegistro         		NVARCHAR(40) 	NOT NULL,
+
+		himp_UsuarioModificacion		INT				NOT NULL,
+		himp_FechaModificacion			DATETIME		NOT NULL
+
+   CONSTRAINT PK_Adua_tbImportadoresHistorial_himp_Id PRIMARY KEY (himp_Id),
+   CONSTRAINT FK_Adua_tbImportadoresHistorial_tbImportadores_impo_Id 						FOREIGN KEY (impo_Id) 					REFERENCES Adua.tbImportadores(impo_Id)   
 );
 GO
 
@@ -624,8 +663,8 @@ CREATE TABLE Adua.tbIntermediarios(
 		inte_FechaCreacion				DATETIME 		NOT NULL,
 		usua_UsuarioModificacion   		INT,
 		inte_FechaModificacion     		DATETIME,
-		usua_UsuarioEliminacion 		INT				DEFAULT NULL,
-		inte_FechaEliminacion			DATETIME 		DEFAULT NULL,
+		--usua_UsuarioEliminacion 		INT				DEFAULT NULL,
+		--inte_FechaEliminacion			DATETIME 		DEFAULT NULL,
 		inte_Estado						BIT 			NOT NULL DEFAULT 1,
 
 	CONSTRAINT PK_Adua_tbIntermediarios_inte_Id PRIMARY KEY (inte_Id),
@@ -633,7 +672,22 @@ CREATE TABLE Adua.tbIntermediarios(
 	CONSTRAINT FK_Adua_tbIntermediarios_decl_Id_Adua_tbDeclarantes_decl_Id 		 	  FOREIGN KEY (decl_Id) REFERENCES Adua.tbDeclarantes(decl_Id),
 	CONSTRAINT FK_Acce_tbUsuarios_Adua_tbIntermediarios_inte_UsuarioCreacion 	 	  FOREIGN KEY (usua_UsuarioCreacion) 	 REFERENCES Acce.tbUsuarios(usua_Id),
 	CONSTRAINT FK_Acce_tbUsuarios_Adua_tbIntermediarios_inte_usua_UsuarioModificacion FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios(usua_Id),
-	CONSTRAINT FK_Acce_tbUsuarios_Adua_tbIntermediarios_inte_usua_UsuarioEliminacion  FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios(usua_Id)
+	--CONSTRAINT FK_Acce_tbUsuarios_Adua_tbIntermediarios_inte_usua_UsuarioEliminacion  FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios(usua_Id)
+);
+GO
+
+CREATE TABLE Adua.tbIntermediariosHistorial(
+	hint_Id							INT 			IDENTITY(1,1),
+	inte_Id							INT 			NOT NULL,
+	tite_Id							INT 			NOT NULL,
+	inte_Tipo_Otro					NVARCHAR(30),
+	decl_Id							INT 			NOT NULL,
+
+	himp_UsuarioModificacion		INT				NOT NULL,
+	himp_FechaModificacion			DATETIME		NOT NULL
+
+	CONSTRAINT PK_Adua_tbIntermediariosHistorial_hint_Id PRIMARY KEY (hint_Id),
+	CONSTRAINT FK_Adua_tbIntermediariosHistorial_tbIntermediarios_inte_Id 	  FOREIGN KEY (inte_Id) REFERENCES Adua.tbIntermediarios(inte_Id)
 );
 GO
 
@@ -657,6 +711,23 @@ CREATE TABLE Adua.tbProveedoresDeclaracion(
 	CONSTRAINT FK_Acce_tbUsuarios_Adua_tbProveedoresDeclaracion_pvde_usua_UsuarioEliminacion  FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios(usua_Id)
 
 );
+GO
+
+CREATE TABLE Adua.tbProveedoresDeclaracionHistorial(
+	hpvd_Id								INT				IDENTITY(1,1),
+	pvde_Id								INT				NOT NULL,
+	coco_Id								INT				NOT NULL,
+	pvde_Condicion_Otra					NVARCHAR(300),
+	decl_Id								INT				NOT NULL,
+
+	hpvd_UsuarioModificacion			INT				NOT NULL,
+	hpvd_FechaModificacion				DATETIME		NOT NULL
+
+
+	CONSTRAINT PK_Adua_tbProveedoresDeclaracionHistorial_hpvd_Id							  PRIMARY KEY(hpvd_Id),
+	CONSTRAINT FK_Adua__tbProveedoresDeclaracionHistorial_tbProveedoresDeclaracion_pvde_Id 	  FOREIGN KEY (pvde_Id)					REFERENCES Adua.tbProveedoresDeclaracion(pvde_Id)
+);
+GO
 
 
 CREATE TABLE Gral.tbProveedores(

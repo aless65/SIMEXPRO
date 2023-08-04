@@ -2125,16 +2125,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                var map = _ducaRepository.Insert(item);
+                var respuesta = _ducaRepository.Insert(item);
 
-                if (map.CodeStatus > 0)
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {

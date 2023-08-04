@@ -4042,32 +4042,32 @@ END
 GO
 
 /* Eliminar Declarantes*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbDeclarantes_Eliminar 
-	@decl_Id					INT,
-	@usua_UsuarioEliminacion	INT,
-	@decl_FechaEliminacion		DATETIME
-AS
-BEGIN
-	SET @decl_FechaEliminacion = GETDATE()
-	BEGIN TRY
-		DECLARE @respuesta INT
-		EXEC dbo.UDP_ValidarReferencias 'decl_Id', @decl_Id, 'Adua.tbDeclarantes', @respuesta OUTPUT
+--CREATE OR ALTER PROCEDURE Adua.UDP_tbDeclarantes_Eliminar 
+--	@decl_Id					INT,
+--	@usua_UsuarioEliminacion	INT,
+--	@decl_FechaEliminacion		DATETIME
+--AS
+--BEGIN
+--	SET @decl_FechaEliminacion = GETDATE()
+--	BEGIN TRY
+--		DECLARE @respuesta INT
+--		EXEC dbo.UDP_ValidarReferencias 'decl_Id', @decl_Id, 'Adua.tbDeclarantes', @respuesta OUTPUT
 
-		SELECT @respuesta AS Resultado
-		IF(@respuesta = 1)
-		BEGIN
-			UPDATE	Adua.tbDeclarantes
-			SET		decl_Estado = 0,
-					usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-					decl_FechaEliminacion = @decl_FechaEliminacion
-			WHERE decl_Id = @decl_Id
-		END
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END
-GO
+--		SELECT @respuesta AS Resultado
+--		IF(@respuesta = 1)
+--		BEGIN
+--			UPDATE	Adua.tbDeclarantes
+--			SET		decl_Estado = 0,
+--					usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+--					decl_FechaEliminacion = @decl_FechaEliminacion
+--			WHERE decl_Id = @decl_Id
+--		END
+--	END TRY
+--	BEGIN CATCH
+--		SELECT 0
+--	END CATCH
+--END
+--GO
 
 CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab1_Insertar 
 	@deva_AduanaIngresoId				INT,
@@ -12188,9 +12188,66 @@ AS BEGIN
 	BEGIN CATCH
 			SELECT 'Error Message: '+ ERROR_MESSAGE();	
 	END CATCH
-
 END
 GO
 
+----------*********************TRIGGERS*******************----------
+/*Declarantes*/
+CREATE OR ALTER TRIGGER TR_tbDeclarantes_Update
+ON Adua.tbDeclarantes AFTER UPDATE 
+AS
 
+	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
+	DECLARE @decl_FechaModificacion DATETIME = (SELECT decl_FechaModificacion FROM inserted)
 
+	INSERT INTO [Adua].[tbDeclarantesHistorial]
+	SELECT decl_Id,
+		   decl_NumeroIdentificacion,
+		   decl_Nombre_Raso,
+		   decl_Direccion_Exacta,
+		   ciud_Id,
+		   decl_Correo_Electronico,
+		   decl_Telefono,
+		   decl_Fax,
+		   @usua_UsuarioModificacion,
+		   @decl_FechaModificacion
+	FROM deleted
+GO
+	
+/*Importadores*/
+CREATE OR ALTER TRIGGER TR_tbImportadores_Update
+ON Adua.tbImportadores AFTER UPDATE 
+AS
+
+	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
+	DECLARE @impo_FechaModificacion DATETIME = (SELECT impo_FechaModificacion FROM inserted)
+
+	INSERT INTO [Adua].[tbImportadoresHistorial]
+	SELECT impo_Id,
+		   nico_Id,
+		   decl_Id,
+		   impo_NivelComercial_Otro,
+		   impo_RTN,
+		   impo_NumRegistro,
+		   @usua_UsuarioModificacion,
+		   @impo_FechaModificacion
+	FROM deleted
+GO
+
+/*Proveedores*/
+CREATE OR ALTER TRIGGER TR_tbProveedoresDeclaracion_Update
+ON Adua.tbProveedoresDeclaracion AFTER UPDATE 
+AS
+
+	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
+	DECLARE @pvde_FechaModificacion DATETIME = (SELECT pvde_FechaModificacion FROM inserted)
+
+	INSERT INTO [Adua].[tbProveedoresDeclaracionHistorial]
+	SELECT pvde_Id,
+		   coco_Id,
+		   pvde_Condicion_Otra,
+		   decl_Id,
+		   @usua_UsuarioModificacion,
+		   @pvde_FechaModificacion
+	FROM deleted
+GO

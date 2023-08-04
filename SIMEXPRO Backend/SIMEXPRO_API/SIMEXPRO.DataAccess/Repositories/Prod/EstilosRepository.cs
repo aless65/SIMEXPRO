@@ -32,8 +32,6 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             throw new NotImplementedException();
         }
 
-      
-
         public IEnumerable<tbEstilos> List()
         {
             throw new NotImplementedException();

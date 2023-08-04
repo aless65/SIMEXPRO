@@ -146,22 +146,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.adua_Nombre != "")
+                var map = _aduanasRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _aduanasRepository.Insert(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok("Insertado con éxito");
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -175,22 +168,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.adua_Nombre != "")
+                var map = _aduanasRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _aduanasRepository.Update(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok("Editado con éxito");
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -204,22 +190,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.adua_Id != 0)
+                var map = _aduanasRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _aduanasRepository.Delete(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok("Eliminado con éxito");
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)

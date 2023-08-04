@@ -38,7 +38,7 @@ namespace SIMEXPRO.API
             {
                 option.AddPolicy("AllowFlutter", builder =>
                 {
-                    builder.SetIsOriginAllowed(origen => new Uri(origen).Host == "localhost") //NOMBNRE DEL SERVIDOR
+                    builder.SetIsOriginAllowed(origen => new Uri(origen).Host == "localhost") //NOMBRE DEL SERVIDOR
                     .AllowAnyHeader()
                     .AllowAnyMethod();
                 }

@@ -1407,15 +1407,31 @@ AS
 BEGIN
 	
 	BEGIN TRY
-		IF EXISTS (SELECT *FROM Gral.tbAldeas WHERE alde_Nombre = @alde_Nombre AND alde_Estado = 0 )
+		IF EXISTS (SELECT * 
+				   FROM Gral.tbAldeas 
+				   WHERE alde_Nombre = @alde_Nombre 
+				   AND ciud_Id = @ciud_Id
+				   AND alde_Estado = 0 )
 		BEGIN
-			UPDATE Gral.tbAldeas SET alde_Estado = 1, ciud_Id  = @ciud_Id WHERE alde_Nombre = @alde_Nombre 
+			UPDATE Gral.tbAldeas 
+			SET    alde_Estado = 1, 
+				   ciud_Id  = @ciud_Id 
+				   WHERE alde_Nombre = @alde_Nombre 
+				   AND ciud_Id = @ciud_Id
+
 			SELECT 1
 		END
 		ELSE 
 		BEGIN
-			INSERT INTO Gral.tbAldeas (alde_Nombre, ciud_Id, usua_UsuarioCreacion, alde_FechaCreacion)
-			VALUES (@alde_Nombre, @ciud_Id, @usua_UsuarioCreacion, @alde_FechaCreacion)
+			INSERT INTO Gral.tbAldeas (alde_Nombre, 
+									   ciud_Id, 
+									   usua_UsuarioCreacion, 
+									   alde_FechaCreacion)
+			VALUES (@alde_Nombre, 
+					@ciud_Id, 
+					@usua_UsuarioCreacion, 
+					@alde_FechaCreacion)
+
 			SELECT 1
 		END
 	END TRY
@@ -1423,7 +1439,6 @@ BEGIN
 	BEGIN CATCH
 			SELECT 'Error Message: '+ ERROR_MESSAGE();
 	END CATCH
-
 END
 GO
 /*Editar ALDEAS*/
@@ -1438,9 +1453,13 @@ AS
 BEGIN
 		
 	BEGIN TRY
-		UPDATE Gral.tbAldeas SET alde_Nombre = @alde_Nombre, ciud_Id = @ciud_Id, 
-		alde_FechaModificacion = @alde_FechaModificacion, usua_UsuarioModificacion = @usua_UsuarioModificacion
-		WHERE alde_Id = @alde_Id
+		UPDATE	Gral.tbAldeas 
+		SET		alde_Nombre = @alde_Nombre, 
+				ciud_Id = @ciud_Id, 
+				alde_FechaModificacion = @alde_FechaModificacion, 
+				usua_UsuarioModificacion = @usua_UsuarioModificacion
+		WHERE	alde_Id = @alde_Id
+
 		SELECT 1
 	END TRY
 
@@ -6451,18 +6470,18 @@ GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbAranceles_Listar
 AS
 BEGIN
-	SELECT	aran_Id                AS Idaranceles,
-		aran_Codigo                AS CodigoAranceles,
-		aran_Descripcion           AS ArancelesDescripcion,
+	SELECT	aran_Id,
+			aran_Codigo,
+			aran_Descripcion,
 		
-		ara.usua_UsuarioCreacion  AS idUsuarioCreacion,
-		usu.usua_Nombre           AS UsuarioCreacion,		
-		ara.aran_FechaCreacion    AS FechaCreacion ,
+			ara.usua_UsuarioCreacion,
+			usu.usua_Nombre           AS UsuarioCreacion,		
+			ara.aran_FechaCreacion, 
 		
 		
-		ara.usua_UsuarioModificacion  AS idUsuarioModificacion,
+		ara.usua_UsuarioModificacion,
 		usu1.usua_Nombre              AS UsuarioModificacion,
-		ara.aran_FechaModificacion    AS FechaModificacion	
+		ara.aran_FechaModificacion	
 		
  
    FROM	Adua.tbAranceles ara

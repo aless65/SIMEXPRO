@@ -300,6 +300,7 @@ CREATE TABLE Gral.tbAldeas(
 		alde_Estado					BIT				DEFAULT 1,
 
 	CONSTRAINT PK_Gral_tbAldeas_alde_Id 				PRIMARY KEY (alde_Id),
+	CONSTRAINT UQ_tbAldeas_alde_Nombre_ciud_Id			UNIQUE(alde_Nombre, ciud_Id),
 	CONSTRAINT FK_Gral_tbCiudades_Gral_tbAldeas_ciud_Id FOREIGN KEY (ciud_Id)    REFERENCES Gral.tbCiudades(ciud_Id),
 
 	CONSTRAINT FK_Gral_tbAldeas_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id 	 FOREIGN KEY(usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
@@ -1388,7 +1389,7 @@ GO
 CREATE TABLE Adua.tbAranceles(
 	aran_Id						INT IDENTITY(1,1),
 	aran_Codigo					NVARCHAR(100) NOT NULL,
-	aran_Descripcion			NVARCHAR(150) NOT NULL,
+	aran_Descripcion			NVARCHAR(MAX) NOT NULL,
 	usua_UsuarioCreacion		INT NOT NULL,
 	aran_FechaCreacion			DATETIME NOT NULL ,
 	usua_UsuarioModificacion	INT,

@@ -149,7 +149,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 var map = _aduanasRepository.Insert(item);
                 if (map.MessageStatus == "1")
                 {
-                    return result.Ok("Insertado con éxito");
+                    return result.Ok(map);
                 }
                 else
                 {
@@ -171,7 +171,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 var map = _aduanasRepository.Update(item);
                 if (map.MessageStatus == "1")
                 {
-                    return result.Ok("Editado con éxito");
+                    return result.Ok(map);
                 }
                 else
                 {
@@ -193,7 +193,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 var map = _aduanasRepository.Delete(item);
                 if (map.MessageStatus == "1")
                 {
-                    return result.Ok("Eliminado con éxito");
+                    return result.Ok(map);
                 }
                 else
                 {
@@ -857,7 +857,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 var map = _conceptoPagoRepository.Insert(item);
                 if (map.MessageStatus == "1")
                 {
-                    return result.Ok("Insertado con éxito");
+                    return result.Ok(map);
                 }
                 else
                 {

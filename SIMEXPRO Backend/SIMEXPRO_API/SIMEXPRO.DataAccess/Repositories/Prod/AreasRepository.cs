@@ -14,7 +14,15 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
     {
         public RequestStatus Delete(tbArea item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@tipa_Id", item.tipa_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@usuarioEliminacion", item.usuarioEliminacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@tipa_FechaEliminacion", item.tipa_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarAreas, parametros, commandType: CommandType.StoredProcedure);
+            result.CodeStatus = answer;
+            return result;
         }
 
         public tbArea Find(int? id)

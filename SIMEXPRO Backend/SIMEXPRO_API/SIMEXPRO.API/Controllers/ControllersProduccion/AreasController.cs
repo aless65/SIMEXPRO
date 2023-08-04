@@ -49,7 +49,14 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             var respuesta = _produccionServices.ActualizarAreas(item);
             return Ok(respuesta);
         }
+        [HttpPost("Eliminar")]
+        public IActionResult Delete(AreasViewModel areasViewModel)
+        {
+            var item = _mapper.Map<tbArea>(areasViewModel);
+            var respuesta = _produccionServices.EliminarAreas(item);
+            return Ok(respuesta);
+        }
 
-        
+
     }
 }

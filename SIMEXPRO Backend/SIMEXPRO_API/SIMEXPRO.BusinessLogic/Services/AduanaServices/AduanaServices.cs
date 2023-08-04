@@ -2092,16 +2092,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                var map = _ducaRepository.InsertTap2(item);
+                var respuesta = _ducaRepository.InsertTap2(item);
 
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -2109,21 +2102,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        public ServiceResult InsertarDucaTap3(tbDuca item)
+        public ServiceResult InsertarDucaTap3(tbDocumentosDeSoporte item)
         {
             var result = new ServiceResult();
             try
             {
-                var map = _ducaRepository.InsertTap3(item);
+                var respuesta = _ducaRepository.InsertTap3(item);
 
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -2131,21 +2117,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        public ServiceResult ActualizarDuca(tbDuca item)
+        public ServiceResult ActualizarDucaTap1(tbDuca item)
         {
             var result = new ServiceResult();
             try
             {
-                var map = _ducaRepository.Update(item);
-
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                var respuesta = _ducaRepository.Update(item);
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -2153,34 +2131,35 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        public ServiceResult EliminarDuca(tbDuca item)
+        public ServiceResult ActualizarDucaTap2(tbDuca item)
         {
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
-                {
-                    var map = _ducaRepository.Delete(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _ducaRepository.UpdateTap2(item);
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
                 return result.Error(ex.Message);
             }
         }
+
+        public ServiceResult ActualizarDucaTap3(tbDocumentosDeSoporte item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var respuesta = _ducaRepository.UpdateTap3(item);
+                return result.Ok(respuesta);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+      
         #endregion
 
         #region EstadoBoletin
@@ -2230,16 +2209,19 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region EstadoMercancias
-        public IEnumerable<tbEstadoMercancias> ListarEstadoMercancias()
+     
+
+        public ServiceResult ListarEstadoMercancias()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _estadoMercanciasRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbEstadoMercancias>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -2434,17 +2416,18 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Facturas
-        public IEnumerable<tbFacturas> ListarFacturas(tbFacturas item)
+
+        public ServiceResult ListarFacturas(tbFacturas item)
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _facturasRepository.List(item);
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-
-                return Enumerable.Empty<tbFacturas>();
+                return result.Error(ex.Message);
             }
         }
 

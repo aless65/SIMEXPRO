@@ -25,6 +25,42 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             return resultado;
         }
 
+        public RequestStatus UsuarioCorreo(string usua_Nombre)
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+
+            var parametros = new DynamicParameters();
+
+            RequestStatus result = new RequestStatus();
+
+            parametros.Add("@usua_Nombre", usua_Nombre, DbType.String, ParameterDirection.Input);
+
+            var respuesta = db.QueryFirst<string>(ScriptsDataBase.CorreoSegunUsuario, parametros, commandType: CommandType.StoredProcedure);
+
+            result.MessageStatus = respuesta;
+
+            return result;
+        }
+
+        public RequestStatus CambiarContrasenia(tbUsuarios item)
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+
+            var parametros = new DynamicParameters();
+
+            RequestStatus result = new RequestStatus();
+
+            parametros.Add("@usua_Nombre", item.usua_Nombre, DbType.String, ParameterDirection.Input);
+            parametros.Add("@usua_Contrasenia", item.usua_Contrasenia, DbType.String, ParameterDirection.Input);
+
+
+            var respuesta = db.QueryFirst<string>(ScriptsDataBase.CambiarContrasenia, parametros, commandType: CommandType.StoredProcedure);
+
+            result.MessageStatus = respuesta;
+
+            return result;
+        }
+
         public RequestStatus Delete(tbUsuarios item)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
@@ -50,7 +86,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             var parametros = new DynamicParameters();
             parametros.Add("@usua_Nombre", item.usua_Nombre, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_Contrasenia", item.usua_Contrasenia, DbType.String, ParameterDirection.Input);
-            parametros.Add("@usua_Correo", item.usua_Correo, DbType.String, ParameterDirection.Input);
+            //parametros.Add("@usua_Correo", item.usua_Correo, DbType.String, ParameterDirection.Input);
             parametros.Add("@empl_Id", item.empl_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_Image", item.usua_Image, DbType.String, ParameterDirection.Input);
             parametros.Add("@role_Id", item.role_Id, DbType.Int32, ParameterDirection.Input);
@@ -77,7 +113,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             var parametros = new DynamicParameters();
             parametros.Add("@usua_Id", item.usua_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_Contrasenia", item.usua_Contrasenia, DbType.String, ParameterDirection.Input);
-            parametros.Add("@usua_Correo", item.usua_Correo, DbType.String, ParameterDirection.Input);
+            //parametros.Add("@usua_Correo", item.usua_Correo, DbType.String, ParameterDirection.Input);
             parametros.Add("@empl_Id", item.empl_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_Image", item.usua_Image, DbType.String, ParameterDirection.Input);
             parametros.Add("@role_Id", item.role_Id, DbType.Int32, ParameterDirection.Input);

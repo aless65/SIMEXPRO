@@ -32,7 +32,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(AldeasViewModel aldeasViewModel)
         {
             var item = _mapper.Map<tbAldeas>(aldeasViewModel);
@@ -41,7 +41,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(AldeasViewModel aldeasViewModel)
         {
             var item = _mapper.Map<tbAldeas>(aldeasViewModel);
@@ -49,12 +49,12 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
-        public IActionResult Delete(AldeasViewModel aldeasViewModel)
-        {
-            var item = _mapper.Map<tbAldeas>(aldeasViewModel);
-            var respuesta = _generalesServices.EliminarAldeas(item);
-            return Ok(respuesta);
-        }
+        //[HttpPost("Eliminar")]
+        //public IActionResult Delete(AldeasViewModel aldeasViewModel)
+        //{
+        //    var item = _mapper.Map<tbAldeas>(aldeasViewModel);
+        //    var respuesta = _generalesServices.EliminarAldeas(item);
+        //    return Ok(respuesta);
+        //}
     }
 }

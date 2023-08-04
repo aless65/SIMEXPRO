@@ -16,6 +16,9 @@ namespace SIMEXPRO.DataAccess
         public static string InsertarUsuarios = "acce.UDP_tbUsuarios_Insertar";
         public static string EditarUsuarios = "acce.UDP_tbUsuarios_Editar";
         public static string EliminarUsuarios = "acce.UDP_tbUsuarios_Eliminar";
+
+        public static string CorreoSegunUsuario = "acce.UDP_CorreoUsuario";
+        public static string CambiarContrasenia = "acce.UDP_CambiarContrasena";
         #endregion
 
         #region Pantallas
@@ -34,6 +37,7 @@ namespace SIMEXPRO.DataAccess
         public static string InsertarRolesXPantallas = "Acce.UDP_tbRolesXPantallas_Insertar";
         public static string EditarRolesXPantallas = "Acce.UDP_tbRolesXPantallas_Editar";
         public static string EliminarRolesXPantallas = "Acce.UDP_tbRolesXPantallas_Eliminar";
+        public static string DibujarMenuRolesXPantallas = "Acce.UDP_RolesPorPantalla_DibujadoMenu";
         #endregion
 
         #region Login
@@ -306,6 +310,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarItems = "Adua.UDP_tbItems_Listar";
         public static string InsertarItems = "Adua.UDP_tbItems_Insertar";
         public static string EditarItems = "Adua.UDP_tbItems_Editar";
+        public static string EliminarItems = "Adua.UDP_tbItems_Eliminar";
         #endregion
 
         #region Liquidacion General

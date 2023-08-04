@@ -22,7 +22,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             _generalesServices = generalesService;
             _mapper = mapper;
         }
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarEmpleados();
@@ -31,7 +31,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(EmpleadosViewModel empleadosViewModel)
         {
             var item = _mapper.Map<tbEmpleados>(empleadosViewModel);
@@ -40,7 +40,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(EmpleadosViewModel empleadosViewModel)
         {
             var item = _mapper.Map<tbEmpleados>(empleadosViewModel);
@@ -48,7 +48,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
+        [HttpPost("Eliminar")]
         public IActionResult Delete(EmpleadosViewModel empleadosViewModel)
         {
             var item = _mapper.Map<tbEmpleados>(empleadosViewModel);

@@ -25,7 +25,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
       
         
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarMonedas();
@@ -34,7 +34,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(MonedasViewModel monedasViewModel)
         {
             var item = _mapper.Map<tbMonedas>(monedasViewModel);
@@ -43,7 +43,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(MonedasViewModel monedasViewModel)
         {
             var item = _mapper.Map<tbMonedas>(monedasViewModel);
@@ -51,7 +51,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
+        [HttpPost("Eliminar")]
         public IActionResult Delete(MonedasViewModel monedasViewModel)
         {
             var item = _mapper.Map<tbMonedas>(monedasViewModel);

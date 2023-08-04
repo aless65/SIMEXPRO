@@ -37,9 +37,6 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             return result;
         }
 
-
-
-
         public IEnumerable<tbFacturas> List(tbFacturas item)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);

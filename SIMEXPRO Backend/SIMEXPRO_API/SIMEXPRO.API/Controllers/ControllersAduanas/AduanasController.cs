@@ -12,7 +12,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AduanasController : ControllerBase
+    public class AduanasController : Controller
     {
         private readonly AduanaServices _aduanaServices;
         private readonly IMapper _mapper;
@@ -23,11 +23,37 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             _mapper = mapper;
         }
 
-        [HttpGet("Listado")]
-        public IActionResult List()
+
+        [HttpGet("Listar")]
+        public IActionResult Index()
         {
-            var list = _aduanaServices.ListarAduanas();
-            return Ok(list);
+            var listado = _aduanaServices.ListarAduanas();
+            var mapped = _mapper.Map<IEnumerable<AduanasViewModel>>(listado.Data);
+            return Ok(mapped);
+        }
+
+        [HttpPost("Insertar")]
+        public IActionResult Insertar(AduanasViewModel aduanas)
+        {
+            var mapped = _mapper.Map<tbAduanas>(aduanas);
+            var datos = _aduanaServices.InsertarAduanas(mapped);
+            return Ok(datos);
+        }
+
+        [HttpPost("Editar")]
+        public IActionResult Editar(AduanasViewModel aduanas)
+        {
+            var mapped = _mapper.Map<tbAduanas>(aduanas);
+            var datos = _aduanaServices.ActualizarAduanas(mapped);
+            return Ok(datos);
+        }
+
+        [HttpPost("Eliminar")]
+        public IActionResult Eliminar(AduanasViewModel aduanas)
+        {
+            var mapped = _mapper.Map<tbAduanas>(aduanas);
+            var datos = _aduanaServices.EliminarAduanas(mapped);
+            return Ok(datos);
         }
 
     }

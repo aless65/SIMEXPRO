@@ -32,7 +32,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(CargosViewModel cargosViewModel)
         {
             var item = _mapper.Map<tbCargos>(cargosViewModel);
@@ -41,7 +41,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(CargosViewModel cargosViewModel)
         {
             var item = _mapper.Map<tbCargos>(cargosViewModel);
@@ -49,7 +49,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
+        [HttpPost("Eliminar")]
         public IActionResult Delete(CargosViewModel cargosViewModel)
         {
             var item = _mapper.Map<tbCargos>(cargosViewModel);

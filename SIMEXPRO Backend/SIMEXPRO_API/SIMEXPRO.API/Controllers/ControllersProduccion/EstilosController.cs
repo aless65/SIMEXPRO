@@ -33,7 +33,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(EstilosViewModel estilosViewModel)
         {
             var item = _mapper.Map<tbEstilos>(estilosViewModel);
@@ -42,7 +42,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         }
 
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(EstilosViewModel estilosViewModel)
         {
             var item = _mapper.Map<tbEstilos>(estilosViewModel);
@@ -50,13 +50,18 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
+        [HttpPost("Eliminar")]
         public IActionResult Delete(EstilosViewModel estilosViewModel)
         {
             var item = _mapper.Map<tbEstilos>(estilosViewModel);
             var respuesta = _produccionServices.EliminarEstilos(item);
             return Ok(respuesta);
         }
+
+    
+
+        
+    
 
 
     }

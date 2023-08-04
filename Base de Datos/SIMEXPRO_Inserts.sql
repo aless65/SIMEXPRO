@@ -961,7 +961,7 @@ INSERT INTO [Prod].[tbClientes](clie_Nombre_O_Razon_Social, clie_Direccion, clie
 values('Miguel','Direccionando','054564','Josue','465465','sdkjssdasd','45454',1,'05-10-2021')
 
 INSERT INTO [Gral].[tbEmpleados](empl_Nombres, empl_Apellidos, empl_DNI, escv_Id, empl_Sexo, empl_FechaNacimiento, empl_Telefono, empl_DireccionExacta, pvin_Id, empl_CorreoElectronico, carg_Id, empl_EsAduana, usua_UsuarioCreacion, empl_FechaCreacion)
-values('Mario','Acasa','06412',1,'M','05-10-2022','97856222','A la orilla de mi casa',1,'La acasa',1,1,1,'05-06-2000')
+values('Mario','Acasa','06412',1,'M','05-10-2022','97856222','A la orilla de mi casa',1,'mario@gmail.com',1,1,1,'05-06-2000')
 
 INSERT INTO [Prod].[tbMarcasMaquina](marq_Nombre, usua_UsuarioCreacion, marq_FechaCreacion)
 VALUES('Maquita',1,'05-10-2022')

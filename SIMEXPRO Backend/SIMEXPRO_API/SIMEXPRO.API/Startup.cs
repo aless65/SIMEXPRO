@@ -1,5 +1,5 @@
 using AutoMapper;
-using SIMEXPRO.API.Extentions;
+//using Events_Company_R.API.Extentions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using SIMEXPRO.API.Extentions;
 using SIMEXPRO.API.Middleware;
 using SIMEXPRO.BussinessLogic;
 using System;
@@ -37,7 +38,7 @@ namespace SIMEXPRO.API
             {
                 option.AddPolicy("AllowFlutter", builder =>
                 {
-                    builder.SetIsOriginAllowed(origen => new Uri(origen).Host == "localhost") //NOMBNRE DEL SERVIDOR
+                    builder.SetIsOriginAllowed(origen => new Uri(origen).Host == "localhost") //NOMBRE DEL SERVIDOR
                     .AllowAnyHeader()
                     .AllowAnyMethod();
                 }
@@ -45,7 +46,7 @@ namespace SIMEXPRO.API
             }
            );
 
-            #region Comentar Para que no pida token de acceso
+
             //// Configure Azure Key Vault
             //var configBuilder = new ConfigurationBuilder();
             //var keyVaultEndpoint = "https://simexpro.vault.azure.net/"; // Replace with your Key Vault URI
@@ -62,7 +63,7 @@ namespace SIMEXPRO.API
 
             //var configuration = configBuilder.Build();
             //services.AddSingleton(configuration);
-            #endregion
+
 
             services.DataAccess(Configuration.GetConnectionString("ConexionSimexpro"));
             services.BussinessLogic();

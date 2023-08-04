@@ -24,7 +24,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             _mapper = mapper;
         }
 
-        [HttpPost("Listado")]
+        [HttpPost("Listar")]
         public IActionResult Listado(FacturasViewModel item)
         {
             var item2 = _mapper.Map<tbFacturas>(item);

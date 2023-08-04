@@ -945,16 +945,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Condiciones
-        public IEnumerable<tbCondiciones> ListarCondiciones()
+        public ServiceResult ListarCondiciones()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _condicionesRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbCondiciones>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -963,22 +964,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.codi_Concepto_Monto_Declarado != "")
+                var map = _condicionesRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _condicionesRepository.Insert(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -3198,6 +3192,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
+                (1==1)
                 var map = _itemsRepository.Insert(item);
                 if (map.MessageStatus == "1")
                 {

@@ -47,7 +47,6 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             var respuesta = _generalesServices.ActualizarPaises(item);
             return Ok(respuesta);
         }
-
         //[HttpPost("Delete")]
         //public IActionResult Delete(PaisesViewModel paisesViewModel)
         //{

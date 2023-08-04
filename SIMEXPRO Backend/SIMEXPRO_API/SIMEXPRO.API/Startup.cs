@@ -38,7 +38,7 @@ namespace SIMEXPRO.API
             {
                 option.AddPolicy("AllowFlutter", builder =>
                 {
-                    builder.SetIsOriginAllowed(origen => new Uri(origen).Host == "localhost") //NOMBNRE DEL SERVIDOR
+                    builder.SetIsOriginAllowed(origen => new Uri(origen).Host == "localhost") //NOMBRE DEL SERVIDOR
                     .AllowAnyHeader()
                     .AllowAnyMethod();
                 }
@@ -47,7 +47,7 @@ namespace SIMEXPRO.API
            );
 
 
-            // Configure Azure Key Vault
+            //// Configure Azure Key Vault
             //var configBuilder = new ConfigurationBuilder();
             //var keyVaultEndpoint = "https://simexpro.vault.azure.net/"; // Replace with your Key Vault URI
             //var azureServiceTokenProvider = new AzureServiceTokenProvider();

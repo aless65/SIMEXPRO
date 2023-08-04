@@ -46,5 +46,36 @@ namespace SIMEXPRO.API.Models.ModelsAduana
         public int? usua_UsuarioModificacion { get; set; }
         public DateTime? duca_FechaModificacion { get; set; }
         public bool? duca_Estado { get; set; }
+
+        public string cont_Licencia { get; set; }
+
+        public int pais_IdExpedicion { get; set; }
+
+        public string cont_Nombre { get; set; }
+
+        public string cont_Apellido { get; set; }
+
+        public int pais_Id { get; set; }
+
+        public int marca_Id { get; set; }
+
+        public string tran_Chasis { get; set; }
+
+        public string tran_Remolque { get; set; }
+
+        public int tran_CantCarga { get; set; }
+
+        public int tran_NumDispositivoSeguridad { get; set; }
+
+        public string tran_Equipamiento { get; set; }
+
+        public string tran_TipoCarga { get; set; }
+
+        public string tran_IdContenedor { get; set; }
+        
+        public int usua_UsuarioCreacio { get; set; }
+
+        public DateTime tran_FechaCreacion { get; set; }
+
     }
 }

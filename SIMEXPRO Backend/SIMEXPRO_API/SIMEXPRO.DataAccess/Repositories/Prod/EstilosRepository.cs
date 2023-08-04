@@ -20,8 +20,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@esti_Id", item.esti_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@esti_FechaEliminacion", item.esti_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarEstilos, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarEstilos, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -39,8 +39,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@esti_FechaCreacion", item.esti_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
        
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarEstilos, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarEstilos, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -60,8 +60,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@esti_Descripcion", item.esti_Descripcion, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@esti_FechaModificacion", item.esti_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarEstilos, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarEstilos, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
     }

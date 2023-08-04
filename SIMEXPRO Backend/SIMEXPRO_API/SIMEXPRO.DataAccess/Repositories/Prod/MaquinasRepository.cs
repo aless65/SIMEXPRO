@@ -40,8 +40,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@mmaq_Id", item.mmaq_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@maqu_FechaCreacion", item.maqu_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarMaquinas, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarMaquinas, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -63,8 +63,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@mmaq_Id", item.mmaq_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@maqu_FechaModificacion", item.maqu_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarMaquinas, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarMaquinas, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
     }

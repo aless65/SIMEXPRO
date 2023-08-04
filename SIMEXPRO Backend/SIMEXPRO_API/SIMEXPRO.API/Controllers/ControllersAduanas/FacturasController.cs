@@ -30,6 +30,8 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             var item2 = _mapper.Map<tbFacturas>(item);
             var response = _aduanaServices.ListarFacturas(item2);
             return Ok(response);
+
+           
         }
 
 

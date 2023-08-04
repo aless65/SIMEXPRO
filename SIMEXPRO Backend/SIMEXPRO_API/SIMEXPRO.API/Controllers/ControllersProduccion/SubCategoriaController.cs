@@ -28,8 +28,9 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         public IActionResult Index()
         {
             var listado = _produccionServices.ListarSubCategorias();
-            var listadoMapeado = _mapper.Map<IEnumerable<SubCategoriaViewModel>>(listado);
-            return Ok(listadoMapeado);
+         
+            listado.Data = _mapper.Map<IEnumerable<SubCategoriaViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
 

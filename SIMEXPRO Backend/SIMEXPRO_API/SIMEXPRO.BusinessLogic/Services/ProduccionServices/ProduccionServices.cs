@@ -190,8 +190,6 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                if (item.tipa_Id != 0)
-                {
                     var map = _areasRepository.Delete(item);
                     if (map.CodeStatus > 0)
                     {
@@ -199,14 +197,8 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                         return result.Error(map);
                     }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
             }
             catch (Exception ex)
             {

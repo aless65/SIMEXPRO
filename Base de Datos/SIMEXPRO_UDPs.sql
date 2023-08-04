@@ -4008,7 +4008,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER PROCEDURE adua.UDP_tbDeclarantes_Editar
+CREATE OR ALTER PROCEDURE adua.UDP_tbDeclarantes_Editar --3, 'AUUUUUUU', 'por ahi', 1, 'ggg','2323','2323','0501-2005-632458',1,'10-16-2004'
 	@decl_Id						INT,
 	@decl_Nombre_Raso				NVARCHAR(250),
 	@decl_Direccion_Exacta			NVARCHAR(250),
@@ -4024,14 +4024,14 @@ BEGIN
 	BEGIN TRY
 		
 		UPDATE Adua.tbDeclarantes
-		SET decl_Nombre_Raso = @decl_Nombre_Raso, 
-			decl_Direccion_Exacta = @decl_Direccion_Exacta, 
-			ciud_Id = @ciud_Id, 
-			decl_Correo_Electronico = @decl_Correo_Electronico, 
-			decl_Telefono = @decl_Telefono, 
-			decl_Fax = @decl_Fax, 
-			usua_UsuarioModificacion = @usua_UsuarioModificacion, 
-			decl_FechaModificacion = @decl_FechaModificacion
+		SET decl_Nombre_Raso			= @decl_Nombre_Raso, 
+			decl_Direccion_Exacta		= @decl_Direccion_Exacta, 
+			ciud_Id						= @ciud_Id, 
+			decl_Correo_Electronico		= @decl_Correo_Electronico, 
+			decl_Telefono				= @decl_Telefono, 
+			decl_Fax					= @decl_Fax, 
+			usua_UsuarioModificacion	= @usua_UsuarioModificacion, 
+			decl_FechaModificacion		= @decl_FechaModificacion
 		WHERE decl_Id = @decl_Id
 
 	END TRY
@@ -4093,8 +4093,11 @@ BEGIN
 		DECLARE @decl_Id INT;
 		DECLARE @impo_Id INT;
 
+		-- SI NO EXISTE UN REGISTRO CON ESE RTN SE INSERTA
 		IF NOT EXISTS (SELECT impo_RTN FROM [Adua].[tbImportadores] WHERE impo_RTN = @impo_RTN)
 		BEGIN
+			
+			
 
 			EXEC adua.UDP_tbDeclarantes_Insertar @decl_Nombre_Raso,
 											     @decl_Direccion_Exacta,
@@ -4115,21 +4118,71 @@ BEGIN
 												impo_NumRegistro, 
 												usua_UsuarioCreacion, 
 												impo_FechaCreacion)
-			VALUES(@nico_Id, 
-				   @decl_Id,
-				   @impo_NivelComercial_Otro,
-				   @impo_RTN,
-				   @impo_NumRegistro,
-				   @usua_UsuarioCreacion,
-				   @deva_FechaCreacion)
+										VALUES(@nico_Id, 
+											   @decl_Id,
+											   @impo_NivelComercial_Otro,
+											   @impo_RTN,
+											   @impo_NumRegistro,
+											   @usua_UsuarioCreacion,
+											   @deva_FechaCreacion)
 
 			SET @impo_Id = SCOPE_IDENTITY()
 		END
 		ELSE
 		BEGIN
-			SET @impo_Id = (SELECT impo_Id 
-								   FROM Adua.tbImportadores
-								   WHERE impo_RTN = @impo_RTN)
+				--SACAMOS EL ID DEL DECLARANTE 
+				SET @decl_Id = (SELECT decl_Id 
+								FROM Adua.tbDeclarantes
+								WHERE decl_NumeroIdentificacion = @impo_RTN)
+
+
+				IF  EXISTS 	(SELECT decl_Id 
+							FROM tbDeclarantes
+							WHERE	(decl_Nombre_Raso = @decl_Nombre_Raso
+							AND		decl_Direccion_Exacta = @decl_Direccion_Exacta
+							AND		ciud_Id = @ciud_Id
+							AND		decl_Correo_Electronico = @decl_Correo_Electronico
+							AND		decl_Telefono = @decl_Telefono
+							AND		ISNULL(decl_Fax, '') = ISNULL(@decl_Fax, '')
+							AND		decl_NumeroIdentificacion = @impo_RTN))
+
+					BEGIN --SI SON IGUALES NO PASA NADA SOLO GUARDAMOS EL ID
+						pRINT 'si SON iGUALES'
+					END 
+					ELSE --SO NO SON IGUALES SE EDITA LA NUEVA INFORMACION
+						BEGIN
+						
+
+							UPDATE Adua.tbDeclarantes
+							SET decl_Nombre_Raso			= @decl_Nombre_Raso, 
+								decl_Direccion_Exacta		= @decl_Direccion_Exacta, 
+								ciud_Id						= @ciud_Id, 
+								decl_Correo_Electronico		= @decl_Correo_Electronico, 
+								decl_Telefono				= @decl_Telefono, 
+								decl_Fax					= @decl_Fax, 
+								usua_UsuarioModificacion	= @usua_UsuarioCreacion, 
+								decl_FechaModificacion		= @deva_FechaCreacion
+							WHERE decl_Id = @decl_Id
+
+							--EXEC adua.UDP_tbDeclarantes_Editar @decl_Id,
+							--								   @decl_Nombre_Raso,
+							--								   @decl_Direccion_Exacta,
+							--								   @ciud_Id,
+							--								   @decl_Correo_Electronico,
+							--								   @decl_Telefono,
+							--								   @decl_Fax,
+							--								   @impo_RTN,
+							--								   @usua_UsuarioCreacion,
+							--								   @deva_FechaCreacion	
+							pRINT 'Hay cambios y se editaran'
+							pRINT @decl_Id
+
+						END
+
+
+				SET @impo_Id = (SELECT impo_Id 
+								FROM Adua.tbImportadores
+								WHERE impo_RTN = @impo_RTN)
 		END	
 
 		--INSERT INTO Adua.tbDeclaraciones_ValorHistorial()
@@ -12191,63 +12244,63 @@ AS BEGIN
 END
 GO
 
-----------*********************TRIGGERS*******************----------
-/*Declarantes*/
-CREATE OR ALTER TRIGGER TR_tbDeclarantes_Update
-ON Adua.tbDeclarantes AFTER UPDATE 
-AS
+--------------*********************TRIGGERS*******************----------
+--/*Declarantes*/
+--CREATE OR ALTER TRIGGER TR_tbDeclarantes_Update
+--ON Adua.tbDeclarantes AFTER UPDATE 
+--AS
 
-	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
-	DECLARE @decl_FechaModificacion DATETIME = (SELECT decl_FechaModificacion FROM inserted)
+--	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
+--	DECLARE @decl_FechaModificacion DATETIME = (SELECT decl_FechaModificacion FROM inserted)
 
-	INSERT INTO [Adua].[tbDeclarantesHistorial]
-	SELECT decl_Id,
-		   decl_NumeroIdentificacion,
-		   decl_Nombre_Raso,
-		   decl_Direccion_Exacta,
-		   ciud_Id,
-		   decl_Correo_Electronico,
-		   decl_Telefono,
-		   decl_Fax,
-		   @usua_UsuarioModificacion,
-		   @decl_FechaModificacion
-	FROM deleted
-GO
+--	INSERT INTO [Adua].[tbDeclarantesHistorial]
+--	SELECT decl_Id,
+--		   decl_NumeroIdentificacion,
+--		   decl_Nombre_Raso,
+--		   decl_Direccion_Exacta,
+--		   ciud_Id,
+--		   decl_Correo_Electronico,
+--		   decl_Telefono,
+--		   decl_Fax,
+--		   @usua_UsuarioModificacion,
+--		   @decl_FechaModificacion
+--	FROM deleted
+--GO
 	
-/*Importadores*/
-CREATE OR ALTER TRIGGER TR_tbImportadores_Update
-ON Adua.tbImportadores AFTER UPDATE 
-AS
+--/*Importadores*/
+--CREATE OR ALTER TRIGGER TR_tbImportadores_Update
+--ON Adua.tbImportadores AFTER UPDATE 
+--AS
 
-	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
-	DECLARE @impo_FechaModificacion DATETIME = (SELECT impo_FechaModificacion FROM inserted)
+--	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
+--	DECLARE @impo_FechaModificacion DATETIME = (SELECT impo_FechaModificacion FROM inserted)
 
-	INSERT INTO [Adua].[tbImportadoresHistorial]
-	SELECT impo_Id,
-		   nico_Id,
-		   decl_Id,
-		   impo_NivelComercial_Otro,
-		   impo_RTN,
-		   impo_NumRegistro,
-		   @usua_UsuarioModificacion,
-		   @impo_FechaModificacion
-	FROM deleted
-GO
+--	INSERT INTO [Adua].[tbImportadoresHistorial]
+--	SELECT impo_Id,
+--		   nico_Id,
+--		   decl_Id,
+--		   impo_NivelComercial_Otro,
+--		   impo_RTN,
+--		   impo_NumRegistro,
+--		   @usua_UsuarioModificacion,
+--		   @impo_FechaModificacion
+--	FROM deleted
+--GO
 
-/*Proveedores*/
-CREATE OR ALTER TRIGGER TR_tbProveedoresDeclaracion_Update
-ON Adua.tbProveedoresDeclaracion AFTER UPDATE 
-AS
+--/*Proveedores*/
+--CREATE OR ALTER TRIGGER TR_tbProveedoresDeclaracion_Update
+--ON Adua.tbProveedoresDeclaracion AFTER UPDATE 
+--AS
 
-	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
-	DECLARE @pvde_FechaModificacion DATETIME = (SELECT pvde_FechaModificacion FROM inserted)
+--	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
+--	DECLARE @pvde_FechaModificacion DATETIME = (SELECT pvde_FechaModificacion FROM inserted)
 
-	INSERT INTO [Adua].[tbProveedoresDeclaracionHistorial]
-	SELECT pvde_Id,
-		   coco_Id,
-		   pvde_Condicion_Otra,
-		   decl_Id,
-		   @usua_UsuarioModificacion,
-		   @pvde_FechaModificacion
-	FROM deleted
-GO
+--	INSERT INTO [Adua].[tbProveedoresDeclaracionHistorial]
+--	SELECT pvde_Id,
+--		   coco_Id,
+--		   pvde_Condicion_Otra,
+--		   decl_Id,
+--		   @usua_UsuarioModificacion,
+--		   @pvde_FechaModificacion
+--	FROM deleted
+--GO

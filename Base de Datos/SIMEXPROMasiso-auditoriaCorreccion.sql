@@ -1167,11 +1167,12 @@ CREATE TABLE Prod.tbArea(
 	tipa_FechaEliminacion		DATETIME DEFAULT NULL,
 	tipa_Estado 				BIT					NOT NULL DEFAULT 1, 
 
-	CONSTRAINT PK_Prod_tbTipoArea_tipa_Id 													PRIMARY KEY (tipa_Id),
-	CONSTRAINT FK_Prod_tbTipoArea_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id 				FOREIGN KEY (usua_UsuarioCreacion) 		REFERENCES Acce.tbUsuarios(usua_Id),
-	CONSTRAINT FK_Prod_tbTipoArea_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id 			FOREIGN KEY (usua_UsuarioModificacion) 	REFERENCES Acce.tbUsuarios(usua_Id),
-	CONSTRAINT FK_Prod_tbTipoArea_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioEliminacion) 	REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Prod_tbProcesos_proc_Id_Prod_tbArea_proc_Id			 					FOREIGN KEY (proc_Id) 					REFERENCES Prod.tbProcesos(proc_Id),
+	CONSTRAINT PK_Prod_tbArea_tipa_Id 													PRIMARY KEY (tipa_Id),
+	CONSTRAINT UQ_Prod_tbArea_tipa_area													UNIQUE(tipa_area),
+	CONSTRAINT FK_Prod_tbArea_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id 				FOREIGN KEY (usua_UsuarioCreacion) 		REFERENCES Acce.tbUsuarios(usua_Id),
+	CONSTRAINT FK_Prod_tbArea_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id 			FOREIGN KEY (usua_UsuarioModificacion) 	REFERENCES Acce.tbUsuarios(usua_Id),
+	CONSTRAINT FK_Prod_tbArea_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioEliminacion) 	REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT FK_Prod_tbArea_proc_Id_Prod_tbProcesos_proc_Id			 				FOREIGN KEY (proc_Id) 					REFERENCES Prod.tbProcesos(proc_Id),
 )
 GO
 

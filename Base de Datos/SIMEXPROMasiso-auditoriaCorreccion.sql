@@ -14,9 +14,9 @@
 	CREATE DATABASE SIMEXPRO
 	--Primero crear y luego correr script
 	*/
-	CREATE DATABASE SIMEXPRO
-	GO
-	USE SIMEXPRO
+	--CREATE DATABASE SIMEXPRO
+	--GO
+	--USE SIMEXPRO
 	GO
 	CREATE SCHEMA Adua
 	GO
@@ -625,10 +625,6 @@ CREATE TABLE Adua.tbImportadoresHistorial(
 		impo_NivelComercial_Otro		NVARCHAR(300),
 		impo_RTN                 		NVARCHAR(40) 	NOT NULL,
 		impo_NumRegistro         		NVARCHAR(40) 	NOT NULL,
-		usua_UsuarioCreacion     		INT 			NOT NULL,
-		impo_FechaCreacion				DATETIME 		NOT NULL,
-		usua_UsuarioModificacion		INT,
-		impo_FechaModificacion			DATETIME,
 
 		himp_UsuarioModificacion		INT				NOT NULL,
 		himp_FechaModificacion			DATETIME		NOT NULL
@@ -723,13 +719,9 @@ CREATE TABLE Adua.tbProveedoresDeclaracionHistorial(
 	coco_Id								INT				NOT NULL,
 	pvde_Condicion_Otra					NVARCHAR(300),
 	decl_Id								INT				NOT NULL,
-	usua_UsuarioCreacion				INT 			NOT NULL,
-	pvde_FechaCreacion					DATETIME 		NOT NULL,
-	usua_UsuarioModificacion   			INT,
-	pvde_FechaModificacion     			DATETIME,
-	usua_UsuarioEliminacion 			INT				DEFAULT NULL,
-	pvde_FechaEliminacion				DATETIME 		DEFAULT NULL,
-	pvde_Estado							BIT 			NOT NULL DEFAULT 1
+
+	hpvd_UsuarioModificacion			INT				NOT NULL,
+	hpvd_FechaModificacion				DATETIME		NOT NULL
 
 
 	CONSTRAINT PK_Adua_tbProveedoresDeclaracionHistorial_hpvd_Id							  PRIMARY KEY(hpvd_Id),

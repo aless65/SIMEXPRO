@@ -1,3 +1,6 @@
+USE SIMEXPRO
+GO
+
 -----------------INSERTS GENERAL
 
 --**********CARGOS**********--
@@ -81735,3 +81738,61 @@ VALUES('ZWBAT','BATA',1,GETDATE(),1),
 ('ZWZVS','ZVISHAVANE',1,GETDATE(),1),
 ('ZWZ45','CHINHOYI',1,GETDATE(),1);
 
+--Pa' probar la DUCA
+INSERT INTO [Adua].[tbMarcas]
+(marc_Descripcion, usua_UsuarioCreacion, marc_FechaCreacion, marc_Estado)
+VALUES
+('Toyota', 1, '4/30/2022', 1),
+('BMW', 1, '4/30/2022', 1),
+('Volkswagen', 1, '1/8/2022', 1),
+('Hyundai', 1, '3/21/2022', 1),
+('Chevrolet', 1, '8/30/2022', 1),
+('Honda', 1, '2/10/2022', 1),
+('Nissan', 1, '2/7/2022', 1);
+
+GO
+
+INSERT INTO [Adua].[tbTransporte]
+(pais_Id, tran_Chasis, marca_Id, tran_Remolque, tran_CantCarga, tran_NumDispositivoSeguridad, tran_Equipamiento, tran_TipoCarga, tran_IdContenedor, usua_UsuarioCreacio, tran_FechaCreacion, tran_Estado)
+VALUES
+(236, 'Chasis independiente',1,'----',1,2,'----','----','----',1,GETDATE(),1),
+(100, 'Chasis autoportante',1,'----',1,2,'----','----','----',1,GETDATE(),1),
+(37, 'Chasis monocasco',1,'----',1,2,'----','----','----',1,GETDATE(),1);
+
+GO
+
+INSERT INTO [Adua].[tbConductor]
+(cont_Nombre, cont_Apellido, cont_Licencia, pais_IdExpedicion, tran_Id, usua_UsuarioCreacion, cont_FechaCreacion, cont_Estado)
+VALUES
+('Juan David','Lopez','6420651011315844845',100,1,1,GETDATE(),1),
+('Pedro','Toledo','6420651011315844846',100,1,1,GETDATE(),1),
+('Sebastian','Santana','6420651011315844847',100,1,1,GETDATE(),1);
+
+GO
+
+INSERT INTO [Adua].[tbTiposIdentificacion]
+(iden_Descripcion, usua_UsuarioCreacion, iden_FechaCreacion, iden_Estado)
+VALUES
+('Tarjeta de Identidad',1,GETDATE(),1),
+('Pasaporte',1,GETDATE(),1),
+('Visa',1,GETDATE(),1);
+GO
+
+INSERT INTO [Adua].[tbIntermediarios]
+(tite_Id, inte_Tipo_Otro, decl_Id, usua_UsuarioCreacion, inte_FechaCreacion, inte_Estado)
+VALUES
+(1,'----',1,1,GETDATE(),1),
+(2,'----',1,1,GETDATE(),1),
+(3,'----',1,1,GETDATE(),1),
+(4,'----',1,1,GETDATE(),1),
+(5,'----',1,1,GETDATE(),1);
+
+GO
+
+INSERT INTO [Adua].[tbImportadores]
+(nico_Id, decl_Id, impo_NivelComercial_Otro, impo_RTN, impo_NumRegistro, usua_UsuarioCreacion, impo_FechaCreacion, impo_Estado)
+VALUES
+(1,5,'----','05012006017558','15048630',1,GETDATE(),1),
+(2,5,'----','13012005017558','15048630',1,GETDATE(),1),
+(3,5,'----','08032003017845','15048630',1,GETDATE(),1),
+(4,5,'----','07012006017021','15048630',1,GETDATE(),1);

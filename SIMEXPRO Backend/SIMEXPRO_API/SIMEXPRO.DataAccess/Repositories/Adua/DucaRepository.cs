@@ -29,12 +29,12 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
 
             var parameters = new DynamicParameters();
 
+            parameters.Add("@duca_No_Duca", item.duca_No_Duca, DbType.String, ParameterDirection.Input);
+            parameters.Add("@deva_Id", item.deva_Id, DbType.Int32, ParameterDirection.Input);
+
             parameters.Add("@duca_No_Correlativo_Referencia", item.duca_No_Correlativo_Referencia, DbType.String, ParameterDirection.Input);
-            //parameters.Add("@FechaAceptacion", item.duca_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
             parameters.Add("@duca_AduanaRegistro", item.duca_AduanaRegistro, DbType.Int32, ParameterDirection.Input);
             parameters.Add("@duca_AduanaSalida", item.duca_AduanaSalida, DbType.Int32, ParameterDirection.Input);
-            //parameters.Add("@duca_AduanaIngreso", item, DbType.Int32, ParameterDirection.Input);
-            //parameters.Add("@duca_AduanaDestino", item, DbType.Int32, ParameterDirection.Input);
             parameters.Add("@duca_Regimen_Aduanero", item.duca_Regimen_Aduanero, DbType.String, ParameterDirection.Input);
             parameters.Add("@duca_Modalidad", item.duca_Modalidad, DbType.String, ParameterDirection.Input);
             parameters.Add("@duca_Clase", item.duca_Clase, DbType.String, ParameterDirection.Input);
@@ -46,22 +46,16 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parameters.Add("@duca_Lugar_Embarque", item.duca_Lugar_Embarque, DbType.String, ParameterDirection.Input);
             parameters.Add("@duca_Lugar_Desembarque", item.duca_Lugar_Desembarque, DbType.String, ParameterDirection.Input);
             parameters.Add("@duca_Manifiesto", item.duca_Manifiesto, DbType.String, ParameterDirection.Input);
-            //parameters.Add("@NoIdentificacion_ex", item, DbType.String, ParameterDirection.Input);
             parameters.Add("@iden_Id_ex", item.duca_Tipo_Iden_Exportador, DbType.Int32, ParameterDirection.Input);
             parameters.Add("@pais_ex", item.duca_Pais_Exportacion, DbType.Int32, ParameterDirection.Input);
             parameters.Add("@domicilio_Fiscal_ex", item.duca_DomicilioFiscal_Exportador, DbType.String, ParameterDirection.Input);
             parameters.Add("@NoIdentificacion_im", item.duca_Numero_Id_Importador, DbType.String, ParameterDirection.Input);
-            //parameters.Add("@iden_Id_im", item.duca_Numero_Id_Importador, DbType.Int32, ParameterDirection.Input);
             parameters.Add("@pais_im", item.duca_Pais_Emision_Importador, DbType.Int32, ParameterDirection.Input);
-            //parameters.Add("@Nombre_RazonSocial", item.duca_NombreSocial_Declarante, DbType.String, ParameterDirection.Input);
             parameters.Add("@domicilio_Fiscal_im", item.duca_DomicilioFiscal_Importador, DbType.String, ParameterDirection.Input);
             parameters.Add("@usua_UsuarioCreacio", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parameters.Add("@duca_FechaCreacion", item.duca_FechaCreacion, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@duca_FechaCreacion", item.duca_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
 
-            var respuesta = "";
-            parameters.Add("@Duca_Id", respuesta, DbType.String, ParameterDirection.Output);
-
-            db.QueryFirst<String>(ScriptsDataBase.InsertarDucaTAP1, parameters, commandType: CommandType.StoredProcedure);
+            var respuesta = db.QueryFirst<string>(ScriptsDataBase.InsertarDucaTAP1, parameters, commandType: CommandType.StoredProcedure);
 
             RequestStatus request = new()
             {
@@ -156,11 +150,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             var parameters = new DynamicParameters();
 
             parameters.Add("@duca_No_Correlativo_Referencia", item.duca_No_Correlativo_Referencia, DbType.String, ParameterDirection.Input);
-            //parameters.Add("@FechaAceptacion", item.duca_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
             parameters.Add("@duca_AduanaRegistro", item.duca_AduanaRegistro, DbType.Int32, ParameterDirection.Input);
             parameters.Add("@duca_AduanaSalida", item.duca_AduanaSalida, DbType.Int32, ParameterDirection.Input);
-            //parameters.Add("@duca_AduanaIngreso", item, DbType.Int32, ParameterDirection.Input);
-            //parameters.Add("@duca_AduanaDestino", item, DbType.Int32, ParameterDirection.Input);
             parameters.Add("@duca_Regimen_Aduanero", item.duca_Regimen_Aduanero, DbType.String, ParameterDirection.Input);
             parameters.Add("@duca_Modalidad", item.duca_Modalidad, DbType.String, ParameterDirection.Input);
             parameters.Add("@duca_Clase", item.duca_Clase, DbType.String, ParameterDirection.Input);
@@ -172,14 +163,11 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parameters.Add("@duca_Lugar_Embarque", item.duca_Lugar_Embarque, DbType.String, ParameterDirection.Input);
             parameters.Add("@duca_Lugar_Desembarque", item.duca_Lugar_Desembarque, DbType.String, ParameterDirection.Input);
             parameters.Add("@duca_Manifiesto", item.duca_Manifiesto, DbType.String, ParameterDirection.Input);
-            //parameters.Add("@NoIdentificacion_ex", item, DbType.String, ParameterDirection.Input);
             parameters.Add("@iden_Id_ex", item.duca_Tipo_Iden_Exportador, DbType.Int32, ParameterDirection.Input);
             parameters.Add("@pais_ex", item.duca_Pais_Exportacion, DbType.Int32, ParameterDirection.Input);
             parameters.Add("@domicilio_Fiscal_ex", item.duca_DomicilioFiscal_Exportador, DbType.String, ParameterDirection.Input);
             parameters.Add("@NoIdentificacion_im", item.duca_Numero_Id_Importador, DbType.String, ParameterDirection.Input);
-            //parameters.Add("@iden_Id_im", item.duca_Numero_Id_Importador, DbType.Int32, ParameterDirection.Input);
             parameters.Add("@pais_im", item.duca_Pais_Emision_Importador, DbType.Int32, ParameterDirection.Input);
-            //parameters.Add("@Nombre_RazonSocial", item.duca_NombreSocial_Declarante, DbType.String, ParameterDirection.Input);
             parameters.Add("@domicilio_Fiscal_im", item.duca_DomicilioFiscal_Importador, DbType.String, ParameterDirection.Input);
             parameters.Add("@usua_UsuarioCreacio", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parameters.Add("@duca_FechaCreacion", item.duca_FechaCreacion, DbType.Int32, ParameterDirection.Input);

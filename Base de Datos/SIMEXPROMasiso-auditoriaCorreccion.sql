@@ -1,33 +1,41 @@
 /*
-		DROP DATABASE SIMEXPRO
+DROP DATABASE SIMEXPRO
+GO
 
-		GO
-		DROP SCHEMA Adua
-		GO
-		DROP SCHEMA Prod
-		GO
-		DROP SCHEMA Acce
-		GO
-		DROP SCHEMA Gral
-		GO
-		*/
-	/*
-	CREATE DATABASE SIMEXPRO
-	--Primero crear y luego correr script
-	*/
-	--CREATE DATABASE SIMEXPRO
-	--GO
-	--USE SIMEXPRO
-	GO
-	CREATE SCHEMA Adua
-	GO
-	CREATE SCHEMA Prod
-	GO
-	CREATE SCHEMA Acce
-	GO
-	CREATE SCHEMA Gral
-	GO
+DROP SCHEMA Adua
+GO
 
+DROP SCHEMA Prod
+GO
+
+DROP SCHEMA Acce
+GO
+
+DROP SCHEMA Gral
+GO
+*/
+
+/*
+CREATE DATABASE SIMEXPRO
+GO
+
+--Primero crear y luego correr script
+
+USE SIMEXPRO
+GO
+*/
+
+CREATE SCHEMA Adua
+GO
+
+CREATE SCHEMA Prod
+GO
+
+CREATE SCHEMA Acce
+GO
+
+CREATE SCHEMA Gral
+GO
 
 --**********************************************************--
 --*************** SCHEMA Acceso ***************************--
@@ -2377,42 +2385,42 @@ GO
 
 CREATE TABLE Adua.tbDuca(
 	duca_No_Duca					NVARCHAR(100),
-	duca_No_Correlativo_Referencia	NVARCHAR(MAX) NOT NULL,
-	deva_Id							INT NOT NULL,
-	duca_AduanaRegistro				INT NOT NULL,
-	duca_AduanaSalida				INT NOT NULL,
-	duca_DomicilioFiscal_Exportador NVARCHAR(MAX) NOT NULL,
-	duca_Tipo_Iden_Exportador		INT NOT NULL,
-	duca_Pais_Emision_Exportador	INT NOT NULL,
-	duca_Numero_Id_Importador		NVARCHAR(100) NOT NULL,
-	duca_Pais_Emision_Importador	INT NOT NULL,
-	duca_DomicilioFiscal_Importador NVARCHAR(MAX) NOT NULL,
-	duca_Regimen_Aduanero			NVARCHAR(MAX) NOT NULL,
-	duca_Modalidad					NVARCHAR(MAX) NOT NULL,
-	duca_Clase						NVARCHAR(MAX) NOT NULL,
-	duca_Codigo_Declarante			NVARCHAR(200) NOT NULL,
-	duca_Numero_Id_Declarante		NVARCHAR(200) NOT NULL,
-	duca_NombreSocial_Declarante	NVARCHAR(MAX) NOT NULL,
-	duca_DomicilioFiscal_Declarante NVARCHAR(MAX) NOT NULL,
-	duca_Pais_Procedencia			INT NOT NULL,
-	duca_Pais_Exportacion			INT NOT NULL,
-	duca_Pais_Destino				INT NOT NULL,
-	duca_Deposito_Aduanero			NVARCHAR(MAX) NOT NULL,
-	duca_Lugar_Embarque				NVARCHAR(MAX) NOT NULL,
-	duca_Lugar_Desembarque			NVARCHAR(MAX) NOT NULL,
-	duca_Manifiesto					NVARCHAR(MAX) NOT NULL,
-	duca_Titulo						NVARCHAR(MAX) NOT NULL,
+	duca_No_Correlativo_Referencia	NVARCHAR(MAX),
+	deva_Id							INT,
+	duca_AduanaRegistro				INT,
+	duca_AduanaSalida				INT,
+	duca_DomicilioFiscal_Exportador NVARCHAR(MAX),
+	duca_Tipo_Iden_Exportador		INT,
+	duca_Pais_Emision_Exportador	INT,
+	duca_Numero_Id_Importador		NVARCHAR(100),
+	duca_Pais_Emision_Importador	INT,
+	duca_DomicilioFiscal_Importador NVARCHAR(MAX),
+	duca_Regimen_Aduanero			NVARCHAR(MAX),
+	duca_Modalidad					NVARCHAR(MAX),
+	duca_Clase						NVARCHAR(MAX),
+	duca_Codigo_Declarante			NVARCHAR(200),
+	duca_Numero_Id_Declarante		NVARCHAR(200),
+	duca_NombreSocial_Declarante	NVARCHAR(MAX),
+	duca_DomicilioFiscal_Declarante NVARCHAR(MAX),
+	duca_Pais_Procedencia			INT,
+	duca_Pais_Exportacion			INT,
+	duca_Pais_Destino				INT,
+	duca_Deposito_Aduanero			NVARCHAR(MAX),
+	duca_Lugar_Embarque				NVARCHAR(MAX),
+	duca_Lugar_Desembarque			NVARCHAR(MAX),
+	duca_Manifiesto					NVARCHAR(MAX),
+	duca_Titulo						NVARCHAR(MAX),
 	duca_Codigo_Transportista		NVARCHAR(200) NULL,
 	duca_PesoBrutoTotal             DECIMAL(20,8),
 	duca_PesoNetoTotal              DECIMAL(20,8),
 	motr_id                 		INT NULL,
 	duca_Transportista_Nombre		NVARCHAR(MAX) NULL,
 	duca_Conductor_Id				INT NULL,
-	duca_Codigo_Tipo_Documento		CHAR(3) NOT NULL,
-	duca_FechaVencimiento			DATE NOT NULL,
+	duca_Codigo_Tipo_Documento		CHAR(3),
+	duca_FechaVencimiento			DATE,
 
-	usua_UsuarioCreacion			INT NOT NULL,
-	duca_FechaCreacion				DATETIME NOT NULL,
+	usua_UsuarioCreacion			INT,
+	duca_FechaCreacion				DATETIME,
 	usua_UsuarioModificacion		INT DEFAULT NULL,
 	duca_FechaModificacion			DATETIME DEFAULT NULL,
 	--usua_UsuarioEliminacion	    INT	DEFAULT NULL,

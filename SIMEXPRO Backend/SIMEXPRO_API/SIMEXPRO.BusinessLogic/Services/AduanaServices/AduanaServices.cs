@@ -3171,7 +3171,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                (1==1)
                 var map = _itemsRepository.Insert(item);
                 if (map.MessageStatus == "1")
                 {

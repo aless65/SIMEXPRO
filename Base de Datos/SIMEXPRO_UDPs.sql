@@ -8367,6 +8367,106 @@ GO
 
 -----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS MÓDULO PRODUCCION
 
+--*****AREA*****--
+--CREATE OR ALTER VIEW tbArea
+
+
+--*****Listado*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbArea_Listar
+AS
+BEGIN
+SELECT	tipa_Id							,
+		tipa_area						,
+		pro.proc_Id						,
+		pro.proc_Descripcion			,
+		crea.usua_Nombre 				AS usarioCreacion,			 
+		tipa_FechaCreacion				,
+		modi.usua_Nombre  				AS usuarioModificacion,
+		tipa_FechaModificacion			,
+		elim.usua_Nombre 				AS usuarioEliminacion,
+		tipa_FechaEliminacion			,
+		tipa_Estado 					
+FROM	Prod.tbArea area 
+		INNER JOIN Prod.tbProcesos pro	ON area.proc_Id = pro.proc_Id  
+		INNER JOIN Acce.tbUsuarios crea ON crea.usua_Id = area.usua_UsuarioCreacion 
+		LEFT JOIN Acce.tbUsuarios modi	ON modi.usua_Id = area.usua_UsuarioModificacion 
+		LEFT JOIN Acce.tbUsuarios elim	ON elim.usua_Id = area.usua_UsuarioEliminacion 
+WHERE	tipa_Estado = 1
+END
+GO
+
+--*****Insertar*****--	
+--Prod.UDP_tbArea_Insertar 
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbArea_Insertar
+@tipa_area				NVARCHAR(200),
+@proc_Id				INT,
+@usua_UsuarioCreacion	INT,
+@tipa_FechaCreacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Prod.tbArea(tipa_area,proc_Id,usua_UsuarioCreacion,tipa_FechaCreacion)
+		VALUES (
+		@tipa_area,				
+		@proc_Id,				
+		@usua_UsuarioCreacion,	
+		@tipa_FechaCreacion				
+		)
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
+--*****Editar*****--
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbArea_Editar
+@tipa_Id					INT,
+@tipa_area					NVARCHAR(200),
+@proc_Id					INT,
+@usua_UsuarioModificacion	INT,
+@tipa_FechaModificacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+			UPDATE Prod.tbArea
+			SET tipa_area = @tipa_area,
+			proc_Id = @proc_Id,
+			usua_UsuarioModificacion = @usua_UsuarioModificacion,
+			tipa_FechaModificacion = @tipa_FechaModificacion
+			WHERE tipa_Id = @tipa_Id	
+			SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
+--*****Eliminar*****--
+CREATE OR ALTER PROCEDURE Prod.UDP_tbArea_Eliminar
+@tipa_Id					INT,
+@usua_UsuarioEliminacion	INT,
+@tipa_FechaEliminacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE Prod.tbArea
+		SET tipa_Estado = 0,
+		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+		tipa_FechaEliminacion = @tipa_FechaEliminacion
+		WHERE tipa_Id = @tipa_Id
+		
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
 -----------------------------------------------/UDPS Para orden de compra---------------------------------------------
 
 

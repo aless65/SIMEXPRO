@@ -2970,7 +2970,7 @@ select GETDATE()
 /*Aduanas Crear */
 GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Insertar 
-	@adua_Codigo				char(4),
+   @adua_Codigo				   char(4),
    @adua_Nombre                NVARCHAR(MAX),
    @adua_Direccion_Exacta      NVARCHAR(MAX), 
    @usua_UsuarioCreacion       INT,  
@@ -2979,24 +2979,20 @@ AS
 BEGIN 
      BEGIN TRY 
 		
-		IF EXISTS (SELECT * FROM Adua.tbAduanas     
-		  WHERE @adua_Nombre = adua_Nombre
+		IF EXISTS (SELECT * FROM Adua.tbAduanas  
+		  WHERE @adua_Codigo = adua_Codigo
 			AND adua_Estado = 0)
 			BEGIN 
 			   UPDATE Adua.tbAduanas
 			   SET    adua_Estado = 1,
-			          adua_Direccion_Exacta =@adua_Direccion_Exacta, 
+					  adua_Nombre = @adua_Nombre,
+			          adua_Direccion_Exacta = @adua_Direccion_Exacta, 
 			          usua_UsuarioModificacion=@usua_UsuarioCreacion
-				WHERE adua_Nombre = @adua_Nombre
+				WHERE @adua_Codigo = adua_Codigo
+
 			   SELECT 1	    
 		   END 
-		
-	      ELSE IF EXISTS(SELECT * FROM Adua.tbAduanas  		  
-		    WHERE @adua_Nombre = adua_Nombre)
-		      BEGIN 
-			   SELECT 2
-		    END          	
-		ELSE 
+	     ELSE 
 		   BEGIN 
 		     INSERT INTO Adua.tbAduanas
 			 (adua_Nombre, 
@@ -3017,36 +3013,37 @@ BEGIN
 			END
 	     END TRY
 	 BEGIN CATCH 
-	    SELECT 0
+	    SELECT 'Error Message: ' + ERROR_MESSAGE()
 	 END CATCH 
 END 
 go
 
 /*Aduanas Editar*/
-	CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Editar 
-	 @adua_Id                   INT,
-	 @adua_Codigo				char(4), 
-	 @adua_Nombre               NVARCHAR(MAX), 
-	 @adua_Direccion_Exacta     NVARCHAR(MAX),   
-	 @usua_UsuarioModificacion  INT, 
-	 @adua_FechaModificacion    DATETIME
-	AS
-	BEGIN 
-	   BEGIN TRY   
+CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Editar 
+	@adua_Id                   INT,
+	@adua_Codigo				char(4), 
+	@adua_Nombre               NVARCHAR(MAX), 
+	@adua_Direccion_Exacta     NVARCHAR(MAX),   
+	@usua_UsuarioModificacion  INT, 
+	@adua_FechaModificacion    DATETIME
+AS
+BEGIN 
+	BEGIN TRY   
      
-		   UPDATE  Adua.tbAduanas 
-		   SET adua_Nombre = @adua_Nombre,
-				adua_Codigo = @adua_Codigo,
-			   adua_Direccion_Exacta = @adua_Direccion_Exacta, 		   
-			   usua_UsuarioModificacion = @usua_UsuarioModificacion, 
-			   adua_FechaModificacion = @adua_FechaModificacion
-		   WHERE  adua_Id = @adua_Id
-		   SELECT 1
-		END TRY
-	   BEGIN CATCH
-		  SELECT 0
-		END CATCH
-	END
+		UPDATE  Adua.tbAduanas 
+		SET    adua_Nombre = @adua_Nombre,
+			    adua_Codigo = @adua_Codigo,
+			    adua_Direccion_Exacta = @adua_Direccion_Exacta, 		   
+			    usua_UsuarioModificacion = @usua_UsuarioModificacion, 
+			    adua_FechaModificacion = @adua_FechaModificacion
+		WHERE  adua_Id = @adua_Id
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
 
 
 GO
@@ -4227,7 +4224,7 @@ BEGIN
 										 WHERE deva_Id = @deva_Id))
 
 
-		IF EXISTS	(SELECT impo_RTN  FROM [Adua].[tbImportadores] WHERE impo_RTN = @impo_RTN) --Si existe el Importador se editara
+		IF EXISTS (SELECT impo_RTN  FROM [Adua].[tbImportadores] WHERE impo_RTN = @impo_RTN) --Si existe el Importador se editara
 			BEGIN 
 				EXEC adua.UDP_tbDeclarantes_Editar @decl_Id,
 												   @decl_Nombre_Raso,
@@ -4241,10 +4238,10 @@ BEGIN
 												   @deva_FechaModificacion
 
 				SET @impo_Id  = (SELECT impo_Id 
-										FROM Adua.tbDeclaraciones_Valor
-										WHERE deva_Id = @deva_Id)
+								 FROM Adua.tbDeclaraciones_Valor
+								 WHERE deva_Id = @deva_Id)
 
-				UPDATE Adua.tbImportadores
+				UPDATE  Adua.tbImportadores
 				SET		nico_Id = @nico_Id, 
 						decl_Id = @decl_Id, 
 						impo_NivelComercial_Otro = @impo_NivelComercial_Otro, 

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace SIMEXPRO.API.Controllers.ControllersAduanas
 {
     [Route("api/[controller]")]
-    //[ApiController]
+    [ApiController]
     public class Declaracion_ValorController : ControllerBase
     {
         private readonly AduanaServices _aduanaServices;
@@ -32,13 +32,13 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         }
 
         [HttpPost("InsertarTab1")]
-        public IActionResult InsertTab1(Declaraciones_ValorViewModel item, DeclarantesViewModel itemDecl, ImportadoresViewModel itemImp)
+        public IActionResult InsertTab1(Declaraciones_ValorControllerViewModel item)
         {
-            var itemMap = _mapper.Map<tbDeclaraciones_Valor>(item);
-            var itemDeclMap = _mapper.Map<tbDeclarantes>(itemDecl);
-            var itemImpMap = _mapper.Map<tbImportadores>(itemImp);
+            var itemMap = _mapper.Map<tbDeclaraciones_Valor>(item.Declaraciones_ValorViewModel);
+            var declImpoMap = _mapper.Map<tbDeclarantes>(item.DeclarantesImpo_ViewModel);
+            var itemImpMap = _mapper.Map<tbImportadores>(item.ImportadoresViewModel);
 
-            var result = _aduanaServices.InsertarDeclaraciones_ValorTab1(itemMap, itemDeclMap, itemImpMap);
+            var result = _aduanaServices.InsertarDeclaraciones_ValorTab1(itemMap, declImpoMap, itemImpMap);
 
             if (result.Code == 200)
                 return Ok(result);
@@ -48,13 +48,13 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         }
 
         [HttpPost("InsertarTab2")]
-        public IActionResult InsertTab2(Declaraciones_ValorViewModel item, DeclarantesViewModel declProv, DeclarantesViewModel declInte, ProveedoresDeclaracionViewModel itemProv, IntermediarioViewModel itemInte)
+        public IActionResult InsertTab2(Declaraciones_ValorControllerViewModel item)
         {
-            var itemMap = _mapper.Map<tbDeclaraciones_Valor>(item);
-            var declProvMap = _mapper.Map<tbDeclarantes>(declProv);
-            var declInteMap = _mapper.Map<tbDeclarantes>(declInte);
-            var itemProvMap = _mapper.Map<tbProveedoresDeclaracion>(itemProv);
-            var itemInteMap = _mapper.Map<tbIntermediarios>(itemInte);
+            var itemMap = _mapper.Map<tbDeclaraciones_Valor>(item.Declaraciones_ValorViewModel);
+            var declProvMap = _mapper.Map<tbDeclarantes>(item.DeclarantesProv_ViewModel);
+            var declInteMap = _mapper.Map<tbDeclarantes>(item.DeclarantesInte_ViewModel);
+            var itemProvMap = _mapper.Map<tbProveedoresDeclaracion>(item.ProveedoresDeclaracionViewModel);
+            var itemInteMap = _mapper.Map<tbIntermediarios>(item.IntermediarioViewModel);
 
             var result = _aduanaServices.InsertarDeclaraciones_ValorTab2(itemMap, declProvMap, declInteMap, itemProvMap, itemInteMap);
 
@@ -80,13 +80,13 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         }
 
         [HttpPost("EditarTab1")]
-        public IActionResult UpdateTab1(Declaraciones_ValorViewModel item, DeclarantesViewModel itemDecl, ImportadoresViewModel itemImp)
+        public IActionResult UpdateTab1(Declaraciones_ValorControllerViewModel item)
         {
-            var itemMap = _mapper.Map<tbDeclaraciones_Valor>(item);
-            var itemDeclMap = _mapper.Map<tbDeclarantes>(itemDecl);
-            var itemImpMap = _mapper.Map<tbImportadores>(itemImp);
+            var itemMap = _mapper.Map<tbDeclaraciones_Valor>(item.Declaraciones_ValorViewModel);
+            var declImpoMap = _mapper.Map<tbDeclarantes>(item.DeclarantesImpo_ViewModel);
+            var itemImpMap = _mapper.Map<tbImportadores>(item.ImportadoresViewModel);
 
-            var result = _aduanaServices.ActualizarDeclaraciones_ValorTab1(itemMap, itemDeclMap, itemImpMap);
+            var result = _aduanaServices.ActualizarDeclaraciones_ValorTab1(itemMap, declImpoMap, itemImpMap);
 
             if (result.Code == 200)
                 return Ok(result);
@@ -96,13 +96,13 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         }
 
         [HttpPost("EditarTab2")]
-        public IActionResult UpdateTab2(Declaraciones_ValorViewModel item, DeclarantesViewModel declProv, DeclarantesViewModel declInte, ProveedoresDeclaracionViewModel itemProv, IntermediarioViewModel itemInte)
+        public IActionResult UpdateTab2(Declaraciones_ValorControllerViewModel item)
         {
-            var itemMap = _mapper.Map<tbDeclaraciones_Valor>(item);
-            var declProvMap = _mapper.Map<tbDeclarantes>(declProv);
-            var declInteMap = _mapper.Map<tbDeclarantes>(declInte);
-            var itemProvMap = _mapper.Map<tbProveedoresDeclaracion>(itemProv);
-            var itemInteMap = _mapper.Map<tbIntermediarios>(itemInte);
+            var itemMap = _mapper.Map<tbDeclaraciones_Valor>(item.Declaraciones_ValorViewModel);
+            var declProvMap = _mapper.Map<tbDeclarantes>(item.DeclarantesProv_ViewModel);
+            var declInteMap = _mapper.Map<tbDeclarantes>(item.DeclarantesInte_ViewModel);
+            var itemProvMap = _mapper.Map<tbProveedoresDeclaracion>(item.ProveedoresDeclaracionViewModel);
+            var itemInteMap = _mapper.Map<tbIntermediarios>(item.IntermediarioViewModel);
 
             var result = _aduanaServices.ActualizarDeclaraciones_ValorTab2(itemMap, declProvMap, declInteMap, itemProvMap, itemInteMap);
 

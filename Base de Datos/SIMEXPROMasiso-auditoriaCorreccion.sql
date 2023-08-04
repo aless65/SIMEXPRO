@@ -1399,6 +1399,7 @@ CREATE TABLE Adua.tbAranceles(
 	aram_Estado					BIT NOT NULL DEFAULT 1
 
 	CONSTRAINT PK_Adua_tbAranceles_aran_Id													PRIMARY KEY (aran_Id),
+	CONSTRAINT UQ_Adua_tbAranceles_aran_Codigo												UNIQUE(aran_Codigo),
 	CONSTRAINT FK_Adua_tbAranceles_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id				FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Adua_tbAranceles_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios (usua_Id),
 	--CONSTRAINT FK_Adua_tbAranceles_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioEliminacion)	REFERENCES Acce.tbUsuarios (usua_Id)

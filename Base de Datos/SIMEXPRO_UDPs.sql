@@ -6485,9 +6485,9 @@ BEGIN
 		
  
    FROM	Adua.tbAranceles ara
-   INNER JOIN Acce.tbUsuarios usu ON ara.usua_UsuarioCreacion = usu.usua_UsuarioCreacion
-   LEFT JOIN Acce.tbUsuarios usu1 ON usu1.usua_UsuarioModificacion = ara.usua_UsuarioModificacion 
-   WHERE	aram_Estado = 1
+   INNER JOIN Acce.tbUsuarios usu ON ara.usua_UsuarioCreacion = usu.usua_Id
+   LEFT JOIN Acce.tbUsuarios usu1 ON usu1.usua_Id = ara.usua_UsuarioModificacion 
+   WHERE aram_Estado = 1
 
 END
 GO
@@ -6502,21 +6502,16 @@ AS
 BEGIN
 	SET @aran_FechaCreacion = GETDATE();
 	BEGIN TRY
-		IF EXISTS(SELECT aran_Id FROM Adua.tbAranceles WHERE aran_Codigo = @aran_Codigo AND aran_Descripcion = @aran_Descripcion AND aram_Estado = 0)
-			BEGIN
-				UPDATE Adua.tbAranceles
-				SET aram_Estado = 1
-				WHERE aran_Codigo = @aran_Codigo AND aran_Descripcion = @aran_Descripcion
+		INSERT INTO Adua.tbAranceles (aran_Codigo, 
+									  aran_Descripcion, 
+									  usua_UsuarioCreacion, 
+									  aran_FechaCreacion)
+		VALUES	(@aran_Codigo,
+				 @aran_Descripcion,
+				 @usua_UsuarioCreacion,
+				 @aran_FechaCreacion)
 
-				SELECT 1
-			END
-		ELSE
-			BEGIN
-				INSERT INTO Adua.tbAranceles (aran_Codigo, aran_Descripcion, usua_UsuarioCreacion, aran_FechaCreacion, usua_UsuarioModificacion, aran_FechaModificacion, aram_Estado)
-				VALUES	(@aran_Codigo,@aran_Descripcion,@usua_UsuarioCreacion,@aran_FechaCreacion,NULL,NULL,1)
-
-				SELECT 1
-			END
+		SELECT 1
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()	

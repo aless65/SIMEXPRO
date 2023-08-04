@@ -2282,16 +2282,18 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Procesos
-        public IEnumerable<tbProcesos> ListarProcesos()
+     
+        public ServiceResult ListarProcesos()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _procesosRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbProcesos>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -2384,16 +2386,19 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Reporte Modulo Dia
-        public IEnumerable<tbReporteModuloDia> ListarReporteModuloDia()
+     
+
+        public ServiceResult ListarReporteModuloDia()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _reporteModuloDiaRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbReporteModuloDia>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -2486,16 +2491,19 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Reporte Modulo Dia Detalle
-        public IEnumerable<tbReporteModuloDiaDetalle> ListarReporteModuloDiaDetalle()
+     
+
+        public ServiceResult ListarReporteModuloDiaDetalle()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _reporteModuloDiaDetalleRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbReporteModuloDiaDetalle>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -2588,16 +2596,19 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Revision de Calidad
-        public IEnumerable<tbRevisionDeCalidad> ListarRevisionDeCalidad()
+     
+
+        public ServiceResult ListarRevisionDeCalidad()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _revisionDeCalidadRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbRevisionDeCalidad>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -2690,16 +2701,19 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Sub Categoria
-        public IEnumerable<tbSubcategoria> ListarSubCategorias()
+    
+
+        public ServiceResult ListarSubCategorias()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _subCategoriasRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbSubcategoria>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -2792,18 +2806,22 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Tallas
-        public IEnumerable<tbTallas> ListarTallas()
+     
+
+        public ServiceResult ListarTallas()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _tallasRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbTallas>();
+                return result.Error(ex.Message);
             }
         }
+
 
         public ServiceResult InsertaTallas(tbTallas item)
         {
@@ -2894,16 +2912,20 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Tipo Embalaje
-        public IEnumerable<tbTipoEmbalaje> ListarTipoEmbalaje()
+      
+
+
+        public ServiceResult ListarTipoEmbalaje()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _tipoEmbalajeRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbTipoEmbalaje>();
+                return result.Error(ex.Message);
             }
         }
 

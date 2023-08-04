@@ -2230,16 +2230,19 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region EstadoMercancias
-        public IEnumerable<tbEstadoMercancias> ListarEstadoMercancias()
+     
+
+        public ServiceResult ListarEstadoMercancias()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _estadoMercanciasRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbEstadoMercancias>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -2434,17 +2437,18 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Facturas
-        public IEnumerable<tbFacturas> ListarFacturas(tbFacturas item)
+
+        public ServiceResult ListarFacturas(tbFacturas item)
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _facturasRepository.List(item);
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-
-                return Enumerable.Empty<tbFacturas>();
+                return result.Error(ex.Message);
             }
         }
 

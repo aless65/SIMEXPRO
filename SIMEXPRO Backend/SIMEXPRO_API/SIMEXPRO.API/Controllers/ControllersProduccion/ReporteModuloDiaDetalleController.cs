@@ -27,9 +27,9 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         [HttpGet("Listar")]
         public IActionResult Index()
         {
-            var listado = _produccionServices.ListarReporteModuloDiaDetalle();
-            var listadoMapeado = _mapper.Map<IEnumerable<ReporteModuloDiaDetalleViewModel>>(listado);
-            return Ok(listadoMapeado);
+            var listado = _produccionServices.ListarReporteModuloDiaDetalle();   
+            listado.Data = _mapper.Map<IEnumerable<ReporteModuloDiaDetalleViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
         [HttpPost("Insertar")]

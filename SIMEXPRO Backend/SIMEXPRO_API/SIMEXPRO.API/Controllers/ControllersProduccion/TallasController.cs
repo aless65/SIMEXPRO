@@ -24,12 +24,14 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             _mapper = mapper;
         }
 
+    
+
         [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _produccionServices.ListarTallas();
-            var listadoMapeado = _mapper.Map<IEnumerable<TallasViewModel>>(listado);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<TallasViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
         [HttpPost("Insertar")]

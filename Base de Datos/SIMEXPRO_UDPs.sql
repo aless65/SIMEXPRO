@@ -4227,7 +4227,7 @@ BEGIN
 										 WHERE deva_Id = @deva_Id))
 
 
-		IF EXISTS	(SELECT impo_RTN  FROM [Adua].[tbImportadores] WHERE impo_RTN = @impo_RTN) --Si existe el Importador se editara
+		IF EXISTS (SELECT impo_RTN  FROM [Adua].[tbImportadores] WHERE impo_RTN = @impo_RTN) --Si existe el Importador se editara
 			BEGIN 
 				EXEC adua.UDP_tbDeclarantes_Editar @decl_Id,
 												   @decl_Nombre_Raso,
@@ -4241,10 +4241,10 @@ BEGIN
 												   @deva_FechaModificacion
 
 				SET @impo_Id  = (SELECT impo_Id 
-										FROM Adua.tbDeclaraciones_Valor
-										WHERE deva_Id = @deva_Id)
+								 FROM Adua.tbDeclaraciones_Valor
+								 WHERE deva_Id = @deva_Id)
 
-				UPDATE Adua.tbImportadores
+				UPDATE  Adua.tbImportadores
 				SET		nico_Id = @nico_Id, 
 						decl_Id = @decl_Id, 
 						impo_NivelComercial_Otro = @impo_NivelComercial_Otro, 

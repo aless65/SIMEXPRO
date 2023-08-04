@@ -58,6 +58,11 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
+    
+
+        
+    
+
 
     }
 }

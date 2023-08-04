@@ -738,16 +738,17 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Estilos
-        public IEnumerable<tbEstilos> ListarEstilos()
+        public ServiceResult ListarEstilos()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _estilosRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbEstilos>();
+                return result.Error(ex.Message);
             }
         }
 

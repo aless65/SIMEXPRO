@@ -1,4 +1,38 @@
-﻿-----------------INSERTS GENERAL
+﻿
+--TIPO DE EMBALAJE--
+INSERT INTO [Prod].[tbTipoEmbalaje]
+(tiem_Descripcion, usua_UsuarioCreacion, tiem_FechaCreacion, tiem_Estado)
+VALUES
+('Embalaje de Prueba', 1, GETDATE(), 1)
+
+GO
+--ESTILOS--
+INSERT INTO [Prod].[tbEstilos]
+(esti_Descripcion, usua_UsuarioCreacion, esti_FechaCreacion, esti_Estado)
+VALUES
+('Camiseta de Prueba',1,GETDATE(),1)
+
+GO
+
+--COLORES--
+INSERT INTO [Prod].[tbColores]
+(colr_Nombre, colr_Codigo, usua_UsuarioCreacion, colr_FechaCreacion, colr_Estado)
+VALUES
+('Purpura','#912386',1,GETDATE(),1)
+
+GO
+
+GO
+--MATERIALES--
+INSERT INTO Prod.tbMateriales 
+(mate_Descripcion, subc_Id, mate_Precio, usua_UsuarioCreacion, mate_FechaCreacion)
+VALUES
+('Botones', 2, 23.99, 1, GETDATE()),
+('Tela', 2, 23.99, 1, GETDATE()),
+('Listones', 2, 23.99, 1, GETDATE())
+
+
+
 --**********CARGOS**********--
 INSERT INTO [Gral].[tbCargos] ([carg_Nombre], usua_UsuarioCreacion, [carg_FechaCreacion])
 VALUES ('Operario', 1, GETDATE()),
@@ -81875,3 +81909,67 @@ VALUES ('FR', 'FRACCIONADO', 1, GETDATE()),
 ('OT', 'OTRO', 1, GETDATE()),
 ('PR', 'PARCIAL', 1, GETDATE()),
 ('TT', 'TOTAL', 1, GETDATE())
+
+
+GO
+--PROVEEDORES--
+INSERT INTO [Gral].[tbProveedores]
+(prov_NombreCompania, prov_NombreContacto, prov_Telefono, prov_CodigoPostal, prov_Ciudad, prov_DireccionExacta, prov_CorreoElectronico, usua_UsuarioCreacion, prov_FechaCreacion, prov_Estado)
+VALUES
+('ECOMODA','BEATRIZ PINZON ZOLANO','98159299','21004',1,'--------','is@hotmail.com',1,GETDATE(),1)
+
+--LOTES--
+INSERT INTO [Prod].[tbLotes]
+(mate_Id, unme_Id, lote_Stock, lote_CantIngresada, lote_Observaciones, tipa_Id, usua_UsuarioCreacion, lote_FechaCreacion, lote_Estado)
+VALUES
+(3,1,10,10,'-----',1,1,GETDATE(),1),
+(3,1,10,10,'-----',1,1,GETDATE(),1),
+(3,1,10,10,'-----',1,1,GETDATE(),1),
+(3,1,10,10,'-----',1,1,GETDATE(),1)
+
+
+--ORDEN DE COMPRA--
+INSERT INTO Prod.tbOrdenCompra
+(orco_IdCliente, orco_FechaEmision,	orco_FechaLimite, orco_MetodoPago, orco_Materiales,	orco_IdEmbalaje, orco_EstadoOrdenCompra, orco_DireccionEntrega,	usua_UsuarioCreacion, orco_FechaCreacion)
+VALUES	( 1,'01/08/2023','01/08/2023',1,1,1,'p','MI CASA',1,'01/08/2023'),
+		( 1,'01/08/2023','01/08/2023',1,1,1,'p','MI CASA',1,'01/08/2023'),
+		( 1,'01/08/2023','01/08/2023',1,1,1,'p','MI CASA',1,'01/08/2023'),
+		( 1,'01/08/2023','01/08/2023',1,1,1,'p','MI CASA',1,'01/08/2023')
+
+GO
+--ORDEN DE COMPRA DETALLES--
+
+INSERT INTO Prod.tbOrdenCompraDetalles
+(orco_Id, code_CantidadPrenda, esti_Id, tall_Id, code_Sexo, colr_Id, code_Documento, code_Medidas, proc_IdComienza, proc_IdActual, code_Unidad, code_Valor,	code_Impuesto,code_Descuento,	code_EspecificacionEmbalaje, usua_UsuarioCreacion, code_FechaCreacion)
+VALUES		(4,2,1,1,'F',1,'aca deberia ir un documento','aca deberia ir otro documento',1,1,20,10,8,9,'no se la verdad',1,'01/08/2023')
+		,	(4,2,1,1,'F',1,'aca deberia ir un documento','aca deberia ir otro documento',1,1,20,10,8,9,'no se la verdad',1,'01/08/2023')
+		,	(4,2,1,1,'F',1,'aca deberia ir un documento','aca deberia ir otro documento',1,1,20,10,8,9,'no se la verdad',1,'01/08/2023')
+
+
+GO
+--Pedidos Producción--
+
+INSERT INTO Prod.tbPedidosProduccion
+(empl_Id, ppro_Fecha, ppro_Estados, ppro_Observaciones, usua_UsuarioCreacion, ppro_FechaCreacion)
+VALUES
+(1, GETDATE(), 'En Proceso', '--------', 1, GETDATE()),
+(1, GETDATE(), 'En Proceso', '--------', 1, GETDATE()),
+(1, GETDATE(), 'Pendiente', '--------', 1, GETDATE())
+
+GO
+--Pedidos Producción Detalles--
+
+INSERT INTO Prod.tbPedidosProduccionDetalles
+(ppro_Id, lote_Id, ppde_Cantidad, usua_UsuarioCreacion, ppde_FechaCreacion)
+VALUES 
+(1, 4, 10, 1, GETDATE())
+
+
+GO
+--ORDEN Esa_Acab_Etiq--
+INSERT INTO [Prod].[tbOrde_Ensa_Acab_Etiq]
+(ensa_Cantidad, empl_Id, code_Id, ensa_FechaInicio, ensa_FechaLimite, ppro_Id, usua_UsuarioCreacion, ensa_FechaCreacion, ensa_Estado)
+VALUES 
+(20,1, 2, '01/08/2023', '01/08/2023', 1, 1, '07/31/2023', 1)
+
+GO

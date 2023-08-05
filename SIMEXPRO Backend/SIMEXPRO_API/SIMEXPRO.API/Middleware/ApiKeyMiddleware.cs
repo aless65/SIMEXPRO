@@ -58,7 +58,7 @@ namespace SIMEXPRO.API.Middleware
                     context.Response.Headers.Add("Authorization", "no access");
                 }
             }
-            else if (context.Request.Path == "/api/Usuarios/UsuarioCorreo")
+            else if (context.Request.Path == "/api/Usuarios/UsuarioCorreo" || context.Request.Path == "/api/Usuarios/CambiarContrasenia")
             {
                 await _next(context);
             }

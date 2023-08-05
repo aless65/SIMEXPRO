@@ -8700,9 +8700,9 @@ BEGIN
 			asignacionesOrden.usua_UsuarioModificacion,
 			usuarioModificacion.usua_Nombre				AS usuarioModificacionNombre,
 			asor_FechaModificacion
-	   FROM Prod.tbAsignacionesOrden			AS asignacionesOrden 
- INNER JOIN Acce.tbUsuarios usuarioCreacion		ON asignacionesOrden.usua_UsuarioCreacion = usuarioCreacion.usua_Id
-  LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON asignacionesOrden.usua_UsuarioModificacion = usuarioModificacion.usua_Id
+	   FROM Prod.tbAsignacionesOrden					AS asignacionesOrden 
+	   INNER JOIN Acce.tbUsuarios usuarioCreacion		ON asignacionesOrden.usua_UsuarioCreacion = usuarioCreacion.usua_Id
+	   LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON asignacionesOrden.usua_UsuarioModificacion = usuarioModificacion.usua_Id
 END
 GO
 
@@ -9496,21 +9496,44 @@ END
 GO
 /*Editar Area*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbArea_Editar
-@tipa_Id					INT,
-@tipa_area					NVARCHAR(200),
-@proc_Id					INT,
-@usua_UsuarioModificacion	INT,
-@tipa_FechaModificacion		DATETIME
+	@tipa_Id					INT,
+	@tipa_area					NVARCHAR(200),
+	@proc_Id					INT,
+	@usua_UsuarioModificacion	INT,
+	@tipa_FechaModificacion		DATETIME
 AS
 BEGIN
 	BEGIN TRY
-			UPDATE Prod.tbArea
-			SET   tipa_area = @tipa_area,
-				  proc_Id = @proc_Id,
-				  usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				  tipa_FechaModificacion = @tipa_FechaModificacion
-			WHERE tipa_Id = @tipa_Id	
-			SELECT 1
+			IF EXISTS(SELECT tipa_area	
+					  FROM Prod.tbArea
+					  WHERE tipa_Area = @tipa_area
+					  AND tipa_Estado = 0)
+				BEGIN
+					UPDATE Prod.tbArea
+					SET   tipa_Estado = 0,
+						  usua_UsuarioModificacion = @usua_UsuarioModificacion,
+						  tipa_FechaModificacion = @tipa_FechaModificacion
+					WHERE tipa_Id = @tipa_Id	
+					
+					UPDATE Prod.tbArea
+					SET   tipa_Estado = 1,
+						  usua_UsuarioModificacion = @usua_UsuarioModificacion,
+						  tipa_FechaModificacion = @tipa_FechaModificacion
+					WHERE tipa_Area = @tipa_area	
+
+					SELECT 1
+				END
+			ELSE
+				BEGIN
+					UPDATE Prod.tbArea
+					SET   tipa_area = @tipa_area,
+						  proc_Id = @proc_Id,
+						  usua_UsuarioModificacion = @usua_UsuarioModificacion,
+						  tipa_FechaModificacion = @tipa_FechaModificacion
+					WHERE tipa_Id = @tipa_Id	
+
+					SELECT 1
+				END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -11534,7 +11557,7 @@ INNER JOIN Gral.tbEmpleados emples
 ON pediproduccion.empl_Id = emples.empl_Id
 INNER JOIN Acce.tbUsuarios Creacion
 ON pediproduccion.usua_UsuarioCreacion = Creacion.usua_Id
-INNER JOIN Acce.tbUsuarios Modificacion
+LEFT JOIN Acce.tbUsuarios Modificacion
 ON pediproduccion.usua_UsuarioModificacion = Modificacion.usua_Id
 
 END

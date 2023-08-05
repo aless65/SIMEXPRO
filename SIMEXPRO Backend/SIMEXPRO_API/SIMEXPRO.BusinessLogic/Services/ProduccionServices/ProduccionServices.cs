@@ -133,14 +133,13 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             try
             {
                 
-                    var map = _areasRepository.Insert(item);
-                if (map.CodeStatus > 0)
+                var map = _areasRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
             }
@@ -157,13 +156,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             {
                 
                 var map = _areasRepository.Update(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
                
@@ -179,15 +177,15 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                    var map = _areasRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        return result.Error(map);
-                    }
+                var map = _areasRepository.Delete(item);
+                if (map.MessageStatus == "1")
+                {
+                    return result.Ok(map);
+                }
+                else
+                {
+                    return result.Error(map);
+                }
             }
             catch (Exception ex)
             {

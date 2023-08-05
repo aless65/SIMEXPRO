@@ -7783,21 +7783,37 @@ GO
 --Prod.UDP_tbArea_Insertar 
 
 CREATE OR ALTER PROCEDURE Prod.UDP_tbArea_Insertar
-@tipa_area				NVARCHAR(200),
-@proc_Id				INT,
-@usua_UsuarioCreacion	INT,
-@tipa_FechaCreacion		DATETIME
+	@tipa_area				NVARCHAR(200),
+	@proc_Id				INT,
+	@usua_UsuarioCreacion	INT,
+	@tipa_FechaCreacion		DATETIME
 AS
 BEGIN
 	BEGIN TRY
-		INSERT INTO Prod.tbArea(tipa_area,proc_Id,usua_UsuarioCreacion,tipa_FechaCreacion)
-		VALUES (
-		@tipa_area,				
-		@proc_Id,				
-		@usua_UsuarioCreacion,	
-		@tipa_FechaCreacion				
-		)
-		SELECT 1
+		IF EXISTS (SELECT tipa_area
+				   FROM Prod.tbArea
+				   WHERE tipa_area = @tipa_area
+				   AND tipa_Estado = 0)
+			BEGIN
+				UPDATE Prod.tbArea
+				SET	   tipa_Estado = 1
+				WHERE  tipa_area = @tipa_area
+
+				SELECT 1
+			END
+		ELSE
+			BEGIN
+				INSERT INTO Prod.tbArea(tipa_area,
+										proc_Id,
+										usua_UsuarioCreacion,
+										tipa_FechaCreacion)
+				VALUES (@tipa_area,				
+						@proc_Id,				
+						@usua_UsuarioCreacion,	
+						@tipa_FechaCreacion)
+
+				SELECT 1
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -7817,10 +7833,10 @@ AS
 BEGIN
 	BEGIN TRY
 			UPDATE Prod.tbArea
-			SET tipa_area = @tipa_area,
-			proc_Id = @proc_Id,
-			usua_UsuarioModificacion = @usua_UsuarioModificacion,
-			tipa_FechaModificacion = @tipa_FechaModificacion
+			SET   tipa_area = @tipa_area,
+				  proc_Id = @proc_Id,
+				  usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				  tipa_FechaModificacion = @tipa_FechaModificacion
 			WHERE tipa_Id = @tipa_Id	
 			SELECT 1
 	END TRY
@@ -7838,11 +7854,18 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbArea_Eliminar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE Prod.tbArea
-		SET tipa_Estado = 0,
-		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-		tipa_FechaEliminacion = @tipa_FechaEliminacion
-		WHERE tipa_Id = @tipa_Id
+		DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'tipa_Id', @tipa_Id, 'Prod.tbArea', @respuesta OUTPUT
+
+		SELECT @respuesta AS Resultado
+		IF(@respuesta) = 1
+		BEGIN
+				UPDATE Prod.tbArea
+				SET tipa_Estado = 0,
+				usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+				tipa_FechaEliminacion = @tipa_FechaEliminacion
+				WHERE tipa_Id = @tipa_Id
+		END
 		
 	END TRY
 	BEGIN CATCH

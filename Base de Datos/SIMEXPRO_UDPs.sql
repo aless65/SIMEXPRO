@@ -8787,10 +8787,17 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrden_Eliminar
 AS
 BEGIN
 	BEGIN TRY
-		DELETE Prod.tbAsignacionesOrden
-		WHERE asor_Id = @asor_Id
+		DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'asor_Id', @asor_Id, 'Prod.tbAsignacionesOrden', @respuesta OUTPUT
 
-		SELECT 1 AS Resultado
+		SELECT @respuesta AS Resultado
+		IF(@respuesta) = 1
+		BEGIN
+			DELETE Prod.tbAsignacionesOrden
+			WHERE asor_Id = @asor_Id
+
+			SELECT 1 AS Resultado
+		END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado

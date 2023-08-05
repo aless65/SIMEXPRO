@@ -303,17 +303,17 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         public ServiceResult InsertarAsignacionOrden(tbAsignacionesOrden item)
         {
             var result = new ServiceResult();
+            bool esInt;
             try
             {
-                
                 var map = _asignacionesOrdenRepository.Insert(item);
-                if (map.CodeStatus > 0)
+                esInt = int.TryParse(map.MessageStatus, out _);
+                if (esInt)
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
                
@@ -331,13 +331,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             {
                
                 var map = _asignacionesOrdenRepository.Update(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
                 
@@ -355,13 +354,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             {
                 
                 var map = _asignacionesOrdenRepository.Delete(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
                

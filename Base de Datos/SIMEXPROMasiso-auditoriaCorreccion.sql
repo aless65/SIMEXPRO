@@ -2035,8 +2035,8 @@ GO
 CREATE TABLE Prod.tbAsignacionesOrden(
 	asor_Id						INT IDENTITY(1,1),
 	asor_OrdenDetId				INT NOT NULL,
-	asor_FechaInicio			DATETIME NOT NULL,
-	asor_FechaLimite			DATETIME NOT NULL,
+	asor_FechaInicio			DATE NOT NULL,
+	asor_FechaLimite			DATE NOT NULL,
 	--asor_EstadoDet				NVARCHAR NOT NULL,
 	asor_Cantidad				INT NOT NULL,
 	proc_Id						INT NOT NULL,

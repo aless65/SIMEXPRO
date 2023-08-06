@@ -1230,6 +1230,7 @@ CREATE TABLE Prod.tbCategoria(
 );
 GO
 
+
 CREATE TABLE Prod.tbSubcategoria(
 	subc_Id   					INT IDENTITY(1,1),
 	cate_Id  					INT,

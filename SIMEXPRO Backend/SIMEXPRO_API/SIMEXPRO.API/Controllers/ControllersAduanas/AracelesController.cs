@@ -29,8 +29,8 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         public IActionResult Index()
         {
             var listado = _aduanaServices.ListarAranceles();
-            var mapped = _mapper.Map<IEnumerable<ArancelesViewModel>>(listado.Data);
-            return Ok(mapped);
+            listado.Data = _mapper.Map<IEnumerable<ArancelesViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
         [HttpPost("Insertar")]

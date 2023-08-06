@@ -28,8 +28,8 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         public IActionResult Index()
         {
             var listado = _aduanaServices.ListarBoletinPago();
-            var mapped = _mapper.Map<IEnumerable<BoletinPagoViewModel>>(listado.Data);
-            return Ok(mapped);
+            listado.Data = _mapper.Map<IEnumerable<BoletinPagoViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
         [HttpPost("Insertar")]

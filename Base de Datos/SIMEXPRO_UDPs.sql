@@ -49,7 +49,7 @@ AS BEGIN
 	FROM   fi
 	WHERE  RNK = 1
 		
-	/*Se ejecuta y consigue el c�digo de verificaci�n (0 no se puede eliminar porque est� siendo usado, 1 se puede eliminar porque no est� siendo usado*/
+	/*Se ejecuta y consigue el código de verificación (0 no se puede eliminar porque está siendo usado, 1 se puede eliminar porque no está siendo usado*/
 	DECLARE @TempTable TABLE (Referenced INT)
 	INSERT INTO @TempTable
 	EXEC (@QUERY)
@@ -149,7 +149,6 @@ BEGIN
 	LEFT JOIN acce.tbUsuarios usuaModifica
 	ON usua.usua_UsuarioModificacion = usuaModifica.usua_Id LEFT JOIN acce.tbUsuarios usuaElimina
 	ON usua.usua_UsuarioEliminacion = usuaElimina.usua_Id
-	where usua.usua_Estado = 1
 
 END
 --GO
@@ -10739,8 +10738,8 @@ SELECT	cate_Id										,
 		cate_Estado						
 FROM	Prod.tbCategoria cate 
 		INNER JOIN Acce.tbUsuarios usuaCrea		ON cate.usua_UsuarioCreacion = usuaCrea.usua_Id 
-		LEFT JOIN Acce.tbUsuarios usuaModifica	ON cate.usua_UsuarioModificacion = usuaCrea.usua_Id 
-		LEFT JOIN Acce.tbUsuarios usuaElimina	ON cate.usua_UsuarioEliminacion = usuaCrea.usua_Id 
+		LEFT JOIN Acce.tbUsuarios usuaModifica	ON cate.usua_UsuarioModificacion = usuaModifica.usua_Id 
+		LEFT JOIN Acce.tbUsuarios usuaElimina	ON cate.usua_UsuarioEliminacion = usuaElimina.usua_Id 
 WHERE cate_Estado = 1
 
 END
@@ -10785,19 +10784,38 @@ CREATE OR ALTER PROCEDURE prod.UDP_tbCategoria_Editar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE Prod.tbCategoria
-		   SET cate_Descripcion = @cate_Descripcion,
-			   usua_UsuarioModificacion = @usua_UsuarioModificacion,
-			   cate_FechaModificacion = @cate_FechaModificacion
-		 WHERE cate_Id = @cate_Id
+		IF EXISTS (SELECT cate_Id
+				   FROM Prod.tbCategoria
+				   WHERE cate_Descripcion = @cate_Descripcion
+				   AND cate_Estado = 0)
+			BEGIN
+				UPDATE Prod.tbCategoria
+				   SET cate_Estado = 0
+				 WHERE cate_Id = @cate_Id
 
-		SELECT 1 AS Resultado
+				UPDATE Prod.tbCategoria
+				   SET cate_Estado = 1
+				 WHERE cate_Descripcion = @cate_Descripcion
+				 
+				SELECT 1 AS Resultado
+			END
+		ELSE
+			BEGIN
+				UPDATE Prod.tbCategoria
+				   SET cate_Descripcion = @cate_Descripcion,
+					   usua_UsuarioModificacion = @usua_UsuarioModificacion,
+					   cate_FechaModificacion = @cate_FechaModificacion
+				 WHERE cate_Id = @cate_Id
+
+				SELECT 1 AS Resultado
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
 END
 GO
+
 /*Eliminar CATEGORIA*/
 CREATE OR ALTER PROCEDURE prod.UDP_tbCategoria_Eliminar 
 	@cate_Id					INT,
@@ -10809,16 +10827,17 @@ BEGIN
 		DECLARE @respuesta INT
 		EXEC dbo.UDP_ValidarReferencias 'cate_Id', @cate_Id, 'prod.tbCategoria', @respuesta OUTPUT
 
-		IF(@respuesta) = 1
+		IF(@respuesta = 1)
 		BEGIN
 			UPDATE Prod.tbCategoria
 			   SET cate_Estado = 0,
 				   usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
 				   cate_FechaEliminacion = @cate_FechaEliminacion
 			 WHERE cate_Id = @cate_Id
+			
 		END
 
-		SELECT 1 AS Resultado
+		SELECT @respuesta
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado

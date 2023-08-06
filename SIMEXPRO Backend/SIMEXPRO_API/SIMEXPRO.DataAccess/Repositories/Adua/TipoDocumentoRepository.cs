@@ -33,8 +33,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@tido_FechaCrea", item.tido_FechaCreacion, DbType.String, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarTipoDocumento, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarTipoDocumento, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -56,8 +56,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@tido_FechaModificacion", item.tido_FechaModificacion, DbType.String, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarTipoDocumento, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarTipoDocumento, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
     }

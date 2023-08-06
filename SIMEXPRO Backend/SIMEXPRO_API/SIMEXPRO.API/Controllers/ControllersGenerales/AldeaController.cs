@@ -49,12 +49,5 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        //[HttpPost("Eliminar")]
-        //public IActionResult Delete(AldeasViewModel aldeasViewModel)
-        //{
-        //    var item = _mapper.Map<tbAldeas>(aldeasViewModel);
-        //    var respuesta = _generalesServices.EliminarAldeas(item);
-        //    return Ok(respuesta);
-        //}
     }
 }

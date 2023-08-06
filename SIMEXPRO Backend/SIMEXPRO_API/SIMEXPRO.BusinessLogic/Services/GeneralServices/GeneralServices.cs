@@ -120,34 +120,6 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             }
         }
 
-        //public ServiceResult EliminarAldeas(tbAldeas item)
-        //{
-        //    var result = new ServiceResult();
-        //    try
-        //    {
-        //        if (item.alde_Id != 0)
-        //        {
-        //            var map = _aldeasRepository.Delete(item);
-        //            if (map.CodeStatus > 0)
-        //            {
-        //                return result.Ok(map);
-        //            }
-        //            else
-        //            {
-        //                map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-        //                return result.Error(map);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return result.Error(ex.Message);
-        //    }
-        //}
         #endregion
 
         #region Cargos
@@ -207,34 +179,6 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             }
         }
 
-        //public ServiceResult EliminarCargos(tbCargos item)
-        //{
-        //    var result = new ServiceResult();
-        //    try
-        //    {
-        //        if (item.carg_Id != 0)
-        //        {
-        //            var map = _cargosRepository.Delete(item);
-        //            if (map.CodeStatus > 0)
-        //            {
-        //                return result.Ok(map);
-        //            }
-        //            else
-        //            {
-        //                map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-        //                return result.Error(map);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return result.Error(ex.Message);
-        //    }
-        //}
         #endregion
 
         #region Ciudades

@@ -2075,7 +2075,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 return Enumerable.Empty<tbPedidosOrdenDetalle>();
             }
         }
-
+            
         public ServiceResult InsertarPedidosOrdenDetalle(tbPedidosOrdenDetalle item)
         {
             var result = new ServiceResult();
@@ -2267,11 +2267,11 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Pedidos Produccion Detalles
-        public IEnumerable<tbPedidosProduccionDetalles> ListarPedidosProduccioDetalles()
+        public IEnumerable<tbPedidosProduccionDetalles> ListarPedidosProduccioDetalles(int ppro_Id)
         {
             try
             {
-                var list = _pedidosProduccionDetallesRepository.List();
+                var list = _pedidosProduccionDetallesRepository.List(ppro_Id);
                 return list;
             }
             catch (Exception ex)

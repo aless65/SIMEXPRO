@@ -9026,6 +9026,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Listar
 AS
 BEGIN 
 SELECT	clie.clie_Id					,
+		clie.clie_Nombre_O_Razon_Social ,
 		clie.clie_Numero_Contacto		,
 		clie.clie_Nombre_Contacto		,
 		clie.clie_Correo_Electronico	,
@@ -9109,7 +9110,7 @@ BEGIN
     END		
 END TRY	    
    BEGIN CATCH 	 
-	 SELECT 0
+	 SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
    END CATCH
 END
 
@@ -9143,13 +9144,13 @@ BEGIN
 		 SELECT 1
 	END TRY
 	BEGIN CATCH
-	     SELECT 0
+	     SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
 END
 
 /*Eliminar Clientes*/
 GO
-CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Eliminar 
+CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Eliminar --1, 1, '10-16-2004'
 	@clie_Id					INT,
 	@usua_UsuarioEliminacion	INT,
 	@clie_FechaEliminacion	DATETIME
@@ -9161,20 +9162,25 @@ BEGIN
 			DECLARE @respuesta INT
 			EXEC dbo.UDP_ValidarReferencias 'clie_Id', @clie_Id, 'Prod.tbClientes', @respuesta OUTPUT
 
-			SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
+			
+			IF(@respuesta = 1) 
 				BEGIN
 					 UPDATE Prod.tbClientes
 						SET clie_Estado = 0, 
 						     usua_UsuarioEliminacion =@usua_UsuarioEliminacion,
 							 clie_FechaEliminacion =@clie_FechaEliminacion
 						WHERE clie_Id = @clie_Id
-		SELECT 1
+					SELECT 1
 				END
+		ELSE
+			BEGIN 
+				SELECT 0
+			END
+
 		END
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
 END
 GO
@@ -10740,7 +10746,7 @@ WHERE cate_Estado = 1
 END
 GO
 /*Insertar CATEGORIA*/
-CREATE OR ALTER PROCEDURE prod.UDP_tbCategoria_Insertar
+CREATE OR ALTER PROCEDURE prod.UDP_tbCategoria_Insertar --'Telas',1,'10-16-2004'
 	@cate_Descripcion		NVARCHAR(150),
 	@usua_UsuarioCreacion	INT,
 	@cate_FechaCreacion     DATETIME

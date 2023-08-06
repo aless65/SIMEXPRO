@@ -1223,6 +1223,7 @@ CREATE TABLE Prod.tbCategoria(
 	cate_Estado 				BIT					NOT NULL DEFAULT 1, 
 
 	CONSTRAINT PK_Prod_tbCategoria_cate_Id														PRIMARY KEY (cate_Id),
+	CONSTRAINT UQ_Prod_tbCategoria_cate_Descripcion												UNIQUE		(cate_Descripcion),
 	CONSTRAINT FK_Prod_tbCategoria_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id					FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbCategoria_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id				FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbCategoria_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id				FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios (usua_Id),
@@ -1527,10 +1528,11 @@ CREATE TABLE Prod.tbClientes(
 	clie_FechaEliminacion		DATETIME DEFAULT NULL,
     clie_Estado                	BIT DEFAULT 1,
 	
-	CONSTRAINT PK_Prod_tbClientes_clie_Id PRIMARY KEY(clie_Id),
-	CONSTRAINT FK_Prod_tbClientes_clie_UsuarioCreacion_Acce_tbUsuarios_usua_Id FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Prod_tbClientes_clie_UsuarioModificacion_Acce_tbUsuarios_usua_Id FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Prod_tbClientes_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id FOREIGN KEY (usua_UsuarioEliminacion) REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT PK_Prod_tbClientes_clie_Id											PRIMARY KEY	(clie_Id),
+	CONSTRAINT UQ_Prod_tbClientes_clie_RTN											UNIQUE		(clie_RTN),
+	CONSTRAINT FK_Prod_tbClientes_clie_UsuarioCreacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT FK_Prod_tbClientes_clie_UsuarioModificacion_Acce_tbUsuarios_usua_Id	FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT FK_Prod_tbClientes_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id	FOREIGN KEY (usua_UsuarioEliminacion)	REFERENCES Acce.tbUsuarios (usua_Id),
 );
 GO
 

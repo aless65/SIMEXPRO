@@ -6672,6 +6672,7 @@ AS
 BEGIN
 	SELECT  boletin.boen_Id, 
 	        boletin.liqu_Id, 
+			boletin.duca_No_Duca,
 			lig.lige_TotalGral           AS liquidacionGeneral,
 			boletin.tipl_Id, 
 			tipli.tipl_Descripcion       AS TipoLiquiDescripcion,
@@ -6699,7 +6700,7 @@ BEGIN
 			boen_Estado  
       FROM  Adua.tbBoletinPago boletin
 	       LEFT JOIN Acce.tbUsuarios usuaCrea			ON boletin.usua_UsuarioCreacion     = usuaCrea.usua_Id 
-		   LEFT JOIN  Acce.tbUsuarios usuaModifica		ON boletin.usua_UsuarioModificacion = usuaCrea.usua_Id 
+		   LEFT JOIN  Acce.tbUsuarios usuaModifica		ON boletin.usua_UsuarioModificacion = usuaModifica.usua_Id 
 		   LEFT JOIN Adua.tbLiquidacionGeneral lig      ON boletin.liqu_Id                  = lig.lige_Id
 		   LEFT JOIN Adua.tbTipoLiquidacion tipli       ON boletin.tipl_Id                  = tipli.tipl_Id
 		   LEFT JOIN Adua.tbEstadoBoletin estadoB       ON boletin.esbo_Id                  = estadoB.esbo_Id
@@ -6712,6 +6713,7 @@ END
 GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbBoletinPago_Insertar 
 	@liqu_Id                 INT, 
+	@duca_No_Duca		     NVARCHAR(100),
 	@tipl_Id                 INT, 
 	@boen_FechaEmision       DATE, 
 	@esbo_Id                 INT, 
@@ -6733,6 +6735,7 @@ BEGIN
 	
 	BEGIN TRY
 			INSERT INTO Adua.tbBoletinPago(liqu_Id,
+										   duca_No_Duca,
 			                               tipl_Id, 
 										   boen_FechaEmision, 
 										   esbo_Id, 
@@ -6751,6 +6754,7 @@ BEGIN
 										   boen_FechaCreacion,
 										   boen_Estado)
 			VALUES(@liqu_Id, 
+				   @duca_No_Duca,
 			       @tipl_Id, 
 				   @boen_FechaEmision, 
 				   @esbo_Id, 
@@ -6781,6 +6785,7 @@ GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbBoletinPago_Editar
 	@boen_Id                   INT,
 	@liqu_Id                   INT, 
+	@duca_No_Duca		       NVARCHAR(100),
 	@tipl_Id                   INT, 
 	@boen_FechaEmision         DATE, 
 	@esbo_Id                   INT, 
@@ -6802,6 +6807,7 @@ BEGIN
 	BEGIN TRY
 		UPDATE  Adua.tbBoletinPago
 		SET		liqu_Id                   = @liqu_Id,
+			    duca_No_Duca			  = @duca_No_Duca,
 		        tipl_Id                   = @tipl_Id,
 				boen_FechaEmision         = @boen_FechaEmision,
 				esbo_Id                   = @esbo_Id,
@@ -8809,7 +8815,7 @@ GO
 
 -------------------------------------------UDPS Para Asignaciones Orden detalle---------------------------------------
 
-CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrdenDetalle_Listado
+CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrdenDetalle_Listado 
 	@asor_Id INT
 AS
 BEGIN
@@ -8854,7 +8860,7 @@ BEGIN
 					@usua_UsuarioCreacion,		
 					@adet_FechaCreacion)
 	
-		SELECT SCOPE_IDENTITY() AS Resultado
+		SELECT 1 AS Resultado
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
@@ -8868,7 +8874,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrdenDetalle_Editar
 	@lote_Id					INT, 
 	@adet_Cantidad				INT, 
 	@asor_Id					INT,
-	@usua_Modificacion			INT,
+	@usua_UsuarioModificacion	INT,
 	@adet_FechaModificacion		DATETIME
 )	
 AS
@@ -8878,7 +8884,7 @@ BEGIN
 		   SET lote_Id					= @lote_Id,					 
 			   adet_Cantidad			= @adet_Cantidad,	
 			   asor_Id					= @asor_Id,
-			   usua_UsuarioModificacion	= @usua_Modificacion,		
+			   usua_UsuarioModificacion	= @usua_UsuarioModificacion,		
 			   adet_FechaModificacion	= @adet_FechaModificacion
 		 WHERE adet_Id = @adet_Id
 

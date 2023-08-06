@@ -2753,7 +2753,7 @@ CREATE TABLE Adua.tbBoletinPago(
     boen_Estado                    BIT NOT NULL,
     CONSTRAINT PK_Adua_tbBoletinPago_boen_Id 									      PRIMARY KEY (boen_Id),
     CONSTRAINT FK_Adua_tbBoletinPago_lige_Id_Adua_tbLiquidacionGeneral_lige_Id 		  FOREIGN KEY (liqu_Id)                  REFERENCES Adua.tbLiquidacionGeneral(lige_Id),
-	CONSTRAINT FK_Adua_tbBoletinPago_tbDuca_duca_No_Duca									  FOREIGN KEY (duca_No_Duca)			 REFERENCES Adua.tbDuca(duca_No_Duca),
+	CONSTRAINT FK_Adua_tbBoletinPago_tbDuca_duca_No_Duca							  FOREIGN KEY (duca_No_Duca)			 REFERENCES Adua.tbDuca(duca_No_Duca),
     CONSTRAINT FK_Adua_tbBoletinPago_tipl_Id_Adua_tbTipoLiquidacion_tipl_Id 		  FOREIGN KEY (tipl_Id)                  REFERENCES Adua.tbTipoLiquidacion(tipl_Id),
     CONSTRAINT FK_Adua_tbBoletinPago_esbo_Id_Adua_tbEstadoBoletin_esbo_Id 			  FOREIGN KEY (esbo_Id)                  REFERENCES Adua.tbEstadoBoletin(esbo_Id),
     CONSTRAINT FK_Adua_tbBoletinPago_coim_Id_Adua_tbCodigoImpuesto_coim_Id 			  FOREIGN KEY (coim_Id)                  REFERENCES Adua.tbCodigoImpuesto(coim_Id),

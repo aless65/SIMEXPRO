@@ -49,13 +49,6 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        //[HttpPost("Eliminar")]
-        //public IActionResult Delete(CargosViewModel cargosViewModel)
-        //{
-        //    var item = _mapper.Map<tbCargos>(cargosViewModel);
-        //    var respuesta = _generalesServices.EliminarCargos(item);
-        //    return Ok(respuesta);
-        //}
 
     }
 }

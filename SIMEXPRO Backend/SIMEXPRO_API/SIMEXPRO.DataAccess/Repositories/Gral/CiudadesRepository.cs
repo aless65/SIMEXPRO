@@ -15,15 +15,15 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
     {
         public RequestStatus Delete(tbCiudades item)
         {
-            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
-            RequestStatus result = new RequestStatus();
-            var parametros = new DynamicParameters();
-            parametros.Add("@ciud_Id", item.ciud_Id, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@ciud_FechaEliminacion", item.ciud_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarCiudades, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
-            return result;
+            //using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            //RequestStatus result = new RequestStatus();
+            //var parametros = new DynamicParameters();
+            //parametros.Add("@ciud_Id", item.ciud_Id, DbType.Int32, ParameterDirection.Input);
+            //parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
+            //parametros.Add("@ciud_FechaEliminacion", item.ciud_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
+            //var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarCiudades, parametros, commandType: CommandType.StoredProcedure);
+            //result.MessageStatus = answer;
+            //return result;
         }
 
         public tbCiudades Find(int? id)
@@ -40,8 +40,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@pvin_Id", item.pvin_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@ciud_FechaCreacion", item.ciud_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarCiudades, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarCiudades, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -62,8 +62,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@pvin_Id", item.pvin_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacionNavigation, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@ciud_FechaModificacion", item.ciud_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarCiudades, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarCiudades, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
     }

@@ -279,7 +279,7 @@ CREATE TABLE Gral.tbCiudades(
 	
 	CONSTRAINT PK_Gral_tbCiudades_ciud_Id 					PRIMARY KEY (ciud_Id),
 	CONSTRAINT FK_Gral_tbProvincias_Gral_tbCiudades_pvin_Id FOREIGN KEY (pvin_Id) REFERENCES Gral.tbProvincias(pvin_Id),
-
+	CONSTRAINT UQ_Gral_tbCiudades_ciud_Nombre_pvin_Id	    UNIQUE		(pvin_Id, ciud_Nombre),
 	CONSTRAINT FK_Gral_tbCiudades_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id 	   FOREIGN KEY(usua_UsuarioCreacion) 	 REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbCiudades_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbCiudades_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id  FOREIGN KEY(usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios (usua_Id)

@@ -50,12 +50,12 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Eliminar")]
-        public IActionResult Delete(CiudadesViewModel ciudadesViewModel)
-        {
-            var item = _mapper.Map<tbCiudades>(ciudadesViewModel);
-            var respuesta = _generalesServices.EliminarCiudades(item);
-            return Ok(respuesta);
-        }
+        //[HttpPost("Eliminar")]
+        //public IActionResult Delete(CiudadesViewModel ciudadesViewModel)
+        //{
+        //    var item = _mapper.Map<tbCiudades>(ciudadesViewModel);
+        //    var respuesta = _generalesServices.EliminarCiudades(item);
+        //    return Ok(respuesta);
+        //}
     }
 }

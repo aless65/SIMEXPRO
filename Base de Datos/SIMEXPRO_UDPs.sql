@@ -1240,7 +1240,8 @@ FROM	Gral.tbCiudades ciu
 WHERE	ciud_Estado = 1
 END
 GO
-/*Insertar Paises*/
+
+/*Insertar Ciudades*/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbCiudades_Insertar
 	@ciud_Nombre				NVARCHAR(150), 
 	@pvin_Id					INT, 
@@ -1250,17 +1251,16 @@ AS
 BEGIN
 	
 	BEGIN TRY
-			IF EXISTS (SELECT*FROM Gral.tbCiudades WHERE @ciud_Nombre = ciud_Nombre AND ciud_Estado = 0)
-			BEGIN
-				UPDATE Gral.tbCiudades SET pvin_Id = @pvin_Id, ciud_Estado = 1 WHERE @ciud_Nombre = ciud_Nombre
-				SELECT 1
-			END
-			ELSE
-			BEGIN
-				INSERT INTO Gral.tbCiudades (ciud_Nombre, pvin_Id, usua_UsuarioCreacion, ciud_FechaCreacion)
-				VALUES (@ciud_Nombre, @pvin_Id, @usua_UsuarioCreacion, @ciud_FechaCreacion)
-				SELECT 1
-			END
+			INSERT INTO Gral.tbCiudades (ciud_Nombre, 
+										 pvin_Id, 
+										 usua_UsuarioCreacion, 
+										 ciud_FechaCreacion)
+			VALUES (@ciud_Nombre, 
+					@pvin_Id, 
+					@usua_UsuarioCreacion, 
+					@ciud_FechaCreacion)
+
+			SELECT 1
 	END TRY
 
 	BEGIN CATCH
@@ -1280,9 +1280,13 @@ AS
 BEGIN 
 	
 	BEGIN TRY
-		UPDATE Gral.tbCiudades SET ciud_Nombre = @ciud_Nombre, pvin_Id = @pvin_Id,
-		 usua_UsuarioModificacion = @usua_UsuarioModificacion, ciud_FechaModificacion = @ciud_FechaModificacion
+		 UPDATE Gral.tbCiudades 
+		 SET	ciud_Nombre = @ciud_Nombre, 
+				pvin_Id = @pvin_Id,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion, 
+				ciud_FechaModificacion = @ciud_FechaModificacion
 		 WHERE ciud_Id = @ciud_Id
+
 		 SELECT 1
 	END TRY
 
@@ -2833,7 +2837,6 @@ BEGIN
 			DECLARE @respuesta INT
 			EXEC dbo.UDP_ValidarReferencias 'emba_Id', @emba_Id, 'Adua.tbLugaresEmbarque', @respuesta OUTPUT
 
-			SELECT @respuesta AS Resultado
 			IF(@respuesta) = 1
 			BEGIN
 				UPDATE	Adua.tbLugaresEmbarque
@@ -2842,6 +2845,8 @@ BEGIN
 						emba_FechaEliminacion   = @emba_FechaEliminacion
 				  WHERE emba_Id                 = @emba_Id 
 			END
+
+			SELECT @respuesta AS Resultado
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -2945,7 +2950,6 @@ BEGIN
 			DECLARE @respuesta INT
 			EXEC dbo.UDP_ValidarReferencias 'fopa_id', @fopa_id, 'Adua.tbFormasdePago', @respuesta OUTPUT
 
-			SELECT @respuesta AS Resultado
 			IF(@respuesta) = 1
 				BEGIN
 					UPDATE Adua.tbFormasdePago
@@ -2954,6 +2958,8 @@ BEGIN
 						fopa_FechaEliminacion=@fopa_FechaEliminacion
 					WHERE fopa_Id = @fopa_id
 				END
+
+			SELECT @respuesta AS Resultado
 		END
 	END TRY
 	BEGIN CATCH
@@ -3079,7 +3085,6 @@ BEGIN
 			DECLARE @respuesta INT
 			EXEC dbo.UDP_ValidarReferencias 'adua_Id',  @adua_Id, 'Adua.tbAduanas', @respuesta OUTPUT
 
-			SELECT @respuesta AS Resultado
 			IF(@respuesta) = 1
 				BEGIN
 					UPDATE Adua.tbAduanas
@@ -3088,6 +3093,8 @@ BEGIN
                         adua_FechaEliminacion=@adua_FechaEliminacion
 					WHERE adua_Id = @adua_Id
 				END
+
+			SELECT @respuesta AS Resultado
 		END
 	END TRY
 	BEGIN CATCH
@@ -3528,7 +3535,6 @@ BEGIN
 		DECLARE @respuesta INT
 		EXEC dbo.UDP_ValidarReferencias 'cont_Id', @cont_Id, 'Adua.tbConductor', @respuesta OUTPUT
 
-		SELECT @respuesta AS Resultado
 		IF(@respuesta) = 1
 			BEGIN
 					UPDATE Adua.tbConductor
@@ -3538,6 +3544,8 @@ BEGIN
 				WHERE cont_Id = @cont_Id
 				SELECT 1
 			END
+
+		SELECT @respuesta AS Resultado
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -3741,7 +3749,6 @@ BEGIN
 			DECLARE @respuesta INT
 			EXEC dbo.UDP_ValidarReferencias 'marc_Id', @marc_Id, 'Adua.tbMarcas', @respuesta OUTPUT
 
-			SELECT @respuesta AS Resultado
 			IF(@respuesta) = 1
 			BEGIN
 				UPDATE	Adua.tbMarcas
@@ -3751,6 +3758,8 @@ BEGIN
 				WHERE marc_Id = @marc_Id
 				SELECT 1
 			END
+
+			SELECT @respuesta AS Resultado
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -3837,7 +3846,7 @@ BEGIN
 			EXEC dbo.UDP_ValidarReferencias 'iden_Id', @iden_Id, 'Adua.tbTiposIdentificacion', @respuesta OUTPUT
 
 			SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
+			IF(@respuesta = 1)
 			BEGIN
 				UPDATE	Adua.tbTiposIdentificacion
 				SET		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,

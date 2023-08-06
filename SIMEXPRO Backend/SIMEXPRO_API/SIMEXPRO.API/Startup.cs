@@ -55,7 +55,7 @@ namespace SIMEXPRO.API
             //);
             //configBuilder.AddAzureKeyVault(keyVaultEndpoint, keyVaultClient, new DefaultKeyVaultSecretManager());
 
-            // Add your other configuration sources, e.g., appsettings.json, user secrets, etc.
+            ////Add your other configuration sources, e.g., appsettings.json, user secrets, etc.
             //configBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
             //            .AddUserSecrets<Startup>()
             //            .AddEnvironmentVariables();

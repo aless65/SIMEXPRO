@@ -498,13 +498,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             try
             {
                 var map = _clientesRepository.Update(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
 
@@ -522,13 +521,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             {
                 
                 var map = _clientesRepository.Delete(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
                

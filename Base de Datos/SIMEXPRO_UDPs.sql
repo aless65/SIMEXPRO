@@ -5372,7 +5372,7 @@ BEGIN
 	EXEC dbo.UDP_ValidarReferencias 'item_Id', @item_Id,'Adua.tbItems',@respuesta OUTPUT
 
 	SELECT @respuesta AS Resultado
-	IF(@respuesta) = 1
+	IF(@respuesta = 1)
 		BEGIN
 			
 		INSERT INTO Adua.tbItemsHistorial(item_Id, 
@@ -6654,20 +6654,21 @@ BEGIN
 			DECLARE @respuesta INT
 			EXEC dbo.UDP_ValidarReferencias 'coco_Id', @coco_Id,'Adua.tbCondicionesComerciales',@respuesta OUTPUT
 
-			SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
+			IF(@respuesta = 1)
 				BEGIN
 					 UPDATE Adua.tbCondicionesComerciales
 						SET coco_Estado = 0,
 						    usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
 							coco_FechaEliminacion = @coco_FechaEliminacion
 						WHERE coco_Id = @coco_Id
-		SELECT 1
+			
 		 END
+
+		SELECT @respuesta AS Resultado
 	END
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 GO
@@ -6927,16 +6928,16 @@ BEGIN
 			DECLARE @respuesta INT
 			EXEC dbo.UDP_ValidarReferencias 'tite_Id', @tite_Id, 'Adua.tbTipoIntermediario', @respuesta OUTPUT
 
-			SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
+			IF(@respuesta = 1)
 				BEGIN
 					   UPDATE Adua.tbTipoIntermediario
 					   SET tite_Estado = 0,
 					       usua_UsuarioEliminacion=@usua_UsuarioEliminacion,
 						   tite_FechaEliminacion = @tite_FechaEliminacion
                        WHERE tite_Id = @tite_Id
-		SELECT 1
 				END
+
+			SELECT @respuesta AS Resultado
 		END
 	END TRY
 	BEGIN CATCH
@@ -7028,7 +7029,7 @@ BEGIN
 		EXEC dbo.UDP_ValidarReferencias 'nico_Id', @nico_Id, 'Adua.tbNivelesComerciales', @respuesta OUTPUT
 
 		
-		IF(@respuesta) = 1
+		IF(@respuesta = 1)
 			BEGIN
 				 UPDATE Adua.tbNivelesComerciales
 					SET nico_Estado = 0,
@@ -7138,7 +7139,7 @@ BEGIN
 		DECLARE @respuesta INT
 		EXEC dbo.UDP_ValidarReferencias 'merc_Id', @merc_Id, 'Adua.tbEstadoMercancias', @respuesta OUTPUT
 
-		IF(@respuesta) = 1
+		IF(@respuesta = 1)
 			BEGIN
 				 UPDATE Adua.tbEstadoMercancias
 					SET merc_Estado = 0,
@@ -8191,12 +8192,11 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbCodigoImpuesto_Eliminar
 	@coim_FechaEliminacion	DATETIME
 AS
 BEGIN
-	SET @coim_FechaEliminacion = GETDATE();
+
 	BEGIN TRY
 		DECLARE @respuesta INT
 		EXEC dbo.UDP_ValidarReferencias 'coim_Id', @coim_Id, 'Adua.tbCodigoImpuesto', @respuesta OUTPUT
 
-		SELECT @respuesta AS Resultado
 		IF(@respuesta = 1)
 			BEGIN
 				UPDATE	Adua.tbCodigoImpuesto
@@ -8205,6 +8205,8 @@ BEGIN
 						coim_FechaEliminacion = @coim_FechaEliminacion
 				WHERE	coim_Id = @coim_Id
 			END
+
+		SELECT @respuesta AS Resultado
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()		
@@ -8804,7 +8806,6 @@ BEGIN
 		DECLARE @respuesta INT
 		EXEC dbo.UDP_ValidarReferencias 'asor_Id', @asor_Id, 'Prod.tbAsignacionesOrden', @respuesta OUTPUT
 
-		SELECT @respuesta AS Resultado
 		IF(@respuesta) = 1
 		BEGIN
 			DELETE Prod.tbAsignacionesOrden
@@ -8812,6 +8813,8 @@ BEGIN
 
 			SELECT 1 AS Resultado
 		END
+
+		SELECT @respuesta AS Resultado
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
@@ -9010,7 +9013,6 @@ BEGIN
 			DECLARE @respuesta INT
 			EXEC dbo.UDP_ValidarReferencias 'esti_Id', @esti_Id, 'Prod.tbEstilos', @respuesta OUTPUT
 
-			SELECT @respuesta AS Resultado
 			IF(@respuesta) = 1
 				BEGIN
 					 UPDATE Prod.tbEstilos
@@ -9018,8 +9020,9 @@ BEGIN
 						   usua_UsuarioEliminacion =@usua_UsuarioEliminacion,
 						   esti_FechaEliminacion = @esti_FechaEliminacion
 						WHERE esti_Id = @esti_Id
-		SELECT 1
 				END
+
+			SELECT @respuesta AS Resultado
 		END
 	END TRY
 	BEGIN CATCH
@@ -9073,24 +9076,6 @@ CREATE OR ALTER PROCEDURE prod.UDP_tbClientes_Insertar
 AS
 BEGIN 
   BEGIN TRY
-  IF EXISTS(SELECT * FROM Prod.tbClientes cli WHERE cli.clie_Nombre_O_Razon_Social = @clie_Nombre_O_Razon_Social)    
-	BEGIN  
-	    UPDATE Prod.tbClientes
-		SET 
-		    clie_Nombre_O_Razon_Social=@clie_Nombre_O_Razon_Social, 
-			clie_Direccion=@clie_Direccion, 
-			clie_RTN=@clie_RTN, 
-			clie_Nombre_Contacto=@clie_Nombre_Contacto,
-			clie_Numero_Contacto=@clie_Numero_Contacto,
-			clie_Correo_Electronico=@clie_Correo_Electronico, 
-			clie_FAX=@clie_FAX,  
-			usua_UsuarioModificacion=@usua_UsuarioCreacion, 
-			clie_FechaModificacion=@clie_FechaCreacion
-			WHERE clie_Nombre_O_Razon_Social= @clie_Nombre_O_Razon_Social
-		SELECT 1
-  END 	  
-  ELSE 
-	   BEGIN  
 	      INSERT INTO Prod.tbClientes
 		  ( 
 	      clie_Nombre_O_Razon_Social,
@@ -9114,8 +9099,8 @@ BEGIN
 		  @usua_UsuarioCreacion,  
 		  @clie_FechaCreacion           
 		  )	 
+
 	   SELECT 1
-    END		
 END TRY	    
    BEGIN CATCH 	 
 	 SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
@@ -9149,6 +9134,7 @@ BEGIN
 			usua_UsuarioModificacion=@usua_UsuarioModificacion, 
 			clie_FechaModificacion=@clie_FechaModificacion 
 		WHERE clie_Id = @clie_Id
+
 		 SELECT 1
 	END TRY
 	BEGIN CATCH
@@ -9166,26 +9152,13 @@ AS
 BEGIN
 	BEGIN TRY
 
-		BEGIN
-			DECLARE @respuesta INT
-			EXEC dbo.UDP_ValidarReferencias 'clie_Id', @clie_Id, 'Prod.tbClientes', @respuesta OUTPUT
+		UPDATE Prod.tbClientes
+		SET clie_Estado = 0, 
+				usua_UsuarioEliminacion =@usua_UsuarioEliminacion,
+				clie_FechaEliminacion =@clie_FechaEliminacion
+		WHERE clie_Id = @clie_Id
 
-			
-			IF(@respuesta = 1) 
-				BEGIN
-					 UPDATE Prod.tbClientes
-						SET clie_Estado = 0, 
-						     usua_UsuarioEliminacion =@usua_UsuarioEliminacion,
-							 clie_FechaEliminacion =@clie_FechaEliminacion
-						WHERE clie_Id = @clie_Id
-					SELECT 1
-				END
-		ELSE
-			BEGIN 
-				SELECT 0
-			END
-
-		END
+		SELECT 1
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
@@ -9578,7 +9551,6 @@ BEGIN
 		DECLARE @respuesta INT
 		EXEC dbo.UDP_ValidarReferencias 'tipa_Id', @tipa_Id, 'Prod.tbArea', @respuesta OUTPUT
 
-		SELECT @respuesta AS Resultado
 		IF(@respuesta) = 1
 		BEGIN
 				UPDATE Prod.tbArea
@@ -9587,6 +9559,8 @@ BEGIN
 				tipa_FechaEliminacion = @tipa_FechaEliminacion
 				WHERE tipa_Id = @tipa_Id
 		END
+
+		SELECT @respuesta AS Resultado
 		
 	END TRY
 	BEGIN CATCH
@@ -9929,7 +9903,6 @@ BEGIN
 			DECLARE @respuesta INT
 			EXEC dbo.UDP_ValidarReferencias 'subc_Id', @subc_Id, 'Prod.tbSubcategoria', @respuesta OUTPUT
 
-			SELECT @respuesta AS Resultado
 			IF(@respuesta) = 1
 			BEGIN
 				UPDATE	Prod.tbSubcategoria
@@ -9938,7 +9911,8 @@ BEGIN
 						subc_Estado = 0
 			END
 
-					select 1 
+			
+			SELECT @respuesta AS Resultado
 
 	END TRY
 
@@ -10030,14 +10004,14 @@ BEGIN
 			DECLARE @respuesta INT
 			EXEC dbo.UDP_ValidarReferencias 'mate_Id', @mate_Id, 'Prod.tbMateriales', @respuesta OUTPUT
 
-			SELECT @respuesta AS Resultado
 			IF(@respuesta) = 1
 			BEGIN
 				UPDATE	Prod.tbMateriales
 				   SET	mate_Estado = 0
 				 WHERE  mate_Id     = @mate_Id
 			END
-					SELECT 1
+
+			SELECT @respuesta AS Resultado
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -10244,7 +10218,6 @@ BEGIN
 			DECLARE @respuesta INT
 			EXEC dbo.UDP_ValidarReferencias 'modu_Id', @modu_Id, 'Prod.tbModulos', @respuesta OUTPUT
 
-			SELECT @respuesta AS Resultado
 			IF(@respuesta) = 1
 			BEGIN
 				UPDATE	Prod.tbModulos
@@ -10252,6 +10225,8 @@ BEGIN
 						modu_FechaEliminacion = @modu_FechaEliminacion,
 						modu_Estado = 0
 			END
+
+			SELECT @respuesta AS Resultado
 	END TRY
 	BEGIN CATCH
 		SELECT 0
@@ -10355,7 +10330,6 @@ BEGIN
 		DECLARE @respuesta INT
 		EXEC dbo.UDP_ValidarReferencias 'maqu_Id', @maqu_Id, 'Prod.tbMaquinas', @respuesta OUTPUT
 
-		SELECT @respuesta AS Resultado
 		IF(@respuesta) = 1
 			BEGIN
 				UPDATE	Prod.tbMaquinas
@@ -10364,6 +10338,8 @@ BEGIN
 						maqu_Estado	= 0
 				WHERE	maqu_Id = @maqu_Id
 			END
+
+		SELECT @respuesta AS Resultado
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()

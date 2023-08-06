@@ -24,6 +24,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             //var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarCiudades, parametros, commandType: CommandType.StoredProcedure);
             //result.MessageStatus = answer;
             //return result;
+            throw new NotImplementedException();
         }
 
         public tbCiudades Find(int? id)

@@ -1537,7 +1537,6 @@ CREATE TABLE Prod.tbClientes(
 );
 GO
 
-
 CREATE TABLE Adua.tbCodigoImpuesto (
     coim_Id          			INT IDENTITY(1,1),
     coim_Descripcion 			NVARCHAR(200)  NOT NULL,

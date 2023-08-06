@@ -385,8 +385,8 @@ CREATE TABLE Gral.tbCargos(
 		usua_UsuarioModificacion		INT				DEFAULT NULL,
 		carg_FechaModificacion			DATETIME 		DEFAULT NULL,
 	
-		usua_UsuarioEliminacion	    	INT				DEFAULT NULL,
-		carg_FechaEliminacion			DATETIME 		DEFAULT NULL,
+		--usua_UsuarioEliminacion	    	INT				DEFAULT NULL,
+		--carg_FechaEliminacion			DATETIME 		DEFAULT NULL,
 		carg_Estado						BIT				DEFAULT 1,
 
 	CONSTRAINT PK_Gral_tbCargos_carg_Id 	 PRIMARY KEY (carg_Id),

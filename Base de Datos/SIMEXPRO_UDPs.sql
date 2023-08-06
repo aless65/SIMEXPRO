@@ -837,13 +837,13 @@ BEGIN
 	       ,usuaModifica.usua_Nombre		AS usuarioModificacionNombre
 	       ,carg_FechaModificacion			
 	       ,carg.usua_UsuarioEliminacion	
-	       ,usuaElimina.usua_Nombre			AS usuarioEliminacionNombre
-	       ,carg_FechaEliminacion			
+	       --,usuaElimina.usua_Nombre			AS usuarioEliminacionNombre
+	       --,carg_FechaEliminacion			
 	       ,carg_Estado						
     FROM Gral.tbCargos carg 
 	INNER JOIN Acce.tbUsuarios usuaCrea		ON carg.usua_UsuarioCreacion = usuaCrea.usua_Id 
-	LEFT JOIN Acce.tbUsuarios usuaModifica	ON carg.usua_UsuarioModificacion = usuaCrea.usua_Id 
-	LEFT JOIN Acce.tbUsuarios usuaElimina	ON carg.usua_UsuarioEliminacion = usuaCrea.usua_Id
+	LEFT JOIN Acce.tbUsuarios usuaModifica	ON carg.usua_UsuarioModificacion = usuaModifica.usua_Id 
+	--LEFT JOIN Acce.tbUsuarios usuaElimina	ON carg.usua_UsuarioEliminacion = usuaCrea.usua_Id
 	WHERE carg_Estado = 1
 END
 GO

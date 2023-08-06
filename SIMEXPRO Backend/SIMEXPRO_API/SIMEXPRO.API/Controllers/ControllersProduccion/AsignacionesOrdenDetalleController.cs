@@ -29,8 +29,8 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         public IActionResult Index(int asor_Id)
         {
             var listado = _produccionServices.ListarAsignacionOrdenDetalle(asor_Id);
-            var listadoMapeado = _mapper.Map<IEnumerable<AsignacionesOrdenDetalleViewModel>>(listado.Data);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<AsignacionesOrdenDetalleViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
         [HttpPost("Insertar")]

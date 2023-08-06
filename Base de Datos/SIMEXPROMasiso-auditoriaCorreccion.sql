@@ -327,6 +327,7 @@ CREATE TABLE Gral.tbColonias(
 	CONSTRAINT PK_Gral_tbColonias_colo_Id PRIMARY KEY (colo_Id),
 	CONSTRAINT FK_Gral_tbAldeas_Gral_tbColonias_alde_Id 	FOREIGN KEY (alde_Id) REFERENCES Gral.tbAldeas(alde_Id),
 	CONSTRAINT FK_Gral_tbCiudades_Gral_tbColonias_ciud_Id   FOREIGN KEY (ciud_Id) REFERENCES Gral.tbCiudades(ciud_Id),
+	CONSTRAINT UQ_Gral_tbAldeas_colo_Nombre_alde_Id_ciud_Id UNIQUE(colo_Nombre,alde_Id,ciud_Id),
 
 	CONSTRAINT FK_Gral_tbColonias_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id     FOREIGN KEY(usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbColonias_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),

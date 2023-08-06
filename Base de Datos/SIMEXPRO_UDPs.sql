@@ -936,53 +936,18 @@ BEGIN
 	
 	BEGIN TRY
 
-		IF @alde_Id IS NOT NULL
-			BEGIN
-				IF EXISTS (SELECT * FROM Gral.tbColonias
-						WHERE @colo_Nombre = colo_Nombre
-						AND alde_Id = @alde_Id)
-					BEGIN
-						SELECT 0
-					END
-				ELSE
-					BEGIN
-						INSERT INTO Gral.tbColonias (colo_Nombre, 
-														 alde_Id,
-														 ciud_Id,
-														 usua_UsuarioCreacion, 
-														 colo_FechaCreacion)
-						VALUES(@colo_Nombre,	
-							   @alde_Id,
-							   @ciud_Id,
-							   @usua_UsuarioCreacion,
-							   @colo_FechaCreacion)
+		INSERT INTO Gral.tbColonias (colo_Nombre, 
+									 alde_Id,
+									 ciud_Id,
+									 usua_UsuarioCreacion, 
+									 colo_FechaCreacion)
+		VALUES(@colo_Nombre,	
+				@alde_Id,
+				@ciud_Id,
+				@usua_UsuarioCreacion,
+				@colo_FechaCreacion)
 
-						SELECT 1
-					END
-			END
-		
-		ELSE 
-			BEGIN
-				IF EXISTS (SELECT * FROM Gral.tbColonias
-						WHERE @colo_Nombre = colo_Nombre
-						AND ciud_Id = @ciud_Id)
-					BEGIN
-						SELECT 0
-					END
-				ELSE
-					BEGIN
-						INSERT INTO Gral.tbColonias (colo_Nombre, 
-														 ciud_Id,
-														 usua_UsuarioCreacion, 
-														 colo_FechaCreacion)
-						VALUES(@colo_Nombre,	
-							   @ciud_Id,
-							   @usua_UsuarioCreacion,
-							   @colo_FechaCreacion)
-
-						SELECT 1
-					END
-		END
+		SELECT 1
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -1001,51 +966,15 @@ CREATE OR ALTER PROCEDURE gral.UDP_tbColonias_Editar
 AS
 BEGIN
 	BEGIN TRY
-		IF @alde_Id IS NOT NULL
-			BEGIN
-				IF EXISTS (SELECT colo_Id FROM Gral.tbColonias
-						   WHERE colo_Nombre = @colo_Nombre
-						   AND alde_Id = @alde_Id
-						   AND colo_Id != @colo_Id)
-					BEGIN
-						SELECT 0
-					END
-				ELSE
-					BEGIN
-						UPDATE  Gral.tbColonias
-						SET		colo_Nombre = @colo_Nombre,
-								alde_Id = @alde_Id,
-								ciud_Id = @ciud_Id,
-								usua_UsuarioModificacion = @usua_UsuarioModificacion,
-								colo_FechaModificacion = @colo_FechaModificacion
-						WHERE	colo_Id = @colo_Id
+		UPDATE  Gral.tbColonias
+		SET		colo_Nombre = @colo_Nombre,
+				alde_Id = @alde_Id,
+				ciud_Id = @ciud_Id,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				colo_FechaModificacion = @colo_FechaModificacion
+		WHERE	colo_Id = @colo_Id
 
-						SELECT 1
-					END
-			END
-		ELSE
-			BEGIN
-				IF EXISTS (SELECT colo_Id FROM Gral.tbColonias
-						   WHERE colo_Nombre = @colo_Nombre
-						   AND ciud_Id = @ciud_Id
-						   AND colo_Id != @colo_Id
-						   )
-					BEGIN
-						SELECT 0
-					END
-				ELSE
-					BEGIN
-						UPDATE  Gral.tbColonias
-						SET		colo_Nombre = @colo_Nombre,
-								ciud_Id = @ciud_Id,
-								alde_Id = NULL,
-								usua_UsuarioModificacion = @usua_UsuarioModificacion,
-								colo_FechaModificacion = @colo_FechaModificacion
-						WHERE	colo_Id = @colo_Id
-
-						SELECT 1
-					END
-			END
+		SELECT 1
 		
 	END TRY
 	BEGIN CATCH
@@ -9057,7 +8986,6 @@ FROM	Prod.tbClientes clie
 		INNER JOIN Acce.tbUsuarios usu	ON usu.usua_Id = clie.usua_UsuarioCreacion 
 		LEFT JOIN Acce.tbUsuarios usu1	ON usu1.usua_Id = clie.usua_UsuarioModificacion
 		lEFT JOIN Acce.tbUsuarios usu2	ON usu2.usua_Id = clie.usua_UsuarioEliminacion
-WHERE	clie_Estado = 1
 END
 
 GO

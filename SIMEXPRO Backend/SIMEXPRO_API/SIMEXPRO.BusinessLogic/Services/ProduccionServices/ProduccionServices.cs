@@ -566,7 +566,6 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
             }
@@ -588,7 +587,6 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
             }

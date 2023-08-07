@@ -444,16 +444,17 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region EstadosCiviles
-        public IEnumerable<tbEstadosCiviles> ListarEstadosCiviles()
+        public ServiceResult ListarEstadosCiviles()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _estadosCivilesRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbEstadosCiviles>();
+                return result.Error(ex.Message);
             }
         }
 

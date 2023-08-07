@@ -48,12 +48,12 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Eliminar")]
-        public IActionResult Delete(ColoresViewModel coloresViewModel)
-        {
-            var item = _mapper.Map<tbColores>(coloresViewModel);
-            var respuesta = _produccionServices.EliminarColores(item);
-            return Ok(respuesta);
-        }
+        //[HttpPost("Eliminar")]
+        //public IActionResult Delete(ColoresViewModel coloresViewModel)
+        //{
+        //    var item = _mapper.Map<tbColores>(coloresViewModel);
+        //    var respuesta = _produccionServices.EliminarColores(item);
+        //    return Ok(respuesta);
+        //}
     }
 }

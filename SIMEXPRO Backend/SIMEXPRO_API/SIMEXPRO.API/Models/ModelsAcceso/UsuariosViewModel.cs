@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,6 +12,10 @@ namespace SIMEXPRO.API.Models.ModelsAcceso
         public string usua_Nombre { get; set; }
         public string usua_Contrasenia { get; set; }
         public string empl_CorreoElectronico { get; set; }
+
+        [NotMapped]
+        public string Detalles { get; set; }
+
         public int empl_Id { get; set; }
         public string usua_Image { get; set; }
         public int role_Id { get; set; }

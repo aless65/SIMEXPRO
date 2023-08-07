@@ -1931,11 +1931,13 @@ CREATE TABLE Prod.tbMarcasMaquina(
 	marq_Estado						BIT	DEFAULT 1
 	
 	CONSTRAINT PK_Prod_tbMarcasMaquina_marq_Id 										PRIMARY KEY (marq_Id),
+	CONSTRAINT UQ_Prod_tbMarcasMaquina_marq_Nombre									UNIQUE (marq_Nombre),
 	CONSTRAINT FK_Prod_tbMarcasMaquina_usua_UsuarioCreacion_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioCreacion)     			REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbMarcasMaquina_usua_UsuarioModificacion_tbUsuarios_usua_Id	FOREIGN KEY (usua_UsuarioModificacion) 			REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbMarcasMaquina_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
+
 
 --CREATE TABLE Prod.tbMaquinasModulos(
 --	moma_Id						INT IDENTITY(1,1),

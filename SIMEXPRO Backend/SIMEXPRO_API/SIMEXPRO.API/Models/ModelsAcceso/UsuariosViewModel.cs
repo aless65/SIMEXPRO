@@ -10,7 +10,7 @@ namespace SIMEXPRO.API.Models.ModelsAcceso
         public int usua_Id { get; set; }
         public string usua_Nombre { get; set; }
         public string usua_Contrasenia { get; set; }
-        public string usua_Correo { get; set; }
+        public string empl_CorreoElectronico { get; set; }
         public int empl_Id { get; set; }
         public string usua_Image { get; set; }
         public int role_Id { get; set; }

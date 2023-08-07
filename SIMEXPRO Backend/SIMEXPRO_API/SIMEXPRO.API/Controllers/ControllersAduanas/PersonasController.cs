@@ -23,16 +23,16 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             _mapper = mapper;
         }
 
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _aduanaServices.ListarPersonas();
-            var listadoMapeado = _mapper.Map<IEnumerable<PersonasViewModel>>(listado.Data);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<PersonasViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(PersonasViewModel personasViewModel)
         {
             var item = _mapper.Map<tbPersonas>(personasViewModel);
@@ -41,7 +41,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         }
 
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(PersonasViewModel personasViewModel)
         {
             var item = _mapper.Map<tbPersonas>(personasViewModel);
@@ -49,7 +49,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
+        [HttpPost("Eliminar")]
         public IActionResult Delete(PersonasViewModel personasViewModel)
         {
             var item = _mapper.Map<tbPersonas>(personasViewModel);

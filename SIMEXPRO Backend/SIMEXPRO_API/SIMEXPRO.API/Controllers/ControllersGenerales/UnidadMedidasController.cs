@@ -24,16 +24,16 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarUnidadMedidas();
-            var listadoMapeado = _mapper.Map<IEnumerable<UnidadMedidaViewModel>>(listado.Data);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<UnidadMedidaViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(UnidadMedidaViewModel unidadMedidaViewModel)
         {
             var item = _mapper.Map<tbUnidadMedidas>(unidadMedidaViewModel);
@@ -41,7 +41,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(UnidadMedidaViewModel unidadMedidaViewModel)
         {
             var item = _mapper.Map<tbUnidadMedidas>(unidadMedidaViewModel);
@@ -49,7 +49,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
+        [HttpPost("Eliminar")]
         public IActionResult Delete(UnidadMedidaViewModel unidadMedidaViewModel)
         {
             var item = _mapper.Map<tbUnidadMedidas>(unidadMedidaViewModel);

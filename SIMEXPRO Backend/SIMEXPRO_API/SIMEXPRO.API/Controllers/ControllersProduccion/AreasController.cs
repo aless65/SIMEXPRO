@@ -25,16 +25,16 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             _mapper = mapper;
         }
 
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _produccionServices.ListarAreas();
-            var listadoMapeado = _mapper.Map<IEnumerable<AreasViewModel>>(listado.Data);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<AreasViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(AreasViewModel areasViewModel)
         {
             var item = _mapper.Map<tbArea>(areasViewModel);
@@ -42,14 +42,21 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(AreasViewModel areasViewModel)
         {
             var item = _mapper.Map<tbArea>(areasViewModel);
             var respuesta = _produccionServices.ActualizarAreas(item);
             return Ok(respuesta);
         }
+        [HttpPost("Eliminar")]
+        public IActionResult Delete(AreasViewModel areasViewModel)
+        {
+            var item = _mapper.Map<tbArea>(areasViewModel);
+            var respuesta = _produccionServices.EliminarAreas(item);
+            return Ok(respuesta);
+        }
 
-        
+
     }
 }

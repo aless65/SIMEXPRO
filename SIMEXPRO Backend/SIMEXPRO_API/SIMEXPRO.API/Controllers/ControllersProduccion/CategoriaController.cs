@@ -24,15 +24,15 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             _mapper = mapper;
         }
 
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _produccionServices.ListarCategorias();
-            var listadoMapeado = _mapper.Map<IEnumerable<CategoriaViewModel>>(listado.Data);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<CategoriaViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(CategoriaViewModel categoriaViewModel)
         {
             var item = _mapper.Map<tbCategoria>(categoriaViewModel);
@@ -40,7 +40,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(CategoriaViewModel categoriaViewModel)
         {
             var item = _mapper.Map<tbCategoria>(categoriaViewModel);
@@ -48,7 +48,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
+        [HttpPost("Eliminar")]
         public IActionResult Delete(CategoriaViewModel categoriaViewModel)
         {
             var item = _mapper.Map<tbCategoria>(categoriaViewModel);

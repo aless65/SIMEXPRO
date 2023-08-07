@@ -39,7 +39,6 @@ namespace SIMEXPRO.Entities.Entities
         [NotMapped]
         public String usuarioNombreEliminacion { get; set; }
 
-
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioEliminacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }

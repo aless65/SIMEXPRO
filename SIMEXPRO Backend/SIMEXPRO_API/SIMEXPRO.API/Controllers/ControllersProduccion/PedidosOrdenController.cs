@@ -25,7 +25,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         }
 
 
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index(tbOrdenCompraDetalles item)
         {
             var listado = _produccionServices.ListarOrdenCompraDetalles(item);
@@ -34,7 +34,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(PedidosOrdenViewModel pedidosOrdenViewModel)
         {
             var item = _mapper.Map<tbPedidosOrden>(pedidosOrdenViewModel);
@@ -42,7 +42,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(PedidosOrdenViewModel pedidosOrdenViewModel)
         {
             var item = _mapper.Map<tbPedidosOrden>(pedidosOrdenViewModel);
@@ -50,7 +50,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
+        [HttpPost("Eliminar")]
         public IActionResult Delete(PedidosOrdenViewModel pedidosOrdenViewModel)
         {
             var item = _mapper.Map<tbPedidosOrden>(pedidosOrdenViewModel);

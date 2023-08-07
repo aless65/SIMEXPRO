@@ -29,6 +29,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             var parametros = new DynamicParameters();
 
             parametros.Add("@liqu_Id", item.liqu_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@duca_No_Duca", item.duca_No_Duca, DbType.String, ParameterDirection.Input);
             parametros.Add("@tipl_Id", item.tipl_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@boen_FechaEmision", item.boen_FechaEmision, DbType.Date, ParameterDirection.Input);
             parametros.Add("@esbo_Id", item.esbo_Id, DbType.Int32, ParameterDirection.Input);
@@ -45,8 +46,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@copa_Id", item.copa_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@boen_FechaCreacion", item.boen_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarBoletinPago, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarBoletinPago, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -66,6 +67,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
 
             parametros.Add("@boen_Id", item.boen_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@liqu_Id", item.liqu_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@duca_No_Duca", item.duca_No_Duca, DbType.String, ParameterDirection.Input);
             parametros.Add("@tipl_Id", item.tipl_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@boen_FechaEmision", item.boen_FechaEmision, DbType.Date, ParameterDirection.Input);
             parametros.Add("@esbo_Id", item.esbo_Id, DbType.Int32, ParameterDirection.Input);
@@ -82,8 +84,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@copa_Id", item.copa_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@boen_FechaModificacion", item.boen_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarBoletinPago, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarBoletinPago, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
     }

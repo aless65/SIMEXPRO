@@ -24,15 +24,15 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             _mapper = mapper;
         }
 
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _produccionServices.ListarColores();
-            var listadoMapeado = _mapper.Map<IEnumerable<ColoresViewModel>>(listado.Data);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<ColoresViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(ColoresViewModel coloresViewModel)
         {
             var item = _mapper.Map<tbColores>(coloresViewModel);
@@ -40,7 +40,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(ColoresViewModel coloresViewModel)
         {
             var item = _mapper.Map<tbColores>(coloresViewModel);
@@ -48,12 +48,12 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
-        public IActionResult Delete(ColoresViewModel coloresViewModel)
-        {
-            var item = _mapper.Map<tbColores>(coloresViewModel);
-            var respuesta = _produccionServices.EliminarColores(item);
-            return Ok(respuesta);
-        }
+        //[HttpPost("Eliminar")]
+        //public IActionResult Delete(ColoresViewModel coloresViewModel)
+        //{
+        //    var item = _mapper.Map<tbColores>(coloresViewModel);
+        //    var respuesta = _produccionServices.EliminarColores(item);
+        //    return Ok(respuesta);
+        //}
     }
 }

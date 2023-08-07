@@ -16,6 +16,9 @@ namespace SIMEXPRO.DataAccess
         public static string InsertarUsuarios = "acce.UDP_tbUsuarios_Insertar";
         public static string EditarUsuarios = "acce.UDP_tbUsuarios_Editar";
         public static string EliminarUsuarios = "acce.UDP_tbUsuarios_Eliminar";
+
+        public static string CorreoSegunUsuario = "acce.UDP_CorreoUsuario";
+        public static string CambiarContrasenia = "acce.UDP_CambiarContrasena";
         #endregion
 
         #region Pantallas
@@ -34,6 +37,7 @@ namespace SIMEXPRO.DataAccess
         public static string InsertarRolesXPantallas = "Acce.UDP_tbRolesXPantallas_Insertar";
         public static string EditarRolesXPantallas = "Acce.UDP_tbRolesXPantallas_Editar";
         public static string EliminarRolesXPantallas = "Acce.UDP_tbRolesXPantallas_Eliminar";
+        public static string DibujarMenuRolesXPantallas = "Acce.UDP_RolesPorPantalla_DibujadoMenu";
         #endregion
 
         #region Login
@@ -72,6 +76,8 @@ namespace SIMEXPRO.DataAccess
         public static string ListarColonias = "gral.UDP_tbColonias_Listar";
         public static string InsertarColonias = "gral.UDP_tbColonias_Insertar";
         public static string EditarColonias = "gral.UDP_tbColonias_Editar";
+        public static string EliminarColonias = "gral.UDP_tbColonias_Eliminar";
+
         #endregion
 
         #region Monedas
@@ -90,6 +96,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarCiudades = "Gral.UDP_tbCiudades_Listar";
         public static string InsertarCiudades = "Gral.UDP_tbCiudades_Insertar";
         public static string EditarCiudades = "Gral.UDP_tbCiudades_Editar";
+        //public static string EliminarCiudades = "Gral.UDP_tbCiudades_Eliminar";
         #endregion
 
         #region Provincias
@@ -303,6 +310,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarItems = "Adua.UDP_tbItems_Listar";
         public static string InsertarItems = "Adua.UDP_tbItems_Insertar";
         public static string EditarItems = "Adua.UDP_tbItems_Editar";
+        public static string EliminarItems = "Adua.UDP_tbItems_Eliminar";
         #endregion
 
         #region Liquidacion General
@@ -448,7 +456,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarAreas = "Prod.UDP_tbArea_Listar";
         public static string InsertarAreas = "Prod.UDP_tbArea_Insertar";
         public static string EditarAreas = "Prod.UDP_tbArea_Editar";
-        public static string ElininarAreas = "Prod.UDP_tbArea_Eliminar";
+        public static string EliminarAreas = "Prod.UDP_tbArea_Eliminar";
         #endregion
 
         #region Asignaciones Orden

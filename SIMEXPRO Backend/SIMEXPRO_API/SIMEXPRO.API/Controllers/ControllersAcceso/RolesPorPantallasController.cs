@@ -25,7 +25,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
             _mapper = mapper;
         }
 
-        [HttpPost("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index(int role_Id)
         {
             tbRolesXPantallas rolesPantalla = new tbRolesXPantallas();
@@ -57,6 +57,23 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
             var mapped = _mapper.Map<tbRolesXPantallas>(rolesPantalla);
             var datos = _accesoServices.DeleteRolxPantalla(mapped);
             return Ok(datos);
+        }
+
+        [HttpPut("DibujarMenu")]
+        public IActionResult Dibujar(RolesPorPantallasViewModel rolesPantalla)
+        {
+            var mapped = _mapper.Map<tbRolesXPantallas>(rolesPantalla);
+            var datos = _accesoServices.DibujarMenu(mapped);
+           
+
+            if (datos.Code == 200)
+            {
+                return Ok(datos);
+            }
+            else
+            {
+                return BadRequest(datos);
+            }
         }
     }
 }

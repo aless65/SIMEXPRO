@@ -17,6 +17,7 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public int? usua_UsuarioModificacion { get; set; }
         public DateTime? ppro_FechaModificacion { get; set; }
         public bool? ppro_Estado { get; set; }
+        public string empl_NombreCompleto { get; set; }
 
     }
 }

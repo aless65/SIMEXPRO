@@ -25,15 +25,15 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         }
 
 
-        [HttpPut("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index(int asor_Id)
         {
             var listado = _produccionServices.ListarAsignacionOrdenDetalle(asor_Id);
-            var listadoMapeado = _mapper.Map<IEnumerable<AsignacionesOrdenDetalleViewModel>>(listado.Data);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<AsignacionesOrdenDetalleViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(AsignacionesOrdenDetalleViewModel asignacionesOrdenDetalleViewModel)
         {
             var item = _mapper.Map<tbAsignacionesOrdenDetalle>(asignacionesOrdenDetalleViewModel);
@@ -41,7 +41,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(AsignacionesOrdenDetalleViewModel asignacionesOrdenDetalleViewModel)
         {
             var item = _mapper.Map<tbAsignacionesOrdenDetalle>(asignacionesOrdenDetalleViewModel);
@@ -49,7 +49,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
+        [HttpPost("Eliminar")]
         public IActionResult Delete(AsignacionesOrdenDetalleViewModel asignacionesOrdenDetalleViewModel)
         {
             var item = _mapper.Map<tbAsignacionesOrdenDetalle>(asignacionesOrdenDetalleViewModel);

@@ -25,13 +25,12 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             _mapper = mapper;
         }
 
-
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _aduanaServices.ListarAranceles();
-            var mapped = _mapper.Map<IEnumerable<ArancelesViewModel>>(listado);
-            return Ok(mapped);
+            listado.Data = _mapper.Map<IEnumerable<ArancelesViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
         [HttpPost("Insertar")]
@@ -50,13 +49,13 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             return Ok(datos);
         }
 
-        [HttpPost("Eliminar")]
-        public IActionResult Eliminar(ArancelesViewModel aranceles)
-        {
-            var mapped = _mapper.Map<tbAranceles>(aranceles);
-            var datos = _aduanaServices.EliminarAranceles(mapped);
-            return Ok(datos);
-        }
+        //[HttpPost("Eliminar")]
+        //public IActionResult Eliminar(ArancelesViewModel aranceles)
+        //{
+        //    var mapped = _mapper.Map<tbAranceles>(aranceles);
+        //    var datos = _aduanaServices.EliminarAranceles(mapped);
+        //    return Ok(datos);
+        //}
 
     }
 }

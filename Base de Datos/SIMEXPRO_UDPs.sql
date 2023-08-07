@@ -4046,8 +4046,11 @@ BEGIN
 		DECLARE @decl_Id INT;
 		DECLARE @impo_Id INT;
 
-		IF NOT EXISTS (SELECT impo_RTN FROM [Adua].[tbImportadores] WHERE impo_RTN = @impo_RTN)
+		-- SI NO EXISTE UN REGISTRO CON ESE RTN SE INSERTA
+		IF NOT EXISTS (SELECT decl_NumeroIdentificacion FROM [Adua].tbDeclarantes WHERE decl_NumeroIdentificacion = @impo_RTN)
 		BEGIN
+			
+			
 
 			EXEC adua.UDP_tbDeclarantes_Insertar @decl_Nombre_Raso,
 											     @decl_Direccion_Exacta,
@@ -4068,54 +4071,74 @@ BEGIN
 												impo_NumRegistro, 
 												usua_UsuarioCreacion, 
 												impo_FechaCreacion)
-			VALUES(@nico_Id, 
-				   @decl_Id,
-				   @impo_NivelComercial_Otro,
-				   @impo_RTN,
-				   @impo_NumRegistro,
-				   @usua_UsuarioCreacion,
-				   @deva_FechaCreacion)
+										VALUES(@nico_Id, 
+											   @decl_Id,
+											   @impo_NivelComercial_Otro,
+											   @impo_RTN,
+											   @impo_NumRegistro,
+											   @usua_UsuarioCreacion,
+											   @deva_FechaCreacion)
 
 			SET @impo_Id = SCOPE_IDENTITY()
 		END
 		ELSE
-		BEGIN
-			SET @impo_Id = (SELECT impo_Id 
-								   FROM Adua.tbImportadores
-								   WHERE impo_RTN = @impo_RTN)
-		END	
+			BEGIN
+				--SACAMOS EL ID DEL DECLARANTE 
+				SET @decl_Id = (SELECT decl_Id 
+								FROM Adua.tbDeclarantes
+								WHERE decl_NumeroIdentificacion = @impo_RTN)
 
-		--INSERT INTO Adua.tbDeclaraciones_ValorHistorial()
 
-		INSERT INTO Adua.tbImportadores(nico_Id, 
-											decl_Id, 
-											impo_NivelComercial_Otro, 
-											impo_RTN, 
-											impo_NumRegistro, 
-											usua_UsuarioCreacion, 
-											impo_FechaCreacion)
-		VALUES(@nico_Id, 
-			   @decl_Id,
-			   @impo_NivelComercial_Otro,
-			   @impo_RTN,
-			   @impo_NumRegistro,
-			   @usua_UsuarioCreacion,
-			   @deva_FechaCreacion)
+				--VERRIFICAMOS SI LOS DATOS SIGUEN SIENDO LOS MISMOS 
+				IF  EXISTS 	(SELECT decl_Id 
+							FROM tbDeclarantes
+							WHERE	(decl_Nombre_Raso = @decl_Nombre_Raso
+							AND		decl_Direccion_Exacta = @decl_Direccion_Exacta
+							AND		ciud_Id = @ciud_Id
+							AND		decl_Correo_Electronico = @decl_Correo_Electronico
+							AND		decl_Telefono = @decl_Telefono
+							AND		ISNULL(decl_Fax, '') = ISNULL(@decl_Fax, '')
+							AND		decl_NumeroIdentificacion = @impo_RTN))
 
-		SET @impo_Id = SCOPE_IDENTITY()
+					BEGIN --SI SON IGUALES NO PASA NADA SOLO GUARDAMOS EL ID
+						pRINT 'si SON iGUALES'
+					END 
+				ELSE --SO NO SON IGUALES SE EDITA LA NUEVA INFORMACION
+					BEGIN
+						
+						UPDATE Adua.tbDeclarantes
+						SET decl_Nombre_Raso			= @decl_Nombre_Raso, 
+							decl_Direccion_Exacta		= @decl_Direccion_Exacta, 
+							ciud_Id						= @ciud_Id, 
+							decl_Correo_Electronico		= @decl_Correo_Electronico, 
+							decl_Telefono				= @decl_Telefono, 
+							decl_Fax					= @decl_Fax, 
+							usua_UsuarioModificacion	= @usua_UsuarioCreacion, 
+							decl_FechaModificacion		= @deva_FechaCreacion
+						WHERE decl_Id = @decl_Id
+							
+	
+					END
 
+				SET @impo_Id = (SELECT impo_Id 
+								FROM Adua.tbImportadores
+								WHERE impo_RTN = @impo_RTN)
+			END	
+
+		
+	
 		INSERT INTO Adua.tbDeclaraciones_Valor(deva_AduanaIngresoId, 
 												   deva_AduanaDespachoId, 
 												   deva_FechaAceptacion, 
 												   impo_Id, 
 												   usua_UsuarioCreacion, 
 												   deva_FechaCreacion)
-		VALUES(@deva_AduanaIngresoId,
-			   @deva_AduanaDespachoId,
-			   @deva_FechaAceptacion,
-			   @impo_Id,
-			   @usua_UsuarioCreacion,
-			   @deva_FechaCreacion)
+											VALUES(@deva_AduanaIngresoId,
+												   @deva_AduanaDespachoId,
+												   @deva_FechaAceptacion,
+												   @impo_Id,
+												   @usua_UsuarioCreacion,
+												   @deva_FechaCreacion)
 
 
 		DECLARE @deva_Id INT = SCOPE_IDENTITY()
@@ -4128,14 +4151,14 @@ BEGIN
 															hdev_UsuarioAccion, 
 															hdev_FechaAccion, 
 															hdev_Accion)
-		VALUES (@deva_Id,
-				@deva_AduanaIngresoId,
-				@deva_AduanaDespachoId,
-				@deva_FechaAceptacion,
-				@impo_Id,
-				@usua_UsuarioCreacion,
-				@deva_FechaCreacion,
-				'Insertar tab1')
+													VALUES (@deva_Id,
+															@deva_AduanaIngresoId,
+															@deva_AduanaDespachoId,
+															@deva_FechaAceptacion,
+															@impo_Id,
+															@usua_UsuarioCreacion,
+															@deva_FechaCreacion,
+															'Insertar tab1')
 
 		SELECT @deva_Id
 

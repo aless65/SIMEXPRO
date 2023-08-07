@@ -9,6 +9,7 @@ namespace SIMEXPRO.API.Models.ModelsAduana
     {
         public int doso_Id { get; set; }
         public int tido_Id { get; set; }
+        public string duca_No_Duca { get; set; }
         public string doso_NumeroDocumento { get; set; }
         public DateTime? doso_FechaEmision { get; set; }
         public DateTime? doso_FechaVencimiento { get; set; }

@@ -41,6 +41,7 @@ namespace SIMEXPRO.API.Extentions
             CreateMap<BoletinPagoViewModel, tbBoletinPago>().ReverseMap();
             CreateMap<CodigoImpuestoViewModel, tbCodigoImpuesto>().ReverseMap();
             CreateMap<CondicionesComercialesViewModel, tbCondicionesComerciales>().ReverseMap();
+            CreateMap<DocumentosDeSoporteViewModel, tbDocumentosDeSoporte>().ReverseMap();
 
             CreateMap<TransportesViewModel, tbTransporte>().ReverseMap();
             CreateMap<TiposIdentificacionViewModel, tbTiposIdentificacion>().ReverseMap();

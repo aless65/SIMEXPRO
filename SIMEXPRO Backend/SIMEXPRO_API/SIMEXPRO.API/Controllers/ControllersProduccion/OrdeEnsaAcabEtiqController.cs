@@ -29,8 +29,8 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         public IActionResult Index()
         {
             var listado = _produccionServices.Listarorde_Ensa_Acab_Etiq();
-            var listadoMapeado = _mapper.Map<IEnumerable<OrdeEnsaAcabEtiqViewModel>>(listado);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<OrdeEnsaAcabEtiqViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
 

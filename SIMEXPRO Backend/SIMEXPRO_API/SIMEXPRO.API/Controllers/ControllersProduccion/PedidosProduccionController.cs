@@ -28,8 +28,8 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         public IActionResult Index()
         {
             var listado = _produccionServices.ListarPedidosProduccion();
-            var listadoMapeado = _mapper.Map<IEnumerable<PedidosProduccionViewModel>>(listado);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<PedidosProduccionViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
 

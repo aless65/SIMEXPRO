@@ -63,5 +63,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             result.CodeStatus = answer;
             return result;
         }
+
+
+
     }
 }

@@ -255,6 +255,7 @@ CREATE TABLE Gral.tbProvincias(
 	
 	CONSTRAINT PK_Gral_tbProvincias_pvin_Id 			  PRIMARY KEY (pvin_Id),
 	--CONSTRAINT UQ_Gral_tbProvincias_pvin_Codigo 		  UNIQUE(pvin_Codigo),
+	CONSTRAINT UQ_tbProvincias_pvin_Nombre_pvin_Codigo	  UNIQUE (pvin_Codigo, pvin_Nombre),
 	CONSTRAINT FK_Gral_tbPaises_Gral_tbProvincias_pais_Id FOREIGN KEY (pais_Id) 	 REFERENCES Gral.tbPaises(pais_Id),
 
 	CONSTRAINT FK_Gral_tbProvincias_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id 	 FOREIGN KEY(usua_UsuarioCreacion) 		REFERENCES Acce.tbUsuarios (usua_Id),
@@ -262,7 +263,6 @@ CREATE TABLE Gral.tbProvincias(
 	CONSTRAINT FK_Gral_tbProvincias_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id  FOREIGN KEY(usua_UsuarioEliminacion)   REFERENCES Acce.tbUsuarios (usua_Id)
 );
 GO
-
 
 CREATE TABLE Gral.tbCiudades(
 		ciud_Id						INT 			IDENTITY(1,1),

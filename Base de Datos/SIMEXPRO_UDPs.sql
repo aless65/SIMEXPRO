@@ -10924,18 +10924,20 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbReporteModuloDia_Listar
 AS
 BEGIN
 SELECT	remo_Id, 
-		modu.modu_Id, 
+		rmd.modu_Id, 
 		modu.modu_Nombre,
 		remo_Fecha, 
 		remo_TotalDia, 
 		remo_TotalDanado, 
-		crea.usua_Nombre usua_UsuarioCreacion, 
+		rmd.usua_UsuarioCreacion,
+		crea.usua_Nombre usua_UsuarioCrea, 
 		remo_FechaCreacion, 
-		modi.usua_Nombre usua_UsuarioModificacion, 
+		rmd.usua_UsuarioModificacion,
+		modi.usua_Nombre usua_UsuarioModifica, 
 		remo_FechaModificacion, 
 		remo_Estado 
 FROM	Prod.tbReporteModuloDia rmd 
-		INNER JOIN Prod.tbModulos modu				ON rmd.modu_Id = modu.modu_Id 
+		LEFT JOIN Prod.tbModulos modu				ON rmd.modu_Id = modu.modu_Id 
 		INNER JOIN Acce.tbUsuarios crea				ON crea.usua_Id = rmd.usua_UsuarioCreacion 
 		LEFT JOIN  Acce.tbUsuarios modi				ON modi.usua_Id = rmd.usua_UsuarioModificacion 	
 END
@@ -10961,7 +10963,8 @@ BEGIN
 		@usua_UsuarioCreacion,	
 		@remo_FechaCreacion
 		)
-		select 1 
+
+		select SCOPE_IDENTITY()
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE() 

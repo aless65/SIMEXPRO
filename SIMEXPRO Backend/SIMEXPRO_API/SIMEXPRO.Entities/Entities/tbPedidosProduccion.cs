@@ -28,6 +28,8 @@ namespace SIMEXPRO.Entities.Entities
 
         [NotMapped]
         public string empl_NombreCompleto { get; set; }
+        [NotMapped]
+        public string detalles { get; set; }
 
         public virtual tbEmpleados empl { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }

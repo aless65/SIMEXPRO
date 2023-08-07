@@ -46,7 +46,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
         public IEnumerable<tbOrdenCompra> List()
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
-            var result = db.Query<tbOrdenCompra>(ScriptsDataBase.ListarOrde_Ensa_Acab_Etiq, null, commandType: System.Data.CommandType.StoredProcedure);
+            var result = db.Query<tbOrdenCompra>(ScriptsDataBase.ListarOrdenCompra, null, commandType: System.Data.CommandType.StoredProcedure);
             return result;
         }
 
@@ -55,7 +55,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
-            parametros.Add("@code_Id", item.orco_IdCliente, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@orco_Id", item.orco_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@orco_IdCliente", item.orco_IdCliente, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@orco_FechaEmision", item.orco_FechaEmision, DbType.DateTime, ParameterDirection.Input);
             parametros.Add("@orco_FechaLimite", item.orco_FechaLimite, DbType.DateTime, ParameterDirection.Input);
@@ -67,7 +67,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@orco_FechaModificacion", item.orco_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarOrdenCompra, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarOrdenCompra, parametros, commandType: CommandType.StoredProcedure);
             result.CodeStatus = answer;
             return result;
         }

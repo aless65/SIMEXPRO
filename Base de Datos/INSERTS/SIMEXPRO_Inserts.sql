@@ -4,7 +4,6 @@ INSERT INTO [Prod].[tbTipoEmbalaje]
 (tiem_Descripcion, usua_UsuarioCreacion, tiem_FechaCreacion, tiem_Estado)
 VALUES
 ('Embalaje de Prueba', 1, GETDATE(), 1)
-
 GO
 
 --**********CARGOS**********--
@@ -81905,13 +81904,6 @@ VALUES
 
 
 GO
---ORDEN Esa_Acab_Etiq--
-INSERT INTO [Prod].[tbOrde_Ensa_Acab_Etiq]
-(ensa_Cantidad, empl_Id, code_Id, ensa_FechaInicio, ensa_FechaLimite, ppro_Id, usua_UsuarioCreacion, ensa_FechaCreacion, ensa_Estado)
-VALUES 
-(20,1, 2, '01/08/2023', '01/08/2023', 1, 1, '07/31/2023', 1)
-
-GO
 
 --ESTILOS--
 INSERT INTO [Prod].[tbEstilos]
@@ -81946,6 +81938,13 @@ VALUES
 (3,1,10,10,'-----',1,1,GETDATE(),1)
 
 
+--ORDEN Esa_Acab_Etiq--
+INSERT INTO [Prod].[tbOrde_Ensa_Acab_Etiq]
+(ensa_Cantidad, empl_Id, code_Id, ensa_FechaInicio, ensa_FechaLimite, ppro_Id, usua_UsuarioCreacion, ensa_FechaCreacion, ensa_Estado)
+VALUES 
+(20,1, 2, '01/08/2023', '01/08/2023', 1, 1, '07/31/2023', 1)
+
+GO
 --ORDEN DE COMPRA--
 INSERT INTO Prod.tbOrdenCompra
 (orco_IdCliente, orco_FechaEmision,	orco_FechaLimite, orco_MetodoPago, orco_Materiales,	orco_IdEmbalaje, orco_EstadoOrdenCompra, orco_DireccionEntrega,	usua_UsuarioCreacion, orco_FechaCreacion)

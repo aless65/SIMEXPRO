@@ -1422,6 +1422,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             }
         }
         #endregion
+
         #region Modulos
         public ServiceResult ListarModulos()
         {
@@ -1526,16 +1527,18 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region orde_Ensa_Acab_EtiqRepository
-        public IEnumerable<tbOrde_Ensa_Acab_Etiq> Listarorde_Ensa_Acab_Etiq()
+        public ServiceResult Listarorde_Ensa_Acab_Etiq()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _orde_Ensa_Acab_EtiqRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbOrde_Ensa_Acab_Etiq>();
+                return result.Error(ex.Message);
+
             }
         }
 
@@ -1628,16 +1631,19 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Orden Compra Detalles
-        public IEnumerable<tbOrdenCompraDetalles> ListarOrdenCompraDetalles(tbOrdenCompraDetalles item)
+        public ServiceResult ListarOrdenCompraDetalles(tbOrdenCompraDetalles item)
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _ordenCompraDetallesRepository.List(item);
-                return list;
+                return result.Ok(list);
+
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbOrdenCompraDetalles>();
+                return result.Error(ex.Message);
+
             }
         }
 
@@ -1730,16 +1736,18 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Orden Compra 
-        public IEnumerable<tbOrdenCompra> ListarOrdenCompra()
+        public ServiceResult ListarOrdenCompra()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _ordenCompraRepository.List();
-                return list;
+                return result.Ok(list);
+
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbOrdenCompra>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -1832,19 +1840,22 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Pedidos Orden Detalles
-        public IEnumerable<tbPedidosOrdenDetalle> ListarPedidosOrdenDetalle(tbPedidosOrdenDetalle item)
+        public ServiceResult ListarPedidosOrdenDetalle(tbPedidosOrdenDetalle item)
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _pedidosOrdenDetallesRepository.List(item);
-                return list;
+                return result.Ok(list);
+
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbPedidosOrdenDetalle>();
+                return result.Error(ex.Message);
+
             }
         }
-
+            
         public ServiceResult InsertarPedidosOrdenDetalle(tbPedidosOrdenDetalle item)
         {
             var result = new ServiceResult();
@@ -1934,16 +1945,17 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Pedidos Orden
-        public IEnumerable<tbPedidosOrden> ListarPedidosOrden()
+        public ServiceResult ListarPedidosOrden()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _pedidosOrdenRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbPedidosOrden>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -2036,16 +2048,17 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Pedidos Produccion Detalles
-        public IEnumerable<tbPedidosProduccionDetalles> ListarPedidosProduccioDetalles()
+        public ServiceResult ListarPedidosProduccioDetalles(int ppro_Id)
         {
+            var result = new ServiceResult();
             try
             {
-                var list = _pedidosProduccionDetallesRepository.List();
-                return list;
+                var list = _pedidosProduccionDetallesRepository.List(ppro_Id);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbPedidosProduccionDetalles>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -2138,16 +2151,17 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Pedidos Produccion
-        public IEnumerable<tbPedidosProduccion> ListarPedidosProduccion()
+        public ServiceResult ListarPedidosProduccion()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _pedidosProduccionRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbPedidosProduccion>();
+                return result.Error(ex.Message);
             }
         }
 

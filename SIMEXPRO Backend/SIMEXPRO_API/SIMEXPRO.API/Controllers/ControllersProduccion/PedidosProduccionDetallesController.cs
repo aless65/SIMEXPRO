@@ -25,13 +25,13 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         }
 
 
-        //[HttpGet("Listado")]
-        //public IActionResult Index(PedidosProduccionDetalleViewModel pedidosProduccionDetalleViewModel)
-        //{
-        //    var listado = _produccionServices.ListarPedidosProduccioDetalles(pedidosProduccionDetalleViewModel.ppro_Id);
-        //    var listadoMapeado = _mapper.Map<IEnumerable<PedidosProduccionDetalleViewModel>>(listado);
-        //    return Ok(listadoMapeado);
-        //}
+        [HttpGet("Listado")]
+        public IActionResult Index(PedidosProduccionDetalleViewModel pedidosProduccionDetalleViewModel)
+        {
+            var listado = _produccionServices.ListarPedidosProduccioDetalles(pedidosProduccionDetalleViewModel.ppro_Id);
+            listado.Data = _mapper.Map<IEnumerable<PedidosProduccionDetalleViewModel>>(listado.Data);
+            return Ok(listado);
+        }
 
 
         [HttpPost("Insert")]

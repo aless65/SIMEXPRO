@@ -29,8 +29,8 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         public IActionResult Index()
         {
             var listado = _produccionServices.ListarOrdenCompra();
-            var listadoMapeado = _mapper.Map<IEnumerable<OrdenCompraViewModel>>(listado);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<OrdenCompraViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
 

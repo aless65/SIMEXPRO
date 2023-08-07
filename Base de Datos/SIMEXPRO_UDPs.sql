@@ -358,21 +358,44 @@ GO
 
 
 --*********** Tabla Roles *****************
-
 /* listar Roles*/
-CREATE OR ALTER PROCEDURE Acce.UDP_tbRoles_Listar
+CREATE OR ALTER PROCEDURE [Acce].[UDP_tbRoles_Listar]
 AS
 BEGIN
-	SELECT	role_Id,
-			role_Descripcion,
-			usua_UsuarioCreacion,
-			role_FechaCreacion,
-			Usua_UsuarioModificacion,
-			role_FechaModificacion
-	FROM	Acce.tbRoles
-	WHERE	role_Estado = 1
-END
+	SELECT tbroles.[role_Id], 
+		   [role_Descripcion],
+		   tbroles.[role_Aduana], 
+		   CASE [role_Aduana]
+		   WHEN 1 THEN 'Sí'
+		   ELSE 'No' END AS Aduanero,
+		   tbroles.[usua_UsuarioCreacion],
+		   usuCrea.usua_Nombre as UsuarioCreacion,
+		   [role_FechaCreacion], 
+		   tbroles.[usua_UsuarioModificacion],
+		   usuModi.usua_Nombre as UsuarioModificacion,
+		   [role_FechaModificacion], 
+		   tbroles.[usua_UsuarioEliminacion], 
+		   [role_FechaEliminacion],
+		   [role_Estado],
+		   (SELECT [ropa_Id],
+				   tbropa.[pant_Id],
+				   pant_Nombre
+   FROM [Acce].[tbRolesXPantallas] tbropa
+   INNER JOIN [Acce].[tbPantallas] tbpa
+   ON tbropa.pant_Id = tbpa.pant_Id
+   WHERE tbroles.role_Id = tbropa.role_Id
 
+   FOR JSON PATH) 
+   AS Detalles
+
+	FROM [Acce].[tbRoles] tbroles
+	LEFT JOIN Acce.tbUsuarios usuModi
+    ON tbroles.usua_UsuarioModificacion = usuModi.usua_Id
+    INNER JOIN Acce.tbUsuarios usuCrea
+    ON tbroles.[usua_UsuarioCreacion] = usuCrea.usua_Id
+
+
+END
 GO
 
 /* Insertar Roles*/

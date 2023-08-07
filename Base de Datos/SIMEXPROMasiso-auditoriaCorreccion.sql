@@ -2742,11 +2742,11 @@ CREATE TABLE Adua.tbBoletinPago(
     boen_NDeclaracion	           NVARCHAR(200) NOT NULL,
     --pena_RTN                       NVARCHAR(40) NOT NULL,
     boen_Preimpreso                NVARCHAR(MAX) NOT NULL,
-    boen_Declarante                NVARCHAR(200) NOT NULL,
+    --boen_Declarante                NVARCHAR(200) NOT NULL,
     boen_TotalPagar                DECIMAL(18,2) NULL,
     boen_TotalGarantizar           DECIMAL(18,2) NULL,
     --boen_RTN                       NVARCHAR(40) NOT NULL,
-    boen_TipoEncabezado            NVARCHAR(200) NOT NULL,
+    --boen_TipoEncabezado            NVARCHAR(200) NOT NULL,
     coim_Id                        INT NOT NULL,
     copa_Id                        INT NOT NULL,
 
@@ -2768,6 +2768,17 @@ CREATE TABLE Adua.tbBoletinPago(
 	--CONSTRAINT FK_Adua_tbBoletinPago_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios (usua_Id)
 );
 GO
+
+CREATE TABLE Adua.tbBoletinPagoDetalles(
+	bode_Id						   INT IDENTITY(1,1),
+	lige_Id						   INT NOT NULL,
+
+	usua_UsuarioCreacion           INT NOT NULL,
+    bode_FechaCreacion             DATETIME NOT NULL,
+    usua_UsuarioModificacion       INT DEFAULT NULL,
+    bode_FechaModificacion         DATETIME DEFAULT NULL,
+);
+
 
 CREATE TABLE Adua.tbDocumentosDeSoporte(
 	doso_Id						        INT IDENTITY(1,1),

@@ -48,12 +48,12 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Eliminar")]
-        public IActionResult Delete(Oficio_ProfesionesViewModel oficio_ProfesionesViewModel)
-        {
-            var item = _mapper.Map<tbOficio_Profesiones>(oficio_ProfesionesViewModel);
-            var respuesta = _generalesServices.EliminarOficio_Profesiones(item);
-            return Ok(respuesta);
-        }
+        //[HttpPost("Eliminar")]
+        //public IActionResult Delete(Oficio_ProfesionesViewModel oficio_ProfesionesViewModel)
+        //{
+        //    var item = _mapper.Map<tbOficio_Profesiones>(oficio_ProfesionesViewModel);
+        //    var respuesta = _generalesServices.EliminarOficio_Profesiones(item);
+        //    return Ok(respuesta);
+        //}
     }
 }

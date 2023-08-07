@@ -13,7 +13,9 @@ namespace SIMEXPRO.API.Models.ModelsAcceso
         public string usua_Contrasenia { get; set; }
         public string empl_CorreoElectronico { get; set; }
 
-        
+        public string empleadoNombreCompleto { get; set; }
+
+        public string role_Descripcion { get; set; }
 
         public int empl_Id { get; set; }
         public string usua_Image { get; set; }

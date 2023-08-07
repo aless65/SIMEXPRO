@@ -859,15 +859,8 @@ namespace SIMEXPRO.DataAccess.Context
 
                 entity.ToTable("tbColores", "Prod");
 
-                entity.HasIndex(e => e.colr_Codigo, "UQ_Prod_tbColores_colr_Codigo")
-                    .IsUnique();
-
                 entity.HasIndex(e => e.colr_Nombre, "UQ_Prod_tbColores_colr_Nombre")
                     .IsUnique();
-
-                entity.Property(e => e.colr_Codigo)
-                    .IsRequired()
-                    .HasMaxLength(50);
 
                 entity.Property(e => e.colr_Estado).HasDefaultValueSql("((1))");
 

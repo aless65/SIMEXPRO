@@ -6,32 +6,6 @@ VALUES
 ('Embalaje de Prueba', 1, GETDATE(), 1)
 
 GO
---ESTILOS--
-INSERT INTO [Prod].[tbEstilos]
-(esti_Descripcion, usua_UsuarioCreacion, esti_FechaCreacion, esti_Estado)
-VALUES
-('Camiseta de Prueba',1,GETDATE(),1)
-
-GO
-
---COLORES--
-INSERT INTO [Prod].[tbColores]
-(colr_Nombre, colr_Codigo, usua_UsuarioCreacion, colr_FechaCreacion, colr_Estado)
-VALUES
-('Purpura','#912386',1,GETDATE(),1)
-
-GO
-
-GO
---MATERIALES--
-INSERT INTO Prod.tbMateriales 
-(mate_Descripcion, subc_Id, mate_Precio, usua_UsuarioCreacion, mate_FechaCreacion)
-VALUES
-('Botones', 2, 23.99, 1, GETDATE()),
-('Tela', 2, 23.99, 1, GETDATE()),
-('Listones', 2, 23.99, 1, GETDATE())
-
-
 
 --**********CARGOS**********--
 INSERT INTO [Gral].[tbCargos] ([carg_Nombre], usua_UsuarioCreacion, [carg_FechaCreacion])
@@ -81894,21 +81868,15 @@ VALUES	('SAI',1,1,'https://www.tajimadst.com/wp-content/uploads/2019/07/SAI_1.jp
 		('VARIOline',	4,4,'https://www.rieter.com/fileadmin/_processed_/9/0/csm_varioline-mill-layout-2022-ECOized-2400Kg-rieter-96246_4c9505e247.jpg',1,GETDATE()),
 		('iCono',5,5,'https://www.thiestextilmaschinen.de/wp-content/uploads/2020/10/4.1.2.1-iCone-Familie-1-scaled.jpg',1,GETDATE())
 
-INSERT INTO Prod.tbMaquinas (maqu_NumeroSerie, mmaq_Id, modu_Id, usua_UsuarioCreacion, maqu_FechaCreacion)
-VALUES	('00001',1,1,1,GETDATE()),
-		('00002',2,2,1,GETDATE()),
-		('00003',3,3,1,GETDATE()),
-		('00004',4,4,1,GETDATE()),
-		('00005',5,5,1,GETDATE())
 
 INSERT INTO Adua.tbEstadoMercancias (merc_Descripcion, usua_UsuarioCreacion, merc_FechaCreacion)
 VALUES ('FRACCIONADO', 1, GETDATE());
 
-INSERT INTO Gral.tbFormas_Envio (foen_Codigo,foen_Descripcion, usua_UsuarioCreacion, foen_FechaCreacion)
-VALUES ('FR', 'FRACCIONADO', 1, GETDATE()),
-('OT', 'OTRO', 1, GETDATE()),
-('PR', 'PARCIAL', 1, GETDATE()),
-('TT', 'TOTAL', 1, GETDATE())
+--INSERT INTO Gral.tbFormas_Envio (foen_Codigo,foen_Descripcion, usua_UsuarioCreacion, foen_FechaCreacion)
+--VALUES ('FR', 'FRACCIONADO', 1, GETDATE()),
+--('OT', 'OTRO', 1, GETDATE()),
+--('PR', 'PARCIAL', 1, GETDATE()),
+--('TT', 'TOTAL', 1, GETDATE())
 
 
 GO
@@ -81918,6 +81886,56 @@ INSERT INTO [Gral].[tbProveedores]
 VALUES
 ('ECOMODA','BEATRIZ PINZON ZOLANO','98159299','21004',1,'--------','is@hotmail.com',1,GETDATE(),1)
 
+--Pedidos Producción--
+
+INSERT INTO Prod.tbPedidosProduccion
+(empl_Id, ppro_Fecha, ppro_Estados, ppro_Observaciones, usua_UsuarioCreacion, ppro_FechaCreacion)
+VALUES
+(1, GETDATE(), 'En Proceso', '--------', 1, GETDATE()),
+(1, GETDATE(), 'En Proceso', '--------', 1, GETDATE()),
+(1, GETDATE(), 'Pendiente', '--------', 1, GETDATE())
+
+GO
+--Pedidos Producción Detalles--
+
+INSERT INTO Prod.tbPedidosProduccionDetalles
+(ppro_Id, lote_Id, ppde_Cantidad, usua_UsuarioCreacion, ppde_FechaCreacion)
+VALUES 
+(1, 4, 10, 1, GETDATE())
+
+
+GO
+--ORDEN Esa_Acab_Etiq--
+INSERT INTO [Prod].[tbOrde_Ensa_Acab_Etiq]
+(ensa_Cantidad, empl_Id, code_Id, ensa_FechaInicio, ensa_FechaLimite, ppro_Id, usua_UsuarioCreacion, ensa_FechaCreacion, ensa_Estado)
+VALUES 
+(20,1, 2, '01/08/2023', '01/08/2023', 1, 1, '07/31/2023', 1)
+
+GO
+
+--ESTILOS--
+INSERT INTO [Prod].[tbEstilos]
+(esti_Descripcion, usua_UsuarioCreacion, esti_FechaCreacion, esti_Estado)
+VALUES
+('Camiseta de Prueba',1,GETDATE(),1)
+GO
+
+--COLORES--
+INSERT INTO [Prod].[tbColores]
+(colr_Nombre, usua_UsuarioCreacion, colr_FechaCreacion, colr_Estado)
+VALUES
+('Púrpura',1,GETDATE(),1)
+
+GO
+
+GO
+--MATERIALES--
+INSERT INTO Prod.tbMateriales 
+(mate_Descripcion, subc_Id, mate_Precio, usua_UsuarioCreacion, mate_FechaCreacion)
+VALUES
+('Botones', 2, 23.99, 1, GETDATE()),
+('Tela', 2, 23.99, 1, GETDATE()),
+('Listones', 2, 23.99, 1, GETDATE())
 --LOTES--
 INSERT INTO [Prod].[tbLotes]
 (mate_Id, unme_Id, lote_Stock, lote_CantIngresada, lote_Observaciones, tipa_Id, usua_UsuarioCreacion, lote_FechaCreacion, lote_Estado)
@@ -81947,29 +81965,11 @@ VALUES		(4,2,1,1,'F',1,'aca deberia ir un documento','aca deberia ir otro docume
 
 
 GO
---Pedidos Producción--
-
-INSERT INTO Prod.tbPedidosProduccion
-(empl_Id, ppro_Fecha, ppro_Estados, ppro_Observaciones, usua_UsuarioCreacion, ppro_FechaCreacion)
-VALUES
-(1, GETDATE(), 'En Proceso', '--------', 1, GETDATE()),
-(1, GETDATE(), 'En Proceso', '--------', 1, GETDATE()),
-(1, GETDATE(), 'Pendiente', '--------', 1, GETDATE())
-
-GO
---Pedidos Producción Detalles--
-
-INSERT INTO Prod.tbPedidosProduccionDetalles
-(ppro_Id, lote_Id, ppde_Cantidad, usua_UsuarioCreacion, ppde_FechaCreacion)
-VALUES 
-(1, 4, 10, 1, GETDATE())
 
 
-GO
---ORDEN Esa_Acab_Etiq--
-INSERT INTO [Prod].[tbOrde_Ensa_Acab_Etiq]
-(ensa_Cantidad, empl_Id, code_Id, ensa_FechaInicio, ensa_FechaLimite, ppro_Id, usua_UsuarioCreacion, ensa_FechaCreacion, ensa_Estado)
-VALUES 
-(20,1, 2, '01/08/2023', '01/08/2023', 1, 1, '07/31/2023', 1)
-
-GO
+INSERT INTO Prod.tbMaquinas (maqu_NumeroSerie, mmaq_Id, modu_Id, usua_UsuarioCreacion, maqu_FechaCreacion)
+VALUES	('00001',1,1,1,GETDATE()),
+		('00002',2,2,1,GETDATE()),
+		('00003',3,3,1,GETDATE()),
+		('00004',4,4,1,GETDATE()),
+		('00005',5,5,1,GETDATE())

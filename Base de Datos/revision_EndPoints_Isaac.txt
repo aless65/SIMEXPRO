@@ -1,0 +1,11 @@
+Comerciante Individual: Arreglado
+Concepto de Pago: Sin observaciones
+Declaracion de Valor: Depende de los inserts de otras tablas
+DUCA: Depende de los inserts de otras tablas
+Empleados: Arreglado
+EstadoBoletin: Arreglado		
+Estado Mercancias: Arreglado
+Estados Civiles: Arreglado
+Estilos: Arreglado
+Facturas: No puedo mostrar ni insertar una factura ya que depende de la deva_ID
+Formas de Pago: Arreglado

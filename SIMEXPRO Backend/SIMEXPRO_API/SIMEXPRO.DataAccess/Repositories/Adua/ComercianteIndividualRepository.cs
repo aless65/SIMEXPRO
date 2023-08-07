@@ -28,20 +28,20 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
             parametros.Add("@pers_Id", item.pers_Id, DbType.Int32, ParameterDirection.Input);
-            //parametros.Add("@fopr_Id", item.fopr_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@fopr_Id", item.pers_FormaRepresentacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@colo_Id", item.colo_Id, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@coin_PuntoReferencia", item.coin_PuntoReferencia, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@coin_PuntoReferencia", item.coin_PuntoReferencia, DbType.String, ParameterDirection.Input);
             parametros.Add("@coin_ColoniaRepresentante", item.coin_ColoniaRepresentante, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@coin_NumeroLocalReprentante", item.coin_NumeroLocalReprentante, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@coin_PuntoReferenciaReprentante", item.coin_PuntoReferenciaReprentante, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@coin_TelefonoCelular", item.coin_TelefonoCelular, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@coin_TelefonoFijo", item.coin_TelefonoFijo, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@coin_CorreoElectronico", item.coin_CorreoElectronico, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@coin_CorreoElectronicoAlternativo", item.coin_CorreoElectronicoAlternativo, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@coin_NumeroLocalReprentante", item.coin_NumeroLocalReprentante, DbType.String, ParameterDirection.Input);
+            parametros.Add("@coin_PuntoReferenciaReprentante", item.coin_PuntoReferenciaReprentante, DbType.String, ParameterDirection.Input);
+            parametros.Add("@coin_TelefonoCelular", item.coin_TelefonoCelular, DbType.String, ParameterDirection.Input);
+            parametros.Add("@coin_TelefonoFijo", item.coin_TelefonoFijo, DbType.String, ParameterDirection.Input);
+            parametros.Add("@coin_CorreoElectronico", item.coin_CorreoElectronico, DbType.String, ParameterDirection.Input);
+            parametros.Add("@coin_CorreoElectronicoAlternativo", item.coin_CorreoElectronicoAlternativo, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@coin_FechaCreacion", item.coin_FechaCreacion, DbType.Int32, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarComercianteIndividual, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            parametros.Add("@coin_FechaCreacion", item.coin_FechaCreacion, DbType.String, ParameterDirection.Input);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarComercianteIndividual, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -59,20 +59,20 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             var parametros = new DynamicParameters();
             parametros.Add("@coin_Id", item.coin_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@pers_Id", item.pers_Id, DbType.Int32, ParameterDirection.Input);
-            //parametros.Add("@fopr_Id", item.fopr_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@fopr_Id", item.pers_FormaRepresentacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@colo_Id", item.colo_Id, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@coin_PuntoReferencia", item.coin_PuntoReferencia, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@coin_PuntoReferencia", item.coin_PuntoReferencia, DbType.String, ParameterDirection.Input);
             parametros.Add("@coin_ColoniaRepresentante", item.coin_ColoniaRepresentante, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@coin_NumeroLocalReprentante", item.coin_NumeroLocalReprentante, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@coin_PuntoReferenciaReprentante", item.coin_PuntoReferenciaReprentante, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@coin_TelefonoCelular", item.coin_TelefonoCelular, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@coin_TelefonoFijo", item.coin_TelefonoFijo, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@coin_CorreoElectronico", item.coin_CorreoElectronico, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@coin_CorreoElectronicoAlternativo", item.coin_CorreoElectronicoAlternativo, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@coin_NumeroLocalReprentante", item.coin_NumeroLocalReprentante, DbType.String, ParameterDirection.Input);
+            parametros.Add("@coin_PuntoReferenciaReprentante", item.coin_PuntoReferenciaReprentante, DbType.String, ParameterDirection.Input);
+            parametros.Add("@coin_TelefonoCelular", item.coin_TelefonoCelular, DbType.String, ParameterDirection.Input);
+            parametros.Add("@coin_TelefonoFijo", item.coin_TelefonoFijo, DbType.String, ParameterDirection.Input);
+            parametros.Add("@coin_CorreoElectronico", item.coin_CorreoElectronico, DbType.String, ParameterDirection.Input);
+            parametros.Add("@coin_CorreoElectronicoAlternativo", item.coin_CorreoElectronicoAlternativo, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@coin_FechaModificacion", item.coin_FechaModificacion, DbType.Int32, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarComercianteIndividual, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            parametros.Add("@coin_FechaModificacion", item.coin_FechaModificacion, DbType.String, ParameterDirection.Input);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarComercianteIndividual, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus= answer;
             return result;
         }
     }

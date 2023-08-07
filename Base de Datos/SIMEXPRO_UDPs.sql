@@ -2248,7 +2248,7 @@ END
 GO
 
 /*Insertar Comersiante Individual*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbComercianteIndividual_Insertar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbComercianteIndividual_Insertar --1, 1, 1, "Frente a farmacia Kielsa", 1, "A777", "Frente a supermercado La Colonia", "99997788", "22004545", "esUnaPrueba@prueba.com", '' ,1, '8/7/2023'
 (
   	@pers_Id                           	INT,
   	@fopr_Id                           	BIT,
@@ -7002,6 +7002,7 @@ GO
 /*Insertar ESTADO MERCANCIAS*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbEstadoMercancias_Insertar
 (
+	@merc_Codigo			CHAR(2),
 	@merc_Descripcion		NVARCHAR(150),
 	@usua_UsuarioCreacion	INT,
 	@merc_FechaCreacion		DATETIME
@@ -7020,8 +7021,8 @@ BEGIN
 		END
 		ELSE
 		BEGIN
-			INSERT INTO Adua.tbEstadoMercancias (merc_Descripcion, usua_UsuarioCreacion, merc_FechaCreacion)
-			VALUES (@merc_Descripcion, @usua_UsuarioCreacion, @merc_FechaCreacion)
+			INSERT INTO Adua.tbEstadoMercancias (merc_Codigo ,merc_Descripcion, usua_UsuarioCreacion, merc_FechaCreacion)
+			VALUES (@merc_Codigo ,@merc_Descripcion, @usua_UsuarioCreacion, @merc_FechaCreacion)
 		END
 
 		SELECT 1 AS Resultado
@@ -7036,6 +7037,7 @@ GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbEstadoMercancias_Editar
 (
 	@merc_Id					INT,
+	@merc_Codigo				CHAR(2),
 	@merc_Descripcion			NVARCHAR(150),
 	@usua_UsuarioModificacion	INT,
 	@merc_FechaModificacion		DATETIME
@@ -7044,11 +7046,12 @@ AS
 BEGIN
 	BEGIN TRY
 		   UPDATE Adua.tbEstadoMercancias
-			  SET merc_Descripcion = @merc_Descripcion,
-				  usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				  merc_FechaModificacion = @merc_FechaModificacion
-			WHERE merc_Id = @merc_Id 
-			  AND merc_Estado = 1
+			  SET	merc_Codigo = @merc_Codigo,
+					merc_Descripcion = @merc_Descripcion,
+					usua_UsuarioModificacion = @usua_UsuarioModificacion,
+					merc_FechaModificacion = @merc_FechaModificacion
+			WHERE	merc_Id = @merc_Id 
+			  AND	merc_Estado = 1
 
 		SELECT 1 AS Resultado
 	END TRY
@@ -8869,8 +8872,10 @@ AS
 BEGIN
 SELECT	est.esti_Id						,
 		est.esti_Descripcion			,
+		est.usua_UsuarioCreacion,
 		usu.usua_Nombre					AS usarioCreacion,
 		est.esti_FechaCreacion			,
+		est.usua_UsuarioModificacion,
 		usu2.usua_Nombre				AS usuarioModificacion,
 		est.esti_FechaModificacion		,
 		est.esti_Estado					

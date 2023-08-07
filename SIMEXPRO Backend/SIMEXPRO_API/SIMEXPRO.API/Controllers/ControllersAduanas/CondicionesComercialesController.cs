@@ -30,8 +30,8 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         public IActionResult Index()
         {
             var listado = _aduanaServices.ListarCondicionesComerciales();
-            var listadoMapeado = _mapper.Map<IEnumerable<CondicionesComercialesViewModel>>(listado.Data);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<CondicionesComercialesViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
         [HttpPost("Insertar")]

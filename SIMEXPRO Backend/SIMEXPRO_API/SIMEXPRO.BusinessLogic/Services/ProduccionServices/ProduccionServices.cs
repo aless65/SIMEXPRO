@@ -638,19 +638,16 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         {
             var result = new ServiceResult();
             try
-            {
-               
+            {               
                 var map = _estilosRepository.Insert(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
-              
             }
             catch (Exception ex)
             {
@@ -665,13 +662,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             {
                 
                 var map = _estilosRepository.Update(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
                
@@ -687,14 +683,13 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                  var map = _estilosRepository.Delete(item);
-                if (map.CodeStatus > 0)
+                var map = _estilosRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
             }

@@ -835,7 +835,7 @@ BEGIN
 	       ,carg.usua_UsuarioModificacion	
 	       ,usuaModifica.usua_Nombre		AS usuarioModificacionNombre
 	       ,carg_FechaModificacion			
-	       ,carg.usua_UsuarioEliminacion	
+	       --,carg.usua_UsuarioEliminacion	
 	       --,usuaElimina.usua_Nombre			AS usuarioEliminacionNombre
 	       --,carg_FechaEliminacion			
 	       ,carg_Estado						

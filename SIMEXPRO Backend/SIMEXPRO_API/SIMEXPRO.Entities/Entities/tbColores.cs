@@ -16,7 +16,6 @@ namespace SIMEXPRO.Entities.Entities
 
         public int colr_Id { get; set; }
         public string colr_Nombre { get; set; }
-        public string colr_Codigo { get; set; }
         public int? usua_UsuarioCreacion { get; set; }
         public DateTime colr_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }

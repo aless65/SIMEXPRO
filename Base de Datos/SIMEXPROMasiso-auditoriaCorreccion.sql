@@ -1121,7 +1121,7 @@ CREATE TABLE Prod.tbEstilos(
 CREATE TABLE Prod.tbColores(
 	colr_Id						INT  IDENTITY(1,1),
 	colr_Nombre					NVARCHAR(200) NOT NULL,
-	colr_Codigo					NVARCHAR(50) NOT NULL,
+	--colr_Codigo					NVARCHAR(50) NOT NULL,
 	usua_UsuarioCreacion		INT,
 	colr_FechaCreacion			DATETIME NOT NULL, 
 	usua_UsuarioModificacion	INT,
@@ -1131,7 +1131,7 @@ CREATE TABLE Prod.tbColores(
 	colr_Estado					BIT DEFAULT 1,
 	CONSTRAINT PK_Prod_tbColores_colr_Id													PRIMARY KEY (colr_Id),
 	CONSTRAINT UQ_Prod_tbColores_colr_Nombre 												UNIQUE(colr_Nombre),
-	CONSTRAINT UQ_Prod_tbColores_colr_Codigo 												UNIQUE(colr_Codigo),
+	--CONSTRAINT UQ_Prod_tbColores_colr_Codigo 												UNIQUE(colr_Codigo),
 	CONSTRAINT FK_Prod_tbColores_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id				FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbColores_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbColores_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios (usua_Id)

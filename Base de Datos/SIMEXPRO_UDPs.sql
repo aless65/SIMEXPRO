@@ -1556,7 +1556,7 @@ GO
 
 /*Insertar FORMAS DE ENVIO*/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbFormas_Envio_Insertar
-(
+(   @foen_Codigo            CHAR(2),
 	@foen_Descripcion		NVARCHAR(500),
 	@usua_UsuarioCreacion	INT,
 	@foen_FechaCreacion		DATETIME
@@ -1570,13 +1570,14 @@ BEGIN
 					  AND foen_Estado = 0)
 		BEGIN
 			UPDATE Gral.tbFormas_Envio
-			   SET foen_Estado = 1
+			   SET foen_Estado = 1,
+			       foen_Codigo = @foen_Codigo
 			 WHERE foen_Descripcion = @foen_Descripcion
 		END
 		ELSE
 		BEGIN
-			INSERT INTO Gral.tbFormas_Envio (foen_Descripcion, usua_UsuarioCreacion, foen_FechaCreacion)
-			VALUES (@foen_Descripcion, @usua_UsuarioCreacion, @foen_FechaCreacion)
+			INSERT INTO Gral.tbFormas_Envio (foen_Codigo,foen_Descripcion, usua_UsuarioCreacion, foen_FechaCreacion)
+			VALUES (@foen_Codigo,@foen_Descripcion, @usua_UsuarioCreacion, @foen_FechaCreacion)
 		END
 		
 		SELECT 1 AS Resultado
@@ -1590,6 +1591,7 @@ GO
 CREATE OR ALTER PROCEDURE Gral.UDP_tbFormas_Envio_Editar
 (
 	@foen_Id					INT,
+	@foen_Codigo                CHAR(2),
 	@foen_Descripcion			NVARCHAR(500),
 	@usua_UsuarioModificacion	INT,
 	@foen_FechaModificacion		DATETIME
@@ -1598,7 +1600,8 @@ AS
 BEGIN
 	BEGIN TRY
 		UPDATE Gral.tbFormas_Envio
-		   SET foen_Descripcion = @foen_Descripcion,
+		   SET foen_Codigo = @foen_Codigo,
+		       foen_Descripcion = @foen_Descripcion,
 			   usua_UsuarioModificacion = @usua_UsuarioModificacion,
 			   foen_FechaModificacion = @foen_FechaModificacion
 		 WHERE foen_Id = @foen_Id

@@ -10851,7 +10851,7 @@ ON tbpp.empl_Id = tbempls.empl_Id
 
 
 END
-
+GO
 --*****Insertar*****--
 
 CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Insertar

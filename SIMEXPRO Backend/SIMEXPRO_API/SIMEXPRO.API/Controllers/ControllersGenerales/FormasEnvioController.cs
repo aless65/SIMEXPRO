@@ -24,7 +24,8 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             _generalesServices = generalesService;
             _mapper = mapper;
         }
-
+        
+        
         [HttpGet("Listar")]
         public IActionResult Index()
         {
@@ -35,7 +36,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(Formas_EnvioViewModel formas_EnvioViewModel)
         {
             var item = _mapper.Map<tbFormas_Envio>(formas_EnvioViewModel);
@@ -44,7 +45,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(Formas_EnvioViewModel formas_EnvioViewModel)
         {
             var item = _mapper.Map<tbFormas_Envio>(formas_EnvioViewModel);
@@ -52,7 +53,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
+        [HttpPost("Eliminar")]
         public IActionResult Delete(Formas_EnvioViewModel formas_EnvioViewModel)
         {
             var item = _mapper.Map<tbFormas_Envio>(formas_EnvioViewModel);         

@@ -24,14 +24,14 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             _mapper = mapper;
         }
 
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _produccionServices.ListarFuncionesMaquina();
             return Ok(listado);
         }
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(FuncionesMaquinaViewModel funcionesMaquinaViewModel)
         {
             var item = _mapper.Map<tbFuncionesMaquina>(funcionesMaquinaViewModel);
@@ -39,7 +39,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(FuncionesMaquinaViewModel funcionesMaquinaViewModel)
         {
             var item = _mapper.Map<tbFuncionesMaquina>(funcionesMaquinaViewModel);
@@ -47,7 +47,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
+        [HttpPost("Eliminar")]
         public IActionResult Delete(FuncionesMaquinaViewModel funcionesMaquinaViewModel)
         {
             var item = _mapper.Map<tbFuncionesMaquina>(funcionesMaquinaViewModel);

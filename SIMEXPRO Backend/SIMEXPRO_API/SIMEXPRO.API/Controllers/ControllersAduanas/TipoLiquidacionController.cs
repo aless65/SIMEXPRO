@@ -24,16 +24,16 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             _mapper = mapper;
         }
 
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _aduanaServices.ListarTipoLiquidacion();
-            var listadoMapeado = _mapper.Map<IEnumerable<TipoLiquidacionViewModel>>(listado.Data);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<TipoLiquidacionViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(TipoLiquidacionViewModel tipoLiquidacionViewModel)
         {
             var item = _mapper.Map<tbTipoLiquidacion>(tipoLiquidacionViewModel);
@@ -42,7 +42,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         }
 
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(TipoLiquidacionViewModel tipoLiquidacionViewModel)
         {
             var item = _mapper.Map<tbTipoLiquidacion>(tipoLiquidacionViewModel);
@@ -50,7 +50,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
+        [HttpPost("Eliminar")]
         public IActionResult Delete(TipoLiquidacionViewModel tipoLiquidacionViewModel)
         {
             var item = _mapper.Map<tbTipoLiquidacion>(tipoLiquidacionViewModel);

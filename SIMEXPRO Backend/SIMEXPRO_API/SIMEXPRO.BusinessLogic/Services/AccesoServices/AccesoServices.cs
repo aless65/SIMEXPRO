@@ -32,17 +32,53 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
 
         #region Usuarios
 
-        public ServiceResult IniciarSesion(string usua_Nombre, string usua_Contrasenia)
+        public ServiceResult IniciarSesion(tbUsuarios item)
         {
             var resultado = new ServiceResult();
             try
             {
-                var usuario = _usuariosRepository.Login(usua_Nombre, usua_Contrasenia);
+                var usuario = _usuariosRepository.Login(item);
 
                 if (usuario.usua_Nombre == null)
                     return resultado.Forbidden("El usuario o contraseña son incorrectos");
                 else
                     return resultado.Ok(usuario);
+            }
+            catch (Exception ex)
+            {
+                return resultado.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult UsuarioCorreo(string usua_Nombre)
+        {
+            var resultado = new ServiceResult();
+            try
+            {
+                var correo = _usuariosRepository.UsuarioCorreo(usua_Nombre);
+
+                if (correo.MessageStatus == null)
+                    return resultado.NotFound("El usuario no está disponible");
+                else
+                    return resultado.Ok(correo);
+            }
+            catch (Exception ex)
+            {
+                return resultado.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult CambiarContrasenia(tbUsuarios item)
+        {
+            var resultado = new ServiceResult();
+            try
+            {
+                var correo = _usuariosRepository.CambiarContrasenia(item);
+
+                if (correo.MessageStatus == "1")
+                    return resultado.Ok("La contraseña ha sido actualizada");
+                else
+                    return resultado.Error(correo);
             }
             catch (Exception ex)
             {
@@ -249,6 +285,19 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
                     MessageStatus = ex.Message
                 };
                 return respuesta;
+            }
+        }
+        public ServiceResult DibujarMenu(tbRolesXPantallas item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _rolesPorPantallaRepository.DibujarMenu(item);
+                return result.Ok(map);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
             }
         }
         #endregion

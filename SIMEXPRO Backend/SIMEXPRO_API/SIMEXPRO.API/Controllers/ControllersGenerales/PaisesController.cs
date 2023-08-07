@@ -22,7 +22,6 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             _generalesServices = generalesService;
             _mapper = mapper;
         }
-
         [HttpGet("Listar")]
         public IActionResult Index()
         {
@@ -32,7 +31,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(PaisesViewModel paisesViewModel)
         {
             var item = _mapper.Map<tbPaises>(paisesViewModel);
@@ -41,14 +40,13 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(PaisesViewModel paisesViewModel)
         {
             var item = _mapper.Map<tbPaises>(paisesViewModel);
             var respuesta = _generalesServices.ActualizarPaises(item);
             return Ok(respuesta);
         }
-
         //[HttpPost("Delete")]
         //public IActionResult Delete(PaisesViewModel paisesViewModel)
         //{

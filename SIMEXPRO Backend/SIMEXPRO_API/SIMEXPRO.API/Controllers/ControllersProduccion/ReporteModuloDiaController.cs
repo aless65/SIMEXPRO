@@ -24,19 +24,28 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             _mapper = mapper;
         }
 
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _produccionServices.ListarReporteModuloDia();
-            var listadoMapeado = _mapper.Map<IEnumerable<ReporteModuloDiaViewModel>>(listado);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<ReporteModuloDiaViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(ReporteModuloDiaViewModel ReporteModuloDiaViewModel)
         {
             var item = _mapper.Map<tbReporteModuloDia>(ReporteModuloDiaViewModel);
             var respuesta = _produccionServices.InsertarReporteModuloDia(item);
+            return Ok(respuesta);
+        }
+
+
+        [HttpPost("Editar")]
+        public IActionResult Editar(ReporteModuloDiaViewModel ReporteModuloDiaViewModel)
+        {
+            var item = _mapper.Map<tbReporteModuloDia>(ReporteModuloDiaViewModel);
+            var respuesta = _produccionServices.ActualizarReporteModuloDia(item);
             return Ok(respuesta);
         }
 

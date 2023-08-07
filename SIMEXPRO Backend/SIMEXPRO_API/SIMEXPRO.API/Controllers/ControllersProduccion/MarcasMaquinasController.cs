@@ -24,7 +24,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             _mapper = mapper;
         }
 
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _produccionServices.ListarMarcasMaquina();
@@ -32,7 +32,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(MarcasMaquinaViewModel marcasMaquinaViewModel)
         {
             var item = _mapper.Map<tbMarcasMaquina>(marcasMaquinaViewModel);
@@ -41,7 +41,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         }
 
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(MarcasMaquinaViewModel marcasMaquinaViewModel)
         {
             var item = _mapper.Map<tbMarcasMaquina>(marcasMaquinaViewModel);
@@ -49,7 +49,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
+        [HttpPost("Eliminar")]
         public IActionResult Delete(MarcasMaquinaViewModel marcasMaquinaViewModel)
         {
             var item = _mapper.Map<tbMarcasMaquina>(marcasMaquinaViewModel);

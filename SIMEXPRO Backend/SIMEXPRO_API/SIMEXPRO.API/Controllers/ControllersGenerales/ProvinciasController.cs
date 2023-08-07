@@ -24,16 +24,16 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarProvincias();
-            var listadoMapeado = _mapper.Map<IEnumerable<ProvinciasViewModel>>(listado.Data);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<ProvinciasViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(ProvinciasViewModel provinciasViewModel)
         {
             var item = _mapper.Map<tbProvincias>(provinciasViewModel);
@@ -41,7 +41,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(ProvinciasViewModel provinciasViewModel)
         {
             var item = _mapper.Map<tbProvincias>(provinciasViewModel);

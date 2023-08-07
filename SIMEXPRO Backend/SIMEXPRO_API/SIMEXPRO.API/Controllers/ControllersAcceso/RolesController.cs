@@ -28,7 +28,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
         }
 
 
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _accesoServices.ListarRoles();

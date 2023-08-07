@@ -10,6 +10,7 @@ namespace SIMEXPRO.Entities.Entities
     {
         public int doso_Id { get; set; }
         public int tido_Id { get; set; }
+        public string duca_No_Duca { get; set; }
         public string doso_NumeroDocumento { get; set; }
         public DateTime? doso_FechaEmision { get; set; }
         public DateTime? doso_FechaVencimiento { get; set; }
@@ -25,6 +26,7 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime? doso_FechaEliminacion { get; set; }
         public bool? doso_Estado { get; set; }
 
+        public virtual tbDuca duca_No_DucaNavigation { get; set; }
         public virtual tbTipoDocumento tido { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioEliminacionNavigation { get; set; }

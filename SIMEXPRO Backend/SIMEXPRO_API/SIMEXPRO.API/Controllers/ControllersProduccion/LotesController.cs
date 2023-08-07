@@ -24,14 +24,14 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             _mapper = mapper;
         }
 
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _produccionServices.ListarLotes();
             return Ok(listado);
         }
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(LotesViewModel lotesViewModel)
         {
             var item = _mapper.Map<tbLotes>(lotesViewModel);
@@ -39,7 +39,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(LotesViewModel lotesViewModel)
         {
             var item = _mapper.Map<tbLotes>(lotesViewModel);
@@ -47,7 +47,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
+        [HttpPost("Eliminar")]
         public IActionResult Delete(LotesViewModel lotesViewModel)
         {
             var item = _mapper.Map<tbLotes>(lotesViewModel);

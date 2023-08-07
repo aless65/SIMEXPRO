@@ -20,8 +20,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@prov_Id",                  item.prov_Id,                   DbType.Int32,   ParameterDirection.Input);
             parametros.Add("@usua_UsuarioEliminacion",  item.usua_UsuarioEliminacion,   DbType.Int32,   ParameterDirection.Input);
             parametros.Add("@prov_FechaEliminacion",    item.prov_FechaEliminacion,     DbType.DateTime,ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarProveedores, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarProveedores, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -45,8 +45,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@prov_Fax",              item.prov_Fax,               DbType.String,  ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion",  item.usua_UsuarioCreacion,   DbType.Int32,   ParameterDirection.Input);
             parametros.Add("@prov_FechaCreacion",    item.prov_FechaCreacion,     DbType.DateTime,ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertaProveedores, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertaProveedores, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -73,9 +73,10 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@prov_Fax",                 item.prov_Fax,              DbType.String,      ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion,  DbType.Int32,       ParameterDirection.Input);
             parametros.Add("@prov_FechaModificacion",   item.prov_FechaModificacion,    DbType.DateTime,    ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarProveedores, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarProveedores, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
+        
     }
 }

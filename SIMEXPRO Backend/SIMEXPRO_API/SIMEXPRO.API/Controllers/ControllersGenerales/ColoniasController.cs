@@ -23,15 +23,16 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             _generalesServices = generalesService;
             _mapper = mapper;
         }
-        [HttpGet("Listado")]
+
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarColonias();
-            var listadoMapeado = _mapper.Map<IEnumerable<ColoniasViewModel>>(listado);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<ColoniasViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(ColoniasViewModel coloniasViewModel)
         {
             var item = _mapper.Map<tbColonias>(coloniasViewModel);
@@ -39,7 +40,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(ColoniasViewModel coloniasViewModel)
         {
             var item = _mapper.Map<tbColonias>(coloniasViewModel);
@@ -47,12 +48,12 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
-        public IActionResult Delete(ColoniasViewModel coloniasViewModel)
-        {
-            var item = _mapper.Map<tbColonias>(coloniasViewModel);
-            var respuesta = _generalesServices.EliminarColonias(item);
-            return Ok(respuesta);
-        }
+        //[HttpPost("Eliminar")]
+        //public IActionResult Delete(ColoniasViewModel coloniasViewModel)
+        //{
+        //    var item = _mapper.Map<tbColonias>(coloniasViewModel);
+        //    var respuesta = _generalesServices.EliminarColonias(item);
+        //    return Ok(respuesta);
+        //}
     }
 }

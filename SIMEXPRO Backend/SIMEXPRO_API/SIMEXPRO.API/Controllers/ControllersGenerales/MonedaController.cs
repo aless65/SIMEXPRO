@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.API.Controllers.ControllersGenerales
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class MonedaController : Controller
@@ -22,7 +23,8 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             _generalesServices = generalesService;
             _mapper = mapper;
         }
-
+      
+        
         [HttpGet("Listar")]
         public IActionResult Index()
         {
@@ -32,7 +34,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(MonedasViewModel monedasViewModel)
         {
             var item = _mapper.Map<tbMonedas>(monedasViewModel);
@@ -41,7 +43,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(MonedasViewModel monedasViewModel)
         {
             var item = _mapper.Map<tbMonedas>(monedasViewModel);
@@ -49,12 +51,12 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
-        public IActionResult Delete(MonedasViewModel monedasViewModel)
-        {
-            var item = _mapper.Map<tbMonedas>(monedasViewModel);
-            var respuesta = _generalesServices.EliminarMonedas(item);
-            return Ok(respuesta);
-        }
+        //[HttpPost("Eliminar")]
+        //public IActionResult Delete(MonedasViewModel monedasViewModel)
+        //{
+        //    var item = _mapper.Map<tbMonedas>(monedasViewModel);
+        //    var respuesta = _generalesServices.EliminarMonedas(item);
+        //    return Ok(respuesta);
+        //}
     }
 }

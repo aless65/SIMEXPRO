@@ -23,16 +23,16 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             _mapper = mapper;
         }
 
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarCargos();
-            var listadoMapeado = _mapper.Map<IEnumerable<CargosViewModel>>(listado.Data);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<CargosViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(CargosViewModel cargosViewModel)
         {
             var item = _mapper.Map<tbCargos>(cargosViewModel);
@@ -41,7 +41,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(CargosViewModel cargosViewModel)
         {
             var item = _mapper.Map<tbCargos>(cargosViewModel);
@@ -49,13 +49,6 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
-        public IActionResult Delete(CargosViewModel cargosViewModel)
-        {
-            var item = _mapper.Map<tbCargos>(cargosViewModel);
-            var respuesta = _generalesServices.EliminarCargos(item);
-            return Ok(respuesta);
-        }
 
     }
 }

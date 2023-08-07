@@ -23,8 +23,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@tite_FechaEliminacion", item.tite_FechaEliminacion, DbType.String, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarTipoIntermediario, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarTipoIntermediario, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -45,8 +45,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@tite_UsuCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@tite_FechaCreacion", item.tite_FechaCreacion, DbType.String, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarTipoIntermediario, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarTipoIntermediario, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -71,8 +71,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@tite_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@tite_FechaModicacion", item.tite_FechaModificacion, DbType.String, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarTipoIntermediario, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarTipoIntermediario, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
     }

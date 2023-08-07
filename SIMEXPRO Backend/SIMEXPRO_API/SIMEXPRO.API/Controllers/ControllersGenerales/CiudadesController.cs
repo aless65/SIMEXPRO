@@ -24,16 +24,16 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             _mapper = mapper;
         }
 
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarCiudades();
-             listado.Data = _mapper.Map<IEnumerable<CiudadesViewModel>>(listado.Data);
+            listado.Data = _mapper.Map<IEnumerable<CiudadesViewModel>>(listado.Data);
             return Ok(listado);
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(CiudadesViewModel CiudadesViewModel)
         {
             var item = _mapper.Map<tbCiudades>(CiudadesViewModel);
@@ -42,7 +42,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(CiudadesViewModel CiudadesViewModel)
         {
             var item = _mapper.Map<tbCiudades>(CiudadesViewModel);
@@ -50,12 +50,12 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
-        public IActionResult Delete(CiudadesViewModel ciudadesViewModel)
-        {
-            var item = _mapper.Map<tbCiudades>(ciudadesViewModel);
-            var respuesta = _generalesServices.EliminarCiudades(item);
-            return Ok(respuesta);
-        }
+        //[HttpPost("Eliminar")]
+        //public IActionResult Delete(CiudadesViewModel ciudadesViewModel)
+        //{
+        //    var item = _mapper.Map<tbCiudades>(ciudadesViewModel);
+        //    var respuesta = _generalesServices.EliminarCiudades(item);
+        //    return Ok(respuesta);
+        //}
     }
 }

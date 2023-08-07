@@ -22,7 +22,6 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             _generalesServices = generalesService;
             _mapper = mapper;
         }
-
         [HttpGet("Listar")]
         public IActionResult Index()
         {
@@ -32,7 +31,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(OficinasViewModel oficinasViewModel)
         {
             var item = _mapper.Map<tbOficinas>(oficinasViewModel);
@@ -41,7 +40,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(OficinasViewModel oficinasViewModel)
         {
             var item = _mapper.Map<tbOficinas>(oficinasViewModel);
@@ -49,12 +48,12 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Delete")]
-        public IActionResult Delete(OficinasViewModel oficinasViewModel)
-        {
-            var item = _mapper.Map<tbOficinas>(oficinasViewModel);
-            var respuesta = _generalesServices.EliminarOficinas(item);
-            return Ok(respuesta);
-        }
+        //[HttpPost("Eliminar")]
+        //public IActionResult Delete(OficinasViewModel oficinasViewModel)
+        //{
+        //    var item = _mapper.Map<tbOficinas>(oficinasViewModel);
+        //    var respuesta = _generalesServices.EliminarOficinas(item);
+        //    return Ok(respuesta);
+        //}
     }
 }

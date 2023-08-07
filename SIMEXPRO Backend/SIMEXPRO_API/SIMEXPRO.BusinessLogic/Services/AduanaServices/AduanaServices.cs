@@ -11,57 +11,57 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
 {
     public class AduanaServices
     {
-        private readonly AduanasRepository                          _aduanasRepository;
-        private readonly ArancelesRepository                        _arancelesRepository;
-        private readonly BaseCalculosHistorialRepository            _baseCalculosHistorialRepository;
-        private readonly BaseCalculosRepository                     _baseCalculosRepository;
-        private readonly BoletinPagoRepository                      _boletinPagoRepository;
-        private readonly CodigoImpuestoRepository                   _codigoImpuestoRepository;
-        private readonly ComercianteIndividualRepository            _comercianteIndividualRepository;
-        private readonly ConceptoPagoRepository                     _conceptoPagoRepository;
-        private readonly CondicionesRepository                      _condicionesRepository;
-        private readonly CondicionesHistorialRepository             _condicionesHistorialRepository;
-        private readonly CondicionesComercialesRepository           _condicionesComercialesRepository;
-        private readonly ConductorRepository                        _conductorRepository;
-        private readonly Declaraciones_ValorHistorialRepository     _declaraciones_ValorHistorialRepository;
-        private readonly Declaraciones_ValorRepository              _declaraciones_ValorRepository;
-        private readonly DeclarantesRepository                      _declarantesRepository;
-        private readonly DocumentosContratosRepository              _documentosContratosRepository;
-        private readonly DocumentosdeSoporteRepository              _documentosdeSoporteRepository;
-        private readonly DocumentosPDFHistorialRepository           _documentosPDFHistorialRepository;
-        private readonly DocumentosPDFRepository                    _documentosPDFRepository;
-        private readonly DucaHistorialRepository                    _ducaHistorialRepository;
-        private readonly DucaRepository                             _ducaRepository;
-        private readonly EstadoBoletinRepository                    _estadoBoletinRepository;
-        private readonly EstadoMercanciasRepository                 _estadoMercanciasRepository;
-        private readonly FacturasHistorialRepository                _facturasHistorialRepository;
-        private readonly FacturasRepository                         _facturasRepository;
-        private readonly FormasdePagoRepository                     _formasdePagoRepository;
-        private readonly ImportadoresRepository                     _importadoresRepository;
-        private readonly ImpuestosporAracelRepository               _impuestosporAracelRepository;
-        private readonly ImpuestosRepository                        _impuestosRepository;
-        private readonly IncotermRepository                         _incotermRepository;
-        private readonly IntermediarioRepository                    _intermediarioRepository;
-        private readonly ItemsHistorialRepository                   _itemsHistorialRepository;
-        private readonly ItemsRepository                            _itemsRepository;
-        private readonly LiquidacionGeneralHistorialRepository      _liquidacionGeneralHistorialRepository;
-        private readonly LiquidacionGeneralRepository               _liquidacionGeneralRepository;
-        private readonly LiquidacionPorLineaRepository              _liquidacionPorLineaRepository;
-        private readonly LugaresEmbarqueRepository                  _lugaresEmbarqueRepository;
-        private readonly MarcasRepository                           _marcasRepository;
-        private readonly ModoTransporteRepository                   _modoTransporteRepository;
-        private readonly NivelesComercialesRepository               _nivelesComercialesRepository;
-        private readonly PersonaJuridicaRepository                  _personaJuridicaRepository;
-        private readonly PersonaNaturalRepository                   _personaNaturalRepository;
-        private readonly PersonasRepository                         _personasRepository;
-        private readonly ProveedoresDeclaracionRepository           _proveedoresDeclaracionRepository;
-        private readonly TipoDocumentoRepository                    _tipoDocumentoRepository;
-        private readonly TipoIntermediarioRepository                _tipoIntermediarioRepository;
-        private readonly TipoLiquidacionRepository                  _tipoLiquidacionRepository;
-        private readonly TiposIdentificacionRepository              _tiposIdentificacionRepository;
-        private readonly TransporteRepository                       _transporteRepository;
+        private readonly AduanasRepository _aduanasRepository;
+        private readonly ArancelesRepository _arancelesRepository;
+        private readonly BaseCalculosHistorialRepository _baseCalculosHistorialRepository;
+        private readonly BaseCalculosRepository _baseCalculosRepository;
+        private readonly BoletinPagoRepository _boletinPagoRepository;
+        private readonly CodigoImpuestoRepository _codigoImpuestoRepository;
+        private readonly ComercianteIndividualRepository _comercianteIndividualRepository;
+        private readonly ConceptoPagoRepository _conceptoPagoRepository;
+        private readonly CondicionesRepository _condicionesRepository;
+        private readonly CondicionesHistorialRepository _condicionesHistorialRepository;
+        private readonly CondicionesComercialesRepository _condicionesComercialesRepository;
+        private readonly ConductorRepository _conductorRepository;
+        private readonly Declaraciones_ValorHistorialRepository _declaraciones_ValorHistorialRepository;
+        private readonly Declaraciones_ValorRepository _declaraciones_ValorRepository;
+        private readonly DeclarantesRepository _declarantesRepository;
+        private readonly DocumentosContratosRepository _documentosContratosRepository;
+        private readonly DocumentosdeSoporteRepository _documentosdeSoporteRepository;
+        private readonly DocumentosPDFHistorialRepository _documentosPDFHistorialRepository;
+        private readonly DocumentosPDFRepository _documentosPDFRepository;
+        private readonly DucaHistorialRepository _ducaHistorialRepository;
+        private readonly DucaRepository _ducaRepository;
+        private readonly EstadoBoletinRepository _estadoBoletinRepository;
+        private readonly EstadoMercanciasRepository _estadoMercanciasRepository;
+        private readonly FacturasHistorialRepository _facturasHistorialRepository;
+        private readonly FacturasRepository _facturasRepository;
+        private readonly FormasdePagoRepository _formasdePagoRepository;
+        private readonly ImportadoresRepository _importadoresRepository;
+        private readonly ImpuestosporAracelRepository _impuestosporAracelRepository;
+        private readonly ImpuestosRepository _impuestosRepository;
+        private readonly IncotermRepository _incotermRepository;
+        private readonly IntermediarioRepository _intermediarioRepository;
+        private readonly ItemsHistorialRepository _itemsHistorialRepository;
+        private readonly ItemsRepository _itemsRepository;
+        private readonly LiquidacionGeneralHistorialRepository _liquidacionGeneralHistorialRepository;
+        private readonly LiquidacionGeneralRepository _liquidacionGeneralRepository;
+        private readonly LiquidacionPorLineaRepository _liquidacionPorLineaRepository;
+        private readonly LugaresEmbarqueRepository _lugaresEmbarqueRepository;
+        private readonly MarcasRepository _marcasRepository;
+        private readonly ModoTransporteRepository _modoTransporteRepository;
+        private readonly NivelesComercialesRepository _nivelesComercialesRepository;
+        private readonly PersonaJuridicaRepository _personaJuridicaRepository;
+        private readonly PersonaNaturalRepository _personaNaturalRepository;
+        private readonly PersonasRepository _personasRepository;
+        private readonly ProveedoresDeclaracionRepository _proveedoresDeclaracionRepository;
+        private readonly TipoDocumentoRepository _tipoDocumentoRepository;
+        private readonly TipoIntermediarioRepository _tipoIntermediarioRepository;
+        private readonly TipoLiquidacionRepository _tipoLiquidacionRepository;
+        private readonly TiposIdentificacionRepository _tiposIdentificacionRepository;
+        private readonly TransporteRepository _transporteRepository;
 
-        public AduanaServices(  AduanasRepository AduanasRepository, ArancelesRepository ArancelesRepository, BaseCalculosHistorialRepository BaseCalculosHistorialRepository, BaseCalculosRepository BaseCalculosRepository,  BoletinPagoRepository BoletinPagoRepository,
+        public AduanaServices(AduanasRepository AduanasRepository, ArancelesRepository ArancelesRepository, BaseCalculosHistorialRepository BaseCalculosHistorialRepository, BaseCalculosRepository BaseCalculosRepository, BoletinPagoRepository BoletinPagoRepository,
                                 CodigoImpuestoRepository CodigoImpuestoRepository, ComercianteIndividualRepository ComercianteIndividualRepository, ConceptoPagoRepository ConceptoPagoRepository,
                                 CondicionesRepository CondicionesRepository, CondicionesHistorialRepository CondicionesHistorialRepository, CondicionesComercialesRepository CondicionesComercialesRepository,
                                 ConductorRepository ConductorRepository, Declaraciones_ValorHistorialRepository Declaraciones_ValorHistorialRepository, Declaraciones_ValorRepository Declaraciones_ValorRepository,
@@ -98,7 +98,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             _ducaHistorialRepository = DucaHistorialRepository;
             _ducaRepository = DucaRepository;
             _estadoBoletinRepository = EstadoBoletinRepository;
-            _estadoMercanciasRepository = EstadoMercanciasRepository; 
+            _estadoMercanciasRepository = EstadoMercanciasRepository;
             _facturasHistorialRepository = FacturasHistorialRepository;
             _facturasRepository = FacturasRepository;
             _formasdePagoRepository = FormasdePagoRepository;
@@ -117,7 +117,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             _modoTransporteRepository = ModoTransporteRepository;
             _nivelesComercialesRepository = NivelesComercialesRepository;
             _personaJuridicaRepository = PersonaJuridicaRepository;
-            _personaNaturalRepository = PersonaNaturalRepository; 
+            _personaNaturalRepository = PersonaNaturalRepository;
             _personasRepository = PersonasRepository;
             _proveedoresDeclaracionRepository = ProveedoresDeclaracionRepository;
             _tipoDocumentoRepository = TipoDocumentoRepository;
@@ -146,22 +146,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.adua_Nombre != "")
+                var map = _aduanasRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _aduanasRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -175,22 +168,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.adua_Nombre != "")
+                var map = _aduanasRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _aduanasRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -204,22 +190,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.adua_Id != 0)
+                var map = _aduanasRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _aduanasRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -250,22 +229,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.aran_Descripcion != "")
+                var map = _arancelesRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _arancelesRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -279,22 +251,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.aran_Descripcion != "")
+                var map = _arancelesRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _arancelesRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -308,22 +273,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.aran_Id != 0)
+                var map = _arancelesRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _arancelesRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -358,13 +316,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.base_Id != 0)
                 {
                     var map = _baseCalculosHistorialRepository.Insert(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -387,13 +345,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.base_Id != 0)
                 {
                     var map = _baseCalculosHistorialRepository.Update(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -416,13 +374,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.base_Id != 0)
                 {
                     var map = _baseCalculosHistorialRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -460,13 +418,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.base_Id != 0)
                 {
                     var map = _baseCalculosRepository.Insert(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -489,13 +447,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.base_Id != 0)
                 {
                     var map = _baseCalculosRepository.Update(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -518,13 +476,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.base_Id != 0)
                 {
                     var map = _baseCalculosRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -562,22 +520,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.boen_Declarante != "")
+                var map = _boletinPagoRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _boletinPagoRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -591,22 +542,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.boen_Declarante != "")
+                var map = _boletinPagoRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _boletinPagoRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -620,22 +564,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.boen_Id != 0)
+                var map = _boletinPagoRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _boletinPagoRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -669,13 +606,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.coim_Descripcion != "")
                 {
                     var map = _codigoImpuestoRepository.Insert(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -698,13 +635,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.coim_Descripcion != "")
                 {
                     var map = _codigoImpuestoRepository.Update(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -727,13 +664,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.coim_Id != 0)
                 {
                     var map = _codigoImpuestoRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -774,13 +711,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.coin_PuntoReferencia != "")
                 {
                     var map = _comercianteIndividualRepository.Insert(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -803,13 +740,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.coin_PuntoReferencia != "")
                 {
                     var map = _comercianteIndividualRepository.Update(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -832,13 +769,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.coin_Id != 0)
                 {
                     var map = _comercianteIndividualRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -855,16 +792,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region ConceptoPago
-        public IEnumerable<tbConceptoPago> ListarConceptoPago()
+        public ServiceResult ListarConceptoPago()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _conceptoPagoRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbConceptoPago>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -874,21 +812,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             try
             {
                 var map = _conceptoPagoRepository.Insert(item);
-                if (map.CodeStatus > 1)
+                if (map.MessageStatus == "1")
                 {
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -904,21 +834,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             {
                 var map = _conceptoPagoRepository.Update(item);
 
-                if (map.CodeStatus > 1)
+                if (map.MessageStatus == "1")
                 {
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -935,13 +858,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.copa_Id != 0)
                 {
                     var map = _conceptoPagoRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+
                         return result.Error(map);
                     }
                 }
@@ -958,16 +881,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Condiciones
-        public IEnumerable<tbCondiciones> ListarCondiciones()
+        public ServiceResult ListarCondiciones()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _condicionesRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbCondiciones>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -976,22 +900,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.codi_Concepto_Monto_Declarado != "")
+                var map = _condicionesRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _condicionesRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -1008,13 +925,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.codi_Concepto_Monto_Declarado != "")
                 {
                     var map = _condicionesRepository.Update(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1037,13 +954,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.codi_Id != 0)
                 {
                     var map = _condicionesRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1081,13 +998,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.codi_Concepto_Monto_Declarado != "")
                 {
                     var map = _condicionesHistorialRepository.Insert(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1110,13 +1027,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.codi_Concepto_Monto_Declarado != "")
                 {
                     var map = _condicionesHistorialRepository.Update(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1139,13 +1056,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.codi_Id != 0)
                 {
                     var map = _condicionesHistorialRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1162,16 +1079,18 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region CondicionesComerciales
-        public IEnumerable<tbCondicionesComerciales> ListarCondicionesComerciales()
+
+        public ServiceResult ListarCondicionesComerciales()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _condicionesComercialesRepository.List();
-                return list;
+                return result.Ok(list);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return Enumerable.Empty<tbCondicionesComerciales>();
+                return result.Error(e.Message);
             }
         }
 
@@ -1183,13 +1102,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.coco_Descripcion != "")
                 {
                     var map = _condicionesComercialesRepository.Insert(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1212,13 +1131,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.coco_Descripcion != "")
                 {
                     var map = _condicionesComercialesRepository.Update(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1241,13 +1160,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.coco_Id != 0)
                 {
                     var map = _condicionesComercialesRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1264,16 +1183,18 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Conductor
-        public IEnumerable<tbConductor> ListarConductor()
+        public ServiceResult ListarConductor()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _conductorRepository.List();
-                return list;
+
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbConductor>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -1282,23 +1203,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.cont_Nombre != "")
-                {
-                    var map = _conductorRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _conductorRepository.Insert(item);
+
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -1311,23 +1218,8 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.cont_Nombre != "")
-                {
-                    var map = _conductorRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _conductorRepository.Update(item);
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -1340,23 +1232,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.cont_Id != 0)
-                {
-                    var map = _conductorRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _conductorRepository.Delete(item);
+
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -1387,13 +1265,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.deva_Condiciones != "")
                 {
                     var map = _declaraciones_ValorHistorialRepository.Insert(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1416,13 +1294,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.deva_Condiciones != "")
                 {
                     var map = _declaraciones_ValorHistorialRepository.Update(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1445,13 +1323,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.deva_Id != 0)
                 {
                     var map = _declaraciones_ValorHistorialRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1468,40 +1346,35 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Declaraciones_Valor
-        public IEnumerable<tbDeclaraciones_Valor> ListarDeclaraciones_Valor()
-        {
-            try
-            {
-                var list = _declaraciones_ValorRepository.List();
-                return list;
-            }
-            catch (Exception ex)
-            {
-                return Enumerable.Empty<tbDeclaraciones_Valor>();
-            }
-        }
-
-        public ServiceResult InsertarDeclaraciones_Valor(tbDeclaraciones_Valor item)
+        public ServiceResult ListarDeclaraciones_Valor()
         {
             var result = new ServiceResult();
             try
             {
-                if (item.deva_Condiciones != "")
+                var list = _declaraciones_ValorRepository.List();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult InsertarDeclaraciones_ValorTab1(tbDeclaraciones_Valor item, tbDeclarantes itemDecl, tbImportadores itemImp)
+        {
+            var result = new ServiceResult();
+            bool esInt;
+            try
+            {
+                var respuesta = _declaraciones_ValorRepository.InsertTab1(item, itemDecl, itemImp);
+                esInt = int.TryParse(respuesta.MessageStatus, out _);
+                if (esInt)
                 {
-                    var map = _declaraciones_ValorRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(respuesta);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(respuesta);
                 }
             }
             catch (Exception ex)
@@ -1510,27 +1383,103 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        public ServiceResult ActualizarDeclaraciones_Valor(tbDeclaraciones_Valor item)
+        public ServiceResult InsertarDeclaraciones_ValorTab2(tbDeclaraciones_Valor item, tbDeclarantes declProv, tbDeclarantes declInte, tbProveedoresDeclaracion itemProv, tbIntermediarios itemInte)
         {
             var result = new ServiceResult();
             try
             {
-                if (item.deva_Condiciones != "")
+                var respuesta = _declaraciones_ValorRepository.InsertTab2(item, declProv, declInte, itemProv, itemInte);
+                if (respuesta.MessageStatus == "1")
                 {
-                    var map = _declaraciones_ValorRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(respuesta);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(respuesta);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult InsertarDeclaraciones_ValorTab3(tbDeclaraciones_Valor item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var respuesta = _declaraciones_ValorRepository.InsertTab3(item);
+                if (respuesta.MessageStatus == "1")
+                {
+                    return result.Ok(respuesta);
+                }
+                else
+                {
+                    return result.Error(respuesta);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarDeclaraciones_ValorTab1(tbDeclaraciones_Valor item, tbDeclarantes itemDecl, tbImportadores itemImp)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var respuesta = _declaraciones_ValorRepository.UpdateTab1(item, itemDecl, itemImp);
+                if (respuesta.MessageStatus == "1")
+                {
+                    return result.Ok(respuesta);
+                }
+                else
+                {
+                    return result.Error(respuesta);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarDeclaraciones_ValorTab2(tbDeclaraciones_Valor item, tbDeclarantes declProv, tbDeclarantes declInte, tbProveedoresDeclaracion itemProv, tbIntermediarios itemInte)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var respuesta = _declaraciones_ValorRepository.UpdateTab2(item, declProv, declInte, itemProv, itemInte);
+                if (respuesta.MessageStatus == "1")
+                {
+                    return result.Ok(respuesta);
+                }
+                else
+                {
+                    return result.Error(respuesta);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarDeclaraciones_ValorTab3(tbDeclaraciones_Valor item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var respuesta = _declaraciones_ValorRepository.UpdateTab3(item);
+                if (respuesta.MessageStatus == "1")
+                {
+                    return result.Ok(respuesta);
+                }
+                else
+                {
+                    return result.Error(respuesta);
                 }
             }
             catch (Exception ex)
@@ -1544,22 +1493,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.deva_Id != 0)
+                var map = _declaraciones_ValorRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _declaraciones_ValorRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -1570,16 +1511,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Declarantes
-        public IEnumerable<tbDeclarantes> ListarDeclarantes()
+        public ServiceResult ListarDeclarantes()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _declarantesRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbDeclarantes>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -1588,23 +1530,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.decl_Nombre_Raso != "")
-                {
-                    var map = _declarantesRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _declarantesRepository.Insert(item);
+
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -1617,23 +1545,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.decl_Nombre_Raso != "")
-                {
-                    var map = _declarantesRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta  = _declarantesRepository.Update(item);
+
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -1646,23 +1560,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.decl_Id != 0)
-                {
-                    var map = _declarantesRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _declarantesRepository.Delete(item);
+
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -1693,13 +1593,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.doco_TipoDocumento != "")
                 {
                     var map = _documentosContratosRepository.Insert(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1722,13 +1622,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.doco_TipoDocumento != "")
                 {
                     var map = _documentosContratosRepository.Update(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1751,13 +1651,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.doco_Id != 0)
                 {
                     var map = _documentosContratosRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1774,34 +1674,35 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region DocumentosdeSoporte
-        public IEnumerable<tbDocumentosDeSoporte> ListarDocumentosdeSoporte()
+        public ServiceResult ListarDocumentosdeSoporte()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _documentosdeSoporteRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbDocumentosDeSoporte>();
+                return result.Error(ex.Message);
             }
         }
 
         public ServiceResult InsertarDocumentosdeSoporte(tbDocumentosDeSoporte item)
-        {                                                
+        {
             var result = new ServiceResult();
             try
             {
                 if (item.doso_NumeroDocumento != "")
                 {
                     var map = _documentosdeSoporteRepository.Insert(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1824,13 +1725,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.doso_NumeroDocumento != "")
                 {
                     var map = _documentosdeSoporteRepository.Update(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1853,13 +1754,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.doso_Id != 0)
                 {
                     var map = _documentosdeSoporteRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1897,13 +1798,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.dpdf_DUCA != "")
                 {
                     var map = _documentosPDFHistorialRepository.Insert(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1926,13 +1827,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (item.dpdf_DUCA != "")
                 {
                     var map = _documentosPDFHistorialRepository.Update(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -1952,22 +1853,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.deva_Id != 0)
+                var map = _documentosPDFHistorialRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _documentosPDFHistorialRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -1996,22 +1889,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _documentosPDFRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _documentosPDFRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2025,22 +1910,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _documentosPDFRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _documentosPDFRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2054,22 +1931,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _documentosPDFRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _documentosPDFRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2098,22 +1967,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _ducaHistorialRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _ducaHistorialRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2127,22 +1988,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _ducaHistorialRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _ducaHistorialRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2159,13 +2012,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _ducaHistorialRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2182,41 +2035,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Duca
-        public IEnumerable<tbDuca> ListarDuca()
+        public ServiceResult ListarDuca()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _ducaRepository.List();
-                return list;
-            }
-            catch (Exception ex)
-            {
-                return Enumerable.Empty<tbDuca>();
-            }
-        }
 
-        public ServiceResult InsertarDuca(tbDuca item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (1 == 1)
-                {
-                    var map = _ducaRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
@@ -2224,28 +2050,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        public ServiceResult ActualizarDuca(tbDuca item)
+        public ServiceResult InsertarDucaTap1(tbDuca item)
         {
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
-                {
-                    var map = _ducaRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _ducaRepository.Insert(item);
+
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -2253,149 +2065,141 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        public ServiceResult EliminarDuca(tbDuca item)
+        public ServiceResult InsertarDucaTap2(tbDuca item)
         {
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
-                {
-                    var map = _ducaRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _ducaRepository.InsertTap2(item);
+
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
                 return result.Error(ex.Message);
             }
         }
+
+        public ServiceResult InsertarDucaTap3(tbDocumentosDeSoporte item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var respuesta = _ducaRepository.InsertTap3(item);
+
+                return result.Ok(respuesta);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarDucaTap1(tbDuca item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var respuesta = _ducaRepository.Update(item);
+                return result.Ok(respuesta);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarDucaTap2(tbDuca item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var respuesta = _ducaRepository.UpdateTap2(item);
+                return result.Ok(respuesta);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarDucaTap3(tbDocumentosDeSoporte item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var respuesta = _ducaRepository.UpdateTap3(item);
+                return result.Ok(respuesta);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+      
         #endregion
 
         #region EstadoBoletin
-        public IEnumerable<tbEstadoBoletin> ListarEstadoBoletin()
+        public ServiceResult ListarEstadoBoletin()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _estadoBoletinRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbEstadoBoletin>();
+                return result.Error(ex.Message);
             }
         }
 
         public ServiceResult InsertarEstadoBoletin(tbEstadoBoletin item)
         {
-            var result = new ServiceResult();
+            var resultado = new ServiceResult();
+
             try
             {
-                if (1 == 1)
-                {
-                    var map = _estadoBoletinRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _estadoBoletinRepository.Insert(item);
+                return resultado.Ok(respuesta);
             }
             catch (Exception ex)
             {
-                return result.Error(ex.Message);
+                return resultado.Error(ex.Message);
             }
         }
 
         public ServiceResult ActualizarEstadoBoletin(tbEstadoBoletin item)
         {
-            var result = new ServiceResult();
-            try
-            {
-                if (1 == 1)
-                {
-                    var map = _estadoBoletinRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
+            var resultado = new ServiceResult();
 
-        public ServiceResult EliminarEstadoBoletin(tbEstadoBoletin item)
-        {
-            var result = new ServiceResult();
             try
             {
-                if (1 == 1)
-                {
-                    var map = _estadoBoletinRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _estadoBoletinRepository.Update(item);
+                return resultado.Ok(respuesta);
             }
             catch (Exception ex)
             {
-                return result.Error(ex.Message);
+                return resultado.Error(ex.Message);
             }
         }
         #endregion
 
         #region EstadoMercancias
-        public IEnumerable<tbEstadoMercancias> ListarEstadoMercancias()
+     
+
+        public ServiceResult ListarEstadoMercancias()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _estadoMercanciasRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbEstadoMercancias>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -2407,13 +2211,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _estadoMercanciasRepository.Insert(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2436,13 +2240,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _estadoMercanciasRepository.Update(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2465,13 +2269,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _estadoMercanciasRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2509,13 +2313,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _facturasHistorialRepository.Insert(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2538,13 +2342,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _facturasHistorialRepository.Update(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2567,13 +2371,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _facturasHistorialRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2590,18 +2394,21 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Facturas
-        public IEnumerable<tbFacturas> ListarFacturas()
+
+        public ServiceResult ListarFacturas(tbFacturas item)
         {
+            var result = new ServiceResult();
             try
             {
-                var list = _facturasRepository.List();
-                return list;
+                var list = _facturasRepository.List(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbFacturas>();
+                return result.Error(ex.Message);
             }
         }
+
 
         public ServiceResult InsertarFacturas(tbFacturas item)
         {
@@ -2611,13 +2418,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _facturasRepository.Insert(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2640,13 +2447,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _facturasRepository.Update(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2669,13 +2476,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _facturasRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2692,103 +2499,62 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region FormasdePago
-        public IEnumerable<tbFormasdePago> ListarFormasdePago()
+        public ServiceResult ListarFormasdePago()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _formasdePagoRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbFormasdePago>();
+                return result.Error(ex.Message);
             }
         }
 
         public ServiceResult InsertarFormasdePago(tbFormasdePago item)
         {
-            var result = new ServiceResult();
+            var resultado = new ServiceResult();
+
             try
             {
-                if (1 == 1)
-                {
-                    var map = _formasdePagoRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _formasdePagoRepository.Insert(item);
+                return resultado.Ok(respuesta);
             }
             catch (Exception ex)
             {
-                return result.Error(ex.Message);
+                return resultado.Error(ex.Message);
             }
         }
 
         public ServiceResult ActualizarFormasdePago(tbFormasdePago item)
         {
-            var result = new ServiceResult();
+            var resultado = new ServiceResult();
+
             try
             {
-                if (1 == 1)
-                {
-                    var map = _formasdePagoRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _formasdePagoRepository.Update(item);
+                return resultado.Ok(respuesta);
             }
             catch (Exception ex)
             {
-                return result.Error(ex.Message);
+                return resultado.Error(ex.Message);
             }
         }
 
         public ServiceResult EliminarFormasdePago(tbFormasdePago item)
         {
-            var result = new ServiceResult();
+            var resultado = new ServiceResult();
+
             try
             {
-                if (1 == 1)
-                {
-                    var map = _formasdePagoRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _formasdePagoRepository.Delete(item);
+                return resultado.Ok(respuesta);
             }
             catch (Exception ex)
             {
-                return result.Error(ex.Message);
+                return resultado.Error(ex.Message);
             }
         }
         #endregion
@@ -2815,13 +2581,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _importadoresRepository.Insert(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2844,13 +2610,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _importadoresRepository.Update(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2873,13 +2639,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _importadoresRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2917,13 +2683,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _impuestosporAracelRepository.Insert(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2946,13 +2712,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _impuestosporAracelRepository.Update(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -2975,13 +2741,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _impuestosporAracelRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3020,13 +2786,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _impuestosRepository.Insert(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3049,13 +2815,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _impuestosRepository.Update(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3078,13 +2844,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _impuestosRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -3101,16 +2867,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Incoterm
-        public IEnumerable<tbIncoterm> ListarIncoterm()
+        public ServiceResult ListarIncoterm()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _incotermRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbIncoterm>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -3119,23 +2886,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
-                {
-                    var map = _incotermRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _incotermRepository.Insert(item);
+
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -3148,23 +2901,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
-                {
-                    var map = _incotermRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _incotermRepository.Update(item);
+
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -3177,23 +2916,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
-                {
-                    var map = _incotermRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _incotermRepository.Delete(item);
+
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -3203,16 +2928,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Intermediarios
-        public IEnumerable<tbIntermediarios> ListarIntermediarios()
+        public ServiceResult ListarIntermediarios()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _intermediarioRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbIntermediarios>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -3221,23 +2947,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
-                {
-                    var map = _intermediarioRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _intermediarioRepository.Insert(item);
+
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -3250,23 +2962,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
-                {
-                    var map = _intermediarioRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _intermediarioRepository.Update(item);
+
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -3279,23 +2977,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
-                {
-                    var map = _intermediarioRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _intermediarioRepository.Delete(item);
+
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -3327,13 +3011,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         //        if (1 == 1)
         //        {
         //            var map = _itemsHistorialRepository.Insert(item);
-        //            if (map.CodeStatus > 0)
+        //            if (map.MessageStatus == "1")
         //            {
         //                return result.Ok(map);
         //            }
         //            else
         //            {
-                        
+
         //                return result.Error(map);
         //            }
         //        }
@@ -3356,13 +3040,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         //        if (1 == 1)
         //        {
         //            var map = _itemsHistorialRepository.Update(item);
-        //            if (map.CodeStatus > 0)
+        //            if (map.MessageStatus == "1")
         //            {
         //                return result.Ok(map);
         //            }
         //            else
         //            {
-                        
+
         //                return result.Error(map);
         //            }
         //        }
@@ -3385,116 +3069,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         //        if (1 == 1)
         //        {
         //            var map = _itemsHistorialRepository.Delete(item);
-        //            if (map.CodeStatus > 0)
+        //            if (map.MessageStatus == "1")
         //            {
         //                return result.Ok(map);
         //            }
         //            else
         //            {
-                        
-        //                return result.Error(map);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return result.Error(ex.Message);
-        //    }
-        //}
-        #endregion
 
-        #region Items
-        //public ServiceResult ListarItems(tbItems item)
-        //public IEnumerable<tbItemsHistorial> ListarItemsHistorial()
-        //{
-        //    try
-        //    {
-        //        var list = _itemsHistorialRepository.List();
-        //        return list;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Enumerable.Empty<tbItemsHistorial>();
-        //    }
-        //}
-
-        //public ServiceResult InsertarItemsHistorial(tbItemsHistorial item)
-        //{
-        //    var result = new ServiceResult();
-        //    try
-        //    {
-        //        if (1 == 1)
-        //        {
-        //            var map = _itemsHistorialRepository.Insert(item);
-        //            if (map.CodeStatus > 0)
-        //            {
-        //                return result.Ok(map);
-        //            }
-        //            else
-        //            {
-        //                map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-        //                return result.Error(map);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return result.Error(ex.Message);
-        //    }
-        //}
-
-        //public ServiceResult ActualizarItemsHistorial(tbItemsHistorial item)
-        //{
-        //    var result = new ServiceResult();
-        //    try
-        //    {
-        //        if (1 == 1)
-        //        {
-        //            var map = _itemsHistorialRepository.Update(item);
-        //            if (map.CodeStatus > 0)
-        //            {
-        //                return result.Ok(map);
-        //            }
-        //            else
-        //            {
-        //                map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-        //                return result.Error(map);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return result.Error(ex.Message);
-        //    }
-        //}
-
-        //public ServiceResult EliminarItemsHistorial(tbItemsHistorial item)
-        //{
-        //    var result = new ServiceResult();
-        //    try
-        //    {
-        //        if (1 == 1)
-        //        {
-        //            var map = _itemsHistorialRepository.Delete(item);
-        //            if (map.CodeStatus > 0)
-        //            {
-        //                return result.Ok(map);
-        //            }
-        //            else
-        //            {
-        //                map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
         //                return result.Error(map);
         //            }
         //        }
@@ -3530,22 +3111,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _itemsRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _itemsRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -3559,22 +3132,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _itemsRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _itemsRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -3588,21 +3153,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.item_Id != 0)
+                var map = _itemsRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _itemsRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -3613,16 +3171,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region LiquidacionGeneralHistorial
-        public IEnumerable<tbLiquidacionGeneralHistorial> ListarLiquidacionGeneralHistorial()
+        public ServiceResult ListarLiquidacionGeneralHistorial()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _liquidacionGeneralHistorialRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbLiquidacionGeneralHistorial>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -3631,22 +3190,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _liquidacionGeneralHistorialRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _liquidacionGeneralHistorialRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -3660,22 +3211,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _liquidacionGeneralHistorialRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _liquidacionGeneralHistorialRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -3689,22 +3232,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _liquidacionGeneralHistorialRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _liquidacionGeneralHistorialRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -3734,22 +3269,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _liquidacionGeneralRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _liquidacionGeneralRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -3763,22 +3290,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _liquidacionGeneralRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _liquidacionGeneralRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -3792,22 +3312,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _liquidacionGeneralRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _liquidacionGeneralRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -3821,7 +3334,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         public ServiceResult ListarLiquidacionPorLinea()
         {
             var result = new ServiceResult();
-
             try
             {
                 var list = _liquidacionPorLineaRepository.List();
@@ -3838,22 +3350,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _liquidacionPorLineaRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _liquidacionPorLineaRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -3867,22 +3372,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _liquidacionPorLineaRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _liquidacionPorLineaRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -3896,23 +3394,16 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
-                {
                     var map = _liquidacionPorLineaRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
             }
             catch (Exception ex)
             {
@@ -3941,22 +3432,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _lugaresEmbarqueRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _lugaresEmbarqueRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -3970,22 +3454,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _lugaresEmbarqueRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _lugaresEmbarqueRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -3999,23 +3476,16 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
-                {
                     var map = _lugaresEmbarqueRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
             }
             catch (Exception ex)
             {
@@ -4047,13 +3517,13 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _marcasRepository.Insert(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                 }
@@ -4073,22 +3543,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _marcasRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _marcasRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -4102,23 +3565,16 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
-                {
                     var map = _marcasRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
             }
             catch (Exception ex)
             {
@@ -4147,22 +3603,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _modoTransporteRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _modoTransporteRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -4176,23 +3625,16 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
-                {
                     var map = _modoTransporteRepository.Update(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
             }
             catch (Exception ex)
             {
@@ -4205,23 +3647,16 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
-                {
                     var map = _modoTransporteRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
             }
             catch (Exception ex)
             {
@@ -4250,22 +3685,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _nivelesComercialesRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _nivelesComercialesRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -4279,22 +3707,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _nivelesComercialesRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _nivelesComercialesRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -4308,22 +3729,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _nivelesComercialesRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _nivelesComercialesRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -4353,22 +3767,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _personaJuridicaRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _personaJuridicaRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -4382,22 +3789,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _personaJuridicaRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _personaJuridicaRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -4411,22 +3811,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _personaJuridicaRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _personaJuridicaRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -4448,40 +3841,21 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             catch (Exception ex) { return result.Error(ex.Message); }
         }
 
-        //public IEnumerable<tbPersonaNatural> ListarPersonaNatural()
-        //{
-        //    try
-        //    {
-        //        var list = _personaNaturalRepository.List();
-        //        return list;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Enumerable.Empty<tbPersonaNatural>();
-        //    }
-        //}
 
         public ServiceResult InsertarPersonaNatural(tbPersonaNatural item)
         {
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _personaNaturalRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _personaNaturalRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -4495,22 +3869,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _personaNaturalRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _personaNaturalRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -4524,22 +3891,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _personaNaturalRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _personaNaturalRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -4564,40 +3924,21 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        //public IEnumerable<tbPersonas> ListarPersonas()
-        //{
-        //    try
-        //    {
-        //        var list = _personasRepository.List();
-        //        return list;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Enumerable.Empty<tbPersonas>();
-        //    }
-        //}
 
         public ServiceResult InsertarPersonas(tbPersonas item)
         {
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _personasRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _personasRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -4611,22 +3952,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _personasRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _personasRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -4640,22 +3974,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _personasRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _personasRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -4688,7 +4015,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _proveedoresDeclaracionRepository.Insert(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
@@ -4717,7 +4044,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _proveedoresDeclaracionRepository.Update(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
@@ -4746,7 +4073,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _proveedoresDeclaracionRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
@@ -4783,40 +4110,20 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        //public IEnumerable<tbTipoDocumento> ListarTipoDocumento()
-        //{
-        //    try
-        //    {
-        //        var list = _tipoDocumentoRepository.List();
-        //        return list;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Enumerable.Empty<tbTipoDocumento>();
-        //    }
-        //}
-
         public ServiceResult InsertarTipoDocumento(tbTipoDocumento item)
         {
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _tipoDocumentoRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _tipoDocumentoRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -4830,22 +4137,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _tipoDocumentoRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _tipoDocumentoRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -4859,23 +4159,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _tipoDocumentoRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _tipoDocumentoRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                    return result.Error(map);
+                } 
             }
             catch (Exception ex)
             {
@@ -4899,40 +4191,20 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        //public IEnumerable<tbTipoIntermediario> ListarTipoIntermediario()
-        //{
-        //    try
-        //    {
-        //        var list = _tipoIntermediarioRepository.List();
-        //        return list;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Enumerable.Empty<tbTipoIntermediario>();
-        //    }
-        //}
-
         public ServiceResult InsertarTipoIntermediario(tbTipoIntermediario item)
         {
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _tipoIntermediarioRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _tipoIntermediarioRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -4946,22 +4218,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _tipoIntermediarioRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _tipoIntermediarioRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -4975,22 +4240,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _tipoIntermediarioRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _tipoIntermediarioRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -5015,40 +4273,20 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        //public IEnumerable<tbTipoLiquidacion> ListarTipoLiquidacion()
-        //{
-        //    try
-        //    {
-        //        var list = _tipoLiquidacionRepository.List();
-        //        return list;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Enumerable.Empty<tbTipoLiquidacion>();
-        //    }
-        //}
-
         public ServiceResult InsertarTipoLiquidacion(tbTipoLiquidacion item)
         {
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _tipoLiquidacionRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _tipoLiquidacionRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -5061,23 +4299,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         {
             var result = new ServiceResult();
             try
-            {
-                if (1 == 1)
+            {var map = _tipoLiquidacionRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _tipoLiquidacionRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -5094,7 +4323,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 if (1 == 1)
                 {
                     var map = _tipoLiquidacionRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
@@ -5131,41 +4360,20 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        // public IEnumerable<tbTiposIdentificacion> ListarTiposIdentificacion()
-        // {
-        //     var result = new ServiceResult();
-        //     try
-        //     {
-        //         var list = _tiposIdentificacionRepository.List();
-        //         return result.Ok(list);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         return result.Error(ex.Message);
-        //     }
-        // }
 
         public ServiceResult InsertarTiposIdentificacion(tbTiposIdentificacion item)
         {
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _tiposIdentificacionRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _tiposIdentificacionRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -5179,22 +4387,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _tiposIdentificacionRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _tiposIdentificacionRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -5208,22 +4408,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _tiposIdentificacionRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _tiposIdentificacionRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -5249,40 +4442,19 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        //public IEnumerable<tbTransporte> ListarTransporte()
-        //{
-        //    try
-        //    {
-        //        var list = _transporteRepository.List();
-        //        return list;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Enumerable.Empty<tbTransporte>();
-        //    }
-        //}
-
         public ServiceResult InsertarTransporte(tbTransporte item)
         {
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _transporteRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _transporteRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -5296,22 +4468,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _transporteRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _transporteRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -5325,22 +4490,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _transporteRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _transporteRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -5349,9 +4507,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
         #endregion
-
-
-
 
     }
 }

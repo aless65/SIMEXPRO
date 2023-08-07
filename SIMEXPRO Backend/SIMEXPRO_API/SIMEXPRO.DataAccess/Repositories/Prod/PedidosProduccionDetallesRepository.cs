@@ -27,11 +27,11 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             throw new NotImplementedException();
         }
 
-        public IEnumerable<tbPedidosProduccionDetalles> List(tbPedidosProduccionDetalles item)
+        public IEnumerable<tbPedidosProduccionDetalles> List(int ppro_Id)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();
-            parametros.Add("@ppro_Id", item.ppro_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@ppro_Id", ppro_Id, DbType.Int32, ParameterDirection.Input);
 
             var result = db.Query<tbPedidosProduccionDetalles>(ScriptsDataBase.ListarPedidosProduccionDetalles, parametros, commandType: System.Data.CommandType.StoredProcedure);
             return result;

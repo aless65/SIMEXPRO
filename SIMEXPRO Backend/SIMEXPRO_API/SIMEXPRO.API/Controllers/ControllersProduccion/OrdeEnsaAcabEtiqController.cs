@@ -25,7 +25,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         }
 
 
-        [HttpGet("Listado")]
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
             var listado = _produccionServices.Listarorde_Ensa_Acab_Etiq();
@@ -34,7 +34,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         }
 
 
-        [HttpPost("Insert")]
+        [HttpPost("Insertar")]
         public IActionResult Insert(OrdeEnsaAcabEtiqViewModel ordeEnsaAcabEtiqViewModel)
         {
             var item = _mapper.Map<tbOrde_Ensa_Acab_Etiq>(ordeEnsaAcabEtiqViewModel);
@@ -42,7 +42,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Update")]
+        [HttpPost("Editar")]
         public IActionResult Update(OrdeEnsaAcabEtiqViewModel ordeEnsaAcabEtiqViewModel)
         {
             var item = _mapper.Map<tbOrde_Ensa_Acab_Etiq>(ordeEnsaAcabEtiqViewModel);

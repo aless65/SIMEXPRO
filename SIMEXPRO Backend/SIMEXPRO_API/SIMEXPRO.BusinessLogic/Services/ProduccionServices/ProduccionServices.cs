@@ -1142,7 +1142,7 @@ if (map.MessageStatus == "1")
             {
                
                 var map = _marcasMaquinaRepository.Delete(item);
-if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }

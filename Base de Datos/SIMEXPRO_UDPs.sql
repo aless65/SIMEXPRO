@@ -10784,31 +10784,73 @@ GO
 --*****Pedidos Orden*****-
 --*****Listado*****--
 
-CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Listar
-AS
-BEGIN
-SELECT	peor_Id, 
-		prov.prov_Id, 
-		prov.prov_NombreCompania,
-		prov.prov_NombreContacto,
-		prov.prov_Ciudad,
-		peor_No_Duca, 
-		peor_FechaEntrada, 
-		peor_Obsevaciones, 
-		peor_DadoCliente, 
-		peor_Est, 
-		crea.usua_Nombre							AS usua_UsuarioCreacion, 
-		peor_FechaCreacion, 
-		modi.usua_Nombre							AS usua_UsuarioModificacion , 
-		peor_FechaModificacion, 
-		peor_Estado 
-FROM	Prod.tbPedidosOrden po
-		INNER JOIN Gral.tbProveedores prov			ON po.prov_Id = prov.prov_Id
-		INNER JOIN Acce.tbUsuarios crea				ON crea.usua_Id = po.usua_UsuarioCreacion 
-		LEFT JOIN  Acce.tbUsuarios modi				ON modi.usua_Id = po.usua_UsuarioModificacion 	
-END
-GO
+--CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Listar
+--AS
+--BEGIN
+--SELECT	peor_Id, 
+--		prov.prov_Id, 
+--		prov.prov_NombreCompania,
+--		prov.prov_NombreContacto,
+--		prov.prov_Ciudad,
+--		peor_No_Duca, 
+--		peor_FechaEntrada, 
+--		peor_Obsevaciones, 
+--		peor_DadoCliente, 
+--		peor_Est, 
+--		crea.usua_Nombre							AS usua_UsuarioCreacion, 
+--		peor_FechaCreacion, 
+--		modi.usua_Nombre							AS usua_UsuarioModificacion , 
+--		peor_FechaModificacion, 
+--		peor_Estado 
+--FROM	Prod.tbPedidosOrden po
+--		INNER JOIN Gral.tbProveedores prov			ON po.prov_Id = prov.prov_Id
+--		INNER JOIN Acce.tbUsuarios crea				ON crea.usua_Id = po.usua_UsuarioCreacion 
+--		LEFT JOIN  Acce.tbUsuarios modi				ON modi.usua_Id = po.usua_UsuarioModificacion 	
+--END
+--GO
 
+CREATE OR ALTER PROC [Prod].[UDP_tbPedidosProduccion_Listar]
+AS BEGIN
+
+SELECT
+   [ppro_Id], 
+   tbpp.[empl_Id], 
+   CONCAT(empl_Nombres, ' ', empl_Apellidos) AS empl_NombreCompleto,
+   [ppro_Fecha], 
+   [ppro_Estados], 
+   [ppro_Observaciones], 
+   tbpp.[usua_UsuarioCreacion], 
+   usuCrea.usua_Nombre AS UsuarioCreacion,
+   [ppro_FechaCreacion], 
+   tbpp.[usua_UsuarioModificacion], 
+   usuModi.usua_Nombre AS UsuarioModificacion,
+   [ppro_FechaModificacion], 
+   [ppro_Estado],
+   (SELECT [ppde_Id], 
+		   [ppro_Id], 
+		   tbppd.[lote_Id], 
+		   tbmats.mate_Descripcion,
+		   [ppde_Cantidad]
+   FROM [Prod].[tbPedidosProduccionDetalles] tbppd 
+   INNER JOIN [Prod].[tbLotes] tblot
+   ON tblot.lote_Id = tbppd.lote_Id
+   INNER JOIN [Prod].[tbMateriales] tbmats
+   ON tblot.mate_Id = tbmats.mate_Id
+   WHERE tbppd.ppro_Id = tbpp.ppro_Id 
+   FOR JSON PATH) 
+   AS Detalles
+
+FROM [Prod].[tbPedidosProduccion] tbpp
+LEFT JOIN Acce.tbUsuarios usuModi
+ON tbpp.usua_UsuarioModificacion = usuModi.usua_Id
+INNER JOIN Acce.tbUsuarios usuCrea
+ON tbpp.[usua_UsuarioCreacion] = usuCrea.usua_Id
+LEFT JOIN [Gral].[tbEmpleados] tbempls
+ON tbpp.empl_Id = tbempls.empl_Id
+
+
+
+END
 
 --*****Insertar*****--
 

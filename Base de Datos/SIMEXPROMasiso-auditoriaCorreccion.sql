@@ -78,6 +78,7 @@ CREATE TABLE Acce.tbRoles
 (
 		role_Id						INT 			IDENTITY(1,1),
 		role_Descripcion			NVARCHAR(500),
+		role_Aduana					BIT,				
 
 		usua_UsuarioCreacion 		INT				NOT NULL,
 		role_FechaCreacion 			DATETIME 		NOT NULL,

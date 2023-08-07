@@ -28,8 +28,8 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         public IActionResult Index()
         {
             var listado = _aduanaServices.ListarPersonaNatural();
-            var listadoMapeado = _mapper.Map<IEnumerable<PersonaNaturalViewModel>>(listado.Data);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<PersonaNaturalViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
 

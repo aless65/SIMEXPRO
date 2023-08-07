@@ -28,7 +28,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarCiudades();
-             listado.Data = _mapper.Map<IEnumerable<CiudadesViewModel>>(listado.Data);
+            listado.Data = _mapper.Map<IEnumerable<CiudadesViewModel>>(listado.Data);
             return Ok(listado);
         }
 
@@ -50,12 +50,12 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Eliminar")]
-        public IActionResult Delete(CiudadesViewModel ciudadesViewModel)
-        {
-            var item = _mapper.Map<tbCiudades>(ciudadesViewModel);
-            var respuesta = _generalesServices.EliminarCiudades(item);
-            return Ok(respuesta);
-        }
+        //[HttpPost("Eliminar")]
+        //public IActionResult Delete(CiudadesViewModel ciudadesViewModel)
+        //{
+        //    var item = _mapper.Map<tbCiudades>(ciudadesViewModel);
+        //    var respuesta = _generalesServices.EliminarCiudades(item);
+        //    return Ok(respuesta);
+        //}
     }
 }

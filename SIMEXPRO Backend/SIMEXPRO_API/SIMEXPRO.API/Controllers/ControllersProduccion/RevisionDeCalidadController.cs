@@ -28,8 +28,8 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         public IActionResult Index()
         {
             var listado = _produccionServices.ListarRevisionDeCalidad();
-            var listadoMapeado = _mapper.Map<IEnumerable<RevisionDeCalidadViewModel>>(listado);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<RevisionDeCalidadViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
         [HttpPost("Insertar")]

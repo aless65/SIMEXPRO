@@ -28,8 +28,8 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         public IActionResult Index()
         {
             var listado = _produccionServices.ListarColores();
-            var listadoMapeado = _mapper.Map<IEnumerable<ColoresViewModel>>(listado.Data);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<ColoresViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
         [HttpPost("Insertar")]
@@ -48,12 +48,12 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Eliminar")]
-        public IActionResult Delete(ColoresViewModel coloresViewModel)
-        {
-            var item = _mapper.Map<tbColores>(coloresViewModel);
-            var respuesta = _produccionServices.EliminarColores(item);
-            return Ok(respuesta);
-        }
+        //[HttpPost("Eliminar")]
+        //public IActionResult Delete(ColoresViewModel coloresViewModel)
+        //{
+        //    var item = _mapper.Map<tbColores>(coloresViewModel);
+        //    var respuesta = _produccionServices.EliminarColores(item);
+        //    return Ok(respuesta);
+        //}
     }
 }

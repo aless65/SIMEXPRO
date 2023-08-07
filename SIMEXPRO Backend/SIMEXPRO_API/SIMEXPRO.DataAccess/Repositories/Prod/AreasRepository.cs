@@ -14,7 +14,15 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
     {
         public RequestStatus Delete(tbArea item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@tipa_Id", item.tipa_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@tipa_FechaEliminacion", item.tipa_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarAreas, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
+            return result;
         }
 
         public tbArea Find(int? id)
@@ -31,8 +39,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@proc_Id",                  item.proc_Id,               DbType.Int32,   ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion",     item.usua_UsuarioCreacion,  DbType.Int32,   ParameterDirection.Input);
             parametros.Add("@tipa_FechaCreacion",       item.tipa_FechaCreacion,    DbType.DateTime,ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarAreas, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarAreas, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -53,8 +61,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@proc_Id",                  item.proc_Id,                   DbType.Int32,   ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion,  DbType.Int32,   ParameterDirection.Input);
             parametros.Add("@tipa_FechaModificacion",   item.tipa_FechaModificacion,    DbType.DateTime,ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarAreas, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarAreas, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
     }

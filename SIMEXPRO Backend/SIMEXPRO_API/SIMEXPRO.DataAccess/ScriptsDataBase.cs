@@ -96,7 +96,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarCiudades = "Gral.UDP_tbCiudades_Listar";
         public static string InsertarCiudades = "Gral.UDP_tbCiudades_Insertar";
         public static string EditarCiudades = "Gral.UDP_tbCiudades_Editar";
-        public static string EliminarCiudades = "Gral.UDP_tbCiudades_Eliminar";
+        //public static string EliminarCiudades = "Gral.UDP_tbCiudades_Eliminar";
         #endregion
 
         #region Provincias
@@ -456,7 +456,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarAreas = "Prod.UDP_tbArea_Listar";
         public static string InsertarAreas = "Prod.UDP_tbArea_Insertar";
         public static string EditarAreas = "Prod.UDP_tbArea_Editar";
-        public static string ElininarAreas = "Prod.UDP_tbArea_Eliminar";
+        public static string EliminarAreas = "Prod.UDP_tbArea_Eliminar";
         #endregion
 
         #region Asignaciones Orden

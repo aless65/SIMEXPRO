@@ -48,12 +48,12 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        [HttpPost("Eliminar")]
-        public IActionResult Delete(ColoniasViewModel coloniasViewModel)
-        {
-            var item = _mapper.Map<tbColonias>(coloniasViewModel);
-            var respuesta = _generalesServices.EliminarColonias(item);
-            return Ok(respuesta);
-        }
+        //[HttpPost("Eliminar")]
+        //public IActionResult Delete(ColoniasViewModel coloniasViewModel)
+        //{
+        //    var item = _mapper.Map<tbColonias>(coloniasViewModel);
+        //    var respuesta = _generalesServices.EliminarColonias(item);
+        //    return Ok(respuesta);
+        //}
     }
 }

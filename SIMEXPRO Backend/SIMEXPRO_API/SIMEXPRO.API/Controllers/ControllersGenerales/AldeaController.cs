@@ -27,8 +27,8 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarAldeas();
-            var listadoMapeado = _mapper.Map<IEnumerable<AldeasViewModel>>(listado.Data);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<AldeasViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
 
@@ -49,12 +49,5 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        //[HttpPost("Eliminar")]
-        //public IActionResult Delete(AldeasViewModel aldeasViewModel)
-        //{
-        //    var item = _mapper.Map<tbAldeas>(aldeasViewModel);
-        //    var respuesta = _generalesServices.EliminarAldeas(item);
-        //    return Ok(respuesta);
-        //}
     }
 }

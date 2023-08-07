@@ -18,8 +18,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
             parametros.Add("@asor_Id", item.asor_Id, DbType.Int32, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarAsignacionesOrden, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarAsignacionesOrden, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -41,8 +41,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@empl_Id",              item.empl_Id,               DbType.Int32,       ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion,  DbType.Int32,       ParameterDirection.Input);
             parametros.Add("@asor_FechaCreacion",   item.asor_FechaCreacion,    DbType.DateTime,    ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarAsignacinesOrden, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarAsignacinesOrden, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -68,8 +68,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@empl_Id",                  item.empl_Id,                   DbType.Int32,       ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion,  DbType.Int32,       ParameterDirection.Input);
             parametros.Add("@asor_FechaModificacion",   item.asor_FechaCreacion,        DbType.DateTime,    ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarAsignacionesOrden, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarAsignacionesOrden, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
     }

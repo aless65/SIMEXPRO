@@ -18,8 +18,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
             parametros.Add("@adet_Id", item.adet_Id, DbType.Int32, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarAsignacionesOrdenDetalle, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarAsignacionesOrdenDetalle, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -38,8 +38,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@asor_Id",                  item.asor_Id,               DbType.Int32,       ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion",     item.usua_UsuarioCreacion,  DbType.Int32,       ParameterDirection.Input);
             parametros.Add("@adet_FechaCreacion",       item.adet_FechaCreacion,    DbType.DateTime,    ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarAsignacinesOrdenDetalle, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarAsignacinesOrdenDetalle, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -56,14 +56,14 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
-            parametros.Add("@adet_Id",                  item.adet_Id,                   DbType.Int32,       ParameterDirection.Input);
-            parametros.Add("@lote_Id",                  item.lote_Id,                   DbType.Int32,       ParameterDirection.Input);
-            parametros.Add("@adet_Cantidad",            item.adet_Cantidad,             DbType.Int32,       ParameterDirection.Input);
-            parametros.Add("@asor_Id",                  item.asor_Id,                   DbType.Int32,       ParameterDirection.Input);
-            parametros.Add("usua_UsuarioModificacion",  item.usua_UsuarioModificacion,  DbType.Int32,       ParameterDirection.Input);
-            parametros.Add("adet_FechaModificacion",    item.adet_FechaModificacion,    DbType.DateTime,    ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarAsignacionesOrdenDetalle, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            parametros.Add("@adet_Id",                   item.adet_Id,                   DbType.Int32,       ParameterDirection.Input);
+            parametros.Add("@lote_Id",                   item.lote_Id,                   DbType.Int32,       ParameterDirection.Input);
+            parametros.Add("@adet_Cantidad",             item.adet_Cantidad,             DbType.Int32,       ParameterDirection.Input);
+            parametros.Add("@asor_Id",                   item.asor_Id,                   DbType.Int32,       ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioModificacion",  item.usua_UsuarioModificacion,  DbType.Int32,       ParameterDirection.Input);
+            parametros.Add("@adet_FechaModificacion",    item.adet_FechaModificacion,    DbType.DateTime,    ParameterDirection.Input);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarAsignacionesOrdenDetalle, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -73,10 +73,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
             parametros.Add("@asor_Id", asor_Id, DbType.Int32, ParameterDirection.Input);
-            return db.Query<tbAsignacionesOrdenDetalle>(ScriptsDataBase.ListarAsignacionesOrdenDetalle, null, commandType: CommandType.StoredProcedure);
+            return db.Query<tbAsignacionesOrdenDetalle>(ScriptsDataBase.ListarAsignacionesOrdenDetalle, parametros, commandType: CommandType.StoredProcedure);
         }
-
-
-
     }
 }

@@ -81783,7 +81783,22 @@ VALUES
 ('Chevrolet', 1, '8/30/2022', 1),
 ('Honda', 1, '2/10/2022', 1),
 ('Nissan', 1, '2/7/2022', 1);
+GO
 
+INSERT INTO [Adua].[tbDeclarantes] ([decl_NumeroIdentificacion], [decl_Nombre_Raso], [decl_Direccion_Exacta], [ciud_Id], [decl_Correo_Electronico], [decl_Telefono], [usua_UsuarioCreacion], [decl_FechaCreacion])
+VALUES ('0607-1987-167542', 'Benito Juarez', 'D.F. Mexico', 1, 'elmerobenito@mexico.city', '9674-1672', 1, GETDATE())
+GO
+
+INSERT INTO [Adua].[tbDeclarantes] ([decl_NumeroIdentificacion], [decl_Nombre_Raso], [decl_Direccion_Exacta], [ciud_Id], [decl_Correo_Electronico], [decl_Telefono], [usua_UsuarioCreacion], [decl_FechaCreacion])
+VALUES ('0912-1998-876453', 'Marco Soto', 'M.D.C Tegucigalpa', 2, 'elmerosoto12@catracholandia.hn', '8943-7623', 1, GETDATE())
+GO
+
+INSERT INTO [Adua].[tbProveedoresDeclaracion] ([coco_Id], [pvde_Condicion_Otra], [decl_Id], [usua_UsuarioCreacion], [pvde_FechaCreacion])
+VALUES (1, 'Alguna condicion', 1, 1, GETDATE())
+GO
+
+INSERT INTO [Adua].[tbProveedoresDeclaracion] ([coco_Id], [pvde_Condicion_Otra], [decl_Id], [usua_UsuarioCreacion], [pvde_FechaCreacion])
+VALUES (2, 'Otra condicion', 2, 1, GETDATE())
 GO
 
 INSERT INTO [Adua].[tbTransporte]
@@ -81826,12 +81841,12 @@ GO
 INSERT INTO [Adua].[tbImportadores]
 (nico_Id, decl_Id, impo_NivelComercial_Otro, impo_RTN, impo_NumRegistro, usua_UsuarioCreacion, impo_FechaCreacion, impo_Estado)
 VALUES
-(1,5,'----','05012006017558','15048630',1,GETDATE(),1),
-(2,5,'----','13012005017558','15048630',1,GETDATE(),1),
-(3,5,'----','08032003017845','15048630',1,GETDATE(),1),
-(4,5,'----','07012006017021','15048630',1,GETDATE(),1);
+(1,1,'----','05012006017558','15048630',1,GETDATE(),1),
+(2,2,'----','13012005017558','15048630',1,GETDATE(),1),
+(3,1,'----','08032003017845','15048630',1,GETDATE(),1),
+(4,2,'----','07012006017021','15048630',1,GETDATE(),1);
 --Insert Modo de Transporte
-select getdate()
+
 INSERT INTO Adua.tbModoTransporte(motr_Descripcion,usua_UsuarioCreacion,motr_FechaCreacion)
 VALUES	('Marítimo',1,GETDATE()),
 		('Aéreo',1,GETDATE()),
@@ -82034,4 +82049,9 @@ INSERT INTO [Prod].[tbOrde_Ensa_Acab_Etiq]
 VALUES 
 (20,1, 2, '01/08/2023', '01/08/2023', 1, 1, '07/31/2023', 1)
 
+GO
+
+
+INSERT INTO [Adua].[tbDeclaraciones_Valor] ([deva_AduanaIngresoId], [deva_AduanaDespachoId], [deva_DeclaracionMercancia], [deva_FechaAceptacion], [impo_Id], [pvde_Id], [inte_Id], [deva_LugarEntrega], [pais_EntregaId], [inco_Id], [inco_Version], [deva_NumeroContrato], [deva_FechaContrato], [foen_Id], [deva_PagoEfectuado], [fopa_Id], [emba_Id], [pais_ExportacionId], [deva_FechaExportacion], [mone_Id], [deva_ConversionDolares], [deva_Condiciones], [usua_UsuarioCreacion], [deva_FechaCreacion])
+VALUES (1, 2, 'Algun documento importante o dato importante', GETDATE(), 3, 1, 1, 'En un lugar cerquita de la casa del que recibe', 1, 1, '2021', 'XBTO87642', GETDATE(), 1, 1, 1, 1, 2, GETDATE(), 1, 24.2034, 'FOB', 1, GETDATE())
 GO

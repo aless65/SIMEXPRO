@@ -35,6 +35,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
+            parametros.Add("@foen_Codigo", item.foen_Codigo, DbType.String, ParameterDirection.Input);
             parametros.Add("@foen_Descripcion", item.foen_Descripcion, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@foen_FechaCreacion", item.foen_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
@@ -56,6 +57,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
             parametros.Add("@foen_Id", item.foen_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@foen_Codigo", item.foen_Codigo, DbType.String, ParameterDirection.Input);
             parametros.Add("@foen_Descripcion", item.foen_Descripcion, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@foen_FechaModificacion", item.foen_FechaModificacion, DbType.DateTime, ParameterDirection.Input);

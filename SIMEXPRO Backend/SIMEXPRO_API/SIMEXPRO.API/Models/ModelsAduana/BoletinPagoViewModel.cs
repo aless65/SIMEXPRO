@@ -15,12 +15,12 @@ namespace SIMEXPRO.API.Models.ModelsAduana
         public int esbo_Id { get; set; }
         public string boen_Observaciones { get; set; }
         public string boen_NDeclaracion { get; set; }
-        public string pena_RTN { get; set; }
+        //public string pena_RTN { get; set; }
         public string boen_Preimpreso { get; set; }
         public string boen_Declarante { get; set; }
         public decimal? boen_TotalPagar { get; set; }
         public decimal? boen_TotalGarantizar { get; set; }
-        public string boen_RTN { get; set; }
+        //public string boen_RTN { get; set; }
         public string boen_TipoEncabezado { get; set; }
         public int coim_Id { get; set; }
         public int copa_Id { get; set; }

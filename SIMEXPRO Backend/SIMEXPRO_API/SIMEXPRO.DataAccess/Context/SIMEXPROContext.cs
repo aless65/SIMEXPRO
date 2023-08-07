@@ -534,10 +534,6 @@ namespace SIMEXPRO.DataAccess.Context
 
                 entity.Property(e => e.boen_Preimpreso).IsRequired();
 
-                entity.Property(e => e.boen_RTN)
-                    .IsRequired()
-                    .HasMaxLength(40);
-
                 entity.Property(e => e.boen_TipoEncabezado)
                     .IsRequired()
                     .HasMaxLength(200);
@@ -547,10 +543,6 @@ namespace SIMEXPRO.DataAccess.Context
                 entity.Property(e => e.boen_TotalPagar).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.duca_No_Duca).HasMaxLength(100);
-
-                entity.Property(e => e.pena_RTN)
-                    .IsRequired()
-                    .HasMaxLength(40);
 
                 entity.HasOne(d => d.coim)
                     .WithMany(p => p.tbBoletinPago)

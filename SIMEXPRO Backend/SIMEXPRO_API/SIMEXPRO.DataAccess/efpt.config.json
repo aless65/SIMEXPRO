@@ -54,6 +54,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[Adua].[tbBoletinPagoDetalles]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[Adua].[tbCodigoImpuesto]",
          "ObjectType": 0
       },
@@ -91,6 +95,10 @@
       },
       {
          "Name": "[Adua].[tbDeclarantes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Adua].[tbDeclarantesHistorial]",
          "ObjectType": 0
       },
       {
@@ -142,6 +150,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[Adua].[tbImportadoresHistorial]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[Adua].[tbImpuestos]",
          "ObjectType": 0
       },
@@ -155,6 +167,10 @@
       },
       {
          "Name": "[Adua].[tbIntermediarios]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Adua].[tbIntermediariosHistorial]",
          "ObjectType": 0
       },
       {
@@ -207,6 +223,10 @@
       },
       {
          "Name": "[Adua].[tbProveedoresDeclaracion]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Adua].[tbProveedoresDeclaracionHistorial]",
          "ObjectType": 0
       },
       {
@@ -314,6 +334,14 @@
          "ObjectType": 0
       },
       {
+         "Name": "[Prod].[tbFacturasExportacion]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Prod].[tbFacturasExportacionDetalles]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[Prod].[tbFuncionesMaquina]",
          "ObjectType": 0
       },
@@ -406,7 +434,7 @@
          "ObjectType": 0
       }
    ],
-   "UiHint": "practicaahm.SIMEXPRO",
+   "UiHint": "DESKTOP-TSV52PA\\SQLEXPRESS.SIMEXPRO",
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": true,
    "UseDbContextSplitting": false,

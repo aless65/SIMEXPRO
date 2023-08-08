@@ -171,6 +171,12 @@ namespace SIMEXPRO.DataAccess
         public static string EliminarBoletinPago = "Adua.UDP_tbBoletinPago_Eliminar";
         #endregion
 
+        #region Boletin de Pago detalles
+        public static string ListarBoletinPagoDetalles = "Adua.UDP_tbBoletinPagoDetalles_Listado";
+        public static string InsertarBoletinPagoDetalles = "Adua.UDP_tbBoletinPagoDetalles_Insertar";
+        public static string EditarBoletinPagoDetalles = "Adua.UDP_tbBoletinPagoDetalles_Editar";
+        #endregion
+
         #region Codigo Impuesto
         public static string ListarCodigoImpuesto = "Adua.UDP_tbCodigoImpuesto_Listar";
         public static string InsertarCodigoImpuesto = "Adua.UDP_tbCodigoImpuesto_Insertar";

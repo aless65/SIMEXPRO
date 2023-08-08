@@ -6706,11 +6706,11 @@ BEGIN
 			boletin.boen_NDeclaracion,
 			--boletin.pena_RTN, 
 			boletin.boen_Preimpreso, 
-			boletin.boen_Declarante, 
+			--boletin.boen_Declarante, 
 			boletin.boen_TotalPagar, 
 			boletin.boen_TotalGarantizar, 
 			--boletin.boen_RTN, 
-			boletin.boen_TipoEncabezado, 
+			--boletin.boen_TipoEncabezado, 
 			boletin.coim_Id, 
 			codigoIm.coim_Descripcion,
 			boletin.copa_Id, 
@@ -6744,11 +6744,11 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbBoletinPago_Insertar
 	@boen_NDeclaracion       NVARCHAR(200), 
 	--@pena_RTN                VARCHAR(20), 
 	@boen_Preimpreso         NVARCHAR(MAX), 
-	@boen_Declarante         NVARCHAR(200), 
+	--@boen_Declarante         NVARCHAR(200), 
 	@boen_TotalPagar         DECIMAL(18,2), 
 	@boen_TotalGarantizar    DECIMAL(18,2), 
 	--@boen_RTN                NVARCHAR(100),
-	@boen_TipoEncabezado     NVARCHAR(200), 
+	--@boen_TipoEncabezado     NVARCHAR(200), 
 	@coim_Id                 INT, 
 	@copa_Id                 INT, 
 	@usua_UsuarioCreacion    INT, 
@@ -6766,11 +6766,11 @@ BEGIN
 										   boen_NDeclaracion, 
 										   --pena_RTN, 
 										   boen_Preimpreso, 
-										   boen_Declarante, 
+										   --boen_Declarante, 
 										   boen_TotalPagar, 
 										   boen_TotalGarantizar, 
 										   --boen_RTN, 
-										   boen_TipoEncabezado, 
+										   --boen_TipoEncabezado, 
 										   coim_Id, 
 										   copa_Id, 
 										   usua_UsuarioCreacion, 
@@ -6785,11 +6785,11 @@ BEGIN
 				   @boen_NDeclaracion, 
 				   --@pena_RTN, 
 				   @boen_Preimpreso, 
-				   @boen_Declarante, 
+				   --@boen_Declarante, 
 				   @boen_TotalPagar, 
 				   @boen_TotalGarantizar, 
 				   --@boen_RTN, 
-				   @boen_TipoEncabezado, 
+				   --@boen_TipoEncabezado, 
 				   @coim_Id, 
 				   @copa_Id, 
 				   @usua_UsuarioCreacion, 
@@ -7505,8 +7505,8 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosDeSoporte_Insertar
 	@doso_LineaAplica			        CHAR(4),
 	@doso_EntidadEmitioDocumento        NVARCHAR(75),
 	@doso_Monto				           	NVARCHAR(50),
-	@usua_UsuarioCreacion				int,
-	@doso_FechaCreacion					datetime
+	@usua_UsuarioCreacion				INT,
+	@doso_FechaCreacion					DATETIME
 
 AS
 BEGIN 
@@ -7587,13 +7587,13 @@ GO
 
 /* INSERTAR DOCUMENTOS PDF */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosPDF_Insertar
-	@deva_Id				int,
-	@dpdf_CA				nvarchar(200),
-	@dpdf_DVA				nvarchar(200),
-	@dpdf_DUCA				nvarchar(200),
-	@dpdf_Boletin			nvarchar(200),
-	@usua_UsuarioCreacion   int,
-	@dpdf_FechaCreacion     datetime
+	@deva_Id				INT,
+	@dpdf_CA				NVARCHAR(200),
+	@dpdf_DVA				NVARCHAR(200),
+	@dpdf_DUCA				NVARCHAR(200),
+	@dpdf_Boletin			NVARCHAR(200),
+	@usua_UsuarioCreacion   INT,
+	@dpdf_FechaCreacion     DATETIME
      
 AS
 BEGIN 
@@ -7654,14 +7654,14 @@ GO
 
 /* EDITAR DOCUMENTOS PDF */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosPDF_Editar
-@dpdf_Id					int,
-@deva_Id					int,
-@dpdf_CA					nvarchar(200),
-@dpdf_DVA					nvarchar(200),
-@dpdf_DUCA					nvarchar(200),
-@dpdf_Boletin				nvarchar(200),
-@usua_UsuarioModificacion   int,
-@dpdf_FechaModificacion     datetime
+@dpdf_Id					INT,
+@deva_Id					INT,
+@dpdf_CA					NVARCHAR(200),
+@dpdf_DVA					NVARCHAR(200),
+@dpdf_DUCA					NVARCHAR(200),
+@dpdf_Boletin				NVARCHAR(200),
+@usua_UsuarioModificacion   INT,
+@dpdf_FechaModificacion     DATETIME
 
 AS
 BEGIN 
@@ -7717,9 +7717,9 @@ GO
 
 /* ELIMINAR DOCUMENTOS PDF */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosPDF_Eliminar
-	@dpdf_Id					int,
-	@usua_UsuarioEliminacion    int,
-	@dpdf_FechaEliminacion		datetime
+	@dpdf_Id					INT,
+	@usua_UsuarioEliminacion    INT,
+	@dpdf_FechaEliminacion		DATETIME
 AS
 BEGIN 
 
@@ -7811,12 +7811,12 @@ GO
 
 /* INSERTAR DOCUMENTOS CONTRATOS */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosContratos_Insertar
-@coin_Id					int,
-@peju_Id					int,
-@doco_Numero_O_Referencia	nvarchar(50),
-@doco_TipoDocumento			nvarchar(6),
-@usua_UsuarioCreacion		int,
-@doco_FechaCreacion			datetime
+@coin_Id					INT,
+@peju_Id					INT,
+@doco_Numero_O_Referencia	NVARCHAR(50),
+@doco_TipoDocumento			NVARCHAR(6),
+@usua_UsuarioCreacion		INT,
+@doco_FechaCreacion			DATETIME
    
 AS
 BEGIN
@@ -7851,13 +7851,13 @@ GO
 
 /* EDITAR DOCUMENTOS CONTRATOS */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosContratos_Editar
-@doco_Id					int,
-@coin_Id					int,
-@peju_Id					int,
-@doco_Numero_O_Referencia	nvarchar(50),
-@doco_TipoDocumento			nvarchar(6),
-@usua_UsuarioModificacion	int,
-@doco_FechaModificacion		datetime
+@doco_Id					INT,
+@coin_Id					INT,
+@peju_Id					INT,
+@doco_Numero_O_Referencia	NVARCHAR(50),
+@doco_TipoDocumento			NVARCHAR(6),
+@usua_UsuarioModificacion	INT,
+@doco_FechaModificacion		DATETIME
 AS
 BEGIN
  
@@ -7887,7 +7887,7 @@ GO
 
 /* ELIMINAR DOCUMENTOS CONTRATOS */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosContratos_Eliminar
-@doco_Id					int
+@doco_Id					INT
 AS
 BEGIN
   	BEGIN TRY

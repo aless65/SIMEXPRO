@@ -139,7 +139,7 @@ BEGIN
 		   usuaElimina.usua_Nombre AS usuarioEliminacionNombre, 
 		   usua.usua_FechaEliminacion,
 		   usua.usua_Estado,
-		   empl.empl_CorreoElectronicO	
+		   empl.empl_CorreoElectronico
 	FROM Acce.tbUsuarios usua LEFT JOIN Acce.tbRoles rol
 	ON usua.role_Id = rol.role_Id
 	LEFT JOIN Gral.tbEmpleados empl
@@ -424,8 +424,8 @@ BEGIN
 		   [role_Descripcion],
 		   tbroles.[role_Aduana], 
 		   CASE [role_Aduana]
-		   WHEN 1 THEN 'Sí'
-		   ELSE 'No' END AS Aduanero,
+		   WHEN 1 THEN 'A'
+		   ELSE 'P' END AS Aduanero,
 		   tbroles.[usua_UsuarioCreacion],
 		   usuCrea.usua_Nombre as UsuarioCreacion,
 		   [role_FechaCreacion], 
@@ -454,7 +454,6 @@ BEGIN
 
 
 END
-GO
 
 /* Insertar Roles*/
 CREATE OR ALTER PROCEDURE Acce.UDP_tbRoles_Insertar 

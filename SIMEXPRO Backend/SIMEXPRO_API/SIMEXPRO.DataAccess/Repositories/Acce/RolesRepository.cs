@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace SIMEXPRO.DataAccess.Repositories.Acce
 {
@@ -37,6 +38,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             var parametros = new DynamicParameters();
             parametros.Add("@role_Descripcion", item.role_Descripcion, DbType.String, ParameterDirection.Input);
             parametros.Add("@pant_Ids", item.pant_Ids, DbType.String, ParameterDirection.Input);
+            parametros.Add("@role_Aduana", item.role_Aduana, DbType.Boolean, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@role_FechaCreacion", item.role_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
             var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarRoles, parametros, commandType: CommandType.StoredProcedure);

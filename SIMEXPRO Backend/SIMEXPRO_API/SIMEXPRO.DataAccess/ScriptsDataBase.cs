@@ -85,6 +85,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarMonedas = "gral.UDP_tbMonedas_Listar";
         public static string InsertarMonedas = "gral.UDP_tbMonedas_Insertar";
         public static string EditarMonedas = "gral.UDP_tbMonedas_Editar";
+        public static string EliminarMonedas = "gral.UDP_tbMonedas_Eliminar";
         #endregion
 
         #region Paises

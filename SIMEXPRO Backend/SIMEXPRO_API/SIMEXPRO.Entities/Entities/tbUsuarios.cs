@@ -32,6 +32,8 @@ namespace SIMEXPRO.Entities.Entities
             tbBaseCalculosusua_UsuarioModificacionNavigation = new HashSet<tbBaseCalculos>();
             tbBoletinPagousua_UsuarioCreacionNavigation = new HashSet<tbBoletinPago>();
             tbBoletinPagousua_UsuarioModificacionNavigation = new HashSet<tbBoletinPago>();
+            tbBoletinPagoDetallesusua_UsuarioCreacionNavigation = new HashSet<tbBoletinPagoDetalles>();
+            tbBoletinPagoDetallesusua_UsuarioModificacionNavigation = new HashSet<tbBoletinPagoDetalles>();
             tbCargosusua_UsuarioCreacionNavigation = new HashSet<tbCargos>();
             tbCargosusua_UsuarioEliminacionNavigation = new HashSet<tbCargos>();
             tbCargosusua_UsuarioModificacionNavigation = new HashSet<tbCargos>();
@@ -96,6 +98,10 @@ namespace SIMEXPRO.Entities.Entities
             tbEstilosusua_UsuarioModificacionNavigation = new HashSet<tbEstilos>();
             tbFacturasusua_UsuarioCreacionNavigation = new HashSet<tbFacturas>();
             tbFacturasusua_UsuarioModificacionNavigation = new HashSet<tbFacturas>();
+            tbFacturasExportacionusua_UsuarioCreacionNavigation = new HashSet<tbFacturasExportacion>();
+            tbFacturasExportacionusua_UsuarioModificacionNavigation = new HashSet<tbFacturasExportacion>();
+            tbFacturasExportacionDetallesusua_UsuarioCreacionNavigation = new HashSet<tbFacturasExportacionDetalles>();
+            tbFacturasExportacionDetallesusua_UsuarioModificacionNavigation = new HashSet<tbFacturasExportacionDetalles>();
             tbFormas_Enviousua_UsuarioCreacionNavigation = new HashSet<tbFormas_Envio>();
             tbFormas_Enviousua_UsuarioEliminacionNavigation = new HashSet<tbFormas_Envio>();
             tbFormas_Enviousua_UsuarioModificacionNavigation = new HashSet<tbFormas_Envio>();
@@ -290,6 +296,8 @@ namespace SIMEXPRO.Entities.Entities
         public virtual ICollection<tbBaseCalculos> tbBaseCalculosusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbBoletinPago> tbBoletinPagousua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbBoletinPago> tbBoletinPagousua_UsuarioModificacionNavigation { get; set; }
+        public virtual ICollection<tbBoletinPagoDetalles> tbBoletinPagoDetallesusua_UsuarioCreacionNavigation { get; set; }
+        public virtual ICollection<tbBoletinPagoDetalles> tbBoletinPagoDetallesusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbCargos> tbCargosusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbCargos> tbCargosusua_UsuarioEliminacionNavigation { get; set; }
         public virtual ICollection<tbCargos> tbCargosusua_UsuarioModificacionNavigation { get; set; }
@@ -354,6 +362,10 @@ namespace SIMEXPRO.Entities.Entities
         public virtual ICollection<tbEstilos> tbEstilosusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbFacturas> tbFacturasusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbFacturas> tbFacturasusua_UsuarioModificacionNavigation { get; set; }
+        public virtual ICollection<tbFacturasExportacion> tbFacturasExportacionusua_UsuarioCreacionNavigation { get; set; }
+        public virtual ICollection<tbFacturasExportacion> tbFacturasExportacionusua_UsuarioModificacionNavigation { get; set; }
+        public virtual ICollection<tbFacturasExportacionDetalles> tbFacturasExportacionDetallesusua_UsuarioCreacionNavigation { get; set; }
+        public virtual ICollection<tbFacturasExportacionDetalles> tbFacturasExportacionDetallesusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbFormas_Envio> tbFormas_Enviousua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbFormas_Envio> tbFormas_Enviousua_UsuarioEliminacionNavigation { get; set; }
         public virtual ICollection<tbFormas_Envio> tbFormas_Enviousua_UsuarioModificacionNavigation { get; set; }

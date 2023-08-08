@@ -2156,8 +2156,6 @@ CREATE TABLE Prod.tbReporteModuloDiaDetalle(
 	rdet_FechaCreacion			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT DEFAULT NULL,
 	rdet_FechaModificacion		DATETIME DEFAULT NULL,
-	--usua_UsuarioEliminacion	INT DEFAULT NULL,
-	--rdet_FechaEliminacion		DATETIME DEFAULT NULL,
 	rdet_Estado					BIT DEFAULT 1  
 
 	CONSTRAINT PK_Prod_tbReporteModuloDiaDetalle_rdet_Id						PRIMARY KEY (rdet_Id)
@@ -2165,7 +2163,6 @@ CREATE TABLE Prod.tbReporteModuloDiaDetalle(
 	CONSTRAINT FK_Prod_tbReporteModuloDiaDetalle_tbOrdenCompraDetalle_code_Id	FOREIGN KEY (code_Id)		   	       REFERENCES Prod.tbOrdenCompraDetalles (code_Id),
 	CONSTRAINT FK_Prod_tbReporteModuloDiaDetalle_tbUsuarios_rdet_UsuCrea		FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbReporteModuloDiaDetalle_tbUsuarios_rdet_UsuModifica	FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
-	--CONSTRAINT FK_Prod_tbReporteModuloDiaDetalle_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
 
@@ -2313,13 +2310,15 @@ CREATE TABLE Prod.tbOrde_Ensa_Acab_Etiq(
 	ensa_FechaInicio			DATE NOT NULL,
 	ensa_FechaLimite			DATE NOT NULL, 
 	ppro_Id						INT NOT NULL,
-
+	proc_Id						INT NOT NULL,
+	ensa_ModuloLineaAsignada	NVARCHAR(150),
+	ensa_MesaCorte				NVARCHAR(150), 
+ 
 	usua_UsuarioCreacion		INT NOT NULL,
 	ensa_FechaCreacion			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT DEFAULT NULL,
 	ensa_FechaModificacion		DATETIME DEFAULT NULL,
-	--usua_UsuarioEliminacion		INT DEFAULT NULL,
-	--ensa_FechaEliminacion		DATETIME DEFAULT NULL,
+
 	ensa_Estado					BIT DEFAULT 1  
 
 	CONSTRAINT PK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_orde_Id											PRIMARY KEY (ensa_Id)
@@ -2328,7 +2327,7 @@ CREATE TABLE Prod.tbOrde_Ensa_Acab_Etiq(
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_ppro_Id_Prod_tbPedidoProduccion_ppro_Id			FOREIGN KEY (ppro_Id)					REFERENCES Prod.tbPedidosProduccion			(ppro_Id),
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_usua_UsuarioCreacion_Acce_tbUsuario_usua_Id		FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_usua_UsuarioModificacion_Acce_tbUsuario_usua_Id	FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios (usua_Id),
-	--CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
+	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_Prod_tbProcesos_proc_Id							FOREIGN KEY (proc_Id)					REFERENCES Prod.tbProcesos (proc_Id)
 );
 GO--ewqeeeqw
 CREATE TABLE Prod.tbPedidosProduccionDetalles(
@@ -2775,14 +2774,23 @@ GO
 
 CREATE TABLE Adua.tbBoletinPagoDetalles(
 	bode_Id						   INT IDENTITY(1,1),
+	boen_Id						   INT NOT NULL,
 	lige_Id						   INT NOT NULL,
+	bode_Concepto				   VARCHAR(50) NOT NULL,
+	bode_TipoObligacion			   VARCHAR(50) NOT NULL,
+	bode_CuentaPA01				   INT NOT NULL,
 
 	usua_UsuarioCreacion           INT NOT NULL,
     bode_FechaCreacion             DATETIME NOT NULL,
     usua_UsuarioModificacion       INT DEFAULT NULL,
     bode_FechaModificacion         DATETIME DEFAULT NULL,
+	CONSTRAINT PK_Adua_tbBoletinPagoDetalles_bode_Id PRIMARY KEY (bode_Id),
+	CONSTRAINT FK_Adua_tbBoletinPagoDetalles_boen_Id_Adua_tbBoletinPago_boen_Id FOREIGN KEY (boen_Id) REFERENCES Adua.tbBoletinPago (boen_Id),
+	CONSTRAINT FK_Adua_tbBoletinPagoDetalles_lige_Id_Adua_tbLiquidacionGeneral_lige_Id FOREIGN KEY (lige_Id) REFERENCES Adua.tbLiquidacionGeneral (lige_Id),
+	CONSTRAINT FK_Adua_tbBoletinPagoDetalles_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id FOREIGN KEY (usua_UsuarioCreacion) REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT FK_Adua_tbBoletinPagoDetalles_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 );
-
+GO
 
 CREATE TABLE Adua.tbDocumentosDeSoporte(
 	doso_Id						        INT IDENTITY(1,1),

@@ -133,6 +133,7 @@ CREATE TABLE Acce.tbRolesXPantallas(
 		ropa_Estado					BIT				DEFAULT 1,
 
 	CONSTRAINT PK_Acce_tbRolesXPantallas_ropa_Id PRIMARY KEY (ropa_Id),
+	CONSTRAINT UQ_Acce_tbRolesXPantallas_pant_Id_role_Id					UNIQUE(role_Id, pant_Id),
 	CONSTRAINT FK_Acce_tbRolesXPantallas_pant_Id_Acce_tbPantallas_pant_Id   FOREIGN KEY(pant_Id) REFERENCES Acce.tbPantallas (pant_Id),
 	CONSTRAINT FK_Acce_tbRolesXPantallas_role_Id_Acce_tbRoles_role_Id 		FOREIGN KEY(role_Id) REFERENCES Acce.tbRoles (role_Id),
 

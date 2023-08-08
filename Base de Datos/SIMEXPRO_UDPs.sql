@@ -406,33 +406,67 @@ END
 GO
 
 /* Insertar Roles*/
-CREATE OR ALTER PROCEDURE Acce.UDP_tbRoles_Insertar
+CREATE OR ALTER PROCEDURE Acce.UDP_tbRoles_Insertar 
 	@role_Descripcion			NVARCHAR(500),
+	@pant_Ids					NVARCHAR(4000),
 	@usua_UsuarioCreacion		INT,
 	@role_FechaCreacion			DATETIME
 AS
 BEGIN
-	SET @role_FechaCreacion = GETDATE()
 	BEGIN TRY
-		IF EXISTS (SELECT role_Id FROM Acce.tbRoles WHERE role_Descripcion = @role_Descripcion AND role_Estado = 0)
-			BEGIN
-				UPDATE Acce.tbRoles
-				   SET role_Descripcion = @role_Descripcion
-					  ,role_Estado = 1
-				 WHERE role_Descripcion = @role_Descripcion
+		--IF EXISTS (SELECT role_Id FROM Acce.tbRoles WHERE role_Descripcion = @role_Descripcion AND role_Estado = 0)
+		--	BEGIN
+		--		UPDATE Acce.tbRoles
+		--		   SET role_Descripcion = @role_Descripcion
+		--			  ,role_Estado = 1
+		--		 WHERE role_Descripcion = @role_Descripcion
 
-				 SELECT 1
-			END
-		ELSE
-			BEGIN
+		--		 SELECT 1
+		--	END
+		--ELSE
+		--	BEGIN
 				INSERT INTO Acce.tbRoles(role_Descripcion, usua_UsuarioCreacion, role_FechaCreacion, usua_UsuarioModificacion, role_FechaModificacion, usua_UsuarioEliminacion, role_FechaEliminacion, role_Estado)
 				VALUES (@role_Descripcion,@usua_UsuarioCreacion,@role_FechaCreacion,NULL,NULL,NULL,NULL,1);
 
-				 SELECT 1
-			END
+				DECLARE @role_Id INT = SCOPE_IDENTITY();
+				 
+				--SET @pant_Ids = N'{
+				--	"pantallas" : [
+				--		{"pant_Id" : 1, "role_Id" : ' + @role_Id +'},
+				--		{"pant_Id" : 3, "role_Id" : ' + @role_Id +'},
+				--		{"pant_Id" : 2, "role_Id" : ' + @role_Id +'},
+				--	]
+				--}';
+
+				SET @pant_Ids = N'{
+					"pantallas" : [
+						{"pant_Id" : 1},
+						{"pant_Id" : 3},
+						{"pant_Id" : 2},
+					]
+				}';
+
+				--INSERT INTO [Acce].[tbRolesXPantallas] ([pant_Id], 
+				--									    [role_Id], 
+				--									    [usua_UsuarioCreacion], 
+				--									    [ropa_FechaCreacion] )
+				SELECT *
+				FROM OPENJSON(@pant_Ids, '$.pantallas')
+				WITH (
+					pant_Id INT
+				) 
+				SELECT @role_Id,
+				       @usua_UsuarioCreacion,
+					   @role_FechaCreacion   
+
+
+					   
+			--END
+
+				SELECT 1
 	END TRY
 	BEGIN CATCH
-		 SELECT 0
+		 SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 

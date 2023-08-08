@@ -81895,15 +81895,9 @@ VALUES
 (1, GETDATE(), 'Pendiente', '--------', 1, GETDATE())
 
 GO
---Pedidos Producción Detalles--
-
-INSERT INTO Prod.tbPedidosProduccionDetalles
-(ppro_Id, lote_Id, ppde_Cantidad, usua_UsuarioCreacion, ppde_FechaCreacion)
-VALUES 
-(1, 4, 10, 1, GETDATE())
 
 
-GO
+
 
 --ESTILOS--
 INSERT INTO [Prod].[tbEstilos]
@@ -81928,6 +81922,8 @@ VALUES
 ('Botones', 2, 23.99, 1, GETDATE()),
 ('Tela', 2, 23.99, 1, GETDATE()),
 ('Listones', 2, 23.99, 1, GETDATE())
+
+GO
 --LOTES--
 INSERT INTO [Prod].[tbLotes]
 (mate_Id, unme_Id, lote_Stock, lote_CantIngresada, lote_Observaciones, tipa_Id, usua_UsuarioCreacion, lote_FechaCreacion, lote_Estado)
@@ -81937,12 +81933,13 @@ VALUES
 (3,1,10,10,'-----',1,1,GETDATE(),1),
 (3,1,10,10,'-----',1,1,GETDATE(),1)
 
-
---ORDEN Esa_Acab_Etiq--
-INSERT INTO [Prod].[tbOrde_Ensa_Acab_Etiq]
-(ensa_Cantidad, empl_Id, code_Id, ensa_FechaInicio, ensa_FechaLimite, ppro_Id, usua_UsuarioCreacion, ensa_FechaCreacion, ensa_Estado)
+GO
+--Pedidos Producción Detalles--
+INSERT INTO Prod.tbPedidosProduccionDetalles
+(ppro_Id, lote_Id, ppde_Cantidad, usua_UsuarioCreacion, ppde_FechaCreacion)
 VALUES 
-(20,1, 2, '01/08/2023', '01/08/2023', 1, 1, '07/31/2023', 1)
+(1, 4, 10, 1, GETDATE())
+
 
 GO
 --ORDEN DE COMPRA--
@@ -81964,14 +81961,20 @@ VALUES		(4,2,1,1,'F',1,'aca deberia ir un documento','aca deberia ir otro docume
 
 
 GO
+--ORDEN Esa_Acab_Etiq--
+INSERT INTO [Prod].[tbOrde_Ensa_Acab_Etiq]
+(ensa_Cantidad, empl_Id, code_Id, ensa_FechaInicio, ensa_FechaLimite, ppro_Id, usua_UsuarioCreacion, ensa_FechaCreacion, ensa_Estado)
+VALUES 
+(20,1, 2, '01/08/2023', '01/08/2023', 1, 1, '07/31/2023', 1)
+
 
 
 INSERT INTO Prod.tbMaquinas (maqu_NumeroSerie, mmaq_Id, modu_Id, usua_UsuarioCreacion, maqu_FechaCreacion)
 VALUES	('00001',1,1,1,GETDATE()),
-		('00002',2,2,1,GETDATE()),
-		('00003',3,3,1,GETDATE()),
-		('00004',4,4,1,GETDATE()),
-		('00005',5,5,1,GETDATE())
+		('00002',2,1,1,GETDATE()),
+		('00003',3,1,1,GETDATE()),
+		('00004',4,1,1,GETDATE()),
+		('00005',5,1,1,GETDATE())
 
 
 		--Colonias--

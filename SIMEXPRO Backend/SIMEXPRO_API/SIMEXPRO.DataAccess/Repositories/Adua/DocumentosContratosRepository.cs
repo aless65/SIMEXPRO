@@ -14,7 +14,13 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
     {
         public RequestStatus Delete(tbDocumentosContratos item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@doco_Id", item.doco_Id, DbType.Int32, ParameterDirection.Input);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarDocumentosContratos, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
+            return result;
         }
 
         public tbDocumentosContratos Find(int? id)
@@ -33,8 +39,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@doco_TipoDocumento", item.doco_TipoDocumento, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@doco_FechaCreacion", item.doco_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarDocumentosContratos, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarDocumentosContratos, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -57,8 +63,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@doco_TipoDocumento", item.doco_TipoDocumento, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@doco_FechaCreacion", item.doco_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarDocumentosContratos, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarDocumentosContratos, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
     }

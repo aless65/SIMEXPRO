@@ -7496,8 +7496,8 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosDeSoporte_Insertar
 	@doso_LineaAplica			        CHAR(4),
 	@doso_EntidadEmitioDocumento        NVARCHAR(75),
 	@doso_Monto				           	NVARCHAR(50),
-	@usua_UsuarioCreacion				int,
-	@doso_FechaCreacion					datetime
+	@usua_UsuarioCreacion				INT,
+	@doso_FechaCreacion					DATETIME
 
 AS
 BEGIN 
@@ -7578,13 +7578,13 @@ GO
 
 /* INSERTAR DOCUMENTOS PDF */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosPDF_Insertar
-	@deva_Id				int,
-	@dpdf_CA				nvarchar(200),
-	@dpdf_DVA				nvarchar(200),
-	@dpdf_DUCA				nvarchar(200),
-	@dpdf_Boletin			nvarchar(200),
-	@usua_UsuarioCreacion   int,
-	@dpdf_FechaCreacion     datetime
+	@deva_Id				INT,
+	@dpdf_CA				NVARCHAR(200),
+	@dpdf_DVA				NVARCHAR(200),
+	@dpdf_DUCA				NVARCHAR(200),
+	@dpdf_Boletin			NVARCHAR(200),
+	@usua_UsuarioCreacion   INT,
+	@dpdf_FechaCreacion     DATETIME
      
 AS
 BEGIN 
@@ -7645,14 +7645,14 @@ GO
 
 /* EDITAR DOCUMENTOS PDF */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosPDF_Editar
-@dpdf_Id					int,
-@deva_Id					int,
-@dpdf_CA					nvarchar(200),
-@dpdf_DVA					nvarchar(200),
-@dpdf_DUCA					nvarchar(200),
-@dpdf_Boletin				nvarchar(200),
-@usua_UsuarioModificacion   int,
-@dpdf_FechaModificacion     datetime
+@dpdf_Id					INT,
+@deva_Id					INT,
+@dpdf_CA					NVARCHAR(200),
+@dpdf_DVA					NVARCHAR(200),
+@dpdf_DUCA					NVARCHAR(200),
+@dpdf_Boletin				NVARCHAR(200),
+@usua_UsuarioModificacion   INT,
+@dpdf_FechaModificacion     DATETIME
 
 AS
 BEGIN 
@@ -7708,9 +7708,9 @@ GO
 
 /* ELIMINAR DOCUMENTOS PDF */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosPDF_Eliminar
-	@dpdf_Id					int,
-	@usua_UsuarioEliminacion    int,
-	@dpdf_FechaEliminacion		datetime
+	@dpdf_Id					INT,
+	@usua_UsuarioEliminacion    INT,
+	@dpdf_FechaEliminacion		DATETIME
 AS
 BEGIN 
 
@@ -7802,12 +7802,12 @@ GO
 
 /* INSERTAR DOCUMENTOS CONTRATOS */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosContratos_Insertar
-@coin_Id					int,
-@peju_Id					int,
-@doco_Numero_O_Referencia	nvarchar(50),
-@doco_TipoDocumento			nvarchar(6),
-@usua_UsuarioCreacion		int,
-@doco_FechaCreacion			datetime
+@coin_Id					INT,
+@peju_Id					INT,
+@doco_Numero_O_Referencia	NVARCHAR(50),
+@doco_TipoDocumento			NVARCHAR(6),
+@usua_UsuarioCreacion		INT,
+@doco_FechaCreacion			DATETIME
    
 AS
 BEGIN
@@ -7842,13 +7842,13 @@ GO
 
 /* EDITAR DOCUMENTOS CONTRATOS */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosContratos_Editar
-@doco_Id					int,
-@coin_Id					int,
-@peju_Id					int,
-@doco_Numero_O_Referencia	nvarchar(50),
-@doco_TipoDocumento			nvarchar(6),
-@usua_UsuarioModificacion	int,
-@doco_FechaModificacion		datetime
+@doco_Id					INT,
+@coin_Id					INT,
+@peju_Id					INT,
+@doco_Numero_O_Referencia	NVARCHAR(50),
+@doco_TipoDocumento			NVARCHAR(6),
+@usua_UsuarioModificacion	INT,
+@doco_FechaModificacion		DATETIME
 AS
 BEGIN
  
@@ -7878,7 +7878,7 @@ GO
 
 /* ELIMINAR DOCUMENTOS CONTRATOS */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosContratos_Eliminar
-@doco_Id					int
+@doco_Id					INT
 AS
 BEGIN
   	BEGIN TRY

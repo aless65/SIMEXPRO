@@ -296,7 +296,7 @@ END
 GO
 
 /* Activar Usuarios*/
-CREATE OR ALTER PROCEDURE Acce.UDP_tbUsuarios_Activar  2,1,'08-08-2023'
+CREATE OR ALTER PROCEDURE Acce.UDP_tbUsuarios_Activar
 	@usua_Id					INT,
 	@usua_UsuarioModificacion	INT,
 	@usua_FechaModificacion		DATETIME
@@ -348,7 +348,7 @@ GO
 
 
 /*Eliminar usuarios*/
-CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Eliminar 2,1,'08-08-2023'
+CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Eliminar
 	@usua_Id					INT,
 	@usua_UsuarioEliminacion	INT,
 	@usua_FechaEliminacion		DATETIME
@@ -7011,11 +7011,11 @@ BEGIN
 			boletin.boen_NDeclaracion,
 			--boletin.pena_RTN, 
 			boletin.boen_Preimpreso, 
-			boletin.boen_Declarante, 
+			--boletin.boen_Declarante, 
 			boletin.boen_TotalPagar, 
 			boletin.boen_TotalGarantizar, 
 			--boletin.boen_RTN, 
-			boletin.boen_TipoEncabezado, 
+			--boletin.boen_TipoEncabezado, 
 			boletin.coim_Id, 
 			codigoIm.coim_Descripcion,
 			boletin.copa_Id, 
@@ -7071,11 +7071,11 @@ BEGIN
 										   boen_NDeclaracion, 
 										   --pena_RTN, 
 										   boen_Preimpreso, 
-										   boen_Declarante, 
+										   --boen_Declarante, 
 										   boen_TotalPagar, 
 										   boen_TotalGarantizar, 
 										   --boen_RTN, 
-										   boen_TipoEncabezado, 
+										   --boen_TipoEncabezado, 
 										   coim_Id, 
 										   copa_Id, 
 										   usua_UsuarioCreacion, 
@@ -7090,11 +7090,11 @@ BEGIN
 				   @boen_NDeclaracion, 
 				   --@pena_RTN, 
 				   @boen_Preimpreso, 
-				   @boen_Declarante, 
+				   --@boen_Declarante, 
 				   @boen_TotalPagar, 
 				   @boen_TotalGarantizar, 
 				   --@boen_RTN, 
-				   @boen_TipoEncabezado, 
+				   --@boen_TipoEncabezado, 
 				   @coim_Id, 
 				   @copa_Id, 
 				   @usua_UsuarioCreacion, 
@@ -7143,11 +7143,11 @@ BEGIN
 				boen_NDeclaracion         = @boen_NDeclaracion,
 				--pena_RTN                  = @pena_RTN,
 				boen_Preimpreso           = @boen_Preimpreso,
-                boen_Declarante           = @boen_Declarante,
+                --boen_Declarante           = @boen_Declarante,
 				boen_TotalPagar           = @boen_TotalPagar,
                 boen_TotalGarantizar      = @boen_TotalGarantizar,
 				--boen_RTN                  = @boen_RTN,
-				boen_TipoEncabezado       = @boen_TipoEncabezado,
+				--boen_TipoEncabezado       = @boen_TipoEncabezado,
 				coim_Id                   = @coim_Id,
 				copa_Id                   = @copa_Id,
 				usua_UsuarioModificacion  = @usua_UsuarioModificacion,
@@ -7162,8 +7162,88 @@ BEGIN
 END
 GO
 
-/********************Listar Tipo intermediario***************************/
+--**********DETALLES DE BOLETIN PAGO**********--
+CREATE OR ALTER PROCEDURE Adua.UDP_tbBoletinPagoDetalles_Listado
+AS
+BEGIN
+	SELECT bode_Id,
+		   lige_Id,
+		   bode_Concepto,
+		   bode_TipoObligacion,
+		   bode_CuentaPA01,
+		   usua_UsuarioCreacion,           
+		   bode_FechaCreacion,             
+		   usua_UsuarioModificacion,       
+		   bode_FechaModificacion
+	  FROM Adua.tbBoletinPagoDetalles
+END
 GO
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbBoletinPagoDetalles_Insertar
+(
+	@lige_Id					INT,
+	@bode_Concepto				VARCHAR(50),
+	@bode_TipoObligacion		VARCHAR(50),
+	@bode_CuentaPA01			INT,
+	@usua_UsuarioCreacion       INT,
+    @bode_FechaCreacion         DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Adua.tbBoletinPagoDetalles
+					(lige_Id,				   
+					bode_Concepto,				   
+					bode_TipoObligacion,			   
+					bode_CuentaPA01,				   
+					usua_UsuarioCreacion,           
+					bode_FechaCreacion)
+			VALUES (@lige_Id,			
+					@bode_Concepto,		
+					@bode_TipoObligacion,
+					@bode_CuentaPA01,	
+					@usua_UsuarioCreacion,
+					@bode_FechaCreacion)
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbBoletinPagoDetalles_Editar
+(
+	@bode_Id					INT,
+	@lige_Id					INT,
+	@bode_Concepto				VARCHAR(50),
+	@bode_TipoObligacion		VARCHAR(50),
+	@bode_CuentaPA01			INT,
+	@usua_UsuarioModificacion   INT,
+    @bode_FechaModificacion     DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE Adua.tbBoletinPagoDetalles
+		   SET lige_Id					= @lige_Id,	
+			   bode_Concepto			= @bode_Concepto,		
+			   bode_TipoObligacion		= @bode_TipoObligacion,
+			   bode_CuentaPA01			= @bode_CuentaPA01,
+			   usua_UsuarioModificacion	= @usua_UsuarioModificacion, 
+			   bode_FechaModificacion	= @bode_FechaModificacion
+		 WHERE bode_Id = @bode_Id
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
+/********************Listar Tipo intermediario***************************/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Listar
 AS
 BEGIN 

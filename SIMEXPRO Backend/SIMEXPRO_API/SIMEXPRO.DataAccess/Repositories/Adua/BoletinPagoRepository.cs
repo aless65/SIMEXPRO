@@ -37,11 +37,11 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@boen_NDeclaracion", item.boen_NDeclaracion, DbType.String, ParameterDirection.Input);
             //parametros.Add("@pena_RTN", item.pena_RTN, DbType.String, ParameterDirection.Input);
             parametros.Add("@boen_Preimpreso", item.boen_Preimpreso, DbType.String, ParameterDirection.Input);
-            parametros.Add("@boen_Declarante", item.boen_Declarante, DbType.String, ParameterDirection.Input);
+            //parametros.Add("@boen_Declarante", item.boen_Declarante, DbType.String, ParameterDirection.Input);
             parametros.Add("@boen_TotalPagar", item.boen_TotalPagar, DbType.Decimal, ParameterDirection.Input);
             parametros.Add("@boen_TotalGarantizar", item.boen_TotalGarantizar, DbType.Decimal, ParameterDirection.Input);
             //parametros.Add("@boen_RTN", item.boen_RTN, DbType.String, ParameterDirection.Input);
-            parametros.Add("@boen_TipoEncabezado", item.boen_TipoEncabezado, DbType.String, ParameterDirection.Input);
+            //parametros.Add("@boen_TipoEncabezado", item.boen_TipoEncabezado, DbType.String, ParameterDirection.Input);
             parametros.Add("@coim_Id", item.coim_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@copa_Id", item.copa_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
@@ -75,11 +75,11 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@boen_NDeclaracion", item.boen_NDeclaracion, DbType.String, ParameterDirection.Input);
             //parametros.Add("@pena_RTN", item.pena_RTN, DbType.String, ParameterDirection.Input);
             parametros.Add("@boen_Preimpreso", item.boen_Preimpreso, DbType.String, ParameterDirection.Input);
-            parametros.Add("@boen_Declarante", item.boen_Declarante, DbType.String, ParameterDirection.Input);
+            //parametros.Add("@boen_Declarante", item.boen_Declarante, DbType.String, ParameterDirection.Input);
             parametros.Add("@boen_TotalPagar", item.boen_TotalPagar, DbType.Decimal, ParameterDirection.Input);
             parametros.Add("@boen_TotalGarantizar", item.boen_TotalGarantizar, DbType.Decimal, ParameterDirection.Input);
             //parametros.Add("@boen_RTN", item.boen_RTN, DbType.String, ParameterDirection.Input);
-            parametros.Add("@boen_TipoEncabezado", item.boen_TipoEncabezado, DbType.String, ParameterDirection.Input);
+            //parametros.Add("@boen_TipoEncabezado", item.boen_TipoEncabezado, DbType.String, ParameterDirection.Input);
             parametros.Add("@coim_Id", item.coim_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@copa_Id", item.copa_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);

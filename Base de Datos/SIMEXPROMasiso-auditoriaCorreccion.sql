@@ -2774,14 +2774,23 @@ GO
 
 CREATE TABLE Adua.tbBoletinPagoDetalles(
 	bode_Id						   INT IDENTITY(1,1),
+	boen_Id						   INT NOT NULL,
 	lige_Id						   INT NOT NULL,
+	bode_Concepto				   VARCHAR(50) NOT NULL,
+	bode_TipoObligacion			   VARCHAR(50) NOT NULL,
+	bode_CuentaPA01				   INT NOT NULL,
 
 	usua_UsuarioCreacion           INT NOT NULL,
     bode_FechaCreacion             DATETIME NOT NULL,
     usua_UsuarioModificacion       INT DEFAULT NULL,
     bode_FechaModificacion         DATETIME DEFAULT NULL,
+	CONSTRAINT PK_Adua_tbBoletinPagoDetalles_bode_Id PRIMARY KEY (bode_Id),
+	CONSTRAINT FK_Adua_tbBoletinPagoDetalles_boen_Id_Adua_tbBoletinPago_boen_Id FOREIGN KEY (boen_Id) REFERENCES Adua.tbBoletinPago (boen_Id),
+	CONSTRAINT FK_Adua_tbBoletinPagoDetalles_lige_Id_Adua_tbLiquidacionGeneral_lige_Id FOREIGN KEY (lige_Id) REFERENCES Adua.tbLiquidacionGeneral (lige_Id),
+	CONSTRAINT FK_Adua_tbBoletinPagoDetalles_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id FOREIGN KEY (usua_UsuarioCreacion) REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT FK_Adua_tbBoletinPagoDetalles_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 );
-
+GO
 
 CREATE TABLE Adua.tbDocumentosDeSoporte(
 	doso_Id						        INT IDENTITY(1,1),

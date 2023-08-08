@@ -413,59 +413,43 @@ CREATE OR ALTER PROCEDURE Acce.UDP_tbRoles_Insertar
 	@role_FechaCreacion			DATETIME
 AS
 BEGIN
+	BEGIN TRANSACTION
 	BEGIN TRY
-		--IF EXISTS (SELECT role_Id FROM Acce.tbRoles WHERE role_Descripcion = @role_Descripcion AND role_Estado = 0)
-		--	BEGIN
-		--		UPDATE Acce.tbRoles
-		--		   SET role_Descripcion = @role_Descripcion
-		--			  ,role_Estado = 1
-		--		 WHERE role_Descripcion = @role_Descripcion
-
-		--		 SELECT 1
-		--	END
-		--ELSE
-		--	BEGIN
-				INSERT INTO Acce.tbRoles(role_Descripcion, usua_UsuarioCreacion, role_FechaCreacion, usua_UsuarioModificacion, role_FechaModificacion, usua_UsuarioEliminacion, role_FechaEliminacion, role_Estado)
-				VALUES (@role_Descripcion,@usua_UsuarioCreacion,@role_FechaCreacion,NULL,NULL,NULL,NULL,1);
+				INSERT INTO Acce.tbRoles(role_Descripcion, 
+										 usua_UsuarioCreacion, 
+										 role_FechaCreacion)
+				VALUES (@role_Descripcion,
+					    @usua_UsuarioCreacion,
+						@role_FechaCreacion);
 
 				DECLARE @role_Id INT = SCOPE_IDENTITY();
-				 
-				--SET @pant_Ids = N'{
-				--	"pantallas" : [
-				--		{"pant_Id" : 1, "role_Id" : ' + @role_Id +'},
-				--		{"pant_Id" : 3, "role_Id" : ' + @role_Id +'},
-				--		{"pant_Id" : 2, "role_Id" : ' + @role_Id +'},
-				--	]
-				--}';
 
-				SET @pant_Ids = N'{
+				SET @pant_Ids = '{
 					"pantallas" : [
-						{"pant_Id" : 1},
-						{"pant_Id" : 3},
-						{"pant_Id" : 2},
+						{"pant_Id" : 4},
+						{"pant_Id" : 5},
+						{"pant_Id" : 6}
 					]
 				}';
 
-				--INSERT INTO [Acce].[tbRolesXPantallas] ([pant_Id], 
-				--									    [role_Id], 
-				--									    [usua_UsuarioCreacion], 
-				--									    [ropa_FechaCreacion] )
-				SELECT *
+				INSERT INTO [Acce].[tbRolesXPantallas] ([pant_Id], 
+													    [role_Id], 
+													    [usua_UsuarioCreacion], 
+													    [ropa_FechaCreacion] )
+				SELECT *,
+				      @role_Id,
+					  @usua_UsuarioCreacion,
+					  @role_FechaCreacion 
 				FROM OPENJSON(@pant_Ids, '$.pantallas')
 				WITH (
 					pant_Id INT
 				) 
-				SELECT @role_Id,
-				       @usua_UsuarioCreacion,
-					   @role_FechaCreacion   
-
-
-					   
-			--END
 
 				SELECT 1
+	COMMIT TRAN
 	END TRY
 	BEGIN CATCH
+		 ROLLBACK TRAN
 		 SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END

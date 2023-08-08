@@ -1906,7 +1906,17 @@ END
 GO
 --************EMPLEADOS******************--
 /*Listar EMPLEADOS*/
-CREATE OR ALTER PROCEDURE Gral.UDP_tbEmpleados_Listar
+/****** Object:  StoredProcedure [Gral].[UDP_tbEmpleados_Listar]    Script Date: 08/08/2023 16:39:38 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+--************EMPLEADOS******************--
+/*Listar EMPLEADOS*/
+ALTER    PROCEDURE [Gral].[UDP_tbEmpleados_Listar]
 AS
 BEGIN
 
@@ -1943,8 +1953,8 @@ SELECT empl.empl_Id									,
 		empl_Estado								
 FROM	Gral.tbEmpleados empl 
 		INNER JOIN Acce.tbUsuarios usuaCrea		ON empl.usua_UsuarioCreacion = usuaCrea.usua_Id 
-		LEFT JOIN Acce.tbUsuarios usuaModifica	ON empl.usua_UsuarioModificacion = usuaCrea.usua_Id 
-		LEFT JOIN Acce.tbUsuarios usuaElimina	ON empl.usua_UsuarioEliminacion = usuaCrea.usua_Id 
+		LEFT JOIN Acce.tbUsuarios usuaModifica	ON empl.usua_UsuarioModificacion = usuaModifica.usua_Id 
+		LEFT JOIN Acce.tbUsuarios usuaElimina	ON empl.usua_UsuarioEliminacion = usuaElimina.usua_Id 
 		INNER JOIN Gral.tbEstadosCiviles escv	ON empl.escv_Id = escv.escv_Id 
 		INNER JOIN Gral.tbProvincias pvin		ON empl.pvin_Id = pvin.pvin_Id 
 		INNER JOIN Gral.tbPaises pais			ON pvin.pais_Id = pais.pais_Id 
@@ -2001,6 +2011,8 @@ INNER JOIN Gral.tbCargos carg
 
 END
 GO
+
+
 
 /*Insertar EMPLEADOS*/
 CREATE OR ALTER PROCEDURE gral.UDP_tbEmpleados_Insertar

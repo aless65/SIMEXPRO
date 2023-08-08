@@ -17,11 +17,11 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
-            parametros.Add("@empl_Id", item.empl_Id,DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion,DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@empl_FechaEliminacion", item.empl_FechaEliminacion,DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarEmpleados, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            parametros.Add("@empl_Id", item.empl_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@empl_FechaEliminacion", item.empl_FechaEliminacion, DbType.String, ParameterDirection.Input);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarEmpleados, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -40,7 +40,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@empl_DNI", item.empl_DNI, DbType.String, ParameterDirection.Input);
             parametros.Add("@escv_Id", item.escv_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@empl_Sexo", item.empl_Sexo, DbType.String, ParameterDirection.Input);
-            parametros.Add("@empl_FechaNacimiento", item.empl_FechaNacimiento, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@empl_FechaNacimiento", item.empl_FechaNacimiento, DbType.String, ParameterDirection.Input);
             parametros.Add("@empl_Telefono", item.empl_Telefono, DbType.String, ParameterDirection.Input);
             parametros.Add("@empl_DireccionExacta", item.empl_DireccionExacta, DbType.String, ParameterDirection.Input);
             parametros.Add("@pvin_Id", item.pvin_Id, DbType.Int32, ParameterDirection.Input);
@@ -48,9 +48,9 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@empl_CorreoElectronico", item.empl_CorreoElectronico, DbType.String, ParameterDirection.Input);
             parametros.Add("@empl_EsAduana", item.empl_EsAduana, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@empl_FechaCreacion", item.empl_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarEmpleados, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            parametros.Add("@empl_FechaCreacion", item.empl_FechaCreacion, DbType.String, ParameterDirection.Input);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarEmpleados, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -73,7 +73,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@empl_DNI", item.empl_DNI, DbType.String, ParameterDirection.Input);
             parametros.Add("@escv_Id", item.escv_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@empl_Sexo", item.empl_Sexo, DbType.String, ParameterDirection.Input);
-            parametros.Add("@empl_FechaNacimiento", item.empl_FechaNacimiento, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@empl_FechaNacimiento", item.empl_FechaNacimiento, DbType.String, ParameterDirection.Input);
             parametros.Add("@empl_Telefono", item.empl_Telefono, DbType.String, ParameterDirection.Input);
             parametros.Add("@empl_DireccionExacta", item.empl_DireccionExacta, DbType.String, ParameterDirection.Input);
             parametros.Add("@pvin_Id", item.pvin_Id, DbType.Int32, ParameterDirection.Input);
@@ -81,9 +81,25 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@empl_CorreoElectronico", item.empl_CorreoElectronico, DbType.String, ParameterDirection.Input);
             parametros.Add("@empl_EsAduana", item.empl_EsAduana, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@empl_FechaModificacion", item.empl_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarEmpleados, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            parametros.Add("@empl_FechaModificacion", item.empl_FechaModificacion, DbType.String, ParameterDirection.Input);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarEmpleados, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
+            return result;
+        }
+
+
+        public RequestStatus Reactivar(tbEmpleados item)
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new();
+            var parameters = new DynamicParameters();
+            parameters.Add("@empl_Id", item.empl_Id, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@empl_FechaModificacion", item.empl_FechaModificacion, DbType.String, ParameterDirection.Input);
+
+            var answer = db.QueryFirst<string>(ScriptsDataBase.ReactivarEmpleados, parameters, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
+
             return result;
         }
     }

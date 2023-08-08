@@ -514,6 +514,30 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             }
         }
 
+        public ServiceResult ActivarEstadoClientes(tbClientes item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _clientesRepository.ActivarEstado(item);
+                if (map.MessageStatus == "1")
+                {
+                    return result.Ok(map);
+                }
+                else
+                {
+                    return result.Error(map);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+
+
         public ServiceResult EliminarClientes(tbClientes item)
         {
             var result = new ServiceResult();
@@ -638,19 +662,16 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         {
             var result = new ServiceResult();
             try
-            {
-               
+            {               
                 var map = _estilosRepository.Insert(item);
-if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
-              
             }
             catch (Exception ex)
             {
@@ -665,13 +686,12 @@ if (map.MessageStatus == "1")
             {
                 
                 var map = _estilosRepository.Update(item);
-if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
                
@@ -687,14 +707,13 @@ if (map.MessageStatus == "1")
             var result = new ServiceResult();
             try
             {
-                  var map = _estilosRepository.Delete(item);
-if (map.MessageStatus == "1")
+                var map = _estilosRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
             }
@@ -725,19 +744,16 @@ if (map.MessageStatus == "1")
         {
             var result = new ServiceResult();
             try
-            {
-                
+            {                
                 var map = _funcionesMaquinaRepository.Insert(item);
-if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
-               
             }
             catch (Exception ex)
             {
@@ -752,16 +768,14 @@ if (map.MessageStatus == "1")
             {
                 
                 var map = _funcionesMaquinaRepository.Update(item);
-if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
-                
             }
             catch (Exception ex)
             {
@@ -774,15 +788,13 @@ if (map.MessageStatus == "1")
             var result = new ServiceResult();
             try
             {
-                
                 var map = _funcionesMaquinaRepository.Delete(item);
-if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
                
@@ -814,15 +826,13 @@ if (map.MessageStatus == "1")
             var result = new ServiceResult();
             try
             {
-               
                 var map = _lotesRepository.Insert(item);
-if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
             }
@@ -839,13 +849,12 @@ if (map.MessageStatus == "1")
             {
                 
                 var map = _lotesRepository.Update(item);
-if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
                
@@ -863,13 +872,12 @@ if (map.MessageStatus == "1")
             {
                
                 var map = _lotesRepository.Delete(item);
-if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
                
@@ -903,7 +911,7 @@ if (map.MessageStatus == "1")
                 if (item.mahi_FechaInicio.ToString() != "")
                 {
                     var map = _maquinaHistorialRepository.Insert(item);
-    if (map.MessageStatus == "1")
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
@@ -932,7 +940,7 @@ if (map.MessageStatus == "1")
                 if (item.mahi_FechaInicio.ToString() != "")
                 {
                     var map = _maquinaHistorialRepository.Update(item);
-    if (map.MessageStatus == "1")
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
@@ -961,7 +969,7 @@ if (map.MessageStatus == "1")
                 if (item.maqu_Id != 0)
                 {
                     var map = _maquinaHistorialRepository.Delete(item);
-    if (map.MessageStatus == "1")
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
@@ -1004,18 +1012,15 @@ if (map.MessageStatus == "1")
             var result = new ServiceResult();
             try
             {
-              
                 var map = _maquinasRepository.Insert(item);
-if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
-                
             }
             catch (Exception ex)
             {
@@ -1029,13 +1034,12 @@ if (map.MessageStatus == "1")
             try
             {
                 var map = _maquinasRepository.Update(item);
-if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
                
@@ -1053,13 +1057,12 @@ if (map.MessageStatus == "1")
             {
               
                 var map = _maquinasRepository.Delete(item);
-if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
                
@@ -1100,7 +1103,6 @@ if (map.MessageStatus == "1")
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
                
@@ -1116,18 +1118,15 @@ if (map.MessageStatus == "1")
             var result = new ServiceResult();
             try
             {
-               
                 var map = _marcasMaquinaRepository.Update(item);
-if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
-                
             }
             catch (Exception ex)
             {
@@ -1148,7 +1147,6 @@ if (map.MessageStatus == "1")
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
                 
@@ -1182,13 +1180,12 @@ if (map.MessageStatus == "1")
             {
                 
                 var map = _materialesBrindarRepository.Insert(item);
-if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
                
@@ -1206,13 +1203,12 @@ if (map.MessageStatus == "1")
             {
                
                 var map = _materialesBrindarRepository.Update(item);
-if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
               
@@ -1230,13 +1226,12 @@ if (map.MessageStatus == "1")
             {
                 
                 var map = _materialesBrindarRepository.Delete(item);
-if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
                
@@ -1270,13 +1265,12 @@ if (map.MessageStatus == "1")
             {
                 
                 var map = _materialesRepository.Insert(item);
-if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
                
@@ -1294,13 +1288,12 @@ if (map.MessageStatus == "1")
             {
               
                 var map = _materialesRepository.Update(item);
-if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
                 
@@ -1317,13 +1310,12 @@ if (map.MessageStatus == "1")
             try
             {
                 var map = _materialesRepository.Delete(item);
-if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
                 
@@ -1357,13 +1349,12 @@ if (map.MessageStatus == "1")
             {
                 
                 var map = _modelosMaquinaRepository.Insert(item);
-if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
                 
@@ -1381,13 +1372,12 @@ if (map.MessageStatus == "1")
             {
                
                 var map = _modelosMaquinaRepository.Update(item);
-if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
                 
@@ -1405,13 +1395,12 @@ if (map.MessageStatus == "1")
             {
                 
                 var map = _modelosMaquinaRepository.Delete(item);
-if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    
                     return result.Error(map);
                 }
                 
@@ -1443,23 +1432,16 @@ if (map.MessageStatus == "1")
             var result = new ServiceResult();
             try
             {
-                if (item.modu_Nombre != "")
-                {
                     var map = _modulosRepository.Insert(item);
-    if (map.MessageStatus == "1")
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        
                         return result.Error(map);
                     }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+
             }
             catch (Exception ex)
             {
@@ -1472,23 +1454,15 @@ if (map.MessageStatus == "1")
             var result = new ServiceResult();
             try
             {
-                if (item.modu_Nombre != "")
-                {
                     var map = _modulosRepository.Update(item);
-    if (map.MessageStatus == "1")
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        
                         return result.Error(map);
                     }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
             }
             catch (Exception ex)
             {
@@ -1501,23 +1475,15 @@ if (map.MessageStatus == "1")
             var result = new ServiceResult();
             try
             {
-                if (item.modu_Id != 0)
-                {
                     var map = _modulosRepository.Delete(item);
-    if (map.MessageStatus == "1")
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        
                         return result.Error(map);
                     }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
             }
             catch (Exception ex)
             {

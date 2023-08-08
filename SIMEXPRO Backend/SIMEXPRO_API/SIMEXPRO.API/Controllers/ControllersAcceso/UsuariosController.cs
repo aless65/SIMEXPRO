@@ -98,6 +98,15 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
             return Ok(datos);
         }
 
+        [HttpPost("Activar")]
+        public IActionResult Activar(UsuariosViewModel usuarios)
+        {
+            var mapped = _mapper.Map<tbUsuarios>(usuarios);
+            var datos = _accesoServices.ActivarEstadoUsuario(mapped);
+            return Ok(datos);
+        }
+
+
         [HttpPost("Eliminar")]
         public IActionResult Eliminar(UsuariosViewModel usuarios)
         {

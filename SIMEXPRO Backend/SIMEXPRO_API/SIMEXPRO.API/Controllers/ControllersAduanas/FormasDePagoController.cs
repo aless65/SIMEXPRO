@@ -27,9 +27,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         public IActionResult List()
         {
             var list = _aduanaServices.ListarFormasdePago();
-
             list.Data = _mapper.Map<IEnumerable<FormasDePagoViewModel>>(list.Data);
-
             return Ok(list);
         }
 
@@ -37,7 +35,6 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         public IActionResult Insert(FormasDePagoViewModel item)
         {
             var result = _aduanaServices.InsertarFormasdePago(_mapper.Map<tbFormasdePago>(item));
-
             return Ok(result);
         }
 

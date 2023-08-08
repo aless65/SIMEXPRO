@@ -31,7 +31,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@mate_Id", item.mate_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@mabr_Cantidad", item.mabr_Cantidad, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@mabr_FechaCreacion", item.mabr_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@mabr_FechaCreacion", item.mabr_FechaCreacion, DbType.String, ParameterDirection.Input);
             var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarMaterialesBrindar, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
             return result;
@@ -54,7 +54,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@mate_Id", item.mate_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@mabr_Cantidad", item.mabr_Cantidad, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@mabr_FechaModificacion", item.mabr_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@mabr_FechaModificacion", item.mabr_FechaModificacion, DbType.String, ParameterDirection.Input);
             var answer = db.QueryFirst<string>(ScriptsDataBase.EditarMaterialesBrindar, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
             return result;

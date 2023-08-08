@@ -5,9 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SIMEXPRO.API.Models.ModelsAduana;
+using SIMEXPRO.Entities.Entities;
 
 namespace SIMEXPRO.API.Controllers.ControllersAduanas
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class DocumentosDeSoporteController : Controller
     {
         private readonly AduanaServices _aduanaServices;
@@ -18,9 +22,22 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             _aduanaServices = AduanaServices;
             _mapper = mapper;
         }
+
+
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
-            return View();
+            var listado = _aduanaServices.ListarDocumentosdeSoporte();
+            listado.Data = _mapper.Map<IEnumerable<DocumentosDeSoporteViewModel>>(listado.Data);
+            return Ok(listado);
+        }
+
+        [HttpPost("Insertar")]
+        public IActionResult Insert(DocumentosDeSoporteViewModel documentosContratosViewModel)
+        {
+            var item = _mapper.Map<tbDocumentosDeSoporte>(documentosContratosViewModel);
+            var respuesta = _aduanaServices.InsertarDocumentosdeSoporte(item);
+            return Ok(respuesta);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             var parametros = new DynamicParameters();
             parametros.Add("@marc_Id", item.marc_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@marc_FechaEliminacion", item.marc_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@marc_FechaEliminacion", item.marc_FechaEliminacion, DbType.String, ParameterDirection.Input);
 
             var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarMarcas, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
@@ -41,7 +41,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
 
             parametros.Add("@marc_Descripcion", item.marc_Descripcion, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@marc_FechaCreacion", item.marc_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@marc_FechaCreacion", item.marc_FechaCreacion, DbType.String, ParameterDirection.Input);
 
             var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarMarcas, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
@@ -64,7 +64,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@marc_Id", item.marc_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@marc_Descripcion", item.marc_Descripcion, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@marc_FechaModificacion", item.marc_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@marc_FechaModificacion", item.marc_FechaModificacion, DbType.String, ParameterDirection.Input);
 
             var answer = db.QueryFirst<string>(ScriptsDataBase.EditarMarcas, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;

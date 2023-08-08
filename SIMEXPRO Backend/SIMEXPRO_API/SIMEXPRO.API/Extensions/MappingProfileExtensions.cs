@@ -41,6 +41,7 @@ namespace SIMEXPRO.API.Extentions
             CreateMap<BoletinPagoViewModel, tbBoletinPago>().ReverseMap();
             CreateMap<CodigoImpuestoViewModel, tbCodigoImpuesto>().ReverseMap();
             CreateMap<CondicionesComercialesViewModel, tbCondicionesComerciales>().ReverseMap();
+            CreateMap<ImpuestosViewModel, tbImpuestos>().ReverseMap();
             CreateMap<TransportesViewModel, tbTransporte>().ReverseMap();
             CreateMap<TiposIdentificacionViewModel, tbTiposIdentificacion>().ReverseMap();
             CreateMap<TipoLiquidacionViewModel, tbTipoLiquidacion>().ReverseMap();
@@ -61,6 +62,9 @@ namespace SIMEXPRO.API.Extentions
             CreateMap<ModoTransporteViewModel, tbModoTransporte>().ReverseMap();
             CreateMap<NivelesComercialesViewModel, tbNivelesComerciales>().ReverseMap();
             CreateMap<PersonaJuridicaViewModel, tbPersonaJuridica>().ReverseMap();
+            CreateMap<DocumentosPDFViewModel,tbDocumentosPDF>().ReverseMap();
+            CreateMap<DocumentosContratosViewModel, tbDocumentosContratos>().ReverseMap();
+            CreateMap<DocumentosDeSoporteViewModel, tbDocumentosDeSoporte>().ReverseMap();
 
             CreateMap<FacturasViewModel, tbFacturas>().ReverseMap();
             CreateMap<DocumentosContratosViewModel, tbDocumentosContratos>().ReverseMap();

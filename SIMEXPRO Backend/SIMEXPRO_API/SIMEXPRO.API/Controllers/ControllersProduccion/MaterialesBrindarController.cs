@@ -28,6 +28,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         public IActionResult Index()
         {
             var listado = _produccionServices.ListarMaterialesBrindados();
+            listado.Data = _mapper.Map<IEnumerable<MaterialesBrindarViewModel>>(listado.Data);
             return Ok(listado);
         }
 

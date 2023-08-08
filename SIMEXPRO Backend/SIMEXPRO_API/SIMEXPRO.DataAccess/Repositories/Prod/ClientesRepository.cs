@@ -75,5 +75,21 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             result.MessageStatus = answer;
             return result;
         }
+
+        public RequestStatus ActivarEstado(tbClientes item)
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@clie_Id",                      item.clie_Id,                      DbType.Int32,         ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioModificacion",     item.usua_UsuarioModificacion,     DbType.Int32,         ParameterDirection.Input);
+            parametros.Add("@clie_FechaModificacion",       item.clie_FechaModificacion,       DbType.DateTime,      ParameterDirection.Input);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.ActivarEstadoClientes, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
+            return result;
+        }
+
+
+
     }
 }

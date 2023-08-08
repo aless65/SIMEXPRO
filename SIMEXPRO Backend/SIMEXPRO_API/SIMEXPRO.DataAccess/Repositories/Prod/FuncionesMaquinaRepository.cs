@@ -19,7 +19,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             var parametros = new DynamicParameters();
             parametros.Add("@func_Id", item.func_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@func_FechaEliminacion", item.func_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@func_FechaEliminacion", item.func_FechaEliminacion, DbType.String, ParameterDirection.Input);
             var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarFuncionesMaquinas, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
             return result;
@@ -37,7 +37,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             var parametros = new DynamicParameters();
             parametros.Add("@func_Nombre", item.func_Nombre, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@func_FechaCreacion", item.func_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@func_FechaCreacion", item.func_FechaCreacion, DbType.String, ParameterDirection.Input);
 
             var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarFuncionesMaquinas, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
@@ -59,7 +59,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@func_Id", item.func_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@func_Nombre", item.func_Nombre, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@func_FechaModificacion", item.func_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@func_FechaModificacion", item.func_FechaModificacion, DbType.String, ParameterDirection.Input);
             var answer = db.QueryFirst<string>(ScriptsDataBase.EditarFuncionesMaquinas, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
             return result;

@@ -19,6 +19,7 @@ namespace SIMEXPRO.DataAccess
 
         public static string CorreoSegunUsuario = "acce.UDP_CorreoUsuario";
         public static string CambiarContrasenia = "acce.UDP_CambiarContrasena";
+        public static string ActivarEstadoUsuarios = "Acce.UDP_tbUsuarios_Activar";
         #endregion
 
         #region Pantallas
@@ -130,6 +131,7 @@ namespace SIMEXPRO.DataAccess
         public static string InsertarEmpleados = "gral.UDP_tbEmpleados_Insertar";
         public static string EditarEmpleados = "gral.UDP_tbEmpleados_Editar";
         public static string EliminarEmpleados = "gral.UDP_tbEmpleados_Eliminar";
+        public static string ReactivarEmpleados = "Gral.UDP_tbEmpleados_Reactivar";
         #endregion
 
         #region Unidad de Medidas
@@ -485,6 +487,7 @@ namespace SIMEXPRO.DataAccess
         public static string InsertarClientes = "prod.UDP_tbClientes_Insertar";
         public static string EditarClientes = "Prod.UDP_tbClientes_Editar";
         public static string EliminarClientes = "Prod.UDP_tbClientes_Eliminar";
+        public static string ActivarEstadoClientes = "Prod.UDP_tbClientes_Activar";
         #endregion
 
         #region Colores

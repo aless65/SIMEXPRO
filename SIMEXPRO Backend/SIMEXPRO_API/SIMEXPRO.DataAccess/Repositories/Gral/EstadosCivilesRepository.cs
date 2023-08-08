@@ -34,7 +34,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
 
-            var result = db.Query<tbEstadosCiviles>(ScriptsDataBase.ListarEstadosCiviles, null, commandType: System.Data.CommandType.StoredProcedure);
+            var result = db.Query<tbEstadosCiviles>(ScriptsDataBase.ListarEstadosCiviles, null, commandType: CommandType.StoredProcedure);
 
             return result;
         }

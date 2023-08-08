@@ -16,6 +16,7 @@ namespace SIMEXPRO.Entities.Entities
         public string tido_Codigo { get; set; }
         [NotMapped]
         public string tido_Descripcion { get; set; }
+
         public string duca_No_Duca { get; set; }
         public string doso_NumeroDocumento { get; set; }
         public DateTime? doso_FechaEmision { get; set; }

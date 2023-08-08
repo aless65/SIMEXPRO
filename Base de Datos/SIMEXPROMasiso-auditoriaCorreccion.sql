@@ -1770,6 +1770,7 @@ CREATE TABLE Adua.tbDocumentosContratos(
   	CONSTRAINT FK_Adua_tbDocumentosContratos_coin_UsuarioModificacion_Acce_tbUsuarios_usua_Id		  FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id)
 );
 
+
 -----------------------------------------------------------
 
 

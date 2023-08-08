@@ -82128,11 +82128,37 @@ VALUES
 ('Colonia Reino Unido', NULL, 288, 1,GETDATE())
 
 GO
+--Personas--
+INSERT INTO Adua.tbPersonas
+(pers_RTN, ofic_Id, escv_Id, ofpr_Id,pers_FormaRepresentacion, pers_escvRepresentante, pers_OfprRepresentante, usua_UsuarioCreacion, pers_FechaCreacion)
+VALUES
+('0102234356765890',1,1,1,1,1,1,1,GETDATE())
+GO
+INSERT INTO Adua.tbPersonas
+(pers_RTN, ofic_Id, escv_Id, ofpr_Id,pers_FormaRepresentacion, pers_escvRepresentante, pers_OfprRepresentante, usua_UsuarioCreacion, pers_FechaCreacion)
+VALUES
+('0202239056769891',1,2,1,2,1,2,1,GETDATE())
+GO
+INSERT INTO Adua.tbPersonas
+(pers_RTN, ofic_Id, escv_Id, ofpr_Id,pers_FormaRepresentacion, pers_escvRepresentante, pers_OfprRepresentante, usua_UsuarioCreacion, pers_FechaCreacion)
+VALUES
+('0243239056769871',2,2,3,2,1,3,1,GETDATE())
+GO
+INSERT INTO Adua.tbPersonas
+(pers_RTN, ofic_Id, escv_Id, ofpr_Id,pers_FormaRepresentacion, pers_escvRepresentante, pers_OfprRepresentante, usua_UsuarioCreacion, pers_FechaCreacion)
+VALUES
+('0543233656769771',1,3,3,2,1,3,1,GETDATE())
+GO
 
+INSERT INTO Adua.tbPersonas
+(pers_RTN, ofic_Id, escv_Id, ofpr_Id,pers_FormaRepresentacion, pers_escvRepresentante, pers_OfprRepresentante, usua_UsuarioCreacion, pers_FechaCreacion)
+VALUES
+('0549222656769771',2,4,3,4,1,3,1,GETDATE())
+GO
 
 --Declaracion de Valor--
 
---INSERT INTO Adua.tbDeclaraciones_Valor
---(deva_AduanaIngresoId, deva_AduanaDespachoId, deva_DeclaracionMercancia, deva_FechaAceptacion, impo_Id, pvde_Id, inte_Id, deva_LugarEntrega, pais_EntregaId, inco_Id, inco_Version, deva_NumeroContrato, deva_FechaContrato, foen_Id, deva_FormaEnvioOtra, deva_PagoEfectuado, fopa_Id, deva_FormaPagoOtra, emba_Id, pais_ExportacionId, deva_FechaExportacion, mone_Id, mone_Otra, deva_ConversionDolares, deva_Condiciones, usua_UsuarioCreacion, deva_FechaCreacion)
---VALUES
---()
+INSERT INTO Adua.tbDeclaraciones_Valor
+(deva_AduanaIngresoId, deva_AduanaDespachoId, deva_DeclaracionMercancia, deva_FechaAceptacion, impo_Id, pvde_Id, inte_Id, deva_LugarEntrega, pais_EntregaId, inco_Id, inco_Version, deva_NumeroContrato, deva_FechaContrato, foen_Id, deva_FormaEnvioOtra, deva_PagoEfectuado, fopa_Id, deva_FormaPagoOtra, emba_Id, pais_ExportacionId, deva_FechaExportacion, mone_Id, mone_Otra, deva_ConversionDolares, deva_Condiciones, usua_UsuarioCreacion, deva_FechaCreacion)
+VALUES
+()

@@ -46,7 +46,11 @@ namespace SIMEXPRO.API
             }
            );
 
+<<<<<<< Updated upstream
             // Configure Azure Key Vault
+=======
+            //// Configure Azure Key Vault
+>>>>>>> Stashed changes
             //var configBuilder = new ConfigurationBuilder();
             //var keyVaultEndpoint = "https://simexpro.vault.azure.net/"; // Replace with your Key Vault URI
             //var azureServiceTokenProvider = new AzureServiceTokenProvider();
@@ -156,7 +160,11 @@ namespace SIMEXPRO.API
             app.UseCors("AllowFlutter");
 
             app.UseAuthorization();
+<<<<<<< Updated upstream
             //app.UseMiddleware<ApiKeyMiddleware>();
+=======
+           // app.UseMiddleware<ApiKeyMiddleware>();
+>>>>>>> Stashed changes
 
             app.UseEndpoints(endpoints =>
             {

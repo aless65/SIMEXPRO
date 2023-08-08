@@ -153,7 +153,7 @@ BEGIN
 END
 --GO
 
---EXEC acce.UDP_tbUsuarios_Insertar 'juan', '123', 1, '', 1, 1, 1,'2023-08-13'
+--EXEC acce.UDP_tbUsuarios_Insertar 'juan', '123', 1, 'nada', 1, 1, 1,'08-08-2023'
 
 /*Insertar Usuarios*/
 GO
@@ -295,9 +295,60 @@ BEGIN
 END
 GO
 
+/* Activar Usuarios*/
+CREATE OR ALTER PROCEDURE Acce.UDP_tbUsuarios_Activar  2,1,'08-08-2023'
+	@usua_Id					INT,
+	@usua_UsuarioModificacion	INT,
+	@usua_FechaModificacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		BEGIN
+			 UPDATE Acce.tbUsuarios
+			    SET usua_Estado               = 1,
+					usua_UsuarioModificacion  = @usua_UsuarioModificacion,
+					usua_FechaModificacion    = @usua_FechaModificacion
+			  WHERE usua_Id                   = @usua_Id
+			  SELECT 1
+
+
+			  INSERT INTO acce.tbUsuariosHistorial (	usua_Id,
+												usua_Nombre, 
+												usua_Contrasenia, 
+												empl_Id, 
+												usua_Image, 
+												role_Id, 
+												usua_EsAdmin,
+												hist_UsuarioAccion, 
+												hist_FechaAccion,
+												hist_Accion)
+			SELECT usua_Id,
+				   usua_Nombre, 
+				   usua_Contrasenia, 
+				   empl_Id, 
+				   usua_Image, 
+				   role_Id, 
+				   usua_EsAdmin,
+				   @usua_UsuarioModificacion, 
+				   @usua_FechaModificacion,
+				   'Activar'
+			FROM acce.tbUsuarios
+			WHERE usua_Id = @usua_Id
+
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+
+
+
 
 /*Eliminar usuarios*/
-CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Eliminar 
+CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Eliminar 2,1,'08-08-2023'
 	@usua_Id					INT,
 	@usua_UsuarioEliminacion	INT,
 	@usua_FechaEliminacion		DATETIME
@@ -9182,6 +9233,31 @@ BEGIN
 	END CATCH
 END
 GO
+
+/* Activar Clientes*/
+CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Activar
+	@clie_Id					INT,
+	@usua_UsuarioModificacion	INT,
+	@clie_FechaModificacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		BEGIN
+			 UPDATE Prod.tbClientes
+			    SET clie_Estado               = 1,
+					usua_UsuarioModificacion  = @usua_UsuarioModificacion,
+					clie_FechaModificacion    = @clie_FechaModificacion
+			  WHERE clie_Id                   = @clie_Id
+			 SELECT 1
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+
 
 --*****ReporteModuloDia*****-
 --*****Listado*****--

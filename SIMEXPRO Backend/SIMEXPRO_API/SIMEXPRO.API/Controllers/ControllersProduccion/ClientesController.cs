@@ -56,5 +56,14 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             var respuesta = _produccionServices.EliminarClientes(item);
             return Ok(respuesta);
         }
+
+        [HttpPost("Activar")]
+        public IActionResult Activar(ClientesViewModel clientesViewModel)
+        {
+            var item = _mapper.Map<tbClientes>(clientesViewModel);
+            var respuesta = _produccionServices.ActivarEstadoClientes(item);
+            return Ok(respuesta);
+        }
+
     }
 }

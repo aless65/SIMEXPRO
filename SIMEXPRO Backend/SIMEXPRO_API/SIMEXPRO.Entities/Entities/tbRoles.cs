@@ -24,6 +24,7 @@ namespace SIMEXPRO.Entities.Entities
 
         [NotMapped]
         public string Detalles { get; set; }
+
         public DateTime role_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
         public DateTime? role_FechaModificacion { get; set; }

@@ -4544,40 +4544,40 @@ BEGIN
 		DECLARE @inte_Id INT;
 		DECLARE @prov_Id INT
 
-			IF NOT EXISTS ( SELECT decl_Id FROM [Adua].tbDeclarantes WHERE decl_NumeroIdentificacion = @prov_RTN)
-				BEGIN
-					EXEC adua.UDP_tbDeclarantes_Insertar @prov_decl_Nombre_Raso,
-													   @prov_decl_Direccion_Exacta,
-													   @prov_ciud_Id,
-													   @prov_decl_Correo_Electronico,
-													   @prov_decl_Telefono,
-													   @prov_decl_Fax,
-													   @usua_UsuarioCreacion,
-													   @deva_FechaCreacion,
-													   @prov_RTN,
-													   @prov_decl_Id OUTPUT
+			--IF NOT EXISTS ( SELECT decl_Id FROM [Adua].tbDeclarantes WHERE decl_NumeroIdentificacion = @prov_RTN)
+			--	BEGIN
+			--		EXEC adua.UDP_tbDeclarantes_Insertar @prov_decl_Nombre_Raso,
+			--										   @prov_decl_Direccion_Exacta,
+			--										   @prov_ciud_Id,
+			--										   @prov_decl_Correo_Electronico,
+			--										   @prov_decl_Telefono,
+			--										   @prov_decl_Fax,
+			--										   @usua_UsuarioCreacion,
+			--										   @deva_FechaCreacion,
+			--										   @prov_RTN,
+			--										   @prov_decl_Id OUTPUT
 
-					INSERT INTO Adua.tbProveedoresDeclaracion(	 coco_Id, 
-																  pvde_Condicion_Otra, 
-																  decl_Id, 
-																  usua_UsuarioCreacion, 
-																  pvde_FechaCreacion)
-															VALUES(@coco_Id, 
-																   @pvde_Condicion_Otra,
-																   @prov_decl_Id,
-																   @usua_UsuarioCreacion,
-																   @deva_FechaCreacion)
+			--		INSERT INTO Adua.tbProveedoresDeclaracion(	 coco_Id, 
+			--													  pvde_Condicion_Otra, 
+			--													  decl_Id, 
+			--													  usua_UsuarioCreacion, 
+			--													  pvde_FechaCreacion)
+			--												VALUES(@coco_Id, 
+			--													   @pvde_Condicion_Otra,
+			--													   @prov_decl_Id,
+			--													   @usua_UsuarioCreacion,
+			--													   @deva_FechaCreacion)
 
-					SET @prov_Id = SCOPE_IDENTITY()
-				END
-			ELSE
-				BEGIN
-					SET @prov_Id = (SELECT  pvde_Id
-								   FROM Adua.tbProveedoresDeclaracion
-								   WHERE pvde_Id = @prov_RTN)
-				END
+			--		SET @prov_Id = SCOPE_IDENTITY()
+			--	END
+			--ELSE
+			--	BEGIN
+			--		SET @prov_Id = (SELECT  pvde_Id
+			--					   FROM Adua.tbProveedoresDeclaracion
+			--					   WHERE pvde_Id = @prov_RTN)
+			--	END
 		
-		
+		-- SI NO EXISTE UN REGISTRO CON ESE RTN SE INSERTA
 
 		IF(@inte_decl_Nombre_Raso IS NOT NULL)
 			BEGIN

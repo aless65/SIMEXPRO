@@ -4099,9 +4099,6 @@ BEGIN
 		-- SI NO EXISTE UN REGISTRO CON ESE RTN SE INSERTA
 		IF NOT EXISTS (SELECT decl_NumeroIdentificacion FROM [Adua].tbDeclarantes WHERE decl_NumeroIdentificacion = @impo_RTN)
 		BEGIN
-			
-			
-
 			EXEC adua.UDP_tbDeclarantes_Insertar @decl_Nombre_Raso,
 											     @decl_Direccion_Exacta,
 											     @ciud_Id,
@@ -4151,7 +4148,11 @@ BEGIN
 							AND		decl_NumeroIdentificacion = @impo_RTN))
 
 					BEGIN --SI SON IGUALES NO PASA NADA SOLO GUARDAMOS EL ID
-						pRINT 'si SON iGUALES'
+						PRINT 'Sí son iguales'
+
+						SET @impo_Id = (SELECT impo_Id 
+										FROM Adua.tbImportadores
+										WHERE decl_Id = @decl_Id)
 					END 
 				ELSE --SO NO SON IGUALES SE EDITA LA NUEVA INFORMACION
 					BEGIN
@@ -4167,28 +4168,51 @@ BEGIN
 							decl_FechaModificacion		= @deva_FechaCreacion
 						WHERE decl_Id = @decl_Id
 							
-	
+						
+
+						SET @impo_Id = (SELECT impo_Id 
+										FROM Adua.tbImportadores
+										WHERE decl_Id = @decl_Id)
 					END
 
-				SET @impo_Id = (SELECT impo_Id 
-								FROM Adua.tbImportadores
-								WHERE impo_RTN = @impo_RTN)
+				--Revisamos si hubo cambios en la tabla de importadores
+				IF EXISTS(SELECT nico_Id,
+								 impo_NivelComercial_Otro,
+								 impo_RTN,
+								 impo_NumRegistro
+						  FROM [Adua].[tbImportadores]
+						  WHERE impo_Id = @impo_Id
+						  EXCEPT 
+						  SELECT @nico_Id					AS nico_Id,
+								 @impo_NivelComercial_Otro	AS impo_NivelComercial_Otro,
+								 @impo_RTN				    AS impo_RTN,
+								 @impo_NumRegistro			AS impo_NumRegistro)
+				BEGIN
+					UPDATE [Adua].[tbImportadores]
+					SET    nico_Id = @nico_Id,
+						   impo_NivelComercial_Otro = @impo_NivelComercial_Otro,
+						   impo_RTN = @impo_RTN,
+						   impo_NumRegistro = @impo_NumRegistro,
+						   usua_UsuarioModificacion = @usua_UsuarioCreacion,
+						   impo_FechaModificacion = @deva_FechaCreacion
+					WHERE  impo_Id = @impo_Id
+				END
 			END	
 
 		
 	
 		INSERT INTO Adua.tbDeclaraciones_Valor(deva_AduanaIngresoId, 
-												   deva_AduanaDespachoId, 
-												   deva_FechaAceptacion, 
-												   impo_Id, 
-												   usua_UsuarioCreacion, 
-												   deva_FechaCreacion)
-											VALUES(@deva_AduanaIngresoId,
-												   @deva_AduanaDespachoId,
-												   @deva_FechaAceptacion,
-												   @impo_Id,
-												   @usua_UsuarioCreacion,
-												   @deva_FechaCreacion)
+											   deva_AduanaDespachoId, 
+											   deva_FechaAceptacion, 
+											   impo_Id, 
+											   usua_UsuarioCreacion, 
+											   deva_FechaCreacion)
+										VALUES(@deva_AduanaIngresoId,
+												@deva_AduanaDespachoId,
+												@deva_FechaAceptacion,
+												@impo_Id,
+												@usua_UsuarioCreacion,
+												@deva_FechaCreacion)
 
 
 		DECLARE @deva_Id INT = SCOPE_IDENTITY()
@@ -4246,57 +4270,29 @@ BEGIN
 		DECLARE @decl_Id INT;
 		DECLARE @impo_Id INT
 
-		SET @decl_Id = (SELECT decl_Id
-						FROM Adua.tbImportadores
-						WHERE impo_Id = (SELECT impo_Id 
-										 FROM Adua.tbDeclaraciones_Valor
-										 WHERE deva_Id = @deva_Id))
+		--SET @decl_Id = (SELECT decl_Id
+		--				FROM Adua.tbImportadores
+		--				WHERE impo_Id = (SELECT impo_Id 
+		--								 FROM Adua.tbDeclaraciones_Valor
+		--								 WHERE deva_Id = @deva_Id))
 
+		-- SI NO EXISTE UN REGISTRO CON ESE RTN, SE INSERTA
+		IF NOT EXISTS (SELECT decl_NumeroIdentificacion 
+					   FROM [Adua].tbDeclarantes 
+					   WHERE decl_NumeroIdentificacion = @impo_RTN)
+			BEGIN
+				EXEC adua.UDP_tbDeclarantes_Insertar @decl_Nombre_Raso,
+													 @decl_Direccion_Exacta,
+													 @ciud_Id,
+													 @decl_Correo_Electronico,
+													 @decl_Telefono,
+													 @decl_Fax,
+													 @usua_UsuarioModificacion,
+													 @deva_FechaModificacion,
+													 @impo_RTN,
+													 @decl_Id OUTPUT
 
-		IF EXISTS (SELECT impo_RTN  FROM [Adua].[tbImportadores] WHERE impo_RTN = @impo_RTN) --Si existe el Importador se editara
-			BEGIN 
-				EXEC adua.UDP_tbDeclarantes_Editar @decl_Id,
-												   @decl_Nombre_Raso,
-												   @decl_Direccion_Exacta,
-												   @ciud_Id,
-												   @decl_Correo_Electronico,
-												   @decl_Telefono,
-												   @decl_Fax,
-												   @impo_RTN,
-												   @usua_UsuarioModificacion,
-												   @deva_FechaModificacion
-
-				SET @impo_Id  = (SELECT impo_Id 
-								 FROM Adua.tbDeclaraciones_Valor
-								 WHERE deva_Id = @deva_Id)
-
-				UPDATE  Adua.tbImportadores
-				SET		nico_Id = @nico_Id, 
-						decl_Id = @decl_Id, 
-						impo_NivelComercial_Otro = @impo_NivelComercial_Otro, 
-						impo_RTN = @impo_RTN, 
-						impo_NumRegistro = @impo_NumRegistro, 
-						usua_UsuarioModificacion = @usua_UsuarioModificacion, 
-						impo_FechaModificacion = @deva_FechaModificacion
-				WHERE	impo_Id = @impo_Id
-			END
-			ELSE -- Sino existe se agregara como un nuevo registro
-
-				BEGIN
-
-					EXEC adua.UDP_tbDeclarantes_Insertar @decl_Nombre_Raso,
-											     @decl_Direccion_Exacta,
-											     @ciud_Id,
-											     @decl_Correo_Electronico,
-											     @decl_Telefono,
-											     @decl_Fax,
-											     @usua_UsuarioModificacion,
-											     @deva_FechaModificacion,
-											     @impo_RTN,
-											     @decl_Id OUTPUT
-			
-
-					INSERT INTO Adua.tbImportadores(nico_Id, 
+			   INSERT INTO Adua.tbImportadores(nico_Id, 
 												decl_Id, 
 												impo_NivelComercial_Otro, 
 												impo_RTN, 
@@ -4311,10 +4307,73 @@ BEGIN
 											   @usua_UsuarioModificacion,
 											   @deva_FechaModificacion)
 
-					SET @impo_Id = SCOPE_IDENTITY()
-				END
-		
+				SET @impo_Id = SCOPE_IDENTITY()
+			END
+		ELSE
+			BEGIN
+				--SACAMOS EL ID DEL DECLARANTE 
+				SET @decl_Id = (SELECT decl_Id 
+								FROM Adua.tbDeclarantes
+								WHERE decl_NumeroIdentificacion = @impo_RTN)
 
+				--VERRIFICAMOS SI LOS DATOS SIGUEN SIENDO LOS MISMOS 
+				IF  EXISTS 	(SELECT decl_Id 
+							FROM tbDeclarantes
+							WHERE	(decl_Nombre_Raso = @decl_Nombre_Raso
+							AND		decl_Direccion_Exacta = @decl_Direccion_Exacta
+							AND		ciud_Id = @ciud_Id
+							AND		decl_Correo_Electronico = @decl_Correo_Electronico
+							AND		decl_Telefono = @decl_Telefono
+							AND		ISNULL(decl_Fax, '') = ISNULL(@decl_Fax, '')
+							AND		decl_NumeroIdentificacion = @impo_RTN))
+					BEGIN
+						PRINT 'Sí son iguales'
+
+						SET @impo_Id = (SELECT impo_Id 
+										FROM Adua.tbImportadores
+										WHERE decl_Id = @decl_Id)
+					END
+				ELSE --SI NO SON IGUALES, SE EDITA LA NUEVA INFORMACIÓN
+					BEGIN
+						UPDATE Adua.tbDeclarantes
+						SET decl_Nombre_Raso			= @decl_Nombre_Raso, 
+							decl_Direccion_Exacta		= @decl_Direccion_Exacta, 
+							ciud_Id						= @ciud_Id, 
+							decl_Correo_Electronico		= @decl_Correo_Electronico, 
+							decl_Telefono				= @decl_Telefono, 
+							decl_Fax					= @decl_Fax, 
+							usua_UsuarioModificacion	= @usua_UsuarioModificacion, 
+							decl_FechaModificacion		= @deva_FechaModificacion
+						WHERE decl_Id = @decl_Id
+
+						SET @impo_Id = (SELECT impo_Id 
+										FROM Adua.tbImportadores
+										WHERE decl_Id = @decl_Id)
+					END
+
+					--Revisamos si hubo cambios en la tabla de importadores
+					IF EXISTS(SELECT nico_Id,
+									 impo_NivelComercial_Otro,
+									 impo_RTN,
+									 impo_NumRegistro
+							  FROM [Adua].[tbImportadores]
+							  WHERE impo_Id = @impo_Id
+							  EXCEPT 
+							  SELECT @nico_Id					AS nico_Id,
+									 @impo_NivelComercial_Otro	AS impo_NivelComercial_Otro,
+									 @impo_RTN				    AS impo_RTN,
+									 @impo_NumRegistro			AS impo_NumRegistro)
+					BEGIN
+						UPDATE [Adua].[tbImportadores]
+						SET    nico_Id = @nico_Id,
+							   impo_NivelComercial_Otro = @impo_NivelComercial_Otro,
+							   impo_RTN = @impo_RTN,
+							   impo_NumRegistro = @impo_NumRegistro,
+							   usua_UsuarioModificacion = @usua_UsuarioModificacion,
+							   impo_FechaModificacion = @deva_FechaModificacion
+						WHERE  impo_Id = @impo_Id
+					END
+			END
 
 		UPDATE Adua.tbDeclaraciones_Valor
 		SET deva_AduanaIngresoId = @deva_AduanaIngresoId, 

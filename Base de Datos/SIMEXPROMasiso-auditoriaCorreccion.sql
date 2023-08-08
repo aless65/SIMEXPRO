@@ -1770,6 +1770,7 @@ CREATE TABLE Adua.tbDocumentosContratos(
   	CONSTRAINT FK_Adua_tbDocumentosContratos_coin_UsuarioModificacion_Acce_tbUsuarios_usua_Id		  FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id)
 );
 
+
 -----------------------------------------------------------
 
 
@@ -2155,8 +2156,6 @@ CREATE TABLE Prod.tbReporteModuloDiaDetalle(
 	rdet_FechaCreacion			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT DEFAULT NULL,
 	rdet_FechaModificacion		DATETIME DEFAULT NULL,
-	--usua_UsuarioEliminacion	INT DEFAULT NULL,
-	--rdet_FechaEliminacion		DATETIME DEFAULT NULL,
 	rdet_Estado					BIT DEFAULT 1  
 
 	CONSTRAINT PK_Prod_tbReporteModuloDiaDetalle_rdet_Id						PRIMARY KEY (rdet_Id)
@@ -2164,7 +2163,6 @@ CREATE TABLE Prod.tbReporteModuloDiaDetalle(
 	CONSTRAINT FK_Prod_tbReporteModuloDiaDetalle_tbOrdenCompraDetalle_code_Id	FOREIGN KEY (code_Id)		   	       REFERENCES Prod.tbOrdenCompraDetalles (code_Id),
 	CONSTRAINT FK_Prod_tbReporteModuloDiaDetalle_tbUsuarios_rdet_UsuCrea		FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbReporteModuloDiaDetalle_tbUsuarios_rdet_UsuModifica	FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
-	--CONSTRAINT FK_Prod_tbReporteModuloDiaDetalle_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
 
@@ -2312,13 +2310,15 @@ CREATE TABLE Prod.tbOrde_Ensa_Acab_Etiq(
 	ensa_FechaInicio			DATE NOT NULL,
 	ensa_FechaLimite			DATE NOT NULL, 
 	ppro_Id						INT NOT NULL,
-
+	proc_Id						INT NOT NULL,
+	ensa_ModuloLineaAsignada	NVARCHAR(150),
+	ensa_MesaCorte				NVARCHAR(150), 
+ 
 	usua_UsuarioCreacion		INT NOT NULL,
 	ensa_FechaCreacion			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT DEFAULT NULL,
 	ensa_FechaModificacion		DATETIME DEFAULT NULL,
-	--usua_UsuarioEliminacion		INT DEFAULT NULL,
-	--ensa_FechaEliminacion		DATETIME DEFAULT NULL,
+
 	ensa_Estado					BIT DEFAULT 1  
 
 	CONSTRAINT PK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_orde_Id											PRIMARY KEY (ensa_Id)
@@ -2327,7 +2327,7 @@ CREATE TABLE Prod.tbOrde_Ensa_Acab_Etiq(
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_ppro_Id_Prod_tbPedidoProduccion_ppro_Id			FOREIGN KEY (ppro_Id)					REFERENCES Prod.tbPedidosProduccion			(ppro_Id),
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_usua_UsuarioCreacion_Acce_tbUsuario_usua_Id		FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_usua_UsuarioModificacion_Acce_tbUsuario_usua_Id	FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios (usua_Id),
-	--CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
+	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_Prod_tbProcesos_proc_Id							FOREIGN KEY (proc_Id)					REFERENCES Prod.tbProcesos (proc_Id)
 );
 GO--ewqeeeqw
 CREATE TABLE Prod.tbPedidosProduccionDetalles(
@@ -2820,7 +2820,8 @@ CREATE TABLE Adua.tbDocumentosDeSoporte(
 );
 GO
 
-
+ALTER TABLE Adua.tbDocumentosDeSoporte 
+ADD CONSTRAINT FK_tbDocumentosDeSoporte_Adua_tbTipoDocumento_tido_Id FOREIGN KEY (tido_Id) REFERENCES Adua.tbTipoDocumento(tido_Id)
 --**********************************************************************************************
 --********** TABLA PAISES / procedimientos tomando en cuenta los uniques ***********************
 ALTER TABLE Acce.tbUsuarios

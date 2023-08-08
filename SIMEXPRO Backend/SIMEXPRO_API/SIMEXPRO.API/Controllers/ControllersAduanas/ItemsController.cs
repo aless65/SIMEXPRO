@@ -23,10 +23,9 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             _mapper = mapper;
         }
 
-        [HttpGet("Listar")]
+        [HttpPost("Listar")]
         public IActionResult Index(ItemsViewModel concepto)
         {
-
             var item = _mapper.Map<tbItems>(concepto);
             var respuesta = _aduanaServices.ListarItems(item);
 

@@ -1,0 +1,30 @@
+Comerciante Individual: Arreglado
+Concepto de Pago: Sin observaciones
+Declaracion de Valor: Depende de los inserts de otras tablas
+DUCA: Depende de los inserts de otras tablas
+Empleados: Arreglado
+EstadoBoletin: Arreglado		
+Estado Mercancias: Arreglado
+Estados Civiles: Arreglado
+Estilos: Arreglado
+Facturas: No puedo mostrar ni insertar una factura ya que depende de la deva_ID
+Formas de Pago: Arreglado
+Formas de Envio: Arreglado
+Funciones Maquina: Arreglado
+Impuestos: Arreglado
+Incoterm: Arreglado
+Items: Depende de los inserts de otras tablas
+LiquidacionGeneral: Depende de los inserts de otras tablas
+Liquidacion por linea: Depende de los inserts de otras tablas
+Lotes: Arreglado
+Lugares Embarque: Arreglado
+Maquinas: Arreglado
+Marcas: Arreglado
+Marcas Maquinas: Arreglado
+Materiales: Arreglado
+Materiales Brindar: Arregleado
+Modelos Maquinas: Arreglado
+Modo Transporte: Arreglado
+Modulos: Arreglado
+Monedas: Arreglado
+Niveles Comerciales: Arreglado

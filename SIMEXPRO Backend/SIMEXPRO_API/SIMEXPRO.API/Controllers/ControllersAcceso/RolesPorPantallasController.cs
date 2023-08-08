@@ -31,7 +31,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
             tbRolesXPantallas rolesPantalla = new tbRolesXPantallas();
             rolesPantalla.role_Id = role_Id;
             var listado = _accesoServices.Pantallas_Por_Rol(rolesPantalla);
-            var mapped = _mapper.Map<IEnumerable<RolesPorPantallasViewModel>>(listado);
+            var mapped = _mapper.Map<IEnumerable<RolesPorPantallasViewModel>>(listado.Data);
             return Ok(mapped);
         }
 

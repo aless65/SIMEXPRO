@@ -15,16 +15,16 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
     {
         public RequestStatus Delete(tbCiudades item)
         {
-            //using var db = new SqlConnection(SIMEXPRO.ConnectionString);
-            //RequestStatus result = new RequestStatus();
-            //var parametros = new DynamicParameters();
-            //parametros.Add("@ciud_Id", item.ciud_Id, DbType.Int32, ParameterDirection.Input);
-            //parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
-            //parametros.Add("@ciud_FechaEliminacion", item.ciud_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
-            //var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarCiudades, parametros, commandType: CommandType.StoredProcedure);
-            //result.MessageStatus = answer;
-            //return result;
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@ciud_Id", item.ciud_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@ciud_FechaEliminacion", item.ciud_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarCiudades, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
+            return result;
+            
         }
 
         public tbCiudades Find(int? id)

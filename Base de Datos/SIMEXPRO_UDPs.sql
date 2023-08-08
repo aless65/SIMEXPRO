@@ -6697,11 +6697,11 @@ BEGIN
 			boletin.boen_NDeclaracion,
 			--boletin.pena_RTN, 
 			boletin.boen_Preimpreso, 
-			--boletin.boen_Declarante, 
+			boletin.boen_Declarante, 
 			boletin.boen_TotalPagar, 
 			boletin.boen_TotalGarantizar, 
 			--boletin.boen_RTN, 
-			--boletin.boen_TipoEncabezado, 
+			boletin.boen_TipoEncabezado, 
 			boletin.coim_Id, 
 			codigoIm.coim_Descripcion,
 			boletin.copa_Id, 
@@ -6735,11 +6735,11 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbBoletinPago_Insertar
 	@boen_NDeclaracion       NVARCHAR(200), 
 	--@pena_RTN                VARCHAR(20), 
 	@boen_Preimpreso         NVARCHAR(MAX), 
-	--@boen_Declarante         NVARCHAR(200), 
+	@boen_Declarante         NVARCHAR(200), 
 	@boen_TotalPagar         DECIMAL(18,2), 
 	@boen_TotalGarantizar    DECIMAL(18,2), 
 	--@boen_RTN                NVARCHAR(100),
-	--@boen_TipoEncabezado     NVARCHAR(200), 
+	@boen_TipoEncabezado     NVARCHAR(200), 
 	@coim_Id                 INT, 
 	@copa_Id                 INT, 
 	@usua_UsuarioCreacion    INT, 
@@ -6757,11 +6757,11 @@ BEGIN
 										   boen_NDeclaracion, 
 										   --pena_RTN, 
 										   boen_Preimpreso, 
-										   --boen_Declarante, 
+										   boen_Declarante, 
 										   boen_TotalPagar, 
 										   boen_TotalGarantizar, 
 										   --boen_RTN, 
-										   --boen_TipoEncabezado, 
+										   boen_TipoEncabezado, 
 										   coim_Id, 
 										   copa_Id, 
 										   usua_UsuarioCreacion, 
@@ -6776,11 +6776,11 @@ BEGIN
 				   @boen_NDeclaracion, 
 				   --@pena_RTN, 
 				   @boen_Preimpreso, 
-				   --@boen_Declarante, 
+				   @boen_Declarante, 
 				   @boen_TotalPagar, 
 				   @boen_TotalGarantizar, 
 				   --@boen_RTN, 
-				   --@boen_TipoEncabezado, 
+				   @boen_TipoEncabezado, 
 				   @coim_Id, 
 				   @copa_Id, 
 				   @usua_UsuarioCreacion, 
@@ -7455,6 +7455,7 @@ BEGIN
 		   ,tipoDocumento.tido_Id
 		   ,tipoDocumento.tido_Codigo
 		   ,tipoDocumento.tido_Descripcion
+		   ,DocumentoSoporte.duca_No_Duca
 		   ,DocumentoSoporte.doso_NumeroDocumento
 		   ,DocumentoSoporte.doso_FechaEmision
 		   ,DocumentoSoporte.doso_FechaVencimiento
@@ -7489,6 +7490,7 @@ GO
 /* INSERTAR DOCUMENTOS DE SOPORTE */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosDeSoporte_Insertar 
 	@tido_Id					        INT,
+	@duca_No_Duca						NVARCHAR(100),
 	@doso_NumeroDocumento		        NVARCHAR(15),
 	@doso_FechaEmision			        DATE,
 	@doso_FechaVencimiento		        DATE,
@@ -7506,6 +7508,7 @@ BEGIN TRY
 
 	INSERT INTO Adua.tbDocumentosDeSoporte
 			   (tido_Id
+			   ,duca_No_Duca
 			   ,doso_NumeroDocumento
 			   ,doso_FechaEmision
 			   ,doso_FechaVencimiento
@@ -7518,6 +7521,7 @@ BEGIN TRY
 			   ,doso_FechaCreacion)
 		 VALUES
 			   (@tido_Id
+			   ,@duca_No_Duca
 			   ,@doso_NumeroDocumento
 			   ,@doso_FechaEmision
 			   ,@doso_FechaVencimiento
@@ -7570,8 +7574,8 @@ BEGIN
   FROM	Adua.tbDocumentosPDF		documentoPdf
   INNER JOIN Adua.tbDeclaraciones_Valor declaracionDeValor		ON	documentoPdf.deva_Id					= declaracionDeValor.deva_Id
   INNER JOIN Acce.tbUsuarios			UsuarioCreacion			ON	documentoPdf.usua_UsuarioCreacion		= UsuarioCreacion.usua_Id
-  INNER JOIN Acce.tbUsuarios			UsuarioModificaion		ON	documentoPdf.usua_UsuarioModificacion	= UsuarioModificaion.usua_Id
-  INNER JOIN Acce.tbUsuarios			UsuarioEliminacion		ON	documentoPdf.usua_UsuarioEliminacion	= UsuarioEliminacion.usua_Id
+  LEFT JOIN Acce.tbUsuarios			UsuarioModificaion		ON	documentoPdf.usua_UsuarioModificacion	= UsuarioModificaion.usua_Id
+  LEFT JOIN Acce.tbUsuarios			UsuarioEliminacion		ON	documentoPdf.usua_UsuarioEliminacion	= UsuarioEliminacion.usua_Id
 
 END
 GO

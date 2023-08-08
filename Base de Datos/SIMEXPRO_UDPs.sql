@@ -1081,6 +1081,12 @@ BEGIN
 END
 GO
 
+
+
+
+
+
+
 --**********MONEDAS**********--
 
 /*Listar monedas*/

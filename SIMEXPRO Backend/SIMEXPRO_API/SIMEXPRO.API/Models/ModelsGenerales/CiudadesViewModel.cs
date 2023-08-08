@@ -35,6 +35,14 @@ namespace SIMEXPRO.API.Models
         [NotMapped]
         public string UsuarioModificadorNombre { get; set; }
 
+        [NotMapped]
+        public string UsuarioEliminacionNombre { get; set;}
+
+        public int? usua_UsuarioEliminacion { get; set; }
+
+        public DateTime? ciud_FechaEliminacion { get; set; }
+        
+
         public int? usua_UsuarioModificacion { get; set; }
         public DateTime? ciud_FechaModificacion { get; set; }
         public bool? ciud_Estado { get; set; }

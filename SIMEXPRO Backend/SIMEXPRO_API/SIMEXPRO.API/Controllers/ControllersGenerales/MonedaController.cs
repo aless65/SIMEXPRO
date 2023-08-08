@@ -51,12 +51,12 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-        //[HttpPost("Eliminar")]
-        //public IActionResult Delete(MonedasViewModel monedasViewModel)
-        //{
-        //    var item = _mapper.Map<tbMonedas>(monedasViewModel);
-        //    var respuesta = _generalesServices.EliminarMonedas(item);
-        //    return Ok(respuesta);
-        //}
+        [HttpPost("Eliminar")]
+        public IActionResult Delete(MonedasViewModel monedasViewModel)
+        {
+            var item = _mapper.Map<tbMonedas>(monedasViewModel);
+            var respuesta = _generalesServices.EliminarMonedas(item);
+            return Ok(respuesta);
+        }
     }
 }

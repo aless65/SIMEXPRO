@@ -201,15 +201,8 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                var map = _ciudadesRepository.Insert(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                var list = _ciudadesRepository.Insert(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
@@ -219,45 +212,33 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
 
         public ServiceResult ActualizarCiudades(tbCiudades item)
         {
+
             var result = new ServiceResult();
             try
             {
-                var map = _ciudadesRepository.Update(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                var list = _ciudadesRepository.Update(item);
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+
+        }
+
+        public ServiceResult EliminarCiudades(tbCiudades item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _ciudadesRepository.Delete(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
                 return result.Error(ex.Message);
             }
         }
-
-        //public ServiceResult EliminarCiudades(tbCiudades item)
-        //{
-        //    var result = new ServiceResult();
-        //    try
-        //    {
-        //        var map = _ciudadesRepository.Delete(item);
-        //        if (map.MessageStatus == "1")
-        //        {
-        //            return result.Ok(map);
-        //        }
-        //        else
-        //        {
-        //            return result.Error(map);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return result.Error(ex.Message);
-        //    }
-        //}
         #endregion
 
         #region Colonias
@@ -281,15 +262,8 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                var map = _coloniasRepository.Insert(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                var list = _coloniasRepository.Insert(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
@@ -299,18 +273,12 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
 
         public ServiceResult ActualizarColonias(tbColonias item)
         {
+
             var result = new ServiceResult();
             try
             {
-                var map = _coloniasRepository.Update(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                var list = _coloniasRepository.Update(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
@@ -318,26 +286,20 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             }
         }
 
-        //public ServiceResult EliminarColonias(tbColonias item)
-        //{
-        //    var result = new ServiceResult();
-        //    try
-        //    {
-        //        var map = _coloniasRepository.Delete(item);
-        //        if (map.MessageStatus == "1")
-        //        {
-        //            return result.Ok(map);
-        //        }
-        //        else
-        //        {
-        //            return result.Error(map);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return result.Error(ex.Message);
-        //    }
-        //}
+        public ServiceResult EliminarColonias(tbColonias item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _coloniasRepository.Delete(item);
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+
+        }
         #endregion
 
         #region Empleados
@@ -664,26 +626,12 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
 
         public ServiceResult InsertarMonedas(tbMonedas item)
         {
+
             var result = new ServiceResult();
             try
             {
-                if (item.mone_Descripcion != "")
-                {
-                    var map = _monedasRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var list = _monedasRepository.Insert(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
@@ -693,61 +641,34 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
 
         public ServiceResult ActualizarMonedas(tbMonedas item)
         {
+
             var result = new ServiceResult();
             try
             {
-                if (item.mone_Descripcion != "")
-                {
-                    var map = _monedasRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var list = _monedasRepository.Update(item);
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+
+        }
+
+        public ServiceResult EliminarMonedas(tbMonedas item)
+        {
+
+            var result = new ServiceResult();
+            try
+            {
+                var list = _monedasRepository.Delete(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
                 return result.Error(ex.Message);
             }
         }
-
-        //public ServiceResult EliminarMonedas(tbMonedas item)
-        //{
-        //    var result = new ServiceResult();
-        //    try
-        //    {
-        //        if (item.mone_Id != 0)
-        //        {
-        //            var map = _monedasRepository.Delete(item);
-        //            if (map.CodeStatus > 0)
-        //            {
-        //                return result.Ok(map);
-        //            }
-        //            else
-        //            {
-        //                map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-        //                return result.Error(map);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return result.Error(ex.Message);
-        //    }
-        //}
         #endregion
 
         #region Oficinas

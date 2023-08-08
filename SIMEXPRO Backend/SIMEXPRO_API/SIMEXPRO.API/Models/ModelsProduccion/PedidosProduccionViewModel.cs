@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,5 +20,7 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public bool? ppro_Estado { get; set; }
         public string empl_NombreCompleto { get; set; }
 
+        [NotMapped]
+        public string detalles { get; set; }
     }
 }

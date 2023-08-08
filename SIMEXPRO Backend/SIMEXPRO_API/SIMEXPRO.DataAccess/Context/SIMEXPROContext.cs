@@ -534,10 +534,6 @@ namespace SIMEXPRO.DataAccess.Context
 
                 entity.Property(e => e.boen_Preimpreso).IsRequired();
 
-                entity.Property(e => e.boen_RTN)
-                    .IsRequired()
-                    .HasMaxLength(40);
-
                 entity.Property(e => e.boen_TipoEncabezado)
                     .IsRequired()
                     .HasMaxLength(200);
@@ -547,10 +543,6 @@ namespace SIMEXPRO.DataAccess.Context
                 entity.Property(e => e.boen_TotalPagar).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.duca_No_Duca).HasMaxLength(100);
-
-                entity.Property(e => e.pena_RTN)
-                    .IsRequired()
-                    .HasMaxLength(40);
 
                 entity.HasOne(d => d.coim)
                     .WithMany(p => p.tbBoletinPago)
@@ -859,15 +851,8 @@ namespace SIMEXPRO.DataAccess.Context
 
                 entity.ToTable("tbColores", "Prod");
 
-                entity.HasIndex(e => e.colr_Codigo, "UQ_Prod_tbColores_colr_Codigo")
-                    .IsUnique();
-
                 entity.HasIndex(e => e.colr_Nombre, "UQ_Prod_tbColores_colr_Nombre")
                     .IsUnique();
-
-                entity.Property(e => e.colr_Codigo)
-                    .IsRequired()
-                    .HasMaxLength(50);
 
                 entity.Property(e => e.colr_Estado).HasDefaultValueSql("((1))");
 
@@ -4233,6 +4218,8 @@ namespace SIMEXPRO.DataAccess.Context
 
                 entity.HasIndex(e => e.role_Descripcion, "UQ_acce_tbRoles_role_Descripcion")
                     .IsUnique();
+
+                entity.Property(e => e.role_Aduana).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.role_Descripcion).HasMaxLength(500);
 

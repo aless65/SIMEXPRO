@@ -12,7 +12,7 @@ namespace SIMEXPRO.DataAccess
         #region Acceso
 
         #region Usuarios
-        public static string ListarUsuarios = "acce.UDP_VW_tbUsuarios_Listar";
+        public static string ListarUsuarios = "acce.UDP_tbUsuarios_Listar";
         public static string InsertarUsuarios = "acce.UDP_tbUsuarios_Insertar";
         public static string EditarUsuarios = "acce.UDP_tbUsuarios_Editar";
         public static string EliminarUsuarios = "acce.UDP_tbUsuarios_Eliminar";

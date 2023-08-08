@@ -1,6 +1,9 @@
-﻿using SIMEXPRO.Entities.Entities;
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
+using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +29,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
 
         public IEnumerable<tbPantallas> List()
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            return db.Query<tbPantallas>(ScriptsDataBase.ListarPantallas, null, commandType: CommandType.StoredProcedure);
         }
 
         public RequestStatus Update(tbPantallas item)

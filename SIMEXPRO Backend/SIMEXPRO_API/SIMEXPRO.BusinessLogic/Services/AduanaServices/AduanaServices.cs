@@ -1544,16 +1544,18 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region DocumentosContratos
-        public IEnumerable<tbDocumentosContratos> ListarDocumentosContratos()
+        public ServiceResult ListarDocumentosContratos()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _documentosContratosRepository.List();
-                return list;
+
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbDocumentosContratos>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -1562,28 +1564,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.doco_TipoDocumento != "")
-                {
-                    var map = _documentosContratosRepository.Insert(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _documentosContratosRepository.Insert(item);
+
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
                 return result.Error(ex.Message);
             }
+
         }
 
         public ServiceResult ActualizarDocumentosContratos(tbDocumentosContratos item)
@@ -1591,23 +1580,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.doco_TipoDocumento != "")
-                {
-                    var map = _documentosContratosRepository.Update(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _documentosContratosRepository.Update(item);
+
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -1620,28 +1595,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.doco_Id != 0)
-                {
-                    var map = _documentosContratosRepository.Delete(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var respuesta = _documentosContratosRepository.Delete(item);
+
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
                 return result.Error(ex.Message);
             }
+
         }
         #endregion
 

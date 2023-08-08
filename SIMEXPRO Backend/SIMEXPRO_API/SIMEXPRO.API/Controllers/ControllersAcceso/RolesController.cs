@@ -32,8 +32,10 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
         public IActionResult Index()
         {
             var listado = _accesoServices.ListarRoles();
-            var mapped = _mapper.Map<IEnumerable<RolesViewModel>>(listado.Data);
-            return Ok(mapped);
+
+            listado.Data = _mapper.Map<IEnumerable<RolesViewModel>>(listado.Data);
+
+            return Ok(listado);
         }
 
         [HttpPost("Insertar")]

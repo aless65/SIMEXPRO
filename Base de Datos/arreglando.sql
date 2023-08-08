@@ -50,3 +50,14 @@ GO
 
 
 SELECT * FROM  Adua.tbLugaresEmbarque
+SELECT  * FROM Adua.tbBaseCalculos
+SELECT * FROM Adua.tbBoletinPago
+
+SELECT * FROM Adua.tbCodigoImpuesto
+
+SELECT * FROM Adua.tbComercianteIndividual
+SELECT * FROM Adua.tbPersonas
+SELECT * FROM Gral.tbColonias
+
+SELECT * FROM Adua.tbConceptoPago
+

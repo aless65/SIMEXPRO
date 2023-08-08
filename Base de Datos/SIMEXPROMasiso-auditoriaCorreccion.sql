@@ -1770,6 +1770,13 @@ CREATE TABLE Adua.tbDocumentosContratos(
   	CONSTRAINT FK_Adua_tbDocumentosContratos_coin_UsuarioModificacion_Acce_tbUsuarios_usua_Id		  FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id)
 );
 
+ALTER TABLE Adua.tbDocumentosContratos
+ADD CONSTRAINT FK_Adua_tbDocumentosContratos_tbComercianteIndividual_coin_Id FOREIGN KEY(coin_Id)					 REFERENCES Adua.tbComercianteIndividual(coin_Id),
+go
+ALTER TABLE Adua.tbDocumentosContratos
+ADD CONSTRAINT FK_Adua_tbDocumentosContratos_tbPersonaJuridica_peju_Id FOREIGN KEY(peju_Id)					 REFERENCES Adua.tbPersonaJuridica(peju_Id),
+
+
 -----------------------------------------------------------
 
 

@@ -7848,7 +7848,7 @@ BEGIN
 			,UsuarioModificaion.usua_Nombre
 			,documentoContrato.doco_FechaModificacion
 			,documentoContrato.doco_Estado
-	  FROM	Adua.tbDocumentosContratos				documentoContrato
+	 FROM	Adua.tbDocumentosContratos				documentoContrato
 			INNER JOIN	adua.tbComercianteIndividual	comercianteIndividual	ON	documentoContrato.coin_Id					= comercianteIndividual.coin_Id
 			INNER JOIN	adua.tbPersonaJuridica			personaJuridica			ON	documentoContrato.peju_Id					= personaJuridica.peju_Id
 			INNER JOIN	adua.tbPersonas					Personas				ON	comercianteIndividual.pers_Id				= Personas.pers_Id
@@ -7860,9 +7860,7 @@ BEGIN
 
 
 END
-
 GO
-
 
 /* INSERTAR DOCUMENTOS CONTRATOS */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosContratos_Insertar

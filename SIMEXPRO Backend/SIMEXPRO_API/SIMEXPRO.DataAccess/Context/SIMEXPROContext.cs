@@ -4219,6 +4219,8 @@ namespace SIMEXPRO.DataAccess.Context
                 entity.HasIndex(e => e.role_Descripcion, "UQ_acce_tbRoles_role_Descripcion")
                     .IsUnique();
 
+                entity.Property(e => e.role_Aduana).HasDefaultValueSql("((1))");
+
                 entity.Property(e => e.role_Descripcion).HasMaxLength(500);
 
                 entity.Property(e => e.role_Estado).HasDefaultValueSql("((1))");

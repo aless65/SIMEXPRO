@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using SIMEXPRO.API.Models.ModelsAcceso;
 using SIMEXPRO.BussinessLogic.Services.AccesoServices;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,9 @@ using System.Threading.Tasks;
 
 namespace SIMEXPRO.API.Controllers.ControllersAcceso
 {
-    public class PantallasController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class PantallasController : ControllerBase
     {
         private readonly AccesoServices _accesoServices;
         private readonly IMapper _mapper;
@@ -18,9 +21,15 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
             _accesoServices = accesoService;
             _mapper = mapper;
         }
+
+        [HttpGet("Listar")]
         public IActionResult Index()
         {
-            return View();
+            var listado = _accesoServices.ListarPantallas();
+
+            listado.Data = _mapper.Map<IEnumerable<PantallasViewModel>>(listado.Data);
+
+            return Ok(listado);
         }
     }
 }

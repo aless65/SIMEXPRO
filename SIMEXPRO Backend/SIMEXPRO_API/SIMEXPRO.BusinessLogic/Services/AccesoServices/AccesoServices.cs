@@ -301,17 +301,18 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
         #endregion
 
         #region Roles
-        public IEnumerable<tbRoles> ListarRoles()
+        public ServiceResult ListarRoles()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _rolesRepository.List();
-                return list;
+
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-
-                return Enumerable.Empty<tbRoles>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -383,17 +384,19 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
 
         #region Pantallas
 
-        public IEnumerable<tbPantallas> ListarPantallas()
+        public ServiceResult ListarPantallas()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _pantallasRepository.List();
-                return list;
+                
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
 
-                return Enumerable.Empty<tbPantallas>();
+                return result.Error(ex.Message);
             }
         }
         #endregion

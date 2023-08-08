@@ -16,7 +16,11 @@ namespace SIMEXPRO.Entities.Entities
 
         public int role_Id { get; set; }
         public string role_Descripcion { get; set; }
+        public bool role_Aduana { get; set; }
         public int usua_UsuarioCreacion { get; set; }
+
+        [NotMapped]
+        public string Aduanero { get; set; }
 
         [NotMapped]
         public string Detalles { get; set; }

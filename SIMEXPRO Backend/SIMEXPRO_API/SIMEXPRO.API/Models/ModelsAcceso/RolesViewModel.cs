@@ -10,10 +10,12 @@ namespace SIMEXPRO.API.Models.ModelsAcceso
     {
         public int role_Id { get; set; }
         public string role_Descripcion { get; set; }
+        public bool role_Aduana { get; set; }
         public int usua_UsuarioCreacion { get; set; }
 
-        [NotMapped]
+        public string Aduanero { get; set; }
         public string Detalles { get; set; }
+
         public DateTime role_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
         public DateTime? role_FechaModificacion { get; set; }

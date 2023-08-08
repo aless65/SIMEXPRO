@@ -82132,29 +82132,51 @@ GO
 INSERT INTO Adua.tbPersonas
 (pers_RTN, ofic_Id, escv_Id, ofpr_Id,pers_FormaRepresentacion, pers_escvRepresentante, pers_OfprRepresentante, usua_UsuarioCreacion, pers_FechaCreacion)
 VALUES
-('0102234356765890',1,1,1,1,1,1,1,GETDATE())
+('01021999014873',1,1,1,1,1,1,1,GETDATE())
 GO
 INSERT INTO Adua.tbPersonas
 (pers_RTN, ofic_Id, escv_Id, ofpr_Id,pers_FormaRepresentacion, pers_escvRepresentante, pers_OfprRepresentante, usua_UsuarioCreacion, pers_FechaCreacion)
 VALUES
-('0202239056769891',1,2,1,2,1,2,1,GETDATE())
+('03022001017854',1,2,1,2,1,2,1,GETDATE())
 GO
 INSERT INTO Adua.tbPersonas
 (pers_RTN, ofic_Id, escv_Id, ofpr_Id,pers_FormaRepresentacion, pers_escvRepresentante, pers_OfprRepresentante, usua_UsuarioCreacion, pers_FechaCreacion)
 VALUES
-('0243239056769871',2,2,3,2,1,3,1,GETDATE())
+('02012004012345',2,2,3,2,1,3,1,GETDATE())
 GO
 INSERT INTO Adua.tbPersonas
 (pers_RTN, ofic_Id, escv_Id, ofpr_Id,pers_FormaRepresentacion, pers_escvRepresentante, pers_OfprRepresentante, usua_UsuarioCreacion, pers_FechaCreacion)
 VALUES
-('0543233656769771',1,3,3,2,1,3,1,GETDATE())
+('05022000369847',1,3,3,2,1,3,1,GETDATE())
 GO
 
 INSERT INTO Adua.tbPersonas
 (pers_RTN, ofic_Id, escv_Id, ofpr_Id,pers_FormaRepresentacion, pers_escvRepresentante, pers_OfprRepresentante, usua_UsuarioCreacion, pers_FechaCreacion)
 VALUES
-('0549222656769771',2,4,3,4,1,3,1,GETDATE())
+('01031984012456',2,4,3,4,1,3,1,GETDATE())
 GO
+
+
+--Tipo Intermediario--
+INSERT INTO Adua.tbTipoIntermediario
+(tite_Codigo, tite_Descripcion, usua_UsuarioCreacion, tite_FechaCreacion)
+VALUES
+('BR','BROKER',1,GETDATE()),
+('CC','COMISIONISTA COMPRA',1,GETDATE()),
+('CO','CORREDOR',1,GETDATE()),
+('CV','COMISIONISTA VENTA',1,GETDATE()),
+('OT','OTROS',1,GETDATE())
+GO
+
+--Intermediario--
+INSERT INTO Adua.tbIntermediarios
+(tite_Id, inte_Tipo_Otro, decl_Id, usua_UsuarioCreacion, inte_FechaCreacion)
+VALUES
+(1,NULL,1,1,GETDATE()),
+(2,NULL,2,1,GETDATE()),
+(3,NULL,3,1,GETDATE()),
+(4,NULL,4,1,GETDATE()),
+(5,NULL,5,1,GETDATE())
 
 --Declaracion de Valor--
 

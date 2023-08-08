@@ -1280,22 +1280,28 @@ SELECT	pvin_Id								,
 		pvin_Nombre							,
 		pvin_Codigo							,
 		provin.pais_Id 						,
-		pais.pais_Nombre					,
+		pais.pais_Nombre					AS pais_Nombre,
 		provin.usua_UsuarioCreacion			,
 		usua1.usua_Nombre					AS UsuarioCreacionNombre,
 		pvin_FechaCreacion	 				, 
 		provin.usua_UsuarioModificacion		,
 		usua2.usua_Nombre					AS UsuarioModificadorNombre,
 		pvin_FechaModificacion				,
+		provin.usua_UsuarioEliminacion		,
+		usua3.usua_Nombre					AS UsuarioEliminacionNombre,
+		provin.pvin_FechaEliminacion		,
 		pvin_Estado
 FROM	Gral.tbProvincias provin				
 		INNER JOIN Gral.tbPaises pais		ON provin.pais_Id =  pais.pais_Id		
 		INNER JOIN Acce.tbUsuarios usua1	ON provin.usua_UsuarioCreacion = usua1.usua_Id	
 		LEFT JOIN Acce.tbUsuarios usua2		ON provin.usua_UsuarioModificacion = usua2.usua_Id 
+		LEFT JOIN Acce.tbUsuarios usua3		ON provin.usua_UsuarioEliminacion = usua3.usua_Id
 WHERE	pvin_Estado = 1
 END
+
+
 GO
-/*Editar Provincias*/
+/*Insertar Provincias*/
 CREATE OR ALTER PROCEDURE GrAL.UDP_tbProvincias_Insertar
  @pvin_Nombre				NVARCHAR(150), 
  @pvin_Codigo				NVARCHAR(20), 
@@ -1325,7 +1331,10 @@ BEGIN
 	END CATCH
 END
 GO
-/*Eliminar Provincias*/
+
+
+
+/*Editar Provincias*/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbProvinvias_Editar
  @pvin_Id						INT,
  @pvin_Nombre					NVARCHAR(150), 
@@ -2069,7 +2078,7 @@ BEGIN
 		DECLARE @respuesta INT
 		EXEC dbo.UDP_ValidarReferencias 'unme_Id', @unme_Id, 'Gral.tbUnidadMedidas', @respuesta OUTPUT
 		
-		IF(@respuesta) = 1
+		IF(@respuesta = 1)
 			BEGIN
 				UPDATE Gral.tbUnidadMedidas
 				   SET unme_Estado = 0,
@@ -2079,7 +2088,7 @@ BEGIN
 				   AND unme_Estado = 1
 			END
 
-		SELECT @respuesta AS Resultado
+		SELECT @respuesta 
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado

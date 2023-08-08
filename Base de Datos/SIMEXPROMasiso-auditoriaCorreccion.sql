@@ -417,11 +417,13 @@ CREATE TABLE Gral.tbUnidadMedidas
 		unme_Estado						BIT				DEFAULT 1,
 
 CONSTRAINT PK_Gral_tbUnidadMedida_unme_Id PRIMARY KEY (unme_Id),
-CONSTRAINT FK_Acce_tbUsuarios_Gral_tbUnidadesMedidas_unme_UsuarioCreacion 		FOREIGN KEY (usua_UsuarioCreacion) REFERENCES Acce.tbUsuarios(usua_Id),
-CONSTRAINT FK_Acce_tbUsuarios_Gral_tbUnidadesMedidas_unme_UsuarioModificacion   FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios(usua_Id),
-CONSTRAINT FK_Acce_tbUsuarios_Gral_tbUnidadesMedidas_unme_UsuarioEliminacion    FOREIGN KEY (usua_UsuarioEliminacion) REFERENCES Acce.tbUsuarios(usua_Id)
+CONSTRAINT UQ_Gral_tbUnidadMedida_unme_Descripcion	UNIQUE (unme_Descripcion),
+CONSTRAINT FK_Acce_tbUsuarios_Gral_tbUnidadesMedidas_unme_UsuarioCreacion 		FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios(usua_Id),
+CONSTRAINT FK_Acce_tbUsuarios_Gral_tbUnidadesMedidas_unme_UsuarioModificacion   FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios(usua_Id),
+CONSTRAINT FK_Acce_tbUsuarios_Gral_tbUnidadesMedidas_unme_UsuarioEliminacion    FOREIGN KEY (usua_UsuarioEliminacion)	REFERENCES Acce.tbUsuarios(usua_Id)
 );
 GO
+
 
 CREATE TABLE Gral.tbEmpleados(
 		empl_Id							INT 			IDENTITY(1,1),

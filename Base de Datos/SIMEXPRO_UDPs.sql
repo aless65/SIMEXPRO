@@ -458,7 +458,7 @@ END
 /* Insertar Roles*/
 CREATE OR ALTER PROCEDURE Acce.UDP_tbRoles_Insertar 
 	@role_Descripcion			NVARCHAR(500),
-	@pant_Ids					NVARCHAR(4000),
+	@pant_Ids					NVARCHAR(MAX),
 	@usua_UsuarioCreacion		INT,
 	@role_FechaCreacion			DATETIME
 AS

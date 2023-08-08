@@ -345,66 +345,44 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
             }
         }
 
-        //public IEnumerable<tbRoles> FindRol(tbRoles item)
-        //{
-        //    try
-        //    {
-        //        var list = _rolesRepository.Find(item);
-        //        return list;
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        return Enumerable.Empty<tbRoles>();
-        //    }
-        //}
-
-        public RequestStatus InsertarRol(tbRoles item)
+        public ServiceResult InsertarRol(tbRoles item)
         {
+            var result = new ServiceResult();
             try
             {
                 var respuesta = _rolesRepository.Insert(item);
-                return respuesta;
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
-                RequestStatus respuesta = new()
-                {
-                    MessageStatus = ex.Message
-                };
-                return respuesta;
+                return result.Error(ex.Message);
             }
         }
-        public RequestStatus ActualizarRol(tbRoles item)
+        public ServiceResult ActualizarRol(tbRoles item)
         {
+            var result = new ServiceResult();
             try
             {
                 var respuesta = _rolesRepository.Update(item);
-                return respuesta;
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
-                RequestStatus respuesta = new()
-                {
-                    MessageStatus = ex.Message
-                };
-                return respuesta;
+              
+                return result.Error(ex.Message);
             }
         }
-        public RequestStatus DeleteRol(tbRoles item)
+        public ServiceResult DeleteRol(tbRoles item)
         {
+            var result = new ServiceResult();
             try
             {
                 var respuesta = _rolesRepository.Delete(item);
-                return respuesta;
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
-                RequestStatus respuesta = new()
-                {
-                    MessageStatus = ex.Message
-                };
-                return respuesta;
+                return result.Error(ex.Message);
             }
         }
 

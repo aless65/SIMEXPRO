@@ -587,7 +587,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         {
             var resultado = new ServiceResult();
 
-
             try
             {
                 var list = _codigoImpuestoRepository.List();
@@ -707,11 +706,19 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         public ServiceResult InsertarComercianteIndividual(tbComercianteIndividual item)
         {
             var result = new ServiceResult();
+            bool esInt;
             try
             {
-                var respuesta = _comercianteIndividualRepository.Insert(item);
-
-                return result.Ok(respuesta);
+                var map = _comercianteIndividualRepository.Insert(item);
+                esInt = int.TryParse(map.MessageStatus, out _);
+                if (esInt)
+                {
+                    return result.Ok(map);
+                }
+                else
+                {
+                    return result.Error(map);
+                }
             }
             catch (Exception ex)
             {
@@ -724,22 +731,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.coin_PuntoReferencia != "")
+                var map = _comercianteIndividualRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _comercianteIndividualRepository.Update(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -1086,22 +1085,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.coco_Descripcion != "")
+                var map = _condicionesComercialesRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _condicionesComercialesRepository.Insert(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -1115,22 +1107,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (item.coco_Descripcion != "")
+                var map = _condicionesComercialesRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _condicionesComercialesRepository.Update(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2088,11 +2073,17 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         public ServiceResult InsertarEstadoBoletin(tbEstadoBoletin item)
         {
             var resultado = new ServiceResult();
-
             try
             {
                 var respuesta = _estadoBoletinRepository.Insert(item);
-                return resultado.Ok(respuesta);
+                if (respuesta.MessageStatus == "1")
+                {
+                    return resultado.Ok(respuesta);
+                }
+                else
+                {
+                    return resultado.Error(respuesta);
+                }
             }
             catch (Exception ex)
             {
@@ -2107,7 +2098,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             try
             {
                 var respuesta = _estadoBoletinRepository.Update(item);
-                return resultado.Ok(respuesta);
+                if (respuesta.MessageStatus == "1")
+                {
+                    return resultado.Ok(respuesta);
+                }
+                else
+                {
+                    return resultado.Error(respuesta);
+                }
             }
             catch (Exception ex)
             {
@@ -2138,22 +2136,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _estadoMercanciasRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _estadoMercanciasRepository.Insert(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2167,22 +2158,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _estadoMercanciasRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _estadoMercanciasRepository.Update(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2196,22 +2180,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _estadoMercanciasRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _estadoMercanciasRepository.Delete(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2450,7 +2426,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             try
             {
                 var respuesta = _formasdePagoRepository.Insert(item);
-                return resultado.Ok(respuesta);
+                if (respuesta.MessageStatus == "1")
+                {
+                    return resultado.Ok(respuesta);
+                }
+                else
+                {
+                    return resultado.Error(respuesta);
+                }
             }
             catch (Exception ex)
             {
@@ -2465,7 +2448,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             try
             {
                 var respuesta = _formasdePagoRepository.Update(item);
-                return resultado.Ok(respuesta);
+                if (respuesta.MessageStatus == "1")
+                {
+                    return resultado.Ok(respuesta);
+                }
+                else
+                {
+                    return resultado.Error(respuesta);
+                }
             }
             catch (Exception ex)
             {
@@ -2480,7 +2470,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             try
             {
                 var respuesta = _formasdePagoRepository.Delete(item);
-                return resultado.Ok(respuesta);
+                if (respuesta.MessageStatus == "1")
+                {
+                    return resultado.Ok(respuesta);
+                }
+                else
+                {
+                    return resultado.Error(respuesta);
+                }
             }
             catch (Exception ex)
             {
@@ -2713,22 +2710,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _impuestosRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _impuestosRepository.Insert(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                {                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2742,22 +2731,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _impuestosRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _impuestosRepository.Update(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                {                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2771,22 +2752,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _impuestosRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _impuestosRepository.Delete(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                {                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2817,8 +2790,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             try
             {
                 var respuesta = _incotermRepository.Insert(item);
-
-                return result.Ok(respuesta);
+                if (respuesta.MessageStatus == "1")
+                {
+                    return result.Ok(respuesta);
+                }
+                else
+                {
+                    return result.Error(respuesta);
+                }
             }
             catch (Exception ex)
             {
@@ -2832,8 +2811,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             try
             {
                 var respuesta = _incotermRepository.Update(item);
-
-                return result.Ok(respuesta);
+                if (respuesta.MessageStatus == "1")
+                {
+                    return result.Ok(respuesta);
+                }
+                else
+                {
+                    return result.Error(respuesta);
+                }
             }
             catch (Exception ex)
             {
@@ -2847,8 +2832,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             try
             {
                 var respuesta = _incotermRepository.Delete(item);
-
-                return result.Ok(respuesta);
+                if (respuesta.MessageStatus == "1")
+                {
+                    return result.Ok(respuesta);
+                }
+                else
+                {
+                    return result.Error();
+                }
             }
             catch (Exception ex)
             {
@@ -3444,22 +3435,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _marcasRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _marcasRepository.Insert(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)

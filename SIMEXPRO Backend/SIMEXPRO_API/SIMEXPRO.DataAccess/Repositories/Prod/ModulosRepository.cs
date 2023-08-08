@@ -19,10 +19,10 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             var parametros = new DynamicParameters();
             parametros.Add("@modu_Id", item.modu_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@modu_FechaEliminacion", item.modu_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@modu_FechaEliminacion", item.modu_FechaEliminacion, DbType.String, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarModulos, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarModulos, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -40,10 +40,10 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@proc_Id", item.proc_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@empr_Id", item.empr_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@modu_FechaCreacion", item.modu_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@modu_FechaCreacion", item.modu_FechaCreacion, DbType.String, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarModulos, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarModulos, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus= answer;
             return result;
         }
 
@@ -64,10 +64,10 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@proc_Id", item.proc_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@empr_Id", item.empr_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@modu_FechaModificacion", item.modu_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@modu_FechaModificacion", item.modu_FechaModificacion, DbType.String, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarModulos, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarModulos, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
     }

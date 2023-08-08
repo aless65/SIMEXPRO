@@ -23,19 +23,12 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             _mapper = mapper;
         }
 
-        [HttpGet("Listar")]
+        [HttpPost("Listar")]
         public IActionResult Index(String codigo)
         {
             var respuesta = _aduanaServices.ListarLugaresEmbarque(codigo);
-
-            if (respuesta.Code == 200)
-            {
-                return Ok(respuesta);
-            }
-            else
-            {
-                return BadRequest(respuesta);
-            }
+            respuesta.Data = _mapper.Map<IEnumerable<LugaresEmbarqueViewModel>>(respuesta.Data);
+            return Ok(respuesta);
         }
 
         [HttpPost("Insertar")]

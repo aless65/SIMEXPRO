@@ -59,7 +59,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@item_ReglasAccesorias", item.item_ReglasAccesorias, DbType.String, ParameterDirection.Input);
             parametros.Add("@item_CriterioCertificarOrigen", item.item_CriterioCertificarOrigen, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@item_FechaCreacion", item.item_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@item_FechaCreacion", item.item_FechaCreacion, DbType.String, ParameterDirection.Input);
 
 
             var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarItems, parametros, commandType: CommandType.StoredProcedure);
@@ -112,7 +112,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@item_ReglasAccesorias", item.item_ReglasAccesorias, DbType.String, ParameterDirection.Input);
             parametros.Add("@item_CriterioCertificarOrigen", item.item_CriterioCertificarOrigen, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@item_FechaModificacion", item.item_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@item_FechaModificacion", item.item_FechaModificacion, DbType.String, ParameterDirection.Input);
 
 
             var answer = db.QueryFirst<string>(ScriptsDataBase.EditarItems, parametros, commandType: CommandType.StoredProcedure);

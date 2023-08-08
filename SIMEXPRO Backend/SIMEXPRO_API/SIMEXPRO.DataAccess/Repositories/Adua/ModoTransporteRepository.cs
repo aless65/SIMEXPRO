@@ -14,17 +14,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
     {
         public RequestStatus Delete(tbModoTransporte item)
         {
-            RequestStatus result = new();
-
-            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
-            var parametros = new DynamicParameters();
-            parametros.Add("@motr_Id", item.motr_Id, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@motr_FechaEliminacion", item.motr_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
-
-            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarMarcas, parametros, commandType: CommandType.StoredProcedure);
-            result.MessageStatus = answer;
-            return result;
+            throw new NotImplementedException();
         }
 
         public tbModoTransporte Find(int? id)
@@ -41,9 +31,9 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
 
             parametros.Add("@motr_Descripcion", item.motr_Descripcion, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@motr_FechaCreacion", item.motr_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@motr_FechaCreacion", item.motr_FechaCreacion, DbType.String, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarMarcas, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarModoTransporte, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
             return result;
         }
@@ -51,7 +41,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
         public IEnumerable<tbModoTransporte> List()
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
-            return db.Query<tbModoTransporte>(ScriptsDataBase.ListarMarcas, null, commandType: CommandType.StoredProcedure);
+            return db.Query<tbModoTransporte>(ScriptsDataBase.ListarModoTransporte, null, commandType: CommandType.StoredProcedure);
         }
 
         public RequestStatus Update(tbModoTransporte item)
@@ -64,9 +54,9 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@motr_Id", item.motr_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@motr_Descripcion", item.motr_Descripcion, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@motr_FechaModificacion", item.motr_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@motr_FechaModificacion", item.motr_FechaModificacion, DbType.String, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarMarcas, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarModoTransporte, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
             return result;
         }

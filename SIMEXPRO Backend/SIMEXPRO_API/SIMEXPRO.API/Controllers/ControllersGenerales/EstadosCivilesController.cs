@@ -15,7 +15,7 @@ namespace SIMEXPRO.API.Controllers
     [ApiController]
     //[Authorize]
 
-    public class EstadosCivilesController : ControllerBase
+    public class EstadosCivilesController : Controller
     {
         private readonly GeneralServices _generalesServices;
         private readonly IMapper _mapper;
@@ -31,7 +31,7 @@ namespace SIMEXPRO.API.Controllers
         public IActionResult ListarEstadosCiviles()
         {
             var list = _generalesServices.ListarEstadosCiviles();
-            list.Data = _mapper.Map<EstadosCivilesViewModel>(list.Data);
+            list.Data = _mapper.Map<IEnumerable<EstadosCivilesViewModel>>(list.Data);
             return Ok(list);
         }
 

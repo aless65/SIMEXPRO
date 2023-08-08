@@ -26,15 +26,8 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         public IActionResult Index()
         {
             var respuesta = _aduanaServices.ListarMarcas();
-
-            if (respuesta.Code == 200)
-            {
-                return Ok(respuesta);
-            }
-            else
-            {
-                return BadRequest(respuesta);
-            }
+            respuesta.Data = _mapper.Map<IEnumerable<MarcasViewModel>>(respuesta.Data);
+            return Ok(respuesta);
         }
 
         [HttpPost("Insertar")]

@@ -26,15 +26,9 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         public IActionResult Index()
         {
             var respuesta = _aduanaServices.ListarNivelesComerciales();
+            respuesta.Data = _mapper.Map<IEnumerable<NivelesComercialesViewModel>>(respuesta.Data);
+            return Ok(respuesta);
 
-            if (respuesta.Code == 200)
-            {
-                return Ok(respuesta);
-            }
-            else
-            {
-                return BadRequest(respuesta);
-            }
         }
 
         [HttpPost("Insertar")]

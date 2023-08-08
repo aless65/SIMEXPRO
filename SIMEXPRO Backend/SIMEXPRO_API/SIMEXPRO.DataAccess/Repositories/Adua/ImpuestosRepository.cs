@@ -31,9 +31,9 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@impu_Descripcion", item.impu_Descripcion, DbType.String, ParameterDirection.Input);
             parametros.Add("@impu_Impuesto", item.impu_Impuesto, DbType.Decimal, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@impu_FechaCreacion", item.impu_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarImpuestos, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            parametros.Add("@impu_FechaCreacion", item.impu_FechaCreacion, DbType.String, ParameterDirection.Input);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarImpuestos, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -49,13 +49,14 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
+            parametros.Add("@impu_Id", item.impu_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@aran_Codigo", item.aran_Codigo, DbType.String, ParameterDirection.Input);
             parametros.Add("@impu_Descripcion", item.impu_Descripcion, DbType.String, ParameterDirection.Input);
             parametros.Add("@impu_Impuesto", item.impu_Impuesto, DbType.Decimal, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@impu_FechaModificacion", item.impu_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarImpuestos, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            parametros.Add("@impu_FechaModificacion", item.impu_FechaModificacion, DbType.String, ParameterDirection.Input);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarImpuestos, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus= answer;
             return result;
         }
     }

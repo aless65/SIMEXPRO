@@ -7913,10 +7913,6 @@ BEGIN
 			INNER JOIN	adua.tbPersonas					Personas				ON	comercianteIndividual.pers_Id				= Personas.pers_Id
 			INNER JOIN	Acce.tbUsuarios					UsuarioCreacion			ON	documentoContrato.usua_UsuarioCreacion		= UsuarioCreacion.usua_Id
 			INNER JOIN	Acce.tbUsuarios					UsuarioModificaion		ON	documentoContrato.usua_UsuarioModificacion	= UsuarioModificaion.usua_Id
- 
- 
-
-
 
 END
 GO

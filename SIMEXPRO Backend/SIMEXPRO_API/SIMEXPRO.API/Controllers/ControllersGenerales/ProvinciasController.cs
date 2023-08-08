@@ -49,6 +49,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
+     
 
     }
 }

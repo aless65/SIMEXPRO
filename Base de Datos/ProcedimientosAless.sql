@@ -3154,7 +3154,7 @@ END
 --UNION ALL
 --(select [deva_Id], [deva_AduanaIngresoId], [deva_DeclaracionMercancia] from [Adua].[tbDeclaraciones_ValorHistorial] EXCEPT select [deva_Id], [deva_AduanaIngresoId], [deva_DeclaracionMercancia] from [Adua].[tbDeclaraciones_Valor])
 
---EXEC adua.UDP_tbDeclaraciones_Valor_Tab1_Insertar 10, 5, '2023-07-12', 'rtrtrtyrty', '0501-2005-010101', '05012005632458', 'dirección perrona', 2, 'empresa@empresa.com', '85478965', NULL, 2, null, 1, '10-16-2004'
+--EXEC adua.UDP_tbDeclaraciones_Valor_Tab1_Insertar 10, 5, '2023-07-12', 'ghdfghdfghdfgh', '0501-2005-010101', '05012005632458', 'dirección perrona', 2, 'empresa@empresa.com', '85478965', NULL, 2, null, 1, '10-16-2004'
 --GO
 
 --EXEC adua.UDP_tbDeclaraciones_Valor_Tab2_Insertar 1, 'OTRA RAZÓN WTF', 'HOGAR DULCE HOGAR', 3, 'asjds@sdl.com', '45874589', null, '1',2, null, 'MÁS NOMBRES WN', 'CASA EVERYWHERE', 2, 'ASD@MSD.COM', '5874786554', null, '2 ',1, null, 1, '2023-07-20'

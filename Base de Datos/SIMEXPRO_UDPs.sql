@@ -153,7 +153,7 @@ BEGIN
 END
 --GO
 
---EXEC acce.UDP_tbUsuarios_Insertar 'juan', '123', 1, '', 1, 1, 1,'2023-08-13'
+--EXEC acce.UDP_tbUsuarios_Insertar 'juan', '123', 1, 'nada', 1, 1, 1,'08-08-2023'
 
 /*Insertar Usuarios*/
 GO
@@ -295,9 +295,60 @@ BEGIN
 END
 GO
 
+/* Activar Usuarios*/
+CREATE OR ALTER PROCEDURE Acce.UDP_tbUsuarios_Activar  2,1,'08-08-2023'
+	@usua_Id					INT,
+	@usua_UsuarioModificacion	INT,
+	@usua_FechaModificacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		BEGIN
+			 UPDATE Acce.tbUsuarios
+			    SET usua_Estado               = 1,
+					usua_UsuarioModificacion  = @usua_UsuarioModificacion,
+					usua_FechaModificacion    = @usua_FechaModificacion
+			  WHERE usua_Id                   = @usua_Id
+			  SELECT 1
+
+
+			  INSERT INTO acce.tbUsuariosHistorial (	usua_Id,
+												usua_Nombre, 
+												usua_Contrasenia, 
+												empl_Id, 
+												usua_Image, 
+												role_Id, 
+												usua_EsAdmin,
+												hist_UsuarioAccion, 
+												hist_FechaAccion,
+												hist_Accion)
+			SELECT usua_Id,
+				   usua_Nombre, 
+				   usua_Contrasenia, 
+				   empl_Id, 
+				   usua_Image, 
+				   role_Id, 
+				   usua_EsAdmin,
+				   @usua_UsuarioModificacion, 
+				   @usua_FechaModificacion,
+				   'Activar'
+			FROM acce.tbUsuarios
+			WHERE usua_Id = @usua_Id
+
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+
+
+
 
 /*Eliminar usuarios*/
-CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Eliminar 
+CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Eliminar 2,1,'08-08-2023'
 	@usua_Id					INT,
 	@usua_UsuarioEliminacion	INT,
 	@usua_FechaEliminacion		DATETIME
@@ -1280,22 +1331,28 @@ SELECT	pvin_Id								,
 		pvin_Nombre							,
 		pvin_Codigo							,
 		provin.pais_Id 						,
-		pais.pais_Nombre					,
+		pais.pais_Nombre					AS pais_Nombre,
 		provin.usua_UsuarioCreacion			,
 		usua1.usua_Nombre					AS UsuarioCreacionNombre,
 		pvin_FechaCreacion	 				, 
 		provin.usua_UsuarioModificacion		,
 		usua2.usua_Nombre					AS UsuarioModificadorNombre,
 		pvin_FechaModificacion				,
+		provin.usua_UsuarioEliminacion		,
+		usua3.usua_Nombre					AS UsuarioEliminacionNombre,
+		provin.pvin_FechaEliminacion		,
 		pvin_Estado
 FROM	Gral.tbProvincias provin				
 		INNER JOIN Gral.tbPaises pais		ON provin.pais_Id =  pais.pais_Id		
 		INNER JOIN Acce.tbUsuarios usua1	ON provin.usua_UsuarioCreacion = usua1.usua_Id	
 		LEFT JOIN Acce.tbUsuarios usua2		ON provin.usua_UsuarioModificacion = usua2.usua_Id 
+		LEFT JOIN Acce.tbUsuarios usua3		ON provin.usua_UsuarioEliminacion = usua3.usua_Id
 WHERE	pvin_Estado = 1
 END
+
+
 GO
-/*Editar Provincias*/
+/*Insertar Provincias*/
 CREATE OR ALTER PROCEDURE GrAL.UDP_tbProvincias_Insertar
  @pvin_Nombre				NVARCHAR(150), 
  @pvin_Codigo				NVARCHAR(20), 
@@ -1325,7 +1382,10 @@ BEGIN
 	END CATCH
 END
 GO
-/*Eliminar Provincias*/
+
+
+
+/*Editar Provincias*/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbProvinvias_Editar
  @pvin_Id						INT,
  @pvin_Nombre					NVARCHAR(150), 
@@ -2069,7 +2129,7 @@ BEGIN
 		DECLARE @respuesta INT
 		EXEC dbo.UDP_ValidarReferencias 'unme_Id', @unme_Id, 'Gral.tbUnidadMedidas', @respuesta OUTPUT
 		
-		IF(@respuesta) = 1
+		IF(@respuesta = 1)
 			BEGIN
 				UPDATE Gral.tbUnidadMedidas
 				   SET unme_Estado = 0,
@@ -2079,7 +2139,7 @@ BEGIN
 				   AND unme_Estado = 1
 			END
 
-		SELECT @respuesta AS Resultado
+		SELECT @respuesta 
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
@@ -6756,11 +6816,11 @@ BEGIN
 			boletin.boen_NDeclaracion,
 			--boletin.pena_RTN, 
 			boletin.boen_Preimpreso, 
-			--boletin.boen_Declarante, 
+			boletin.boen_Declarante, 
 			boletin.boen_TotalPagar, 
 			boletin.boen_TotalGarantizar, 
 			--boletin.boen_RTN, 
-			--boletin.boen_TipoEncabezado, 
+			boletin.boen_TipoEncabezado, 
 			boletin.coim_Id, 
 			codigoIm.coim_Descripcion,
 			boletin.copa_Id, 
@@ -6794,11 +6854,11 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbBoletinPago_Insertar
 	@boen_NDeclaracion       NVARCHAR(200), 
 	--@pena_RTN                VARCHAR(20), 
 	@boen_Preimpreso         NVARCHAR(MAX), 
-	--@boen_Declarante         NVARCHAR(200), 
+	@boen_Declarante         NVARCHAR(200), 
 	@boen_TotalPagar         DECIMAL(18,2), 
 	@boen_TotalGarantizar    DECIMAL(18,2), 
 	--@boen_RTN                NVARCHAR(100),
-	--@boen_TipoEncabezado     NVARCHAR(200), 
+	@boen_TipoEncabezado     NVARCHAR(200), 
 	@coim_Id                 INT, 
 	@copa_Id                 INT, 
 	@usua_UsuarioCreacion    INT, 
@@ -6816,11 +6876,11 @@ BEGIN
 										   boen_NDeclaracion, 
 										   --pena_RTN, 
 										   boen_Preimpreso, 
-										   --boen_Declarante, 
+										   boen_Declarante, 
 										   boen_TotalPagar, 
 										   boen_TotalGarantizar, 
 										   --boen_RTN, 
-										   --boen_TipoEncabezado, 
+										   boen_TipoEncabezado, 
 										   coim_Id, 
 										   copa_Id, 
 										   usua_UsuarioCreacion, 
@@ -6835,11 +6895,11 @@ BEGIN
 				   @boen_NDeclaracion, 
 				   --@pena_RTN, 
 				   @boen_Preimpreso, 
-				   --@boen_Declarante, 
+				   @boen_Declarante, 
 				   @boen_TotalPagar, 
 				   @boen_TotalGarantizar, 
 				   --@boen_RTN, 
-				   --@boen_TipoEncabezado, 
+				   @boen_TipoEncabezado, 
 				   @coim_Id, 
 				   @copa_Id, 
 				   @usua_UsuarioCreacion, 
@@ -7514,6 +7574,7 @@ BEGIN
 		   ,tipoDocumento.tido_Id
 		   ,tipoDocumento.tido_Codigo
 		   ,tipoDocumento.tido_Descripcion
+		   ,DocumentoSoporte.duca_No_Duca
 		   ,DocumentoSoporte.doso_NumeroDocumento
 		   ,DocumentoSoporte.doso_FechaEmision
 		   ,DocumentoSoporte.doso_FechaVencimiento
@@ -7548,6 +7609,7 @@ GO
 /* INSERTAR DOCUMENTOS DE SOPORTE */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosDeSoporte_Insertar 
 	@tido_Id					        INT,
+	@duca_No_Duca						NVARCHAR(100),
 	@doso_NumeroDocumento		        NVARCHAR(15),
 	@doso_FechaEmision			        DATE,
 	@doso_FechaVencimiento		        DATE,
@@ -7555,8 +7617,8 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosDeSoporte_Insertar
 	@doso_LineaAplica			        CHAR(4),
 	@doso_EntidadEmitioDocumento        NVARCHAR(75),
 	@doso_Monto				           	NVARCHAR(50),
-	@usua_UsuarioCreacion				int,
-	@doso_FechaCreacion					datetime
+	@usua_UsuarioCreacion				INT,
+	@doso_FechaCreacion					DATETIME
 
 AS
 BEGIN 
@@ -7565,6 +7627,7 @@ BEGIN TRY
 
 	INSERT INTO Adua.tbDocumentosDeSoporte
 			   (tido_Id
+			   ,duca_No_Duca
 			   ,doso_NumeroDocumento
 			   ,doso_FechaEmision
 			   ,doso_FechaVencimiento
@@ -7577,6 +7640,7 @@ BEGIN TRY
 			   ,doso_FechaCreacion)
 		 VALUES
 			   (@tido_Id
+			   ,@duca_No_Duca
 			   ,@doso_NumeroDocumento
 			   ,@doso_FechaEmision
 			   ,@doso_FechaVencimiento
@@ -7629,21 +7693,21 @@ BEGIN
   FROM	Adua.tbDocumentosPDF		documentoPdf
   INNER JOIN Adua.tbDeclaraciones_Valor declaracionDeValor		ON	documentoPdf.deva_Id					= declaracionDeValor.deva_Id
   INNER JOIN Acce.tbUsuarios			UsuarioCreacion			ON	documentoPdf.usua_UsuarioCreacion		= UsuarioCreacion.usua_Id
-  INNER JOIN Acce.tbUsuarios			UsuarioModificaion		ON	documentoPdf.usua_UsuarioModificacion	= UsuarioModificaion.usua_Id
-  INNER JOIN Acce.tbUsuarios			UsuarioEliminacion		ON	documentoPdf.usua_UsuarioEliminacion	= UsuarioEliminacion.usua_Id
+  LEFT JOIN Acce.tbUsuarios			UsuarioModificaion		ON	documentoPdf.usua_UsuarioModificacion	= UsuarioModificaion.usua_Id
+  LEFT JOIN Acce.tbUsuarios			UsuarioEliminacion		ON	documentoPdf.usua_UsuarioEliminacion	= UsuarioEliminacion.usua_Id
 
 END
 GO
 
 /* INSERTAR DOCUMENTOS PDF */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosPDF_Insertar
-	@deva_Id				int,
-	@dpdf_CA				nvarchar(200),
-	@dpdf_DVA				nvarchar(200),
-	@dpdf_DUCA				nvarchar(200),
-	@dpdf_Boletin			nvarchar(200),
-	@usua_UsuarioCreacion   int,
-	@dpdf_FechaCreacion     datetime
+	@deva_Id				INT,
+	@dpdf_CA				NVARCHAR(200),
+	@dpdf_DVA				NVARCHAR(200),
+	@dpdf_DUCA				NVARCHAR(200),
+	@dpdf_Boletin			NVARCHAR(200),
+	@usua_UsuarioCreacion   INT,
+	@dpdf_FechaCreacion     DATETIME
      
 AS
 BEGIN 
@@ -7704,14 +7768,14 @@ GO
 
 /* EDITAR DOCUMENTOS PDF */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosPDF_Editar
-@dpdf_Id					int,
-@deva_Id					int,
-@dpdf_CA					nvarchar(200),
-@dpdf_DVA					nvarchar(200),
-@dpdf_DUCA					nvarchar(200),
-@dpdf_Boletin				nvarchar(200),
-@usua_UsuarioModificacion   int,
-@dpdf_FechaModificacion     datetime
+@dpdf_Id					INT,
+@deva_Id					INT,
+@dpdf_CA					NVARCHAR(200),
+@dpdf_DVA					NVARCHAR(200),
+@dpdf_DUCA					NVARCHAR(200),
+@dpdf_Boletin				NVARCHAR(200),
+@usua_UsuarioModificacion   INT,
+@dpdf_FechaModificacion     DATETIME
 
 AS
 BEGIN 
@@ -7767,9 +7831,9 @@ GO
 
 /* ELIMINAR DOCUMENTOS PDF */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosPDF_Eliminar
-	@dpdf_Id					int,
-	@usua_UsuarioEliminacion    int,
-	@dpdf_FechaEliminacion		datetime
+	@dpdf_Id					INT,
+	@usua_UsuarioEliminacion    INT,
+	@dpdf_FechaEliminacion		DATETIME
 AS
 BEGIN 
 
@@ -7861,12 +7925,12 @@ GO
 
 /* INSERTAR DOCUMENTOS CONTRATOS */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosContratos_Insertar
-@coin_Id					int,
-@peju_Id					int,
-@doco_Numero_O_Referencia	nvarchar(50),
-@doco_TipoDocumento			nvarchar(6),
-@usua_UsuarioCreacion		int,
-@doco_FechaCreacion			datetime
+@coin_Id					INT,
+@peju_Id					INT,
+@doco_Numero_O_Referencia	NVARCHAR(50),
+@doco_TipoDocumento			NVARCHAR(6),
+@usua_UsuarioCreacion		INT,
+@doco_FechaCreacion			DATETIME
    
 AS
 BEGIN
@@ -7901,13 +7965,13 @@ GO
 
 /* EDITAR DOCUMENTOS CONTRATOS */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosContratos_Editar
-@doco_Id					int,
-@coin_Id					int,
-@peju_Id					int,
-@doco_Numero_O_Referencia	nvarchar(50),
-@doco_TipoDocumento			nvarchar(6),
-@usua_UsuarioModificacion	int,
-@doco_FechaModificacion		datetime
+@doco_Id					INT,
+@coin_Id					INT,
+@peju_Id					INT,
+@doco_Numero_O_Referencia	NVARCHAR(50),
+@doco_TipoDocumento			NVARCHAR(6),
+@usua_UsuarioModificacion	INT,
+@doco_FechaModificacion		DATETIME
 AS
 BEGIN
  
@@ -7937,7 +8001,7 @@ GO
 
 /* ELIMINAR DOCUMENTOS CONTRATOS */
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosContratos_Eliminar
-@doco_Id					int
+@doco_Id					INT
 AS
 BEGIN
   	BEGIN TRY
@@ -9228,6 +9292,31 @@ BEGIN
 	END CATCH
 END
 GO
+
+/* Activar Clientes*/
+CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Activar
+	@clie_Id					INT,
+	@usua_UsuarioModificacion	INT,
+	@clie_FechaModificacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		BEGIN
+			 UPDATE Prod.tbClientes
+			    SET clie_Estado               = 1,
+					usua_UsuarioModificacion  = @usua_UsuarioModificacion,
+					clie_FechaModificacion    = @clie_FechaModificacion
+			  WHERE clie_Id                   = @clie_Id
+			 SELECT 1
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+GO
+
+
 
 --*****ReporteModuloDia*****-
 --*****Listado*****--

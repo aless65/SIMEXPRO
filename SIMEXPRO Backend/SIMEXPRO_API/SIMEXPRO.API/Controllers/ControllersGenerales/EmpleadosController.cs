@@ -55,5 +55,13 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             var respuesta = _generalesServices.EliminarEmpleados(item);
             return Ok(respuesta);
         }
+
+        [HttpPost("Reactivar")]
+        public IActionResult Reactivar(EmpleadosViewModel empleadosViewModel)
+        {
+            var item = _mapper.Map<tbEmpleados>(empleadosViewModel);
+            var respuesta = _generalesServices.ReactivarEmpleados(item);
+            return Ok(respuesta);
+        }
     }
 }

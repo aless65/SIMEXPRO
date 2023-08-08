@@ -1974,6 +1974,35 @@ BEGIN
 END
 GO
 
+/*Reactivar EMPLEADOS*/
+CREATE OR ALTER PROCEDURE Gral.UDP_tbEmpleados_Reactivar
+	@empl_Id					INT,
+	@usua_UsuarioModificacion	INT,
+	@empl_FechaModificacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY	
+			IF EXISTS (SELECT * FROM Gral.tbEmpleados WHERE empl_Id = @empl_Id)
+				BEGIN
+					UPDATE	Gral.tbEmpleados
+					SET		empl_Estado = 1,
+							usua_UsuarioModificacion = @usua_UsuarioModificacion,
+							empl_FechaModificacion = @empl_FechaModificacion
+					WHERE	empl_Id = @empl_Id
+
+					SELECT 1
+				END
+			ELSE
+				BEGIN
+					SELECT 0
+				END	
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
 
 --************UNIDAD DE MEDIDA******************--
 
@@ -3717,13 +3746,12 @@ BEGIN
 END
 GO
 /*Eliminar Marcas*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbMarcas_Eliminar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbMarcas_Eliminar --3, 1, '2023-07-31 10:46:58.590'
 	@marc_Id					INT,
 	@usua_UsuarioEliminacion	INT,
 	@marc_FechaEliminacion		DATETIME
 AS
 BEGIN
-	SET @marc_FechaEliminacion = GETDATE();
 	BEGIN TRY
 			DECLARE @respuesta INT
 			EXEC dbo.UDP_ValidarReferencias 'marc_Id', @marc_Id, 'Adua.tbMarcas', @respuesta OUTPUT
@@ -3735,10 +3763,10 @@ BEGIN
 						marc_FechaEliminacion = @marc_FechaEliminacion,
 						marc_Estado = 0
 				WHERE marc_Id = @marc_Id
+				
 				SELECT 1
 			END
 
-			SELECT @respuesta AS Resultado
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()

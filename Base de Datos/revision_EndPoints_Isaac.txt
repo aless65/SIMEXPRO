@@ -13,7 +13,7 @@ Formas de Envio: Arreglado
 Funciones Maquina: Arreglado
 Impuestos: Arreglado
 Incoterm: Arreglado
-Items: ---------
+Items: Depende de los inserts de otras tablas
 LiquidacionGeneral: Depende de los inserts de otras tablas
 Liquidacion por linea: Depende de los inserts de otras tablas
 Lotes: Arreglado

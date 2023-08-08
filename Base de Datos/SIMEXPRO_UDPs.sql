@@ -2033,6 +2033,35 @@ BEGIN
 END
 GO
 
+/*Reactivar EMPLEADOS*/
+CREATE OR ALTER PROCEDURE Gral.UDP_tbEmpleados_Reactivar
+	@empl_Id					INT,
+	@usua_UsuarioModificacion	INT,
+	@empl_FechaModificacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY	
+			IF EXISTS (SELECT * FROM Gral.tbEmpleados WHERE empl_Id = @empl_Id)
+				BEGIN
+					UPDATE	Gral.tbEmpleados
+					SET		empl_Estado = 1,
+							usua_UsuarioModificacion = @usua_UsuarioModificacion,
+							empl_FechaModificacion = @empl_FechaModificacion
+					WHERE	empl_Id = @empl_Id
+
+					SELECT 1
+				END
+			ELSE
+				BEGIN
+					SELECT 0
+				END	
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
 
 --************UNIDAD DE MEDIDA******************--
 
@@ -2357,7 +2386,7 @@ END
 GO
 
 /*Insertar Comersiante Individual*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbComercianteIndividual_Insertar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbComercianteIndividual_Insertar --1, 1, 1, "Frente a farmacia Kielsa", 1, "A777", "Frente a supermercado La Colonia", "99997788", "22004545", "esUnaPrueba@prueba.com", '' ,1, '8/7/2023'
 (
   	@pers_Id                           	INT,
   	@fopr_Id                           	BIT,
@@ -3776,13 +3805,12 @@ BEGIN
 END
 GO
 /*Eliminar Marcas*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbMarcas_Eliminar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbMarcas_Eliminar --3, 1, '2023-07-31 10:46:58.590'
 	@marc_Id					INT,
 	@usua_UsuarioEliminacion	INT,
 	@marc_FechaEliminacion		DATETIME
 AS
 BEGIN
-	SET @marc_FechaEliminacion = GETDATE();
 	BEGIN TRY
 			DECLARE @respuesta INT
 			EXEC dbo.UDP_ValidarReferencias 'marc_Id', @marc_Id, 'Adua.tbMarcas', @respuesta OUTPUT
@@ -3794,10 +3822,10 @@ BEGIN
 						marc_FechaEliminacion = @marc_FechaEliminacion,
 						marc_Estado = 0
 				WHERE marc_Id = @marc_Id
+				
 				SELECT 1
 			END
 
-			SELECT @respuesta AS Resultado
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -3832,15 +3860,15 @@ GO
 
 /*Insertar Tipos Identificacion*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTiposIdentificacion_Insertar 
-	@iden_Descripcion		NVARCHAR(75),
-	@iden_UsuCrea	        INT,
-	@iden_FechaCrea         DATETIME
+	@iden_Descripcion			NVARCHAR(75),
+	@usua_UsuarioCreacion	    INT,
+	@iden_FechaCreacion         DATETIME
 AS 
 BEGIN
 	
 	BEGIN TRY
 		INSERT INTO Adua.tbTiposIdentificacion(iden_Descripcion, usua_UsuarioCreacion, iden_FechaCreacion)
-		VALUES(@iden_Descripcion, @iden_UsuCrea, @iden_FechaCrea)
+		VALUES(@iden_Descripcion, @usua_UsuarioCreacion, @iden_FechaCreacion)
 
 		SELECT 1
 	END TRY
@@ -3853,15 +3881,17 @@ GO
 
 /*Editar Tipos Identificacion*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTiposIdentificacion_Editar 
-	@iden_Id				INT,
-	@iden_Descripcion	    NVARCHAR(150),
-	@iden_UsuModifica       INT,
-	@iden_FechaModi         DATETIME
+	@iden_Id					INT,
+	@iden_Descripcion			NVARCHAR(150),
+	@usua_UsuarioModificacion	INT,
+	@iden_FechaModificacion		DATETIME
 AS
 BEGIN
 	BEGIN TRY
 		UPDATE  Adua.tbTiposIdentificacion
-		SET		iden_Descripcion = @iden_Descripcion
+		SET		iden_Descripcion = @iden_Descripcion,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				iden_FechaModificacion = @iden_FechaModificacion	
 		WHERE	iden_Id = @iden_Id
 
 		SELECT 1
@@ -7093,6 +7123,7 @@ GO
 /*Insertar NIVELES COMERCIALES*/
 
 CREATE OR ALTER PROCEDURE Adua.UDP_tbNivelesComerciales_Insertar
+@nico_Codigo					CHAR(3),
 @nico_Descripcion				NVARCHAR(150), 
 @usua_UsuarioCreacion			INT,
 @nico_FechaCreacion				DATETIME
@@ -7107,8 +7138,8 @@ BEGIN
 		END
 		ELSE
 		BEGIN
-			INSERT INTO Adua.tbNivelesComerciales (nico_Descripcion, usua_UsuarioCreacion, nico_FechaCreacion)
-			VALUES (@nico_Descripcion, @usua_UsuarioCreacion, @nico_FechaCreacion)
+			INSERT INTO Adua.tbNivelesComerciales (nico_Codigo,nico_Descripcion, usua_UsuarioCreacion, nico_FechaCreacion)
+			VALUES (@nico_Codigo,@nico_Descripcion, @usua_UsuarioCreacion, @nico_FechaCreacion)
 			SELECT 1
 		END
 	END TRY
@@ -7122,14 +7153,19 @@ GO
 
 CREATE OR ALTER PROCEDURE Adua.UDP_tbNivelesComerciales_Editar
 @nico_Id						INT,
+@nico_Codigo					CHAR(3),
 @nico_Descripcion				NVARCHAR(150), 
 @usua_UsuarioModificacion		INT,
 @nico_FechaModificacion			DATETIME
 AS
 BEGIN
 	BEGIN TRY
-	UPDATE Adua.tbNivelesComerciales SET nico_Descripcion = @nico_Descripcion, usua_UsuarioModificacion = @usua_UsuarioModificacion,
-	nico_FechaModificacion = @nico_FechaModificacion WHERE nico_Id = @nico_Id
+	UPDATE Adua.tbNivelesComerciales 
+	SET nico_Codigo = @nico_Codigo,
+		nico_Descripcion = @nico_Descripcion, 
+		usua_UsuarioModificacion = @usua_UsuarioModificacion,
+		nico_FechaModificacion = @nico_FechaModificacion 
+	WHERE nico_Id = @nico_Id
 		SELECT 1
 	END TRY
 
@@ -7194,6 +7230,7 @@ GO
 /*Insertar ESTADO MERCANCIAS*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbEstadoMercancias_Insertar
 (
+	@merc_Codigo			CHAR(2),
 	@merc_Descripcion		NVARCHAR(150),
 	@usua_UsuarioCreacion	INT,
 	@merc_FechaCreacion		DATETIME
@@ -7212,8 +7249,8 @@ BEGIN
 		END
 		ELSE
 		BEGIN
-			INSERT INTO Adua.tbEstadoMercancias (merc_Descripcion, usua_UsuarioCreacion, merc_FechaCreacion)
-			VALUES (@merc_Descripcion, @usua_UsuarioCreacion, @merc_FechaCreacion)
+			INSERT INTO Adua.tbEstadoMercancias (merc_Codigo ,merc_Descripcion, usua_UsuarioCreacion, merc_FechaCreacion)
+			VALUES (@merc_Codigo ,@merc_Descripcion, @usua_UsuarioCreacion, @merc_FechaCreacion)
 		END
 
 		SELECT 1 AS Resultado
@@ -7228,6 +7265,7 @@ GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbEstadoMercancias_Editar
 (
 	@merc_Id					INT,
+	@merc_Codigo				CHAR(2),
 	@merc_Descripcion			NVARCHAR(150),
 	@usua_UsuarioModificacion	INT,
 	@merc_FechaModificacion		DATETIME
@@ -7236,11 +7274,12 @@ AS
 BEGIN
 	BEGIN TRY
 		   UPDATE Adua.tbEstadoMercancias
-			  SET merc_Descripcion = @merc_Descripcion,
-				  usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				  merc_FechaModificacion = @merc_FechaModificacion
-			WHERE merc_Id = @merc_Id 
-			  AND merc_Estado = 1
+			  SET	merc_Codigo = @merc_Codigo,
+					merc_Descripcion = @merc_Descripcion,
+					usua_UsuarioModificacion = @usua_UsuarioModificacion,
+					merc_FechaModificacion = @merc_FechaModificacion
+			WHERE	merc_Id = @merc_Id 
+			  AND	merc_Estado = 1
 
 		SELECT 1 AS Resultado
 	END TRY
@@ -8231,8 +8270,8 @@ GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbCodigoImpuesto_Listar
 AS
 BEGIN
-	SELECT codi.coim_Id                 AS IdImpuesto,							
-		   codi.coim_Descripcion        AS CodigoImpuestoDescripcion,						
+	SELECT codi.coim_Id,							
+		   codi.coim_Descripcion,						
 	       codi.usua_UsuarioCreacion,		
 	       usuaCrea.usua_Nombre			AS usuarioCreacionNombre,
 	       coim_FechaCreacion,				
@@ -8343,18 +8382,18 @@ GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbImpuestos_Listar
 AS
 BEGIN
-	SELECT	impu.impu_Id          AS IdImpuesto,
-		    impu.aran_Codigo      AS ArancelCodigo,
-		    impu.impu_Descripcion AS DescripcionImpuesto,
-			impu.impu_Impuesto    AS Impuesto,
+	SELECT	impu.impu_Id          ,--AS IdImpuesto,
+		    impu.aran_Codigo      ,--AS ArancelCodigo,
+		    impu.impu_Descripcion ,--AS DescripcionImpuesto,
+			impu.impu_Impuesto    ,--AS Impuesto,
 		   		
-			usu.usua_Id             AS IDUsuarioCreacion,
+			impu.usua_UsuarioCreacion,
 			usu.usua_Nombre         AS UsuarioCreacion ,
-			impu_FechaCreacion      AS FechaCreacion,
+			impu_FechaCreacion      ,--AS FechaCreacion,
 
-			usu1.usua_Id            AS IDUsuarioModificacion,
+			impu.usua_UsuarioModificacion,
 			usu1.usua_Nombre        AS UsuarioModificacion,
-			impu_FechaModificacion  AS FechaModificacion
+			impu_FechaModificacion  --AS FechaModificacion
  
   FROM	    Adua.tbImpuestos impu
 			INNER JOIN Acce.tbUsuarios usu ON usu.usua_Id = impu.usua_UsuarioCreacion 
@@ -9059,8 +9098,10 @@ AS
 BEGIN
 SELECT	est.esti_Id						,
 		est.esti_Descripcion			,
+		est.usua_UsuarioCreacion,
 		usu.usua_Nombre					AS usarioCreacion,
 		est.esti_FechaCreacion			,
+		est.usua_UsuarioModificacion,
 		usu2.usua_Nombre				AS usuarioModificacion,
 		est.esti_FechaModificacion		,
 		est.esti_Estado					
@@ -10267,19 +10308,19 @@ GO
 CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Listar
 AS
 BEGIN
-SELECT  modu_Id AS IDModulo, 
-        modu_Nombre AS ModuloNombre, 
+SELECT  modu_Id, 
+        modu_Nombre, 
 	    
-		modu.proc_Id AS IdProceso,	
+		modu.proc_Id,	
 		pro.proc_Descripcion AS ProcesoDescripcion,
 	    
-		empr_Id AS IDEmpleado,
+		empr_Id,
 	    emp.empl_Nombres + ' ' + emp.empl_Apellidos AS empleado_Nombre,
 	    
-		modu.usua_UsuarioCreacion AS IDUsuarioCreacion,
+		modu.usua_UsuarioCreacion,
 	    usu.usua_Nombre AS UsuarioCreacion,
 		modu_FechaCreacion, 
-		modu.usua_UsuarioModificacion AS IDUsuarioModifica, 
+		modu.usua_UsuarioModificacion, 
 		usu1.usua_Nombre AS UsuarioModifica,
 		modu_FechaModificacion,	    
 		
@@ -11702,7 +11743,6 @@ END CATCH
 END	
 
 GO
-
 
 /*Eliminar lotes*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbLotes_Eliminar 

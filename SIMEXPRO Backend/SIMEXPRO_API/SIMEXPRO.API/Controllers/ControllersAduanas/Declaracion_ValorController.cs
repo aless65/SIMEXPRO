@@ -27,8 +27,8 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         public IActionResult Index()
         {
             var listado = _aduanaServices.ListarDeclaraciones_Valor();
-            var mapped = _mapper.Map<IEnumerable<Declaraciones_ValorViewModel>>(listado.Data);
-            return Ok(mapped);
+            listado.Data = _mapper.Map<IEnumerable<Declaraciones_ValorViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
         [HttpPost("InsertarTab1")]

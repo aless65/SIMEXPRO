@@ -30,9 +30,9 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@mone_Codigo", item.mone_Codigo, DbType.String, ParameterDirection.Input);
             parametros.Add("@mone_Descripcion", item.mone_Descripcion, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@mone_FechaCreacion", item.mone_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarMonedas, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            parametros.Add("@mone_FechaCreacion", item.mone_FechaCreacion, DbType.String, ParameterDirection.Input);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarMonedas, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -52,9 +52,9 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@mone_Codigo", item.mone_Codigo, DbType.String, ParameterDirection.Input);
             parametros.Add("@mone_Descripcion", item.mone_Descripcion, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@mone_FechaModificacion", item.mone_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarMonedas, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            parametros.Add("@mone_FechaModificacion", item.mone_FechaModificacion, DbType.String, ParameterDirection.Input);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarMonedas, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
     }

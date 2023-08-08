@@ -26,15 +26,9 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         public IActionResult Index()
         {
             var respuesta = _aduanaServices.ListarModoTransporte();
+            respuesta.Data = _mapper.Map<IEnumerable<ModoTransporteViewModel>>(respuesta.Data);
+            return Ok(respuesta);
 
-            if (respuesta.Code == 200)
-            {
-                return Ok(respuesta);
-            }
-            else
-            {
-                return BadRequest(respuesta);
-            }
         }
 
         [HttpPost("Insertar")]
@@ -71,21 +65,21 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             }
         }
 
-        [HttpPost("Eliminar")]
-        public IActionResult Delete(ModoTransporteViewModel concepto)
-        {
-            var item = _mapper.Map<tbModoTransporte>(concepto);
+        //[HttpPost("Eliminar")]
+        //public IActionResult Delete(ModoTransporteViewModel concepto)
+        //{
+        //    var item = _mapper.Map<tbModoTransporte>(concepto);
 
-            var respuesta = _aduanaServices.EliminarModoTransporte(item);
+        //    var respuesta = _aduanaServices.EliminarModoTransporte(item);
 
-            if (respuesta.Code == 200)
-            {
-                return Ok(respuesta);
-            }
-            else
-            {
-                return BadRequest(respuesta);
-            }
-        }
+        //    if (respuesta.Code == 200)
+        //    {
+        //        return Ok(respuesta);
+        //    }
+        //    else
+        //    {
+        //        return BadRequest(respuesta);
+        //    }
+        //}
     }
 }

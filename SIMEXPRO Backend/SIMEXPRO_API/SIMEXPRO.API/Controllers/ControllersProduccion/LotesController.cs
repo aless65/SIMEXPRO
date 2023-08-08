@@ -28,6 +28,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         public IActionResult Index()
         {
             var listado = _produccionServices.ListarLotes();
+            listado.Data = _mapper.Map<IEnumerable<LotesViewModel>>(listado);
             return Ok(listado);
         }
 

@@ -720,19 +720,16 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         {
             var result = new ServiceResult();
             try
-            {
-                
+            {                
                 var map = _funcionesMaquinaRepository.Insert(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
-               
             }
             catch (Exception ex)
             {
@@ -747,16 +744,14 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             {
                 
                 var map = _funcionesMaquinaRepository.Update(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
-                
             }
             catch (Exception ex)
             {
@@ -769,15 +764,13 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                
                 var map = _funcionesMaquinaRepository.Delete(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
                
@@ -809,15 +802,13 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-               
                 var map = _lotesRepository.Insert(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
             }
@@ -834,13 +825,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             {
                 
                 var map = _lotesRepository.Update(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
                
@@ -858,13 +848,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             {
                
                 var map = _lotesRepository.Delete(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
                
@@ -999,18 +988,15 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-              
                 var map = _maquinasRepository.Insert(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
-                
             }
             catch (Exception ex)
             {
@@ -1024,13 +1010,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             try
             {
                 var map = _maquinasRepository.Update(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
                
@@ -1048,13 +1033,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             {
               
                 var map = _maquinasRepository.Delete(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
                
@@ -1089,13 +1073,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             {
                
                 var map = _marcasMaquinaRepository.Insert(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
                
@@ -1111,18 +1094,15 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-               
                 var map = _marcasMaquinaRepository.Update(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
-                
             }
             catch (Exception ex)
             {
@@ -1137,13 +1117,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             {
                
                 var map = _marcasMaquinaRepository.Delete(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
                 
@@ -1177,13 +1156,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             {
                 
                 var map = _materialesBrindarRepository.Insert(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
                
@@ -1201,13 +1179,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             {
                
                 var map = _materialesBrindarRepository.Update(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
               
@@ -1225,13 +1202,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             {
                 
                 var map = _materialesBrindarRepository.Delete(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
                
@@ -1265,13 +1241,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             {
                 
                 var map = _materialesRepository.Insert(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
                
@@ -1289,13 +1264,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             {
               
                 var map = _materialesRepository.Update(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
                 
@@ -1312,13 +1286,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             try
             {
                 var map = _materialesRepository.Delete(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
                 
@@ -1352,13 +1325,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             {
                 
                 var map = _modelosMaquinaRepository.Insert(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
                 
@@ -1376,13 +1348,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             {
                
                 var map = _modelosMaquinaRepository.Update(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
                 
@@ -1400,13 +1371,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             {
                 
                 var map = _modelosMaquinaRepository.Delete(item);
-                if (map.CodeStatus > 0)
+                if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
                 }
                 else
                 {
-                    map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                     return result.Error(map);
                 }
                 
@@ -1437,23 +1407,16 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                if (item.modu_Nombre != "")
-                {
                     var map = _modulosRepository.Insert(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                         return result.Error(map);
                     }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+
             }
             catch (Exception ex)
             {
@@ -1466,23 +1429,15 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                if (item.modu_Nombre != "")
-                {
                     var map = _modulosRepository.Update(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                         return result.Error(map);
                     }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
             }
             catch (Exception ex)
             {
@@ -1495,23 +1450,15 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                if (item.modu_Id != 0)
-                {
                     var map = _modulosRepository.Delete(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                         return result.Error(map);
                     }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
             }
             catch (Exception ex)
             {

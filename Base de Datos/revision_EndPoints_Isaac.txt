@@ -9,3 +9,22 @@ Estados Civiles: Arreglado
 Estilos: Arreglado
 Facturas: No puedo mostrar ni insertar una factura ya que depende de la deva_ID
 Formas de Pago: Arreglado
+Formas de Envio: Arreglado
+Funciones Maquina: Arreglado
+Impuestos: Arreglado
+Incoterm: Arreglado
+Items: ---------
+LiquidacionGeneral: Depende de los inserts de otras tablas
+Liquidacion por linea: Depende de los inserts de otras tablas
+Lotes: Arreglado
+Lugares Embarque: Arreglado
+Maquinas: Arreglado
+Marcas: Arreglado
+Marcas Maquinas: Arreglado
+Materiales: Arreglado
+Materiales Brindar: Arregleado
+Modelos Maquinas: Arreglado
+Modo Transporte: Arreglado
+Modulos: Arreglado
+Monedas: Arreglado
+Niveles Comerciales: Arreglado

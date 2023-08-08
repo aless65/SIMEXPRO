@@ -27,15 +27,9 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         public IActionResult Index()
         {
             var respuesta = _aduanaServices.ListarLiquidacionGeneral();
+            respuesta.Data = _mapper.Map<IEnumerable<LiquidacionGeneralViewModel>>(respuesta.Data);
+            return Ok(respuesta);
 
-            if (respuesta.Code == 200)
-            {
-                return Ok(respuesta);
-            }
-            else
-            {
-                return BadRequest(respuesta);
-            }
         }
 
         [HttpPost("Insertar")]

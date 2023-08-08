@@ -1080,7 +1080,36 @@ BEGIN
 END
 GO
 
+--UDP Eliminación Colonias
+CREATE OR ALTER PROCEDURE Gral.UDP_tbColonias_Eliminar
+	@colo_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@colo_FechaEliminacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		BEGIN
+				DECLARE @respuesta INT
+				EXEC dbo.UDP_ValidarReferencias 'colo_Id', @colo_Id, 'Gral.tbColonias', @respuesta OUTPUT
 
+				SELECT @respuesta AS Resultado
+				IF(@respuesta) = 1
+					BEGIN
+						UPDATE	Gral.tbColonias
+						SET		colo_Estado = 0,
+								usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+								colo_FechaEliminacion = @colo_FechaEliminacion
+						WHERE	colo_Id = @colo_Id
+					END
+			END
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+
+
+GO
 
 
 
@@ -1165,6 +1194,36 @@ BEGIN
 	END CATCH
 END
 GO
+
+CREATE OR ALTER PROCEDURE [Gral].[UDP_tbMonedas_Eliminar] 
+	@mone_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@mone_FechaEliminacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+
+		BEGIN
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'mone_Id', @mone_Id, 'gral.tbMonedas', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					UPDATE	Gral.tbMonedas
+					SET		mone_Estado = 0,
+							usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+							mone_FechaEliminacion = @mone_FechaEliminacion
+					WHERE	mone_Id = @mone_Id
+				END
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
 
 
 --************PAISES******************--
@@ -1327,6 +1386,35 @@ BEGIN
 	END CATCH
 END
 GO
+
+CREATE OR ALTER PROCEDURE [Gral].[UDP_tbCiudades_Eliminar] 
+	@ciud_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@ciud_FechaEliminacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+
+		BEGIN
+			DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'ciud_Id', @ciud_Id, 'gral.tbCiudades', @respuesta OUTPUT
+
+			SELECT @respuesta AS Resultado
+			IF(@respuesta) = 1
+				BEGIN
+					UPDATE	Gral.tbCiudades
+					SET		ciud_Estado = 0,
+							usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+							ciud_FechaEliminacion = @ciud_FechaEliminacion
+					WHERE	ciud_Id = @ciud_Id
+				END
+		END
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+
 --************PROVINCIAS******************--
 /*Listar Provincias*/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbProvincias_Listar
@@ -1412,6 +1500,35 @@ BEGIN
 
 	BEGIN CATCH
 		SELECT 'Error Message: '+ ERROR_MESSAGE();
+	END CATCH
+END
+GO
+
+--UDP Eliminación Provincias
+CREATE OR ALTER PROCEDURE Gral.UDP_tbProvincias_Eliminar
+	@pvin_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@pvin_FechaEliminacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		BEGIN
+				DECLARE @respuesta INT
+				EXEC dbo.UDP_ValidarReferencias 'pvin_Id', @pvin_Id, 'Gral.tbProvincias', @respuesta OUTPUT
+
+				SELECT @respuesta AS Resultado
+				IF(@respuesta) = 1
+					BEGIN
+						UPDATE	Gral.tbProvincias
+						SET		pvin_Estado = 0,
+								usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+								pvin_FechaEliminacion = @pvin_FechaEliminacion
+						WHERE	pvin_Id = @pvin_Id
+					END
+			END
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 GO
@@ -1512,6 +1629,38 @@ BEGIN
 	END CATCH
 END
 GO
+
+--UDP Eliminación Aldeas
+CREATE OR ALTER PROCEDURE Gral.UDP_tbAldeas_Eliminar
+	@alde_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@alde_FechaEliminacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		BEGIN
+				DECLARE @respuesta INT
+				EXEC dbo.UDP_ValidarReferencias 'alde_Id', @alde_Id, 'Gral.tbAldeas', @respuesta OUTPUT
+
+				SELECT @respuesta AS Resultado
+				IF(@respuesta) = 1
+					BEGIN
+						UPDATE	Gral.tbAldeas
+						SET		alde_Estado = 0,
+								usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+								alde_FechaEliminacion = @alde_FechaEliminacion
+						WHERE	alde_Id = @alde_Id
+					END
+			END
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+
+
+GO
+
 
 
 --************PROVEEDORES******************--
@@ -1746,7 +1895,6 @@ BEGIN
 				   usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
 				   foen_FechaEliminacion = @foen_FechaEliminacion
 			 WHERE foen_Id = @foen_Id
-			   AND foen_Estado = 1
 		END
 
 		SELECT @respuesta AS Resultado
@@ -9609,17 +9757,25 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbProcesos_Eliminar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE Prod.tbProcesos
-		SET proc_Estado = 0,
-		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-		proc_FechaEliminacion = @proc_FechaEliminacion
-		WHERE proc_ID = @proc_ID
+	DECLARE @respuesta INT
+	 EXEC dbo.UDP_ValidarReferencias 'proc_ID', @proc_ID, 'Prod.tbProcesos', @respuesta OUTPUT
+	 IF(@respuesta) = 1
+			BEGIN
+			UPDATE Prod.tbProcesos
+			SET proc_Estado = 0,
+			usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+			proc_FechaEliminacion = @proc_FechaEliminacion
+			WHERE proc_ID = @proc_ID
+	 END
+		SELECT @respuesta AS Resultado
+
 	END TRY
 	BEGIN CATCH 
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 GO
+
 --************AREA******************--
 /*Listar Area*/ 
 CREATE OR ALTER PROCEDURE Prod.UDP_tbArea_Listar
@@ -9899,12 +10055,17 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbTipoEmbalaje_Eliminar
 AS
 BEGIN
 	BEGIN TRY
+		DECLARE @respuesta INT
+	 EXEC dbo.UDP_ValidarReferencias 'tiem_Id', @tiem_Id, 'Prod.tbProcesos', @respuesta OUTPUT
+	 IF(@respuesta) = 1
+	 BEGIN
 		UPDATE Prod.tbTipoEmbalaje
 		SET tiem_Estado = 0,
 		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
 		tiem_FechaEliminacion = @tiem_FechaEliminacion
 		WHERE tiem_Id = @tiem_Id
-		SELECT 1
+	END			
+	SELECT @respuesta AS Resultado	
 	END TRY 
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE() 
@@ -10090,7 +10251,6 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbSubcategoria_Eliminar
 	@subc_FechaEliminacion		DATETIME
 AS
 BEGIN
-	SET @subc_FechaEliminacion = GETDATE();
 	BEGIN TRY
 			DECLARE @respuesta INT
 			EXEC dbo.UDP_ValidarReferencias 'subc_Id', @subc_Id, 'Prod.tbSubcategoria', @respuesta OUTPUT
@@ -10101,9 +10261,8 @@ BEGIN
 				SET		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
 						subc_FechaEliminacion = @subc_FechaEliminacion,
 						subc_Estado = 0
-			END
-
-			
+				WHERE subc_Id = @subc_Id
+			END			
 			SELECT @respuesta AS Resultado
 
 	END TRY

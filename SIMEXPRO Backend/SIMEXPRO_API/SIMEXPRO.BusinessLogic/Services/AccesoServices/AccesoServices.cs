@@ -265,15 +265,12 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
             try
             {
                 var respuesta = _rolesPorPantallaRepository.Delete(item);
-                return respuesta;
+                return resultado.Ok(respuesta);
             }
             catch (Exception ex)
             {
-                RequestStatus respuesta = new()
-                {
-                    MessageStatus = ex.Message
-                };
-                return respuesta;
+                return resultado.Error(ex.Message);
+
             }
         }
         public ServiceResult DibujarMenu(tbRolesXPantallas item)

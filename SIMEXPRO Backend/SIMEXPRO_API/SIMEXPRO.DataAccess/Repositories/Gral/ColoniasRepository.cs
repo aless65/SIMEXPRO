@@ -52,13 +52,15 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             return db.Query<tbColonias>(ScriptsDataBase.ListarColonias, null, commandType: CommandType.StoredProcedure);
         }
 
+
         public IEnumerable<tbColonias> ColoniasPorCiudades(tbColonias item)
         {
-            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);  
             var parametros = new DynamicParameters();
-            parametros.Add("@ciud_Id", item.ciud_Id, DbType.String, ParameterDirection.Input);
+            parametros.Add("@ciud_Id", item.ciud_Id, DbType.Int32, ParameterDirection.Input);
             return db.Query<tbColonias>(ScriptsDataBase.ColoniasPorCiudades, parametros, commandType: CommandType.StoredProcedure);
         }
+
 
         public RequestStatus Update(tbColonias item)
         {

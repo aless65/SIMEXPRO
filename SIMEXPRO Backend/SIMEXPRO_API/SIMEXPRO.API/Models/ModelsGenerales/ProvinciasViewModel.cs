@@ -33,7 +33,9 @@ namespace SIMEXPRO.API.Models
 
         public DateTime? pvin_FechaModificacion { get; set; }
 
+        public int? usua_UsuarioEliminacion { get; set; }
 
+        public DateTime? pvin_FechaEliminacion { get; set; }
 
         public bool? pvin_Estado { get; set; }
     }

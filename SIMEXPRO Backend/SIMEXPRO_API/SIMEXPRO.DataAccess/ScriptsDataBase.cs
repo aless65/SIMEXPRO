@@ -107,6 +107,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarProvincias = "Gral.UDP_tbProvincias_Listar";
         public static string InsertarProvincias = "GrAL.UDP_tbProvincias_Insertar";
         public static string EditarProvincias = "Gral.UDP_tbProvinvias_Editar";
+        public static string EliminarProvincias = "Gral.UDP_tbProvincias_Eliminar";
         public static string ProvinciasPorPais = "Gral.UDP_FiltrarProvinciasPorPais";
         #endregion
 

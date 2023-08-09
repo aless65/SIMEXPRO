@@ -12984,7 +12984,8 @@ AS
 BEGIN
     SELECT    alde_Id, alde_Nombre
     FROM    [Gral].[tbAldeas]
-    WHERE    ciud_Id = @ciud_Id
+    WHERE    ciud_Id = @ciud_Id AND alde_Estado = 1
+
 END
 
 

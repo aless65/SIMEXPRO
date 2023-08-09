@@ -78,7 +78,7 @@ namespace SIMEXPRO.DataAccess
         public static string InsertarColonias = "gral.UDP_tbColonias_Insertar";
         public static string EditarColonias = "gral.UDP_tbColonias_Editar";
         public static string EliminarColonias = "gral.UDP_tbColonias_Eliminar";
-        public static string ColoniasPorCiudades = "gral.UDP_tbColonias_";
+        public static string ColoniasPorCiudades = "Gral.UDP_FiltrarColoniasPorCiudad";
 
         #endregion
 
@@ -100,21 +100,21 @@ namespace SIMEXPRO.DataAccess
         public static string InsertarCiudades = "Gral.UDP_tbCiudades_Insertar";
         public static string EditarCiudades = "Gral.UDP_tbCiudades_Editar";
         public static string EliminarCiudades = "Gral.UDP_tbCiudades_Eliminar";
-        public static string CiudadesPorProvincia = "Gral.UDP_tbCiudades_";
+        public static string CiudadesPorProvincia = "Gral.UDP_FiltrarCiudadesPorProvincia";
         #endregion
 
         #region Provincias
         public static string ListarProvincias = "Gral.UDP_tbProvincias_Listar";
         public static string InsertarProvincias = "GrAL.UDP_tbProvincias_Insertar";
         public static string EditarProvincias = "Gral.UDP_tbProvinvias_Editar";
-        public static string ProvinciasPorPais = "Gral.UDP_tbProvinvias_";
+        public static string ProvinciasPorPais = "Gral.UDP_FiltrarProvinciasPorPais";
         #endregion
 
         #region Aldeas
         public static string ListarAldeas = "Gral.UDP_tbAldeas_Listar";
         public static string InsertarAldeas = "Gral.UDP_tbAldeas_Insertar";
         public static string EditarAldeas = "Gral.UDP_tbAldeas_Editar";
-        public static string AldeasPorCiudad = "Gral.UDP_tbAldeas_";
+        public static string AldeasPorCiudad = "Gral.UDP_FiltrarAldeasPorCiudades";
         #endregion
 
         #region Proveedores

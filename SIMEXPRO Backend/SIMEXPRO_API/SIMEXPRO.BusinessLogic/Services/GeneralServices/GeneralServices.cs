@@ -525,15 +525,8 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                var map = _formasEnvioRepository.Insert(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                var list = _formasEnvioRepository.Insert(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
@@ -543,18 +536,12 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
 
         public ServiceResult ActualizarFormas_Envio(tbFormas_Envio item)
         {
+
             var result = new ServiceResult();
             try
             {
-                var map = _formasEnvioRepository.Update(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                var list = _formasEnvioRepository.Update(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
@@ -567,15 +554,8 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                var map = _formasEnvioRepository.Delete(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                var list = _formasEnvioRepository.Delete(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
@@ -930,15 +910,8 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                var map = _provinciasRepository.Insert(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                var list = _provinciasRepository.Insert(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
@@ -951,15 +924,8 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                var map = _provinciasRepository.Update(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                var list = _provinciasRepository.Update(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
@@ -972,20 +938,14 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                var map = _provinciasRepository.Delete(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                var list = _provinciasRepository.Delete(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
                 return result.Error(ex.Message);
             }
+
         }
         #endregion
 
@@ -1005,25 +965,17 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             }
         }
         
-
         public ServiceResult InsertarProveedores(tbProveedores item)
         {
             var result = new ServiceResult();
             try
             {
-                var map = _proveedoresRepository.Insert(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                var list = _proveedoresRepository.Insert(item);
+                return result.Ok(list);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return result.Error(ex.Message);
+                return result.Error(e.Message);
             }
         }
 
@@ -1032,20 +984,12 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                var map = _proveedoresRepository.Update(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
-                
+                var list = _proveedoresRepository.Update(item);
+                return result.Ok(list);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return result.Error(ex.Message);
+                return result.Error(e.Message);
             }
         }
 
@@ -1054,20 +998,14 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                var map = _proveedoresRepository.Delete(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                var list = _proveedoresRepository.Delete(item);
+                return result.Ok(list);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return result.Error(ex.Message);
+                return result.Error(e.Message);
             }
+
         }
         #endregion
 

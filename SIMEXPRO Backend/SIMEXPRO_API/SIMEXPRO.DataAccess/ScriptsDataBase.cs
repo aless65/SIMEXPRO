@@ -85,6 +85,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarMonedas = "gral.UDP_tbMonedas_Listar";
         public static string InsertarMonedas = "gral.UDP_tbMonedas_Insertar";
         public static string EditarMonedas = "gral.UDP_tbMonedas_Editar";
+        public static string EliminarMonedas = "gral.UDP_tbMonedas_Eliminar";
         #endregion
 
         #region Paises
@@ -170,6 +171,12 @@ namespace SIMEXPRO.DataAccess
         public static string InsertarBoletinPago = "Adua.UDP_tbBoletinPago_Insertar";
         public static string EditarBoletinPago = "Adua.UDP_tbBoletinPago_Editar";
         public static string EliminarBoletinPago = "Adua.UDP_tbBoletinPago_Eliminar";
+        #endregion
+
+        #region Boletin de Pago detalles
+        public static string ListarBoletinPagoDetalles = "Adua.UDP_tbBoletinPagoDetalles_Listado";
+        public static string InsertarBoletinPagoDetalles = "Adua.UDP_tbBoletinPagoDetalles_Insertar";
+        public static string EditarBoletinPagoDetalles = "Adua.UDP_tbBoletinPagoDetalles_Editar";
         #endregion
 
         #region Codigo Impuesto

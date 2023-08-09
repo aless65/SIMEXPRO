@@ -662,26 +662,12 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
 
         public ServiceResult InsertarOficinas(tbOficinas item)
         {
+
             var result = new ServiceResult();
             try
             {
-                if (item.ofic_Nombre != "")
-                {
-                    var map = _oficinasRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var list = _oficinasRepository.Insert(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
@@ -694,23 +680,8 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                if (item.ofic_Nombre != "")
-                {
-                    var map = _oficinasRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var list = _oficinasRepository.Update(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
@@ -720,31 +691,18 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
 
         public ServiceResult EliminarOficinas(tbOficinas item)
         {
+
             var result = new ServiceResult();
             try
             {
-                if (item.ofic_Id != 0)
-                {
-                    var map = _oficinasRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                var list = _oficinasRepository.Delete(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
                 return result.Error(ex.Message);
             }
+
         }
         #endregion
 

@@ -16,7 +16,6 @@ namespace SIMEXPRO.API.Models.ModelsAcceso
         public string Aduanero { get; set; }
         public string Detalles { get; set; }
         public string pant_Ids { get; set; }
-
         public DateTime role_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
         public DateTime? role_FechaModificacion { get; set; }

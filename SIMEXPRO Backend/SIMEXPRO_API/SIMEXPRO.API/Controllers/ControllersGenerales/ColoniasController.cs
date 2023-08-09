@@ -55,5 +55,13 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             var respuesta = _generalesServices.EliminarColonias(item);
             return Ok(respuesta);
         }
+
+        [HttpPost("FiltrarPorCiudad")]
+        public IActionResult ColoniasPorCiudades(ColoniasViewModel coloniasViewModel)
+        {
+            var item = _mapper.Map<tbColonias>(coloniasViewModel);
+            var respuesta = _generalesServices.ColoniasPorCiudades(item);
+            return Ok(respuesta);
+        }
     }
 }

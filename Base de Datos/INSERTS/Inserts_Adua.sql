@@ -81076,6 +81076,6 @@ VALUES	('Concepto Pago 1', 1, GETDATE()),
 		('Concepto Pago 3', 1, GETDATE());
 
 
-
-
-
+INSERT INTO [Adua].[tbDeclaraciones_Valor] ([deva_AduanaIngresoId], [deva_AduanaDespachoId], [deva_DeclaracionMercancia], [deva_FechaAceptacion], [impo_Id], [pvde_Id], [inte_Id], [deva_LugarEntrega], [pais_EntregaId], [inco_Id], [inco_Version], [deva_NumeroContrato], [deva_FechaContrato], [foen_Id], [deva_PagoEfectuado], [fopa_Id], [emba_Id], [pais_ExportacionId], [deva_FechaExportacion], [mone_Id], [deva_ConversionDolares], [deva_Condiciones], [usua_UsuarioCreacion], [deva_FechaCreacion])
+VALUES (1, 2, 'Algun documento importante o dato importante', GETDATE(), 3, 1, 1, 'En un lugar cerquita de la casa del que recibe', 1, 1, '2021', 'XBTO87642', GETDATE(), 1, 1, 1, 1, 2, GETDATE(), 1, 24.2034, 'FOB', 1, GETDATE())
+GO

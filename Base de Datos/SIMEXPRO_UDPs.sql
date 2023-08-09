@@ -7227,11 +7227,11 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbBoletinPago_Insertar
 	@boen_NDeclaracion       NVARCHAR(200), 
 	--@pena_RTN                VARCHAR(20), 
 	@boen_Preimpreso         NVARCHAR(MAX), 
-	@boen_Declarante         NVARCHAR(200), 
+	--@boen_Declarante         NVARCHAR(200), 
 	@boen_TotalPagar         DECIMAL(18,2), 
 	@boen_TotalGarantizar    DECIMAL(18,2), 
 	--@boen_RTN                NVARCHAR(100),
-	@boen_TipoEncabezado     NVARCHAR(200), 
+	--@boen_TipoEncabezado     NVARCHAR(200), 
 	@coim_Id                 INT, 
 	@copa_Id                 INT, 
 	@usua_UsuarioCreacion    INT, 
@@ -7303,7 +7303,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbBoletinPago_Editar
 	@boen_TotalPagar           DECIMAL(18,2), 
 	@boen_TotalGarantizar      DECIMAL(18,2), 
 	--@boen_RTN                  NVARCHAR(100), 
-	@boen_TipoEncabezado       NVARCHAR(200), 
+	--@boen_TipoEncabezado       NVARCHAR(200), 
 	@coim_Id                   INT,
 	@copa_Id                   INT,  
 	@usua_UsuarioModificacion  INT, 
@@ -7341,7 +7341,10 @@ END
 GO
 
 --**********DETALLES DE BOLETIN PAGO**********--
-CREATE OR ALTER PROCEDURE Adua.UDP_tbBoletinPagoDetalles_Listado
+CREATE OR ALTER PROCEDURE Adua.UDP_tbBoletinPagoDetalles_Listado_ByIdBoletin
+(
+	@boen_Id		INT
+)
 AS
 BEGIN
 	SELECT bode_Id,
@@ -7354,6 +7357,7 @@ BEGIN
 		   usua_UsuarioModificacion,       
 		   bode_FechaModificacion
 	  FROM Adua.tbBoletinPagoDetalles
+	 WHERE boen_Id = @boen_Id
 END
 GO
 

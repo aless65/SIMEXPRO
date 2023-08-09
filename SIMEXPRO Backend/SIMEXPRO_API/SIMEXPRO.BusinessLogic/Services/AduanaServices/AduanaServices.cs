@@ -16,6 +16,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         private readonly BaseCalculosHistorialRepository _baseCalculosHistorialRepository;
         private readonly BaseCalculosRepository _baseCalculosRepository;
         private readonly BoletinPagoRepository _boletinPagoRepository;
+        private readonly BoletinPagoDetallesRepository _boletinPagoDetallesRepository;
         private readonly CodigoImpuestoRepository _codigoImpuestoRepository;
         private readonly ComercianteIndividualRepository _comercianteIndividualRepository;
         private readonly ConceptoPagoRepository _conceptoPagoRepository;
@@ -61,7 +62,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         private readonly TiposIdentificacionRepository _tiposIdentificacionRepository;
         private readonly TransporteRepository _transporteRepository;
 
-        public AduanaServices(AduanasRepository AduanasRepository, ArancelesRepository ArancelesRepository, BaseCalculosHistorialRepository BaseCalculosHistorialRepository, BaseCalculosRepository BaseCalculosRepository, BoletinPagoRepository BoletinPagoRepository,
+        public AduanaServices(AduanasRepository AduanasRepository, ArancelesRepository ArancelesRepository, BaseCalculosHistorialRepository BaseCalculosHistorialRepository, BaseCalculosRepository BaseCalculosRepository, BoletinPagoRepository BoletinPagoRepository, BoletinPagoDetallesRepository BoletinPagoDetallesRepository,
                                 CodigoImpuestoRepository CodigoImpuestoRepository, ComercianteIndividualRepository ComercianteIndividualRepository, ConceptoPagoRepository ConceptoPagoRepository,
                                 CondicionesRepository CondicionesRepository, CondicionesHistorialRepository CondicionesHistorialRepository, CondicionesComercialesRepository CondicionesComercialesRepository,
                                 ConductorRepository ConductorRepository, Declaraciones_ValorHistorialRepository Declaraciones_ValorHistorialRepository, Declaraciones_ValorRepository Declaraciones_ValorRepository,
@@ -81,6 +82,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             _baseCalculosHistorialRepository = BaseCalculosHistorialRepository;
             _baseCalculosRepository = BaseCalculosRepository;
             _boletinPagoRepository = BoletinPagoRepository;
+            _boletinPagoDetallesRepository = BoletinPagoDetallesRepository;
             _codigoImpuestoRepository = CodigoImpuestoRepository;
             _comercianteIndividualRepository = ComercianteIndividualRepository;
             _conceptoPagoRepository = ConceptoPagoRepository;
@@ -486,7 +488,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 }
                 else
                 {
-
                     return result.Error(map);
                 }
             }
@@ -533,6 +534,53 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
 
                     return result.Error(map);
                 }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Boletin de Pago detalles
+        public ServiceResult ListarDetallesBoletinPagoByIdBoletin(int Id)
+        {
+            var resultado = new ServiceResult();
+
+            try
+            {
+                var list = _boletinPagoDetallesRepository.ListByIdBoletinPago(Id);
+                return resultado.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return resultado.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult InsertarBoletinPagoDetalles(tbBoletinPagoDetalles item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var respuesta = _boletinPagoDetallesRepository.Insert(item);
+
+                return result.Ok(respuesta);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarBoletinPagoDetalles(tbBoletinPagoDetalles item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var respuesta = _boletinPagoDetallesRepository.Update(item);
+
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {

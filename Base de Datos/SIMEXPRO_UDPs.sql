@@ -4923,7 +4923,9 @@ BEGIN
 
 		UPDATE Adua.tbDeclaraciones_Valor
 		SET inte_Id = @inte_Id,
-			pvde_Id = @prov_Id
+			pvde_Id = @prov_Id,
+			usua_UsuarioModificacion = @usua_UsuarioCreacion,
+			deva_FechaModificacion = @deva_FechaCreacion
 		WHERE deva_Id = @deva_Id
 
 		INSERT INTO Adua.tbDeclaraciones_ValorHistorial(deva_Id, 
@@ -5183,7 +5185,9 @@ BEGIN
 
 		UPDATE Adua.tbDeclaraciones_Valor
 		SET inte_Id = @inte_Id,
-			pvde_Id = @pvde_Id
+			pvde_Id = @pvde_Id,
+			usua_UsuarioModificacion = @usua_UsuarioModificacion,
+			deva_FechaModificacion = @deva_FechaModificacion
 		WHERE deva_Id = @deva_Id
 
 		INSERT INTO Adua.tbDeclaraciones_ValorHistorial(deva_Id, 
@@ -5297,7 +5301,9 @@ BEGIN
 				deva_FechaExportacion = @deva_FechaExportacion,
 				mone_Id = @mone_Id,
 				mone_Otra = @mone_Otra,
-				deva_ConversionDolares = @deva_ConversionDolares
+				deva_ConversionDolares = @deva_ConversionDolares,
+				usua_UsuarioModificacion = @deva_UsuarioCreacion,
+				deva_FechaModificacion = @deva_FechaCreacion
 			WHERE deva_id = @deva_Id
 
 			INSERT INTO Adua.tbDeclaraciones_ValorHistorial(deva_Id, 
@@ -5409,7 +5415,9 @@ BEGIN
 				deva_FechaExportacion = @deva_FechaExportacion,
 				mone_Id = @mone_Id,
 				mone_Otra = @mone_Otra,
-				deva_ConversionDolares = @deva_ConversionDolares
+				deva_ConversionDolares = @deva_ConversionDolares,
+				usua_UsuarioModificacion = @deva_UsuarioModificacion,
+				deva_FechaModificacion = @deva_FechaModificacion
 			WHERE deva_id = @deva_Id
 
 			INSERT INTO Adua.tbDeclaraciones_ValorHistorial(deva_Id, 

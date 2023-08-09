@@ -12936,6 +12936,77 @@ AS BEGIN
 END
 GO
 
+-------****************** FILTRADO  DE DATOS ***************----------
+
+
+
+/*------------ PROVINCIAS POR PAIS --------------*/
+GO
+CREATE OR ALTER PROCEDURE Gral.UDP_FiltrarProvinciasPorPais 
+(@pais_Id INT)
+AS
+BEGIN
+	SELECT	pvin_Id, 
+			pvin_Nombre, 
+			pvin_Codigo, 
+			provincia.pais_Id, 
+			pais.pais_Codigo,
+			pais.pais_Nombre, 
+			pvin_Estado
+	FROM Gral.tbProvincias AS provincia INNER JOIN Gral.tbPaises AS pais
+	ON  provincia.pais_Id = pais.pais_Id
+	WHERE provincia.pais_Id = @pais_Id AND provincia.pvin_Estado = 1
+END
+
+
+/*------------- CIUDADES POR PROVINCIAS --------------*/
+GO
+CREATE OR ALTER PROCEDURE Gral.UDP_FiltrarCiudadesPorProvincia
+    @pvin_Id INT
+AS
+BEGIN
+    SELECT    ciud_Id, 
+            ciud_Nombre, 
+            ciud.pvin_Id, 
+            pvin.pvin_Nombre,
+            ciud.ciud_Estado
+    FROM Gral.tbCiudades AS ciud
+    INNER JOIN    Gral.tbProvincias    AS pvin        ON  ciud.pvin_Id = pvin.pvin_Id
+    WHERE ciud.pvin_Id = @pvin_Id AND ciud_Estado = 1
+END
+
+
+/*------------- ALDEAS POR CIUDADES --------------*/
+GO
+CREATE OR ALTER PROC Gral.UDP_FiltrarAldeasPorCiudades 
+@ciud_Id INT
+AS
+BEGIN
+    SELECT    alde_Id, alde_Nombre
+    FROM    [Gral].[tbAldeas]
+    WHERE    ciud_Id = @ciud_Id
+END
+
+
+/*------------- COLONIAS POR CIUDAD --------------*/
+GO
+CREATE OR ALTER PROCEDURE Gral.UDP_FiltrarColoniasPorCiudad 
+(@ciud_Id INT)
+AS
+SELECT  colo_Id, 
+		colo_Nombre, 
+		alde_Id, 
+		col.ciud_Id, 
+		ciudad.ciud_Nombre,
+		colo_Estado
+FROM Gral.tbColonias  AS col INNER JOIN Gral.tbCiudades ciudad
+ON col.ciud_Id = ciudad.ciud_Id
+WHERE col.ciud_Id = @ciud_Id AND col.colo_Estado = 1
+
+
+
+
+
 ----------*********************TRIGGERS*******************----------
 /*Declarantes*/
 --CREATE OR ALTER TRIGGER TR_tbDeclarantes_Update

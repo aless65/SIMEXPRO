@@ -840,22 +840,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                var respuesta = _documentosContratosRepository.Insert(item);
-                if (respuesta.MessageStatus == "1")
-                {
-                    return result.Ok(respuesta);
-                }
-                else
-                {
+                var list = _documentosContratosRepository.Insert(item);
 
-                    return result.Error(respuesta);
-                }
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
                 return result.Error(ex.Message);
             }
-
         }
 
         public ServiceResult ActualizarDocumentosContratos(tbDocumentosContratos item)
@@ -863,16 +855,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                var respuesta = _documentosContratosRepository.Update(item);
-                if (respuesta.MessageStatus == "1")
-                {
-                    return result.Ok(respuesta);
-                }
-                else
-                {
+                var list = _documentosContratosRepository.Update(item);
 
-                    return result.Error(respuesta);
-                }
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
@@ -885,16 +870,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                var respuesta = _documentosContratosRepository.Delete(item);
-                if (respuesta.MessageStatus == "1")
-                {
-                    return result.Ok(respuesta);
-                }
-                else
-                {
+                var list = _documentosContratosRepository.Delete(item);
 
-                    return result.Error(respuesta);
-                }
+                return result.Ok(list);
             }
             catch (Exception ex)
             {

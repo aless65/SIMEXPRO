@@ -427,10 +427,10 @@ BEGIN
 		   WHEN 1 THEN 'Sí'
 		   ELSE 'No' END AS Aduanero,
 		   tbroles.[usua_UsuarioCreacion],
-		   usuCrea.usua_Nombre as UsuarioCreacion,
+		   usuCrea.usua_Nombre as UsuarioCreacionNombre,
 		   [role_FechaCreacion], 
 		   tbroles.[usua_UsuarioModificacion],
-		   usuModi.usua_Nombre as UsuarioModificacion,
+		   usuModi.usua_Nombre as UsuarioModificadorNombre,
 		   [role_FechaModificacion], 
 		   tbroles.[usua_UsuarioEliminacion], 
 		   [role_FechaEliminacion],
@@ -2304,6 +2304,7 @@ BEGIN
 	END CATCH
 END
 GO
+
 
 /*Editar UNIDAD DE MEDIDA*/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_Editar

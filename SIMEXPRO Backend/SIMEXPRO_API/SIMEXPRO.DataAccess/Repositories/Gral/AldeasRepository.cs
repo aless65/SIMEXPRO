@@ -49,7 +49,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();
             parametros.Add("@ciud_Id", item.ciud_Id, DbType.String, ParameterDirection.Input);
-            return db.Query<tbAldeas>(ScriptsDataBase.ListarAldeas, parametros, commandType: CommandType.StoredProcedure);
+            return db.Query<tbAldeas>(ScriptsDataBase.AldeasPorCiudad, parametros, commandType: CommandType.StoredProcedure);
         }
 
 

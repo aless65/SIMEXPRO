@@ -1414,7 +1414,7 @@ BEGIN
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
-
+GO
 --************PROVINCIAS******************--
 /*Listar Provincias*/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbProvincias_Listar
@@ -1916,7 +1916,7 @@ GO
 
 --************EMPLEADOS******************--
 /*Listar EMPLEADOS*/
-ALTER    PROCEDURE [Gral].[UDP_tbEmpleados_Listar]
+CREATE OR ALTER  PROCEDURE Gral.UDP_tbEmpleados_Listar
 AS
 BEGIN
 

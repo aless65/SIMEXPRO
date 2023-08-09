@@ -107,23 +107,15 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
             var result = new ServiceResult();
             try
             {
-                if (item.usua_Nombre != "")
-                {
                     var map = _usuariosRepository.Insert(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus != "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
                         return result.Error(map);
                     }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
             }
             catch (Exception ex)
             {
@@ -138,23 +130,15 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
             var result = new ServiceResult();
             try
             {
-                if (item.usua_Nombre != "")
+                var map = _usuariosRepository.Update(item);
+                if (map.MessageStatus != "1")
                 {
-                    var map = _usuariosRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
+                    return result.Error(map);
+                }          
             }
             catch (Exception ex)
             {
@@ -171,13 +155,13 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
             try
             {
                     var map = _usuariosRepository.ActivarEstado(item);
-                    if (map.CodeStatus > 0)
+                    if (map.MessageStatus != "1")
                     {
                         return result.Ok(map);
                     }
                     else
                     {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+                        
                         return result.Error(map);
                     }
                
@@ -198,22 +182,15 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
             var result = new ServiceResult();
             try
             {
-                if (item.usua_Id != 0)
+                var map = _usuariosRepository.Delete(item);
+                if (map.MessageStatus != "1")
                 {
-                    var map = _usuariosRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -238,70 +215,53 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
             catch (Exception ex)
             {
 
-                return resultado.Ok(ex.Message);
+                return resultado.Error(ex.Message);
             }
         }
-        public IEnumerable<tbRolesXPantallas> PantallasPorRoleView(tbRolesXPantallas item)
+        public ServiceResult PantallasPorRoleView(tbRolesXPantallas item)
         {
+            var resultado = new ServiceResult();
             try
             {
                 var list = _rolesPorPantallaRepository.List();
-                return list;
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
 
-                return Enumerable.Empty<tbRolesXPantallas>();
+                return resultado.Error(ex.Message);
             }
         }
 
-        //public IEnumerable<tbRolesXPantallas> FindRoles(tbRolesXPantallas item)
-        //{
-        //    try
-        //    {
-        //        var list = _rolesPorPantallaRepository.Find(item.pant_Id);
-        //        return list;
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        return Enumerable.Empty<tbRolesXPantallas>();
-        //    }
-        //}
-        public RequestStatus InsertarRolxPantalla(tbRolesXPantallas item)
+        public ServiceResult InsertarRolxPantalla(tbRolesXPantallas item)
         {
+            var resultado = new ServiceResult();
             try
             {
                 var respuesta = _rolesPorPantallaRepository.Insert(item);
-                return respuesta;
+                return resultado.Ok(respuesta);
             }
             catch (Exception ex)
             {
-                RequestStatus respuesta = new()
-                {
-                    MessageStatus = ex.Message
-                };
-                return respuesta;
+                return resultado.Error(ex.Message);
             }
         }
-        public RequestStatus ActualizarRolxPantalla(tbRolesXPantallas item)
+        public ServiceResult ActualizarRolxPantalla(tbRolesXPantallas item)
         {
+            var resultado = new ServiceResult();
             try
             {
                 var respuesta = _rolesPorPantallaRepository.Update(item);
-                return respuesta;
+                return resultado.Ok(respuesta);
             }
             catch (Exception ex)
             {
-                RequestStatus respuesta = new()
-                {
-                    MessageStatus = ex.Message
-                };
-                return respuesta;
+                return resultado.Error(ex.Message);
             }
         }
-        public RequestStatus DeleteRolxPantalla(tbRolesXPantallas item)
+        public ServiceResult DeleteRolxPantalla(tbRolesXPantallas item)
         {
+            var resultado = new ServiceResult();
             try
             {
                 var respuesta = _rolesPorPantallaRepository.Delete(item);
@@ -435,13 +395,13 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
         //        if (item.usua_Usuario != "")
         //        {
         //            var map = _usuariosRepository.CambiaContra(item);
-        //            if (map.CodeStatus > 0)
+        //            if (map.MessageStatus != "1")
         //            {
         //                return result.Ok(map);
         //            }
         //            else
         //            {
-        //                map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+        //                
         //                return result.Error(map);
         //            }
         //        }

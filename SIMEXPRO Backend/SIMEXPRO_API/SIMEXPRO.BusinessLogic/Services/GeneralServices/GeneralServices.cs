@@ -134,6 +134,27 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             }
         }
 
+        public ServiceResult EliminarAldeas(tbAldeas item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _aldeasRepository.Delete(item);
+                if (map.MessageStatus == "1")
+                {
+                    return result.Ok(map);
+                }
+                else
+                {
+                    return result.Error(map);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
         #endregion
 
         #region Cargos

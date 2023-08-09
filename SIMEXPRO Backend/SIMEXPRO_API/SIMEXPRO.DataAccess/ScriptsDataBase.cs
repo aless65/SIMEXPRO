@@ -114,6 +114,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarAldeas = "Gral.UDP_tbAldeas_Listar";
         public static string InsertarAldeas = "Gral.UDP_tbAldeas_Insertar";
         public static string EditarAldeas = "Gral.UDP_tbAldeas_Editar";
+        public static string EliminarAldeas = "Gral.UDP_tbAldeas_Eliminar";
         public static string AldeasPorCiudad = "Gral.UDP_FiltrarAldeasPorCiudades";
         #endregion
 

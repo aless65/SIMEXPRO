@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -15,12 +16,25 @@ namespace SIMEXPRO.Entities.Entities
 
         public int alde_Id { get; set; }
         public string alde_Nombre { get; set; }
+
+        [NotMapped]
+        public string ciud_Nombre { get; set; }
         public int ciud_Id { get; set; }
         public int usua_UsuarioCreacion { get; set; }
+
+        [NotMapped]
+        public string UsuarioCreacionNombre { get; set; }
+
         public DateTime alde_FechaCreacion { get; set; }
+       
         public int? usua_UsuarioModificacion { get; set; }
+        [NotMapped]
+        public string UsuarioModificadorNombre { get; set; }
         public DateTime? alde_FechaModificacion { get; set; }
+      
         public int? usua_UsuarioEliminacion { get; set; }
+
+      
         public DateTime? alde_FechaEliminacion { get; set; }
         public bool? alde_Estado { get; set; }
 

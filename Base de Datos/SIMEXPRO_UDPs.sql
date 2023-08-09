@@ -424,8 +424,8 @@ BEGIN
 		   [role_Descripcion],
 		   tbroles.[role_Aduana], 
 		   CASE [role_Aduana]
-		   WHEN 1 THEN 'A'
-		   ELSE 'P' END AS Aduanero,
+		   WHEN 1 THEN 'Sí'
+		   ELSE 'No' END AS Aduanero,
 		   tbroles.[usua_UsuarioCreacion],
 		   usuCrea.usua_Nombre as UsuarioCreacion,
 		   [role_FechaCreacion], 
@@ -451,6 +451,7 @@ BEGIN
     ON tbroles.usua_UsuarioModificacion = usuModi.usua_Id
     INNER JOIN Acce.tbUsuarios usuCrea
     ON tbroles.[usua_UsuarioCreacion] = usuCrea.usua_Id
+	WHERE role_Estado = 1;
 
 
 END
@@ -473,14 +474,6 @@ BEGIN
 						@role_FechaCreacion);
 
 				DECLARE @role_Id INT = SCOPE_IDENTITY();
-
-				SET @pant_Ids = '{
-					"pantallas" : [
-						{"pant_Id" : 4},
-						{"pant_Id" : 5},
-						{"pant_Id" : 6}
-					]
-				}';
 
 				INSERT INTO [Acce].[tbRolesXPantallas] ([pant_Id], 
 													    [role_Id], 
@@ -510,21 +503,40 @@ GO
 CREATE OR ALTER PROCEDURE Acce.UDP_tbRoles_Editar
 	@role_Id					INT,
 	@role_Descripcion			NVARCHAR(500),
-	@usua_UsuarioModificacio	INT,
-	@roleFechaModificacioN		DATETIME
+	@pant_Ids					NVARCHAR(MAX),
+	@usua_UsuarioModificacion	INT,
+	@roleFechaModificacion		DATETIME
 AS
 BEGIN
 	BEGIN TRY
+		
 		UPDATE Acce.tbRoles
 		   SET role_Descripcion = @role_Descripcion			 
-			  ,usua_UsuarioModificacion = @usua_UsuarioModificacio
-			  ,role_FechaModificacion = @roleFechaModificacioN		  
+			  ,usua_UsuarioModificacion = @usua_UsuarioModificacion
+			  ,role_FechaModificacion = @roleFechaModificacion		  
 		 WHERE role_Id = @role_Id
 
-		 SELECT 1
+		DELETE FROM Acce.tbRolesXPantallas
+		WHERE role_Id = @role_Id
+
+		INSERT INTO [Acce].[tbRolesXPantallas] ([pant_Id], 
+													    [role_Id], 
+													    [usua_UsuarioCreacion], 
+													    [ropa_FechaCreacion] )
+		SELECT *,
+				@role_Id,
+				@usua_UsuarioModificacion,
+				@roleFechaModificacion 
+		FROM OPENJSON(@pant_Ids, '$.pantallas')
+		WITH (
+			pant_Id INT
+		) 
+
+		SELECT 1
+
 	END TRY
 	BEGIN CATCH
-		SELECT 1
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 
@@ -539,21 +551,29 @@ AS
 BEGIN
 	SET @role_FechaEliminacion = GETDATE();
 	BEGIN TRY
-		DECLARE @respuesta INT
-		EXEC dbo.UDP_ValidarReferencias 'role_Id', @role_Id, 'Acce.tbRoles', @respuesta OUTPUT
+		IF NOT EXISTS (SELECT * 
+				   FROM Acce.tbUsuarios
+				   WHERE role_Id = @role_Id)
+			BEGIN
+				
+				DELETE FROM Acce.tbRolesXPantallas
+				WHERE role_Id = @role_Id
 
-		SELECT @respuesta AS Resultado
-		IF(@respuesta = 1)
-		BEGIN
-			UPDATE	Acce.tbRoles
-			SET		role_Estado = 0,
-					usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-					role_FechaEliminacion = @role_FechaEliminacion
-			WHERE role_Id = @role_Id
-		END
+				SELECT 1
+
+				UPDATE	Acce.tbRoles
+				SET		role_Estado = 0,
+						usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+						role_FechaEliminacion = @role_FechaEliminacion
+				WHERE role_Id = @role_Id
+			END
+		ELSE
+			BEGIN
+				SELECT 0
+			END
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 GO
@@ -12961,7 +12981,7 @@ END
 
 /*------------- CIUDADES POR PROVINCIAS --------------*/
 GO
-CREATE OR ALTER PROCEDURE Gral.UDP_FiltrarCiudadesPorProvincia
+CREATE OR ALTER PROCEDURE Gral.UDP_FiltrarCiudadesPorProvincia 
     @pvin_Id INT
 AS
 BEGIN

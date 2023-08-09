@@ -21,8 +21,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             parametros.Add("@role_Id", item.role_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@role_FechaEliminacion", item.role_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarRoles, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarRoles, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -62,8 +62,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             parametros.Add("@role_Id", item.role_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@role_Descripcion", item.role_Descripcion, DbType.String, ParameterDirection.Input);
             parametros.Add("@pant_Ids", item.pant_Ids, DbType.String, ParameterDirection.Input);
-            parametros.Add("@usua_UsuarioModificacio", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@roleFechaModificacioN", item.role_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@roleFechaModificacion", item.role_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
             var answer = db.QueryFirst<string>(ScriptsDataBase.EditarRoles, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
             return result;

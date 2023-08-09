@@ -58,8 +58,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
-            parametros.Add("@ciud_Nombre", item.ciud_Nombre, DbType.String, ParameterDirection.Input);
-            return db.Query<tbCiudades>(ScriptsDataBase.InsertarCiudades, parametros, commandType: CommandType.StoredProcedure);
+            parametros.Add("@pvin_Id", item.pvin_Id, DbType.String, ParameterDirection.Input);
+            return db.Query<tbCiudades>(ScriptsDataBase.CiudadesPorProvincia, parametros, commandType: CommandType.StoredProcedure);
         }
 
         public RequestStatus Update(tbCiudades item)

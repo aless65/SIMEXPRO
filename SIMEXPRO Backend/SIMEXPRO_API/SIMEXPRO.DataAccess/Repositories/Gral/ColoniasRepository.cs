@@ -56,7 +56,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();
-            parametros.Add("@colo_Nombre", item.colo_Nombre, DbType.String, ParameterDirection.Input);
+            parametros.Add("@ciud_Id", item.ciud_Id, DbType.String, ParameterDirection.Input);
             return db.Query<tbColonias>(ScriptsDataBase.ColoniasPorCiudades, parametros, commandType: CommandType.StoredProcedure);
         }
 

@@ -12981,7 +12981,7 @@ END
 
 /*------------- CIUDADES POR PROVINCIAS --------------*/
 GO
-CREATE OR ALTER PROCEDURE Gral.UDP_FiltrarCiudadesPorProvincia
+CREATE OR ALTER PROCEDURE Gral.UDP_FiltrarCiudadesPorProvincia 
     @pvin_Id INT
 AS
 BEGIN

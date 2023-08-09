@@ -16,7 +16,5 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public int? usua_UsuarioEliminacion { get; set; }
         public DateTime? proc_FechaEliminacion { get; set; }
         public bool? proc_Estado { get; set; }
-
-
     }
 }

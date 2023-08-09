@@ -57,5 +57,13 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             var respuesta = _generalesServices.EliminarCiudades(item);
             return Ok(respuesta);
         }
+
+        [HttpPost("CiudadesFiltradaPorProvincias")]
+        public IActionResult CiudadesPorProvincias(CiudadesViewModel ciudadesViewModel)
+        {
+            var item = _mapper.Map<tbCiudades>(ciudadesViewModel);
+            var respuesta = _generalesServices.CiudadesPorProvincia(item);
+            return Ok(respuesta);
+        }
     }
 }

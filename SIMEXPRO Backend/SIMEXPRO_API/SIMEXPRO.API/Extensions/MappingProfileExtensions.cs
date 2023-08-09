@@ -72,8 +72,7 @@ namespace SIMEXPRO.API.Extentions
             CreateMap<FacturasViewModel, tbFacturas>().ReverseMap();
             CreateMap<DocumentosContratosViewModel, tbDocumentosContratos>().ReverseMap();
             CreateMap<EstadoMercanciasViewModel, tbEstadoMercancias>().ReverseMap();
-
-            //CreateMap<Declaraciones_ValorControllerViewModel, tbDeclarantes>().ReverseMap();
+            CreateMap<DeclarantesViewModel, tbDeclarantes>().ReverseMap();
             #endregion
 
             #region Producción

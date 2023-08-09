@@ -43,6 +43,14 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             var parametros = new DynamicParameters();
             return db.Query<tbProvincias>(ScriptsDataBase.ListarProvincias, null, commandType: CommandType.StoredProcedure);
         }
+        public IEnumerable<tbProvincias> ProvinciasPorPaises(tbProvincias item)
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@pais_Id", item.pais_Id, DbType.String, ParameterDirection.Input);
+            return db.Query<tbProvincias>(ScriptsDataBase.ProvinciasPorPais, parametros, commandType: CommandType.StoredProcedure);
+        }
 
         public RequestStatus Update(tbProvincias item)
         {

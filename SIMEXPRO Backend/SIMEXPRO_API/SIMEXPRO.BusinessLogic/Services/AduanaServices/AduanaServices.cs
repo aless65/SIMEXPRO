@@ -13,39 +13,28 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
     {
         private readonly AduanasRepository _aduanasRepository;
         private readonly ArancelesRepository _arancelesRepository;
-        private readonly BaseCalculosHistorialRepository _baseCalculosHistorialRepository;
         private readonly BaseCalculosRepository _baseCalculosRepository;
         private readonly BoletinPagoRepository _boletinPagoRepository;
         private readonly BoletinPagoDetallesRepository _boletinPagoDetallesRepository;
         private readonly CodigoImpuestoRepository _codigoImpuestoRepository;
         private readonly ComercianteIndividualRepository _comercianteIndividualRepository;
         private readonly ConceptoPagoRepository _conceptoPagoRepository;
-        private readonly CondicionesRepository _condicionesRepository;
-        private readonly CondicionesHistorialRepository _condicionesHistorialRepository;
         private readonly CondicionesComercialesRepository _condicionesComercialesRepository;
-        private readonly ConductorRepository _conductorRepository;
         private readonly Declaraciones_ValorHistorialRepository _declaraciones_ValorHistorialRepository;
         private readonly Declaraciones_ValorRepository _declaraciones_ValorRepository;
-        private readonly DeclarantesRepository _declarantesRepository;
         private readonly DocumentosContratosRepository _documentosContratosRepository;
         private readonly DocumentosdeSoporteRepository _documentosdeSoporteRepository;
-        private readonly DocumentosPDFHistorialRepository _documentosPDFHistorialRepository;
         private readonly DocumentosPDFRepository _documentosPDFRepository;
-        private readonly DucaHistorialRepository _ducaHistorialRepository;
         private readonly DucaRepository _ducaRepository;
         private readonly EstadoBoletinRepository _estadoBoletinRepository;
         private readonly EstadoMercanciasRepository _estadoMercanciasRepository;
-        private readonly FacturasHistorialRepository _facturasHistorialRepository;
         private readonly FacturasRepository _facturasRepository;
         private readonly FormasdePagoRepository _formasdePagoRepository;
-        private readonly ImportadoresRepository _importadoresRepository;
         private readonly ImpuestosporAracelRepository _impuestosporAracelRepository;
         private readonly ImpuestosRepository _impuestosRepository;
         private readonly IncotermRepository _incotermRepository;
         private readonly IntermediarioRepository _intermediarioRepository;
-        private readonly ItemsHistorialRepository _itemsHistorialRepository;
         private readonly ItemsRepository _itemsRepository;
-        private readonly LiquidacionGeneralHistorialRepository _liquidacionGeneralHistorialRepository;
         private readonly LiquidacionGeneralRepository _liquidacionGeneralRepository;
         private readonly LiquidacionPorLineaRepository _liquidacionPorLineaRepository;
         private readonly LugaresEmbarqueRepository _lugaresEmbarqueRepository;
@@ -55,7 +44,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         private readonly PersonaJuridicaRepository _personaJuridicaRepository;
         private readonly PersonaNaturalRepository _personaNaturalRepository;
         private readonly PersonasRepository _personasRepository;
-        private readonly ProveedoresDeclaracionRepository _proveedoresDeclaracionRepository;
         private readonly TipoDocumentoRepository _tipoDocumentoRepository;
         private readonly TipoIntermediarioRepository _tipoIntermediarioRepository;
         private readonly TipoLiquidacionRepository _tipoLiquidacionRepository;
@@ -64,54 +52,38 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
 
         public AduanaServices(AduanasRepository AduanasRepository, ArancelesRepository ArancelesRepository, BaseCalculosHistorialRepository BaseCalculosHistorialRepository, BaseCalculosRepository BaseCalculosRepository, BoletinPagoRepository BoletinPagoRepository, BoletinPagoDetallesRepository BoletinPagoDetallesRepository,
                                 CodigoImpuestoRepository CodigoImpuestoRepository, ComercianteIndividualRepository ComercianteIndividualRepository, ConceptoPagoRepository ConceptoPagoRepository,
-                                CondicionesRepository CondicionesRepository, CondicionesHistorialRepository CondicionesHistorialRepository, CondicionesComercialesRepository CondicionesComercialesRepository,
-                                ConductorRepository ConductorRepository, Declaraciones_ValorHistorialRepository Declaraciones_ValorHistorialRepository, Declaraciones_ValorRepository Declaraciones_ValorRepository,
-                                DeclarantesRepository DeclarantesRepository, DocumentosContratosRepository DocumentosContratosRepository, DocumentosdeSoporteRepository DocumentosdeSoporteRepository,
-                                DocumentosPDFHistorialRepository DocumentosPDFHistorialRepository, DocumentosPDFRepository DocumentosPDFRepository, DucaHistorialRepository DucaHistorialRepository,
-                                DucaRepository DucaRepository, EstadoBoletinRepository EstadoBoletinRepository, EstadoMercanciasRepository EstadoMercanciasRepository, FacturasHistorialRepository FacturasHistorialRepository,
-                                FacturasRepository FacturasRepository, FormasdePagoRepository FormasdePagoRepository, ImportadoresRepository ImportadoresRepository, ImpuestosporAracelRepository ImpuestosporAracelRepository,
-                                ImpuestosRepository ImpuestosRepository, IncotermRepository IncotermRepository, IntermediarioRepository IntermediarioRepository, ItemsHistorialRepository ItemsHistorialRepository,
-                                ItemsRepository ItemsRepository, LiquidacionGeneralHistorialRepository LiquidacionGeneralHistorialRepository, LiquidacionGeneralRepository LiquidacionGeneralRepository,
+                                CondicionesComercialesRepository CondicionesComercialesRepository,Declaraciones_ValorHistorialRepository Declaraciones_ValorHistorialRepository, Declaraciones_ValorRepository Declaraciones_ValorRepository,
+                                DocumentosContratosRepository DocumentosContratosRepository, DocumentosdeSoporteRepository DocumentosdeSoporteRepository, DocumentosPDFRepository DocumentosPDFRepository, 
+                                DucaRepository DucaRepository, EstadoBoletinRepository EstadoBoletinRepository, EstadoMercanciasRepository EstadoMercanciasRepository, FacturasRepository FacturasRepository , FormasdePagoRepository FormasdePagoRepository, ImpuestosporAracelRepository ImpuestosporAracelRepository,
+                                ImpuestosRepository ImpuestosRepository, IncotermRepository IncotermRepository, IntermediarioRepository IntermediarioRepository, ItemsRepository ItemsRepository, LiquidacionGeneralRepository LiquidacionGeneralRepository,
                                 LiquidacionPorLineaRepository LiquidacionPorLineaRepository, LugaresEmbarqueRepository LugaresEmbarqueRepository, MarcasRepository MarcasRepository, ModoTransporteRepository ModoTransporteRepository,
                                 NivelesComercialesRepository NivelesComercialesRepository, PersonaJuridicaRepository PersonaJuridicaRepository, PersonaNaturalRepository PersonaNaturalRepository, PersonasRepository PersonasRepository,
-                                ProveedoresDeclaracionRepository ProveedoresDeclaracionRepository, TipoDocumentoRepository TipoDocumentoRepository, TipoIntermediarioRepository TipoIntermediarioRepository,
-                                TipoLiquidacionRepository TipoLiquidacionRepository, TiposIdentificacionRepository TiposIdentificacionRepository, TransporteRepository TransporteRepository)
+                                 TipoDocumentoRepository TipoDocumentoRepository, TipoIntermediarioRepository TipoIntermediarioRepository,TipoLiquidacionRepository TipoLiquidacionRepository, TiposIdentificacionRepository TiposIdentificacionRepository, TransporteRepository TransporteRepository)
         {
             _aduanasRepository = AduanasRepository;
             _arancelesRepository = ArancelesRepository;
-            _baseCalculosHistorialRepository = BaseCalculosHistorialRepository;
             _baseCalculosRepository = BaseCalculosRepository;
             _boletinPagoRepository = BoletinPagoRepository;
             _boletinPagoDetallesRepository = BoletinPagoDetallesRepository;
             _codigoImpuestoRepository = CodigoImpuestoRepository;
             _comercianteIndividualRepository = ComercianteIndividualRepository;
             _conceptoPagoRepository = ConceptoPagoRepository;
-            _condicionesRepository = CondicionesRepository;
-            _condicionesHistorialRepository = CondicionesHistorialRepository;
             _condicionesComercialesRepository = CondicionesComercialesRepository;
-            _conductorRepository = ConductorRepository;
             _declaraciones_ValorHistorialRepository = Declaraciones_ValorHistorialRepository;
             _declaraciones_ValorRepository = Declaraciones_ValorRepository;
-            _declarantesRepository = DeclarantesRepository;
             _documentosContratosRepository = DocumentosContratosRepository;
             _documentosdeSoporteRepository = DocumentosdeSoporteRepository;
-            _documentosPDFHistorialRepository = DocumentosPDFHistorialRepository;
             _documentosPDFRepository = DocumentosPDFRepository;
-            _ducaHistorialRepository = DucaHistorialRepository;
             _ducaRepository = DucaRepository;
             _estadoBoletinRepository = EstadoBoletinRepository;
             _estadoMercanciasRepository = EstadoMercanciasRepository;
-            _facturasHistorialRepository = FacturasHistorialRepository;
             _facturasRepository = FacturasRepository;
             _formasdePagoRepository = FormasdePagoRepository;
-            _importadoresRepository = ImportadoresRepository;
             _impuestosporAracelRepository = ImpuestosporAracelRepository;
             _impuestosRepository = ImpuestosRepository;
             _incotermRepository = IncotermRepository;
             _intermediarioRepository = IntermediarioRepository;
-            _itemsHistorialRepository = ItemsHistorialRepository;
             _itemsRepository = ItemsRepository;
-            _liquidacionGeneralHistorialRepository = LiquidacionGeneralHistorialRepository;
             _liquidacionGeneralRepository = LiquidacionGeneralRepository;
             _liquidacionPorLineaRepository = LiquidacionPorLineaRepository;
             _lugaresEmbarqueRepository = LugaresEmbarqueRepository;
@@ -121,7 +93,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             _personaJuridicaRepository = PersonaJuridicaRepository;
             _personaNaturalRepository = PersonaNaturalRepository;
             _personasRepository = PersonasRepository;
-            _proveedoresDeclaracionRepository = ProveedoresDeclaracionRepository;
             _tipoDocumentoRepository = TipoDocumentoRepository;
             _tipoIntermediarioRepository = TipoIntermediarioRepository;
             _tipoLiquidacionRepository = TipoLiquidacionRepository;
@@ -270,111 +241,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        public ServiceResult EliminarAranceles(tbAranceles item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var map = _arancelesRepository.Delete(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-
-                    return result.Error(map);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-        #endregion
-
-        #region BaseCalculosHistorial
-        public ServiceResult ListarBaseCalculosHistorial()
-        {
-            var resultado = new ServiceResult();
-
-
-            try
-            {
-                var list = _baseCalculosHistorialRepository.List();
-                return resultado.Ok(list);
-            }
-            catch (Exception ex)
-            {
-                return resultado.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult InsertarBaseCalculosHistorial(tbBaseCalculosHistorial item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                    var map = _baseCalculosHistorialRepository.Insert(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult ActualizarBaseCalculosHistorial(tbBaseCalculosHistorial item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                    var map = _baseCalculosHistorialRepository.Update(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult EliminarBaseCalculosHistorial(tbBaseCalculosHistorial item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                    var map = _baseCalculosHistorialRepository.Delete(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
         #endregion
 
         #region BaseCalculos
@@ -435,35 +301,12 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 return result.Error(ex.Message);
             }
         }
-
-        public ServiceResult EliminarBaseCalculos(tbBaseCalculos item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var map = _baseCalculosRepository.Delete(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                        
-                    return result.Error(map);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
         #endregion
 
         #region BoletinPago
         public ServiceResult ListarBoletinPago()
         {
             var resultado = new ServiceResult();
-
 
             try
             {
@@ -503,28 +346,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             try
             {
                 var map = _boletinPagoRepository.Update(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-
-                    return result.Error(map);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult EliminarBoletinPago(tbBoletinPago item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var map = _boletinPagoRepository.Delete(item);
                 if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
@@ -730,28 +551,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 return result.Error(ex.Message);
             }
         }
-
-        public ServiceResult EliminarComercianteIndividual(tbComercianteIndividual item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                    var map = _comercianteIndividualRepository.Delete(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
         #endregion
 
         #region ConceptoPago
@@ -804,192 +603,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 else
                 {
 
-                    return result.Error(map);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult EliminarConceptoPago(tbConceptoPago item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var map = _conceptoPagoRepository.Delete(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-
-                    return result.Error(map);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-        #endregion
-
-        #region Condiciones
-        public ServiceResult ListarCondiciones()
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var list = _condicionesRepository.List();
-                return result.Ok(list);
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult InsertarCondiciones(tbCondiciones item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var map = _condicionesRepository.Insert(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                        
-                    return result.Error(map);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult ActualizarCondiciones(tbCondiciones item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                    var map = _condicionesRepository.Update(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult EliminarCondiciones(tbCondiciones item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                    var map = _condicionesRepository.Delete(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-        #endregion
-
-        #region CondicionesHistorial
-        public ServiceResult ListarCondicionesHistorial()
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var list = _condicionesHistorialRepository.List();
-                return result.Ok(list);
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult InsertarCondicionesHistorial(tbCondicionesHistorial item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                    var map = _condicionesHistorialRepository.Insert(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult ActualizarCondicionesHistorial(tbCondicionesHistorial item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var map = _condicionesHistorialRepository.Update(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                        
-                    return result.Error(map);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult EliminarCondicionesHistorial(tbCondicionesHistorial item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var map = _condicionesHistorialRepository.Delete(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                        
                     return result.Error(map);
                 }
             }
@@ -1082,67 +695,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 {
                     return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
                 }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-        #endregion
-
-        #region Conductor
-        public ServiceResult ListarConductor()
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var list = _conductorRepository.List();
-
-                return result.Ok(list);
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult InsertarConductor(tbConductor item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var respuesta = _conductorRepository.Insert(item);
-
-                return result.Ok(respuesta);
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult ActualizarConductor(tbConductor item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var respuesta = _conductorRepository.Update(item);
-                return result.Ok(respuesta);
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult EliminarConductor(tbConductor item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var respuesta = _conductorRepository.Delete(item);
-
-                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -1315,88 +867,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         }
         #endregion
 
-        #region Declarantes
-        public ServiceResult ListarDeclarantes()
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var list = _declarantesRepository.List();
-                return result.Ok(list);
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult InsertarDeclarantes(tbDeclarantes item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var respuesta = _declarantesRepository.Insert(item);
-                if (respuesta.MessageStatus == "1")
-                {
-                    return result.Ok(respuesta);
-                }
-                else
-                {
-
-                    return result.Error(respuesta);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult ActualizarDeclarantes(tbDeclarantes item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var respuesta = _declarantesRepository.Update(item);
-                if (respuesta.MessageStatus == "1")
-                {
-                    return result.Ok(respuesta);
-                }
-                else
-                {
-
-                    return result.Error(respuesta);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult EliminarDeclarantes(tbDeclarantes item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var respuesta = _declarantesRepository.Delete(item);
-                if (respuesta.MessageStatus == "1")
-                {
-                    return result.Ok(respuesta);
-                }
-                else
-                {
-
-                    return result.Error(respuesta);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-        #endregion
-
         #region DocumentosContratos
         public ServiceResult ListarDocumentosContratos()
         {
@@ -1418,22 +888,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                var respuesta = _documentosContratosRepository.Insert(item);
-                if (respuesta.MessageStatus == "1")
-                {
-                    return result.Ok(respuesta);
-                }
-                else
-                {
+                var list = _documentosContratosRepository.Insert(item);
 
-                    return result.Error(respuesta);
-                }
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
                 return result.Error(ex.Message);
             }
-
         }
 
         public ServiceResult ActualizarDocumentosContratos(tbDocumentosContratos item)
@@ -1441,16 +903,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                var respuesta = _documentosContratosRepository.Update(item);
-                if (respuesta.MessageStatus == "1")
-                {
-                    return result.Ok(respuesta);
-                }
-                else
-                {
+                var list = _documentosContratosRepository.Update(item);
 
-                    return result.Error(respuesta);
-                }
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
@@ -1463,16 +918,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                var respuesta = _documentosContratosRepository.Delete(item);
-                if (respuesta.MessageStatus == "1")
-                {
-                    return result.Ok(respuesta);
-                }
-                else
-                {
+                var list = _documentosContratosRepository.Delete(item);
 
-                    return result.Error(respuesta);
-                }
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
@@ -1565,100 +1013,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         }
         #endregion
 
-        #region DocumentosPDFHistorial
-        public IEnumerable<tbDocumentosPDFHistorial> ListarDocumentosPDFHistorial()
-        {
-            try
-            {
-                var list = _documentosPDFHistorialRepository.List();
-                return list;
-            }
-            catch (Exception ex)
-            {
-                return Enumerable.Empty<tbDocumentosPDFHistorial>();
-            }
-        }
-
-        public ServiceResult InsertarDocumentosPDFHistorial(tbDocumentosPDFHistorial item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (item.dpdf_DUCA != "")
-                {
-                    var map = _documentosPDFHistorialRepository.Insert(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult ActualizarDocumentosPDFHistorial(tbDocumentosPDFHistorial item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (item.dpdf_DUCA != "")
-                {
-                    var map = _documentosPDFHistorialRepository.Update(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult EliminarDocumentosPDFHistorial(tbDocumentosPDFHistorial item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var map = _documentosPDFHistorialRepository.Delete(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-        #endregion
-
         #region DocumentosPDF
         public ServiceResult ListarDocumentosPDF()
         {
@@ -1738,92 +1092,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         }
         #endregion
 
-        #region DucaHistorial
-        public IEnumerable<tbDucaHistorial> ListarDucaHistorial()
-        {
-            try
-            {
-                var list = _ducaHistorialRepository.List();
-                return list;
-            }
-            catch (Exception ex)
-            {
-                return Enumerable.Empty<tbDucaHistorial>();
-            }
-        }
-
-        public ServiceResult InsertarDucaHistorial(tbDucaHistorial item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var map = _ducaHistorialRepository.Insert(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult ActualizarDucaHistorial(tbDucaHistorial item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var map = _ducaHistorialRepository.Update(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult EliminarDucaHistorial(tbDucaHistorial item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (1 == 1)
-                {
-                    var map = _ducaHistorialRepository.Delete(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-        #endregion
-
         #region Duca
         public ServiceResult ListarDuca()
         {
@@ -1846,8 +1114,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             try
             {
                 var respuesta = _ducaRepository.Insert(item);
-
-                return result.Ok(respuesta);
+                if (respuesta.MessageStatus == "1")
+                {
+                    return result.Ok(respuesta);
+                }
+                else
+                {
+                    return result.Error(respuesta);
+                }
             }
             catch (Exception ex)
             {
@@ -1861,8 +1135,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             try
             {
                 var respuesta = _ducaRepository.InsertTap2(item);
-
-                return result.Ok(respuesta);
+                if (respuesta.MessageStatus == "1")
+                {
+                    return result.Ok(respuesta);
+                }
+                else
+                {
+                    return result.Error(respuesta);
+                }
             }
             catch (Exception ex)
             {
@@ -1876,8 +1156,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             try
             {
                 var respuesta = _ducaRepository.InsertTap3(item);
-
-                return result.Ok(respuesta);
+                if (respuesta.MessageStatus == "1")
+                {
+                    return result.Ok(respuesta);
+                }
+                else
+                {
+                    return result.Error(respuesta);
+                }
             }
             catch (Exception ex)
             {
@@ -1890,8 +1176,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                var respuesta = _ducaRepository.Update(item);
-                return result.Ok(respuesta);
+                var respuesta = _ducaRepository.Update(item); 
+                if (respuesta.MessageStatus == "1")
+                {
+                    return result.Ok(respuesta);
+                }
+                else
+                {
+                    return result.Error(respuesta);
+                }
             }
             catch (Exception ex)
             {
@@ -1991,7 +1284,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
 
         #region EstadoMercancias
      
-
         public ServiceResult ListarEstadoMercancias()
         {
             var result = new ServiceResult();
@@ -2072,108 +1364,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         }
         #endregion
 
-        #region FacturasHistorial
-        public IEnumerable<tbFacturasHistorial> ListarFacturasHistorial()
-        {
-            try
-            {
-                var list = _facturasHistorialRepository.List();
-                return list;
-            }
-            catch (Exception ex)
-            {
-                return Enumerable.Empty<tbFacturasHistorial>();
-            }
-        }
-
-        public ServiceResult InsertarFacturasHistorial(tbFacturasHistorial item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (1 == 1)
-                {
-                    var map = _facturasHistorialRepository.Insert(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult ActualizarFacturasHistorial(tbFacturasHistorial item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (1 == 1)
-                {
-                    var map = _facturasHistorialRepository.Update(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult EliminarFacturasHistorial(tbFacturasHistorial item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (1 == 1)
-                {
-                    var map = _facturasHistorialRepository.Delete(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-        #endregion
-
         #region Facturas
 
         public ServiceResult ListarFacturas(tbFacturas item)
@@ -2196,22 +1386,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _facturasRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _facturasRepository.Insert(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2225,22 +1408,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _facturasRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _facturasRepository.Update(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2254,22 +1430,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _facturasRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _facturasRepository.Delete(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2361,119 +1530,18 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         }
         #endregion
 
-        #region Importadores
-        public IEnumerable<tbImportadores> ListarImportadores()
-        {
-            try
-            {
-                var list = _importadoresRepository.List();
-                return list;
-            }
-            catch (Exception ex)
-            {
-                return Enumerable.Empty<tbImportadores>();
-            }
-        }
-
-        public ServiceResult InsertarImportadores(tbImportadores item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (1 == 1)
-                {
-                    var map = _importadoresRepository.Insert(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult ActualizarImportadores(tbImportadores item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (1 == 1)
-                {
-                    var map = _importadoresRepository.Update(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult EliminarImportadores(tbImportadores item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (1 == 1)
-                {
-                    var map = _importadoresRepository.Delete(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-        #endregion
-
         #region ImpuestosPorArancel
-        public IEnumerable<tbImpuestosPorArancel> ListarImpuestosPorArancel()
+        public ServiceResult ListarImpuestosPorArancel()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _impuestosporAracelRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbImpuestosPorArancel>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -2482,22 +1550,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _impuestosporAracelRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _impuestosporAracelRepository.Insert(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2511,22 +1572,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _impuestosporAracelRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _impuestosporAracelRepository.Update(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2540,22 +1594,15 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
+                var map = _impuestosporAracelRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _impuestosporAracelRepository.Delete(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                        
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2784,109 +1831,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         }
         #endregion
 
-        #region ItemsHistorial
-        //public ServiceResult ListarItemsHistorial()
-        //{
-        //    var result = new ServiceResult();
-        //    try
-        //    {
-        //        var list = _itemsHistorialRepository.List();
-        //        return result.Ok(list);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return result.Error(ex.Message);
-        //    }
-        //}
-
-        //public ServiceResult InsertarItemsHistorial(tbItemsHistorial item)
-        //{
-        //    var result = new ServiceResult();
-        //    try
-        //    {
-        //        if (1 == 1)
-        //        {
-        //            var map = _itemsHistorialRepository.Insert(item);
-        //            if (map.MessageStatus == "1")
-        //            {
-        //                return result.Ok(map);
-        //            }
-        //            else
-        //            {
-
-        //                return result.Error(map);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return result.Error(ex.Message);
-        //    }
-        //}
-
-        //public ServiceResult ActualizarItemsHistorial(tbItemsHistorial item)
-        //{
-        //    var result = new ServiceResult();
-        //    try
-        //    {
-        //        if (1 == 1)
-        //        {
-        //            var map = _itemsHistorialRepository.Update(item);
-        //            if (map.MessageStatus == "1")
-        //            {
-        //                return result.Ok(map);
-        //            }
-        //            else
-        //            {
-
-        //                return result.Error(map);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return result.Error(ex.Message);
-        //    }
-        //}
-
-        //public ServiceResult EliminarItemsHistorial(tbItemsHistorial item)
-        //{
-        //    var result = new ServiceResult();
-        //    try
-        //    {
-        //        if (1 == 1)
-        //        {
-        //            var map = _itemsHistorialRepository.Delete(item);
-        //            if (map.MessageStatus == "1")
-        //            {
-        //                return result.Ok(map);
-        //            }
-        //            else
-        //            {
-
-        //                return result.Error(map);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return result.Error(ex.Message);
-        //    }
-        //}
-        #endregion
-
         #region Items
         public ServiceResult ListarItems(tbItems item)
         {
@@ -2950,85 +1894,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             try
             {
                 var map = _itemsRepository.Delete(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-        #endregion
-
-        #region LiquidacionGeneralHistorial
-        public ServiceResult ListarLiquidacionGeneralHistorial()
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var list = _liquidacionGeneralHistorialRepository.List();
-                return result.Ok(list);
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult InsertarLiquidacionGeneralHistorial(tbLiquidacionGeneralHistorial item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var map = _liquidacionGeneralHistorialRepository.Insert(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult ActualizarLiquidacionGeneralHistorial(tbLiquidacionGeneralHistorial item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var map = _liquidacionGeneralHistorialRepository.Update(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult EliminarLiquidacionGeneralHistorial(tbLiquidacionGeneralHistorial item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var map = _liquidacionGeneralHistorialRepository.Delete(item);
                 if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
@@ -3272,16 +2137,16 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                    var map = _lugaresEmbarqueRepository.Delete(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
+                var map = _lugaresEmbarqueRepository.Delete(item);
+                if (map.MessageStatus == "1")
+                {
+                    return result.Ok(map);
+                }
+                else
+                {
                         
-                        return result.Error(map);
-                    }
+                    return result.Error(map);
+                }
             }
             catch (Exception ex)
             {
@@ -3354,16 +2219,16 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                    var map = _marcasRepository.Delete(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
+                var map = _marcasRepository.Delete(item);
+                if (map.MessageStatus == "1")
+                {
+                    return result.Ok(map);
+                }
+                else
+                {
                         
-                        return result.Error(map);
-                    }
+                    return result.Error(map);
+                }
             }
             catch (Exception ex)
             {
@@ -3414,16 +2279,16 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                    var map = _modoTransporteRepository.Update(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
+                var map = _modoTransporteRepository.Update(item);
+                if (map.MessageStatus == "1")
+                {
+                    return result.Ok(map);
+                }
+                else
+                {
                         
-                        return result.Error(map);
-                    }
+                    return result.Error(map);
+                }
             }
             catch (Exception ex)
             {
@@ -3436,16 +2301,16 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                    var map = _modoTransporteRepository.Delete(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
+                var map = _modoTransporteRepository.Delete(item);
+                if (map.MessageStatus == "1")
+                {
+                    return result.Ok(map);
+                }
+                else
+                {
                         
-                        return result.Error(map);
-                    }
+                    return result.Error(map);
+                }
             }
             catch (Exception ex)
             {
@@ -3781,109 +2646,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         }
         #endregion
 
-        #region ProveedoresDeclaracion
-        public ServiceResult ListarProveedoresDeclaracion()
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var list = _proveedoresDeclaracionRepository.List();
-                return result.Ok(list);
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult InsertarProveedoresDeclaracion(tbProveedoresDeclaracion item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (1 == 1)
-                {
-                    var map = _proveedoresDeclaracionRepository.Insert(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult ActualizarProveedoresDeclaracion(tbProveedoresDeclaracion item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (1 == 1)
-                {
-                    var map = _proveedoresDeclaracionRepository.Update(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult EliminarProveedoresDeclaracion(tbProveedoresDeclaracion item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (1 == 1)
-                {
-                    var map = _proveedoresDeclaracionRepository.Delete(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-        #endregion
-
         #region TipoDocumento
         public ServiceResult ListarTipoDocumento()
         {
@@ -4109,8 +2871,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                if (1 == 1)
-                {
                     var map = _tipoLiquidacionRepository.Delete(item);
                     if (map.MessageStatus == "1")
                     {
@@ -4121,11 +2881,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
 
                         return result.Error(map);
                     }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
             }
             catch (Exception ex)
             {

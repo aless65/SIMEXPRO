@@ -269,11 +269,8 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
             }
             catch (Exception ex)
             {
-                RequestStatus respuesta = new()
-                {
-                    MessageStatus = ex.Message
-                };
-                return resultado.Ok(respuesta);
+                return resultado.Error(ex.Message);
+
             }
         }
         public ServiceResult DibujarMenu(tbRolesXPantallas item)

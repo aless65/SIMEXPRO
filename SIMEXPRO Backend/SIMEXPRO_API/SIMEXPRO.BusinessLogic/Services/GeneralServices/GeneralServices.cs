@@ -77,6 +77,20 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
                 return resultado.Error(ex.Message);
             }
         }
+        public ServiceResult AldeasPorCiudades(tbAldeas item)
+        {
+            var resultado = new ServiceResult();
+
+            try
+            {
+                var list = _aldeasRepository.AldeasPorCiudades(item);
+                return resultado.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return resultado.Error(ex.Message);
+            }
+        }
 
         public ServiceResult InsertarAldeas(tbAldeas item)
         {
@@ -195,6 +209,20 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
                 return result.Error(ex.Message);
             }
         }
+        public ServiceResult CiudadesPorProvincia(tbCiudades item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _ciudadesRepository.CiudadesPorProvincia(item);
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
 
         public ServiceResult InsertarCiudades(tbCiudades item)
         {
@@ -248,6 +276,19 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             try
             {
                 var list = _coloniasRepository.List();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        public ServiceResult ColoniasPorCiudades(tbColonias item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _coloniasRepository.ColoniasPorCiudades(item);
                 return result.Ok(list);
             }
             catch (Exception ex)
@@ -922,6 +963,19 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             catch (Exception e)
             {
                 return result.Error(e.Message);
+            }
+        }
+        public ServiceResult ProvinciasPorPaises(tbProvincias item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _provinciasRepository.ProvinciasPorPaises(item);
+                return result.Ok(map);               
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
             }
         }
 

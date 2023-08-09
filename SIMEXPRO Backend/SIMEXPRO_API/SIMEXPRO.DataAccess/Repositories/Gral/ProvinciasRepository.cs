@@ -22,6 +22,15 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             throw new NotImplementedException();
         }
 
+        public IEnumerable<tbProvincias> ProvinciasPorPaises(tbProvincias item)
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@pvin_Nombre", item.pvin_Nombre, DbType.String, ParameterDirection.Input);
+            return db.Query<tbProvincias>(ScriptsDataBase.ProvinciasPorPais, parametros, commandType: CommandType.StoredProcedure);s
+        }
+
         public RequestStatus Insert(tbProvincias item)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);

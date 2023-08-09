@@ -12,9 +12,19 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
 {
     public class ProvinciasRepository : IRepository<tbProvincias>
     {
+     
+
         public RequestStatus Delete(tbProvincias item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@pvin_Id", item.pvin_Id, DbType.Int32, ParameterDirection.Input);          
+            parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@pvin_FechaEliminacion", item.pvin_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarProvincias, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
+            return result;
         }
 
         public tbProvincias Find(int? id)

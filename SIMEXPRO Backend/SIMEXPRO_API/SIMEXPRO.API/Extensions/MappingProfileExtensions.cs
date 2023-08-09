@@ -15,6 +15,7 @@ namespace SIMEXPRO.API.Extentions
     {
         public MappingProfileExtensions()
         {
+            Declaraciones_ValorControllerViewModel mapeadoDeclaracion;
             #region Generales
             CreateMap<AldeasViewModel, tbAldeas>().ReverseMap();
             CreateMap<CargosViewModel, tbCargos>().ReverseMap();
@@ -41,6 +42,7 @@ namespace SIMEXPRO.API.Extentions
             CreateMap<BoletinPagoViewModel, tbBoletinPago>().ReverseMap();
             CreateMap<CodigoImpuestoViewModel, tbCodigoImpuesto>().ReverseMap();
             CreateMap<CondicionesComercialesViewModel, tbCondicionesComerciales>().ReverseMap();
+            CreateMap<ImportadoresViewModel, tbImportadores>();
             CreateMap<ImpuestosViewModel, tbImpuestos>().ReverseMap();
             CreateMap<TransportesViewModel, tbTransporte>().ReverseMap();
             CreateMap<TiposIdentificacionViewModel, tbTiposIdentificacion>().ReverseMap();
@@ -50,10 +52,12 @@ namespace SIMEXPRO.API.Extentions
             CreateMap<ComercianteIndividual, tbComercianteIndividual>().ReverseMap();
             CreateMap<PersonasViewModel, tbPersonas>().ReverseMap();
             CreateMap<PersonaNaturalViewModel, tbPersonaNatural>().ReverseMap();
+            CreateMap<ProveedoresDeclaracionViewModel, tbProveedoresDeclaracion>().ReverseMap();
             CreateMap<ConceptoPagoViewModel, tbConceptoPago>().ReverseMap();
             CreateMap<EstadoBoletinViewModel, tbEstadoBoletin>().ReverseMap();
             CreateMap<FormasDePagoViewModel, tbFormasdePago>().ReverseMap();
             CreateMap<ItemsViewModel, tbItems>().ReverseMap();
+            CreateMap<IntermediarioViewModel, tbIntermediarios>().ReverseMap();
             CreateMap<IncotermViewModel, tbIncoterm>().ReverseMap();
             CreateMap<LiquidacionGeneralViewModel, tbLiquidacionGeneral>().ReverseMap();
             CreateMap<LiquidacionPorLineaViewModel, tbLiquidacionPorLinea>().ReverseMap();
@@ -65,11 +69,11 @@ namespace SIMEXPRO.API.Extentions
             CreateMap<DocumentosPDFViewModel,tbDocumentosPDF>().ReverseMap();
             CreateMap<DocumentosContratosViewModel, tbDocumentosContratos>().ReverseMap();
             CreateMap<DocumentosDeSoporteViewModel, tbDocumentosDeSoporte>().ReverseMap();
-
             CreateMap<FacturasViewModel, tbFacturas>().ReverseMap();
             CreateMap<DocumentosContratosViewModel, tbDocumentosContratos>().ReverseMap();
-
             CreateMap<EstadoMercanciasViewModel, tbEstadoMercancias>().ReverseMap();
+
+            //CreateMap<Declaraciones_ValorControllerViewModel, tbDeclarantes>().ReverseMap();
             #endregion
 
             #region Producción

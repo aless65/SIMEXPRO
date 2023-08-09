@@ -600,7 +600,7 @@ GO
 
 CREATE TABLE Adua.tbImportadores(
 		impo_Id                  		INT 			IDENTITY(1,1),
-		nico_Id                  		INT 			NOT NULL,
+		nico_Id                  		INT,
 		decl_Id							INT				NOT NULL,
 		impo_NivelComercial_Otro		NVARCHAR(300),
 		impo_RTN                 		NVARCHAR(40) 	NOT NULL,
@@ -662,7 +662,7 @@ GO
 
 CREATE TABLE Adua.tbIntermediarios(
 		inte_Id							INT 			IDENTITY(1,1),
-		tite_Id							INT 			NOT NULL,
+		tite_Id							INT,
 		inte_Tipo_Otro					NVARCHAR(30),
 		decl_Id							INT 			NOT NULL,
 		usua_UsuarioCreacion            INT 			NOT NULL,
@@ -699,7 +699,7 @@ GO
 
 CREATE TABLE Adua.tbProveedoresDeclaracion(
 	pvde_Id								INT				IDENTITY(1,1),
-	coco_Id								INT				NOT NULL,
+	coco_Id								INT,
 	pvde_Condicion_Otra					NVARCHAR(300),
 	decl_Id								INT				NOT NULL,
 	usua_UsuarioCreacion				INT 			NOT NULL,

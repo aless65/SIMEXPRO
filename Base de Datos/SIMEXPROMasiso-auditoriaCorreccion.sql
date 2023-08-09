@@ -2820,8 +2820,6 @@ CREATE TABLE Adua.tbDocumentosDeSoporte(
 );
 GO
 
-ALTER TABLE Adua.tbDocumentosDeSoporte 
-ADD CONSTRAINT FK_tbDocumentosDeSoporte_Adua_tbTipoDocumento_tido_Id FOREIGN KEY (tido_Id) REFERENCES Adua.tbTipoDocumento(tido_Id)
 --**********************************************************************************************
 --********** TABLA PAISES / procedimientos tomando en cuenta los uniques ***********************
 ALTER TABLE Acce.tbUsuarios

@@ -4187,7 +4187,7 @@ BEGIN
 			mone_Id, 
 			mone_Otra, 
 			deva_ConversionDolares, 
-			deva_Condiciones, 
+			----deva_Condiciones, 
 			deva.usua_UsuarioCreacion, 
 			deva_FechaCreacion, 
 			deva.usua_UsuarioModificacion, 
@@ -4733,7 +4733,7 @@ BEGIN
 															mone_Id, 
 															mone_Otra, 
 															deva_ConversionDolares, 
-															deva_Condiciones,
+															----deva_Condiciones,
 															hdev_UsuarioAccion, 
 															hdev_FechaAccion, 
 															hdev_Accion)
@@ -4760,7 +4760,7 @@ BEGIN
 			   mone_Id, 
 			   mone_Otra, 
 			   deva_ConversionDolares, 
-			   deva_Condiciones,
+			   --deva_Condiciones,
 			   @usua_UsuarioModificacion,
 			   @deva_FechaModificacion,
 			   'Editar tab1'
@@ -5333,7 +5333,7 @@ GO
 --															mone_Id, 
 --															mone_Otra, 
 --															deva_ConversionDolares, 
---															deva_Condiciones,
+--															--deva_Condiciones,
 --															hdev_UsuarioAccion, 
 --															hdev_FechaAccion, 
 --															hdev_Accion)
@@ -5360,7 +5360,7 @@ GO
 --			   mone_Id, 
 --			   mone_Otra, 
 --			   deva_ConversionDolares, 
---			   deva_Condiciones,
+--			   --deva_Condiciones,
 --			   @usua_UsuarioModificacion,
 --			   @deva_FechaModificacion,
 --			   'Editar tab2'
@@ -5575,7 +5575,7 @@ END
 --															mone_Id, 
 --															mone_Otra, 
 --															deva_ConversionDolares, 
---															deva_Condiciones,
+--															--deva_Condiciones,
 --															hdev_UsuarioAccion, 
 --															hdev_FechaAccion, 
 --															hdev_Accion)
@@ -5602,7 +5602,7 @@ END
 --				   mone_Id, 
 --				   mone_Otra, 
 --				   deva_ConversionDolares, 
---				   deva_Condiciones,
+--				   --deva_Condiciones,
 --				   @deva_UsuarioModificacion,
 --				   @deva_FechaModificacion,
 --				   'Editar tab3'
@@ -5731,6 +5731,28 @@ BEGIN
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
 		ROLLBACK TRAN
 	END CATCH 
+END
+GO
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbFacturas_Eliminar
+	@fact_Id			INT
+AS
+BEGIN
+	BEGIN TRANSACTION
+	BEGIN TRY
+		DELETE FROM Adua.tbItems
+		WHERE fact_Id = @fact_Id
+
+		DELETE FROM [Adua].[tbFacturas]
+		WHERE fact_Id = @fact_Id
+
+		SELECT 1
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+		ROLLBACK TRAN
+	END CATCH
 END
 
 GO
@@ -6651,7 +6673,7 @@ BEGIN
 															mone_Id, 
 															mone_Otra, 
 															deva_ConversionDolares, 
-															deva_Condiciones, 
+															--deva_Condiciones, 
 															hdev_UsuarioAccion, 
 															hdev_FechaAccion, 
 															hdev_Accion)
@@ -6678,7 +6700,7 @@ BEGIN
 			   mone_Id, 
 			   mone_Otra, 
 			   deva_ConversionDolares, 
-			   deva_Condiciones,
+			   --deva_Condiciones,
 			   @usua_UsuarioEliminacion,
 			   @deva_FechaEliminacion,
 			   'Eliminar'
@@ -13194,7 +13216,7 @@ WHERE col.ciud_Id = @ciud_Id AND col.colo_Estado = 1
 
 
 ----------*********************TRIGGERS*******************----------
-/*Declarantes*/
+--/*Declarantes*/
 --CREATE OR ALTER TRIGGER TR_tbDeclarantes_Update
 --ON Adua.tbDeclarantes AFTER UPDATE 
 --AS

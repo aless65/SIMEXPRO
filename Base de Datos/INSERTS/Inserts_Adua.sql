@@ -81076,7 +81076,7 @@ VALUES	('Concepto Pago 1', 1, GETDATE()),
 		('Concepto Pago 3', 1, GETDATE());
 
 
-INSERT INTO [Adua].[tbDeclaraciones_Valor] ([deva_AduanaIngresoId], [deva_AduanaDespachoId], [deva_DeclaracionMercancia], [deva_FechaAceptacion], [impo_Id], [pvde_Id], [inte_Id], [deva_LugarEntrega], [pais_EntregaId], [inco_Id], [inco_Version], [deva_NumeroContrato], [deva_FechaContrato], [foen_Id], [deva_PagoEfectuado], [fopa_Id], [emba_Id], [pais_ExportacionId], [deva_FechaExportacion], [mone_Id], [deva_ConversionDolares], [deva_Condiciones], [usua_UsuarioCreacion], [deva_FechaCreacion])
+INSERT INTO [Adua].[tbDeclaraciones_Valor] ([deva_AduanaIngresoId], [deva_AduanaDespachoId], [deva_DeclaracionMercancia], [deva_FechaAceptacion], [impo_Id], [pvde_Id], [inte_Id], [deva_LugarEntrega], [pais_EntregaId], [inco_Id], [inco_Version], [deva_NumeroContrato], [deva_FechaContrato], [foen_Id], [deva_PagoEfectuado], [fopa_Id], [emba_Id], [pais_ExportacionId], [deva_FechaExportacion], [mone_Id], [deva_ConversionDolares], [usua_UsuarioCreacion], [deva_FechaCreacion])
 VALUES (1, 2, 'Algun documento importante o dato importante', GETDATE(), 3, 1, 1, 'En un lugar cerquita de la casa del que recibe', 1, 1, '2021', 'XBTO87642', GETDATE(), 1, 1, 1, 1, 2, GETDATE(), 1, 24.2034, 'FOB', 1, GETDATE())
 GO
 
@@ -81104,10 +81104,10 @@ INSERT INTO [Adua].[tbImportadores]
 /*--------------------------------------------------------*/
 --********** INSERT TABLA DECLARACION DE VALOR ************--
 GO
-INSERT INTO [Adua].[tbDeclaraciones_Valor]   ([deva_AduanaIngresoId],[deva_AduanaDespachoId],[deva_DeclaracionMercancia],[deva_FechaAceptacion],[impo_Id],[pvde_Id],[inte_Id],[deva_LugarEntrega],[pais_EntregaId],[inco_Id],[inco_Version],[deva_NumeroContrato],[deva_FechaContrato],[foen_Id],[deva_FormaEnvioOtra],[deva_PagoEfectuado],[fopa_Id],[deva_FormaPagoOtra],[emba_Id],[pais_ExportacionId],[deva_FechaExportacion],[mone_Id],[mone_Otra],[deva_ConversionDolares],[deva_Condiciones],[usua_UsuarioCreacion],[deva_FechaCreacion])
+INSERT INTO [Adua].[tbDeclaraciones_Valor]   ([deva_AduanaIngresoId],[deva_AduanaDespachoId],[deva_DeclaracionMercancia],[deva_FechaAceptacion],[impo_Id],[pvde_Id],[inte_Id],[deva_LugarEntrega],[pais_EntregaId],[inco_Id],[inco_Version],[deva_NumeroContrato],[deva_FechaContrato],[foen_Id],[deva_FormaEnvioOtra],[deva_PagoEfectuado],[fopa_Id],[deva_FormaPagoOtra],[emba_Id],[pais_ExportacionId],[deva_FechaExportacion],[mone_Id],[mone_Otra],[deva_ConversionDolares],[usua_UsuarioCreacion],[deva_FechaCreacion])
      VALUES
-           (1 ,2 ,'Importacion de platanos' ,GETDATE() ,1 ,1 ,1 ,'Guasaule' ,8 ,1 ,'EXW' ,'93949389' ,GETDATE() ,1 ,'Maritimo' ,1 ,2 ,'Aerio' ,1 ,2  ,GETDATE() ,1 ,1 ,24 ,'la mercancía despachada y la aplicación de los correspondientes derechos' ,1  ,GETDATE()),
-           (1 ,2 ,'Importacion de Guineos' ,GETDATE() ,1 ,1 ,1 ,'Guasaule' ,2 ,1 ,'EXW' ,'3232432423' ,GETDATE() ,1 ,'Terrestre' ,1 ,2 ,'Aerio' ,1 ,2  ,GETDATE() ,1 ,1 ,24 ,'Mercancia descargada en los barrios bajos de sur' ,1  ,GETDATE());
+           (1 ,2 ,'Importacion de platanos' ,GETDATE() ,1 ,1 ,1 ,'Guasaule' ,8 ,1 ,'EXW' ,'93949389' ,GETDATE() ,1 ,'Maritimo' ,1 ,2 ,'Aerio' ,1 ,2  ,GETDATE() ,1 ,1 ,24 ,1  ,GETDATE()),
+           (1 ,2 ,'Importacion de Guineos' ,GETDATE() ,1 ,1 ,1 ,'Guasaule' ,2 ,1 ,'EXW' ,'3232432423' ,GETDATE() ,1 ,'Terrestre' ,1 ,2 ,'Aerio' ,1 ,2  ,GETDATE() ,1 ,1 ,24 ,1  ,GETDATE());
 
 
 
@@ -81125,33 +81125,33 @@ INSERT INTO [Adua].[tbDuca] ([duca_No_Duca],[duca_No_Correlativo_Referencia],[de
 --********** INSERT TABLA FACTURA ************--
 GO
 INSERT INTO [Adua].[tbFacturas]
-           ([deva_Id] ,[fact_Fecha] ,[usua_UsuarioCreacion]  ,[fact_FechaCreacion])
+           ([deva_Id] ,[fact_Numero] ,[fact_Fecha] ,[usua_UsuarioCreacion]  ,[fact_FechaCreacion])
      VALUES
-           (2 ,GETDATE() ,1 ,GETDATE()),
-           (1 ,GETDATE() ,1 ,GETDATE()),
-           (2 ,GETDATE() ,1 ,GETDATE()),
-           (1 ,GETDATE() ,1 ,GETDATE()),
-           (2 ,GETDATE() ,1 ,GETDATE()),
-           (1 ,GETDATE() ,1 ,GETDATE()),
-           (2 ,GETDATE() ,1 ,GETDATE()),
-           (1 ,GETDATE() ,1 ,GETDATE()),
-           (2 ,GETDATE() ,1 ,GETDATE()),
-           (1 ,GETDATE() ,1 ,GETDATE()),
-           (2 ,GETDATE() ,1 ,GETDATE()),
-           (1 ,GETDATE() ,1 ,GETDATE()),
-           (2 ,GETDATE() ,1 ,GETDATE()),
-           (2 ,GETDATE() ,1 ,GETDATE()),
-           (1 ,GETDATE() ,1 ,GETDATE()),
-           (2 ,GETDATE() ,1 ,GETDATE()),
-           (2 ,GETDATE() ,1 ,GETDATE()),
-           (2 ,GETDATE() ,1 ,GETDATE()),
-           (1 ,GETDATE() ,1 ,GETDATE()),
-           (2 ,GETDATE() ,1 ,GETDATE()),
-           (1 ,GETDATE() ,1 ,GETDATE()),
-           (2 ,GETDATE() ,1 ,GETDATE()),
-           (1 ,GETDATE() ,1 ,GETDATE()),
-           (1 ,GETDATE() ,1 ,GETDATE()),
-           (1 ,GETDATE() ,1 ,GETDATE());
+           (2, '222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE());
  
 
 /*------------------------------------------*/

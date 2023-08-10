@@ -1366,12 +1366,12 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
 
         #region Facturas
 
-        public ServiceResult ListarFacturas(tbFacturas item)
+        public ServiceResult ListarFacturas(int deva_Id)
         {
             var result = new ServiceResult();
             try
             {
-                var list = _facturasRepository.List(item);
+                var list = _facturasRepository.List(deva_Id);
                 return result.Ok(list);
             }
             catch (Exception ex)

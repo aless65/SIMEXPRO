@@ -12,7 +12,7 @@ namespace SIMEXPRO.Entities.Entities
         public tbPaises()
         {
             tbConductor = new HashSet<tbConductor>();
-            tbDeclaraciones_Valor = new HashSet<tbDeclaraciones_Valor>();
+            //tbDeclaraciones_Valor = new HashSet<tbDeclaraciones_Valor>();
             tbDucaduca_Pais_DestinoNavigation = new HashSet<tbDuca>();
             tbDucaduca_Pais_Emision_ExportadorNavigation = new HashSet<tbDuca>();
             tbDucaduca_Pais_Emision_ImportadorNavigation = new HashSet<tbDuca>();

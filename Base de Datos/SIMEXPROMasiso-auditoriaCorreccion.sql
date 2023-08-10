@@ -813,7 +813,7 @@ CREATE TABLE Adua.tbDeclaraciones_Valor
 		mone_Id 						INT,
 		mone_Otra 						NVARCHAR(200),
 		deva_ConversionDolares 			DECIMAL(18,2),
-		deva_Condiciones 				NVARCHAR(MAX),
+		--deva_Condiciones 				NVARCHAR(MAX),
 		usua_UsuarioCreacion 			INT,
 		deva_FechaCreacion  			DATETIME,
 		usua_UsuarioModificacion		INT,

@@ -236,7 +236,7 @@ CREATE TABLE Gral.tbMonedas
 	CONSTRAINT UQ_Gral_tbMonedas_mone_Descripcion UNIQUE (mone_Descripcion),
 	CONSTRAINT FK_Gral_tbMonedas_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id 	  FOREIGN KEY(usua_UsuarioCreacion) 	REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbMonedas_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Gral_tbMonedas_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id  FOREIGN KEY(usua_UsuarioEliminacion) 	REFERENCES Acce.tbUsuarios (usua_Id)
+	--CONSTRAINT FK_Gral_tbMonedas_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id  FOREIGN KEY(usua_UsuarioEliminacion) 	REFERENCES Acce.tbUsuarios (usua_Id)
 
 );
 GO
@@ -883,6 +883,7 @@ CREATE TABLE Adua.tbDeclaraciones_ValorHistorial
 CREATE TABLE Adua.tbFacturas
 (
 		fact_Id							INT 			IDENTITY(1,1),
+		fact_Numero						NVARCHAR(4000)	NOT NULL,
 		deva_Id							INT 			NOT NULL,
 		fact_Fecha						DATE 			NOT NULL,
 		usua_UsuarioCreacion			INT 			NOT NULL,
@@ -905,7 +906,8 @@ GO
 CREATE TABLE Adua.tbFacturasHistorial
 (
 		hfact_Id						INT 			IDENTITY(1,1),
-		fact_Id							INT,
+		fact_Id							INT				NOT NULL,
+		fact_Numero						NVARCHAR(4000)	NOT NULL,
 		deva_Id							INT	 			NOT NULL,
 		fect_Fecha						DATETIME 		NOT NULL,
 

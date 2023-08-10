@@ -33,5 +33,6 @@ namespace SIMEXPRO.Entities.Entities
         public virtual ICollection<tbAsignacionesOrden> tbAsignacionesOrden { get; set; }
         public virtual ICollection<tbModulos> tbModulos { get; set; }
         public virtual ICollection<tbOrdenCompraDetalles> tbOrdenCompraDetalles { get; set; }
+        public virtual ICollection<tbOrde_Ensa_Acab_Etiq> tbOrde_Ensa_Acab_Etiq { get; set; }
     }
 }

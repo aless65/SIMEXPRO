@@ -227,8 +227,8 @@ CREATE TABLE Gral.tbMonedas
 		mone_FechaCreacion 			DATETIME 	NOT NULL,
 		usua_UsuarioModificacion	INT			DEFAULT NULL,
 		mone_FechaModificacion		DATETIME 	DEFAULT NULL,
-		usua_UsuarioEliminacion	    INT			DEFAULT NULL,
-		mone_FechaEliminacion		DATETIME    DEFAULT NULL,
+		--usua_UsuarioEliminacion	    INT			DEFAULT NULL,
+		--mone_FechaEliminacion		DATETIME    DEFAULT NULL,
 		mone_Estado					BIT 		NOT NULL DEFAULT 1,
 
 	CONSTRAINT PK_Gral_tbMonedas_mone_Id 		  PRIMARY KEY (mone_Id),
@@ -832,6 +832,7 @@ CREATE TABLE Adua.tbDeclaraciones_Valor
 	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_foen_Id_Gral_tbFormas_Envio_foen_Id 					FOREIGN KEY (foen_Id)					REFERENCES Gral.tbFormas_Envio (foen_Id),
 	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_fopa_Id_Adua_tbFormasdePago_fopa_Id					FOREIGN KEY (fopa_Id)					REFERENCES Adua.tbFormasdePago (fopa_Id),
 	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_emba_Id_Adua_tbLugaresEmbarque_emba_Id					FOREIGN KEY (emba_Id)					REFERENCES Adua.tbLugaresEmbarque (emba_Id),
+	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_pais_EntregaId_Gral_tbPaises_pais_Id 					FOREIGN KEY (pais_EntregaId) 			REFERENCES Gral.tbPaises (pais_Id),
 	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_pais_Exportacion_Id_Gral_tbPaises_pais_Exportacion_Id 	FOREIGN KEY (pais_ExportacionId) 		REFERENCES Gral.tbPaises (pais_Id),
 	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_mone_Id_Gral_tbMonedas_mone_Id							FOREIGN KEY (mone_Id) 					REFERENCES Gral.tbMonedas (mone_Id),
 	CONSTRAINT FK_Adua_tbDeclaraciones_Valor_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios(usua_Id),

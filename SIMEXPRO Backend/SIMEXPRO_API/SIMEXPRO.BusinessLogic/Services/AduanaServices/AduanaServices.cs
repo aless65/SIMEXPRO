@@ -50,7 +50,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         private readonly TiposIdentificacionRepository _tiposIdentificacionRepository;
         private readonly TransporteRepository _transporteRepository;
 
-        public AduanaServices(AduanasRepository AduanasRepository, ArancelesRepository ArancelesRepository, BaseCalculosHistorialRepository BaseCalculosHistorialRepository, BaseCalculosRepository BaseCalculosRepository, BoletinPagoRepository BoletinPagoRepository, BoletinPagoDetallesRepository BoletinPagoDetallesRepository,
+        public AduanaServices(AduanasRepository AduanasRepository, ArancelesRepository ArancelesRepository, BaseCalculosRepository BaseCalculosRepository, BoletinPagoRepository BoletinPagoRepository, BoletinPagoDetallesRepository BoletinPagoDetallesRepository,
                                 CodigoImpuestoRepository CodigoImpuestoRepository, ComercianteIndividualRepository ComercianteIndividualRepository, ConceptoPagoRepository ConceptoPagoRepository,
                                 CondicionesComercialesRepository CondicionesComercialesRepository,Declaraciones_ValorHistorialRepository Declaraciones_ValorHistorialRepository, Declaraciones_ValorRepository Declaraciones_ValorRepository,
                                 DocumentosContratosRepository DocumentosContratosRepository, DocumentosdeSoporteRepository DocumentosdeSoporteRepository, DocumentosPDFRepository DocumentosPDFRepository, 
@@ -803,47 +803,47 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        public ServiceResult ActualizarDeclaraciones_ValorTab2(tbDeclaraciones_Valor item, tbDeclarantes declProv, tbDeclarantes declInte, tbProveedoresDeclaracion itemProv, tbIntermediarios itemInte)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var respuesta = _declaraciones_ValorRepository.UpdateTab2(item, declProv, declInte, itemProv, itemInte);
-                if (respuesta.MessageStatus == "1")
-                {
-                    return result.Ok(respuesta);
-                }
-                else
-                {
-                    return result.Error(respuesta);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
+        //public ServiceResult ActualizarDeclaraciones_ValorTab2(tbDeclaraciones_Valor item, tbDeclarantes declProv, tbDeclarantes declInte, tbProveedoresDeclaracion itemProv, tbIntermediarios itemInte)
+        //{
+        //    var result = new ServiceResult();
+        //    try
+        //    {
+        //        var respuesta = _declaraciones_ValorRepository.UpdateTab2(item, declProv, declInte, itemProv, itemInte);
+        //        if (respuesta.MessageStatus == "1")
+        //        {
+        //            return result.Ok(respuesta);
+        //        }
+        //        else
+        //        {
+        //            return result.Error(respuesta);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return result.Error(ex.Message);
+        //    }
+        //}
 
-        public ServiceResult ActualizarDeclaraciones_ValorTab3(tbDeclaraciones_Valor item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var respuesta = _declaraciones_ValorRepository.UpdateTab3(item);
-                if (respuesta.MessageStatus == "1")
-                {
-                    return result.Ok(respuesta);
-                }
-                else
-                {
-                    return result.Error(respuesta);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
+        //public ServiceResult ActualizarDeclaraciones_ValorTab3(tbDeclaraciones_Valor item)
+        //{
+        //    var result = new ServiceResult();
+        //    try
+        //    {
+        //        var respuesta = _declaraciones_ValorRepository.UpdateTab3(item);
+        //        if (respuesta.MessageStatus == "1")
+        //        {
+        //            return result.Ok(respuesta);
+        //        }
+        //        else
+        //        {
+        //            return result.Error(respuesta);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return result.Error(ex.Message);
+        //    }
+        //}
 
         public ServiceResult EliminarDeclaraciones_Valor(tbDeclaraciones_Valor item)
         {

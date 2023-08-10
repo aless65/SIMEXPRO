@@ -95,36 +95,36 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
 
         }
 
-        [HttpPost("EditarTab2")]
-        public IActionResult UpdateTab2(Declaraciones_ValorControllerViewModel item)
-        {
-            var itemMap = _mapper.Map<tbDeclaraciones_Valor>(item.Declaraciones_ValorViewModel);
-            var declProvMap = _mapper.Map<tbDeclarantes>(item.DeclarantesProv_ViewModel);
-            var declInteMap = _mapper.Map<tbDeclarantes>(item.DeclarantesInte_ViewModel);
-            var itemProvMap = _mapper.Map<tbProveedoresDeclaracion>(item.ProveedoresDeclaracionViewModel);
-            var itemInteMap = _mapper.Map<tbIntermediarios>(item.IntermediarioViewModel);
+        //[HttpPost("EditarTab2")]
+        //public IActionResult UpdateTab2(Declaraciones_ValorControllerViewModel item)
+        //{
+        //    var itemMap = _mapper.Map<tbDeclaraciones_Valor>(item.Declaraciones_ValorViewModel);
+        //    var declProvMap = _mapper.Map<tbDeclarantes>(item.DeclarantesProv_ViewModel);
+        //    var declInteMap = _mapper.Map<tbDeclarantes>(item.DeclarantesInte_ViewModel);
+        //    var itemProvMap = _mapper.Map<tbProveedoresDeclaracion>(item.ProveedoresDeclaracionViewModel);
+        //    var itemInteMap = _mapper.Map<tbIntermediarios>(item.IntermediarioViewModel);
 
-            var result = _aduanaServices.ActualizarDeclaraciones_ValorTab2(itemMap, declProvMap, declInteMap, itemProvMap, itemInteMap);
+        //    var result = _aduanaServices.ActualizarDeclaraciones_ValorTab2(itemMap, declProvMap, declInteMap, itemProvMap, itemInteMap);
 
-            if (result.Code == 200)
-                return Ok(result);
-            else
-                return BadRequest(result);
+        //    if (result.Code == 200)
+        //        return Ok(result);
+        //    else
+        //        return BadRequest(result);
 
-        }
+        //}
 
-        [HttpPost("EditarTab3")]
-        public IActionResult UpdateTab3(Declaraciones_ValorViewModel item)
-        {
-            var itemMap = _mapper.Map<tbDeclaraciones_Valor>(item);
+        //[HttpPost("EditarTab3")]
+        //public IActionResult UpdateTab3(Declaraciones_ValorViewModel item)
+        //{
+        //    var itemMap = _mapper.Map<tbDeclaraciones_Valor>(item);
 
-            var result = _aduanaServices.ActualizarDeclaraciones_ValorTab3(itemMap);
+        //    var result = _aduanaServices.ActualizarDeclaraciones_ValorTab3(itemMap);
 
-            if (result.Code == 200)
-                return Ok(result);
-            else
-                return BadRequest(result);
+        //    if (result.Code == 200)
+        //        return Ok(result);
+        //    else
+        //        return BadRequest(result);
 
-        }
+        //}
     }
 }

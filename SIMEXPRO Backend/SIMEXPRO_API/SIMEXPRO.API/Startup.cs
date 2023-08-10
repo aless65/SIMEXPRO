@@ -61,8 +61,8 @@ namespace SIMEXPRO.API
                         .AddEnvironmentVariables();
 
             var configuration = configBuilder.Build();
-            services.AddSingleton(configuration);
 
+            services.AddSingleton(configuration);
 
             services.DataAccess(Configuration.GetConnectionString("ConexionSimexpro"));
             services.BussinessLogic();

@@ -78,7 +78,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parameters.Add("@duca_DomicilioFiscal_Declarante", item.duca_DomicilioFiscal_Declarante, DbType.String, ParameterDirection.Input);
             parameters.Add("@duca_Codigo_Transportista", item.duca_Codigo_Transportista, DbType.String, ParameterDirection.Input);
             parameters.Add("@duca_Transportista_Nombre", item.duca_Transportista_Nombre, DbType.String, ParameterDirection.Input);
-            parameters.Add("@motr_Id", item.motr_id, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@motr_Id", item.motr_Id, DbType.Int32, ParameterDirection.Input);
 
             parameters.Add("@cont_Licencia", item.cont_Licencia, DbType.String, ParameterDirection.Input);
             parameters.Add("@pais_IdExpedicion", item.pais_IdExpedicion, DbType.Int32, ParameterDirection.Input);
@@ -193,7 +193,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parameters.Add("@duca_DomicilioFiscal_Declarante", item.duca_DomicilioFiscal_Declarante, DbType.String, ParameterDirection.Input);
             parameters.Add("@duca_Codigo_Transportista", item.duca_Codigo_Transportista, DbType.String, ParameterDirection.Input);
             parameters.Add("@duca_Transportista_Nombre", item.duca_Transportista_Nombre, DbType.String, ParameterDirection.Input);
-            parameters.Add("@motr_Id", item.motr_id, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@motr_Id", item.motr_Id, DbType.Int32, ParameterDirection.Input);
 
             parameters.Add("@cont_Licencia", item.cont_Licencia, DbType.String, ParameterDirection.Input);
             parameters.Add("@pais_IdExpedicion", item.pais_IdExpedicion, DbType.Int32, ParameterDirection.Input);

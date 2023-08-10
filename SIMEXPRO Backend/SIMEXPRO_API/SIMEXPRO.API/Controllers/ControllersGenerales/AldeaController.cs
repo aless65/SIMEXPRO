@@ -59,13 +59,16 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         //}
 
 
-        [HttpPost("FiltrarPorCiudades")]
-        public IActionResult AldeasPorCiudades(AldeasViewModel aldeasViewModel)
+
+        [HttpGet("FiltrarPorCiudades")]
+        public IActionResult AldeasPorCiudades(int alde_Id)
         {
-            var item = _mapper.Map<tbAldeas>(aldeasViewModel);
-            var respuesta = _generalesServices.AldeasPorCiudades(item);
-            return Ok(respuesta);
+            var listado = _generalesServices.AldeasPorCiudades(alde_Id);
+            listado.Data = _mapper.Map<IEnumerable<tbAldeas>>(listado.Data);
+            return Ok(listado);
         }
+
+
 
     }
 }

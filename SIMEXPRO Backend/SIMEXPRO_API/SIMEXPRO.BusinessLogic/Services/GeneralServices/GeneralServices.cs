@@ -77,13 +77,14 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
                 return resultado.Error(ex.Message);
             }
         }
-        public ServiceResult AldeasPorCiudades(tbAldeas item)
+
+        public ServiceResult AldeasPorCiudades(int Id)
         {
             var resultado = new ServiceResult();
 
             try
             {
-                var list = _aldeasRepository.AldeasPorCiudades(item);
+                var list = _aldeasRepository.AldeasPorCiudades(Id);
                 return resultado.Ok(list);
             }
             catch (Exception ex)
@@ -91,7 +92,6 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
                 return resultado.Error(ex.Message);
             }
         }
-
         public ServiceResult InsertarAldeas(tbAldeas item)
         {
             var result = new ServiceResult();
@@ -230,20 +230,22 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
                 return result.Error(ex.Message);
             }
         }
-        public ServiceResult CiudadesPorProvincia(tbCiudades item)
+
+
+        public ServiceResult CiudadesPorProvincia(int Id)
         {
-            var result = new ServiceResult();
+            var resultado = new ServiceResult();
+
             try
             {
-                var list = _ciudadesRepository.CiudadesPorProvincia(item);
-                return result.Ok(list);
+                var list = _ciudadesRepository.CiudadesPorProvincia(Id);
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
-                return result.Error(ex.Message);
+                return resultado.Error(ex.Message);
             }
         }
-
 
         public ServiceResult InsertarCiudades(tbCiudades item)
         {
@@ -304,20 +306,21 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
                 return result.Error(ex.Message);
             }
         }
-        public ServiceResult ColoniasPorCiudades(tbColonias item)
+
+        public ServiceResult ColoniasPorCiudades(int Id)
         {
-            var result = new ServiceResult();
+            var resultado = new ServiceResult();
+
             try
             {
-                var list = _coloniasRepository.ColoniasPorCiudades(item);
-                return result.Ok(list);
+                var list = _coloniasRepository.ColoniasPorCiudades(Id);
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
-                return result.Error(ex.Message);
+                return resultado.Error(ex.Message);
             }
         }
-
 
         public ServiceResult InsertarColonias(tbColonias item)
         {

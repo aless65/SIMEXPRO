@@ -10,34 +10,34 @@
 --***** INSERT TABLA TIPO DE LIQUIDACION --******--
 GO
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
-VALUES ('Importaci�n Regular', 1, '10-16-2004');
+VALUES ('Importación Regular', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
-VALUES ('Exportaci�n Definitiva', 1, '10-16-2004');
+VALUES ('Exportación Definitiva', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
-VALUES ('Importaci�n Temporal', 1, '10-16-2004');
+VALUES ('Importación Temporal', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
-VALUES ('Importaci�n para Reexportaci�n en el Mismo Estado', 1, '10-16-2004');
+VALUES ('Importación para Reexportaci�n en el Mismo Estado', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
-VALUES ('Exportaci�n Temporal', 1, '10-16-2004');
+VALUES ('Exportación�n Temporal', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
-VALUES ('Admisi�n Temporal para Perfeccionamiento Activo', 1, '10-16-2004');
+VALUES ('Admisión Temporal para Perfeccionamiento Activo', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
-VALUES ('Tr�nsito Aduanero', 1, '10-16-2004');
+VALUES ('Tránsito Aduanero', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
-VALUES ('Tr�nsito Aduanero Internacional', 1, '10-16-2004');
+VALUES ('Tránsito Aduanero Internacional', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
-VALUES ('Dep�sito Aduanero', 1, '10-16-2004');
+VALUES ('Depósito Aduanero', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
-VALUES ('Admisi�n Temporal para Reexportaci�n en el Mismo Estado', 1, '10-16-2004');
+VALUES ('Admisión Temporal para Reexportación en el Mismo Estado', 1, '10-16-2004');
 
 
 
@@ -45,10 +45,10 @@ VALUES ('Admisi�n Temporal para Reexportaci�n en el Mismo Estado', 1, '10-16
 --***** INSERT TABLA TIPOS DE IDENTIFICACION --******--
 GO
 INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCreacion], [iden_FechaCreacion])
-VALUES ('C�dula de Ciudadan�a', 1, '10-16-2004');
+VALUES ('Cédula de Ciudadanía', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCreacion], [iden_FechaCreacion])
-VALUES ('C�dula de Extranjer�a', 1, '10-16-2004');
+VALUES ('Cédula de Extranjera', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCreacion], [iden_FechaCreacion])
 VALUES ('Pasaporte', 1, '10-16-2004');
@@ -60,10 +60,10 @@ INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCre
 VALUES ('Registro Civil', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCreacion], [iden_FechaCreacion])
-VALUES ('NIT (N�mero de Identificaci�n Tributaria)', 1, '10-16-2004');
+VALUES ('NIT (N�mero de Identificación Tributaria)', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCreacion], [iden_FechaCreacion])
-VALUES ('RUT (Registro �nico Tributario)', 1, '10-16-2004');
+VALUES ('RUT (Registro Único Tributario)', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCreacion], [iden_FechaCreacion])
 VALUES ('PAS (Permiso de Apartado Postal)', 1, '10-16-2004');
@@ -72,7 +72,7 @@ INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCre
 VALUES ('PEP (Persona Expuesta Pol�ticamente)', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCreacion], [iden_FechaCreacion])
-VALUES ('Carn� Diplom�tico', 1, '10-16-2004');
+VALUES ('Carné Diplomático', 1, '10-16-2004');
 
 
 
@@ -109,7 +109,7 @@ VALUES	(1, 'CH1234', 1, 'REM5678', 5000, 1234, 'GPS Tracker',				'Carga General'
 	    (2, 'CH5678', 2, 'REM9012', 7000, 5678, 'Rastreo Satelital',		'Carga Peligrosa',			'CNT5432', 1, '10-16-2004'),
 		(3, 'CH9012', 3, 'REM3456', 6000, 9012, 'Bloques de Refrigeraci�n', 'Carga Perecedera',			'CNT7654', 1, '10-16-2004'),
 	    (4, 'CH3456', 1, 'REM7890', 8000, 3456, 'Contenedor Refrigerado',	'Carga A granel',			'CNT1234', 1, '10-16-2004'),
-	    (5, 'CH6789', 2, 'REM2345', 9000, 6789, 'Contenedor Cisterna',		'Carga L�quida',			'CNT5678', 1, '10-16-2004'),
+	    (5, 'CH6789', 2, 'REM2345', 9000, 6789, 'Contenedor Cisterna',		'Carga Líquida',			'CNT5678', 1, '10-16-2004'),
 	    (1, 'CH9010', 3, 'REM6543', 7500, 9010, 'Plataforma',				'Carga Sobredimensionada',	'CNT4567', 1, '10-16-2004'),
 	    (2, 'CH6543', 1, 'REM8901', 5500, 6543, 'Racks de Carga',			'Carga Paletizada',			'CNT8765', 1, '10-16-2004'),
 	    (3, 'CH2345', 2, 'REM6789', 6500, 2345, 'Toldos Protector',			'Carga Liviana',			'CNT3456', 1, '10-16-2004'),
@@ -148,14 +148,14 @@ VALUES	('DF','DUCA-F',1,GETDATE()),
 --***** INSERT TABLA DECLARANTES --******--
 GO
 INSERT INTO Adua.tbDeclarantes (decl_Nombre_Raso, decl_Direccion_Exacta, ciud_Id, decl_Correo_Electronico, decl_Telefono, decl_Fax, usua_UsuarioCreacion, decl_FechaCreacion)
-VALUES	('ABC Ingenier�a y Construcci�n S.A.'		,'Calle de la Ingenier�a 123, San Pedro Sula, Cortes'	,1,'info@abc-ingenieria.com'					,'1234-5678',null,1,GETDATE()),
-		('MegaCorp Tecnolog�as Inc.'				,'Avenida Tecnol�gica 456, San Pedro Sula, Cortes'		,1,'contacto@megacorp-tech.com'					,'9876-5432',null,1,GETDATE()),
-		('Flores y C�a. Florister�a S.L.'			,'Plaza de las Flores 789, San Pedro Sula, Cortes'		,1,'ventas@floresycia-floristeria.com'			,'2468-1357',null,1,GETDATE()),
+VALUES	('ABC Ingeniería y Construcci�n S.A.'		,'Calle de la Ingeniería 123, San Pedro Sula, Cortes'	,1,'info@abc-ingenieria.com'					,'1234-5678',null,1,GETDATE()),
+		('MegaCorp Tecnolog�as Inc.'				,'Avenida Tecnológica 456, San Pedro Sula, Cortes'		,1,'contacto@megacorp-tech.com'					,'9876-5432',null,1,GETDATE()),
+		('Flores y Cía. Floristería S.L.'			,'Plaza de las Flores 789, San Pedro Sula, Cortes'		,1,'ventas@floresycia-floristeria.com'			,'2468-1357',null,1,GETDATE()),
 		('Viajes Aventura Explora Ltda.'			,'Camino de la Aventura 321, San Pedro Sula, Cortes'	,1,'reservas@viajesaventuraexplora.com'			,'8642-7913',null,1,GETDATE()),
-		('Delicias Reposter�a Fina S.A. de C.V.'	,'Calle de los Sabores 654, San Pedro Sula, Cortes'		,1,'pedidos@deliciasreposteriafina.com'			,'5793-2816',null,1,GETDATE()),
+		('Delicias Repostería Fina S.A. de C.V.'	,'Calle de los Sabores 654, San Pedro Sula, Cortes'		,1,'pedidos@deliciasreposteriafina.com'			,'5793-2816',null,1,GETDATE()),
 		('Moda Urbana Boutique S.A.S.'				,'Calle de la Moda 987, San Pedro Sula, Cortes'			,1,'consultas@modaurbanaboutique.com'			,'3857-9146',null,1,GETDATE()),
-		('GreenEco Energ�as Renovables S.A.'		,'Avenida Sostenible 789, San Pedro Sula, Cortes'		,1,'soporte@greeneco-energiasrenovables.com'	,'6481-7392',null,1,GETDATE()),
-		('SaludTotal Cl�nica M�dica Ltda.'			,'Calle de la Salud 543, San Pedro Sula, Cortes'		,1,'citas@saludtotalclinica.com'				,'3194-6257',null,1,GETDATE()),
+		('GreenEco Energías Renovables S.A.'		,'Avenida Sostenible 789, San Pedro Sula, Cortes'		,1,'soporte@greeneco-energiasrenovables.com'	,'6481-7392',null,1,GETDATE()),
+		('SaludTotal Clínica Médica Ltda.'			,'Calle de la Salud 543, San Pedro Sula, Cortes'		,1,'citas@saludtotalclinica.com'				,'3194-6257',null,1,GETDATE()),
 		('InterGlobal Consultores Asociados S.C.'	,'Plaza Internacional 345, San Pedro Sula, Cortes'		,1,'contacto@interglobalconsultores.com'		,'3396-2352',null,1,GETDATE()),
 		('FastDelivery Log�stica Express S.R.L. '	,'Avenida R�pida 567, San Pedro Sula, Cortes'			,1,'info@fastdelivery-logisticaexpress.com'		,'6464-8164',null,1,GETDATE());
 

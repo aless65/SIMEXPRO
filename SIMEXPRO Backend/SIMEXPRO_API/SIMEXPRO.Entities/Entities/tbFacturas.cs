@@ -15,6 +15,7 @@ namespace SIMEXPRO.Entities.Entities
 
         public int fact_Id { get; set; }
         public int deva_Id { get; set; }
+        public string fact_Numero { get; set; }
         public DateTime fact_Fecha { get; set; }
         public int usua_UsuarioCreacion { get; set; }
         public DateTime fact_FechaCreacion { get; set; }

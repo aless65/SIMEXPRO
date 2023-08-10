@@ -456,9 +456,11 @@ BEGIN
 
 END
 GO
+
 /* Insertar Roles*/
 CREATE OR ALTER PROCEDURE Acce.UDP_tbRoles_Insertar 
 	@role_Descripcion			NVARCHAR(500),
+	@role_Aduana				BIT,
 	@pant_Ids					NVARCHAR(MAX),
 	@usua_UsuarioCreacion		INT,
 	@role_FechaCreacion			DATETIME
@@ -467,9 +469,11 @@ BEGIN
 	BEGIN TRANSACTION
 	BEGIN TRY
 				INSERT INTO Acce.tbRoles(role_Descripcion, 
+										 role_Aduana,
 										 usua_UsuarioCreacion, 
 										 role_FechaCreacion)
 				VALUES (@role_Descripcion,
+						@role_Aduana,
 					    @usua_UsuarioCreacion,
 						@role_FechaCreacion);
 
@@ -496,7 +500,6 @@ BEGIN
 		 SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
-
 GO
 
 /* Editar Roles*/
@@ -1150,14 +1153,14 @@ BEGIN
 	       ,mone.usua_UsuarioModificacion		
 	       ,usuaModifica.usua_Nombre			AS usuarioModificacionNombre
 	       ,mone_FechaModificacion				
-	       ,mone.usua_UsuarioEliminacion		
-	       ,usuaElimina.usua_Nombre				AS usuarioEliminacionNombre
-	       ,mone_FechaEliminacion				
+	       --,mone.usua_UsuarioEliminacion		
+	       --,usuaElimina.usua_Nombre				AS usuarioEliminacionNombre
+	       --,mone_FechaEliminacion				
 	       ,mone_Estado							
    FROM Gral.tbMonedas mone 
    INNER JOIN Acce.tbUsuarios usuaCrea		ON mone.usua_UsuarioCreacion = usuaCrea.usua_Id 
    LEFT JOIN Acce.tbUsuarios usuaModifica   ON mone.usua_UsuarioModificacion = usuaCrea.usua_Id 
-   LEFT JOIN Acce.tbUsuarios usuaElimina	ON mone.usua_UsuarioEliminacion = usuaCrea.usua_Id
+   --LEFT JOIN Acce.tbUsuarios usuaElimina	ON mone.usua_UsuarioEliminacion = usuaCrea.usua_Id
    WHERE mone_Estado = 1
 END
 GO
@@ -5639,7 +5642,8 @@ END
 
 GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbFacturas_Insertar
-	@deva_Id					INT, 
+	@deva_Id					INT,
+	@fact_Numero				NVARCHAR(4000),
 	@fact_Fecha					DATE, 
 	@usua_UsuarioCreacion		INT, 
 	@fact_FechaCreacion			DATETIME
@@ -5647,11 +5651,13 @@ AS
 BEGIN
 	BEGIN TRANSACTION
 	BEGIN TRY
-		INSERT INTO Adua.tbFacturas(deva_Id, 
+		INSERT INTO [Adua].[tbFacturas](deva_Id, 
+										fact_Numero,
 										fact_Fecha, 
 										usua_UsuarioCreacion, 
 										fact_FechaCreacion)
 		VALUES(@deva_Id, 
+			   @fact_Numero,
 			   @fact_Fecha, 
 			   @usua_UsuarioCreacion, 
 			   @fact_FechaCreacion)
@@ -5659,18 +5665,65 @@ BEGIN
 		SELECT SCOPE_IDENTITY()
 
 
-		INSERT INTO Adua.tbFacturasHistorial(fact_Id, 
+		INSERT INTO [Adua].[tbFacturasHistorial](fact_Id, 
+												 fact_Numero,
 												 deva_Id, 
 												 fect_Fecha, 
 												 hfact_UsuarioAccion, 
 												 hfact_FechaAccion, 
 												 hfact_Accion)
 		VALUES (SCOPE_IDENTITY(),
+				@fact_Numero,
 				@deva_Id, 
 			    @fact_Fecha, 
 			    @usua_UsuarioCreacion, 
 			    @fact_FechaCreacion,
 				'Insertar')
+
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+		ROLLBACK TRAN
+	END CATCH 
+END
+GO
+
+CREATE OR ALTER PROCEDURE Adua.UDP_tbFacturas_Editar
+	@fact_Id					INT, 
+	@fact_Numero				NVARCHAR(4000),
+	@deva_Id					INT,
+	@fact_Fecha					DATE, 
+	@usua_UsuarioCreacion		INT, 
+	@fact_FechaCreacion			DATETIME
+AS
+BEGIN
+	BEGIN TRANSACTION
+	BEGIN TRY
+
+		UPDATE [Adua].[tbFacturas]
+		SET   deva_Id = @deva_Id, 
+		      fact_Numero = @fact_Numero,
+			  fact_Fecha = @fact_Fecha, 
+			  usua_UsuarioCreacion = @usua_UsuarioCreacion, 
+			  fact_FechaCreacion = @fact_FechaCreacion
+		WHERE fact_Id = @fact_Id
+
+
+		INSERT INTO [Adua].[tbFacturasHistorial](fact_Id, 
+												 fact_Numero,
+												 deva_Id, 
+												 fect_Fecha, 
+												 hfact_UsuarioAccion, 
+												 hfact_FechaAccion, 
+												 hfact_Accion)
+		VALUES (@fact_Id,
+				@fact_Numero,
+				@deva_Id, 
+			    @fact_Fecha, 
+			    @usua_UsuarioCreacion, 
+			    @fact_FechaCreacion,
+				'Editar')
 
 		COMMIT TRAN
 	END TRY

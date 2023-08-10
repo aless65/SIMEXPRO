@@ -57,11 +57,13 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             var parametros = new DynamicParameters();
             return db.Query<tbAldeas>(ScriptsDataBase.ListarAldeas, null, commandType: CommandType.StoredProcedure);
         }
-        public IEnumerable<tbAldeas> AldeasPorCiudades(tbAldeas item)
+       
+        
+        public IEnumerable<tbAldeas> AldeasPorCiudades(int id)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();
-            parametros.Add("@ciud_Id", item.ciud_Id, DbType.String, ParameterDirection.Input);
+            parametros.Add("@ciud_Id", id, DbType.String, ParameterDirection.Input);
             return db.Query<tbAldeas>(ScriptsDataBase.AldeasPorCiudad, parametros, commandType: CommandType.StoredProcedure);
         }
 

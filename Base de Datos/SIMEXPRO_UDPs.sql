@@ -1138,10 +1138,10 @@ GO
 --**********MONEDAS**********--
 
 /*Listar monedas*/
-CREATE OR ALTER PROCEDURE gral.UDP_tbMonedas_Listar
+ALTER   PROCEDURE [Gral].[UDP_tbMonedas_Listar]
 AS
 BEGIN
-	SELECT mone_Id								
+	SELECT  mone_Id								
 	       ,mone_Codigo							
 	       ,mone_Descripcion					
 	       ,mone.usua_UsuarioCreacion			
@@ -1150,14 +1150,14 @@ BEGIN
 	       ,mone.usua_UsuarioModificacion		
 	       ,usuaModifica.usua_Nombre			AS usuarioModificacionNombre
 	       ,mone_FechaModificacion				
-	       ,mone.usua_UsuarioEliminacion		
-	       ,usuaElimina.usua_Nombre				AS usuarioEliminacionNombre
-	       ,mone_FechaEliminacion				
+	       --,mone.usua_UsuarioEliminacion		
+	       --,usuaElimina.usua_Nombre				AS usuarioEliminacionNombre
+	       --,mone_FechaEliminacion				
 	       ,mone_Estado							
    FROM Gral.tbMonedas mone 
    INNER JOIN Acce.tbUsuarios usuaCrea		ON mone.usua_UsuarioCreacion = usuaCrea.usua_Id 
-   LEFT JOIN Acce.tbUsuarios usuaModifica   ON mone.usua_UsuarioModificacion = usuaCrea.usua_Id 
-   LEFT JOIN Acce.tbUsuarios usuaElimina	ON mone.usua_UsuarioEliminacion = usuaCrea.usua_Id
+   LEFT JOIN Acce.tbUsuarios usuaModifica   ON mone.usua_UsuarioModificacion = usuaModifica.usua_Id 
+   --LEFT JOIN Acce.tbUsuarios usuaElimina	ON mone.usua_UsuarioEliminacion = usuaCrea.usua_Id
    WHERE mone_Estado = 1
 END
 GO
@@ -1821,6 +1821,7 @@ CREATE OR ALTER PROCEDURE Gral.UDP_tbFormas_Envio_Listar
 AS
 BEGIN
 SELECT	foen_Id											,
+        foen_Codigo                                     ,
 		foen_Descripcion								,
 		formasEnvio.usua_UsuarioCreacion				,
 		usuarioCreacion.usua_Nombre						AS usuarioCreacionNombre,

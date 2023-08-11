@@ -1165,7 +1165,7 @@ BEGIN
    FROM Gral.tbMonedas mone 
    INNER JOIN Acce.tbUsuarios usuaCrea		ON mone.usua_UsuarioCreacion = usuaCrea.usua_Id 
    LEFT JOIN Acce.tbUsuarios usuaModifica   ON mone.usua_UsuarioModificacion = usuaModifica.usua_Id 
-   LEFT JOIN Acce.tbUsuarios usuaModifica   ON mone.usua_UsuarioModificacion = usuaCrea.usua_Id 
+   --LEFT JOIN Acce.tbUsuarios usuaModifica   ON mone.usua_UsuarioModificacion = usuaCrea.usua_Id 
    --LEFT JOIN Acce.tbUsuarios usuaElimina	ON mone.usua_UsuarioEliminacion = usuaCrea.usua_Id
    WHERE mone_Estado = 1
 END
@@ -4219,7 +4219,7 @@ BEGIN
 			deva.usua_UsuarioCreacion, 
 			usuaCrea.usua_Nombre				AS usua_CreacionNombre,
 			deva_FechaCreacion, 
-			deva.usua_UsuarioModificacion, 
+			deva.usua_UsuarioModificacion		AS usua_ModificacionNombre,
 			deva_FechaModificacion, 
 			deva_Estado 
 	FROM	Adua.tbDeclaraciones_Valor deva 
@@ -4236,6 +4236,7 @@ BEGIN
 			LEFT JOIN Adua.tbIncoterm inco					ON deva.inco_Id = inco.inco_Id
 			LEFT JOIN Gral.tbFormas_Envio foen				ON deva.foen_Id = foen.foen_Id 
 			LEFT JOIN Acce.tbUsuarios usuaCrea				ON deva.usua_UsuarioCreacion = usuaCrea.usua_Id
+			LEFT JOIN Acce.tbUsuarios usuaModifica			ON deva.usua_UsuarioModificacion = usuaModifica.usua_Id
 	
 END
 GO
@@ -11719,43 +11720,39 @@ GO
 CREATE OR ALTER PROC [Prod].[UDP_tbPedidosProduccion_Listar]
 AS BEGIN
 
-SELECT
-   [ppro_Id], 
-   tbpp.[empl_Id], 
-   CONCAT(empl_Nombres, ' ', empl_Apellidos) AS empl_NombreCompleto,
-   [ppro_Fecha], 
-   [ppro_Estados], 
-   [ppro_Observaciones], 
-   tbpp.[usua_UsuarioCreacion], 
-   usuCrea.usua_Nombre AS UsuarioCreacion,
-   [ppro_FechaCreacion], 
-   tbpp.[usua_UsuarioModificacion], 
-   usuModi.usua_Nombre AS UsuarioModificacion,
-   [ppro_FechaModificacion], 
-   [ppro_Estado],
-   (SELECT [ppde_Id], 
-		   [ppro_Id], 
-		   tbppd.[lote_Id], 
-		   tbmats.mate_Descripcion,
-		   [ppde_Cantidad]
-   FROM [Prod].[tbPedidosProduccionDetalles] tbppd 
-   INNER JOIN [Prod].[tbLotes] tblot
-   ON tblot.lote_Id = tbppd.lote_Id
-   INNER JOIN [Prod].[tbMateriales] tbmats
-   ON tblot.mate_Id = tbmats.mate_Id
-   WHERE tbppd.ppro_Id = tbpp.ppro_Id 
+SELECT ppro_Id,
+	   pediproduccion.empl_Id,
+	   CONCAT(empl_Nombres, ' ', empl_Apellidos) AS empl_NombreCompleto,
+	   ppro_Fecha,
+	   ppro_Estados, 
+	   ppro_Observaciones, 
+	   Creacion.usua_Nombre AS usuCreacion,
+	   pediproduccion.usua_UsuarioCreacion,
+	   ppro_FechaCreacion,
+	   Modificacion.usua_Nombre AS usuModificacion,
+	   pediproduccion.usua_UsuarioModificacion, 
+	   ppro_FechaModificacion,
+	   ppro_Estado,
+	   	   (SELECT  ppde_Id,
+					tbdetalles.lote_Id,
+					ppde_Cantidad,
+					mate_Descripcion
+				   
+		   FROM Prod.tbPedidosProduccionDetalles tbdetalles
+		   INNER JOIN Prod.tbLotes tblotes
+		   ON tbdetalles.lote_Id = tblotes.lote_Id
+		   INNER JOIN Prod.tbMateriales tbmats
+		   ON tblotes.mate_Id = tbmats.mate_Id
+		   WHERE pediproduccion.ppro_Id = tbdetalles.ppro_Id
    FOR JSON PATH) 
    AS Detalles
-
-FROM [Prod].[tbPedidosProduccion] tbpp
-LEFT JOIN Acce.tbUsuarios usuModi
-ON tbpp.usua_UsuarioModificacion = usuModi.usua_Id
-INNER JOIN Acce.tbUsuarios usuCrea
-ON tbpp.[usua_UsuarioCreacion] = usuCrea.usua_Id
-LEFT JOIN [Gral].[tbEmpleados] tbempls
-ON tbpp.empl_Id = tbempls.empl_Id
-
-
+FROM Prod.tbPedidosProduccion pediproduccion
+INNER JOIN Gral.tbEmpleados emples
+ON pediproduccion.empl_Id = emples.empl_Id
+INNER JOIN Acce.tbUsuarios Creacion
+ON pediproduccion.usua_UsuarioCreacion = Creacion.usua_Id
+LEFT JOIN Acce.tbUsuarios Modificacion
+ON pediproduccion.usua_UsuarioModificacion = Modificacion.usua_Id
 
 END
 GO

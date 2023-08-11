@@ -59,6 +59,11 @@ namespace SIMEXPRO.Entities.Entities
         [NotMapped]
         public DateTime? deva_FechaEliminacion { get; set; }
 
+        [NotMapped]
+        public string usua_CreacionNombre { get; set; }
+        [NotMapped]
+        public string? usua_ModificacionNombre { get; set; }
+
         public virtual tbAduanas deva_AduanaDespacho { get; set; }
         public virtual tbAduanas deva_AduanaIngreso { get; set; }
         public virtual tbLugaresEmbarque emba { get; set; }

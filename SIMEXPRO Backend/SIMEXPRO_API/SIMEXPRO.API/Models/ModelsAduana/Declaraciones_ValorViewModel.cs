@@ -44,5 +44,9 @@ namespace SIMEXPRO.API.Models.ModelsAduana
         public int? usua_UsuarioEliminacion { get; set; }
         [NotMapped]
         public DateTime? deva_FechaEliminacion { get; set; }
+        [NotMapped]
+        public string usua_CreacionNombre { get; set; }
+        [NotMapped]
+        public string? usua_ModificacionNombre { get; set; }
     }
 }

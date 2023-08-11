@@ -58,7 +58,92 @@ VALUES	('Juan Perez',		'contrasenia123',	1, 'imagen_juan.jpg',	1,	0, 1,'10-16-20
 
 
 
+/*------------------------------------*/
+--***** INSERT TABLA PANTALLAS --******--
+GO
+INSERT INTO Acce.tbPantallas(pant_Nombre, pant_URL, pant_Icono, usua_UsuarioCreacion, pant_FechaCreacion)
+VALUES
+        ('Generales.monedas', 'Monedas/Index', '', 1, GETDATE()),
+        ('Personas.oficinas', 'Oficinas/Index', '', 1, GETDATE()),
+        ('Personas.oficios_profesiones', 'OficiosProfesiones/Index', '', 1, GETDATE()),
+        ('Ubicaciones.paises', 'Paises/Index', '', 1, GETDATE()),
+        ('Ubicaciones.provincias', 'Provincias/Index', '', 1, GETDATE()),
+        ('Ubicaciones.ciudades', 'Ciudades/Index', '', 1, GETDATE()),
+        ('Ubicaciones.aldeas', 'Aldea/Index', '', 1, GETDATE()),
+        ('Ubicaciones.colonias', 'Colonias/Index', '', 1, GETDATE()),
+        ('Personas.cargos', 'Cargos/Index', '', 1, GETDATE())
 
+INSERT INTO acce.tbRolesXPantallas( [pant_Id], [role_Id], [usua_UsuarioCreacion], [ropa_FechaCreacion], [ropa_Estado])
+VALUES(1, 1,  1, '2023-08-11', 1),
+	  (2, 1,  1, '2023-08-11', 1),
+	  (3, 1,  1, '2023-08-11', 1),
+	  (4, 1,  1, '2023-08-11', 1),
+	  (1, 2,  1, '2023-08-11', 1),
+	  (2, 2,  1, '2023-08-11', 1),
+	  (3, 2,  1, '2023-08-11', 1),
+	  (4, 2,  1, '2023-08-11', 1),
+	  (1, 3,  1, '2023-08-11', 1),
+	  (2, 3,  1, '2023-08-11', 1),
+	  (3, 3,  1, '2023-08-11', 1),
+	  (4, 3,  1, '2023-08-11', 1),
+	  (1, 4,  1, '2023-08-11', 1),
+	  (2, 4,  1, '2023-08-11', 1),
+	  (3, 4,  1, '2023-08-11', 1),
+	  (4, 4,  1, '2023-08-11', 1),
+	  (1, 5,  1, '2023-08-11', 1),
+	  (2, 5,  1, '2023-08-11', 1),
+	  (3, 5,  1, '2023-08-11', 1),
+	  (4, 5,  1, '2023-08-11', 1),
+	  (1, 6,  1, '2023-08-11', 1),
+	  (2, 6,  1, '2023-08-11', 1),
+	  (3, 6,  1, '2023-08-11', 1),
+	  (4, 6,  1, '2023-08-11', 1),
+	  (1, 7,  1, '2023-08-11', 1),
+	  (2, 7,  1, '2023-08-11', 1),
+	  (3, 7,  1, '2023-08-11', 1),
+	  (4, 7,  1, '2023-08-11', 1),
+	  (1, 8,  1, '2023-08-11', 1),
+	  (2, 8,  1, '2023-08-11', 1),
+	  (3, 8,  1, '2023-08-11', 1),
+	  (4, 8,  1, '2023-08-11', 1),
+	  (1, 9,  1, '2023-08-11', 1),
+	  (2, 9,  1, '2023-08-11', 1),
+	  (3, 9,  1, '2023-08-11', 1),
+	  (4, 9,  1, '2023-08-11', 1),
+	  (5, 10, 1, '2023-08-11', 1),
+	  (6, 10, 1, '2023-08-11', 1),
+	  (7, 10, 1, '2023-08-11', 1),
+	  (5, 11, 1, '2023-08-11', 1),
+	  (6, 11, 1, '2023-08-11', 1),
+	  (7, 11, 1, '2023-08-11', 1),
+	  (5, 12, 1, '2023-08-11', 1),
+	  (6, 12, 1, '2023-08-11', 1),
+	  (7, 12, 1, '2023-08-11', 1),
+	  (5, 13, 1, '2023-08-11', 1),
+	  (6, 13, 1, '2023-08-11', 1),
+	  (7, 13, 1, '2023-08-11', 1),
+	  (5, 15, 1, '2023-08-11', 1),
+	  (6, 15, 1, '2023-08-11', 1),
+	  (7, 15, 1, '2023-08-11', 1),
+	  (5, 16, 1, '2023-08-11', 1),
+	  (6, 16, 1, '2023-08-11', 1),
+	  (7, 16, 1, '2023-08-11', 1),
+	  (5, 17, 1, '2023-08-11', 1),
+	  (6, 17, 1, '2023-08-11', 1),
+	  (7, 17, 1, '2023-08-11', 1),
+	  (5, 18, 1, '2023-08-11', 1),
+	  (6, 18, 1, '2023-08-11', 1),
+	  (7, 18, 1, '2023-08-11', 1),
+	  (5, 19, 1, '2023-08-11', 1),
+	  (6, 19, 1, '2023-08-11', 1),
+	  (7, 19, 1, '2023-08-11', 1),
+	  (5, 20, 1, '2023-08-11', 1),
+	  (6, 20, 1, '2023-08-11', 1),
+	  (7, 20, 1, '2023-08-11', 1),
+	  (1, 12, 1, '2023-08-11', 1),
+	  (2, 12, 1, '2023-08-11', 1),
+	  (3, 12, 1, '2023-08-11', 1),
+	  (4, 12, 1, '2023-08-11', 1);
 
 --------------------------------------------------------------------
 -- *************************** GENERALES *************************--
@@ -1142,6 +1227,18 @@ GO
 INSERT INTO [Gral].[tbEmpleados](empl_Nombres, empl_Apellidos, empl_DNI, escv_Id, empl_Sexo, empl_FechaNacimiento, empl_Telefono, empl_DireccionExacta, pvin_Id, empl_CorreoElectronico, carg_Id, empl_EsAduana, usua_UsuarioCreacion, empl_FechaCreacion)
 values('Mario Antoni','Lopez Suazo','0311-2005-00908',1,'M','05-10-2022','97856222','col. el Amatillo casa #5',1,'mario@gmail.com',1,1,1,'05-06-2000');
 
+GO
+INSERT INTO Gral.tbEmpleados (empl_Nombres, empl_Apellidos, empl_DNI, escv_Id, empl_Sexo, empl_FechaNacimiento, empl_Telefono, empl_DireccionExacta, pvin_Id, empl_CorreoElectronico, carg_Id, empl_EsAduana, usua_UsuarioCreacion, empl_FechaCreacion)
+VALUES ('Karla Melissa',		'Lopez Medina',		'0502-2000-01549',1,'F','10-16-2004','98041263','Calle principal', 65,'karlamedina12@gmail.com',1,1,1,GETDATE()),
+       ('Paulo Gustavo',		'Mejia Vides',		'0502-2000-96478',1,'M','10-16-2004','99011263','Calle principal', 66,'gustavomejia2@gmail.com',2,1,1,GETDATE()),
+	   ('Alex',					'Mendez',			'0502-1994-96478',1,'M','10-16-2004','33011263','1  Calle 2 Avenida', 66,'alexmendez43@gmail.com',2,1,1,GETDATE()),
+	   ('Jose Luis',			'Velazquez',		'0501-1996-96478',1,'M','10-16-2004','97894321','3  Calle 2 Avenida', 66,'joseluis3@gmail.com',1,1,1,GETDATE()),
+	   ('Luis',					'Molina',			'0501-2002-96478',1,'M','10-16-2004','32524321','3  Calle 2 Avenida', 67,'luismedina12@gmail.com',1,1,1,GETDATE()),
+	   ('Marcia Patricia',		'Hernandez Rauda',	'0501-7002-96478',1,'F','10-16-2004','33524321','3  Calle 3 Avenida', 68,'marciarauda@gmail.com',1,1,1,GETDATE()),
+	   ('Alonso',				'Medina',			'0501-2000-96478',1,'M','10-16-2004','32524321','3  Calle 3 Avenida', 69,'marciarauda@gmail.com',1,1,1,GETDATE()),
+	   ('Claudia Esmeralda',	'Portillo',			'0503-2000-96400',1,'F','10-16-2004','95524321','Calle principal', 69,'marciarauda@gmail.com',1,1,1,GETDATE()),
+	   ('Mauricio',				'Lopez',			'0503-2001-90400',1,'M','10-16-2004','90924321','Calle principal', 70,'mauriciolopez@gmail.com',1,1,1,GETDATE()),
+	   ('Maria Julia',			'Matute',			'0503-2001-90110',1,'F','10-16-2004','99924321','Calle principal', 70,'maria@gmail.com',1,1,1,GETDATE());
 
 
 /*-----------------------------------*/

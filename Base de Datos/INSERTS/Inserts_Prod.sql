@@ -351,3 +351,19 @@ VALUES (1,50,0,1,1,GETDATE()),
        (1,50,0,1,1,GETDATE()),
 	   (2,100,0,2,1,GETDATE()),
 	   (3,100,0,3,1,GETDATE());
+
+
+/*-------------------------------------------*/
+--******** INSERT TABLA PEDIDOS ORDEN *******--
+GO
+INSERT INTO [Prod].[tbPedidosOrden] (prov_Id, peor_No_Duca, peor_FechaEntrada, peor_Obsevaciones, peor_DadoCliente, peor_Est, usua_UsuarioCreacion, peor_FechaCreacion)
+VALUES    (1, '83739333921', GETDATE(), '----', 1, 1, 1 , GETDATE());
+
+/*------------------------------------------------------*/
+--****** INSERT TABLA PEDIDOS ORDEN DETALLES *******--
+GO
+INSERT INTO [Prod].[tbPedidosOrdenDetalle] (pedi_Id, mate_Id, prod_Cantidad,prod_Precio,prod_Peso, usua_UsuarioCreacion, prod_FechaCreacion)
+VALUES		(1, 2, 20, 500.00, 20.5, 1, GETDATE()),
+			(1, 1, 50, 500.00, 20.5, 1, GETDATE()),
+			(1, 3, 30, 500.00, 20.5, 1, GETDATE());
+

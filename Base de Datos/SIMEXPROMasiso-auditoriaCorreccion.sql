@@ -588,6 +588,8 @@ CREATE TABLE Adua.tbDeclarantesHistorial(
    	decl_Correo_Electronico  		NVARCHAR(150) 	NOT NULL,
    	decl_Telefono            		NVARCHAR(50) 	NOT NULL,
    	decl_Fax                 		NVARCHAR(50)	NULL, 
+	usua_UsuarioCreacion            INT 			NOT NULL,
+   	decl_FechaCreacion				DATETIME 		NOT NULL,
 
 
    	hdec_UsuarioModificacion		INT				NOT NULL,
@@ -631,6 +633,8 @@ CREATE TABLE Adua.tbImportadoresHistorial(
 		impo_NivelComercial_Otro		NVARCHAR(300),
 		impo_RTN                 		NVARCHAR(40) 	NOT NULL,
 		impo_NumRegistro         		NVARCHAR(40) 	NOT NULL,
+		usua_UsuarioCreacion     		INT 			NOT NULL,
+		impo_FechaCreacion				DATETIME 		NOT NULL,
 
 		himp_UsuarioModificacion		INT				NOT NULL,
 		himp_FechaModificacion			DATETIME		NOT NULL
@@ -688,6 +692,8 @@ CREATE TABLE Adua.tbIntermediariosHistorial(
 	tite_Id							INT 			NOT NULL,
 	inte_Tipo_Otro					NVARCHAR(30),
 	decl_Id							INT 			NOT NULL,
+	usua_UsuarioCreacion            INT 			NOT NULL,
+	inte_FechaCreacion				DATETIME 		NOT NULL,
 
 	himp_UsuarioModificacion		INT				NOT NULL,
 	himp_FechaModificacion			DATETIME		NOT NULL
@@ -725,6 +731,8 @@ CREATE TABLE Adua.tbProveedoresDeclaracionHistorial(
 	coco_Id								INT				NOT NULL,
 	pvde_Condicion_Otra					NVARCHAR(300),
 	decl_Id								INT				NOT NULL,
+	usua_UsuarioCreacion				INT 			NOT NULL,
+	pvde_FechaCreacion					DATETIME 		NOT NULL,
 
 	hpvd_UsuarioModificacion			INT				NOT NULL,
 	hpvd_FechaModificacion				DATETIME		NOT NULL

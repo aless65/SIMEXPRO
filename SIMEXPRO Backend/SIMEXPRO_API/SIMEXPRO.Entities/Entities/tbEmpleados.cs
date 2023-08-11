@@ -35,6 +35,14 @@ namespace SIMEXPRO.Entities.Entities
         [NotMapped]
         public string pvin_Nombre { get; set; }
 
+        [NotMapped]
+        public int pais_Id { get; set; }
+       
+        [NotMapped]
+        public string pais_Codigo { get; set; }
+        
+        [NotMapped]
+        public string pais_Nombre { get; set; }
         public string empl_CorreoElectronico { get; set; }
         public int carg_Id { get; set; }
 
@@ -54,6 +62,7 @@ namespace SIMEXPRO.Entities.Entities
         public string usuarioModificacionNombre { get; set; }
 
         public DateTime? empl_FechaModificacion { get; set; }
+
         public int? usua_UsuarioEliminacion { get; set; }
 
         [NotMapped]

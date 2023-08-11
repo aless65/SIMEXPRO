@@ -1945,79 +1945,38 @@ GO
 CREATE OR ALTER  PROCEDURE Gral.UDP_tbEmpleados_Listar
 AS
 BEGIN
-
-SELECT empl.empl_Id									,
-		empl_Nombres								,
-		empl_Apellidos								,
-		empl_DNI									,
-		empl.escv_Id								,
-		escv.escv_Nombre							,
-		CASE 
-		WHEN empl_Sexo = 'F' THEN 'Femenino'
-		ELSE 'Masculino'
-		END											AS empl_Sexo,
-		empl_FechaNacimiento						,
-		empl_Telefono								,
-		empl_DireccionExacta						,
-		empl.pvin_Id								,
-		pvin.pvin_Nombre							,
-		pais.pais_Codigo							,
-		pais.pais_Nombre							,
-		empl_CorreoElectronico						,
-		empl.carg_Id								,
-		carg.carg_Nombre							,
-		empl_EsAduana								,
-		empl.usua_UsuarioCreacion					,
-		usuaCrea.usua_Nombre						AS usuarioCreacionNombre,
-		empl_FechaCreacion							,
-		empl.usua_UsuarioModificacion				,
-		usuaModifica.usua_Nombre					AS usuarioModificacionNombre,
-		empl_FechaModificacion						,
-		empl.usua_UsuarioEliminacion				,
-		usuaElimina.usua_Nombre						AS usuarioEliminacionNombre,
-		empl_FechaEliminacion						,
-		empl_Estado								
-FROM	Gral.tbEmpleados empl 
-		INNER JOIN Acce.tbUsuarios usuaCrea		ON empl.usua_UsuarioCreacion = usuaCrea.usua_Id 
-		LEFT JOIN Acce.tbUsuarios usuaModifica	ON empl.usua_UsuarioModificacion = usuaModifica.usua_Id 
-		LEFT JOIN Acce.tbUsuarios usuaElimina	ON empl.usua_UsuarioEliminacion = usuaElimina.usua_Id 
-		INNER JOIN Gral.tbEstadosCiviles escv	ON empl.escv_Id = escv.escv_Id 
-		INNER JOIN Gral.tbProvincias pvin		ON empl.pvin_Id = pvin.pvin_Id 
-		INNER JOIN Gral.tbPaises pais			ON pvin.pais_Id = pais.pais_Id 
-		INNER JOIN Gral.tbCargos carg			ON empl.carg_Id = carg.carg_Id
-WHERE	empl_Estado = 1
-
-	SELECT empl.empl_Id								AS empleadoId, 
-		   empl_Nombres								AS empleadoNombres, 
-		   empl_Apellidos							AS empleadoApellidos,
-		   empl_DNI									AS empleadoDNI,
-		   empl.escv_Id								AS estadoCivilId,
-		   escv.escv_Nombre							AS estadoCivilNombre,
-		   CASE 
-			WHEN empl_Sexo = 'F' THEN 'Femenino'
-		   	ELSE 'Masculino'
-		   END										AS empleadoSexo,
-		   empl_FechaNacimiento						AS empleadoNacimiento,
-		   empl_Telefono							AS empleadoTelefono,
-		   empl_DireccionExacta						AS empleadoDireccion,
-		   empl.pvin_Id								AS provinciaId,
-		   pvin.pvin_Nombre							AS provinciaNombre,
-		   pais.pais_Codigo							AS paisCodigo,
-		   pais.pais_Nombre							AS paisNombre,
-		   empl_CorreoElectronico					AS empleadoCorreo,
-		   empl.carg_Id								AS cargoId,
-		   carg.carg_Nombre							AS cargoNombre,
-		   empl_EsAduana							AS empleadoAduana,
-		   empl.usua_UsuarioCreacion				AS usuarioCreacion, 
+	SELECT empl.empl_Id								,
+		   empl_Nombres								,
+		   empl_Apellidos							,
+		   empl_DNI									,
+		   empl.escv_Id								,
+		   escv.escv_Nombre							,
+		   CASE 									
+			WHEN empl_Sexo = 'F' THEN 'Femenino'	
+		   	ELSE 'Masculino'			
+		   END										AS empl_Sexo,
+		   empl_FechaNacimiento						,
+		   empl_Telefono							,
+		   empl_DireccionExacta						,
+		   empl.pvin_Id								,
+		   pvin.pvin_Nombre							,
+		   pais.pais_Id								,
+		   pais.pais_Codigo							,
+		   pais.pais_Nombre							,
+		   empl_CorreoElectronico					,
+		   empl.carg_Id								,
+		   carg.carg_Nombre							,
+		   empl_EsAduana							,
+		   empl.usua_UsuarioCreacion				,
 		   usuaCrea.usua_Nombre						AS usuarioCreacionNombre,
-		   empl_FechaCreacion						AS fechaCreacion, 
-		   empl.usua_UsuarioModificacion			AS usuarioModificacion, 
+		   empl_FechaCreacion						,
+		   empl.usua_UsuarioModificacion			,
 		   usuaModifica.usua_Nombre					AS usuarioModificacionNombre,
-		   empl_FechaModificacion					AS fechaModificacion, 
-		   empl.usua_UsuarioEliminacion				AS usuarioEliminacion, 
+		   empl_FechaModificacion					,
+		   empl.usua_UsuarioEliminacion				,
 		   usuaElimina.usua_Nombre					AS usuarioEliminacionNombre,
-		   empl_FechaEliminacion					AS fechaEliminacion, 
-		   empl_Estado								AS empleadoEstado
+		   empl_FechaEliminacion					,
+		   empl_Estado								
 	  FROM Gral.tbEmpleados empl 
 INNER JOIN Acce.tbUsuarios usuaCrea
 		ON empl.usua_UsuarioCreacion = usuaCrea.usua_Id 
@@ -2034,7 +1993,6 @@ INNER JOIN Gral.tbPaises pais
 INNER JOIN Gral.tbCargos carg
 		ON empl.carg_Id = carg.carg_Id
 	 WHERE empl_Estado = 1
-
 END
 GO
 

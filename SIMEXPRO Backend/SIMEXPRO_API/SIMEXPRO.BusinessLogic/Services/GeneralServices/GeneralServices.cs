@@ -953,12 +953,12 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
                 return result.Error(e.Message);
             }
         }
-        public ServiceResult ProvinciasPorPaises(tbProvincias item)
+        public ServiceResult ProvinciasPorPaises(int pais_Id)
         {
             var result = new ServiceResult();
             try
             {
-                var map = _provinciasRepository.ProvinciasPorPaises(item);
+                var map = _provinciasRepository.ProvinciasPorPaises(pais_Id);
                 return result.Ok(map);               
             }
             catch (Exception ex)

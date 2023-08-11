@@ -884,7 +884,7 @@ BEGIN
 			,ofpr_Estado					
 	FROM Gral.tbOficio_Profesiones ofpr 
 	INNER JOIN Acce.tbUsuarios usuaCrea		ON ofpr.usua_UsuarioCreacion = usuaCrea.usua_Id 
-	LEFT JOIN Acce.tbUsuarios usuaModifica	ON ofpr.usua_UsuarioModificacion = usuaCrea.usua_Id 
+	LEFT JOIN Acce.tbUsuarios usuaModifica	ON ofpr.usua_UsuarioModificacion = usuaModifica.usua_Id 
 	WHERE ofpr_Estado = 1
 END
 GO

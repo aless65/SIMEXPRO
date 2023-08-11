@@ -1957,13 +1957,6 @@ BEGIN
 END
 GO
 --************EMPLEADOS******************--
-/*Listar EMPLEADOS*/
-/****** Object:  StoredProcedure [Gral].[UDP_tbEmpleados_Listar]    Script Date: 08/08/2023 16:39:38 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
 
 
 --************EMPLEADOS******************--

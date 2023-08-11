@@ -149,7 +149,6 @@ BEGIN
 	LEFT JOIN acce.tbUsuarios usuaModifica
 	ON usua.usua_UsuarioModificacion = usuaModifica.usua_Id LEFT JOIN acce.tbUsuarios usuaElimina
 	ON usua.usua_UsuarioEliminacion = usuaElimina.usua_Id
-
 END
 --GO
 
@@ -512,35 +511,41 @@ CREATE OR ALTER PROCEDURE Acce.UDP_tbRoles_Editar
 AS
 BEGIN
 	BEGIN TRY
-		
-		UPDATE Acce.tbRoles
-		   SET role_Descripcion = @role_Descripcion			 
-			  ,usua_UsuarioModificacion = @usua_UsuarioModificacion
-			  ,role_FechaModificacion = @roleFechaModificacion		  
-		 WHERE role_Id = @role_Id
+        
+        UPDATE Acce.tbRoles
+           SET role_Descripcion = @role_Descripcion             
+              ,usua_UsuarioModificacion = @usua_UsuarioModificacion
+              ,role_FechaModificacion = @roleFechaModificacion          
+         WHERE role_Id = @role_Id
 
-		DELETE FROM Acce.tbRolesXPantallas
-		WHERE role_Id = @role_Id
+        -- Elimina las asignaciones existentes de pantallas para el rol
+        DELETE FROM Acce.tbRolesXPantallas
+        WHERE role_Id = @role_Id
 
-		INSERT INTO [Acce].[tbRolesXPantallas] ([pant_Id], 
-													    [role_Id], 
-													    [usua_UsuarioCreacion], 
-													    [ropa_FechaCreacion] )
-		SELECT *,
-				@role_Id,
-				@usua_UsuarioModificacion,
-				@roleFechaModificacion 
-		FROM OPENJSON(@pant_Ids, '$.pantallas')
-		WITH (
-			pant_Id INT
-		) 
+        -- Inserta nuevas asignaciones de pantallas
+        INSERT INTO [Acce].[tbRolesXPantallas] ([pant_Id], 
+                                                [role_Id], 
+                                                [usua_UsuarioCreacion], 
+                                                [ropa_FechaCreacion])
+        SELECT DISTINCT
+                pant.pant_Id,
+                @role_Id,
+                @usua_UsuarioModificacion,
+                @roleFechaModificacion
+        FROM OPENJSON(@pant_Ids, '$.pantallas') WITH (pant_Id INT) pant
+        WHERE NOT EXISTS (
+            SELECT 1
+            FROM Acce.tbRolesXPantallas
+            WHERE role_Id = @role_Id
+            AND pant_Id = pant.pant_Id
+        )
 
-		SELECT 1
+        SELECT 1
 
-	END TRY
-	BEGIN CATCH
-		SELECT 'Error Message: ' + ERROR_MESSAGE()
-	END CATCH
+    END TRY
+    BEGIN CATCH
+        SELECT 'Error Message: ' + ERROR_MESSAGE()
+    END CATCH
 END
 
 GO
@@ -772,8 +777,8 @@ BEGIN
 			,ofic_Estado						
 	FROM Gral.tbOficinas ofic 
 	INNER JOIN Acce.tbUsuarios usuaCrea		ON ofic.usua_UsuarioCreacion = usuaCrea.usua_Id 
-	LEFT JOIN Acce.tbUsuarios usuaModifica  ON ofic.usua_UsuarioModificacion = usuaCrea.usua_Id 
-	LEFT JOIN Acce.tbUsuarios usuaElimina   ON ofic.usua_UsuarioEliminacion = usuaCrea.usua_Id
+	LEFT JOIN Acce.tbUsuarios usuaModifica  ON ofic.usua_UsuarioModificacion = usuaModifica.usua_Id 
+	LEFT JOIN Acce.tbUsuarios usuaElimina   ON ofic.usua_UsuarioEliminacion = usuaElimina.usua_Id
 	WHERE ofic_Estado = 1
 END
 GO
@@ -1739,13 +1744,34 @@ BEGIN
 	BEGIN TRY
 		IF EXISTS (SELECT*FROM Gral.tbProveedores WHERE prov_NombreCompania = @prov_NombreCompania AND prov_Estado = 0)
 		BEGIN
-			UPDATE Gral.tbProveedores SET prov_Estado = 1
+			UPDATE Gral.tbProveedores 
+			SET prov_Estado = 1
+			WHERE prov_NombreCompania = @prov_NombreCompania
+
 			SELECT 1
 		END
 		ELSE
 		BEGIN
-			INSERT INTO Gral.tbProveedores(prov_NombreCompania, prov_NombreContacto, prov_Telefono, prov_CodigoPostal, prov_Ciudad, prov_DireccionExacta, prov_CorreoElectronico, prov_Fax, usua_UsuarioCreacion, prov_FechaCreacion)
-			VALUES(@prov_NombreCompania, @prov_NombreContacto, @prov_Telefono, @prov_CodigoPostal, @prov_Ciudad, @prov_DireccionExacta, @prov_CorreoElectronico, @prov_Fax, @usua_UsuarioCreacion, @prov_FechaCreacion)
+			INSERT INTO Gral.tbProveedores(prov_NombreCompania, 
+										   prov_NombreContacto, 
+										   prov_Telefono, 
+										   prov_CodigoPostal, 
+										   prov_Ciudad, 
+										   prov_DireccionExacta, 
+										   prov_CorreoElectronico, 
+										   prov_Fax, 
+										   usua_UsuarioCreacion, 
+										   prov_FechaCreacion)
+			VALUES(@prov_NombreCompania, 
+				   @prov_NombreContacto, 
+				   @prov_Telefono, 
+				   @prov_CodigoPostal, 
+				   @prov_Ciudad, 
+				   @prov_DireccionExacta, 
+				   @prov_CorreoElectronico, 
+				   @prov_Fax, 
+				   @usua_UsuarioCreacion, 
+				   @prov_FechaCreacion)
 			SELECT 1
 		END
 	END TRY
@@ -1942,7 +1968,7 @@ GO
 
 --************EMPLEADOS******************--
 /*Listar EMPLEADOS*/
-CREATE OR ALTER  PROCEDURE Gral.UDP_tbEmpleados_Listar
+CREATE OR ALTER PROCEDURE [Gral].[UDP_tbEmpleados_Listar]
 AS
 BEGIN
 
@@ -1960,6 +1986,7 @@ SELECT empl.empl_Id									,
 		empl_Telefono								,
 		empl_DireccionExacta						,
 		empl.pvin_Id								,
+		pais.pais_Id								,
 		pvin.pvin_Nombre							,
 		pais.pais_Codigo							,
 		pais.pais_Nombre							,
@@ -4191,6 +4218,7 @@ BEGIN
 			deva_ConversionDolares, 
 			----deva_Condiciones, 
 			deva.usua_UsuarioCreacion, 
+			usuaCrea.usua_Nombre				AS usua_CreacionNombre,
 			deva_FechaCreacion, 
 			deva.usua_UsuarioModificacion, 
 			deva_FechaModificacion, 
@@ -4204,10 +4232,11 @@ BEGIN
 			LEFT JOIN Adua.tbProveedoresDeclaracion prov	ON prov.pvde_Id = deva.pvde_Id
 			LEFT JOIN Adua.tbDeclarantes declaProv			ON prov.decl_Id = declaProv.decl_Id
 			LEFT JOIN Adua.tbCondicionesComerciales coco	ON prov.coco_Id = coco.coco_Id
-			LEFT JOIN  Adua.tbIntermediarios inte			ON inte.inte_Id = deva.inte_Id
-			LEFT JOIN  Adua.tbDeclarantes declaInte			ON declaInte.decl_Id = inte.decl_Id
-			LEFT JOIN  Adua.tbIncoterm inco					ON deva.inco_Id = inco.inco_Id
-			LEFT JOIN  Gral.tbFormas_Envio foen				ON deva.foen_Id = foen.foen_Id 
+			LEFT JOIN Adua.tbIntermediarios inte			ON inte.inte_Id = deva.inte_Id
+			LEFT JOIN Adua.tbDeclarantes declaInte			ON declaInte.decl_Id = inte.decl_Id
+			LEFT JOIN Adua.tbIncoterm inco					ON deva.inco_Id = inco.inco_Id
+			LEFT JOIN Gral.tbFormas_Envio foen				ON deva.foen_Id = foen.foen_Id 
+			LEFT JOIN Acce.tbUsuarios usuaCrea				ON deva.usua_UsuarioCreacion = usuaCrea.usua_Id
 	
 END
 GO

@@ -320,7 +320,17 @@ VALUES (1, 4, 10, 1, GETDATE());
 --***** INSERT TABLA ORDEN ENSAMBLADOS ACABOADOS ETIQUETADO --******--
 GO
 INSERT INTO [Prod].[tbOrde_Ensa_Acab_Etiq] (ensa_Cantidad, empl_Id, code_Id, ensa_FechaInicio, ensa_FechaLimite, ppro_Id, usua_UsuarioCreacion, ensa_FechaCreacion, ensa_Estado)
-VALUES (20,1, 3, '01/08/2023', '01/08/2023', 1, 1, '07/31/2023', 1);
+VALUES (20,1, 3, '01/08/2023', '01/08/2023', 1, 1, '07/31/2023', 1),
+       (10,1, 3, '02/08/2023', '02/08/2023', 1, 1, '09/31/2023', 1);
 
+/*------------------------------------------------------------------*/
+
+
+--***** INSERT TABLA MATERIALES BRINDAR --******--
+GO
+INSERT INTO Prod.tbMaterialesBrindar (code_Id, mate_Id, mabr_Cantidad, usua_UsuarioCreacion, mabr_FechaCreacion)
+VALUES(1,1,1000,1,GETDATE()),
+      (1,2,500,1,GETDATE()),
+	  (1,3,500,1,GETDATE());
 
 

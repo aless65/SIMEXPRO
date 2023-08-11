@@ -12,10 +12,23 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
 {
     public class AldeasRepository : IRepository<tbAldeas>
     {
+    
+
         public RequestStatus Delete(tbAldeas item)
         {
-            throw new NotImplementedException();
+            RequestStatus result = new();
+
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            var parametros = new DynamicParameters();
+            parametros.Add("@alde_Id", item.alde_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@alde_FechaEliminacion", item.alde_FechaEliminacion, DbType.String, ParameterDirection.Input);
+
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarAldeas, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
+            return result;
         }
+
 
         public tbAldeas Find(int? id)
         {
@@ -44,6 +57,16 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             var parametros = new DynamicParameters();
             return db.Query<tbAldeas>(ScriptsDataBase.ListarAldeas, null, commandType: CommandType.StoredProcedure);
         }
+       
+        
+        public IEnumerable<tbAldeas> AldeasPorCiudades(int id)
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            var parametros = new DynamicParameters();
+            parametros.Add("@ciud_Id", id, DbType.String, ParameterDirection.Input);
+            return db.Query<tbAldeas>(ScriptsDataBase.AldeasPorCiudad, parametros, commandType: CommandType.StoredProcedure);
+        }
+
 
         public RequestStatus Update(tbAldeas item)
         {

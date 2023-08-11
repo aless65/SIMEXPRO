@@ -49,7 +49,22 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(respuesta);
         }
 
-     
+        //[HttpPost("Eliminar")]
+        //public IActionResult Delete(ProvinciasViewModel provinciasViewModel)
+        //{
+        //    var item = _mapper.Map<tbProvincias>(provinciasViewModel);
+        //    var respuesta = _generalesServices.EliminarProvincias(item);
+        //    return Ok(respuesta);
+        //}
+
+        [HttpPost("ProvinciasFiltradaPorPais")]
+        public IActionResult ProvinciasPorPaises(ProvinciasViewModel provinciasViewModel)
+        {
+            var item = _mapper.Map<tbProvincias>(provinciasViewModel);
+            var respuesta = _generalesServices.ProvinciasPorPaises(item);
+            return Ok(respuesta);
+        }
+
 
     }
 }

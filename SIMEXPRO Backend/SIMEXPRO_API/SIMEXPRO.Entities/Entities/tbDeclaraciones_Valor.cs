@@ -20,7 +20,11 @@ namespace SIMEXPRO.Entities.Entities
 
         public int deva_Id { get; set; }
         public int deva_AduanaIngresoId { get; set; }
+        [NotMapped]
+        public string adua_IngresoNombre { get; set; }
         public int deva_AduanaDespachoId { get; set; }
+        [NotMapped]
+        public string adua_DespachoNombre { get; set; }
         public string deva_DeclaracionMercancia { get; set; }
         public DateTime? deva_FechaAceptacion { get; set; }
         public int? impo_Id { get; set; }
@@ -65,6 +69,7 @@ namespace SIMEXPRO.Entities.Entities
         public virtual tbIntermediarios inte { get; set; }
         public virtual tbMonedas mone { get; set; }
         public virtual tbPaises pais_Exportacion { get; set; }
+        public virtual tbPaises pais_Entrega { get; set; }
         public virtual tbProveedoresDeclaracion pvde { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }

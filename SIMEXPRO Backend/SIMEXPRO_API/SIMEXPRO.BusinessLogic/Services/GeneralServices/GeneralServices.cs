@@ -78,6 +78,20 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             }
         }
 
+        public ServiceResult AldeasPorCiudades(int Id)
+        {
+            var resultado = new ServiceResult();
+
+            try
+            {
+                var list = _aldeasRepository.AldeasPorCiudades(Id);
+                return resultado.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return resultado.Error(ex.Message);
+            }
+        }
         public ServiceResult InsertarAldeas(tbAldeas item)
         {
             var result = new ServiceResult();
@@ -105,6 +119,27 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             try
             {
                 var map = _aldeasRepository.Update(item);
+                if (map.MessageStatus == "1")
+                {
+                    return result.Ok(map);
+                }
+                else
+                {
+                    return result.Error(map);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult EliminarAldeas(tbAldeas item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _aldeasRepository.Delete(item);
                 if (map.MessageStatus == "1")
                 {
                     return result.Ok(map);
@@ -196,6 +231,22 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             }
         }
 
+
+        public ServiceResult CiudadesPorProvincia(int Id)
+        {
+            var resultado = new ServiceResult();
+
+            try
+            {
+                var list = _ciudadesRepository.CiudadesPorProvincia(Id);
+                return resultado.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return resultado.Error(ex.Message);
+            }
+        }
+
         public ServiceResult InsertarCiudades(tbCiudades item)
         {
             var result = new ServiceResult();
@@ -256,6 +307,20 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             }
         }
 
+        public ServiceResult ColoniasPorCiudades(int Id)
+        {
+            var resultado = new ServiceResult();
+
+            try
+            {
+                var list = _coloniasRepository.ColoniasPorCiudades(Id);
+                return resultado.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return resultado.Error(ex.Message);
+            }
+        }
 
         public ServiceResult InsertarColonias(tbColonias item)
         {
@@ -525,15 +590,8 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                var map = _formasEnvioRepository.Insert(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                var list = _formasEnvioRepository.Insert(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
@@ -543,18 +601,12 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
 
         public ServiceResult ActualizarFormas_Envio(tbFormas_Envio item)
         {
+
             var result = new ServiceResult();
             try
             {
-                var map = _formasEnvioRepository.Update(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                var list = _formasEnvioRepository.Update(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
@@ -567,15 +619,8 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                var map = _formasEnvioRepository.Delete(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                var list = _formasEnvioRepository.Delete(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
@@ -827,22 +872,14 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                if (item.pais_Nombre != "")
+                var map = _paisesRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _paisesRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -856,22 +893,14 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                if (item.pais_Nombre != "")
+                var map = _paisesRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _paisesRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -880,34 +909,34 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             }
         }
 
-        public ServiceResult EliminarPaises(tbPaises item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (item.pais_Id != 0)
-                {
-                    var map = _paisesRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
+        //public ServiceResult EliminarPaises(tbPaises item)
+        //{
+        //    var result = new ServiceResult();
+        //    try
+        //    {
+        //        if (item.pais_Id != 0)
+        //        {
+        //            var map = _paisesRepository.Delete(item);
+        //            if (map.CodeStatus > 0)
+        //            {
+        //                return result.Ok(map);
+        //            }
+        //            else
+        //            {
+        //                map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
+        //                return result.Error(map);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return result.Error(ex.Message);
+        //    }
+        //}
         #endregion
 
         #region Provincias
@@ -924,21 +953,27 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
                 return result.Error(e.Message);
             }
         }
+        public ServiceResult ProvinciasPorPaises(tbProvincias item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _provinciasRepository.ProvinciasPorPaises(item);
+                return result.Ok(map);               
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
 
         public ServiceResult InsertarProvincias(tbProvincias item)
         {
             var result = new ServiceResult();
             try
             {
-                var map = _provinciasRepository.Insert(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                var list = _provinciasRepository.Insert(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
@@ -951,15 +986,8 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                var map = _provinciasRepository.Update(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                var list = _provinciasRepository.Update(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
@@ -967,25 +995,21 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             }
         }
 
+
+
         public ServiceResult EliminarProvincias(tbProvincias item)
         {
             var result = new ServiceResult();
             try
             {
-                var map = _provinciasRepository.Delete(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                var list = _provinciasRepository.Delete(item);
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
                 return result.Error(ex.Message);
             }
+
         }
         #endregion
 
@@ -1005,25 +1029,17 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             }
         }
         
-
         public ServiceResult InsertarProveedores(tbProveedores item)
         {
             var result = new ServiceResult();
             try
             {
-                var map = _proveedoresRepository.Insert(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                var list = _proveedoresRepository.Insert(item);
+                return result.Ok(list);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return result.Error(ex.Message);
+                return result.Error(e.Message);
             }
         }
 
@@ -1032,20 +1048,12 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                var map = _proveedoresRepository.Update(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
-                
+                var list = _proveedoresRepository.Update(item);
+                return result.Ok(list);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return result.Error(ex.Message);
+                return result.Error(e.Message);
             }
         }
 
@@ -1054,20 +1062,14 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                var map = _proveedoresRepository.Delete(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }
+                var list = _proveedoresRepository.Delete(item);
+                return result.Ok(list);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return result.Error(ex.Message);
+                return result.Error(e.Message);
             }
+
         }
         #endregion
 

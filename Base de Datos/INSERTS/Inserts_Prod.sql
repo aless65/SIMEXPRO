@@ -319,18 +319,35 @@ VALUES (1, 4, 10, 1, GETDATE());
 /*------------------------------------------------------------------*/
 --***** INSERT TABLA ORDEN ENSAMBLADOS ACABOADOS ETIQUETADO --******--
 GO
-INSERT INTO [Prod].[tbOrde_Ensa_Acab_Etiq] (ensa_Cantidad, empl_Id, code_Id, ensa_FechaInicio, ensa_FechaLimite, ppro_Id, usua_UsuarioCreacion, ensa_FechaCreacion, ensa_Estado)
-VALUES (20,1, 3, '01/08/2023', '01/08/2023', 1, 1, '07/31/2023', 1),
-       (10,1, 3, '02/08/2023', '02/08/2023', 1, 1, '09/31/2023', 1);
-
-/*------------------------------------------------------------------*/
+INSERT INTO [Prod].[tbOrde_Ensa_Acab_Etiq] (ensa_Cantidad, empl_Id, code_Id, ensa_FechaInicio, ensa_FechaLimite, ppro_Id, proc_Id, usua_UsuarioCreacion, ensa_FechaCreacion, ensa_Estado)
+VALUES	(20,1, 3, '01/08/2023', '01/08/2023', 1,1, 1, '07/31/2023', 1),
+		(100,1,2,'08/09/2023', '08/29/2023',1,2,1, GETDATE(), 1  );
 
 
---***** INSERT TABLA MATERIALES BRINDAR --******--
+
+/*---------------------------------------*/
+--**** INSERT TABLA REVISION CALIDAD ****--
 GO
-INSERT INTO Prod.tbMaterialesBrindar (code_Id, mate_Id, mabr_Cantidad, usua_UsuarioCreacion, mabr_FechaCreacion)
-VALUES(1,1,1000,1,GETDATE()),
-      (1,2,500,1,GETDATE()),
-	  (1,3,500,1,GETDATE());
+INSERT INTO Prod.tbRevisionDeCalidad (ensa_Id, reca_Descripcion, reca_Cantidad, reca_Scrap, reca_FechaRevision, reca_Imagen, usua_UsuarioCreacion, reca_FechaCreacion)
+VALUES (1,'Le falta un boton en la parte de arriba por el cuello', 1,1,'07/31/2023','imagen_de_una_camisa.jpg', 1,GETDATE()),
+       (1,'Tiene un agujero en la manga derecha de la camisa', 1,1,'07/31/2023','imagen_de_una_camisa1.jpg', 1,GETDATE());
 
 
+
+/*------------------------------------------*/
+--**** INSERT TABLA REPORTE MODULO DIA ****--
+GO
+INSERT INTO Prod.tbReporteModuloDia (modu_Id, remo_Fecha, remo_TotalDia, remo_TotalDanado, usua_UsuarioCreacion, remo_FechaCreacion)
+VALUES (1,'09/08/2023', 100,0,1,GETDATE()),
+       (2,'10/08/2023', 100,0,1,GETDATE()),
+	   (3,'10/08/2023', 100,0,1,GETDATE());
+
+
+/*-------------------------------------------------*/
+--**** INSERT TABLA REPORTE MODULO DIA DETALLE ****--
+GO
+INSERT INTO Prod.tbReporteModuloDiaDetalle (remo_Id, rdet_TotalDia, rdet_TotalDanado, code_Id, usua_UsuarioCreacion, rdet_FechaCreacion)
+VALUES (1,50,0,1,1,GETDATE()),
+       (1,50,0,1,1,GETDATE()),
+	   (2,100,0,2,1,GETDATE()),
+	   (3,100,0,3,1,GETDATE());

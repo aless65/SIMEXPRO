@@ -47,7 +47,7 @@ namespace SIMEXPRO.Entities.Entities
         public string duca_Codigo_Transportista { get; set; }
         public decimal? duca_PesoBrutoTotal { get; set; }
         public decimal? duca_PesoNetoTotal { get; set; }
-        public int? motr_id { get; set; }
+        public int? motr_Id { get; set; }
         public string duca_Transportista_Nombre { get; set; }
         public int? duca_Conductor_Id { get; set; }
         public string duca_Codigo_Tipo_Documento { get; set; }

@@ -434,7 +434,7 @@
          "ObjectType": 0
       }
    ],
-   "UiHint": "DESKTOP-TSV52PA\\SQLEXPRESS.SIMEXPRO",
+   "UiHint": "practicaahm.SIMEXPRO",
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": true,
    "UseDbContextSplitting": false,

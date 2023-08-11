@@ -20,6 +20,7 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime ensa_FechaInicio { get; set; }
         public DateTime ensa_FechaLimite { get; set; }
         public int ppro_Id { get; set; }
+        public int proc_Id { get; set; }
         public int usua_UsuarioCreacion { get; set; }
         public DateTime ensa_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
@@ -28,6 +29,7 @@ namespace SIMEXPRO.Entities.Entities
 
         public virtual tbOrdenCompraDetalles code { get; set; }
         public virtual tbEmpleados empl { get; set; }
+        public virtual tbProcesos proc { get; set; }
         public virtual tbPedidosProduccion ppro { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }

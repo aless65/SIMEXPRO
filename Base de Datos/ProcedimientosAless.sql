@@ -2210,7 +2210,8 @@ END
 
 GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbFacturas_Insertar
-	@deva_Id					INT, 
+	@deva_Id					INT,
+	@fact_Numero				NVARCHAR(4000),
 	@fact_Fecha					DATE, 
 	@usua_UsuarioCreacion		INT, 
 	@fact_FechaCreacion			DATETIME
@@ -2219,10 +2220,12 @@ BEGIN
 	BEGIN TRANSACTION
 	BEGIN TRY
 		INSERT INTO [Adua].[tbFacturas](deva_Id, 
+										fact_Numero,
 										fact_Fecha, 
 										usua_UsuarioCreacion, 
 										fact_FechaCreacion)
 		VALUES(@deva_Id, 
+			   @fact_Numero,
 			   @fact_Fecha, 
 			   @usua_UsuarioCreacion, 
 			   @fact_FechaCreacion)
@@ -2231,12 +2234,14 @@ BEGIN
 
 
 		INSERT INTO [Adua].[tbFacturasHistorial](fact_Id, 
+												 fact_Numero,
 												 deva_Id, 
 												 fect_Fecha, 
 												 hfact_UsuarioAccion, 
 												 hfact_FechaAccion, 
 												 hfact_Accion)
 		VALUES (SCOPE_IDENTITY(),
+				@fact_Numero,
 				@deva_Id, 
 			    @fact_Fecha, 
 			    @usua_UsuarioCreacion, 
@@ -2251,6 +2256,50 @@ BEGIN
 	END CATCH 
 END
 
+GO
+CREATE OR ALTER PROCEDURE Adua.UDP_tbFacturas_Editar
+	@fact_Id					INT, 
+	@fact_Numero				NVARCHAR(4000),
+	@deva_Id					INT,
+	@fact_Fecha					DATE, 
+	@usua_UsuarioCreacion		INT, 
+	@fact_FechaCreacion			DATETIME
+AS
+BEGIN
+	BEGIN TRANSACTION
+	BEGIN TRY
+
+		UPDATE [Adua].[tbFacturas]
+		SET   deva_Id = @deva_Id, 
+		      fact_Numero = @fact_Numero,
+			  fact_Fecha = @fact_Fecha, 
+			  usua_UsuarioCreacion = @usua_UsuarioCreacion, 
+			  fact_FechaCreacion = @fact_FechaCreacion
+		WHERE fact_Id = @fact_Id
+
+
+		INSERT INTO [Adua].[tbFacturasHistorial](fact_Id, 
+												 fact_Numero,
+												 deva_Id, 
+												 fect_Fecha, 
+												 hfact_UsuarioAccion, 
+												 hfact_FechaAccion, 
+												 hfact_Accion)
+		VALUES (@fact_Id,
+				@fact_Numero,
+				@deva_Id, 
+			    @fact_Fecha, 
+			    @usua_UsuarioCreacion, 
+			    @fact_FechaCreacion,
+				'Editar')
+
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+		ROLLBACK TRAN
+	END CATCH 
+END
 
 GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbItems_Listar 

@@ -25,7 +25,6 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         }
 
 
-
         [HttpGet("Listar")]
         public IActionResult Index()
         {

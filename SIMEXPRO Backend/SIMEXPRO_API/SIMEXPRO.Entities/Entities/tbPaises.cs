@@ -12,7 +12,7 @@ namespace SIMEXPRO.Entities.Entities
         public tbPaises()
         {
             tbConductor = new HashSet<tbConductor>();
-            tbDeclaraciones_Valor = new HashSet<tbDeclaraciones_Valor>();
+            //tbDeclaraciones_Valor = new HashSet<tbDeclaraciones_Valor>();
             tbDucaduca_Pais_DestinoNavigation = new HashSet<tbDuca>();
             tbDucaduca_Pais_Emision_ExportadorNavigation = new HashSet<tbDuca>();
             tbDucaduca_Pais_Emision_ImportadorNavigation = new HashSet<tbDuca>();
@@ -43,7 +43,10 @@ namespace SIMEXPRO.Entities.Entities
         public virtual tbUsuarios usua_UsuarioEliminacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbConductor> tbConductor { get; set; }
+
         public virtual ICollection<tbDeclaraciones_Valor> tbDeclaraciones_Valor { get; set; }
+        public virtual ICollection<tbDeclaraciones_Valor> tbDeclaraciones_Valorpais_Entrega { get; set; }
+        public virtual ICollection<tbDeclaraciones_Valor> tbDeclaraciones_Valorpais_Exportacion { get; set; }
         public virtual ICollection<tbDuca> tbDucaduca_Pais_DestinoNavigation { get; set; }
         public virtual ICollection<tbDuca> tbDucaduca_Pais_Emision_ExportadorNavigation { get; set; }
         public virtual ICollection<tbDuca> tbDucaduca_Pais_Emision_ImportadorNavigation { get; set; }

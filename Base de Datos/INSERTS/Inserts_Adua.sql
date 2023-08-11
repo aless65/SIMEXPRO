@@ -10,34 +10,34 @@
 --***** INSERT TABLA TIPO DE LIQUIDACION --******--
 GO
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
-VALUES ('Importaci�n Regular', 1, '10-16-2004');
+VALUES ('Importación Regular', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
-VALUES ('Exportaci�n Definitiva', 1, '10-16-2004');
+VALUES ('Exportación Definitiva', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
-VALUES ('Importaci�n Temporal', 1, '10-16-2004');
+VALUES ('Importación Temporal', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
-VALUES ('Importaci�n para Reexportaci�n en el Mismo Estado', 1, '10-16-2004');
+VALUES ('Importación para Reexportaci�n en el Mismo Estado', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
-VALUES ('Exportaci�n Temporal', 1, '10-16-2004');
+VALUES ('Exportación�n Temporal', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
-VALUES ('Admisi�n Temporal para Perfeccionamiento Activo', 1, '10-16-2004');
+VALUES ('Admisión Temporal para Perfeccionamiento Activo', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
-VALUES ('Tr�nsito Aduanero', 1, '10-16-2004');
+VALUES ('Tránsito Aduanero', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
-VALUES ('Tr�nsito Aduanero Internacional', 1, '10-16-2004');
+VALUES ('Tránsito Aduanero Internacional', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
-VALUES ('Dep�sito Aduanero', 1, '10-16-2004');
+VALUES ('Depósito Aduanero', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
-VALUES ('Admisi�n Temporal para Reexportaci�n en el Mismo Estado', 1, '10-16-2004');
+VALUES ('Admisión Temporal para Reexportación en el Mismo Estado', 1, '10-16-2004');
 
 
 
@@ -45,10 +45,10 @@ VALUES ('Admisi�n Temporal para Reexportaci�n en el Mismo Estado', 1, '10-16
 --***** INSERT TABLA TIPOS DE IDENTIFICACION --******--
 GO
 INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCreacion], [iden_FechaCreacion])
-VALUES ('C�dula de Ciudadan�a', 1, '10-16-2004');
+VALUES ('Cédula de Ciudadanía', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCreacion], [iden_FechaCreacion])
-VALUES ('C�dula de Extranjer�a', 1, '10-16-2004');
+VALUES ('Cédula de Extranjera', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCreacion], [iden_FechaCreacion])
 VALUES ('Pasaporte', 1, '10-16-2004');
@@ -60,10 +60,10 @@ INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCre
 VALUES ('Registro Civil', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCreacion], [iden_FechaCreacion])
-VALUES ('NIT (N�mero de Identificaci�n Tributaria)', 1, '10-16-2004');
+VALUES ('NIT (N�mero de Identificación Tributaria)', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCreacion], [iden_FechaCreacion])
-VALUES ('RUT (Registro �nico Tributario)', 1, '10-16-2004');
+VALUES ('RUT (Registro Único Tributario)', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCreacion], [iden_FechaCreacion])
 VALUES ('PAS (Permiso de Apartado Postal)', 1, '10-16-2004');
@@ -72,7 +72,7 @@ INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCre
 VALUES ('PEP (Persona Expuesta Pol�ticamente)', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCreacion], [iden_FechaCreacion])
-VALUES ('Carn� Diplom�tico', 1, '10-16-2004');
+VALUES ('Carné Diplomático', 1, '10-16-2004');
 
 
 
@@ -109,7 +109,7 @@ VALUES	(1, 'CH1234', 1, 'REM5678', 5000, 1234, 'GPS Tracker',				'Carga General'
 	    (2, 'CH5678', 2, 'REM9012', 7000, 5678, 'Rastreo Satelital',		'Carga Peligrosa',			'CNT5432', 1, '10-16-2004'),
 		(3, 'CH9012', 3, 'REM3456', 6000, 9012, 'Bloques de Refrigeraci�n', 'Carga Perecedera',			'CNT7654', 1, '10-16-2004'),
 	    (4, 'CH3456', 1, 'REM7890', 8000, 3456, 'Contenedor Refrigerado',	'Carga A granel',			'CNT1234', 1, '10-16-2004'),
-	    (5, 'CH6789', 2, 'REM2345', 9000, 6789, 'Contenedor Cisterna',		'Carga L�quida',			'CNT5678', 1, '10-16-2004'),
+	    (5, 'CH6789', 2, 'REM2345', 9000, 6789, 'Contenedor Cisterna',		'Carga Líquida',			'CNT5678', 1, '10-16-2004'),
 	    (1, 'CH9010', 3, 'REM6543', 7500, 9010, 'Plataforma',				'Carga Sobredimensionada',	'CNT4567', 1, '10-16-2004'),
 	    (2, 'CH6543', 1, 'REM8901', 5500, 6543, 'Racks de Carga',			'Carga Paletizada',			'CNT8765', 1, '10-16-2004'),
 	    (3, 'CH2345', 2, 'REM6789', 6500, 2345, 'Toldos Protector',			'Carga Liviana',			'CNT3456', 1, '10-16-2004'),
@@ -148,14 +148,14 @@ VALUES	('DF','DUCA-F',1,GETDATE()),
 --***** INSERT TABLA DECLARANTES --******--
 GO
 INSERT INTO Adua.tbDeclarantes (decl_Nombre_Raso, decl_Direccion_Exacta, ciud_Id, decl_Correo_Electronico, decl_Telefono, decl_Fax, usua_UsuarioCreacion, decl_FechaCreacion)
-VALUES	('ABC Ingenier�a y Construcci�n S.A.'		,'Calle de la Ingenier�a 123, San Pedro Sula, Cortes'	,1,'info@abc-ingenieria.com'					,'1234-5678',null,1,GETDATE()),
-		('MegaCorp Tecnolog�as Inc.'				,'Avenida Tecnol�gica 456, San Pedro Sula, Cortes'		,1,'contacto@megacorp-tech.com'					,'9876-5432',null,1,GETDATE()),
-		('Flores y C�a. Florister�a S.L.'			,'Plaza de las Flores 789, San Pedro Sula, Cortes'		,1,'ventas@floresycia-floristeria.com'			,'2468-1357',null,1,GETDATE()),
+VALUES	('ABC Ingeniería y Construcci�n S.A.'		,'Calle de la Ingeniería 123, San Pedro Sula, Cortes'	,1,'info@abc-ingenieria.com'					,'1234-5678',null,1,GETDATE()),
+		('MegaCorp Tecnolog�as Inc.'				,'Avenida Tecnológica 456, San Pedro Sula, Cortes'		,1,'contacto@megacorp-tech.com'					,'9876-5432',null,1,GETDATE()),
+		('Flores y Cía. Floristería S.L.'			,'Plaza de las Flores 789, San Pedro Sula, Cortes'		,1,'ventas@floresycia-floristeria.com'			,'2468-1357',null,1,GETDATE()),
 		('Viajes Aventura Explora Ltda.'			,'Camino de la Aventura 321, San Pedro Sula, Cortes'	,1,'reservas@viajesaventuraexplora.com'			,'8642-7913',null,1,GETDATE()),
-		('Delicias Reposter�a Fina S.A. de C.V.'	,'Calle de los Sabores 654, San Pedro Sula, Cortes'		,1,'pedidos@deliciasreposteriafina.com'			,'5793-2816',null,1,GETDATE()),
+		('Delicias Repostería Fina S.A. de C.V.'	,'Calle de los Sabores 654, San Pedro Sula, Cortes'		,1,'pedidos@deliciasreposteriafina.com'			,'5793-2816',null,1,GETDATE()),
 		('Moda Urbana Boutique S.A.S.'				,'Calle de la Moda 987, San Pedro Sula, Cortes'			,1,'consultas@modaurbanaboutique.com'			,'3857-9146',null,1,GETDATE()),
-		('GreenEco Energ�as Renovables S.A.'		,'Avenida Sostenible 789, San Pedro Sula, Cortes'		,1,'soporte@greeneco-energiasrenovables.com'	,'6481-7392',null,1,GETDATE()),
-		('SaludTotal Cl�nica M�dica Ltda.'			,'Calle de la Salud 543, San Pedro Sula, Cortes'		,1,'citas@saludtotalclinica.com'				,'3194-6257',null,1,GETDATE()),
+		('GreenEco Energías Renovables S.A.'		,'Avenida Sostenible 789, San Pedro Sula, Cortes'		,1,'soporte@greeneco-energiasrenovables.com'	,'6481-7392',null,1,GETDATE()),
+		('SaludTotal Clínica Médica Ltda.'			,'Calle de la Salud 543, San Pedro Sula, Cortes'		,1,'citas@saludtotalclinica.com'				,'3194-6257',null,1,GETDATE()),
 		('InterGlobal Consultores Asociados S.C.'	,'Plaza Internacional 345, San Pedro Sula, Cortes'		,1,'contacto@interglobalconsultores.com'		,'3396-2352',null,1,GETDATE()),
 		('FastDelivery Log�stica Express S.R.L. '	,'Avenida R�pida 567, San Pedro Sula, Cortes'			,1,'info@fastdelivery-logisticaexpress.com'		,'6464-8164',null,1,GETDATE());
 
@@ -81076,6 +81076,140 @@ VALUES	('Concepto Pago 1', 1, GETDATE()),
 		('Concepto Pago 3', 1, GETDATE());
 
 
+INSERT INTO [Adua].[tbDeclaraciones_Valor] ([deva_AduanaIngresoId], [deva_AduanaDespachoId], [deva_DeclaracionMercancia], [deva_FechaAceptacion], [impo_Id], [pvde_Id], [inte_Id], [deva_LugarEntrega], [pais_EntregaId], [inco_Id], [inco_Version], [deva_NumeroContrato], [deva_FechaContrato], [foen_Id], [deva_PagoEfectuado], [fopa_Id], [emba_Id], [pais_ExportacionId], [deva_FechaExportacion], [mone_Id], [deva_ConversionDolares], [usua_UsuarioCreacion], [deva_FechaCreacion])
+VALUES (1, 2, 'Algun documento importante o dato importante', GETDATE(), 3, 1, 1, 'En un lugar cerquita de la casa del que recibe', 1, 1, '2021', 'XBTO87642', GETDATE(), 1, 1, 1, 1, 2, GETDATE(), 1, 24.2034, 'FOB', 1, GETDATE())
+GO
 
+
+/*-------------------------------------------------*/
+--********** INSERT TABLA IMPORTADORES ************--
+GO
+INSERT INTO [Adua].[tbImportadores]
+           ([nico_Id] ,[decl_Id] ,[impo_NivelComercial_Otro] ,[impo_RTN] ,[impo_NumRegistro] ,[usua_UsuarioCreacion] ,[impo_FechaCreacion])
+     VALUES
+           (1 ,1 ,'Alto'		 ,'2657-4768-566604' ,'432343543534' ,1 ,GETDATE()),
+           (2 ,2 ,'DISTRIBUIDOR' ,'8652-5764-354521' ,'848495849413' ,1 ,GETDATE()),
+		   (3 ,1 ,'MAYORISTA'    ,'4325-7663-124451' ,'038023839177' ,1 ,GETDATE()),
+           (4 ,2 ,'MINORISTA'    ,'2132-1312-345213' ,'436587798968' ,1 ,GETDATE()),
+           (1 ,1 ,'Alto'		 ,'2657-4768-956045' ,'432343543534' ,1 ,GETDATE()),
+           (2 ,2 ,'DISTRIBUIDOR' ,'8652-5764-454521' ,'848495849413' ,1 ,GETDATE()),
+		   (3 ,1 ,'MAYORISTA'    ,'4325-7663-124341' ,'038023839177' ,1 ,GETDATE()),
+           (4 ,2 ,'MINORISTA'    ,'2132-1312-324513' ,'436587798968' ,1 ,GETDATE()),
+           (1 ,1 ,'Alto'		 ,'2657-4768-923560' ,'432343543534' ,1 ,GETDATE()),
+           (2 ,2 ,'DISTRIBUIDOR' ,'8652-5764-352231' ,'848495849413' ,1 ,GETDATE()),
+		   (3 ,1 ,'MAYORISTA'    ,'4325-7663-123241' ,'038023839177' ,1 ,GETDATE()),
+           (4 ,2 ,'MINORISTA'    ,'2132-1312-321233' ,'436587798968' ,1 ,GETDATE());
+
+
+/*--------------------------------------------------------*/
+--********** INSERT TABLA DECLARACION DE VALOR ************--
+GO
+INSERT INTO [Adua].[tbDeclaraciones_Valor]   ([deva_AduanaIngresoId],[deva_AduanaDespachoId],[deva_DeclaracionMercancia],[deva_FechaAceptacion],[impo_Id],[pvde_Id],[inte_Id],[deva_LugarEntrega],[pais_EntregaId],[inco_Id],[inco_Version],[deva_NumeroContrato],[deva_FechaContrato],[foen_Id],[deva_FormaEnvioOtra],[deva_PagoEfectuado],[fopa_Id],[deva_FormaPagoOtra],[emba_Id],[pais_ExportacionId],[deva_FechaExportacion],[mone_Id],[mone_Otra],[deva_ConversionDolares],[usua_UsuarioCreacion],[deva_FechaCreacion])
+     VALUES
+           (1 ,2 ,'Importacion de platanos' ,GETDATE() ,1 ,1 ,1 ,'Guasaule' ,8 ,1 ,'EXW' ,'93949389' ,GETDATE() ,1 ,'Maritimo' ,1 ,2 ,'Aerio' ,1 ,2  ,GETDATE() ,1 ,1 ,24 ,1  ,GETDATE()),
+           (1 ,2 ,'Importacion de Guineos' ,GETDATE() ,1 ,1 ,1 ,'Guasaule' ,2 ,1 ,'EXW' ,'3232432423' ,GETDATE() ,1 ,'Terrestre' ,1 ,2 ,'Aerio' ,1 ,2  ,GETDATE() ,1 ,1 ,24 ,1  ,GETDATE());
+
+
+
+/*------------------------------------------*/
+--********** INSERT TABLA DUCA ************--
+GO
+INSERT INTO [Adua].[tbDuca] ([duca_No_Duca],[duca_No_Correlativo_Referencia],[deva_Id],[duca_AduanaRegistro],[duca_AduanaSalida],[duca_DomicilioFiscal_Exportador],[duca_Tipo_Iden_Exportador],[duca_Pais_Emision_Exportador],[duca_Numero_Id_Importador],[duca_Pais_Emision_Importador],[duca_DomicilioFiscal_Importador],[duca_Regimen_Aduanero],[duca_Modalidad],[duca_Clase],[duca_Codigo_Declarante],[duca_Numero_Id_Declarante],[duca_NombreSocial_Declarante],[duca_DomicilioFiscal_Declarante],[duca_Pais_Procedencia],[duca_Pais_Exportacion],[duca_Pais_Destino],[duca_Deposito_Aduanero],[duca_Lugar_Embarque],[duca_Lugar_Desembarque],[duca_Manifiesto],[duca_Titulo],[duca_Codigo_Transportista],[duca_PesoBrutoTotal],[duca_PesoNetoTotal],[motr_Id],[duca_Transportista_Nombre],[duca_Conductor_Id],[duca_Codigo_Tipo_Documento],[duca_FechaVencimiento],[duca_CanalAsignado],[usua_UsuarioCreacion],[duca_FechaCreacion] )
+     VALUES
+           ('83739333921' ,'7682182922292927729212292' ,1 ,1 ,13  ,'Centro Civíco Gubernamental' ,1  ,10 ,'94840440' ,21 ,'Zona Centro Sur'  ,'Temporales' ,'ferroviario'  ,'DUCA-T' ,'8g83b04m4893b' ,'H05Ym0gv%oz4f&'  ,'9239330473' ,'Centro Civíco tecnico' ,3 ,6 ,12 ,'El propio almacén es el que tiene la responsabilidad' ,'El Carmen' ,'Barrios' ,'Produccion' ,'Importacion e Exportacion de Produccion Platanera' ,'$mB8Ap6J8Qo6$u' ,2134 ,686535 ,1 ,'Carlos Amaya Del Valle' ,1 ,'DUT' ,GETDATE() ,'M' ,1 ,GETDATE()),
+           ('54363244535' ,'24356423443234342' ,2 ,1 ,11  ,'Centro Cultural Gubernamental' ,1  ,5 ,'45434334' ,21 ,'Zona Centro Norte'  ,'Temporales' ,'ferroviario'  ,'DUCA-D' ,'8g8te04m4893b' ,'H05YwqeEgv%oz4f&'  ,'342423434' ,'Centro Maritimo tecnico' ,3 ,6 ,12 ,'El propio almacén es el que tiene la responsabilidad' ,'Barrios' ,'Puerto Cortez' ,'Produccion' ,'Importacion e Exportacion de Produccion de Guineos' ,'$mB8Ap6OD3o6$u' ,2134 ,686535 ,1 ,'Carlos Amaya DelaCrucito' ,1 ,'DUT' ,GETDATE() ,'M' ,1 ,GETDATE());
+
+
+
+/*------------------------------------------*/
+--********** INSERT TABLA FACTURA ************--
+GO
+INSERT INTO [Adua].[tbFacturas]
+           ([deva_Id] ,[fact_Numero] ,[fact_Fecha] ,[usua_UsuarioCreacion]  ,[fact_FechaCreacion])
+     VALUES
+           (2, '222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (2 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE()),
+           (1 ,'222' ,GETDATE() ,1 ,GETDATE());
+ 
+
+/*------------------------------------------*/
+--********** INSERT TABLA ITEMS ************--
+GO
+INSERT INTO [Adua].[tbItems] ([fact_Id],[item_Cantidad],[item_PesoNeto],[item_PesoBruto],[unme_Id],[item_IdentificacionComercialMercancias],[item_CaracteristicasMercancias],[item_Marca],[item_Modelo],[merc_Id],[pais_IdOrigenMercancia],[item_ClasificacionArancelaria],[item_ValorUnitario],[item_GastosDeTransporte],[item_ValorTransaccion],[item_Seguro],[item_OtrosGastos],[item_ValorAduana],[item_CuotaContingente],[item_ReglasAccesorias],[item_CriterioCertificarOrigen],[usua_UsuarioCreacion],[item_FechaCreacion])      
+     VALUES
+           (1,34,313,4345,1,'739287491843535','Frag, grandes y pesadas','Duracel','Cuadruple A',1,4,'5903.90.20.00',938,423452343,34555555555555,43,3454534,44,3245,'mantener los siguientes atenciones en los paquetes Frag, grandes y pesadas','Producto altamente inflamable',1,GETDATE() ),
+           (2,22,67,2345,1,'739287491843535','Frag, grandes y pesadas','Duracel','Cuadruple A',1,4,'5903.90',938,423452343,654767,43,3454534,44,3245,'mantener los siguientes atenciones en los paquetes Frag, grandes y pesadas','Producto altamente inflamable',1,GETDATE() ),
+           (3,33,090,764,1,'739287491843535','Frag, grandes y pesadas','Duracel','Cuadruple A',1,4,'5903.90.90.00',54,423452343,7657,43,3454534,44,3245,'mantener los siguientes atenciones en los paquetes Frag, grandes y pesadas','Producto altamente inflamable',1,GETDATE() ),
+           (4,55,433,3456,1,'739287491843535','Frag, grandes y pesadas','Duracel','Cuadruple A',1,4,'5903.90.20.00',643,876,3465472,43,3454534,44,3245,'mantener los siguientes atenciones en los paquetes Frag, grandes y pesadas','Producto altamente inflamable',1,GETDATE() ),
+           (5,78,653,9746,1,'739287491843535','Frag, grandes y pesadas','Duracel','Cuadruple A',1,4,'5903.90.20.00',234,26546873,25435,43,3454534,44,3245,'mantener los siguientes atenciones en los paquetes Frag, grandes y pesadas','Producto altamente inflamable',1,GETDATE() ),
+           (6,95,44,76867,1,'739287491843535','Frag, grandes y pesadas','Duracel','Cuadruple A',1,4,'5903.90.20.00',324,2436632,55555,43,3454534,44,3245,'mantener los siguientes atenciones en los paquetes Frag, grandes y pesadas','Producto altamente inflamable',1,GETDATE() ),
+           (7,765,233,658,1,'739287491843535','Frag, grandes y pesadas','Duracel','Cuadruple A',1,4,'5906.10.00.00',234,5437,573452,43,3454534,44,3245,'mantener los siguientes atenciones en los paquetes Frag, grandes y pesadas','Producto altamente inflamable',1,GETDATE() ),
+           (8,9,535,5456,1,'739287491843535','Frag, grandes y pesadas','Duracel','Cuadruple A',1,4,'5903.90.20.00',23,24352,257245243,43,3454534,44,3245,'mantener los siguientes atenciones en los paquetes Frag, grandes y pesadas','Producto altamente inflamable',1,GETDATE() ),
+           (9,60,757,54564,1,'739287491843535','Frag, grandes y pesadas','Duracel','Cuadruple A',1,4,'5906.10.00.00',4643,423452343,7245,43,3454534,44,3245,'mantener los siguientes atenciones en los paquetes Frag, grandes y pesadas','Producto altamente inflamable',1,GETDATE() ),
+           (10,45,45,56465,1,'739287491843535','Frag, grandes y pesadas','Duracel','Cuadruple A',1,4,'5903.90.20.00',938,423452343,3427356,43,3454534,44,3245,'mantener los siguientes atenciones en los paquetes Frag, grandes y pesadas','Producto altamente inflamable',1,GETDATE() );
+
+
+
+/*-----------------------------------------------*/
+--****** INSERT TABLA DOCUMENTOS CONTRATO ******--
+GO
+INSERT INTO Adua.tbDocumentosContratos(coin_Id, peju_Id, doco_Numero_O_Referencia, doco_TipoDocumento, usua_UsuarioCreacion, doco_FechaCreacion)
+VALUES
+		(1, NULL, '4554854', 'RTN-CI', 1, GETDATE()),
+		(5, NULL, '455471', 'DNI-CI', 1, GETDATE()),
+		(2, NULL, '655859', 'RTN-RL', 1, GETDATE()),
+		(3, NULL, '344343', 'DNI-RL', 1, GETDATE()),
+		(4, NULL, '558587', 'EPC-SM', 1, GETDATE());
+
+
+/*----------------------------------------------------*/
+--* INSERT TABLA PERSONA NATURAL--**--
+GO
+INSERT INTO Adua.tbPersonaNatural(pers_Id, pena_DireccionExacta, ciud_Id, pena_TelefonoFijo, pena_TelefonoCelular, pena_CorreoElectronico, pena_CorreoAlternativo, pena_RTN, pena_ArchivoRTN, pena_DNI, pena_ArchivoDNI, pena_NumeroRecibo, pena_ArchivoNumeroRecibo, usua_UsuarioCreacion, pena_FechaCreacion)
+VALUES
+		 (1, '1ra Calle, 12 Avenida, Frente a pulperia Gloria', 1, '22068574', '98896565', 'NFCS@gmail.com', NULL, '05012003124739', '', '0601200312473', '', '0403032', '', 1, GETDATE()),
+		 (2, 'Avenida Los Leones, Detras del complejo polideportivo', 1, '90342232', '88986654', 'DaddyIssues@gmail.com', NULL, '07011999455450', '', '0701199945545', '', '938434', '', 1, GETDATE()),
+		 (3, 'Colonia El Carmen, Frente al instituto Gilberto Pineda Madrid', 1, '96965757', '99899989', 'MrCar@gmail.com', NULL, '01011992434344', '', '0101199243434', '', '456562', '', 1, GETDATE());
+		 
+
+
+/*----------------------------------------------------*/
+--* INSERT TABLA BASE CALCULO--**--
+GO
+INSERT INTO Adua.tbBaseCalculos(deva_Id, base_PrecioFactura, base_PagosIndirectos, base_PrecioReal, base_MontCondicion, base_MontoReversion, base_ComisionCorrelaje, base_Gasto_Envase_Embalaje, base_ValoresMateriales_Incorporado, base_Valor_Materiales_Utilizados, base_Valor_Materiales_Consumidos, base_Valor_Ingenieria_Importado, base_Valor_Canones, base_Gasto_TransporteM_Importada, base_Gastos_Carga_Importada, base_Costos_Seguro, base_Total_Ajustes_Precio_Pagado, base_Gastos_Asistencia_Tecnica, base_Gastos_Transporte_Posterior, base_Derechos_Impuestos, base_Monto_Intereses, base_Deducciones_Legales, base_Total_Deducciones_Precio, base_Valor_Aduana, usua_UsuarioCreacion, base_FechaCreacion)
+VALUES
+		(1, 3000, 2, 3100,  300, 0, 90, 12, 600, 500, 1100, 10000, 200, 123, 30, 2000, 500, 0, 0, 56548, 4000, 25000, 5, 8000, 1, GETDATE())
+
+
+
+/*----------------------------------------*/
+--* INSERT TABLA LIQUIDACION GENERAL--**--
+GO
+INSERT INTO Adua.tbLiquidacionGeneral(lige_TipoTributo, lige_TotalPorTributo, lige_ModalidadPago, lige_TotalGral, duca_Id)
+VALUES
+		('DAI', '0.0000', 'EXONERAR', '15,500.5009', '83739333921'),
+		('ISV', '15,500.5009', 'EXONERAR', '15,500.5009', '83739333921');
 
 

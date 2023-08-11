@@ -1868,7 +1868,7 @@ END
 GO
 
 /*Insertar FORMAS DE ENVIO*/
-CREATE OR ALTER PROCEDURE Gral.UDP_tbFormas_Envio_Insertar
+CREATE OR ALTER PROCEDURE Gral.UDP_tbFormas_Envio_Insertar 
 (   @foen_Codigo            CHAR(2),
 	@foen_Descripcion		NVARCHAR(500),
 	@usua_UsuarioCreacion	INT,
@@ -4148,9 +4148,9 @@ CREATE OR ALTER VIEW Adua.VW_tbDeclaraciones_ValorCompleto
 AS
 SELECT		deva_Id, 
 			deva_AduanaIngresoId, 
-			aduaIngreso.adua_Nombre		AS adua_IngresoNombre,
+			aduaIngreso.adua_Nombre				AS adua_IngresoNombre,
 			deva_AduanaDespachoId, 
-			aduaDespacho.adua_Nombre	AS adua_DespachoNombre,
+			aduaDespacho.adua_Nombre			AS adua_DespachoNombre,
 			deva_DeclaracionMercancia, 
 			deva_FechaAceptacion, 
 

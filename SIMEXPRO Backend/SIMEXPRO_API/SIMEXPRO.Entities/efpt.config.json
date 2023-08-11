@@ -14,15 +14,11 @@
    "SelectedToBeGenerated": 2,
    "Tables": [
       {
-         "Name": "[Adua].[tbBoletinPago]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[Adua].[tbBoletinPagoDetalles]",
-         "ObjectType": 0
+         "Name": "[Adua].[VW_tbDeclaraciones_ValorCompleto]",
+         "ObjectType": 3
       }
    ],
-   "UiHint": "DESKTOP-TSV52PA\\SQLEXPRESS.SIMEXPRO",
+   "UiHint": "practicaahm.SIMEXPRO",
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": true,
    "UseDbContextSplitting": false,

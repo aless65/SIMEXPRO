@@ -25,6 +25,10 @@ namespace SIMEXPRO.Entities.Entities
         public int tipa_Id { get; set; }
         public string tipa_area { get; set; }
         public int proc_Id { get; set; }
+
+        [NotMapped]
+        public string proc_Descripcion { get; set; }
+
         public int usua_UsuarioCreacion { get; set; }
         public DateTime tipa_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }

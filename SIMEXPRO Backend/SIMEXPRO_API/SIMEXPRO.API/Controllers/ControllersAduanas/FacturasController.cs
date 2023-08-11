@@ -24,11 +24,11 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             _mapper = mapper;
         }
 
-        [HttpPost("Listar")]
-        public IActionResult Listado(FacturasViewModel item)
+        [HttpGet("Listar")]
+        public IActionResult Listado(int deva_Id)
         {
-            var item2 = _mapper.Map<tbFacturas>(item);
-            var response = _aduanaServices.ListarFacturas(item2);
+            //var item2 = _mapper.Map<tbFacturas>(item);
+            var response = _aduanaServices.ListarFacturas(deva_Id);
             return Ok(response);
         }
 
@@ -41,6 +41,20 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             return Ok(respuesta);
         }
 
+        [HttpPost("Editar")]
+        public IActionResult Editar(FacturasViewModel FacturasViewModel)
+        {
+            var item = _mapper.Map<tbFacturas>(FacturasViewModel);
+            var respuesta = _aduanaServices.ActualizarFacturas(item);
+            return Ok(respuesta);
+        }
 
+        [HttpPost("Eliminar")]
+        public IActionResult Eliminar(FacturasViewModel FacturasViewModel)
+        {
+            var item = _mapper.Map<tbFacturas>(FacturasViewModel);
+            var respuesta = _aduanaServices.EliminarFacturas(item);
+            return Ok(respuesta);
+        }
     }
 }

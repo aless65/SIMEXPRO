@@ -15,7 +15,6 @@ namespace SIMEXPRO.API.Extentions
     {
         public MappingProfileExtensions()
         {
-            Declaraciones_ValorControllerViewModel mapeadoDeclaracion;
             #region Generales
             CreateMap<AldeasViewModel, tbAldeas>().ReverseMap();
             CreateMap<CargosViewModel, tbCargos>().ReverseMap();
@@ -40,6 +39,7 @@ namespace SIMEXPRO.API.Extentions
             CreateMap<ArancelesViewModel, tbAranceles>().ReverseMap();
             CreateMap<BaseCalculosViewModel, tbBaseCalculos>().ReverseMap();
             CreateMap<BoletinPagoViewModel, tbBoletinPago>().ReverseMap();
+            CreateMap<BoletinPagoDetallesViewModel, tbBoletinPagoDetalles>().ReverseMap();
             CreateMap<CodigoImpuestoViewModel, tbCodigoImpuesto>().ReverseMap();
             CreateMap<CondicionesComercialesViewModel, tbCondicionesComerciales>().ReverseMap();
             CreateMap<ImportadoresViewModel, tbImportadores>();

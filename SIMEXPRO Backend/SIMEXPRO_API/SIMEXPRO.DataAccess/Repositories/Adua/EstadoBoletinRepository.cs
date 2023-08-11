@@ -24,17 +24,20 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
 
         public RequestStatus Insert(tbEstadoBoletin item)
         {
-            RequestStatus request = new();
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            
             var parameters = new DynamicParameters();
-
             parameters.Add("@esbo_Descripcion", item.esbo_Descripcion, DbType.String, ParameterDirection.Input);
             parameters.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parameters.Add("@esbo_FechaCreacion", item.esbo_FechaCreacion, DbType.String, ParameterDirection.Input);
-            var resultado = db.QueryFirst<string>(ScriptsDataBase.InsertarEstadoBoletin, parameters, commandType: CommandType.StoredProcedure);
+            
+            var respuesta = db.QueryFirst<string>(ScriptsDataBase.InsertarEstadoBoletin, parameters, commandType: CommandType.StoredProcedure);
 
-            request.MessageStatus = resultado;
-            return request;
+            return new RequestStatus()
+            {
+                CodeStatus = respuesta == "1" ? 1 : 0,
+                MessageStatus = respuesta
+            };
         }
 
         public IEnumerable<tbEstadoBoletin> List()
@@ -45,19 +48,21 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
 
         public RequestStatus Update(tbEstadoBoletin item)
         {
-            RequestStatus request = new();
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
-            var parameters = new DynamicParameters();
 
+            var parameters = new DynamicParameters();
             parameters.Add("@esbo_Id", item.esbo_Id, DbType.Int32, ParameterDirection.Input);
             parameters.Add("@esbo_Descripcion", item.esbo_Descripcion, DbType.String, ParameterDirection.Input);
             parameters.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parameters.Add("@esbo_FechaModificacion", item.esbo_FechaModificacion, DbType.String, ParameterDirection.Input);
 
-            var resultado = db.QueryFirst<string>(ScriptsDataBase.EditarEstadoBoletin, parameters, commandType: CommandType.StoredProcedure);
+            var respuesta = db.QueryFirst<string>(ScriptsDataBase.EditarEstadoBoletin, parameters, commandType: CommandType.StoredProcedure);
 
-            request.MessageStatus = resultado;
-            return request;
+            return new RequestStatus()
+            {
+                CodeStatus = respuesta == "1" ? 1 : 0,
+                MessageStatus = respuesta
+            };
         }
     }
 }

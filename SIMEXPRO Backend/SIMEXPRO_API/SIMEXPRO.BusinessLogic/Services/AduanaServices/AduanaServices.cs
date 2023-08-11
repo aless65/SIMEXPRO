@@ -15,6 +15,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         private readonly ArancelesRepository _arancelesRepository;
         private readonly BaseCalculosRepository _baseCalculosRepository;
         private readonly BoletinPagoRepository _boletinPagoRepository;
+        private readonly BoletinPagoDetallesRepository _boletinPagoDetallesRepository;
         private readonly CodigoImpuestoRepository _codigoImpuestoRepository;
         private readonly ComercianteIndividualRepository _comercianteIndividualRepository;
         private readonly ConceptoPagoRepository _conceptoPagoRepository;
@@ -49,7 +50,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         private readonly TiposIdentificacionRepository _tiposIdentificacionRepository;
         private readonly TransporteRepository _transporteRepository;
 
-        public AduanaServices(AduanasRepository AduanasRepository, ArancelesRepository ArancelesRepository, BaseCalculosRepository BaseCalculosRepository, BoletinPagoRepository BoletinPagoRepository,
+        public AduanaServices(AduanasRepository AduanasRepository, ArancelesRepository ArancelesRepository, BaseCalculosRepository BaseCalculosRepository, BoletinPagoRepository BoletinPagoRepository, BoletinPagoDetallesRepository BoletinPagoDetallesRepository,
                                 CodigoImpuestoRepository CodigoImpuestoRepository, ComercianteIndividualRepository ComercianteIndividualRepository, ConceptoPagoRepository ConceptoPagoRepository,
                                 CondicionesComercialesRepository CondicionesComercialesRepository,Declaraciones_ValorHistorialRepository Declaraciones_ValorHistorialRepository, Declaraciones_ValorRepository Declaraciones_ValorRepository,
                                 DocumentosContratosRepository DocumentosContratosRepository, DocumentosdeSoporteRepository DocumentosdeSoporteRepository, DocumentosPDFRepository DocumentosPDFRepository, 
@@ -63,6 +64,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             _arancelesRepository = ArancelesRepository;
             _baseCalculosRepository = BaseCalculosRepository;
             _boletinPagoRepository = BoletinPagoRepository;
+            _boletinPagoDetallesRepository = BoletinPagoDetallesRepository;
             _codigoImpuestoRepository = CodigoImpuestoRepository;
             _comercianteIndividualRepository = ComercianteIndividualRepository;
             _conceptoPagoRepository = ConceptoPagoRepository;
@@ -329,7 +331,6 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
                 }
                 else
                 {
-
                     return result.Error(map);
                 }
             }
@@ -354,6 +355,53 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
 
                     return result.Error(map);
                 }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Boletin de Pago detalles
+        public ServiceResult ListarDetallesBoletinPagoByIdBoletin(int Id)
+        {
+            var resultado = new ServiceResult();
+
+            try
+            {
+                var list = _boletinPagoDetallesRepository.ListByIdBoletinPago(Id);
+                return resultado.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return resultado.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult InsertarBoletinPagoDetalles(tbBoletinPagoDetalles item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var respuesta = _boletinPagoDetallesRepository.Insert(item);
+
+                return result.Ok(respuesta);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarBoletinPagoDetalles(tbBoletinPagoDetalles item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var respuesta = _boletinPagoDetallesRepository.Update(item);
+
+                return result.Ok(respuesta);
             }
             catch (Exception ex)
             {
@@ -755,47 +803,47 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
-        public ServiceResult ActualizarDeclaraciones_ValorTab2(tbDeclaraciones_Valor item, tbDeclarantes declProv, tbDeclarantes declInte, tbProveedoresDeclaracion itemProv, tbIntermediarios itemInte)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var respuesta = _declaraciones_ValorRepository.UpdateTab2(item, declProv, declInte, itemProv, itemInte);
-                if (respuesta.MessageStatus == "1")
-                {
-                    return result.Ok(respuesta);
-                }
-                else
-                {
-                    return result.Error(respuesta);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
+        //public ServiceResult ActualizarDeclaraciones_ValorTab2(tbDeclaraciones_Valor item, tbDeclarantes declProv, tbDeclarantes declInte, tbProveedoresDeclaracion itemProv, tbIntermediarios itemInte)
+        //{
+        //    var result = new ServiceResult();
+        //    try
+        //    {
+        //        var respuesta = _declaraciones_ValorRepository.UpdateTab2(item, declProv, declInte, itemProv, itemInte);
+        //        if (respuesta.MessageStatus == "1")
+        //        {
+        //            return result.Ok(respuesta);
+        //        }
+        //        else
+        //        {
+        //            return result.Error(respuesta);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return result.Error(ex.Message);
+        //    }
+        //}
 
-        public ServiceResult ActualizarDeclaraciones_ValorTab3(tbDeclaraciones_Valor item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                var respuesta = _declaraciones_ValorRepository.UpdateTab3(item);
-                if (respuesta.MessageStatus == "1")
-                {
-                    return result.Ok(respuesta);
-                }
-                else
-                {
-                    return result.Error(respuesta);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
+        //public ServiceResult ActualizarDeclaraciones_ValorTab3(tbDeclaraciones_Valor item)
+        //{
+        //    var result = new ServiceResult();
+        //    try
+        //    {
+        //        var respuesta = _declaraciones_ValorRepository.UpdateTab3(item);
+        //        if (respuesta.MessageStatus == "1")
+        //        {
+        //            return result.Ok(respuesta);
+        //        }
+        //        else
+        //        {
+        //            return result.Error(respuesta);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return result.Error(ex.Message);
+        //    }
+        //}
 
         public ServiceResult EliminarDeclaraciones_Valor(tbDeclaraciones_Valor item)
         {
@@ -840,22 +888,14 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                var respuesta = _documentosContratosRepository.Insert(item);
-                if (respuesta.MessageStatus == "1")
-                {
-                    return result.Ok(respuesta);
-                }
-                else
-                {
+                var list = _documentosContratosRepository.Insert(item);
 
-                    return result.Error(respuesta);
-                }
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
                 return result.Error(ex.Message);
             }
-
         }
 
         public ServiceResult ActualizarDocumentosContratos(tbDocumentosContratos item)
@@ -863,16 +903,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                var respuesta = _documentosContratosRepository.Update(item);
-                if (respuesta.MessageStatus == "1")
-                {
-                    return result.Ok(respuesta);
-                }
-                else
-                {
+                var list = _documentosContratosRepository.Update(item);
 
-                    return result.Error(respuesta);
-                }
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
@@ -885,16 +918,9 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                var respuesta = _documentosContratosRepository.Delete(item);
-                if (respuesta.MessageStatus == "1")
-                {
-                    return result.Ok(respuesta);
-                }
-                else
-                {
+                var list = _documentosContratosRepository.Delete(item);
 
-                    return result.Error(respuesta);
-                }
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
@@ -1340,12 +1366,12 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
 
         #region Facturas
 
-        public ServiceResult ListarFacturas(tbFacturas item)
+        public ServiceResult ListarFacturas(int deva_Id)
         {
             var result = new ServiceResult();
             try
             {
-                var list = _facturasRepository.List(item);
+                var list = _facturasRepository.List(deva_Id);
                 return result.Ok(list);
             }
             catch (Exception ex)

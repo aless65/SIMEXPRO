@@ -107,6 +107,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarProvincias = "Gral.UDP_tbProvincias_Listar";
         public static string InsertarProvincias = "GrAL.UDP_tbProvincias_Insertar";
         public static string EditarProvincias = "Gral.UDP_tbProvinvias_Editar";
+        public static string EliminarProvincias = "Gral.UDP_tbProvincias_Eliminar";
         public static string ProvinciasPorPais = "Gral.UDP_FiltrarProvinciasPorPais";
         #endregion
 
@@ -114,6 +115,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarAldeas = "Gral.UDP_tbAldeas_Listar";
         public static string InsertarAldeas = "Gral.UDP_tbAldeas_Insertar";
         public static string EditarAldeas = "Gral.UDP_tbAldeas_Editar";
+        public static string EliminarAldeas = "Gral.UDP_tbAldeas_Eliminar";
         public static string AldeasPorCiudad = "Gral.UDP_FiltrarAldeasPorCiudades";
         #endregion
 
@@ -178,7 +180,7 @@ namespace SIMEXPRO.DataAccess
         #endregion
 
         #region Boletin de Pago detalles
-        public static string ListarBoletinPagoDetalles = "Adua.UDP_tbBoletinPagoDetalles_Listado";
+        public static string ListarBoletinPagoDetallesByIdBoletin = "Adua.UDP_tbBoletinPagoDetalles_Listado_ByIdBoletin";
         public static string InsertarBoletinPagoDetalles = "Adua.UDP_tbBoletinPagoDetalles_Insertar";
         public static string EditarBoletinPagoDetalles = "Adua.UDP_tbBoletinPagoDetalles_Editar";
         #endregion
@@ -292,6 +294,8 @@ namespace SIMEXPRO.DataAccess
         #region Facturas
         public static string ListarFacturas = "Adua.UDP_tbFacturas_Listar";
         public static string InsertarFacturas = "Adua.UDP_tbFacturas_Insertar";
+        public static string EditarFacturas = "Adua.UDP_tbFacturas_Editar";
+        public static string EliminarFacturas = "Adua.UDP_tbFacturas_Eliminar";
         #endregion
 
         #region Formas de Pago

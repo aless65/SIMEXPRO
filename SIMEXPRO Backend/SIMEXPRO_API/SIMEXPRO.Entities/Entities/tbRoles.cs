@@ -20,6 +20,10 @@ namespace SIMEXPRO.Entities.Entities
         public int usua_UsuarioCreacion { get; set; }
 
         [NotMapped]
+        public string UsuarioCreacionNombre { get; set; }
+
+
+        [NotMapped]
         public string Aduanero { get; set; }
 
         [NotMapped]
@@ -29,6 +33,11 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime role_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
         public DateTime? role_FechaModificacion { get; set; }
+
+        [NotMapped]
+        public string UsuarioModificadorNombre { get; set; }
+
+
         public int? usua_UsuarioEliminacion { get; set; }
         public DateTime? role_FechaEliminacion { get; set; }
         public bool? role_Estado { get; set; }

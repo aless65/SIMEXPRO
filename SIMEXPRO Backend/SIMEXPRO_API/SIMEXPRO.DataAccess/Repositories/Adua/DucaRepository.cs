@@ -57,13 +57,11 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
 
             var respuesta = db.QueryFirst<string>(ScriptsDataBase.InsertarDucaTAP1, parameters, commandType: CommandType.StoredProcedure);
 
-            RequestStatus request = new()
+            return new RequestStatus()
             {
                 CodeStatus = 1,
-                MessageStatus = "No Duca: " + respuesta
+                MessageStatus = respuesta
             };
-
-            return request;
         }
 
         public RequestStatus InsertTap2(tbDuca item)
@@ -80,7 +78,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parameters.Add("@duca_DomicilioFiscal_Declarante", item.duca_DomicilioFiscal_Declarante, DbType.String, ParameterDirection.Input);
             parameters.Add("@duca_Codigo_Transportista", item.duca_Codigo_Transportista, DbType.String, ParameterDirection.Input);
             parameters.Add("@duca_Transportista_Nombre", item.duca_Transportista_Nombre, DbType.String, ParameterDirection.Input);
-            parameters.Add("@motr_Id", item.motr_id, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@motr_Id", item.motr_Id, DbType.Int32, ParameterDirection.Input);
 
             parameters.Add("@cont_Licencia", item.cont_Licencia, DbType.String, ParameterDirection.Input);
             parameters.Add("@pais_IdExpedicion", item.pais_IdExpedicion, DbType.Int32, ParameterDirection.Input);
@@ -98,15 +96,13 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parameters.Add("@usua_UsuarioCreacio", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parameters.Add("@tran_FechaCreacion", item.duca_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
 
-            var resultado = db.QueryFirst<string>(ScriptsDataBase.InsertarDucaTAP2, parameters, commandType: CommandType.StoredProcedure);
+            var respuesta = db.QueryFirst<string>(ScriptsDataBase.InsertarDucaTAP2, parameters, commandType: CommandType.StoredProcedure);
 
-            RequestStatus request = new()
+            return new RequestStatus()
             {
-                CodeStatus = 1,
-                MessageStatus = "Estado insert: " + resultado
+                CodeStatus = respuesta == "1" ? 1 : 0,
+                MessageStatus = respuesta
             };
-
-            return request;
         }
 
         public RequestStatus InsertTap3(tbDocumentosDeSoporte item)
@@ -127,15 +123,13 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parameters.Add("@usua_UsuarioCreacio", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parameters.Add("@doso_FechaCreacion", item.doso_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
 
-            var resultado = db.QueryFirst<string>(ScriptsDataBase.InsertarDucaTAP3, parameters, commandType: CommandType.StoredProcedure);
+            var respuesta = db.QueryFirst<string>(ScriptsDataBase.InsertarDucaTAP3, parameters, commandType: CommandType.StoredProcedure);
 
-            RequestStatus request = new()
+            return new RequestStatus()
             {
-                CodeStatus = 1,
-                MessageStatus = "Estado insert: " + resultado
+                CodeStatus = respuesta == "1" ? 1 : 0,
+                MessageStatus = respuesta
             };
-
-            return request;
         }
 
         public IEnumerable<tbDuca> List()
@@ -178,13 +172,11 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
 
             var respuesta = db.QueryFirst<string>(ScriptsDataBase.EditarDucaTAP1, parameters, commandType: CommandType.StoredProcedure);
 
-            RequestStatus request = new()
+            return new RequestStatus()
             {
-                CodeStatus = 1,
-                MessageStatus = "Estado update: " + respuesta
+                CodeStatus = respuesta == "1" ? 1 : 0,
+                MessageStatus = respuesta
             };
-
-            return request;
         }
 
         public RequestStatus UpdateTap2(tbDuca item)
@@ -201,7 +193,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parameters.Add("@duca_DomicilioFiscal_Declarante", item.duca_DomicilioFiscal_Declarante, DbType.String, ParameterDirection.Input);
             parameters.Add("@duca_Codigo_Transportista", item.duca_Codigo_Transportista, DbType.String, ParameterDirection.Input);
             parameters.Add("@duca_Transportista_Nombre", item.duca_Transportista_Nombre, DbType.String, ParameterDirection.Input);
-            parameters.Add("@motr_Id", item.motr_id, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@motr_Id", item.motr_Id, DbType.Int32, ParameterDirection.Input);
 
             parameters.Add("@cont_Licencia", item.cont_Licencia, DbType.String, ParameterDirection.Input);
             parameters.Add("@pais_IdExpedicion", item.pais_IdExpedicion, DbType.Int32, ParameterDirection.Input);
@@ -219,15 +211,13 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parameters.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parameters.Add("@duca_FechaModificacion", item.duca_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
 
-            var resultado = db.QueryFirst<string>(ScriptsDataBase.EditarDucaTAP2, parameters, commandType: CommandType.StoredProcedure);
+            var respuesta = db.QueryFirst<string>(ScriptsDataBase.EditarDucaTAP2, parameters, commandType: CommandType.StoredProcedure);
 
-            RequestStatus request = new()
+            return new RequestStatus()
             {
-                CodeStatus = 1,
-                MessageStatus = "Estado update: " + resultado
+                CodeStatus = respuesta == "1" ? 1 : 0,
+                MessageStatus = respuesta
             };
-
-            return request;
         }
 
         public RequestStatus UpdateTap3(tbDocumentosDeSoporte item)
@@ -248,15 +238,13 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parameters.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parameters.Add("@doso_FechaModificacion", item.doso_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
 
-            var resultado = db.QueryFirst<string>(ScriptsDataBase.EditarDucaTAP3, parameters, commandType: CommandType.StoredProcedure);
+            var respuesta = db.QueryFirst<string>(ScriptsDataBase.EditarDucaTAP3, parameters, commandType: CommandType.StoredProcedure);
 
-            RequestStatus request = new()
+            return new RequestStatus()
             {
-                CodeStatus = 1,
-                MessageStatus = "Estado update: " + resultado
+                CodeStatus = respuesta == "1" ? 1 : 0,
+                MessageStatus = respuesta
             };
-
-            return request;
         }
     }
 }

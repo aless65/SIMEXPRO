@@ -34,6 +34,7 @@ namespace SIMEXPRO.BussinessLogic
             services.AddScoped<ArancelesRepository>();
             services.AddScoped<BaseCalculosRepository>();
             services.AddScoped<BoletinPagoRepository>();
+            services.AddScoped<BoletinPagoDetallesRepository>();
             services.AddScoped<CodigoImpuestoRepository>();
             services.AddScoped<ComercianteIndividualRepository>();
             services.AddScoped<ConceptoPagoRepository>();

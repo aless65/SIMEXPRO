@@ -81067,19 +81067,6 @@ VALUES	( 1, 1, 1, 'Frente a bodega Los Hermanos', 1, 'A001', 'A la par de Maxi-D
 		( 5, 1, 9, 'Una cuadra antes del Banco de Occidente', 6, 'B007', 'Local #30, 2da Planta, Mall Galerias del Valle', '97975754', '20345579', 'FgDV@gmail.com', '', 1, GETDATE())
 
 
-/*-------------------------------------------------*/
---********** INSERT TABLA CONCEPTO PAGO ************--
-GO
-INSERT INTO Adua.tbConceptoPago(copa_Descripcion, usua_UsuarioCreacion, copa_FechaCreacion)
-VALUES	('Concepto Pago 1', 1, GETDATE()),
-		('Concepto Pago 2', 1, GETDATE()),
-		('Concepto Pago 3', 1, GETDATE());
-
-
-INSERT INTO [Adua].[tbDeclaraciones_Valor] ([deva_AduanaIngresoId], [deva_AduanaDespachoId], [deva_DeclaracionMercancia], [deva_FechaAceptacion], [impo_Id], [pvde_Id], [inte_Id], [deva_LugarEntrega], [pais_EntregaId], [inco_Id], [inco_Version], [deva_NumeroContrato], [deva_FechaContrato], [foen_Id], [deva_PagoEfectuado], [fopa_Id], [emba_Id], [pais_ExportacionId], [deva_FechaExportacion], [mone_Id], [deva_ConversionDolares], [usua_UsuarioCreacion], [deva_FechaCreacion])
-VALUES (1, 2, 'Algun documento importante o dato importante', GETDATE(), 3, 1, 1, 'En un lugar cerquita de la casa del que recibe', 1, 1, '2021', 'XBTO87642', GETDATE(), 1, 1, 1, 1, 2, GETDATE(), 1, 24.2034, 'FOB', 1, GETDATE())
-GO
-
 
 /*-------------------------------------------------*/
 --********** INSERT TABLA IMPORTADORES ************--
@@ -81099,6 +81086,63 @@ INSERT INTO [Adua].[tbImportadores]
            (2 ,2 ,'DISTRIBUIDOR' ,'8652-5764-352231' ,'848495849413' ,1 ,GETDATE()),
 		   (3 ,1 ,'MAYORISTA'    ,'4325-7663-123241' ,'038023839177' ,1 ,GETDATE()),
            (4 ,2 ,'MINORISTA'    ,'2132-1312-321233' ,'436587798968' ,1 ,GETDATE());
+
+/*-------------------------------------------------*/
+--********** INSERT TABLA CONCEPTO PAGO ************--
+GO
+INSERT INTO Adua.tbConceptoPago(copa_Descripcion, usua_UsuarioCreacion, copa_FechaCreacion)
+VALUES	('Concepto Pago 1', 1, GETDATE()),
+		('Concepto Pago 2', 1, GETDATE()),
+		('Concepto Pago 3', 1, GETDATE());
+
+
+INSERT INTO [Adua].[tbDeclaraciones_Valor] ([deva_AduanaIngresoId], --
+											[deva_AduanaDespachoId], --
+											[deva_DeclaracionMercancia], --
+											[deva_FechaAceptacion], --
+											[impo_Id], --
+											[pvde_Id], --
+											[inte_Id], --
+											[deva_LugarEntrega], --
+											[pais_EntregaId], --
+											[inco_Id], --
+											[inco_Version], --
+											[deva_NumeroContrato], --
+											[deva_FechaContrato], --
+											[foen_Id], --
+											[deva_PagoEfectuado], --
+											[fopa_Id], --
+											[emba_Id], --
+											[pais_ExportacionId], --
+											[deva_FechaExportacion], --
+											[mone_Id], --
+											[deva_ConversionDolares], --
+											[usua_UsuarioCreacion], --
+											[deva_FechaCreacion])
+VALUES (1, 
+		2, 
+		'Algun documento importante o dato importante', 
+		GETDATE(), 
+		3, 
+		1, 
+		1, 
+		'En un lugar cerquita de la casa del que recibe', --
+		1, --
+		1, --
+		'2021',-- 
+		'XBTO87642', --
+		GETDATE(), --
+		1, --
+		1, --
+		1, --
+		1, --
+		2, --
+		GETDATE(), --
+		1, --
+		24.2034, --
+		1, 
+		GETDATE())
+GO
 
 
 /*--------------------------------------------------------*/
@@ -81213,3 +81257,35 @@ VALUES
 		('ISV', '15,500.5009', 'EXONERAR', '15,500.5009', '83739333921');
 
 
+/*----------------------------------------------------*/
+--* INSERT TABLA ESTADO BOLETIN----
+GO
+INSERT INTO Adua.tbEstadoBoletin(esbo_Descripcion, usua_UsuarioCreacion, esbo_FechaCreacion)
+VALUES
+        ('Entregado', 1, GETDATE()),
+        ('Pendiente', 1, GETDATE())
+
+
+/*-------------------------------------------------*/
+--***** INSERT TABLA LIQUIDACION POR LINEA *****--
+GO
+INSERT INTO Adua.tbLiquidacionPorLinea(lili_Tipo, lili_Alicuota, lili_Total, lili_ModalidadPago, lili_TotalGral, item_Id)
+VALUES
+        ('DAI', 0.00, 15500.50, 'EXONERAR',  15500.50, 1),
+        ('ISV', 15500.50, 15500.50, 'EXONERAR', 15500.50, 1);
+
+
+/*-----------------------------------------*/
+--***** INSERT TABLA BOLETIN DE PAGO ******--
+GO
+INSERT INTO Adua.tbBoletinPago(liqu_Id, duca_No_Duca, tipl_Id, boen_FechaEmision, esbo_Id, boen_Observaciones, boen_NDeclaracion, boen_Preimpreso, boen_TotalPagar, boen_TotalGarantizar, coim_Id, copa_Id, usua_UsuarioCreacion, boen_FechaCreacion)
+VALUES
+        (1, '83739333921', 1, GETDATE(), 1, 'Sin Observaciones', '230011011994J', 'CHEP220062808M', 150000, 0.00, 1, 1, 1, GETDATE());
+
+
+/*------------------------------*/
+--****** INSERT TABLA CONDICIONES *****--
+GO
+INSERT INTO Adua.tbCondiciones(deva_Id, codi_Restricciones_Utilizacion, codi_Indicar_Restricciones_Utilizacion, codi_Depende_Precio_Condicion, codi_Indicar_Existe_Condicion, codi_Condicionada_Revertir, codi_Vinculacion_Comprador_Vendedor, codi_Tipo_Vinculacion, codi_Vinculacion_Influye_Precio, codi_Pagos_Descuentos_Indirectos, codi_Concepto_Monto_Declarado, codi_Existen_Canones, codi_Indicar_Canones, usua_UsuarioCreacion, codi_FechaCreacion)
+VALUES
+        (1, 0, '', 0, '', 0, 0, '', 0, 0, '', 0, '', 1, GETDATE())

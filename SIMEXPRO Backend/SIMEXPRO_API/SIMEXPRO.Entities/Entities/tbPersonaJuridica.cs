@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -15,6 +16,13 @@ namespace SIMEXPRO.Entities.Entities
 
         public int peju_Id { get; set; }
         public int pers_Id { get; set; }
+        [NotMapped]
+        public string pers_RTN { get; set; }
+        [NotMapped]
+        public int ofic_Id { get; set; }
+        [NotMapped] 
+        public string pais_RepresentanteNombre { get; set; }
+
         public int peju_EstadoRepresentante { get; set; }
         public int colo_Id { get; set; }
         public string peju_PuntoReferencia { get; set; }

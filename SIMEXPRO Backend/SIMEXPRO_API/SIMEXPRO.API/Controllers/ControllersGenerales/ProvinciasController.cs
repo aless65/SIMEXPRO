@@ -58,10 +58,11 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         //}
 
         [HttpPost("ProvinciasFiltradaPorPais")]
-        public IActionResult ProvinciasPorPaises(ProvinciasViewModel provinciasViewModel)
+        public IActionResult ProvinciasPorPaises(int pais_Id )
         {
-            var item = _mapper.Map<tbProvincias>(provinciasViewModel);
-            var respuesta = _generalesServices.ProvinciasPorPaises(item);
+          
+            var respuesta = _generalesServices.ProvinciasPorPaises(pais_Id);
+            respuesta.Data = _mapper.Map<IEnumerable<ProvinciasViewModel>>(respuesta.Data);
             return Ok(respuesta);
         }
 

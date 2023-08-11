@@ -1868,7 +1868,7 @@ END
 GO
 
 /*Insertar FORMAS DE ENVIO*/
-CREATE OR ALTER PROCEDURE Gral.UDP_tbFormas_Envio_Insertar
+CREATE OR ALTER PROCEDURE Gral.UDP_tbFormas_Envio_Insertar 
 (   @foen_Codigo            CHAR(2),
 	@foen_Descripcion		NVARCHAR(500),
 	@usua_UsuarioCreacion	INT,
@@ -1957,13 +1957,6 @@ BEGIN
 END
 GO
 --************EMPLEADOS******************--
-/*Listar EMPLEADOS*/
-/****** Object:  StoredProcedure [Gral].[UDP_tbEmpleados_Listar]    Script Date: 08/08/2023 16:39:38 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
 
 
 --************EMPLEADOS******************--
@@ -2523,84 +2516,57 @@ GO
 
 --*************** UDPS Para Tabla Comersiante Individual ************--
 
-/*Listar Comersiante Individual*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbComercianteIndividual_Listar
+/*Listar Comersiante Individual*/CREATE OR ALTER PROCEDURE Adua.UDP_tbComercianteIndividual_Listar
 AS
 BEGIN
-SELECT  comercianteIndividual.coin_Id
-       	,personas.pers_Id
-		,personas.pers_RTN
-		,personas.ofic_Id
-		,oficina.ofic_Nombre
-		,personas.escv_Id
-		,estadoCivil.escv_Nombre
-		,personas.ofpr_Id
-		,oficioProfesion.ofpr_Nombre
-		,personas.pers_escvRepresentante
-		,estadoCivilRepresentante.escv_Nombre
-		,personas.pers_OfprRepresentante
-		,oficioProfesionRepresentante.ofpr_Nombre
-		
-		,provincias.pais_Id
-		,paises.pais_Codigo
-		,paises.pais_Nombre
-		,ciudades.pvin_Id
-		,provincias.pvin_Nombre
-		,colonia.ciud_Id
-		,ciudades.ciud_Nombre
-        ,colonia.colo_Id
-	    ,colonia.colo_Nombre
+	SELECT	
+			coin.coin_Id, 
+			coin.pers_Id,
+			pers.pers_RTN,			
+			pers.escv_Id,
+			civi.escv_Nombre,
+			pers.ofic_Id,
+			ofic.ofic_Nombre,
+			pers.ofpr_Id,
+			ofpr.ofpr_Nombre,
+			coin.pers_FormaRepresentacion, 
 
-       ,comercianteIndividual.coin_PuntoReferencia
+			coin.colo_Id,
+			colo.colo_Nombre,
+			ciud.ciud_Nombre,
+			ciud.pvin_Id,
+			pvin.pvin_Codigo,
+			pvin.pvin_Nombre,
+			pvin.pais_Id,
+			pais.pais_Codigo,
+			pais.pais_Nombre,
+			coin.coin_PuntoReferencia,
+			coin.coin_TelefonoCelular, 
+			coin.coin_TelefonoFijo, 
+			coin.coin_CorreoElectronico, 
+			coin.coin_CorreoElectronicoAlternativo, 
 
-	   ,provincias.pais_Id
-	   ,paisesRepresntante.pais_Codigo
-	   ,paisesRepresntante.pais_Nombre
-	   ,ciudadesRepresntante.pvin_Id
-	   ,provinciasRepresntante.pvin_Nombre
-	   ,aldeaRepresentante.ciud_Id
-	   ,ciudadesRepresntante.ciud_Nombre
-	   ,coloniaRepresntante.alde_Id
-	   ,aldeaRepresentante.alde_Nombre
-       ,comercianteIndividual.coin_ColoniaRepresentante
-	   ,coloniaRepresntante.colo_Nombre
 
-       ,comercianteIndividual.coin_NumeroLocalReprentante
-       ,comercianteIndividual.coin_PuntoReferenciaReprentante
-       ,comercianteIndividual.coin_TelefonoCelular
-       ,comercianteIndividual.coin_TelefonoFijo
-       ,comercianteIndividual.coin_CorreoElectronico
-       ,comercianteIndividual.coin_CorreoElectronicoAlternativo
-       ,comercianteIndividual.usua_UsuarioCreacion
-	   ,usuarioCreacion.usua_Nombre
-       ,comercianteIndividual.coin_FechaCreacion
-       ,comercianteIndividual.usua_UsuarioModificacion
-	   ,usuarioModificacion.usua_Nombre
-       ,comercianteIndividual.coin_FechaModificacion
-       ,comercianteIndividual.coin_Estado
-  FROM Adua.tbComercianteIndividual				comercianteIndividual
-	   INNER JOIN	Adua.tbPersonas					personas								ON comercianteIndividual.pers_Id						= personas.pers_Id
-	   INNER JOIN	Gral.tbOficinas					oficina									ON personas.ofic_Id										= oficina.ofic_Id
-	   INNER JOIN	Gral.tbEstadosCiviles			estadoCivil								ON personas.escv_Id										= estadoCivil.escv_Id
-	   INNER JOIN	Gral.tbOficio_Profesiones		oficioProfesion							ON personas.ofpr_Id										= oficioProfesion.ofpr_Id
-	   INNER JOIN	Gral.tbEstadosCiviles			estadoCivilRepresentante				ON personas.pers_escvRepresentante						= estadoCivilRepresentante.escv_Id
-	   INNER JOIN	Gral.tbOficio_Profesiones		oficioProfesionRepresentante			ON personas.pers_OfprRepresentante						= oficioProfesionRepresentante.ofpr_Id
- 	  
-	   INNER JOIN   Gral.tbColonias					colonia									ON comercianteIndividual.colo_Id						= colonia.colo_Id
-	   INNER JOIN   Gral.tbAldeas					aldea									ON colonia.alde_Id										= aldea.alde_Id
-	   INNER JOIN	Gral.tbCiudades					ciudades								ON aldea.ciud_Id										= ciudades.ciud_Id
-	   INNER JOIN	GraL.tbProvincias				provincias								ON ciudades.pvin_Id										= provincias.pvin_Id
-	   INNER JOIN	Gral.tbPaises					paises									ON provincias.pais_Id									= paises.pais_Id
+			coin.coin_ColoniaRepresentante, 
+			coin.coin_NumeroLocalReprentante, 
+			coin.coin_PuntoReferenciaReprentante, 
 
-	   INNER JOIN   Gral.tbColonias					coloniaRepresntante						ON comercianteIndividual.colo_Id						= coloniaRepresntante.colo_Id 
-	   INNER JOIN   Gral.tbAldeas					aldeaRepresentante						ON coloniaRepresntante.alde_Id							= aldeaRepresentante.alde_Id
-	   INNER JOIN	Gral.tbCiudades					ciudadesRepresntante					ON aldeaRepresentante.ciud_Id							= ciudadesRepresntante.ciud_Id
-	   INNER JOIN	GraL.tbProvincias				provinciasRepresntante					ON ciudadesRepresntante.pvin_Id							= provinciasRepresntante.pvin_Id
-	   INNER JOIN	Gral.tbPaises					paisesRepresntante						ON provinciasRepresntante.pais_Id						= paisesRepresntante.pais_Id
-	  
-	  INNER JOIN  Acce.tbUsuarios					usuarioCreacion							ON comercianteIndividual.usua_UsuarioCreacion			= usuarioCreacion.usua_Id
-	  INNER JOIN  Acce.tbUsuarios					usuarioModificacion						ON comercianteIndividual.usua_UsuarioModificacion		= usuarioModificacion.usua_Id
 
+			coin.usua_UsuarioCreacion, 
+			coin.coin_FechaCreacion, 
+			coin.usua_UsuarioModificacion, 
+			coin.coin_FechaModificacion, 
+			coin.coin_Estado
+	FROM Adua.tbComercianteIndividual		AS coin
+	INNER JOIN Adua.tbPersonas				AS pers		ON coin.pers_Id =	pers.pers_Id
+	INNER JOIN Gral.tbEstadosCiviles		AS civi		ON pers.escv_Id =	civi.escv_Id
+	INNER JOIN Gral.tbOficinas				AS ofic		ON pers.ofic_Id =	ofic.ofic_Id
+	INNER JOIN Gral.tbOficio_Profesiones	AS ofpr		ON pers.ofpr_Id =	ofpr.ofpr_Id
+	INNER JOIN Gral.tbColonias				AS colo		ON coin.colo_Id =	colo.colo_Id
+	LEFT JOIN Gral.tbCiudades				AS ciud		ON colo.ciud_Id =	ciud.ciud_Id
+	LEFT JOIN Gral.tbProvincias				AS pvin		ON ciud.pvin_Id =	pvin.pvin_Id
+	LEFT JOIN Gral.tbPaises					AS pais		ON pvin.pais_Id =	pais.pais_Id
+	WHERE coin.coin_Estado = 1
 END
 GO
 
@@ -2868,15 +2834,15 @@ BEGIN
 			,personas.ofpr_Id
 			,oficioProfesion.ofpr_Nombre
 			,personas.pers_escvRepresentante
-			,estadoCivilRepresentante.escv_Nombre
+			,estadoCivilRepresentante.escv_Nombre AS escv_RepresentanteNombre
 
 			,personas.pers_OfprRepresentante
-			,oficioProfesionRepresentante.ofpr_Nombre
-			,provicionciasRepresentante.pais_Id
-			,paisesRepresentante.pais_Nombre
+			,oficioProfesionRepresentante.ofpr_Nombre AS ofpr_RepresentanteNombre
+			,provicionciasRepresentante.pais_Id AS pais_RepresentanteId
+			,paisesRepresentante.pais_Nombre AS pais_RepresentanteNombre
 			,personaJuridica.peju_EstadoRepresentante
-			,provicionciasRepresentante.pvin_Nombre
-			,provincias.pais_Id
+			,provicionciasRepresentante.pvin_Nombre AS pvin_RepresentanteNombre
+			,provincias.pais_Id 
 			,paises.pais_Codigo
 			,paises.pais_Nombre
 			,provincias.pvin_Id
@@ -2903,7 +2869,7 @@ BEGIN
 			,usuarioModificacion.usua_Nombre
 			,personaJuridica.peju_FechaModificacion
 			,personaJuridica.peju_Estado
-	  FROM	Adua.tbPersonaJuridica					personaJuridica
+			FROM	Adua.tbPersonaJuridica					personaJuridica
 			INNER JOIN	Adua.tbPersonas					personas								ON personaJuridica.pers_Id						= personas.pers_Id
 			INNER JOIN	Gral.tbOficinas					oficina									ON personas.ofic_Id								= oficina.ofic_Id
 			INNER JOIN	Gral.tbEstadosCiviles			estadoCivil								ON personas.escv_Id								= estadoCivil.escv_Id
@@ -2924,8 +2890,8 @@ BEGIN
 			INNER JOIN	GraL.tbProvincias				provincias								ON ciudades.pvin_Id								= provincias.pvin_Id
 			INNER JOIN	Gral.tbPaises					paises									ON provincias.pais_Id						= paises.pais_Id
 
-			INNER JOIN  Acce.tbUsuarios					usuarioCreacion							ON personaJuridica.usua_UsuarioCreacion			= usuarioCreacion.usua_Id
-			INNER JOIN  Acce.tbUsuarios					usuarioModificacion						ON personaJuridica.usua_UsuarioModificacion		= usuarioModificacion.usua_Id
+			LEFT JOIN  Acce.tbUsuarios					usuarioCreacion							ON personaJuridica.usua_UsuarioCreacion			= usuarioCreacion.usua_Id
+			LEFT JOIN  Acce.tbUsuarios					usuarioModificacion						ON personaJuridica.usua_UsuarioModificacion		= usuarioModificacion.usua_Id
 
 END
 GO
@@ -3404,6 +3370,7 @@ SELECT	modo.motr_Id						,
 FROM	Adua.tbModoTransporte modo 
 		INNER JOIN Acce.tbUsuarios crea		ON crea.usua_Id = modo.usua_UsuarioCreacion		
 		LEFT JOIN Acce.tbUsuarios modi		ON modi.usua_Id = modo.usua_UsuarioModificacion 
+		LEFT JOIN Acce.tbUsuarios elim		ON elim.usua_Id = modo.usua_UsuarioEliminacion
 WHERE	motr_Estado = 1
 END
 GO
@@ -3975,10 +3942,14 @@ BEGIN
 		   marca.usua_UsuarioModificacion, 
 		   usuModi.usua_Nombre					AS usuarioModificacionNombre,
 		   marca.marc_FechaModificacion, 
+		   marca.usua_UsuarioEliminacion,
+		   usuElim.usua_Nombre					AS usuarioEliminacionNombre,
+		   marca.marc_FechaEliminacion,
 		   marca.marc_Estado
 	 FROM  Adua.tbMarcas marca 
-		   LEFT JOIN acce.tbUsuarios usuCrea	ON marca.usua_UsuarioCreacion = usuCrea.usua_Id
+		   INNER JOIN acce.tbUsuarios usuCrea	ON marca.usua_UsuarioCreacion = usuCrea.usua_Id
 		   LEFT JOIN acce.tbUsuarios usuModi	ON marca.usua_UsuarioModificacion = usuModi.usua_Id
+		   LEFT JOIN Acce.tbUsuarios usuElim	ON marca.usua_UsuarioEliminacion = usuElim.usua_Id
 	WHERE  marc_Estado = 1
 END
 GO
@@ -4150,15 +4121,14 @@ GO
 --****************************************** DECLARACIÓN DE VALOR ******************************************--
 /*Vista que trae todos los campos de la parte  1 del formulario de la declaración de valor, incluso los que están en 
   otras tablas conectadas a tbDeclaraciones_Valor (no se incluyen las facturas ni las condiciones)*/
-GO
-CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_ValorCompleto_Listar
+
+CREATE OR ALTER VIEW Adua.VW_tbDeclaraciones_ValorCompleto
 AS
-BEGIN
-	SELECT	deva_Id, 
+SELECT		deva_Id, 
 			deva_AduanaIngresoId, 
-			aduaIngreso.adua_Nombre		AS adua_IngresoNombre,
+			aduaIngreso.adua_Nombre				AS adua_IngresoNombre,
 			deva_AduanaDespachoId, 
-			aduaDespacho.adua_Nombre	AS adua_DespachoNombre,
+			aduaDespacho.adua_Nombre			AS adua_DespachoNombre,
 			deva_DeclaracionMercancia, 
 			deva_FechaAceptacion, 
 
@@ -4237,9 +4207,98 @@ BEGIN
 			LEFT JOIN Gral.tbFormas_Envio foen				ON deva.foen_Id = foen.foen_Id 
 			LEFT JOIN Acce.tbUsuarios usuaCrea				ON deva.usua_UsuarioCreacion = usuaCrea.usua_Id
 			LEFT JOIN Acce.tbUsuarios usuaModifica			ON deva.usua_UsuarioModificacion = usuaModifica.usua_Id
-	
-END
 GO
+
+--GO
+--CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_ValorCompleto_Listar
+--AS
+--BEGIN
+--	SELECT	deva_Id, 
+--			deva_AduanaIngresoId, 
+--			aduaIngreso.adua_Nombre		AS adua_IngresoNombre,
+--			deva_AduanaDespachoId, 
+--			aduaDespacho.adua_Nombre	AS adua_DespachoNombre,
+--			deva_DeclaracionMercancia, 
+--			deva_FechaAceptacion, 
+
+--			impo.impo_Id, 
+--			impo.impo_NumRegistro,
+--			impo.nico_Id,
+--			nico.nico_Descripcion,
+--			impo.impo_NivelComercial_Otro,
+--			declaImpo.decl_Nombre_Raso			AS impo_Nombre_Raso,
+--			declaImpo.decl_Direccion_Exacta		AS impo_Direccion_Exacta,
+--			declaImpo.decl_Correo_Electronico	AS impo_Correo_Electronico,
+--			declaImpo.decl_Telefono				AS impo_Telefono,
+--			declaImpo.decl_Fax					AS impo_Fax,			
+--			declaImpo.ciud_Id					AS impo_ciudId,
+			
+--			deva.pvde_Id,			
+--			declaProv.decl_Nombre_Raso			AS prov_Nombre_Raso,
+--			declaProv.decl_Direccion_Exacta		AS prov_Direccion_Exacta,
+--			declaProv.decl_Correo_Electronico	AS prov_Correo_Electronico,
+--			declaProv.decl_Telefono				AS prov_Telefono,
+--			declaProv.decl_Fax					AS prov_Fax,			
+--			declaProv.ciud_Id					AS prov_ciudId,
+--			prov.coco_Id,			
+--			coco.coco_Descripcion,
+--			prov.pvde_Condicion_Otra,		
+
+--			inte.inte_Id, 
+--			inte.tite_Id,
+--			declaInte.decl_Nombre_Raso			AS inte_Nombre_Raso,
+--			declaInte.decl_Direccion_Exacta		AS inte_Direccion_Exacta,
+--			declaInte.decl_Correo_Electronico	AS inte_Correo_Electronico,
+--			declaInte.decl_Telefono				AS inte_Telefono,
+--			declaInte.decl_Fax					AS inte_Fax,			
+--			declaInte.ciud_Id					AS inte_ciudId,
+
+
+--			deva_LugarEntrega, 
+--			pais_EntregaId, 
+--			inco.inco_Id, 
+--			inco.inco_Descripcion,
+--			inco_Version, 
+--			deva_NumeroContrato, 
+--			deva_FechaContrato, 
+--			foen.foen_Id, 
+--			foen.foen_Descripcion,
+
+--			deva_FormaEnvioOtra, 
+--			deva_PagoEfectuado, 
+--			fopa_Id, 
+--			deva_FormaPagoOtra, 
+--			emba_Id, 
+--			pais_ExportacionId, 
+--			deva_FechaExportacion, 
+--			mone_Id, 
+--			mone_Otra, 
+--			deva_ConversionDolares, 
+--			----deva_Condiciones, 
+--			deva.usua_UsuarioCreacion, 
+--			usuaCrea.usua_Nombre				AS usua_CreacionNombre,
+--			deva_FechaCreacion, 
+--			deva.usua_UsuarioModificacion		AS usua_ModificacionNombre,
+--			deva_FechaModificacion, 
+--			deva_Estado 
+--	FROM	Adua.tbDeclaraciones_Valor deva 
+--			LEFT JOIN Adua.tbAduanas aduaIngreso			ON deva.deva_AduanaIngresoId = aduaIngreso.adua_Id
+--			LEFT JOIN Adua.tbAduanas aduaDespacho			ON deva.deva_AduanaDespachoId = aduaDespacho.adua_Id
+--			LEFT JOIN Adua.tbImportadores impo				ON deva.impo_Id = impo.impo_Id
+--			LEFT JOIN Adua.tbDeclarantes declaImpo			ON impo.decl_Id = declaImpo.decl_Id
+--			LEFT JOIN Adua.tbNivelesComerciales nico		ON impo.nico_Id = nico.nico_Id
+--			LEFT JOIN Adua.tbProveedoresDeclaracion prov	ON prov.pvde_Id = deva.pvde_Id
+--			LEFT JOIN Adua.tbDeclarantes declaProv			ON prov.decl_Id = declaProv.decl_Id
+--			LEFT JOIN Adua.tbCondicionesComerciales coco	ON prov.coco_Id = coco.coco_Id
+--			LEFT JOIN Adua.tbIntermediarios inte			ON inte.inte_Id = deva.inte_Id
+--			LEFT JOIN Adua.tbDeclarantes declaInte			ON declaInte.decl_Id = inte.decl_Id
+--			LEFT JOIN Adua.tbIncoterm inco					ON deva.inco_Id = inco.inco_Id
+--			LEFT JOIN Gral.tbFormas_Envio foen				ON deva.foen_Id = foen.foen_Id 
+--			LEFT JOIN Acce.tbUsuarios usuaCrea				ON deva.usua_UsuarioCreacion = usuaCrea.usua_Id
+--			LEFT JOIN Acce.tbUsuarios usuaModifica			ON deva.usua_UsuarioModificacion = usuaModifica.usua_Id
+	
+--END
+--GO
 
 
 /* Listar Declarantes*/
@@ -7775,10 +7834,14 @@ SELECT	nico_Id								,
 		nco.usua_UsuarioModificacion		,
 		usu2.usua_Nombre					AS UsuarioModificadorNombre,
 		nico_FechaModificacion 				,
+		nco.usua_UsuarioEliminacion,
+		nico_FechaEliminacion,
+		elim.usua_Nombre					AS UsuarioEliminacionNombre,
 		nico_Estado
 FROM	Adua.tbNivelesComerciales nco			
 		INNER JOIN Acce.tbUsuarios usu1		ON nco.usua_UsuarioCreacion = usu1.usua_Id		
 		LEFT JOIN Acce.tbUsuarios usu2		ON nco.usua_UsuarioModificacion = usu2.usua_Id
+		LEFT JOIN Acce.tbUsuarios elim		ON nco.usua_UsuarioEliminacion = elim.usua_Id
 WHERE	nico_Estado = 1
 END
 GO
@@ -13241,82 +13304,90 @@ WHERE col.ciud_Id = @ciud_Id AND col.colo_Estado = 1
 
 
 
-
+GO
 ----------*********************TRIGGERS*******************----------
---/*Declarantes*/
---CREATE OR ALTER TRIGGER TR_tbDeclarantes_Update
---ON Adua.tbDeclarantes AFTER UPDATE 
---AS
+/*Declarantes*/
+CREATE OR ALTER TRIGGER Adua.TR_tbDeclarantes_Update
+ON Adua.tbDeclarantes AFTER UPDATE 
+AS
 
---	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
---	DECLARE @decl_FechaModificacion DATETIME = (SELECT decl_FechaModificacion FROM inserted)
+	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
+	DECLARE @decl_FechaModificacion DATETIME = (SELECT decl_FechaModificacion FROM inserted)
 
---	INSERT INTO [Adua].[tbDeclarantesHistorial]
---	SELECT decl_Id,
---		   decl_NumeroIdentificacion,
---		   decl_Nombre_Raso,
---		   decl_Direccion_Exacta,
---		   ciud_Id,
---		   decl_Correo_Electronico,
---		   decl_Telefono,
---		   decl_Fax,
---		   @usua_UsuarioModificacion,
---		   @decl_FechaModificacion
---	FROM deleted
---GO
+	INSERT INTO [Adua].[tbDeclarantesHistorial]
+	SELECT decl_Id,
+		   decl_NumeroIdentificacion,
+		   decl_Nombre_Raso,
+		   decl_Direccion_Exacta,
+		   ciud_Id,
+		   decl_Correo_Electronico,
+		   decl_Telefono,
+		   decl_Fax,
+		   usua_UsuarioCreacion,
+		   decl_FechaCreacion,
+		   @usua_UsuarioModificacion,
+		   @decl_FechaModificacion
+	FROM deleted
+GO
 	
---/*Importadores*/
---CREATE OR ALTER TRIGGER TR_tbImportadores_Update
---ON Adua.tbImportadores AFTER UPDATE 
---AS
+/*Importadores*/
+CREATE OR ALTER TRIGGER Adua.TR_tbImportadores_Update
+ON Adua.tbImportadores AFTER UPDATE 
+AS
 
---	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
---	DECLARE @impo_FechaModificacion DATETIME = (SELECT impo_FechaModificacion FROM inserted)
+	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
+	DECLARE @impo_FechaModificacion DATETIME = (SELECT impo_FechaModificacion FROM inserted)
 
---	INSERT INTO [Adua].[tbImportadoresHistorial]
---	SELECT impo_Id,
---		   nico_Id,
---		   decl_Id,
---		   impo_NivelComercial_Otro,
---		   impo_RTN,
---		   impo_NumRegistro,
---		   @usua_UsuarioModificacion,
---		   @impo_FechaModificacion
---	FROM deleted
---GO
+	INSERT INTO [Adua].[tbImportadoresHistorial]
+	SELECT impo_Id,
+		   nico_Id,
+		   decl_Id,
+		   impo_NivelComercial_Otro,
+		   impo_RTN,
+		   impo_NumRegistro,
+		   usua_UsuarioCreacion,
+		   impo_FechaCreacion,
+		   @usua_UsuarioModificacion,
+		   @impo_FechaModificacion
+	FROM deleted
+GO
 
---/*Proveedores*/
---CREATE OR ALTER TRIGGER TR_tbProveedoresDeclaracion_Update
---ON Adua.tbProveedoresDeclaracion AFTER UPDATE 
---AS
+/*Proveedores*/
+CREATE OR ALTER TRIGGER Adua.TR_tbProveedoresDeclaracion_Update
+ON Adua.tbProveedoresDeclaracion AFTER UPDATE 
+AS
 
---	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
---	DECLARE @pvde_FechaModificacion DATETIME = (SELECT pvde_FechaModificacion FROM inserted)
+	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
+	DECLARE @pvde_FechaModificacion DATETIME = (SELECT pvde_FechaModificacion FROM inserted)
 
---	INSERT INTO [Adua].[tbProveedoresDeclaracionHistorial]
---	SELECT pvde_Id,
---		   coco_Id,
---		   pvde_Condicion_Otra,
---		   decl_Id,
---		   @usua_UsuarioModificacion,
---		   @pvde_FechaModificacion
---	FROM deleted
---GO
+	INSERT INTO [Adua].[tbProveedoresDeclaracionHistorial]
+	SELECT pvde_Id,
+		   coco_Id,
+		   pvde_Condicion_Otra,
+		   decl_Id,
+		   usua_UsuarioCreacion,
+		   pvde_FechaCreacion,
+		   @usua_UsuarioModificacion,
+		   @pvde_FechaModificacion
+	FROM deleted
+GO
 
---/*Intermediarios*/
---CREATE OR ALTER TRIGGER TR_tbIntermediarios_Update
---ON Adua.tbIntermediarios AFTER UPDATE 
---AS
+/*Intermediarios*/
+CREATE OR ALTER TRIGGER Adua.TR_tbIntermediarios_Update
+ON Adua.tbIntermediarios AFTER UPDATE 
+AS
 
---	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
---	DECLARE @inte_FechaModificacion DATETIME = (SELECT inte_FechaModificacion FROM inserted)
+	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
+	DECLARE @inte_FechaModificacion DATETIME = (SELECT inte_FechaModificacion FROM inserted)
 
---	INSERT INTO [Adua].[tbIntermediariosHistorial]
---	SELECT inte_Id,
---		   tite_Id,
---		   inte_Tipo_Otro,
---		   decl_Id,
---		   @usua_UsuarioModificacion,
---		   @inte_FechaModificacion
---	FROM deleted
---GO
+	INSERT INTO [Adua].[tbIntermediariosHistorial]
+	SELECT inte_Id,
+		   tite_Id,
+		   inte_Tipo_Otro,
+		   decl_Id,
+		   usua_UsuarioCreacion,
+		   inte_FechaCreacion,
+		   @usua_UsuarioModificacion,
+		   @inte_FechaModificacion
+	FROM deleted
+GO

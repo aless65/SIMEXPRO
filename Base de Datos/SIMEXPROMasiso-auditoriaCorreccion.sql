@@ -2762,7 +2762,7 @@ CREATE TABLE Adua.tbBoletinPago(
     boen_FechaModificacion         DATETIME DEFAULT NULL,
 	--usua_UsuarioEliminacion		   INT	DEFAULT NULL,
 	--boen_FechaEliminacion		   DATETIME DEFAULT NULL,
-    boen_Estado                    BIT NOT NULL,
+    --boen_Estado                    BIT NOT NULL ,
     CONSTRAINT PK_Adua_tbBoletinPago_boen_Id 									      PRIMARY KEY (boen_Id),
     CONSTRAINT FK_Adua_tbBoletinPago_lige_Id_Adua_tbLiquidacionGeneral_lige_Id 		  FOREIGN KEY (liqu_Id)                  REFERENCES Adua.tbLiquidacionGeneral(lige_Id),
 	CONSTRAINT FK_Adua_tbBoletinPago_tbDuca_duca_No_Duca							  FOREIGN KEY (duca_No_Duca)			 REFERENCES Adua.tbDuca(duca_No_Duca),

@@ -17,10 +17,13 @@ namespace SIMEXPRO.Entities.Entities
         public string nico_Codigo { get; set; }
         public string nico_Descripcion { get; set; }
         public int usua_UsuarioCreacion { get; set; }
+        public string usuarioCreacionNombre { get; set; }
         public DateTime nico_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
+        public string usuarioModificacionNombre { get; set; }
         public DateTime? nico_FechaModificacion { get; set; }
         public int? usua_UsuarioEliminacion { get; set; }
+        public string usuarioEliminacionNombre { get; set; }
         public DateTime? nico_FechaEliminacion { get; set; }
         public bool? nico_Estado { get; set; }
 

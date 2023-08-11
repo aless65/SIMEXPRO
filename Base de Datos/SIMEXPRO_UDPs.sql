@@ -2523,84 +2523,57 @@ GO
 
 --*************** UDPS Para Tabla Comersiante Individual ************--
 
-/*Listar Comersiante Individual*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbComercianteIndividual_Listar
+/*Listar Comersiante Individual*/CREATE OR ALTER PROCEDURE Adua.UDP_tbComercianteIndividual_Listar
 AS
 BEGIN
-SELECT  comercianteIndividual.coin_Id
-       	,personas.pers_Id
-		,personas.pers_RTN
-		,personas.ofic_Id
-		,oficina.ofic_Nombre
-		,personas.escv_Id
-		,estadoCivil.escv_Nombre
-		,personas.ofpr_Id
-		,oficioProfesion.ofpr_Nombre
-		,personas.pers_escvRepresentante
-		,estadoCivilRepresentante.escv_Nombre
-		,personas.pers_OfprRepresentante
-		,oficioProfesionRepresentante.ofpr_Nombre
-		
-		,provincias.pais_Id
-		,paises.pais_Codigo
-		,paises.pais_Nombre
-		,ciudades.pvin_Id
-		,provincias.pvin_Nombre
-		,colonia.ciud_Id
-		,ciudades.ciud_Nombre
-        ,colonia.colo_Id
-	    ,colonia.colo_Nombre
+	SELECT	
+			coin.coin_Id, 
+			coin.pers_Id,
+			pers.pers_RTN,			
+			pers.escv_Id,
+			civi.escv_Nombre,
+			pers.ofic_Id,
+			ofic.ofic_Nombre,
+			pers.ofpr_Id,
+			ofpr.ofpr_Nombre,
+			coin.pers_FormaRepresentacion, 
 
-       ,comercianteIndividual.coin_PuntoReferencia
+			coin.colo_Id,
+			colo.colo_Nombre,
+			ciud.ciud_Nombre,
+			ciud.pvin_Id,
+			pvin.pvin_Codigo,
+			pvin.pvin_Nombre,
+			pvin.pais_Id,
+			pais.pais_Codigo,
+			pais.pais_Nombre,
+			coin.coin_PuntoReferencia,
+			coin.coin_TelefonoCelular, 
+			coin.coin_TelefonoFijo, 
+			coin.coin_CorreoElectronico, 
+			coin.coin_CorreoElectronicoAlternativo, 
 
-	   ,provincias.pais_Id
-	   ,paisesRepresntante.pais_Codigo
-	   ,paisesRepresntante.pais_Nombre
-	   ,ciudadesRepresntante.pvin_Id
-	   ,provinciasRepresntante.pvin_Nombre
-	   ,aldeaRepresentante.ciud_Id
-	   ,ciudadesRepresntante.ciud_Nombre
-	   ,coloniaRepresntante.alde_Id
-	   ,aldeaRepresentante.alde_Nombre
-       ,comercianteIndividual.coin_ColoniaRepresentante
-	   ,coloniaRepresntante.colo_Nombre
 
-       ,comercianteIndividual.coin_NumeroLocalReprentante
-       ,comercianteIndividual.coin_PuntoReferenciaReprentante
-       ,comercianteIndividual.coin_TelefonoCelular
-       ,comercianteIndividual.coin_TelefonoFijo
-       ,comercianteIndividual.coin_CorreoElectronico
-       ,comercianteIndividual.coin_CorreoElectronicoAlternativo
-       ,comercianteIndividual.usua_UsuarioCreacion
-	   ,usuarioCreacion.usua_Nombre
-       ,comercianteIndividual.coin_FechaCreacion
-       ,comercianteIndividual.usua_UsuarioModificacion
-	   ,usuarioModificacion.usua_Nombre
-       ,comercianteIndividual.coin_FechaModificacion
-       ,comercianteIndividual.coin_Estado
-  FROM Adua.tbComercianteIndividual				comercianteIndividual
-	   INNER JOIN	Adua.tbPersonas					personas								ON comercianteIndividual.pers_Id						= personas.pers_Id
-	   INNER JOIN	Gral.tbOficinas					oficina									ON personas.ofic_Id										= oficina.ofic_Id
-	   INNER JOIN	Gral.tbEstadosCiviles			estadoCivil								ON personas.escv_Id										= estadoCivil.escv_Id
-	   INNER JOIN	Gral.tbOficio_Profesiones		oficioProfesion							ON personas.ofpr_Id										= oficioProfesion.ofpr_Id
-	   INNER JOIN	Gral.tbEstadosCiviles			estadoCivilRepresentante				ON personas.pers_escvRepresentante						= estadoCivilRepresentante.escv_Id
-	   INNER JOIN	Gral.tbOficio_Profesiones		oficioProfesionRepresentante			ON personas.pers_OfprRepresentante						= oficioProfesionRepresentante.ofpr_Id
- 	  
-	   INNER JOIN   Gral.tbColonias					colonia									ON comercianteIndividual.colo_Id						= colonia.colo_Id
-	   INNER JOIN   Gral.tbAldeas					aldea									ON colonia.alde_Id										= aldea.alde_Id
-	   INNER JOIN	Gral.tbCiudades					ciudades								ON aldea.ciud_Id										= ciudades.ciud_Id
-	   INNER JOIN	GraL.tbProvincias				provincias								ON ciudades.pvin_Id										= provincias.pvin_Id
-	   INNER JOIN	Gral.tbPaises					paises									ON provincias.pais_Id									= paises.pais_Id
+			coin.coin_ColoniaRepresentante, 
+			coin.coin_NumeroLocalReprentante, 
+			coin.coin_PuntoReferenciaReprentante, 
 
-	   INNER JOIN   Gral.tbColonias					coloniaRepresntante						ON comercianteIndividual.colo_Id						= coloniaRepresntante.colo_Id 
-	   INNER JOIN   Gral.tbAldeas					aldeaRepresentante						ON coloniaRepresntante.alde_Id							= aldeaRepresentante.alde_Id
-	   INNER JOIN	Gral.tbCiudades					ciudadesRepresntante					ON aldeaRepresentante.ciud_Id							= ciudadesRepresntante.ciud_Id
-	   INNER JOIN	GraL.tbProvincias				provinciasRepresntante					ON ciudadesRepresntante.pvin_Id							= provinciasRepresntante.pvin_Id
-	   INNER JOIN	Gral.tbPaises					paisesRepresntante						ON provinciasRepresntante.pais_Id						= paisesRepresntante.pais_Id
-	  
-	  INNER JOIN  Acce.tbUsuarios					usuarioCreacion							ON comercianteIndividual.usua_UsuarioCreacion			= usuarioCreacion.usua_Id
-	  INNER JOIN  Acce.tbUsuarios					usuarioModificacion						ON comercianteIndividual.usua_UsuarioModificacion		= usuarioModificacion.usua_Id
 
+			coin.usua_UsuarioCreacion, 
+			coin.coin_FechaCreacion, 
+			coin.usua_UsuarioModificacion, 
+			coin.coin_FechaModificacion, 
+			coin.coin_Estado
+	FROM Adua.tbComercianteIndividual		AS coin
+	INNER JOIN Adua.tbPersonas				AS pers		ON coin.pers_Id =	pers.pers_Id
+	INNER JOIN Gral.tbEstadosCiviles		AS civi		ON pers.escv_Id =	civi.escv_Id
+	INNER JOIN Gral.tbOficinas				AS ofic		ON pers.ofic_Id =	ofic.ofic_Id
+	INNER JOIN Gral.tbOficio_Profesiones	AS ofpr		ON pers.ofpr_Id =	ofpr.ofpr_Id
+	INNER JOIN Gral.tbColonias				AS colo		ON coin.colo_Id =	colo.colo_Id
+	LEFT JOIN Gral.tbCiudades				AS ciud		ON colo.ciud_Id =	ciud.ciud_Id
+	LEFT JOIN Gral.tbProvincias				AS pvin		ON ciud.pvin_Id =	pvin.pvin_Id
+	LEFT JOIN Gral.tbPaises					AS pais		ON pvin.pais_Id =	pais.pais_Id
+	WHERE coin.coin_Estado = 1
 END
 GO
 
@@ -2868,15 +2841,15 @@ BEGIN
 			,personas.ofpr_Id
 			,oficioProfesion.ofpr_Nombre
 			,personas.pers_escvRepresentante
-			,estadoCivilRepresentante.escv_Nombre
+			,estadoCivilRepresentante.escv_Nombre AS escv_RepresentanteNombre
 
 			,personas.pers_OfprRepresentante
-			,oficioProfesionRepresentante.ofpr_Nombre
-			,provicionciasRepresentante.pais_Id
-			,paisesRepresentante.pais_Nombre
+			,oficioProfesionRepresentante.ofpr_Nombre AS ofpr_RepresentanteNombre
+			,provicionciasRepresentante.pais_Id AS pais_RepresentanteId
+			,paisesRepresentante.pais_Nombre AS pais_RepresentanteNombre
 			,personaJuridica.peju_EstadoRepresentante
-			,provicionciasRepresentante.pvin_Nombre
-			,provincias.pais_Id
+			,provicionciasRepresentante.pvin_Nombre AS pvin_RepresentanteNombre
+			,provincias.pais_Id 
 			,paises.pais_Codigo
 			,paises.pais_Nombre
 			,provincias.pvin_Id
@@ -2903,7 +2876,7 @@ BEGIN
 			,usuarioModificacion.usua_Nombre
 			,personaJuridica.peju_FechaModificacion
 			,personaJuridica.peju_Estado
-	  FROM	Adua.tbPersonaJuridica					personaJuridica
+			FROM	Adua.tbPersonaJuridica					personaJuridica
 			INNER JOIN	Adua.tbPersonas					personas								ON personaJuridica.pers_Id						= personas.pers_Id
 			INNER JOIN	Gral.tbOficinas					oficina									ON personas.ofic_Id								= oficina.ofic_Id
 			INNER JOIN	Gral.tbEstadosCiviles			estadoCivil								ON personas.escv_Id								= estadoCivil.escv_Id
@@ -2924,8 +2897,8 @@ BEGIN
 			INNER JOIN	GraL.tbProvincias				provincias								ON ciudades.pvin_Id								= provincias.pvin_Id
 			INNER JOIN	Gral.tbPaises					paises									ON provincias.pais_Id						= paises.pais_Id
 
-			INNER JOIN  Acce.tbUsuarios					usuarioCreacion							ON personaJuridica.usua_UsuarioCreacion			= usuarioCreacion.usua_Id
-			INNER JOIN  Acce.tbUsuarios					usuarioModificacion						ON personaJuridica.usua_UsuarioModificacion		= usuarioModificacion.usua_Id
+			LEFT JOIN  Acce.tbUsuarios					usuarioCreacion							ON personaJuridica.usua_UsuarioCreacion			= usuarioCreacion.usua_Id
+			LEFT JOIN  Acce.tbUsuarios					usuarioModificacion						ON personaJuridica.usua_UsuarioModificacion		= usuarioModificacion.usua_Id
 
 END
 GO
@@ -3404,6 +3377,7 @@ SELECT	modo.motr_Id						,
 FROM	Adua.tbModoTransporte modo 
 		INNER JOIN Acce.tbUsuarios crea		ON crea.usua_Id = modo.usua_UsuarioCreacion		
 		LEFT JOIN Acce.tbUsuarios modi		ON modi.usua_Id = modo.usua_UsuarioModificacion 
+		LEFT JOIN Acce.tbUsuarios elim		ON elim.usua_Id = modo.usua_UsuarioEliminacion
 WHERE	motr_Estado = 1
 END
 GO
@@ -3975,10 +3949,14 @@ BEGIN
 		   marca.usua_UsuarioModificacion, 
 		   usuModi.usua_Nombre					AS usuarioModificacionNombre,
 		   marca.marc_FechaModificacion, 
+		   marca.usua_UsuarioEliminacion,
+		   usuElim.usua_Nombre					AS usuarioEliminacionNombre,
+		   marca.marc_FechaEliminacion,
 		   marca.marc_Estado
 	 FROM  Adua.tbMarcas marca 
-		   LEFT JOIN acce.tbUsuarios usuCrea	ON marca.usua_UsuarioCreacion = usuCrea.usua_Id
+		   INNER JOIN acce.tbUsuarios usuCrea	ON marca.usua_UsuarioCreacion = usuCrea.usua_Id
 		   LEFT JOIN acce.tbUsuarios usuModi	ON marca.usua_UsuarioModificacion = usuModi.usua_Id
+		   LEFT JOIN Acce.tbUsuarios usuElim	ON marca.usua_UsuarioEliminacion = usuElim.usua_Id
 	WHERE  marc_Estado = 1
 END
 GO
@@ -7774,10 +7752,14 @@ SELECT	nico_Id								,
 		nco.usua_UsuarioModificacion		,
 		usu2.usua_Nombre					AS UsuarioModificadorNombre,
 		nico_FechaModificacion 				,
+		nco.usua_UsuarioEliminacion,
+		nico_FechaEliminacion,
+		elim.usua_Nombre					AS UsuarioEliminacionNombre,
 		nico_Estado
 FROM	Adua.tbNivelesComerciales nco			
 		INNER JOIN Acce.tbUsuarios usu1		ON nco.usua_UsuarioCreacion = usu1.usua_Id		
 		LEFT JOIN Acce.tbUsuarios usu2		ON nco.usua_UsuarioModificacion = usu2.usua_Id
+		LEFT JOIN Acce.tbUsuarios elim		ON nco.usua_UsuarioEliminacion = elim.usua_Id
 WHERE	nico_Estado = 1
 END
 GO

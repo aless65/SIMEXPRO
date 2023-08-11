@@ -2037,14 +2037,14 @@ WHERE	empl_Estado = 1
 		   empl_EsAduana							AS empleadoAduana,
 		   empl.usua_UsuarioCreacion				AS usuarioCreacion, 
 		   usuaCrea.usua_Nombre						AS usuarioCreacionNombre,
-		   empl_FechaCreacion						AS fechaCreacion, 
-		   empl.usua_UsuarioModificacion			AS usuarioModificacion, 
+		   empl_FechaCreacion						,
+		   empl.usua_UsuarioModificacion			,
 		   usuaModifica.usua_Nombre					AS usuarioModificacionNombre,
-		   empl_FechaModificacion					AS fechaModificacion, 
-		   empl.usua_UsuarioEliminacion				AS usuarioEliminacion, 
+		   empl_FechaModificacion					,
+		   empl.usua_UsuarioEliminacion				,
 		   usuaElimina.usua_Nombre					AS usuarioEliminacionNombre,
-		   empl_FechaEliminacion					AS fechaEliminacion, 
-		   empl_Estado								AS empleadoEstado
+		   empl_FechaEliminacion					,
+		   empl_Estado								
 	  FROM Gral.tbEmpleados empl 
 INNER JOIN Acce.tbUsuarios usuaCrea
 		ON empl.usua_UsuarioCreacion = usuaCrea.usua_Id 
@@ -2061,7 +2061,6 @@ INNER JOIN Gral.tbPaises pais
 INNER JOIN Gral.tbCargos carg
 		ON empl.carg_Id = carg.carg_Id
 	 WHERE empl_Estado = 1
-
 END
 GO
 

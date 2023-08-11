@@ -4143,11 +4143,10 @@ GO
 --****************************************** DECLARACIÓN DE VALOR ******************************************--
 /*Vista que trae todos los campos de la parte  1 del formulario de la declaración de valor, incluso los que están en 
   otras tablas conectadas a tbDeclaraciones_Valor (no se incluyen las facturas ni las condiciones)*/
-GO
-CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_ValorCompleto_Listar
+
+CREATE OR ALTER VIEW Adua.VW_tbDeclaraciones_ValorCompleto
 AS
-BEGIN
-	SELECT	deva_Id, 
+SELECT		deva_Id, 
 			deva_AduanaIngresoId, 
 			aduaIngreso.adua_Nombre		AS adua_IngresoNombre,
 			deva_AduanaDespachoId, 
@@ -4230,9 +4229,98 @@ BEGIN
 			LEFT JOIN Gral.tbFormas_Envio foen				ON deva.foen_Id = foen.foen_Id 
 			LEFT JOIN Acce.tbUsuarios usuaCrea				ON deva.usua_UsuarioCreacion = usuaCrea.usua_Id
 			LEFT JOIN Acce.tbUsuarios usuaModifica			ON deva.usua_UsuarioModificacion = usuaModifica.usua_Id
-	
-END
 GO
+
+--GO
+--CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_ValorCompleto_Listar
+--AS
+--BEGIN
+--	SELECT	deva_Id, 
+--			deva_AduanaIngresoId, 
+--			aduaIngreso.adua_Nombre		AS adua_IngresoNombre,
+--			deva_AduanaDespachoId, 
+--			aduaDespacho.adua_Nombre	AS adua_DespachoNombre,
+--			deva_DeclaracionMercancia, 
+--			deva_FechaAceptacion, 
+
+--			impo.impo_Id, 
+--			impo.impo_NumRegistro,
+--			impo.nico_Id,
+--			nico.nico_Descripcion,
+--			impo.impo_NivelComercial_Otro,
+--			declaImpo.decl_Nombre_Raso			AS impo_Nombre_Raso,
+--			declaImpo.decl_Direccion_Exacta		AS impo_Direccion_Exacta,
+--			declaImpo.decl_Correo_Electronico	AS impo_Correo_Electronico,
+--			declaImpo.decl_Telefono				AS impo_Telefono,
+--			declaImpo.decl_Fax					AS impo_Fax,			
+--			declaImpo.ciud_Id					AS impo_ciudId,
+			
+--			deva.pvde_Id,			
+--			declaProv.decl_Nombre_Raso			AS prov_Nombre_Raso,
+--			declaProv.decl_Direccion_Exacta		AS prov_Direccion_Exacta,
+--			declaProv.decl_Correo_Electronico	AS prov_Correo_Electronico,
+--			declaProv.decl_Telefono				AS prov_Telefono,
+--			declaProv.decl_Fax					AS prov_Fax,			
+--			declaProv.ciud_Id					AS prov_ciudId,
+--			prov.coco_Id,			
+--			coco.coco_Descripcion,
+--			prov.pvde_Condicion_Otra,		
+
+--			inte.inte_Id, 
+--			inte.tite_Id,
+--			declaInte.decl_Nombre_Raso			AS inte_Nombre_Raso,
+--			declaInte.decl_Direccion_Exacta		AS inte_Direccion_Exacta,
+--			declaInte.decl_Correo_Electronico	AS inte_Correo_Electronico,
+--			declaInte.decl_Telefono				AS inte_Telefono,
+--			declaInte.decl_Fax					AS inte_Fax,			
+--			declaInte.ciud_Id					AS inte_ciudId,
+
+
+--			deva_LugarEntrega, 
+--			pais_EntregaId, 
+--			inco.inco_Id, 
+--			inco.inco_Descripcion,
+--			inco_Version, 
+--			deva_NumeroContrato, 
+--			deva_FechaContrato, 
+--			foen.foen_Id, 
+--			foen.foen_Descripcion,
+
+--			deva_FormaEnvioOtra, 
+--			deva_PagoEfectuado, 
+--			fopa_Id, 
+--			deva_FormaPagoOtra, 
+--			emba_Id, 
+--			pais_ExportacionId, 
+--			deva_FechaExportacion, 
+--			mone_Id, 
+--			mone_Otra, 
+--			deva_ConversionDolares, 
+--			----deva_Condiciones, 
+--			deva.usua_UsuarioCreacion, 
+--			usuaCrea.usua_Nombre				AS usua_CreacionNombre,
+--			deva_FechaCreacion, 
+--			deva.usua_UsuarioModificacion		AS usua_ModificacionNombre,
+--			deva_FechaModificacion, 
+--			deva_Estado 
+--	FROM	Adua.tbDeclaraciones_Valor deva 
+--			LEFT JOIN Adua.tbAduanas aduaIngreso			ON deva.deva_AduanaIngresoId = aduaIngreso.adua_Id
+--			LEFT JOIN Adua.tbAduanas aduaDespacho			ON deva.deva_AduanaDespachoId = aduaDespacho.adua_Id
+--			LEFT JOIN Adua.tbImportadores impo				ON deva.impo_Id = impo.impo_Id
+--			LEFT JOIN Adua.tbDeclarantes declaImpo			ON impo.decl_Id = declaImpo.decl_Id
+--			LEFT JOIN Adua.tbNivelesComerciales nico		ON impo.nico_Id = nico.nico_Id
+--			LEFT JOIN Adua.tbProveedoresDeclaracion prov	ON prov.pvde_Id = deva.pvde_Id
+--			LEFT JOIN Adua.tbDeclarantes declaProv			ON prov.decl_Id = declaProv.decl_Id
+--			LEFT JOIN Adua.tbCondicionesComerciales coco	ON prov.coco_Id = coco.coco_Id
+--			LEFT JOIN Adua.tbIntermediarios inte			ON inte.inte_Id = deva.inte_Id
+--			LEFT JOIN Adua.tbDeclarantes declaInte			ON declaInte.decl_Id = inte.decl_Id
+--			LEFT JOIN Adua.tbIncoterm inco					ON deva.inco_Id = inco.inco_Id
+--			LEFT JOIN Gral.tbFormas_Envio foen				ON deva.foen_Id = foen.foen_Id 
+--			LEFT JOIN Acce.tbUsuarios usuaCrea				ON deva.usua_UsuarioCreacion = usuaCrea.usua_Id
+--			LEFT JOIN Acce.tbUsuarios usuaModifica			ON deva.usua_UsuarioModificacion = usuaModifica.usua_Id
+	
+--END
+--GO
 
 
 /* Listar Declarantes*/
@@ -13234,82 +13322,90 @@ WHERE col.ciud_Id = @ciud_Id AND col.colo_Estado = 1
 
 
 
-
+GO
 ----------*********************TRIGGERS*******************----------
---/*Declarantes*/
---CREATE OR ALTER TRIGGER TR_tbDeclarantes_Update
---ON Adua.tbDeclarantes AFTER UPDATE 
---AS
+/*Declarantes*/
+CREATE OR ALTER TRIGGER Adua.TR_tbDeclarantes_Update
+ON Adua.tbDeclarantes AFTER UPDATE 
+AS
 
---	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
---	DECLARE @decl_FechaModificacion DATETIME = (SELECT decl_FechaModificacion FROM inserted)
+	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
+	DECLARE @decl_FechaModificacion DATETIME = (SELECT decl_FechaModificacion FROM inserted)
 
---	INSERT INTO [Adua].[tbDeclarantesHistorial]
---	SELECT decl_Id,
---		   decl_NumeroIdentificacion,
---		   decl_Nombre_Raso,
---		   decl_Direccion_Exacta,
---		   ciud_Id,
---		   decl_Correo_Electronico,
---		   decl_Telefono,
---		   decl_Fax,
---		   @usua_UsuarioModificacion,
---		   @decl_FechaModificacion
---	FROM deleted
---GO
+	INSERT INTO [Adua].[tbDeclarantesHistorial]
+	SELECT decl_Id,
+		   decl_NumeroIdentificacion,
+		   decl_Nombre_Raso,
+		   decl_Direccion_Exacta,
+		   ciud_Id,
+		   decl_Correo_Electronico,
+		   decl_Telefono,
+		   decl_Fax,
+		   usua_UsuarioCreacion,
+		   decl_FechaCreacion,
+		   @usua_UsuarioModificacion,
+		   @decl_FechaModificacion
+	FROM deleted
+GO
 	
---/*Importadores*/
---CREATE OR ALTER TRIGGER TR_tbImportadores_Update
---ON Adua.tbImportadores AFTER UPDATE 
---AS
+/*Importadores*/
+CREATE OR ALTER TRIGGER Adua.TR_tbImportadores_Update
+ON Adua.tbImportadores AFTER UPDATE 
+AS
 
---	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
---	DECLARE @impo_FechaModificacion DATETIME = (SELECT impo_FechaModificacion FROM inserted)
+	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
+	DECLARE @impo_FechaModificacion DATETIME = (SELECT impo_FechaModificacion FROM inserted)
 
---	INSERT INTO [Adua].[tbImportadoresHistorial]
---	SELECT impo_Id,
---		   nico_Id,
---		   decl_Id,
---		   impo_NivelComercial_Otro,
---		   impo_RTN,
---		   impo_NumRegistro,
---		   @usua_UsuarioModificacion,
---		   @impo_FechaModificacion
---	FROM deleted
---GO
+	INSERT INTO [Adua].[tbImportadoresHistorial]
+	SELECT impo_Id,
+		   nico_Id,
+		   decl_Id,
+		   impo_NivelComercial_Otro,
+		   impo_RTN,
+		   impo_NumRegistro,
+		   usua_UsuarioCreacion,
+		   impo_FechaCreacion,
+		   @usua_UsuarioModificacion,
+		   @impo_FechaModificacion
+	FROM deleted
+GO
 
---/*Proveedores*/
---CREATE OR ALTER TRIGGER TR_tbProveedoresDeclaracion_Update
---ON Adua.tbProveedoresDeclaracion AFTER UPDATE 
---AS
+/*Proveedores*/
+CREATE OR ALTER TRIGGER Adua.TR_tbProveedoresDeclaracion_Update
+ON Adua.tbProveedoresDeclaracion AFTER UPDATE 
+AS
 
---	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
---	DECLARE @pvde_FechaModificacion DATETIME = (SELECT pvde_FechaModificacion FROM inserted)
+	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
+	DECLARE @pvde_FechaModificacion DATETIME = (SELECT pvde_FechaModificacion FROM inserted)
 
---	INSERT INTO [Adua].[tbProveedoresDeclaracionHistorial]
---	SELECT pvde_Id,
---		   coco_Id,
---		   pvde_Condicion_Otra,
---		   decl_Id,
---		   @usua_UsuarioModificacion,
---		   @pvde_FechaModificacion
---	FROM deleted
---GO
+	INSERT INTO [Adua].[tbProveedoresDeclaracionHistorial]
+	SELECT pvde_Id,
+		   coco_Id,
+		   pvde_Condicion_Otra,
+		   decl_Id,
+		   usua_UsuarioCreacion,
+		   pvde_FechaCreacion,
+		   @usua_UsuarioModificacion,
+		   @pvde_FechaModificacion
+	FROM deleted
+GO
 
---/*Intermediarios*/
---CREATE OR ALTER TRIGGER TR_tbIntermediarios_Update
---ON Adua.tbIntermediarios AFTER UPDATE 
---AS
+/*Intermediarios*/
+CREATE OR ALTER TRIGGER Adua.TR_tbIntermediarios_Update
+ON Adua.tbIntermediarios AFTER UPDATE 
+AS
 
---	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
---	DECLARE @inte_FechaModificacion DATETIME = (SELECT inte_FechaModificacion FROM inserted)
+	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
+	DECLARE @inte_FechaModificacion DATETIME = (SELECT inte_FechaModificacion FROM inserted)
 
---	INSERT INTO [Adua].[tbIntermediariosHistorial]
---	SELECT inte_Id,
---		   tite_Id,
---		   inte_Tipo_Otro,
---		   decl_Id,
---		   @usua_UsuarioModificacion,
---		   @inte_FechaModificacion
---	FROM deleted
---GO
+	INSERT INTO [Adua].[tbIntermediariosHistorial]
+	SELECT inte_Id,
+		   tite_Id,
+		   inte_Tipo_Otro,
+		   decl_Id,
+		   usua_UsuarioCreacion,
+		   inte_FechaCreacion,
+		   @usua_UsuarioModificacion,
+		   @inte_FechaModificacion
+	FROM deleted
+GO

@@ -66,7 +66,7 @@ namespace SIMEXPRO.Entities.Entities
         public int? usua_UsuarioEliminacion { get; set; }
 
         [NotMapped]
-        public int? usuarioEliminacionNombre { get; set; }
+        public string usuarioEliminacionNombre { get; set; }
 
         public DateTime? empl_FechaEliminacion { get; set; }
         public bool? empl_Estado { get; set; }

@@ -14,6 +14,7 @@ namespace SIMEXPRO.API.Models
         public string empl_DNI { get; set; }
         public int escv_Id { get; set; }
         public string escv_Nombre { get; set; }
+        public string empl_NombreCompleto { get; set; }
         public string empl_Sexo { get; set; }
         public DateTime empl_FechaNacimiento { get; set; }
         public string empl_Telefono { get; set; }
@@ -34,7 +35,7 @@ namespace SIMEXPRO.API.Models
         public string usuarioModificacionNombre { get; set; }
         public DateTime? empl_FechaModificacion { get; set; }
         public int? usua_UsuarioEliminacion { get; set; }
-        public string usuarioEliminacionNombre { get; set; }
+        public string? usuarioEliminacionNombre { get; set; }
         public DateTime? empl_FechaEliminacion { get; set; }
         public bool? empl_Estado { get; set; }
     }

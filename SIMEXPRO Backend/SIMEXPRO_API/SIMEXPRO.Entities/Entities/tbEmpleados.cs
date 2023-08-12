@@ -25,6 +25,8 @@ namespace SIMEXPRO.Entities.Entities
 
         [NotMapped]
         public string escv_Nombre { get; set; }
+        [NotMapped]
+        public string empl_NombreCompleto { get; set; }
 
         public string empl_Sexo { get; set; }
         public DateTime empl_FechaNacimiento { get; set; }
@@ -66,7 +68,7 @@ namespace SIMEXPRO.Entities.Entities
         public int? usua_UsuarioEliminacion { get; set; }
 
         [NotMapped]
-        public string usuarioEliminacionNombre { get; set; }
+        public string? usuarioEliminacionNombre { get; set; }
 
         public DateTime? empl_FechaEliminacion { get; set; }
         public bool? empl_Estado { get; set; }

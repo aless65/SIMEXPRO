@@ -30,9 +30,14 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@ofpr_Nombre", item.ofpr_Nombre, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@ofpr_FechaCreacion", item.ofpr_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarOficioProfesion, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
-            return result;
+            
+            var respuesta = db.QueryFirst<string>(ScriptsDataBase.InsertarOficioProfesion, parametros, commandType: CommandType.StoredProcedure);
+
+            return new RequestStatus()
+            {
+                CodeStatus = respuesta == "1" ? 1 : 0,
+                MessageStatus = respuesta
+            };
         }
 
         public IEnumerable<tbOficio_Profesiones> List()
@@ -52,9 +57,14 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@ofpr_Nombre", item.ofpr_Nombre, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@ofpr_FechaModificacion", item.ofpr_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarOficioProfesion, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
-            return result;
+            
+            var respuesta = db.QueryFirst<string>(ScriptsDataBase.EditarOficioProfesion, parametros, commandType: CommandType.StoredProcedure);
+           
+            return new RequestStatus()
+            {
+                CodeStatus = respuesta == "1" ? 1 : 0,
+                MessageStatus = respuesta
+            };
         }
     }
 }

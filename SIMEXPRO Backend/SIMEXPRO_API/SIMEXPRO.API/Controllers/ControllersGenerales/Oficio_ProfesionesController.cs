@@ -26,8 +26,8 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarOficio_Profesiones();
-            var listadoMapeado = _mapper.Map<IEnumerable<Oficio_ProfesionesViewModel>>(listado);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<Oficio_ProfesionesViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
 

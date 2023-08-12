@@ -752,16 +752,20 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Oficio_Profesiones
-        public IEnumerable<tbOficio_Profesiones> ListarOficio_Profesiones()
+        public ServiceResult ListarOficio_Profesiones()
         {
+            var result = new ServiceResult();
+
             try
             {
                 var list = _oficioProfesionesRepository.List();
-                return list;
+
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbOficio_Profesiones>();
+
+                return result.Error(ex.Message);
             }
         }
 

@@ -692,16 +692,17 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Oficinas
-        public IEnumerable<tbOficinas> ListarOficinas()
+        public ServiceResult ListarOficinas()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _oficinasRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbOficinas>();
+                return result.Error(ex.Message);
             }
         }
 
@@ -854,16 +855,17 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Paises
-        public IEnumerable<tbPaises> ListarPaises()
+        public ServiceResult ListarPaises()
         {
+            var result = new ServiceResult();
             try
             {
                 var list = _paisesRepository.List();
-                return list;
+                return result.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbPaises>();
+                return result.Error(ex);
             }
         }
 

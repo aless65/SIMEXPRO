@@ -1965,9 +1965,10 @@ CREATE OR ALTER PROCEDURE [Gral].[UDP_tbEmpleados_Listar]
 AS
 BEGIN
 
-SELECT empl.empl_Id									,
+SELECT  empl.empl_Id								,
 		empl_Nombres								,
 		empl_Apellidos								,
+		CONCAT(empl_Nombres, empl_Apellidos)		AS empl_NombreCompleto,
 		empl_DNI									,
 		empl.escv_Id								,
 		escv.escv_Nombre							,
@@ -2005,55 +2006,6 @@ FROM	Gral.tbEmpleados empl
 		INNER JOIN Gral.tbProvincias pvin		ON empl.pvin_Id = pvin.pvin_Id 
 		INNER JOIN Gral.tbPaises pais			ON pvin.pais_Id = pais.pais_Id 
 		INNER JOIN Gral.tbCargos carg			ON empl.carg_Id = carg.carg_Id
-WHERE	empl_Estado = 1
-
-	SELECT empl.empl_Id								AS empleadoId, 
-		   empl_Nombres								AS empleadoNombres, 
-		   empl_Apellidos							AS empleadoApellidos,
-		   empl_DNI									AS empleadoDNI,
-		   empl.escv_Id								AS estadoCivilId,
-		   escv.escv_Nombre							AS estadoCivilNombre,
-		   CASE 
-			WHEN empl_Sexo = 'F' THEN 'Femenino'
-		   	ELSE 'Masculino'
-		   END										AS empleadoSexo,
-		   empl_FechaNacimiento						AS empleadoNacimiento,
-		   empl_Telefono							AS empleadoTelefono,
-		   empl_DireccionExacta						AS empleadoDireccion,
-		   empl.pvin_Id								AS provinciaId,
-		   pvin.pvin_Nombre							AS provinciaNombre,
-		   pais.pais_Codigo							AS paisCodigo,
-		   pais.pais_Nombre							AS paisNombre,
-		   empl_CorreoElectronico					AS empleadoCorreo,
-		   empl.carg_Id								AS cargoId,
-		   carg.carg_Nombre							AS cargoNombre,
-		   empl_EsAduana							AS empleadoAduana,
-		   empl.usua_UsuarioCreacion				AS usuarioCreacion, 
-		   usuaCrea.usua_Nombre						AS usuarioCreacionNombre,
-		   empl_FechaCreacion						,
-		   empl.usua_UsuarioModificacion			,
-		   usuaModifica.usua_Nombre					AS usuarioModificacionNombre,
-		   empl_FechaModificacion					,
-		   empl.usua_UsuarioEliminacion				,
-		   usuaElimina.usua_Nombre					AS usuarioEliminacionNombre,
-		   empl_FechaEliminacion					,
-		   empl_Estado								
-	  FROM Gral.tbEmpleados empl 
-INNER JOIN Acce.tbUsuarios usuaCrea
-		ON empl.usua_UsuarioCreacion = usuaCrea.usua_Id 
- LEFT JOIN Acce.tbUsuarios usuaModifica
-		ON empl.usua_UsuarioModificacion = usuaCrea.usua_Id 
- LEFT JOIN Acce.tbUsuarios usuaElimina
-		ON empl.usua_UsuarioEliminacion = usuaCrea.usua_Id 
-INNER JOIN Gral.tbEstadosCiviles escv
-		ON empl.escv_Id = escv.escv_Id 
-INNER JOIN Gral.tbProvincias pvin
-		ON empl.pvin_Id = pvin.pvin_Id 
-INNER JOIN Gral.tbPaises pais
-		ON pvin.pais_Id = pais.pais_Id 
-INNER JOIN Gral.tbCargos carg
-		ON empl.carg_Id = carg.carg_Id
-	 WHERE empl_Estado = 1
 END
 GO
 
@@ -2217,26 +2169,24 @@ BEGIN
 END
 GO
 /*Eliminar EMPLEADOS*/
-CREATE OR ALTER PROCEDURE gral.UDP_tbEmpleados_Eliminar 
+CREATE OR ALTER PROCEDURE gral.UDP_tbEmpleados_Eliminar
 	@empl_Id					INT,
 	@usua_UsuarioEliminacion	INT,
 	@empl_FechaEliminacion		DATETIME
 AS
 BEGIN
 	BEGIN TRY
-		DECLARE @respuesta INT
-		EXEC dbo.UDP_ValidarReferencias 'empl_Id', @empl_Id, 'gral.tbEmpleados', @respuesta OUTPUT
+			UPDATE Acce.tbUsuarios
+			SET usua_Estado = 0
+			WHERE empl_Id = @empl_Id
 
-		IF(@respuesta) = 1
-		BEGIN
 			UPDATE Gral.tbEmpleados
 			   SET empl_Estado = 0,
 				   usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
 				   empl_FechaEliminacion = @empl_FechaEliminacion
 			 WHERE empl_Id = @empl_Id
-		END
-		
-		SELECT @respuesta AS Resultado
+
+			 SELECT 1
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
@@ -2252,20 +2202,17 @@ CREATE OR ALTER PROCEDURE Gral.UDP_tbEmpleados_Reactivar
 AS
 BEGIN
 	BEGIN TRY	
-			IF EXISTS (SELECT * FROM Gral.tbEmpleados WHERE empl_Id = @empl_Id)
-				BEGIN
-					UPDATE	Gral.tbEmpleados
-					SET		empl_Estado = 1,
-							usua_UsuarioModificacion = @usua_UsuarioModificacion,
-							empl_FechaModificacion = @empl_FechaModificacion
-					WHERE	empl_Id = @empl_Id
+			UPDATE	Gral.tbEmpleados
+			SET		empl_Estado = 1,
+					usua_UsuarioModificacion = @usua_UsuarioModificacion,
+					empl_FechaModificacion = @empl_FechaModificacion
+			WHERE	empl_Id = @empl_Id
 
-					SELECT 1
-				END
-			ELSE
-				BEGIN
-					SELECT 0
-				END	
+			UPDATE Acce.tbUsuarios
+			SET usua_Estado = 1
+			WHERE empl_Id = @empl_Id
+
+			SELECT 1
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()

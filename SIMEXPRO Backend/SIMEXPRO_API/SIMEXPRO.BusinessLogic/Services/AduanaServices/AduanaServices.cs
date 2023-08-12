@@ -709,7 +709,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             var result = new ServiceResult();
             try
             {
-                var list = _declaraciones_ValorRepository.List();
+                var list = _declaraciones_ValorRepository.ListVW();
                 return result.Ok(list);
             }
             catch (Exception ex)

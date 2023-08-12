@@ -26,8 +26,8 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         public IActionResult Index()
         {
             var listado = _generalesServices.ListarPaises();
-            var listadoMapeado = _mapper.Map<IEnumerable<PaisesViewModel>>(listado);
-            return Ok(listadoMapeado);
+            listado.Data = _mapper.Map<IEnumerable<PaisesViewModel>>(listado.Data);
+            return Ok(listado);
         }
 
 

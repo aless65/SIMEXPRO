@@ -1146,7 +1146,7 @@ GO
 --**********MONEDAS**********--
 
 /*Listar monedas*/
-ALTER   PROCEDURE [Gral].[UDP_tbMonedas_Listar]
+CREATE OR ALTER PROCEDURE [Gral].[UDP_tbMonedas_Listar]
 AS
 BEGIN
 	SELECT  mone_Id								
@@ -4038,6 +4038,7 @@ BEGIN
 	END CATCH
 END
 GO
+
 /*Eliminar Tipos Identificacion*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTiposIdentificacion_Eliminar 
 	@iden_Id					INT,
@@ -4050,7 +4051,6 @@ BEGIN
 			DECLARE @respuesta INT
 			EXEC dbo.UDP_ValidarReferencias 'iden_Id', @iden_Id, 'Adua.tbTiposIdentificacion', @respuesta OUTPUT
 
-			SELECT @respuesta AS Resultado
 			IF(@respuesta = 1)
 			BEGIN
 				UPDATE	Adua.tbTiposIdentificacion
@@ -4058,6 +4058,7 @@ BEGIN
 						iden_FechaEliminacion = @iden_FechaEliminacion,
 						iden_Estado = 0
 			END
+			SELECT @respuesta
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -12316,10 +12317,44 @@ BEGIN
 END
 GO
 
+----------------------------UDPS tbPODetallePorPedidoOrdenDetalle-----------------------------
+--LISTAR
+CREATE OR ALTER PROCEDURE Prod.UDP_tbPODetallePorPedidoOrdenDetalle_Listar
+AS
+BEGIN
+  SELECT    popo.popo_Id,
+			code.code_Id,
+			code.mode_Id,
+			code.code_CantidadPrenda,
+			code.code_Sexo,
+			code.tall_Id,
+			talla.tall_Nombre,
+			code.colr_Id,
+			colr.colr_Nombre,
+		   		
+			usu.usua_Id             AS IDUsuarioCreacion,
+			usu.usua_Nombre         AS UsuarioCreacion,
+			prod_FechaCreacion,
+
+			usu1.usua_Id            AS IDUsuarioModificacion,
+			usu1.usua_Nombre        AS UsuarioModificacion,
+			prod_FechaModificacion
+ 
+  FROM	    Prod.tbPODetallePorPedidoOrdenDetalle popo
+            INNER JOIN Prod.tbOrdenCompraDetalles code		ON popo.code_Id = code.code_Id
+			INNER JOIN Prod.tbModelos mode					ON popo.mode_Id = mode.mode_Id
+			INNER JOIN Prod.tbTallas talla					ON code.tall_Id = talla.tall_Id
+			INNER JOIN Prod.tbColores colr					ON code.colr_Id = colr.colr_Id
+			INNER JOIN Acce.tbUsuarios usu					ON usu.usua_Id = prod.usua_UsuarioCreacion 
+			LEFT JOIN Acce.tbUsuarios usu1					ON usu1.usua_UsuarioModificacion = popo.usua_UsuarioModificacion
+END 
+GO
+
+
+
 --********************************************LOTES***********************************************--
 CREATE OR ALTER PROCEDURE Prod.UDP_tbLotes_Listar
 AS BEGIN
-
 SELECT lote_Id, 
 	   lotes.mate_Id, 
 	   materiales.mate_Descripcion,

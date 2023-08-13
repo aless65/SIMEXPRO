@@ -1851,7 +1851,7 @@ CREATE TABLE Prod.tbOrdenCompraDetalles(
 	code_Sexo					CHAR(1) NOT NULL,
 	colr_Id						INT NOT NULL,
 	code_Documento				NVARCHAR(250) NOT NULL,
-	code_Medidas				NVARCHAR(250) NOT NULL,
+	--code_Medidas				NVARCHAR(250) NOT NULL,
 	proc_IdComienza				INT NOT NULL,
 	proc_IdActual				INT NOT NULL,
 	code_Unidad					DECIMAL(18,2) NOT NULL,
@@ -1869,12 +1869,12 @@ CREATE TABLE Prod.tbOrdenCompraDetalles(
 	code_Estado                	BIT DEFAULT 1,
 	
 	CONSTRAINT PK_Prod_tbOrdenCompraDetalles_code_Id PRIMARY KEY(code_Id),
-	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_orco_Id_Prod_tbOrdenCompra_orco_Id  FOREIGN KEY(orco_Id) REFERENCES Prod.tbOrdenCompra(orco_Id),
-	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_esti_Id_Prod_tbEstilos_esti_Id       FOREIGN KEY(esti_Id) REFERENCES Prod.tbEstilos(esti_Id),
-	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_colr_Id_Prod_tbColores_colr_Id	     FOREIGN KEY (colr_Id) REFERENCES Prod.tbColores(colr_Id),
-	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_tall_Id_Prod_tbTalla_tall_Id        FOREIGN KEY(tall_Id) REFERENCES Prod.tbTallas(tall_Id),
+	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_orco_Id_Prod_tbOrdenCompra_orco_Id			 FOREIGN KEY(orco_Id) REFERENCES Prod.tbOrdenCompra(orco_Id),
+	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_esti_Id_Prod_tbEstilos_esti_Id				 FOREIGN KEY(esti_Id) REFERENCES Prod.tbEstilos(esti_Id),
+	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_colr_Id_Prod_tbColores_colr_Id				 FOREIGN KEY (colr_Id) REFERENCES Prod.tbColores(colr_Id),
+	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_tall_Id_Prod_tbTalla_tall_Id				 FOREIGN KEY(tall_Id) REFERENCES Prod.tbTallas(tall_Id),
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_proc_IdComienza_Prod_tbProcesos_proc_Id     FOREIGN KEY(proc_IdComienza) REFERENCES Prod.tbProcesos(proc_Id),
-	CONSTRAINT CK_Prod_tbOrdenCompraDetalles_code_Sexo							 CHECK (code_Sexo IN ('F','M')),
+	CONSTRAINT CK_Prod_tbOrdenCompraDetalles_code_Sexo									 CHECK (code_Sexo IN ('F','M')),
 
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_code_UsuarioCreacion_Acce_tbUsuarios_usua_Id					FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_code_UsuarioModificacion_Acce_tbUsuarios_usua_Id				FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
@@ -2078,58 +2078,6 @@ CREATE TABLE Prod.tbAsignacionesOrden(
 	CONSTRAINT FK_Prod_tbAsignacionesOrden_Gral_tbEmpleados_empl_Id					FOREIGN KEY	(empl_Id) 				   REFERENCES Gral.tbEmpleados			 (empl_Id),
 	CONSTRAINT FK_Prod_tbAsignacionesOrden_tbUsuarios_asor_UsuCrea					FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios			 (usua_Id),
 	CONSTRAINT FK_Prod_tbAsignacionesOrden_tbUsuarios_asor_UsuModifica				FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios			 (usua_Id),
-);
-GO
-
-CREATE TABLE Prod.tbLotes(
-	lote_Id   					INT IDENTITY(1,1),
-	mate_Id						INT NOT NULL,
-	unme_Id						INT NOT NULL,
-	code_Id						INT,
-	lote_Stock  				INT NOT NULL,
-	lote_CantIngresada			INT NOT NULL,
-	lote_Observaciones			NVARCHAR(500),
-	tipa_Id						INT NOT NULL,
-
-	usua_UsuarioCreacion		INT NOT NULL,
-	lote_FechaCreacion			DATETIME NOT NULL,
-	usua_UsuarioModificacion 	INT DEFAULT NULL,
-	lote_FechaModificacion		DATETIME DEFAULT NULL,
-	usua_UsuarioEliminacion		INT DEFAULT NULL,
-	lote_FechaEliminacion		DATETIME DEFAULT NULL,
-	lote_Estado 				BIT	DEFAULT 1, 
-
-	CONSTRAINT PK_Prod_tbLotes_lote_Id PRIMARY KEY (lote_Id),
-	CONSTRAINT FK_Prod_tbLotes_mate_Id_Prod_tbMateriales_mate_Id	FOREIGN KEY (mate_Id) 					REFERENCES Prod.tbMateriales(mate_Id),
-	CONSTRAINT FK_Prod_tbLotes_unme_Id_Gral_tbUnidadMedidas_unme_Id	FOREIGN KEY (unme_Id) 					REFERENCES Gral.tbUnidadMedidas(unme_Id),
-	CONSTRAINT FK_Prod_tbLotes_Prod_tbOrdenCompraDetalles_code_Id	FOREIGN KEY (code_Id) 					REFERENCES Prod.tbOrdenCompraDetalles(code_Id),
-	CONSTRAINT FK_Prod_tbLotes_tipa_Id_Prod_tbTipoArea_tipa_Id		FOREIGN KEY (tipa_Id) 					REFERENCES Prod.tbArea(tipa_Id),
-	CONSTRAINT FK_Prod_tbLotes_tbUsuarios_lote_UsuCrea				FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Prod_tbLotes_tbUsuarios_lote_UsuModifica			FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Prod_tbLotes_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
-);
-GO
-
-CREATE TABLE Prod.tbAsignacionesOrdenDetalle(
-	adet_Id						INT IDENTITY(1,1), 
-	lote_Id						INT NOT NULL, 
-	adet_Cantidad				INT NOT NULL, 
-	asor_Id						INT NOT NULL,
-
-	usua_UsuarioCreacion		INT NOT NULL,
-	adet_FechaCreacion			DATETIME NOT NULL,
-	usua_UsuarioModificacion	INT DEFAULT NULL,
-	adet_FechaModificacion		DATETIME DEFAULT NULL,
-	--usua_UsuarioEliminacion	INT DEFAULT NULL,
-	--amod_FechaEliminacion		DATETIME DEFAULT NULL,
-	--adet_Estado				BIT DEFAULT 1 
-
-	CONSTRAINT PK_Prod_tbAsignacionesModuloDetalle_adet_Id								PRIMARY KEY (adet_Id),
-	CONSTRAINT FK_Prod_tbAsignacionesModuloDetalle_tbLotes_lote_Id						FOREIGN KEY (lote_Id)				   REFERENCES Prod.tbLotes (lote_Id),
-	CONSTRAINT FK_Prod_tbAsignacionesModuloDetalle_tbtbAsignacionesOrden_asor_Id		FOREIGN KEY	(asor_Id)				   REFERENCES Prod.tbAsignacionesOrden(asor_Id),	
-	CONSTRAINT FK_Prod_tbAsignacionesModuloDetalle_tbUsuarios_amod_UsuCrea				FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Prod_tbAsignacionesModuloDetalle_tbUsuarios_amod_UsuModifica			FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
-	--CONSTRAINT FK_Prod_tbAsignacionesModuloDetalle_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
 
@@ -2340,29 +2288,7 @@ CREATE TABLE Prod.tbOrde_Ensa_Acab_Etiq(
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_usua_UsuarioModificacion_Acce_tbUsuario_usua_Id	FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_Prod_tbProcesos_proc_Id							FOREIGN KEY (proc_Id)					REFERENCES Prod.tbProcesos (proc_Id)
 );
-GO--ewqeeeqw
-CREATE TABLE Prod.tbPedidosProduccionDetalles(
-	ppde_Id               			INT IDENTITY(1,1),
-	ppro_Id               			INT NOT NULL,
-	lote_Id               			INT NOT NULL,
-	ppde_Cantidad         			INT NOT NULL,
-
-	usua_UsuarioCreacion			INT NOT NULL,
-	ppde_FechaCreacion				DATETIME NOT NULL,
-	usua_UsuarioModificacion		INT DEFAULT NULL,
-	ppde_FechaModificacion			DATETIME DEFAULT NULL,
-	--usua_UsuarioEliminacion		INT DEFAULT NULL,
-	--ppde_FechaEliminacion		DATETIME DEFAULT NULL,
-	ppde_Estado						BIT DEFAULT 1
-	CONSTRAINT PK_Prod_tbPedidosProduccionDetalle PRIMARY KEY (ppde_Id),
-	CONSTRAINT FK_Prod_tbPedidosProduccionDetalle_ppro_Id_Prod_tbPedidosProduccion FOREIGN KEY (ppro_Id) REFERENCES Prod.tbPedidosProduccion(ppro_Id),
-	CONSTRAINT FK_Prod_tbPedidosProduccionDetalle_lote_Id_Prod_tbLotes FOREIGN KEY (lote_Id) REFERENCES Prod.tbLotes(lote_Id),
-	CONSTRAINT FK_Prod_tbPedidosProduccionDetalle_tbUsuarios_ppde_UsuCrea				FOREIGN KEY (usua_UsuarioCreacion)     	REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Prod_tbPedidosProduccionDetalle_tbUsuarios_ppde_UsuModifica			FOREIGN KEY (usua_UsuarioModificacion) 	REFERENCES Acce.tbUsuarios (usua_Id), 
-	---CONSTRAINT FK_Prod_tbPedidosProduccionDetalle_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
-);
 GO
-
 
 CREATE TABLE Adua.tbModoTransporte(
 	motr_Id				     INT IDENTITY(1,1),
@@ -2560,6 +2486,103 @@ CREATE TABLE Prod.tbPedidosOrdenDetalle(--No se podrá eliminar de ninguna maner
 	CONSTRAINT FK_Prod_tbPedidosOrdenDetalle_tbUsuarios_prod_UsuarioCreacion					FOREIGN KEY (usua_UsuarioCreacion)     	REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbPedidosOrdenDetalle_tbUsuarios_prod_UsuarioModificacion				FOREIGN KEY (usua_UsuarioModificacion) 	REFERENCES Acce.tbUsuarios (usua_Id),
 	--CONSTRAINT FK_Prod_tbPedidosOrdenDetalle_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
+);
+GO
+
+-----------------Detalles de PO según el detalles de la orden de pedido-------------------
+
+--Créditos a Dani por nomenclatura popo
+CREATE TABLE Prod.tbPODetallePorPedidoOrdenDetalle(
+	popo_Id						INT IDENTITY(1,1),
+	prod_Id						INT NOT NULL,
+	code_Id						INT NOT NULL,
+
+	usua_UsuarioCreacion		INT NOT NULL,
+	popo_FechaCreacion			DATETIME NOT NULL,
+	usua_UsuarioModificacion	INT DEFAULT NULL,
+	popo_FechaModificacion		DATETIME DEFAULT NULL
+
+	CONSTRAINT PK_Prod_tbPODetallePorPedidoOrdenDetalle_popo_Id										PRIMARY KEY(popo_Id),
+	CONSTRAINT FK_Prod_tbPODetallePorPedidoOrdenDetalle_tbPedidosOrdenDetalle_prod_Id				FOREIGN KEY(prod_Id)					REFERENCES Prod.tbPedidosOrdenDetalle(prod_Id),
+	CONSTRAINT FK_Prod_tbPODetallePorPedidoOrdenDetalle_tbOrdenCompra_code_Id						FOREIGN KEY(code_Id)					REFERENCES Prod.tbOrdenCompraDetalles(code_Id),
+	CONSTRAINT FK_Prod_tbPODetallePorPedidoOrdenDetalle_Acce_tbUsuarios_usua_UsuarioCreacion		FOREIGN KEY(usua_UsuarioCreacion)       REFERENCES Acce.tbUsuarios(usua_Id),
+	CONSTRAINT FK_Prod_tbPODetallePorPedidoOrdenDetalle_Acce_tbUsuarios_usua_UsuarioModificacion	FOREIGN KEY(usua_UsuarioModificacion)   REFERENCES Acce.tbUsuarios(usua_Id)
+);
+GO
+
+
+CREATE TABLE Prod.tbLotes(
+	lote_Id   					INT IDENTITY(1,1),
+	mate_Id						INT NOT NULL,
+	unme_Id						INT NOT NULL,
+	prod_Id						INT,
+	lote_Stock  				INT NOT NULL,
+	lote_CantIngresada			INT NOT NULL,
+	lote_Observaciones			NVARCHAR(500),
+	tipa_Id						INT NOT NULL,
+
+	usua_UsuarioCreacion		INT NOT NULL,
+	lote_FechaCreacion			DATETIME NOT NULL,
+	usua_UsuarioModificacion 	INT DEFAULT NULL,
+	lote_FechaModificacion		DATETIME DEFAULT NULL,
+	usua_UsuarioEliminacion		INT DEFAULT NULL,
+	lote_FechaEliminacion		DATETIME DEFAULT NULL,
+	lote_Estado 				BIT	DEFAULT 1, 
+
+	CONSTRAINT PK_Prod_tbLotes_lote_Id PRIMARY KEY (lote_Id),
+	CONSTRAINT FK_Prod_tbLotes_mate_Id_Prod_tbMateriales_mate_Id	FOREIGN KEY (mate_Id) 					REFERENCES Prod.tbMateriales(mate_Id),
+	CONSTRAINT FK_Prod_tbLotes_unme_Id_Gral_tbUnidadMedidas_unme_Id	FOREIGN KEY (unme_Id) 					REFERENCES Gral.tbUnidadMedidas(unme_Id),
+	CONSTRAINT FK_Prod_tbLotes_Prod_tbPedidosOrdenDetalle_prod_Id	FOREIGN KEY (prod_Id) 					REFERENCES Prod.tbPedidosOrdenDetalle(prod_Id),
+	CONSTRAINT FK_Prod_tbLotes_tipa_Id_Prod_tbTipoArea_tipa_Id		FOREIGN KEY (tipa_Id) 					REFERENCES Prod.tbArea(tipa_Id),
+	CONSTRAINT FK_Prod_tbLotes_tbUsuarios_lote_UsuCrea				FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT FK_Prod_tbLotes_tbUsuarios_lote_UsuModifica			FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT FK_Prod_tbLotes_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
+);
+GO
+
+CREATE TABLE Prod.tbAsignacionesOrdenDetalle(
+	adet_Id						INT IDENTITY(1,1), 
+	lote_Id						INT NOT NULL, 
+	adet_Cantidad				INT NOT NULL, 
+	asor_Id						INT NOT NULL,
+
+	usua_UsuarioCreacion		INT NOT NULL,
+	adet_FechaCreacion			DATETIME NOT NULL,
+	usua_UsuarioModificacion	INT DEFAULT NULL,
+	adet_FechaModificacion		DATETIME DEFAULT NULL,
+	--usua_UsuarioEliminacion	INT DEFAULT NULL,
+	--amod_FechaEliminacion		DATETIME DEFAULT NULL,
+	--adet_Estado				BIT DEFAULT 1 
+
+	CONSTRAINT PK_Prod_tbAsignacionesModuloDetalle_adet_Id								PRIMARY KEY (adet_Id),
+	CONSTRAINT FK_Prod_tbAsignacionesModuloDetalle_tbLotes_lote_Id						FOREIGN KEY (lote_Id)				   REFERENCES Prod.tbLotes (lote_Id),
+	CONSTRAINT FK_Prod_tbAsignacionesModuloDetalle_tbtbAsignacionesOrden_asor_Id		FOREIGN KEY	(asor_Id)				   REFERENCES Prod.tbAsignacionesOrden(asor_Id),	
+	CONSTRAINT FK_Prod_tbAsignacionesModuloDetalle_tbUsuarios_amod_UsuCrea				FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT FK_Prod_tbAsignacionesModuloDetalle_tbUsuarios_amod_UsuModifica			FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
+	--CONSTRAINT FK_Prod_tbAsignacionesModuloDetalle_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
+);
+GO
+
+--ewqeeeqw
+CREATE TABLE Prod.tbPedidosProduccionDetalles(
+	ppde_Id               			INT IDENTITY(1,1),
+	ppro_Id               			INT NOT NULL,
+	lote_Id               			INT NOT NULL,
+	ppde_Cantidad         			INT NOT NULL,
+
+	usua_UsuarioCreacion			INT NOT NULL,
+	ppde_FechaCreacion				DATETIME NOT NULL,
+	usua_UsuarioModificacion		INT DEFAULT NULL,
+	ppde_FechaModificacion			DATETIME DEFAULT NULL,
+	--usua_UsuarioEliminacion		INT DEFAULT NULL,
+	--ppde_FechaEliminacion		DATETIME DEFAULT NULL,
+	ppde_Estado						BIT DEFAULT 1
+	CONSTRAINT PK_Prod_tbPedidosProduccionDetalle PRIMARY KEY (ppde_Id),
+	CONSTRAINT FK_Prod_tbPedidosProduccionDetalle_ppro_Id_Prod_tbPedidosProduccion FOREIGN KEY (ppro_Id) REFERENCES Prod.tbPedidosProduccion(ppro_Id),
+	CONSTRAINT FK_Prod_tbPedidosProduccionDetalle_lote_Id_Prod_tbLotes FOREIGN KEY (lote_Id) REFERENCES Prod.tbLotes(lote_Id),
+	CONSTRAINT FK_Prod_tbPedidosProduccionDetalle_tbUsuarios_ppde_UsuCrea				FOREIGN KEY (usua_UsuarioCreacion)     	REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT FK_Prod_tbPedidosProduccionDetalle_tbUsuarios_ppde_UsuModifica			FOREIGN KEY (usua_UsuarioModificacion) 	REFERENCES Acce.tbUsuarios (usua_Id), 
+	---CONSTRAINT FK_Prod_tbPedidosProduccionDetalle_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
 

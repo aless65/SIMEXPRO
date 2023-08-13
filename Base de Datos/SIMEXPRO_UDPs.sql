@@ -12325,32 +12325,76 @@ AS
 BEGIN
   SELECT    popo.popo_Id,
 			code.code_Id,
-			code.mode_Id,
+			code.esti_Id,
 			code.code_CantidadPrenda,
 			code.code_Sexo,
 			code.tall_Id,
 			talla.tall_Nombre,
 			code.colr_Id,
 			colr.colr_Nombre,
+			esti.esti_Descripcion,
 		   		
-			usu.usua_Id             AS IDUsuarioCreacion,
-			usu.usua_Nombre         AS UsuarioCreacion,
-			prod_FechaCreacion,
+			popo.usua_UsuarioCreacion,
+			usu.usua_Nombre						  AS usua_UsuarioCreacionNombre,
+			popo_FechaCreacion,
 
-			usu1.usua_Id            AS IDUsuarioModificacion,
-			usu1.usua_Nombre        AS UsuarioModificacion,
-			prod_FechaModificacion
+			popo.usua_UsuarioModificacion,
+			usu1.usua_Nombre					  AS usua_UsuarioModificacionNombre,
+			popo_FechaModificacion
  
   FROM	    Prod.tbPODetallePorPedidoOrdenDetalle popo
             INNER JOIN Prod.tbOrdenCompraDetalles code		ON popo.code_Id = code.code_Id
-			INNER JOIN Prod.tbModelos mode					ON popo.mode_Id = mode.mode_Id
+			INNER JOIN Prod.tbEstilos esti					ON code.esti_Id = esti.esti_Id
 			INNER JOIN Prod.tbTallas talla					ON code.tall_Id = talla.tall_Id
 			INNER JOIN Prod.tbColores colr					ON code.colr_Id = colr.colr_Id
-			INNER JOIN Acce.tbUsuarios usu					ON usu.usua_Id = prod.usua_UsuarioCreacion 
+			INNER JOIN Acce.tbUsuarios usu					ON usu.usua_Id = popo.usua_UsuarioCreacion 
 			LEFT JOIN Acce.tbUsuarios usu1					ON usu1.usua_UsuarioModificacion = popo.usua_UsuarioModificacion
 END 
 GO
 
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbPODetallePorPedidoOrdenDetalle_Insertar 
+	@prod_Id						INT,
+	@code_Id						INT,
+	@usua_UsuarioCreacion			INT,
+	@popo_FechaCreacion				DATETIME 
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Prod.tbPODetallePorPedidoOrdenDetalle(prod_Id,
+														  code_Id,
+														  usua_UsuarioCreacion,
+														  popo_FechaCreacion)
+		VALUES (@prod_Id,
+				@code_Id,
+				@usua_UsuarioCreacion,
+				@popo_FechaCreacion)
+
+		SELECT 1
+
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbPODetallePorPedidoOrdenDetalle_Eliminar 
+	@popo_Id						INT
+AS
+BEGIN
+	BEGIN TRY
+		DELETE FROM Prod.tbPODetallePorPedidoOrdenDetalle
+		WHERE popo_Id = @popo_Id
+
+		SELECT 1
+
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
 
 
 --********************************************LOTES***********************************************--

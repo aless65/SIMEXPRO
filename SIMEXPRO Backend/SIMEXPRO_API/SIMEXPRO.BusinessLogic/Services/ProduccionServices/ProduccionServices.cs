@@ -11,36 +11,37 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
 {
     public class ProduccionServices
     {        
-        private readonly AreasRepository                        _areasRepository;
-        private readonly AsignacionesOrdenDetalleRepository     _asignacionesOrdenDetalleRepository;
-        private readonly AsignacionesOrdenRepository            _asignacionesOrdenRepository;
-        private readonly CategoriasRepository                   _categoriasRepository;
-        private readonly ClientesRepository                     _clientesRepository;
-        private readonly ColoresRepository                      _coloresRepository;
-        private readonly EstilosRepository                      _estilosRepository;
-        private readonly FuncionesMaquinaRepository             _funcionesMaquinaRepository;
-        private readonly LotesRepository                        _lotesRepository;
-        private readonly MaquinaHistorialRepository             _maquinaHistorialRepository;
-        private readonly MaquinasRepository                     _maquinasRepository;
-        private readonly MarcasMaquinaRepository                _marcasMaquinaRepository;
-        private readonly MaterialesBrindarRepository            _materialesBrindarRepository;
-        private readonly MaterialesRepository                   _materialesRepository;
-        private readonly ModelosMaquinaRepository               _modelosMaquinaRepository;
-        private readonly ModulosRepository                      _modulosRepository;
-        private readonly Orde_Ensa_Acab_EtiqRepository          _orde_Ensa_Acab_EtiqRepository;
-        private readonly OrdenCompraDetallesRepository          _ordenCompraDetallesRepository;
-        private readonly OrdenCompraRepository                  _ordenCompraRepository;
-        private readonly PedidosOrdenDetallesRepository         _pedidosOrdenDetallesRepository;
-        private readonly PedidosOrdenRepository                 _pedidosOrdenRepository;
-        private readonly PedidosProduccionDetallesRepository    _pedidosProduccionDetallesRepository;
-        private readonly PedidosProduccionRepository            _pedidosProduccionRepository;
-        private readonly ProcesosRepository                     _procesosRepository;
-        private readonly ReporteModuloDiaRepository             _reporteModuloDiaRepository;
-        private readonly ReporteModuloDiaDetalleRepository      _reporteModuloDiaDetalleRepository;
-        private readonly RevisionDeCalidadRepository            _revisionDeCalidadRepository;
-        private readonly SubCategoriasRepository                _subCategoriasRepository;
-        private readonly TallasRepository                       _tallasRepository;
-        private readonly TipoEmbalajeRepository                 _tipoEmbalajeRepository;
+        private readonly AreasRepository                             _areasRepository;
+        private readonly AsignacionesOrdenDetalleRepository          _asignacionesOrdenDetalleRepository;
+        private readonly AsignacionesOrdenRepository                 _asignacionesOrdenRepository;
+        private readonly CategoriasRepository                        _categoriasRepository;
+        private readonly ClientesRepository                          _clientesRepository;
+        private readonly ColoresRepository                           _coloresRepository;
+        private readonly EstilosRepository                           _estilosRepository;
+        private readonly FuncionesMaquinaRepository                  _funcionesMaquinaRepository;
+        private readonly LotesRepository                             _lotesRepository;
+        private readonly MaquinaHistorialRepository                  _maquinaHistorialRepository;
+        private readonly MaquinasRepository                          _maquinasRepository;
+        private readonly MarcasMaquinaRepository                     _marcasMaquinaRepository;
+        private readonly MaterialesBrindarRepository                 _materialesBrindarRepository;
+        private readonly MaterialesRepository                        _materialesRepository;
+        private readonly ModelosMaquinaRepository                    _modelosMaquinaRepository;
+        private readonly ModulosRepository                           _modulosRepository;
+        private readonly Orde_Ensa_Acab_EtiqRepository               _orde_Ensa_Acab_EtiqRepository;
+        private readonly OrdenCompraDetallesRepository               _ordenCompraDetallesRepository;
+        private readonly OrdenCompraRepository                       _ordenCompraRepository;
+        private readonly PedidosOrdenDetallesRepository              _pedidosOrdenDetallesRepository;
+        private readonly PedidosOrdenRepository                      _pedidosOrdenRepository;
+        private readonly PedidosProduccionDetallesRepository         _pedidosProduccionDetallesRepository;
+        private readonly PedidosProduccionRepository                 _pedidosProduccionRepository;
+        private readonly PODetallePorPedidoOrdenDetalleRepository    _PODetallePorPedidoOrdenDetalleRepository;
+        private readonly ProcesosRepository                          _procesosRepository;
+        private readonly ReporteModuloDiaRepository                  _reporteModuloDiaRepository;
+        private readonly ReporteModuloDiaDetalleRepository           _reporteModuloDiaDetalleRepository;
+        private readonly RevisionDeCalidadRepository                 _revisionDeCalidadRepository;
+        private readonly SubCategoriasRepository                     _subCategoriasRepository;
+        private readonly TallasRepository                            _tallasRepository;
+        private readonly TipoEmbalajeRepository                      _tipoEmbalajeRepository;
 
 
         public ProduccionServices(  AreasRepository  areasRepository,                                 
@@ -66,6 +67,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                                     PedidosOrdenRepository pedidosOrdenRepository,
                                     PedidosProduccionDetallesRepository pedidosProduccionDetallesRepository,
                                     PedidosProduccionRepository pedidosProduccionRepository,
+                                    PODetallePorPedidoOrdenDetalleRepository PODetallePorPedidoOrdenDetalleRepository,
                                     ProcesosRepository procesosRepository,
                                     ReporteModuloDiaRepository reporteModuloDiaRepository,
                                     ReporteModuloDiaDetalleRepository reporteModuloDiaDetalleRepository,
@@ -99,6 +101,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             _pedidosOrdenRepository = pedidosOrdenRepository;
             _pedidosProduccionDetallesRepository = pedidosProduccionDetallesRepository;
             _pedidosProduccionRepository = pedidosProduccionRepository;
+            _PODetallePorPedidoOrdenDetalleRepository = PODetallePorPedidoOrdenDetalleRepository;
             _procesosRepository = procesosRepository;
             _reporteModuloDiaRepository = reporteModuloDiaRepository;
             _reporteModuloDiaDetalleRepository = reporteModuloDiaDetalleRepository;
@@ -2134,24 +2137,19 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         public ServiceResult InsertarPedidosProduccion(tbPedidosProduccion item)
         {
             var result = new ServiceResult();
+            bool esInt;
             try
             {
-                if (item.ppro_Estados.ToString() != "")
+                var map = _pedidosProduccionRepository.Insert(item);
+                esInt = int.TryParse(map.MessageStatus, out _);
+                if (esInt)
                 {
-                    var map = _pedidosProduccionRepository.Insert(item);
-    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2165,22 +2163,15 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                if (item.ppro_Estados.ToString() != "")
+                var map = _pedidosProduccionRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _pedidosProduccionRepository.Update(item);
-    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2194,22 +2185,75 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                if (item.ppro_Id != 0)
+                var map = _pedidosProduccionRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _pedidosProduccionRepository.Delete(item);
-    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        #endregion
+
+        #region PO Detalle Por Pedido Orden Detalle
+        public ServiceResult ListarPODetallePorPedidoOrdenDetalle()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _PODetallePorPedidoOrdenDetalleRepository.List();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult InsertarPODetallePorPedidoOrdenDetalle(tbPODetallePorPedidoOrdenDetalle item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _PODetallePorPedidoOrdenDetalleRepository.Insert(item);
+                if (map.MessageStatus == "1")
+                {
+                    return result.Ok(map);
+                }
+                else
+                {
+
+                    return result.Error(map);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult EliminarPODetallePorPedidoOrdenDetalle(tbPODetallePorPedidoOrdenDetalle item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _PODetallePorPedidoOrdenDetalleRepository.Delete(item);
+                if (map.MessageStatus == "1")
+                {
+                    return result.Ok(map);
+                }
+                else
+                {
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2220,7 +2264,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Procesos
-     
+
         public ServiceResult ListarProcesos()
         {
             var result = new ServiceResult();

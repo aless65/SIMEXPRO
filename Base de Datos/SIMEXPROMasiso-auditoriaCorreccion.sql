@@ -2499,14 +2499,14 @@ CREATE TABLE Prod.tbPODetallePorPedidoOrdenDetalle(
 
 	usua_UsuarioCreacion		INT NOT NULL,
 	popo_FechaCreacion			DATETIME NOT NULL,
-	usua_UsuarioModificacion	INT DEFAULT NULL,
-	popo_FechaModificacion		DATETIME DEFAULT NULL
+	--usua_UsuarioModificacion	INT DEFAULT NULL,
+	--popo_FechaModificacion		DATETIME DEFAULT NULL
 
 	CONSTRAINT PK_Prod_tbPODetallePorPedidoOrdenDetalle_popo_Id										PRIMARY KEY(popo_Id),
 	CONSTRAINT FK_Prod_tbPODetallePorPedidoOrdenDetalle_tbPedidosOrdenDetalle_prod_Id				FOREIGN KEY(prod_Id)					REFERENCES Prod.tbPedidosOrdenDetalle(prod_Id),
 	CONSTRAINT FK_Prod_tbPODetallePorPedidoOrdenDetalle_tbOrdenCompra_code_Id						FOREIGN KEY(code_Id)					REFERENCES Prod.tbOrdenCompraDetalles(code_Id),
 	CONSTRAINT FK_Prod_tbPODetallePorPedidoOrdenDetalle_Acce_tbUsuarios_usua_UsuarioCreacion		FOREIGN KEY(usua_UsuarioCreacion)       REFERENCES Acce.tbUsuarios(usua_Id),
-	CONSTRAINT FK_Prod_tbPODetallePorPedidoOrdenDetalle_Acce_tbUsuarios_usua_UsuarioModificacion	FOREIGN KEY(usua_UsuarioModificacion)   REFERENCES Acce.tbUsuarios(usua_Id)
+	--CONSTRAINT FK_Prod_tbPODetallePorPedidoOrdenDetalle_Acce_tbUsuarios_usua_UsuarioModificacion	FOREIGN KEY(usua_UsuarioModificacion)   REFERENCES Acce.tbUsuarios(usua_Id)
 );
 GO
 

@@ -406,6 +406,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[Prod].[tbPODetallePorPedidoOrdenDetalle]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[Prod].[tbProcesos]",
          "ObjectType": 0
       },

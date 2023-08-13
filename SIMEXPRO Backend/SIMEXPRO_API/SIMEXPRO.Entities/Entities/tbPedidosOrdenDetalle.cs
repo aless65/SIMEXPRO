@@ -8,6 +8,12 @@ namespace SIMEXPRO.Entities.Entities
 {
     public partial class tbPedidosOrdenDetalle
     {
+        public tbPedidosOrdenDetalle()
+        {
+            tbLotes = new HashSet<tbLotes>();
+            tbPODetallePorPedidoOrdenDetalle = new HashSet<tbPODetallePorPedidoOrdenDetalle>();
+        }
+
         public int prod_Id { get; set; }
         public int pedi_Id { get; set; }
         public int mate_Id { get; set; }
@@ -24,5 +30,7 @@ namespace SIMEXPRO.Entities.Entities
         public virtual tbPedidosOrden pedi { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }
+        public virtual ICollection<tbLotes> tbLotes { get; set; }
+        public virtual ICollection<tbPODetallePorPedidoOrdenDetalle> tbPODetallePorPedidoOrdenDetalle { get; set; }
     }
 }

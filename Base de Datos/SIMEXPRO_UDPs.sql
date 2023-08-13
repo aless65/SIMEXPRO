@@ -12325,6 +12325,7 @@ AS
 BEGIN
   SELECT    popo.popo_Id,
 			code.code_Id,
+			popo.prod_Id,
 			code.esti_Id,
 			code.code_CantidadPrenda,
 			code.code_Sexo,
@@ -12336,11 +12337,7 @@ BEGIN
 		   		
 			popo.usua_UsuarioCreacion,
 			usu.usua_Nombre						  AS usua_UsuarioCreacionNombre,
-			popo_FechaCreacion,
-
-			popo.usua_UsuarioModificacion,
-			usu1.usua_Nombre					  AS usua_UsuarioModificacionNombre,
-			popo_FechaModificacion
+			popo_FechaCreacion
  
   FROM	    Prod.tbPODetallePorPedidoOrdenDetalle popo
             INNER JOIN Prod.tbOrdenCompraDetalles code		ON popo.code_Id = code.code_Id
@@ -12348,7 +12345,6 @@ BEGIN
 			INNER JOIN Prod.tbTallas talla					ON code.tall_Id = talla.tall_Id
 			INNER JOIN Prod.tbColores colr					ON code.colr_Id = colr.colr_Id
 			INNER JOIN Acce.tbUsuarios usu					ON usu.usua_Id = popo.usua_UsuarioCreacion 
-			LEFT JOIN Acce.tbUsuarios usu1					ON usu1.usua_UsuarioModificacion = popo.usua_UsuarioModificacion
 END 
 GO
 

@@ -13,12 +13,12 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TiposIdentificaionController : Controller
+    public class TiposIdentificacionController : Controller
     {
         private readonly AduanaServices _aduanaServices;
         private readonly IMapper _mapper;
 
-        public TiposIdentificaionController(AduanaServices AduanaServices, IMapper mapper)
+        public TiposIdentificacionController(AduanaServices AduanaServices, IMapper mapper)
         {
             _aduanaServices = AduanaServices;
             _mapper = mapper;

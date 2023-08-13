@@ -4057,6 +4057,7 @@ BEGIN
 				SET		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
 						iden_FechaEliminacion = @iden_FechaEliminacion,
 						iden_Estado = 0
+				WHERE iden_Id = @iden_Id
 			END
 			SELECT @respuesta
 	END TRY

@@ -859,23 +859,13 @@ BEGIN
 				
 				SELECT 1
 			END
-		ELSE
-			BEGIN
-				UPDATE  Gral.tbOficinas
-				SET		ofic_Nombre = @ofic_Nombre,
-						usua_UsuarioModificacion = @usua_UsuarioModificacion,
-						ofic_FechaModificacion = @ofic_FechaModificacion
-				WHERE	ofic_Id = @ofic_Id
-
-				SELECT 1
-			END
+		
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 GO
-
 /*Eliminar oficinas*/
 CREATE OR ALTER PROCEDURE gral.UDP_tbOficinas_Eliminar 
 	@ofic_Id					INT,

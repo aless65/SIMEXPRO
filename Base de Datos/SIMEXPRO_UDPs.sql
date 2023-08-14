@@ -4171,6 +4171,34 @@ SELECT		deva_Id,
 			LEFT JOIN Acce.tbUsuarios usuaModifica			ON deva.usua_UsuarioModificacion = usuaModifica.usua_Id
 GO
 
+--Endpoint para rellenar información cuando se escriba el número de identificación 
+CREATE OR ALTER PROCEDURE Adua.tbDeclarantes_Find 
+	@decl_NumeroIdentificacion	NVARCHAR(MAX)
+AS
+BEGIN
+	SELECT decl.decl_Id,
+		   decl.decl_NumeroIdentificacion, 
+		   decl.decl_Nombre_Raso, 
+		   decl.decl_Direccion_Exacta, 
+		   decl.ciud_Id, 
+		   decl.decl_Correo_Electronico, 
+		   decl.decl_Telefono, 
+		   decl.decl_Fax,
+		   impo.nico_Id,
+		   impo.impo_NivelComercial_Otro,
+		   impo.impo_RTN,
+		   impo.impo_NumRegistro,
+		   inte.tite_Id,
+		   inte.inte_Tipo_Otro,
+		   prov.coco_Id,
+		   prov.pvde_Condicion_Otra
+	FROM [Adua].[tbDeclarantes] decl
+	LEFT JOIN [Adua].[tbImportadores] impo				ON decl.decl_Id = impo.decl_Id
+	LEFT JOIN [Adua].[tbIntermediarios] inte			ON decl.decl_Id = inte.decl_Id
+	LEFT JOIN [Adua].[tbProveedoresDeclaracion]	prov	ON decl.decl_Id = prov.decl_Id
+	WHERE decl_NumeroIdentificacion = @decl_NumeroIdentificacion
+END
+
 --GO
 --CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_ValorCompleto_Listar
 --AS
@@ -12406,6 +12434,13 @@ END
 GO
 
 
+--SELECT RowNumber
+--		FROM (SELECT ROW_NUMBER() OVER (ORDER BY prod_Id) AS RowNumber,
+--					 prod_Id 
+--			  FROM [Prod].[tbPedidosOrdenDetalle]
+--			  WHERE pedi_Id = 4) AS RowNumbers
+--		WHERE prod_Id = 8
+
 --********************************************LOTES***********************************************--
 CREATE OR ALTER PROCEDURE Prod.UDP_tbLotes_Listar
 AS BEGIN
@@ -12420,6 +12455,20 @@ SELECT lote_Id,
 	   lote_CantIngresada,
 	   areas.tipa_area,
 	   lotes.tipa_id,
+	   pedidos.peor_Id,
+	   pedidosDetalle.prod_Id,
+	   (SELECT RowNumber
+		FROM (SELECT ROW_NUMBER() OVER (ORDER BY prod_Id) AS RowNumber,
+					 prod_Id 
+			  FROM [Prod].[tbPedidosOrdenDetalle]
+			  WHERE pedi_Id = pedidos.peor_Id) AS RowNumbers
+		WHERE prod_Id = pedidosDetalle.prod_Id) AS prod_NumeroLinea,
+	   pedidos.peor_No_Duca,
+	   duca.
+	   pedidos.prov_Id,
+	   prov.prov_NombreCompania,
+	   prov.prov_NombreContacto,
+	   prov.prov_DireccionExacta,
 	   UsuCreacion.usua_Nombre        AS UsuarioCreacion,
 	   lotes.usua_UsuarioCreacion,
 	   lotes.lote_FechaCreacion, 
@@ -12431,33 +12480,40 @@ SELECT lote_Id,
 	   lotes.lote_FechaEliminacion, 
 	   lotes.lote_Estado
   FROM Prod.tbLotes lotes
-	   LEFT JOIN Prod.tbMateriales				AS materiales        ON lotes.mate_Id                  = materiales.mate_Id
-	   LEFT JOIN Prod.tbArea					AS areas             ON lotes.tipa_id                  = areas.tipa_id
-	   LEFT JOIN Acce.tbUsuarios				AS UsuCreacion       ON lotes.usua_UsuarioCreacion     = UsuCreacion.usua_Id
-	   LEFT JOIN Acce.tbUsuarios				AS UsuModificacion   ON lotes.usua_UsuarioModificacion = UsuModificacion.usua_Id
-	   LEFT JOIN Acce.tbUsuarios				AS UsuEliminacion    ON lotes.usua_UsuarioEliminacion  = UsuEliminacion.usua_Id
-	   LEFT JOIN Gral.tbUnidadMedidas			AS UnidadesMedida    ON lotes.unme_Id                  = UnidadesMedida.unme_Id
-	   LEFT JOIN Prod.tbPedidosOrdenDetalle		AS pedidosDetalle	 ON lotes.prod_Id				   = pedidosDetalle.prod_Id
-	   LEFT JOIN Prod.tbOrdenCompraDetalles		AS poDetalle		 ON pedidosDetalle.code_Id		   = poDetalle.code_Id
+	   LEFT JOIN Prod.tbMateriales						AS materiales        ON lotes.mate_Id                  = materiales.mate_Id
+	   LEFT JOIN Prod.tbArea							AS areas             ON lotes.tipa_id                  = areas.tipa_id
+	   LEFT JOIN Gral.tbUnidadMedidas					AS UnidadesMedida    ON lotes.unme_Id                  = UnidadesMedida.unme_Id
+	   LEFT JOIN Prod.tbPedidosOrdenDetalle				AS pedidosDetalle	 ON lotes.prod_Id				   = pedidosDetalle.prod_Id
+	   LEFT JOIN Prod.tbPedidosOrden					AS pedidos			 ON pedidosDetalle.pedi_Id		   = pedidos.peor_Id
+	   LEFT JOIN Prod.tbPODetallePorPedidoOrdenDetalle  AS poDetpedidoDet	 ON pedidosDetalle.prod_Id         = poDetpedidoDet.prod_Id
+	   LEFT JOIN Prod.tbOrdenCompraDetalles				AS poDetalle		 ON poDetpedidoDet.code_Id		   = poDetalle.code_Id
+	   LEFT JOIN Prod.tbOrdenCompra						AS po				 ON poDetalle.orco_Id			   = po.orco_Id
+	   LEFT JOIN Gral.tbProveedores						AS prov				 ON pedidos.prov_Id			       = prov.prov_Id
+	   LEFT JOIN Adua.tbDuca							AS duca				 ON pedidos.peor_No_Duca		   = duca.duca_No_Duca
+	   LEFT JOIN Acce.tbUsuarios						AS UsuCreacion       ON lotes.usua_UsuarioCreacion     = UsuCreacion.usua_Id
+	   LEFT JOIN Acce.tbUsuarios						AS UsuModificacion   ON lotes.usua_UsuarioModificacion = UsuModificacion.usua_Id
+	   LEFT JOIN Acce.tbUsuarios						AS UsuEliminacion    ON lotes.usua_UsuarioEliminacion  = UsuEliminacion.usua_Id
  WHERE lotes.lote_Estado                                                                     = 1
 END
 GO
 
 
 CREATE OR ALTER PROC Prod.UDP_tbLotes_Insertar
-@mate_Id				INT,
-@unme_Id				INT,
-@lote_Stock				INT,
-@lote_CantIngresada		INT,
-@tipa_Id				INT,
-@lote_Observaciones		NVARCHAR(MAX),
-@usua_UsuarioCreacion	INT,
-@lote_FechaCreacion		DATETIME
+	@mate_Id				INT,
+	@unme_Id				INT,
+	@prod_Id				INT,
+	@lote_Stock				INT,
+	@lote_CantIngresada		INT,
+	@tipa_Id				INT,
+	@lote_Observaciones		NVARCHAR(MAX),
+	@usua_UsuarioCreacion	INT,
+	@lote_FechaCreacion		DATETIME
 AS BEGIN
 
 BEGIN TRY
 	INSERT INTO Prod.tbLotes(mate_Id, 
 							 unme_Id,
+							 prod_Id,
 						     lote_Stock, 
 							 lote_CantIngresada, 
 							 tipa_Id, 
@@ -12467,6 +12523,7 @@ BEGIN TRY
 
 	VALUES					(@mate_Id,		
 							 @unme_Id,
+							 @prod_Id,
 							 @lote_Stock,			
 							 @lote_CantIngresada,	
 							 @tipa_Id,
@@ -12487,6 +12544,7 @@ CREATE OR ALTER PROC Prod.UDP_tbLotes_Editar
 @lote_Id				  INT,
 @mate_Id				  INT,
 @unme_Id				  INT,
+@prod_Id				  INT,
 @lote_Stock				  INT,
 @lote_CantIngresada		  INT,
 @tipa_Id				  INT,
@@ -12498,6 +12556,7 @@ BEGIN TRY
 	UPDATE Prod.tbLotes 
 	                    SET  mate_Id                   = @mate_Id, 
 						     unme_Id                   = @unme_Id,
+							 prod_Id				   = @prod_Id,
 						     lote_Stock                = @lote_Stock, 
 							 lote_CantIngresada        = @lote_CantIngresada, 
 							 tipa_Id                   = @tipa_Id, 
@@ -12505,6 +12564,7 @@ BEGIN TRY
 							 usua_UsuarioModificacion  = @usua_UsuarioModificacion,
 							 lote_FechaModificacion    = @lote_FechaModificacion
 					   WHERE lote_Id                   = @lote_Id
+
 					  SELECT 1
 END TRY
 BEGIN CATCH

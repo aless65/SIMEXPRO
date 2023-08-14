@@ -2331,7 +2331,7 @@ CREATE TABLE Adua.tbTiposIdentificacion(
 GO
 
 ----**************IMPORTANTE****************----
---duca_CanalAsignado: Verde = V, Rojo = R, Amarillo = As
+--duca_CanalAsignado: Verde = V, Rojo = R, Amarillo = A
 CREATE TABLE Adua.tbDuca(
 	duca_No_Duca					NVARCHAR(100),
 	duca_No_Correlativo_Referencia	NVARCHAR(MAX),
@@ -2368,6 +2368,7 @@ CREATE TABLE Adua.tbDuca(
 	duca_Codigo_Tipo_Documento		CHAR(3) ,
 	duca_FechaVencimiento			DATE ,
 	duca_CanalAsignado				CHAR ,
+	duca_Ventaja					NVARCHAR(100),
 
 	usua_UsuarioCreacion			INT ,
 	duca_FechaCreacion				DATETIME ,

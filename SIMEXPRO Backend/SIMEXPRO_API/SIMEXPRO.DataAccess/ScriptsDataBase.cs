@@ -237,6 +237,8 @@ namespace SIMEXPRO.DataAccess
         public static string EditarDeclaracionesValorTAP3 = "adua.UDP_tbDeclaraciones_Valor_Tab3_Editar";
 
         public static string EliminarDeclaracionesValor = "Adua.UDP_tbDeclaraciones_Valor_Eliminar";
+
+        public static string EncontrarDeclarantes = "Adua.tbDeclarantes_Find";
         #endregion
 
         #region Declarantes

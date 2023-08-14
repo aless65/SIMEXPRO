@@ -36,6 +36,11 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             throw new NotImplementedException();
         }
 
+        public tbDeclaraciones_Valor Find(string decl_NumeroIdentificacion)
+        {
+            throw new NotImplementedException();
+        }
+
         public RequestStatus Insert(tbDeclaraciones_Valor item)
         {
             throw new NotImplementedException();

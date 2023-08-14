@@ -47,5 +47,13 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             var respuesta = _produccionServices.ActualizarReporteModuloDiaDetalle(item);
             return Ok(respuesta);
         }
+
+        [HttpPost("Eliminar")]
+        public IActionResult Eliminar(ReporteModuloDiaDetalleViewModel ReporteModuloDiaDetalleViewModel)
+        {
+            var item = _mapper.Map<tbReporteModuloDiaDetalle>(ReporteModuloDiaDetalleViewModel);
+            var respuesta = _produccionServices.EliminarReporteModuloDiaDetalle(item);
+            return Ok(respuesta);
+        }
     }
 }

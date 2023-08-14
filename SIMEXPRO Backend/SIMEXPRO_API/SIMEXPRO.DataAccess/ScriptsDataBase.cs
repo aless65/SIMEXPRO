@@ -246,6 +246,7 @@ namespace SIMEXPRO.DataAccess
         public static string InsertarDeclarantes = "adua.UDP_tbDeclarantes_Insertar";
         public static string EditarDeclarantes = "adua.UDP_tbDeclarantes_Editar";
         public static string EliminarDeclarantes = "Adua.UDP_tbDeclarantes_Eliminar";
+        public static string BuscarDeclarante = "Adua.UDP_tbDeclarantes_Find";
         #endregion
 
         #region Documentos Contrato

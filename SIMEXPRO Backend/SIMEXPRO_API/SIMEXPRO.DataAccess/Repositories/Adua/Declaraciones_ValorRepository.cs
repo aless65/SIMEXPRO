@@ -36,9 +36,17 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             throw new NotImplementedException();
         }
 
-        public tbDeclaraciones_Valor Find(string decl_NumeroIdentificacion)
+        public tbDeclarantes Find(string decl_NumeroIdentificacion)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+
+            var parametros = new DynamicParameters();
+
+            parametros.Add("@decl_NumeroIdentificacion", decl_NumeroIdentificacion, DbType.String, ParameterDirection.Input);
+
+            var respuesta = db.QueryFirst<tbDeclarantes>(ScriptsDataBase.BuscarDeclarante, parametros, commandType: CommandType.StoredProcedure);
+
+            return respuesta;
         }
 
         public RequestStatus Insert(tbDeclaraciones_Valor item)

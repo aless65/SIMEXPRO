@@ -159,7 +159,6 @@ namespace SIMEXPRO.API
 
             app.UseMiddleware<ApiKeyMiddleware>();
 
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

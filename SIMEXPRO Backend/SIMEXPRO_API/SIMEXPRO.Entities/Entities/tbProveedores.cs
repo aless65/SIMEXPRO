@@ -22,9 +22,12 @@ namespace SIMEXPRO.Entities.Entities
         public int prov_Ciudad { get; set; }
         public string ciud_Nombre { get; set; }
         public string pvin_Id { get; set; }
-        public string pais_Nombre { get; set; }
-        public string pais_Id { get; set; }
         public string pvin_Nombre { get; set; }
+        public string pais_Nombre { get; set; }
+
+        [NotMapped]
+        public string pais_Codigo { get; set; }
+        public string pais_Id { get; set; }
         public string prov_DireccionExacta { get; set; }
         public string prov_CorreoElectronico { get; set; }
         public string prov_Fax { get; set; }

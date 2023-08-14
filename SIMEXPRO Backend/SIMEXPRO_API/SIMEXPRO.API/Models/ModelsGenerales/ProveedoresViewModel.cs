@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,7 +8,6 @@ namespace SIMEXPRO.API.Models
 {
     public class ProveedoresViewModel
     {
-
         public int prov_Id { get; set; }
         public string prov_NombreCompania { get; set; }
         public string prov_NombreContacto { get; set; }
@@ -16,9 +16,13 @@ namespace SIMEXPRO.API.Models
         public int prov_Ciudad { get; set; }
         public string ciud_Nombre { get; set; }
         public string pvin_Id { get; set; }
-        public string pais_Nombre { get; set; }
-        public string pais_Id { get; set; }
         public string pvin_Nombre { get; set; }
+        public string pais_Nombre { get; set; }
+
+        [NotMapped]
+        public string pais_Codigo { get; set; }
+
+        public string pais_Id { get; set; }
         public string prov_DireccionExacta { get; set; }
         public string prov_CorreoElectronico { get; set; }
         public string prov_Fax { get; set; }

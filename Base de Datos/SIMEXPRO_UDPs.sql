@@ -1723,8 +1723,11 @@ SELECT	prov_Id								,
 		prov_CodigoPostal 					,
 		prov_Ciudad							,
 		ciu.ciud_Nombre						,
+		provi.pvin_Id						,
 		provi.pvin_Nombre					,
 		pais.pais_Nombre					,
+		pais.pais_Codigo					,
+		pais.pais_Id						,
 		prov_DireccionExacta 				,
 		prov_CorreoElectronico				,
 		prov_Fax 							,
@@ -1751,6 +1754,7 @@ FROM	Gral.tbProveedores prov
 WHERE	prov_Estado = 1
 END
 GO
+
 /*Insertar PROVEEDORES*/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbProveedores_Insertar
 @prov_NombreCompania			NVARCHAR(200), 
@@ -4453,6 +4457,7 @@ GO
 CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab1_Insertar 
 	@deva_AduanaIngresoId				INT,
 	@deva_AduanaDespachoId				INT,
+	@deva_DeclaracionMercancia			NVARCHAR(500),
 	@deva_FechaAceptacion				DATETIME,
 	@decl_Nombre_Raso					NVARCHAR(250),
 	@impo_RTN							NVARCHAR(40),
@@ -4604,12 +4609,14 @@ BEGIN
 	
 		INSERT INTO Adua.tbDeclaraciones_Valor(deva_AduanaIngresoId, 
 											   deva_AduanaDespachoId, 
+											   deva_DeclaracionMercancia,
 											   deva_FechaAceptacion, 
 											   impo_Id, 
 											   usua_UsuarioCreacion, 
 											   deva_FechaCreacion)
 										VALUES(@deva_AduanaIngresoId,
 												@deva_AduanaDespachoId,
+												@deva_DeclaracionMercancia,
 												@deva_FechaAceptacion,
 												@impo_Id,
 												@usua_UsuarioCreacion,
@@ -4621,7 +4628,8 @@ BEGIN
 		INSERT INTO Adua.tbDeclaraciones_ValorHistorial(deva_Id, 
 															deva_AduanaIngresoId, 
 															deva_AduanaDespachoId,  
-															deva_FechaAceptacion, 
+															deva_FechaAceptacion,
+															deva_DeclaracionMercancia, 
 															impo_Id,
 															hdev_UsuarioAccion, 
 															hdev_FechaAccion, 
@@ -4630,6 +4638,7 @@ BEGIN
 															@deva_AduanaIngresoId,
 															@deva_AduanaDespachoId,
 															@deva_FechaAceptacion,
+															@deva_DeclaracionMercancia,
 															@impo_Id,
 															@usua_UsuarioCreacion,
 															@deva_FechaCreacion,

@@ -29,6 +29,8 @@ namespace SIMEXPRO.Entities.Entities
 
         [NotMapped]
         public string UsuarioModificacionNombre { get; set; }
+        [NotMapped]
+        public string UsuarioEliminacionNombre { get; set; }
 
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioEliminacionNavigation { get; set; }

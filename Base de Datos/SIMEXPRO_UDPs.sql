@@ -1146,7 +1146,7 @@ GO
 --**********MONEDAS**********--
 
 /*Listar monedas*/
-ALTER   PROCEDURE [Gral].[UDP_tbMonedas_Listar]
+CREATE OR ALTER PROCEDURE [Gral].[UDP_tbMonedas_Listar]
 AS
 BEGIN
 	SELECT  mone_Id								
@@ -1715,12 +1715,19 @@ SELECT	prov_Id								,
 		prov_FechaCreacion	 				, 
 		prov.usua_UsuarioModificacion		,
 		usu2.usua_Nombre					AS UsuarioModificadorNombre,
+		prov.usua_UsuarioEliminacion,
+		prov_FechaEliminacion,
+		usu3.usua_Nombre AS UsuarioEliminacionNombre,
 		prov_FechaModificacion	 			,
+		prov.usua_UsuarioEliminacion		,
+		usu3.usua_Nombre					AS UsuarioEliminacionNombre,
+		prov.prov_FechaEliminacion
 		prov_Estado
 FROM	Gral.tbProveedores prov					
 		INNER JOIN Gral.tbCiudades ciu	ON prov.prov_Ciudad = ciu.ciud_Id				
 		INNER JOIN Acce.tbUsuarios usu1		ON prov.usua_UsuarioCreacion = usu1.usua_Id		
 		LEFT JOIN  Acce.tbUsuarios usu2		ON prov.usua_UsuarioModificacion = usu2.usua_Id 
+		LEFT JOIN  Acce.tbUsuarios usu3		ON prov.usua_UsuarioEliminacion	= usu3.usua_Id
 		INNER JOIN Gral.tbProvincias provi	ON ciu.pvin_Id = provi.pvin_Id					
 		INNER JOIN Gral.tbPaises pais		ON provi.pais_Id = pais.pais_Id
 WHERE	prov_Estado = 1
@@ -1859,10 +1866,13 @@ SELECT	foen_Id											,
 		formasEnvio.usua_UsuarioModificacion			,
 		usuarioModificacion.usua_Nombre					AS usuarioModificacionNombre,
 		foen_FechaModificacion							,
+		usuarioEliminacion.usua_Nombre					AS usuarioEliminacionNombre,
+		foen_FechaEliminacion							,
 		foen_Estado							
 FROM	Gral.tbFormas_Envio formasEnvio
 		INNER JOIN Acce.tbUsuarios usuarioCreacion		ON formasEnvio.usua_UsuarioCreacion = usuarioCreacion.usua_Id
 		LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON formasEnvio.usua_UsuarioModificacion = usuarioModificacion.usua_Id
+		LEFT JOIN Acce.tbUsuarios usuarioEliminacion	ON formasEnvio.usua_UsuarioEliminacion = usuarioEliminacion.usua_Id
 WHERE	foen_Estado = 1
 END
 GO
@@ -2235,10 +2245,13 @@ SELECT	unme_Id											,
 		unidadMedidas.usua_UsuarioModificacion			,
 		usuarioModificacion.usua_Nombre					AS usuarioModificacionNombre,
 		unme_FechaModificacion							,
+		usuarioEliminacion.usua_Nombre					AS usuarioEliminacionNombre,
+		unme_FechaEliminacion						    ,
 		unme_Estado								
 FROM Gral.tbUnidadMedidas unidadMedidas
 		INNER JOIN Acce.tbUsuarios usuarioCreacion		ON unidadMedidas.usua_UsuarioCreacion = usuarioCreacion.usua_Id
 		LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON unidadMedidas.usua_UsuarioModificacion = usuarioModificacion.usua_Id
+		LEFT JOIN Acce.tbUsuarios usuarioEliminacion	ON unidadMedidas.usua_UsuarioEliminacion = usuarioEliminacion.usua_Id
 WHERE unme_Estado = 1
 END
 GO
@@ -4038,6 +4051,7 @@ BEGIN
 	END CATCH
 END
 GO
+
 /*Eliminar Tipos Identificacion*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTiposIdentificacion_Eliminar 
 	@iden_Id					INT,
@@ -4050,14 +4064,15 @@ BEGIN
 			DECLARE @respuesta INT
 			EXEC dbo.UDP_ValidarReferencias 'iden_Id', @iden_Id, 'Adua.tbTiposIdentificacion', @respuesta OUTPUT
 
-			SELECT @respuesta AS Resultado
 			IF(@respuesta = 1)
 			BEGIN
 				UPDATE	Adua.tbTiposIdentificacion
 				SET		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
 						iden_FechaEliminacion = @iden_FechaEliminacion,
 						iden_Estado = 0
+				WHERE iden_Id = @iden_Id
 			END
+			SELECT @respuesta
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -12316,12 +12331,87 @@ BEGIN
 END
 GO
 
+----------------------------UDPS tbPODetallePorPedidoOrdenDetalle-----------------------------
+--LISTAR
+CREATE OR ALTER PROCEDURE Prod.UDP_tbPODetallePorPedidoOrdenDetalle_Listar
+AS
+BEGIN
+  SELECT    popo.popo_Id,
+			code.code_Id,
+			popo.prod_Id,
+			code.esti_Id,
+			code.code_CantidadPrenda,
+			code.code_Sexo,
+			code.tall_Id,
+			talla.tall_Nombre,
+			code.colr_Id,
+			colr.colr_Nombre,
+			esti.esti_Descripcion,
+		   		
+			popo.usua_UsuarioCreacion,
+			usu.usua_Nombre						  AS usua_UsuarioCreacionNombre,
+			popo_FechaCreacion
+ 
+  FROM	    Prod.tbPODetallePorPedidoOrdenDetalle popo
+            INNER JOIN Prod.tbOrdenCompraDetalles code		ON popo.code_Id = code.code_Id
+			INNER JOIN Prod.tbEstilos esti					ON code.esti_Id = esti.esti_Id
+			INNER JOIN Prod.tbTallas talla					ON code.tall_Id = talla.tall_Id
+			INNER JOIN Prod.tbColores colr					ON code.colr_Id = colr.colr_Id
+			INNER JOIN Acce.tbUsuarios usu					ON usu.usua_Id = popo.usua_UsuarioCreacion 
+END 
+GO
+
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbPODetallePorPedidoOrdenDetalle_Insertar 
+	@prod_Id						INT,
+	@code_Id						INT,
+	@usua_UsuarioCreacion			INT,
+	@popo_FechaCreacion				DATETIME 
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO Prod.tbPODetallePorPedidoOrdenDetalle(prod_Id,
+														  code_Id,
+														  usua_UsuarioCreacion,
+														  popo_FechaCreacion)
+		VALUES (@prod_Id,
+				@code_Id,
+				@usua_UsuarioCreacion,
+				@popo_FechaCreacion)
+
+		SELECT 1
+
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbPODetallePorPedidoOrdenDetalle_Eliminar 
+	@popo_Id						INT
+AS
+BEGIN
+	BEGIN TRY
+		DELETE FROM Prod.tbPODetallePorPedidoOrdenDetalle
+		WHERE popo_Id = @popo_Id
+
+		SELECT 1
+
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
+
 --********************************************LOTES***********************************************--
 CREATE OR ALTER PROCEDURE Prod.UDP_tbLotes_Listar
 AS BEGIN
-
 SELECT lote_Id, 
 	   lotes.mate_Id, 
+	   lotes.prod_Id,
 	   materiales.mate_Descripcion,
 	   lotes.unme_Id,
 	   UnidadesMedida.unme_Descripcion,
@@ -12341,12 +12431,14 @@ SELECT lote_Id,
 	   lotes.lote_FechaEliminacion, 
 	   lotes.lote_Estado
   FROM Prod.tbLotes lotes
-	   LEFT JOIN Prod.tbMateriales    AS materiales        ON lotes.mate_Id                  = materiales.mate_Id
-	   LEFT JOIN Prod.tbArea          AS areas             ON lotes.tipa_id                  = areas.tipa_id
-	   LEFT JOIN Acce.tbUsuarios      AS UsuCreacion       ON lotes.usua_UsuarioCreacion     = UsuCreacion.usua_Id
-	   LEFT JOIN Acce.tbUsuarios      AS UsuModificacion   ON lotes.usua_UsuarioModificacion = UsuModificacion.usua_Id
-	   LEFT JOIN Acce.tbUsuarios      AS UsuEliminacion    ON lotes.usua_UsuarioEliminacion  = UsuEliminacion.usua_Id
-	   LEFT JOIN Gral.tbUnidadMedidas AS UnidadesMedida    ON lotes.unme_Id                  = UnidadesMedida.unme_Id
+	   LEFT JOIN Prod.tbMateriales				AS materiales        ON lotes.mate_Id                  = materiales.mate_Id
+	   LEFT JOIN Prod.tbArea					AS areas             ON lotes.tipa_id                  = areas.tipa_id
+	   LEFT JOIN Acce.tbUsuarios				AS UsuCreacion       ON lotes.usua_UsuarioCreacion     = UsuCreacion.usua_Id
+	   LEFT JOIN Acce.tbUsuarios				AS UsuModificacion   ON lotes.usua_UsuarioModificacion = UsuModificacion.usua_Id
+	   LEFT JOIN Acce.tbUsuarios				AS UsuEliminacion    ON lotes.usua_UsuarioEliminacion  = UsuEliminacion.usua_Id
+	   LEFT JOIN Gral.tbUnidadMedidas			AS UnidadesMedida    ON lotes.unme_Id                  = UnidadesMedida.unme_Id
+	   LEFT JOIN Prod.tbPedidosOrdenDetalle		AS pedidosDetalle	 ON lotes.prod_Id				   = pedidosDetalle.prod_Id
+	   LEFT JOIN Prod.tbOrdenCompraDetalles		AS poDetalle		 ON pedidosDetalle.code_Id		   = poDetalle.code_Id
  WHERE lotes.lote_Estado                                                                     = 1
 END
 GO

@@ -22,7 +22,7 @@ INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacio
 VALUES ('Importación para Reexportaci�n en el Mismo Estado', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
-VALUES ('Exportación�n Temporal', 1, '10-16-2004');
+VALUES ('Exportación Temporal', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
 VALUES ('Admisión Temporal para Perfeccionamiento Activo', 1, '10-16-2004');

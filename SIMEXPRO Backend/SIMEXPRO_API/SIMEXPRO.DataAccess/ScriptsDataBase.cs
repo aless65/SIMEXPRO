@@ -410,7 +410,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarTiposIdentificacion = "Adua.UDP_tbTiposIdentificacion_Listar";
         public static string InsertarTiposIdentificacion = "Adua.UDP_tbTiposIdentificacion_Insertar";
         public static string EditarTiposIdentificacion = "Adua.UDP_tbTiposIdentificacion_Editar";
-        public static string EliminarTiposIdentificacion = " Adua.UDP_tbTiposIdentificacion_Eliminar";
+        public static string EliminarTiposIdentificacion = "Adua.UDP_tbTiposIdentificacion_Eliminar";
         #endregion
 
         #region Transporte
@@ -614,7 +614,11 @@ namespace SIMEXPRO.DataAccess
         public static string ListarPedidosProduccionDetalles = "Prod.UDP_tbPedidosProduccionDetalle_Listar";
         #endregion
 
-
+        #region PO Detalle Por Pedido Orden Detalle
+        public static string ListarPODetallePorPedidoOrdenDetalle = "Prod.UDP_tbPODetallePorPedidoOrdenDetalle_Listar";
+        public static string InsertarPODetallePorPedidoOrdenDetalle = "Prod.UDP_tbPODetallePorPedidoOrdenDetalle_Insertar";
+        public static string EliminarPedidosOrdenDetalles = "Prod.UDP_tbPODetallePorPedidoOrdenDetalle_Eliminar";
+        #endregion
 
 
         #endregion

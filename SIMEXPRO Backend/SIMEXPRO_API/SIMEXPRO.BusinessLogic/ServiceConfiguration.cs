@@ -110,6 +110,7 @@ namespace SIMEXPRO.BussinessLogic
             services.AddScoped<PedidosOrdenRepository>();
             services.AddScoped<PedidosProduccionDetallesRepository>();
             services.AddScoped<PedidosProduccionRepository>();
+            services.AddScoped<PODetallePorPedidoOrdenDetalleRepository>();
             services.AddScoped<ProcesosRepository>();
             services.AddScoped<ReporteModuloDiaDetalleRepository>();
             services.AddScoped<ReporteModuloDiaRepository>();

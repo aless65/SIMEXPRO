@@ -95,6 +95,7 @@ namespace SIMEXPRO.DataAccess.Context
         public virtual DbSet<tbOrde_Ensa_Acab_Etiq> tbOrde_Ensa_Acab_Etiq { get; set; }
         public virtual DbSet<tbOrdenCompra> tbOrdenCompra { get; set; }
         public virtual DbSet<tbOrdenCompraDetalles> tbOrdenCompraDetalles { get; set; }
+        public virtual DbSet<tbPODetallePorPedidoOrdenDetalle> tbPODetallePorPedidoOrdenDetalle { get; set; }
         public virtual DbSet<tbPaises> tbPaises { get; set; }
         public virtual DbSet<tbPantallas> tbPantallas { get; set; }
         public virtual DbSet<tbPedidosOrden> tbPedidosOrden { get; set; }
@@ -1517,6 +1518,8 @@ namespace SIMEXPRO.DataAccess.Context
 
                 entity.Property(e => e.decl_Fax).HasMaxLength(50);
 
+                entity.Property(e => e.decl_FechaCreacion).HasColumnType("datetime");
+
                 entity.Property(e => e.decl_Nombre_Raso)
                     .IsRequired()
                     .HasMaxLength(250);
@@ -2468,6 +2471,8 @@ namespace SIMEXPRO.DataAccess.Context
 
                 entity.Property(e => e.himp_FechaModificacion).HasColumnType("datetime");
 
+                entity.Property(e => e.impo_FechaCreacion).HasColumnType("datetime");
+
                 entity.Property(e => e.impo_NivelComercial_Otro).HasMaxLength(300);
 
                 entity.Property(e => e.impo_NumRegistro)
@@ -2656,6 +2661,8 @@ namespace SIMEXPRO.DataAccess.Context
                 entity.ToTable("tbIntermediariosHistorial", "Adua");
 
                 entity.Property(e => e.himp_FechaModificacion).HasColumnType("datetime");
+
+                entity.Property(e => e.inte_FechaCreacion).HasColumnType("datetime");
 
                 entity.Property(e => e.inte_Tipo_Otro).HasMaxLength(30);
 
@@ -2895,16 +2902,16 @@ namespace SIMEXPRO.DataAccess.Context
 
                 entity.Property(e => e.lote_Observaciones).HasMaxLength(500);
 
-                entity.HasOne(d => d.code)
-                    .WithMany(p => p.tbLotes)
-                    .HasForeignKey(d => d.code_Id)
-                    .HasConstraintName("FK_Prod_tbLotes_Prod_tbOrdenCompraDetalles_code_Id");
-
                 entity.HasOne(d => d.mate)
                     .WithMany(p => p.tbLotes)
                     .HasForeignKey(d => d.mate_Id)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Prod_tbLotes_mate_Id_Prod_tbMateriales_mate_Id");
+
+                entity.HasOne(d => d.prod)
+                    .WithMany(p => p.tbLotes)
+                    .HasForeignKey(d => d.prod_Id)
+                    .HasConstraintName("FK_Prod_tbLotes_Prod_tbPedidosOrdenDetalle_prod_Id");
 
                 entity.HasOne(d => d.tipa)
                     .WithMany(p => p.tbLotes)
@@ -3712,6 +3719,35 @@ namespace SIMEXPRO.DataAccess.Context
                     .HasConstraintName("FK_Prod_tbOrdenCompraDetalles_code_UsuarioModificacion_Acce_tbUsuarios_usua_Id");
             });
 
+            modelBuilder.Entity<tbPODetallePorPedidoOrdenDetalle>(entity =>
+            {
+                entity.HasKey(e => e.popo_Id)
+                    .HasName("PK_Prod_tbPODetallePorPedidoOrdenDetalle_popo_Id");
+
+                entity.ToTable("tbPODetallePorPedidoOrdenDetalle", "Prod");
+
+                entity.Property(e => e.popo_FechaCreacion).HasColumnType("datetime");
+
+                entity.HasOne(d => d.code)
+                    .WithMany(p => p.tbPODetallePorPedidoOrdenDetalle)
+                    .HasForeignKey(d => d.code_Id)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Prod_tbPODetallePorPedidoOrdenDetalle_tbOrdenCompra_code_Id");
+
+                entity.HasOne(d => d.prod)
+                    .WithMany(p => p.tbPODetallePorPedidoOrdenDetalle)
+                    .HasForeignKey(d => d.prod_Id)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Prod_tbPODetallePorPedidoOrdenDetalle_tbPedidosOrdenDetalle_prod_Id");
+
+                entity.HasOne(d => d.usua_UsuarioCreacionNavigation)
+                    .WithMany(p => p.tbPODetallePorPedidoOrdenDetalleusua_UsuarioCreacionNavigation)
+                    .HasForeignKey(d => d.usua_UsuarioCreacion)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Prod_tbPODetallePorPedidoOrdenDetalle_Acce_tbUsuarios_usua_UsuarioCreacion");
+
+            });
+
             modelBuilder.Entity<tbPaises>(entity =>
             {
                 entity.HasKey(e => e.pais_Id)
@@ -4005,25 +4041,25 @@ namespace SIMEXPRO.DataAccess.Context
                     .WithMany(p => p.tbPersonaJuridicacolo)
                     .HasForeignKey(d => d.colo_Id)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Adua_PersonaJuridica_colo_Id_Gral_Colonia_colo_Id");
+                    .HasConstraintName("FK_Adua_tbPersonaJuridica_colo_Id_Gral_tbColonias_colo_Id");
 
                 entity.HasOne(d => d.peju_ColoniaRepresentanteNavigation)
                     .WithMany(p => p.tbPersonaJuridicapeju_ColoniaRepresentanteNavigation)
                     .HasForeignKey(d => d.peju_ColoniaRepresentante)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Adua_PersonaJuridica_peju_ColoniaRepresentante_Gral_ColoniaRepresentante_colo_Id");
+                    .HasConstraintName("FK_Adua_tbPersonaJuridica_peju_ColoniaRepresentante_Gral_ColoniaRepresentante_colo_Id");
 
                 entity.HasOne(d => d.peju_EstadoRepresentanteNavigation)
                     .WithMany(p => p.tbPersonaJuridica)
                     .HasForeignKey(d => d.peju_EstadoRepresentante)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Adua_PersonaJuridica_peju_EstadoRepresentante_Gral_tbProvincias_pvin_Id");
+                    .HasConstraintName("FK_Adua_tbPersonaJuridica_peju_EstadoRepresentante_Gral_tbProvincias_pvin_Id");
 
                 entity.HasOne(d => d.pers)
                     .WithMany(p => p.tbPersonaJuridica)
                     .HasForeignKey(d => d.pers_Id)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Adua_PersonaJuridica_pers_Id_Adua_Personas_pers_Id");
+                    .HasConstraintName("FK_Adua_tbPersonaJuridica_pers_Id_Adua_Personas_pers_Id");
 
                 entity.HasOne(d => d.usua_UsuarioCreacionNavigation)
                     .WithMany(p => p.tbPersonaJuridicausua_UsuarioCreacionNavigation)
@@ -4332,6 +4368,8 @@ namespace SIMEXPRO.DataAccess.Context
                 entity.Property(e => e.hpvd_FechaModificacion).HasColumnType("datetime");
 
                 entity.Property(e => e.pvde_Condicion_Otra).HasMaxLength(300);
+
+                entity.Property(e => e.pvde_FechaCreacion).HasColumnType("datetime");
 
                 entity.HasOne(d => d.pvde)
                     .WithMany(p => p.tbProveedoresDeclaracionHistorial)

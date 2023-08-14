@@ -16,6 +16,7 @@ namespace SIMEXPRO.Entities.Entities
             tbOrde_Ensa_Acab_Etiq = new HashSet<tbOrde_Ensa_Acab_Etiq>();
             tbReporteModuloDiaDetalle = new HashSet<tbReporteModuloDiaDetalle>();
             tbFacturasExportacionDetalles = new HashSet<tbFacturasExportacionDetalles>();
+            tbPODetallePorPedidoOrdenDetalle = new HashSet<tbPODetallePorPedidoOrdenDetalle>();
         }
 
         public int code_Id { get; set; }
@@ -54,5 +55,6 @@ namespace SIMEXPRO.Entities.Entities
         public virtual ICollection<tbOrde_Ensa_Acab_Etiq> tbOrde_Ensa_Acab_Etiq { get; set; }
         public virtual ICollection<tbReporteModuloDiaDetalle> tbReporteModuloDiaDetalle { get; set; }
         public virtual ICollection<tbFacturasExportacionDetalles> tbFacturasExportacionDetalles { get; set; }
+        public virtual ICollection<tbPODetallePorPedidoOrdenDetalle> tbPODetallePorPedidoOrdenDetalle { get; set; }
     }
 }

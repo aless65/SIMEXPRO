@@ -23,9 +23,11 @@ namespace SIMEXPRO.Entities.Entities
         public int? usua_UsuarioEliminacion { get; set; }
         public DateTime? ofic_FechaEliminacion { get; set; }
         [NotMapped]
-        public string UsuarioCreacionNombre { get; set; }
+        public string usuarioCreacionNombre { get; set; }
         [NotMapped]
-        public string UsuarioModificadorNombre { get; set; }
+        public string usuarioModificacionNombre { get; set; }
+        [NotMapped]
+        public string usuarioEliminacionNombre { get; set; }
         public bool? ofic_Estado { get; set; }
 
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }

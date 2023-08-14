@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\Prod\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SIMEXPRO.Entities\SIMEXPRO.Entities.csproj" />
   </ItemGroup>
 

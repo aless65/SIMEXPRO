@@ -193,6 +193,8 @@ namespace SIMEXPRO.Entities.Entities
             tbPersonaNaturalusua_UsuarioModificacionNavigation = new HashSet<tbPersonaNatural>();
             tbPersonasusua_UsuarioCreacionNavigation = new HashSet<tbPersonas>();
             tbPersonasusua_UsuarioModificacionNavigation = new HashSet<tbPersonas>();
+            tbPODetallePorPedidoOrdenDetalleusua_UsuarioCreacionNavigation = new HashSet<tbPODetallePorPedidoOrdenDetalle>();
+            tbPODetallePorPedidoOrdenDetalleusua_UsuarioModificacionNavigation = new HashSet<tbPODetallePorPedidoOrdenDetalle>();
             tbProcesosusua_UsuarioCreacionNavigation = new HashSet<tbProcesos>();
             tbProcesosusua_UsuarioEliminacionNavigation = new HashSet<tbProcesos>();
             tbProcesosusua_UsuarioModificacionNavigation = new HashSet<tbProcesos>();
@@ -270,6 +272,15 @@ namespace SIMEXPRO.Entities.Entities
         public int? usua_UsuarioEliminacion { get; set; }
         public DateTime? usua_FechaEliminacion { get; set; }
         public bool? usua_Estado { get; set; }
+
+        [NotMapped]
+        public string usuarioCreacionNombre { get; set; }
+
+        [NotMapped]
+        public string usuarioModificacionNombre { get; set; }
+
+        [NotMapped]
+        public string usuarioEliminacionNombre { get; set; }
 
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioEliminacionNavigation { get; set; }
@@ -457,6 +468,8 @@ namespace SIMEXPRO.Entities.Entities
         public virtual ICollection<tbPersonaNatural> tbPersonaNaturalusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbPersonas> tbPersonasusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbPersonas> tbPersonasusua_UsuarioModificacionNavigation { get; set; }
+        public virtual ICollection<tbPODetallePorPedidoOrdenDetalle> tbPODetallePorPedidoOrdenDetalleusua_UsuarioCreacionNavigation { get; set; }
+        public virtual ICollection<tbPODetallePorPedidoOrdenDetalle> tbPODetallePorPedidoOrdenDetalleusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbProcesos> tbProcesosusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbProcesos> tbProcesosusua_UsuarioEliminacionNavigation { get; set; }
         public virtual ICollection<tbProcesos> tbProcesosusua_UsuarioModificacionNavigation { get; set; }

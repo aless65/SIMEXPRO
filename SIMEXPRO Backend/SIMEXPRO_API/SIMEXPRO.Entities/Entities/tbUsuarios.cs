@@ -273,6 +273,15 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime? usua_FechaEliminacion { get; set; }
         public bool? usua_Estado { get; set; }
 
+        [NotMapped]
+        public string usuarioCreacionNombre { get; set; }
+
+        [NotMapped]
+        public string usuarioModificacionNombre { get; set; }
+
+        [NotMapped]
+        public string usuarioEliminacionNombre { get; set; }
+
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioEliminacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }

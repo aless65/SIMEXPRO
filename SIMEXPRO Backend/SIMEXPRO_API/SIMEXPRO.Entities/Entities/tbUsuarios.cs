@@ -266,21 +266,21 @@ namespace SIMEXPRO.Entities.Entities
 
         public bool usua_EsAdmin { get; set; }
         public int usua_UsuarioCreacion { get; set; }
+        [NotMapped]
+        public string usuarioCreacionNombre { get; set; }
         public DateTime usua_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
+        [NotMapped]
+        public string usuarioModificacionNombre { get; set; }
         public DateTime? usua_FechaModificacion { get; set; }
         public int? usua_UsuarioEliminacion { get; set; }
+        [NotMapped]
+        public string usuarioEliminacionNombre { get; set; }
         public DateTime? usua_FechaEliminacion { get; set; }
         public bool? usua_Estado { get; set; }
 
-        [NotMapped]
-        public string usuarioCreacionNombre { get; set; }
 
-        [NotMapped]
-        public string usuarioModificacionNombre { get; set; }
 
-        [NotMapped]
-        public string usuarioEliminacionNombre { get; set; }
 
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioEliminacionNavigation { get; set; }

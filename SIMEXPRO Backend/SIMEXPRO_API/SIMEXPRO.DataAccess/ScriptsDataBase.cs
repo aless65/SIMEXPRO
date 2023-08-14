@@ -444,6 +444,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarReporteModuloDiaDetalle = "Prod.UDP_tbReporteModuloDiaDetalle_Listar";
         public static string InsertarReporteModuloDiaDetalle = "Prod.UDP_tbReporteModuloDiaDetalle_Insertar";
         public static string EditarReporteModuloDiaDetalle = "Prod.UDP_tbReporteModuloDiaDetalle_Editar";
+        public static string EliminarReporteModuloDiaDetalle = "Prod.UDP_tbReporteModuloDiaDetalle_Eliminar";
         #endregion
 
         #region Revision de Calidad

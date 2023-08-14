@@ -11824,41 +11824,37 @@ GO
 
 CREATE OR ALTER PROC [Prod].[UDP_tbPedidosProduccion_Listar]
 AS BEGIN
-
-SELECT ppro_Id,
-	   pediproduccion.empl_Id,
-	   CONCAT(empl_Nombres, ' ', empl_Apellidos) AS empl_NombreCompleto,
-	   ppro_Fecha,
-	   ppro_Estados, 
-	   ppro_Observaciones, 
-	   Creacion.usua_Nombre AS usuCreacion,
-	   pediproduccion.usua_UsuarioCreacion,
-	   ppro_FechaCreacion,
-	   Modificacion.usua_Nombre AS usuModificacion,
-	   pediproduccion.usua_UsuarioModificacion, 
-	   ppro_FechaModificacion,
-	   ppro_Estado,
-	   	   (SELECT  ppde_Id,
-					tbdetalles.lote_Id,
-					ppde_Cantidad,
-					mate_Descripcion
-				   
-		   FROM Prod.tbPedidosProduccionDetalles tbdetalles
+	SELECT ppro_Id,
+		   pediproduccion.empl_Id,
+		   CONCAT(empl_Nombres, ' ', empl_Apellidos)					AS empl_NombreCompleto,
+		   ppro_Fecha,
+		   ppro_Estados, 
+		   ppro_Observaciones, 
+		   Creacion.usua_Nombre											AS UsuarioCreacionNombre,
+		   pediproduccion.usua_UsuarioCreacion,
+		   ppro_FechaCreacion,
+		   Modificacion.usua_Nombre										AS UsuarioModificacionNombre,
+		   pediproduccion.usua_UsuarioModificacion, 
+		   ppro_FechaModificacion,
+		   ppro_Estado,
+	   	      (SELECT ppde_Id,
+		   		   tbdetalles.lote_Id,
+		   		   ppde_Cantidad,
+		   		   mate_Descripcion
+		   	  FROM Prod.tbPedidosProduccionDetalles tbdetalles
 		   INNER JOIN Prod.tbLotes tblotes
-		   ON tbdetalles.lote_Id = tblotes.lote_Id
+				   ON tbdetalles.lote_Id = tblotes.lote_Id
 		   INNER JOIN Prod.tbMateriales tbmats
-		   ON tblotes.mate_Id = tbmats.mate_Id
-		   WHERE pediproduccion.ppro_Id = tbdetalles.ppro_Id
-   FOR JSON PATH) 
-   AS Detalles
-FROM Prod.tbPedidosProduccion pediproduccion
+				   ON tblotes.mate_Id = tbmats.mate_Id
+				WHERE pediproduccion.ppro_Id = tbdetalles.ppro_Id
+				  FOR JSON PATH)										AS Detalles
+	  FROM Prod.tbPedidosProduccion pediproduccion
 INNER JOIN Gral.tbEmpleados emples
-ON pediproduccion.empl_Id = emples.empl_Id
+		ON pediproduccion.empl_Id = emples.empl_Id
 INNER JOIN Acce.tbUsuarios Creacion
-ON pediproduccion.usua_UsuarioCreacion = Creacion.usua_Id
-LEFT JOIN Acce.tbUsuarios Modificacion
-ON pediproduccion.usua_UsuarioModificacion = Modificacion.usua_Id
-
+		ON pediproduccion.usua_UsuarioCreacion = Creacion.usua_Id
+ LEFT JOIN Acce.tbUsuarios Modificacion
+		ON pediproduccion.usua_UsuarioModificacion = Modificacion.usua_Id
 END
 GO
 --*****Insertar*****--
@@ -12495,7 +12491,8 @@ GO
 
 --********************************************LOTES***********************************************--
 CREATE OR ALTER PROCEDURE Prod.UDP_tbLotes_Listar
-AS BEGIN
+AS
+BEGIN
 SELECT lote_Id, 
 	   lotes.mate_Id, 
 	   lotes.prod_Id,
@@ -12510,24 +12507,23 @@ SELECT lote_Id,
 	   pedidos.peor_Id,
 	   pedidosDetalle.prod_Id,
 	   (SELECT RowNumber
-		FROM (SELECT ROW_NUMBER() OVER (ORDER BY prod_Id) AS RowNumber,
-					 prod_Id 
-			  FROM [Prod].[tbPedidosOrdenDetalle]
-			  WHERE pedi_Id = pedidos.peor_Id) AS RowNumbers
-		WHERE prod_Id = pedidosDetalle.prod_Id) AS prod_NumeroLinea,
+		  FROM (SELECT ROW_NUMBER() OVER (ORDER BY prod_Id) AS RowNumber,
+					   prod_Id 
+				  FROM [Prod].[tbPedidosOrdenDetalle]
+				 WHERE pedi_Id = pedidos.peor_Id)			AS RowNumbers
+		 WHERE prod_Id = pedidosDetalle.prod_Id)			AS prod_NumeroLinea,
 	   pedidos.peor_No_Duca,
-	   --duca.
 	   pedidos.prov_Id,
 	   prov.prov_NombreCompania,
 	   prov.prov_NombreContacto,
 	   prov.prov_DireccionExacta,
-	   UsuCreacion.usua_Nombre        AS UsuarioCreacion,
+	   UsuCreacion.usua_Nombre        AS UsuarioCreacionNombre,
 	   lotes.usua_UsuarioCreacion,
 	   lotes.lote_FechaCreacion, 
-	   UsuModificacion.usua_Nombre    AS UsuarioModificacion,
+	   UsuModificacion.usua_Nombre    AS UsuarioModificacionNombre,
 	   lotes.usua_UsuarioModificacion,
 	   lotes.lote_FechaModificacion, 
-	   UsuEliminacion.usua_Nombre     AS UsuarioEliminacion,
+	   UsuEliminacion.usua_Nombre     AS UsuarioEliminacionNombre,
 	   lotes.usua_UsuarioEliminacion, 
 	   lotes.lote_FechaEliminacion, 
 	   lotes.lote_Estado
@@ -12561,7 +12557,6 @@ CREATE OR ALTER PROC Prod.UDP_tbLotes_Insertar
 	@usua_UsuarioCreacion	INT,
 	@lote_FechaCreacion		DATETIME
 AS BEGIN
-
 BEGIN TRY
 	INSERT INTO Prod.tbLotes(mate_Id, 
 							 unme_Id,

@@ -27,9 +27,9 @@ namespace SIMEXPRO.Entities.Entities
         public bool? ppro_Estado { get; set; }
 
         [NotMapped]
-        public string usuCreacion { get; set; }
+        public string UsuarioCreacionNombre { get; set; }
         [NotMapped]
-        public string usuModificacion { get; set; }
+        public string UsuarioModificacionNombre { get; set; }
 
         [NotMapped]
         public string empl_NombreCompleto { get; set; }

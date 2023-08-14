@@ -20,8 +20,8 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public bool? ppro_Estado { get; set; }
         public string empl_NombreCompleto { get; set; }
 
-        public string usuCreacion { get; set; }
-        public string usuModificacion { get; set; }
+        public string UsuarioCreacionNombre { get; set; }
+        public string UsuarioModificacionNombre { get; set; }
         public string detalles { get; set; }
     }
 }

@@ -23,5 +23,8 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public DateTime? lote_FechaEliminacion { get; set; }
         public bool? lote_Estado { get; set; }
 
+        public string UsuarioCreacionNombre { get; set; }
+        public string UsuarioModificacionNombre { get; set; }
+        public string UsuarioEliminacionNombre { get; set; }
     }
 }

@@ -836,21 +836,18 @@ BEGIN
 				   WHERE ofic_Nombre = @ofic_Nombre
 				   AND ofic_Estado = 0)
 			BEGIN
-				UPDATE  Gral.tbOficinas
-				SET		ofic_Estado = 0,
-						usua_UsuarioEliminacion = @usua_UsuarioModificacion,
-						ofic_FechaEliminacion = @ofic_FechaModificacion
-				WHERE	ofic_Nombre = @ofic_Nombre
+				UPDATE Gral.tbOficinas
+                   SET ofic_Estado = 0,
+						ofic_FechaEliminacion = @ofic_FechaModificacion,
+						usua_UsuarioEliminacion = @usua_UsuarioModificacion
+                 WHERE ofic_Id = @ofic_Id
 
-				SELECT 1
-				
-				UPDATE  Gral.tbOficinas
-				SET		ofic_Estado = 1,
-						usua_UsuarioModificacion = @usua_UsuarioModificacion,
-						ofic_FechaModificacion = @ofic_FechaModificacion
-				WHERE	ofic_Nombre = @ofic_Nombre
-
-				SELECT 1
+                UPDATE Gral.tbOficinas
+                   SET ofic_Estado = 1,
+						ofic_FechaModificacion = @ofic_FechaModificacion,
+						usua_UsuarioModificacion = @usua_UsuarioModificacion
+                 WHERE ofic_Nombre = @ofic_Nombre
+				 SELECT 1
 			END
 		ELSE
 			BEGIN

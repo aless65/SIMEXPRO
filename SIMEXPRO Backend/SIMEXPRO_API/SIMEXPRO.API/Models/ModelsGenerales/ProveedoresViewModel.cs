@@ -14,8 +14,10 @@ namespace SIMEXPRO.API.Models
         public string prov_CodigoPostal { get; set; }
         public int prov_Ciudad { get; set; }
         public string ciud_Nombre { get; set; }
+        public string pvin_Id { get; set; }
         public string pvin_Nombre { get; set; }
         public string pais_Nombre { get; set; }
+        public string pais_Id { get; set; }
         public string prov_DireccionExacta { get; set; }
         public string prov_CorreoElectronico { get; set; }
         public string prov_Fax { get; set; }

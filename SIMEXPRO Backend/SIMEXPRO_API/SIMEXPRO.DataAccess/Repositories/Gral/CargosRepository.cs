@@ -29,6 +29,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();
             parametros.Add("@carg_Nombre", item.carg_Nombre, DbType.String, ParameterDirection.Input);
+            parametros.Add("@carg_Aduana", item.carg_Aduana, DbType.Boolean, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@carg_FechaCreacion", item.carg_FechaCreacion, DbType.String, ParameterDirection.Input);
 

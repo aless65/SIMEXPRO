@@ -1726,6 +1726,7 @@ SELECT	prov_Id								,
 		provi.pvin_Id						,
 		provi.pvin_Nombre					,
 		pais.pais_Nombre					,
+		pais.pais_Codigo					,
 		pais.pais_Id						,
 		prov_DireccionExacta 				,
 		prov_CorreoElectronico				,
@@ -1753,6 +1754,7 @@ FROM	Gral.tbProveedores prov
 WHERE	prov_Estado = 1
 END
 GO
+
 /*Insertar PROVEEDORES*/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbProveedores_Insertar
 @prov_NombreCompania			NVARCHAR(200), 

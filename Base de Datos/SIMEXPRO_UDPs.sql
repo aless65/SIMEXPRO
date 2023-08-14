@@ -1715,12 +1715,16 @@ SELECT	prov_Id								,
 		prov_FechaCreacion	 				, 
 		prov.usua_UsuarioModificacion		,
 		usu2.usua_Nombre					AS UsuarioModificadorNombre,
+		prov.usua_UsuarioEliminacion,
+		prov_FechaEliminacion,
+		usu3.usua_Nombre AS UsuarioEliminacionNombre,
 		prov_FechaModificacion	 			,
 		prov_Estado
 FROM	Gral.tbProveedores prov					
 		INNER JOIN Gral.tbCiudades ciu	ON prov.prov_Ciudad = ciu.ciud_Id				
 		INNER JOIN Acce.tbUsuarios usu1		ON prov.usua_UsuarioCreacion = usu1.usua_Id		
 		LEFT JOIN  Acce.tbUsuarios usu2		ON prov.usua_UsuarioModificacion = usu2.usua_Id 
+		LEFT JOIN  Acce.tbUsuarios usu3		ON prov.usua_UsuarioEliminacion = usu2.usua_Id 
 		INNER JOIN Gral.tbProvincias provi	ON ciu.pvin_Id = provi.pvin_Id					
 		INNER JOIN Gral.tbPaises pais		ON provi.pais_Id = pais.pais_Id
 WHERE	prov_Estado = 1

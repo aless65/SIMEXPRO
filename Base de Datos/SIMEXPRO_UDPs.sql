@@ -840,7 +840,7 @@ BEGIN
 				SET		ofic_Estado = 0,
 						usua_UsuarioEliminacion = @usua_UsuarioModificacion,
 						ofic_FechaEliminacion = @ofic_FechaModificacion
-				WHERE	ofic_Nombre = @ofic_Nombre
+				WHERE	ofic_Id = @ofic_Id
 
 				SELECT 1
 				
@@ -849,6 +849,16 @@ BEGIN
 						usua_UsuarioModificacion = @usua_UsuarioModificacion,
 						ofic_FechaModificacion = @ofic_FechaModificacion
 				WHERE	ofic_Nombre = @ofic_Nombre
+
+				SELECT 1
+			END
+		ELSE
+			BEGIN
+				UPDATE  Gral.tbOficinas
+				SET		ofic_Nombre = @ofic_Nombre,
+						usua_UsuarioModificacion = @usua_UsuarioModificacion,
+						ofic_FechaModificacion = @ofic_FechaModificacion
+				WHERE	ofic_Id = @ofic_Id
 
 				SELECT 1
 			END
@@ -11767,6 +11777,8 @@ SELECT	peor_Id,
 		prov.prov_NombreContacto,
 		prov.prov_Ciudad,
 		peor_No_Duca, 
+		po.ciud_Id,
+		po.peor_DireccionExacta,
 		peor_FechaEntrada, 
 		peor_Obsevaciones, 
 		peor_DadoCliente, 
@@ -11780,6 +11792,7 @@ SELECT	peor_Id,
 		peor_Estado 
 FROM	Prod.tbPedidosOrden po
 		INNER JOIN Gral.tbProveedores prov			ON po.prov_Id   = prov.prov_Id
+		LEFT JOIN  Adua.tbDuca duca					ON po.peor_No_Duca = duca.duca_No_Duca
 		--LEFT JOIN 
 		LEFT JOIN Acce.tbUsuarios crea				ON crea.usua_Id = po.usua_UsuarioCreacion 
 		LEFT JOIN  Acce.tbUsuarios modi				ON modi.usua_Id = po.usua_UsuarioModificacion 	

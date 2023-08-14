@@ -711,22 +711,14 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                if (item.ofic_Nombre != "")
+                var map = _oficinasRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _oficinasRepository.Insert(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -740,22 +732,14 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                if (item.ofic_Nombre != "")
+                var map = _oficinasRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _oficinasRepository.Update(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -769,22 +753,14 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             var result = new ServiceResult();
             try
             {
-                if (item.ofic_Id != 0)
+                var map = _oficinasRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _oficinasRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)

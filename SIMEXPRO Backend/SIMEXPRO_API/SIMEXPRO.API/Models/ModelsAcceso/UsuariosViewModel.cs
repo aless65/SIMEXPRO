@@ -37,10 +37,5 @@ namespace SIMEXPRO.API.Models.ModelsAcceso
         public bool? usua_Estado { get; set; }
 
 
-        public string usuarioCreacionNombre { get; set; }
-
-        public string usuarioModificacionNombre { get; set; }
-
-        public string usuarioEliminacionNombre { get; set; }
     }
 }

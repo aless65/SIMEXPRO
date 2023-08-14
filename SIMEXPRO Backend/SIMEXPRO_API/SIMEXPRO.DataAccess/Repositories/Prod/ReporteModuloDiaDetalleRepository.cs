@@ -12,9 +12,18 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
 {
     public class ReporteModuloDiaDetalleRepository : IRepository<tbReporteModuloDiaDetalle>
     {
+       
+
         public RequestStatus Delete(tbReporteModuloDiaDetalle item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@rdet_Id", item.rdet_Id, DbType.Int32, ParameterDirection.Input);
+              
+            var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarReporteModuloDiaDetalle, parametros, commandType: CommandType.StoredProcedure);
+            result.CodeStatus = answer;
+            return result;
         }
 
         public tbReporteModuloDiaDetalle Find(int? id)

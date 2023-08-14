@@ -89,7 +89,7 @@ CREATE TABLE Acce.tbRoles
 		role_Estado					BIT				DEFAULT 1,
 
 	CONSTRAINT PK_Acce_tbRoles_role_Id 				PRIMARY KEY (role_Id),
-	CONSTRAINT UQ_acce_tbRoles_role_Descripcion 	UNIQUE(role_Descripcion),
+	CONSTRAINT UQ_acce_tbRoles_role_Descripcion 	UNIQUE(role_Descripcion, role_Aduana),
 	CONSTRAINT FK_Acce_tbUsuarios_usua_UsuarioCreacion_Acce_tbRoles_usua_Id		FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Acce_tbUsuarios_usua_UsuarioModificacion_Acce_tbRoles_usua_Id FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Acce_tbUsuarios_usua_UsuarioEliminacion_Acce_tbRoles_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion)	REFERENCES Acce.tbUsuarios (usua_Id)
@@ -383,6 +383,8 @@ CREATE TABLE Gral.tbCargos(
 		carg_Id							INT 			IDENTITY(1,1),
 		carg_Nombre 					NVARCHAR(150) 	NOT NULL,
 
+		carg_Aduana						BIT				NOT NULL,
+
 		usua_UsuarioCreacion 			INT				NOT NULL,
 		carg_FechaCreacion 				DATETIME 		NOT NULL,
 		usua_UsuarioModificacion		INT				DEFAULT NULL,
@@ -393,7 +395,7 @@ CREATE TABLE Gral.tbCargos(
 		carg_Estado						BIT				DEFAULT 1,
 
 	CONSTRAINT PK_Gral_tbCargos_carg_Id 	 PRIMARY KEY (carg_Id),
-	CONSTRAINT UQ_Gral_tbCargos__carg_Nombre UNIQUE(carg_Nombre),
+	CONSTRAINT UQ_Gral_tbCargos__carg_Nombre UNIQUE(carg_Nombre, carg_Aduana),
 	CONSTRAINT FK_Gral_tbCargos_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id 	 FOREIGN KEY(usua_UsuarioCreacion) 		REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbCargos_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioModificacion)  REFERENCES Acce.tbUsuarios (usua_Id),
 	--CONSTRAINT FK_Gral_tbCargos_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id  FOREIGN KEY(usua_UsuarioEliminacion)   REFERENCES Acce.tbUsuarios (usua_Id)
@@ -2270,8 +2272,7 @@ CREATE TABLE Prod.tbOrde_Ensa_Acab_Etiq(
 	ensa_FechaLimite			DATE NOT NULL, 
 	ppro_Id						INT NOT NULL,
 	proc_Id						INT NOT NULL,
-	ensa_ModuloLineaAsignada	NVARCHAR(150),
-	ensa_MesaCorte				NVARCHAR(150), 
+	modu_Id INT ,
  
 	usua_UsuarioCreacion		INT NOT NULL,
 	ensa_FechaCreacion			DATETIME NOT NULL,
@@ -2284,12 +2285,12 @@ CREATE TABLE Prod.tbOrde_Ensa_Acab_Etiq(
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_empl_Id_Gral_tbEmpleados_empl_Id					FOREIGN KEY (empl_Id)					REFERENCES Gral.tbEmpleados					(empl_Id),
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_code_Id_Prod_tbOrdenCompraDetalle_code_Id			FOREIGN KEY (code_Id)					REFERENCES Prod.tbOrdenCompraDetalles		(code_Id),
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_ppro_Id_Prod_tbPedidoProduccion_ppro_Id			FOREIGN KEY (ppro_Id)					REFERENCES Prod.tbPedidosProduccion			(ppro_Id),
-	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_usua_UsuarioCreacion_Acce_tbUsuario_usua_Id		FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_usua_UsuarioModificacion_Acce_tbUsuario_usua_Id	FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_Prod_tbProcesos_proc_Id							FOREIGN KEY (proc_Id)					REFERENCES Prod.tbProcesos (proc_Id)
+	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_usua_UsuarioCreacion_Acce_tbUsuario_usua_Id		FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios					(usua_Id),
+	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_usua_UsuarioModificacion_Acce_tbUsuario_usua_Id	FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios					(usua_Id),
+	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_Prod_tbProcesos_proc_Id							FOREIGN KEY (proc_Id)					REFERENCES Prod.tbProcesos					(proc_Id)
+	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_Prod_tbModulos_modu_Id							FOREIGN KEY (modu_Id) REFERENCES Prod.tbModulos (modu_Id)
 );
 GO
-
 CREATE TABLE Adua.tbModoTransporte(
 	motr_Id				     INT IDENTITY(1,1),
 	motr_Descripcion	     NVARCHAR(75) NOT NULL,

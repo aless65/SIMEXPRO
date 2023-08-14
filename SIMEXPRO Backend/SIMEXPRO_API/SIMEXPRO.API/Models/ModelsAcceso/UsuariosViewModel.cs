@@ -36,5 +36,6 @@ namespace SIMEXPRO.API.Models.ModelsAcceso
         public DateTime? usua_FechaEliminacion { get; set; }
         public bool? usua_Estado { get; set; }
 
+
     }
 }

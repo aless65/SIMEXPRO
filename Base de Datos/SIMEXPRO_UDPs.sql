@@ -836,29 +836,36 @@ BEGIN
 				   WHERE ofic_Nombre = @ofic_Nombre
 				   AND ofic_Estado = 0)
 			BEGIN
-				UPDATE  Gral.tbOficinas
-				SET		ofic_Estado = 0,
-						usua_UsuarioEliminacion = @usua_UsuarioModificacion,
-						ofic_FechaEliminacion = @ofic_FechaModificacion
-				WHERE	ofic_Nombre = @ofic_Nombre
+				UPDATE Gral.tbOficinas
+                   SET ofic_Estado = 0,
+						ofic_FechaEliminacion = @ofic_FechaModificacion,
+						usua_UsuarioEliminacion = @usua_UsuarioModificacion
+                 WHERE ofic_Id = @ofic_Id
 
-				SELECT 1
-				
+                UPDATE Gral.tbOficinas
+                   SET ofic_Estado = 1,
+						ofic_FechaModificacion = @ofic_FechaModificacion,
+						usua_UsuarioModificacion = @usua_UsuarioModificacion
+                 WHERE ofic_Nombre = @ofic_Nombre
+				 SELECT 1
+			END
+		ELSE
+			BEGIN
 				UPDATE  Gral.tbOficinas
-				SET		ofic_Estado = 1,
+				SET		ofic_Nombre = @ofic_Nombre,
 						usua_UsuarioModificacion = @usua_UsuarioModificacion,
 						ofic_FechaModificacion = @ofic_FechaModificacion
-				WHERE	ofic_Nombre = @ofic_Nombre
-
+				WHERE	ofic_Id = @ofic_Id
+				
 				SELECT 1
 			END
+		
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 GO
-
 /*Eliminar oficinas*/
 CREATE OR ALTER PROCEDURE gral.UDP_tbOficinas_Eliminar 
 	@ofic_Id					INT,
@@ -989,6 +996,7 @@ GO
 /*Insertar cargos*/
 CREATE OR ALTER PROCEDURE gral.UDP_tbCargos_Insertar --'prueba1', 1, '2023-07-28 14:26:31.000'
 	@carg_Nombre			NVARCHAR(150),
+	@carg_Aduana			BIT,
 	@usua_UsuarioCreacion	INT,
 	@carg_FechaCreacion     DATETIME
 AS 
@@ -996,12 +1004,8 @@ BEGIN
 	
 	BEGIN TRY
 
-		INSERT INTO Gral.tbCargos (carg_Nombre, 
-											   usua_UsuarioCreacion, 
-											   carg_FechaCreacion)
-			VALUES(@carg_Nombre,	
-				   @usua_UsuarioCreacion,
-				   @carg_FechaCreacion)
+		INSERT INTO Gral.tbCargos (carg_Nombre,  carg_Aduana, usua_UsuarioCreacion,  carg_FechaCreacion)
+			VALUES(@carg_Nombre, @carg_Aduana,  @usua_UsuarioCreacion,  @carg_FechaCreacion)
 
 
 			SELECT 1
@@ -1719,8 +1723,10 @@ SELECT	prov_Id								,
 		prov_CodigoPostal 					,
 		prov_Ciudad							,
 		ciu.ciud_Nombre						,
+		provi.pvin_Id						,
 		provi.pvin_Nombre					,
 		pais.pais_Nombre					,
+		pais.pais_Id						,
 		prov_DireccionExacta 				,
 		prov_CorreoElectronico				,
 		prov_Fax 							,
@@ -4449,6 +4455,7 @@ GO
 CREATE OR ALTER PROCEDURE adua.UDP_tbDeclaraciones_Valor_Tab1_Insertar 
 	@deva_AduanaIngresoId				INT,
 	@deva_AduanaDespachoId				INT,
+	@deva_DeclaracionMercancia			NVARCHAR(500),
 	@deva_FechaAceptacion				DATETIME,
 	@decl_Nombre_Raso					NVARCHAR(250),
 	@impo_RTN							NVARCHAR(40),
@@ -4600,12 +4607,14 @@ BEGIN
 	
 		INSERT INTO Adua.tbDeclaraciones_Valor(deva_AduanaIngresoId, 
 											   deva_AduanaDespachoId, 
+											   deva_DeclaracionMercancia,
 											   deva_FechaAceptacion, 
 											   impo_Id, 
 											   usua_UsuarioCreacion, 
 											   deva_FechaCreacion)
 										VALUES(@deva_AduanaIngresoId,
 												@deva_AduanaDespachoId,
+												@deva_DeclaracionMercancia,
 												@deva_FechaAceptacion,
 												@impo_Id,
 												@usua_UsuarioCreacion,
@@ -4617,7 +4626,8 @@ BEGIN
 		INSERT INTO Adua.tbDeclaraciones_ValorHistorial(deva_Id, 
 															deva_AduanaIngresoId, 
 															deva_AduanaDespachoId,  
-															deva_FechaAceptacion, 
+															deva_FechaAceptacion,
+															deva_DeclaracionMercancia, 
 															impo_Id,
 															hdev_UsuarioAccion, 
 															hdev_FechaAccion, 
@@ -4626,6 +4636,7 @@ BEGIN
 															@deva_AduanaIngresoId,
 															@deva_AduanaDespachoId,
 															@deva_FechaAceptacion,
+															@deva_DeclaracionMercancia,
 															@impo_Id,
 															@usua_UsuarioCreacion,
 															@deva_FechaCreacion,
@@ -11789,6 +11800,8 @@ SELECT	peor_Id,
 		prov.prov_NombreContacto,
 		prov.prov_Ciudad,
 		peor_No_Duca, 
+		po.ciud_Id,
+		po.peor_DireccionExacta,
 		peor_FechaEntrada, 
 		peor_Obsevaciones, 
 		peor_DadoCliente, 
@@ -11802,6 +11815,7 @@ SELECT	peor_Id,
 		peor_Estado 
 FROM	Prod.tbPedidosOrden po
 		INNER JOIN Gral.tbProveedores prov			ON po.prov_Id   = prov.prov_Id
+		LEFT JOIN  Adua.tbDuca duca					ON po.peor_No_Duca = duca.duca_No_Duca
 		--LEFT JOIN 
 		LEFT JOIN Acce.tbUsuarios crea				ON crea.usua_Id = po.usua_UsuarioCreacion 
 		LEFT JOIN  Acce.tbUsuarios modi				ON modi.usua_Id = po.usua_UsuarioModificacion 	

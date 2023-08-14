@@ -20,13 +20,19 @@ namespace SIMEXPRO.Entities.Entities
         public string prov_Telefono { get; set; }
         public string prov_CodigoPostal { get; set; }
         public int prov_Ciudad { get; set; }
+        public string ciud_Nombre { get; set; }
+        public string pvin_Nombre { get; set; }
+        public string pais_Nombre { get; set; }
         public string prov_DireccionExacta { get; set; }
         public string prov_CorreoElectronico { get; set; }
         public string prov_Fax { get; set; }
+        public string UsuarioCreacionNombre { get; set; }
         public int usua_UsuarioCreacion { get; set; }
         public DateTime prov_FechaCreacion { get; set; }
+        public string UsuarioModificadorNombre { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
         public DateTime? prov_FechaModificacion { get; set; }
+        public string UsuarioEliminacionNombre { get; set; }
         public int? usua_UsuarioEliminacion { get; set; }
         public DateTime? prov_FechaEliminacion { get; set; }
         public bool? prov_Estado { get; set; }

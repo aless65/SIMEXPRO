@@ -4290,7 +4290,7 @@ END
 --END
 --GO
 
-
+GO
 /* Listar Declarantes*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDeclarantes_Listar
 AS
@@ -9424,7 +9424,7 @@ BEGIN
 			--,colores.colr_Codigo
 			,colores.colr_Nombre
 			,ordenCompraDetalle.code_Documento
-			,ordenCompraDetalle.code_Medidas
+			--,ordenCompraDetalle.code_Medidas
 			,ordenCompraDetalle.proc_IdComienza
 			,procesoComienza.proc_Descripcion
 			,ordenCompraDetalle.proc_IdActual
@@ -9462,7 +9462,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Insertar
 	@code_Sexo						CHAR(1),
 	@colr_Id						INT,
 	@code_Documento					NVARCHAR(250),
-	@code_Medidas					NVARCHAR(250),
+	--@code_Medidas					NVARCHAR(250),
 	@proc_IdComienza				INT,
 	@proc_IdActual					INT,
 	@code_Unidad					DECIMAL(18,2),
@@ -9484,7 +9484,7 @@ BEGIN
 					code_Sexo,						
 					colr_Id,						
 					code_Documento,					
-					code_Medidas,					
+					--code_Medidas,					
 					proc_IdComienza,				
 					proc_IdActual,					
 					code_Unidad,					
@@ -9501,7 +9501,7 @@ BEGIN
 					@code_Sexo,						
 					@colr_Id,						
 					@code_Documento,					
-					@code_Medidas,					
+					--@code_Medidas,					
 					@proc_IdComienza,				
 					@proc_IdActual,					
 					@code_Unidad,					
@@ -9530,7 +9530,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Editar
 	@code_Sexo						CHAR(1),
 	@colr_Id						INT,
 	@code_Documento					NVARCHAR(250),
-	@code_Medidas					NVARCHAR(250),
+	--@code_Medidas					NVARCHAR(250),
 	@proc_IdComienza				INT,
 	@proc_IdActual					INT,
 	@code_Unidad					DECIMAL(18,2),
@@ -9552,7 +9552,7 @@ BEGIN
 				code_Sexo					= @code_Sexo,						
 				colr_Id						= @colr_Id,						
 				code_Documento				= @code_Documento,					
-				code_Medidas				= @code_Medidas,					
+				--code_Medidas				= @code_Medidas,					
 				proc_IdComienza				= @proc_IdComienza,				
 				proc_IdActual				= @proc_IdActual,					
 				code_Unidad					= @code_Unidad,					
@@ -11745,30 +11745,32 @@ GO
 --*****Pedidos Orden*****-
 --*****Listado*****--
 
---CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Listar
---AS
---BEGIN
---SELECT	peor_Id, 
---		prov.prov_Id, 
---		prov.prov_NombreCompania,
---		prov.prov_NombreContacto,
---		prov.prov_Ciudad,
---		peor_No_Duca, 
---		peor_FechaEntrada, 
---		peor_Obsevaciones, 
---		peor_DadoCliente, 
---		peor_Est, 
---		crea.usua_Nombre							AS usua_UsuarioCreacion, 
---		peor_FechaCreacion, 
---		modi.usua_Nombre							AS usua_UsuarioModificacion , 
---		peor_FechaModificacion, 
---		peor_Estado 
---FROM	Prod.tbPedidosOrden po
---		INNER JOIN Gral.tbProveedores prov			ON po.prov_Id = prov.prov_Id
---		INNER JOIN Acce.tbUsuarios crea				ON crea.usua_Id = po.usua_UsuarioCreacion 
---		LEFT JOIN  Acce.tbUsuarios modi				ON modi.usua_Id = po.usua_UsuarioModificacion 	
---END
---GO
+CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Listar
+AS
+BEGIN
+SELECT	peor_Id, 
+		prov.prov_Id, 
+		prov.prov_NombreCompania,
+		prov.prov_NombreContacto,
+		prov.prov_Ciudad,
+		peor_No_Duca, 
+		peor_FechaEntrada, 
+		peor_Obsevaciones, 
+		peor_DadoCliente, 
+		peor_Est, 
+		po.usua_UsuarioCreacion,
+		crea.usua_Nombre							AS usua_UsuarioCreacionNombre, 
+		peor_FechaCreacion, 
+		po.usua_UsuarioModificacion,
+		modi.usua_Nombre							AS usua_UsuarioModificacionNombre, 
+		peor_FechaModificacion, 
+		peor_Estado 
+FROM	Prod.tbPedidosOrden po
+		INNER JOIN Gral.tbProveedores prov			ON po.prov_Id = prov.prov_Id
+		INNER JOIN Acce.tbUsuarios crea				ON crea.usua_Id = po.usua_UsuarioCreacion 
+		LEFT JOIN  Acce.tbUsuarios modi				ON modi.usua_Id = po.usua_UsuarioModificacion 	
+END
+GO
 
 CREATE OR ALTER PROC [Prod].[UDP_tbPedidosProduccion_Listar]
 AS BEGIN
@@ -12464,7 +12466,7 @@ SELECT lote_Id,
 			  WHERE pedi_Id = pedidos.peor_Id) AS RowNumbers
 		WHERE prod_Id = pedidosDetalle.prod_Id) AS prod_NumeroLinea,
 	   pedidos.peor_No_Duca,
-	   duca.
+	   --duca.
 	   pedidos.prov_Id,
 	   prov.prov_NombreCompania,
 	   prov.prov_NombreContacto,

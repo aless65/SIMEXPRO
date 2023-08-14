@@ -57,7 +57,7 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         //    return Ok(respuesta);
         //}
 
-        [HttpPost("ProvinciasFiltradaPorPais")]
+        [HttpGet("ProvinciasFiltradaPorPais")]
         public IActionResult ProvinciasPorPaises(int pais_Id )
         {
           

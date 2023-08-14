@@ -2442,7 +2442,9 @@ GO
 CREATE TABLE Prod.tbPedidosOrden(--No se podrá eliminar de ninguna manera
 	peor_Id   					INT IDENTITY(1,1),
 	prov_Id						INT,
-	peor_No_Duca				NVARCHAR(100) NOT NULL,
+	peor_No_Duca				NVARCHAR(100),
+	ciud_Id						INT,
+	peor_DireccionExacta		NVARCHAR(500), 
 	peor_FechaEntrada			DATETIME,
 	peor_Obsevaciones			NVARCHAR(400),
 	peor_DadoCliente			BIT,
@@ -2457,10 +2459,11 @@ CREATE TABLE Prod.tbPedidosOrden(--No se podrá eliminar de ninguna manera
 	peor_Estado 				BIT DEFAULT 1 
 
 	CONSTRAINT PK_Prod_tbPedidosOrden_peor_Id PRIMARY KEY (peor_Id),
-	CONSTRAINT FK_Prod_tbPedidosOrden_prov_Id_Prod_tbProveedores_prov_Id 			FOREIGN KEY (prov_Id)			REFERENCES Gral.tbProveedores(prov_Id),
+	CONSTRAINT FK_Prod_tbPedidosOrden_prov_Id_Prod_tbProveedores_prov_Id 			FOREIGN KEY (prov_Id)					REFERENCES Gral.tbProveedores(prov_Id),
+	CONSTRAINT FK_Prod_tbPedidosOrden_Gral_tbCiudades_ciud_Id			 			FOREIGN KEY (ciud_Id)					REFERENCES Gral.tbCiudades(ciud_Id),
 	CONSTRAINT FK_Prod_tbPedidosOrden_tbUsuarios_peor_UsuarioCreacion				FOREIGN KEY (usua_UsuarioCreacion)     	REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbPedidosOrden_tbUsuarios_peor_UsuarioModificacion			FOREIGN KEY (usua_UsuarioModificacion) 	REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Prod_tbPedidosOrden_tbDuca_peor_No_Duca							FOREIGN KEY(peor_No_Duca)		REFERENCES Adua.tbDuca(duca_No_Duca),
+	CONSTRAINT FK_Prod_tbPedidosOrden_tbDuca_peor_No_Duca							FOREIGN KEY(peor_No_Duca)				REFERENCES Adua.tbDuca(duca_No_Duca),
 	--CONSTRAINT FK_Prod_tbPedidosOrden__Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO

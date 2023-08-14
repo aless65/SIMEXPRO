@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -29,6 +30,22 @@ namespace SIMEXPRO.Entities.Entities
         public int? usua_UsuarioModificacion { get; set; }
         public DateTime? decl_FechaModificacion { get; set; }
         public bool? decl_Estado { get; set; }
+        [NotMapped]
+        public int nico_Id { get; set; }
+        [NotMapped]
+        public string impo_NivelComercial_Otro { get; set; }
+        [NotMapped]
+        public string impo_RTN { get; set; }
+        [NotMapped]
+        public string impo_NumRegistro { get; set; }
+        [NotMapped]
+        public int tite_Id { get; set; }
+        [NotMapped]
+        public string inte_Tipo_Otro { get; set; }
+        [NotMapped]
+        public int coco_Id { get; set; }
+        [NotMapped]
+        public string pvde_Condicion_Otra { get; set; }
 
         public virtual tbCiudades ciud { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }

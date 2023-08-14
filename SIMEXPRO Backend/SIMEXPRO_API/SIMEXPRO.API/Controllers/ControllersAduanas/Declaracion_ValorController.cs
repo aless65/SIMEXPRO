@@ -125,5 +125,14 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         //        return BadRequest(result);
 
         //}
+
+        [HttpGet("FindDeclarante")]
+        public IActionResult FindDeclarante(string decl_NumeroIdentificacion)
+        {
+            var result = _aduanaServices.FindDeclarante(decl_NumeroIdentificacion);
+
+                return Ok(result);
+
+        }
     }
 }

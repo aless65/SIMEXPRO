@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,5 +23,21 @@ namespace SIMEXPRO.API.Models.ModelsAduana
         public int? usua_UsuarioEliminacion { get; set; }
         public DateTime? decl_FechaEliminacion { get; set; }
         public bool? decl_Estado { get; set; }
+        [NotMapped]
+        public int nico_Id { get; set; }
+        [NotMapped]
+        public string impo_NivelComercial_Otro { get; set; }
+        [NotMapped]
+        public string impo_RTN { get; set; }
+        [NotMapped]
+        public string impo_NumRegistro { get; set; }
+        [NotMapped]
+        public int tite_Id { get; set; }
+        [NotMapped]
+        public string inte_Tipo_Otro { get; set; }
+        [NotMapped]
+        public int coco_Id { get; set; }
+        [NotMapped]
+        public string pvde_Condicion_Otra { get; set; }
     }
 }

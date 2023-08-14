@@ -704,6 +704,20 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Declaraciones_Valor
+
+        public ServiceResult FindDeclarante(string decl_NumeroIdentificacion)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _declaraciones_ValorRepository.Find(decl_NumeroIdentificacion);
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
         public ServiceResult ListarDeclaraciones_Valor()
         {
             var result = new ServiceResult();

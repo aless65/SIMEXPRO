@@ -26,10 +26,11 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
 
         [HttpGet("Listar")]
         public IActionResult Index()
-        {
+        {          
             var listado = _accesoServices.ListarUsuarios();
-            var mapped = _mapper.Map<IEnumerable<UsuariosViewModel>>(listado.Data);
-            return Ok(mapped);
+            listado.Data = _mapper.Map<IEnumerable<UsuariosViewModel>>(listado.Data);
+            return Ok(listado);
+
         }
 
         [HttpPost("Login")]

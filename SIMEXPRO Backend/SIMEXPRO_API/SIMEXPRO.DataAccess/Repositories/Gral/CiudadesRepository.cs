@@ -23,8 +23,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@ciud_FechaEliminacion", item.ciud_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
             var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarCiudades, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
-            return result;
-            
+            return result;       
         }
 
         public tbCiudades Find(int? id)
@@ -62,7 +61,6 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
 
             return db.Query<tbCiudades>(ScriptsDataBase.CiudadesPorProvincia, parametros, commandType: CommandType.StoredProcedure);
         }
-
 
         public RequestStatus Update(tbCiudades item)
         {

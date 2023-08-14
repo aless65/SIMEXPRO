@@ -88,62 +88,50 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
 
         public ServiceResult ListarUsuarios()
         {
-            ServiceResult datos = new();
+
+            var resultado = new ServiceResult();
 
             try
             {
                 var list = _usuariosRepository.List();
-                return datos.Ok(list);
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
-
-                return datos.Error(ex.Message);
+                return resultado.Error(ex.Message);
             }
+
         }
 
         public ServiceResult InsertarUsuario(tbUsuarios item)
         {
-            var result = new ServiceResult();
+
+            var resultado = new ServiceResult();
+
             try
             {
-                    var map = _usuariosRepository.Insert(item);
-                    if (map.MessageStatus != "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        return result.Error(map);
-                    }
+                var list = _usuariosRepository.Insert(item);
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
-
-                return result.Error(ex.Message);
+                return resultado.Error(ex.Message);
             }
-
         }
 
         public ServiceResult ActualizarUsuario(tbUsuarios item)
         {
-            var result = new ServiceResult();
+
+            var resultado = new ServiceResult();
+
             try
             {
-                var map = _usuariosRepository.Update(item);
-                if (map.MessageStatus != "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-                    return result.Error(map);
-                }          
+                var list = _usuariosRepository.Update(item);
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
-
-                return result.Error(ex.Message);
+                return resultado.Error(ex.Message);
             }
 
         }
@@ -151,27 +139,17 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
 
         public ServiceResult ActivarEstadoUsuario(tbUsuarios item)
         {
-            var result = new ServiceResult();
+            var resultado = new ServiceResult();
+
             try
             {
-                    var map = _usuariosRepository.ActivarEstado(item);
-                    if (map.MessageStatus != "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
-               
+                var list = _usuariosRepository.ActivarEstado(item);
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
-
-                return result.Error(ex.Message);
+                return resultado.Error(ex.Message);
             }
-
         }
 
 
@@ -179,26 +157,17 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
 
         public ServiceResult DeleteUsuario(tbUsuarios item)
         {
-            var result = new ServiceResult();
+
+            var resultado = new ServiceResult();
             try
             {
-                var map = _usuariosRepository.Delete(item);
-                if (map.MessageStatus != "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-
-                    return result.Error(map);
-                }
+                var list = _usuariosRepository.Delete(item);
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
-
-                return result.Error(ex.Message);
+                return resultado.Error(ex.Message);
             }
-
         }
         #endregion
 

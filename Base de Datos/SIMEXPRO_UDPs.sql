@@ -831,13 +831,27 @@ CREATE OR ALTER PROCEDURE gral.UDP_tbOficinas_Editar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE  Gral.tbOficinas
-		SET		ofic_Nombre = @ofic_Nombre,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				ofic_FechaModificacion = @ofic_FechaModificacion
-		WHERE	ofic_Id = @ofic_Id
+		IF EXISTS (SELECT ofic_Id
+				   FROM Gral.tbOficinas
+				   WHERE ofic_Nombre = @ofic_Nombre
+				   AND ofic_Estado = 0)
+			BEGIN
+				UPDATE  Gral.tbOficinas
+				SET		ofic_Estado = 0,
+						usua_UsuarioEliminacion = @usua_UsuarioModificacion,
+						ofic_FechaEliminacion = @ofic_FechaModificacion
+				WHERE	ofic_Nombre = @ofic_Nombre
 
-		SELECT 1
+				SELECT 1
+				
+				UPDATE  Gral.tbOficinas
+				SET		ofic_Estado = 1,
+						usua_UsuarioModificacion = @usua_UsuarioModificacion,
+						ofic_FechaModificacion = @ofic_FechaModificacion
+				WHERE	ofic_Nombre = @ofic_Nombre
+
+				SELECT 1
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -11766,7 +11780,8 @@ SELECT	peor_Id,
 		peor_Estado 
 FROM	Prod.tbPedidosOrden po
 		INNER JOIN Gral.tbProveedores prov			ON po.prov_Id   = prov.prov_Id
-		INNER JOIN Acce.tbUsuarios crea				ON crea.usua_Id = po.usua_UsuarioCreacion 
+		--LEFT JOIN 
+		LEFT JOIN Acce.tbUsuarios crea				ON crea.usua_Id = po.usua_UsuarioCreacion 
 		LEFT JOIN  Acce.tbUsuarios modi				ON modi.usua_Id = po.usua_UsuarioModificacion 	
 END
 GO

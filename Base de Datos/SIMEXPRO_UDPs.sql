@@ -11744,7 +11744,6 @@ GO
 
 --*****Pedidos Orden*****-
 --*****Listado*****--
-
 CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Listar
 AS
 BEGIN
@@ -11766,7 +11765,7 @@ SELECT	peor_Id,
 		peor_FechaModificacion, 
 		peor_Estado 
 FROM	Prod.tbPedidosOrden po
-		INNER JOIN Gral.tbProveedores prov			ON po.prov_Id = prov.prov_Id
+		INNER JOIN Gral.tbProveedores prov			ON po.prov_Id   = prov.prov_Id
 		INNER JOIN Acce.tbUsuarios crea				ON crea.usua_Id = po.usua_UsuarioCreacion 
 		LEFT JOIN  Acce.tbUsuarios modi				ON modi.usua_Id = po.usua_UsuarioModificacion 	
 END

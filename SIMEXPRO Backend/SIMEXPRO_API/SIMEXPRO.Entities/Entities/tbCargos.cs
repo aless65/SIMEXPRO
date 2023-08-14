@@ -16,6 +16,10 @@ namespace SIMEXPRO.Entities.Entities
 
         public int carg_Id { get; set; }
         public string carg_Nombre { get; set; }
+
+        [NotMapped]
+        public bool? carg_Aduana { get; set; }
+
         public int usua_UsuarioCreacion { get; set; }
 
         [NotMapped]

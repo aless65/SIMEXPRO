@@ -996,6 +996,7 @@ GO
 /*Insertar cargos*/
 CREATE OR ALTER PROCEDURE gral.UDP_tbCargos_Insertar --'prueba1', 1, '2023-07-28 14:26:31.000'
 	@carg_Nombre			NVARCHAR(150),
+	@carg_Aduana			BIT,
 	@usua_UsuarioCreacion	INT,
 	@carg_FechaCreacion     DATETIME
 AS 
@@ -1003,12 +1004,8 @@ BEGIN
 	
 	BEGIN TRY
 
-		INSERT INTO Gral.tbCargos (carg_Nombre, 
-											   usua_UsuarioCreacion, 
-											   carg_FechaCreacion)
-			VALUES(@carg_Nombre,	
-				   @usua_UsuarioCreacion,
-				   @carg_FechaCreacion)
+		INSERT INTO Gral.tbCargos (carg_Nombre,  carg_Aduana, usua_UsuarioCreacion,  carg_FechaCreacion)
+			VALUES(@carg_Nombre, @carg_Aduana,  @usua_UsuarioCreacion,  @carg_FechaCreacion)
 
 
 			SELECT 1

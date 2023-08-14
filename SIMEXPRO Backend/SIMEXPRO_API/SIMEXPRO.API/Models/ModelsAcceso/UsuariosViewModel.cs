@@ -20,12 +20,19 @@ namespace SIMEXPRO.API.Models.ModelsAcceso
         public int empl_Id { get; set; }
         public string usua_Image { get; set; }
         public int role_Id { get; set; }
+
         public bool usua_EsAdmin { get; set; }
         public int usua_UsuarioCreacion { get; set; }
+        [NotMapped]
+        public string usuarioCreacionNombre { get; set; }
         public DateTime usua_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
+        [NotMapped]
+        public string usuarioModificacionNombre { get; set; }
         public DateTime? usua_FechaModificacion { get; set; }
         public int? usua_UsuarioEliminacion { get; set; }
+        [NotMapped]
+        public string usuarioEliminacionNombre { get; set; }
         public DateTime? usua_FechaEliminacion { get; set; }
         public bool? usua_Estado { get; set; }
 

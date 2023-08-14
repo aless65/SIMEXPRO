@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SIMEXPRO.API.Models;
 using SIMEXPRO.API.Models.ModelsAduana;
 using SIMEXPRO.BussinessLogic.Services.EventoServices;
 using SIMEXPRO.Entities.Entities;
@@ -13,12 +13,12 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TiposIdentificaionController : Controller
+    public class TiposIdentificacionController : ControllerBase
     {
         private readonly AduanaServices _aduanaServices;
         private readonly IMapper _mapper;
 
-        public TiposIdentificaionController(AduanaServices AduanaServices, IMapper mapper)
+        public TiposIdentificacionController(AduanaServices AduanaServices, IMapper mapper)
         {
             _aduanaServices = AduanaServices;
             _mapper = mapper;

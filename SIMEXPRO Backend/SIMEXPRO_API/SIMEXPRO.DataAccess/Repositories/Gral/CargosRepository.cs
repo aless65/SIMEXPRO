@@ -51,8 +51,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();
 
-            parametros.Add("@carg_EsAduana", carg_EsAduana, DbType.Boolean, ParameterDirection.Input);
-            return db.Query<tbCargos>(ScriptsDataBase.ListarCargos, null, commandType: CommandType.StoredProcedure);
+            parametros.Add("@carg_Aduana", carg_EsAduana, DbType.Boolean, ParameterDirection.Input);
+            return db.Query<tbCargos>(ScriptsDataBase.ListarCargos, parametros, commandType: CommandType.StoredProcedure);
 
         }
 

@@ -22,10 +22,10 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             _generalesServices = generalesService;
             _mapper = mapper;
         }
-        [HttpGet("Listar")]
-        public IActionResult Index()
+        [HttpGet("Listar/{pais_EsAduana}")]
+        public IActionResult Index(bool pais_EsAduana)
         {
-            var listado = _generalesServices.ListarPaises();
+            var listado = _generalesServices.ListarPaises(pais_EsAduana);
             listado.Data = _mapper.Map<IEnumerable<PaisesViewModel>>(listado.Data);
             return Ok(listado);
         }

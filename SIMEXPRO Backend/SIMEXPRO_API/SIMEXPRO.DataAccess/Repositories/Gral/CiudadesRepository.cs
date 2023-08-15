@@ -50,6 +50,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();
+
             return db.Query<tbCiudades>(ScriptsDataBase.ListarCiudades, null, commandType: CommandType.StoredProcedure);
         }
 

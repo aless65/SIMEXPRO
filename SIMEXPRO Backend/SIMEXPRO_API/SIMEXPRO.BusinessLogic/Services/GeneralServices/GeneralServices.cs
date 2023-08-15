@@ -158,12 +158,12 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Cargos
-        public ServiceResult ListarCargos()
+        public ServiceResult ListarCargos(bool carg_EsAduana)
         {
             var resultado = new ServiceResult();
             try
             {
-                var list = _cargosRepository.List();
+                var list = _cargosRepository.List(carg_EsAduana);
                 return resultado.Ok(list);
             }
             catch (Exception ex)
@@ -217,12 +217,12 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Ciudades
-        public ServiceResult ListarCiudades()
+        public ServiceResult ListarCiudades(bool ciud_EsAduana)
         {
             var result = new ServiceResult();
             try
             {
-                var list = _ciudadesRepository.List();
+                var list = _ciudadesRepository.List(ciud_EsAduana);
                 return result.Ok(list);
             }
             catch (Exception ex)
@@ -630,12 +630,12 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Monedas
-        public ServiceResult ListarMonedas()
+        public ServiceResult ListarMonedas(bool mone_EsAduana)
         {
             var result = new ServiceResult();
             try
             {
-                var list = _monedasRepository.List();
+                var list = _monedasRepository.List(mone_EsAduana);
                 return result.Ok(list);
             }
             catch (Exception ex)
@@ -835,12 +835,12 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Paises
-        public ServiceResult ListarPaises()
+        public ServiceResult ListarPaises(bool pais_EsAduana)
         {
             var result = new ServiceResult();
             try
             {
-                var list = _paisesRepository.List();
+                var list = _paisesRepository.List(pais_EsAduana);
                 return result.Ok(list);
             }
             catch (Exception ex)
@@ -922,12 +922,12 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Provincias
-        public ServiceResult ListarProvincias()
+        public ServiceResult ListarProvincias(bool pvin_EsAduana)
         {
             var result = new ServiceResult();
             try
             {
-                var list = _provinciasRepository.List();
+                var list = _provinciasRepository.List(pvin_EsAduana);
                 return result.Ok(list);
             }
             catch (Exception e)
@@ -1057,12 +1057,12 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
 
         #region UnidadMedidas
 
-        public ServiceResult ListarUnidadMedidas()
+        public ServiceResult ListarUnidadMedidas(bool unme_EsAduana)
         {
             var result = new ServiceResult();
             try
             {
-                var list = _unidadMedidasRepository.List();
+                var list = _unidadMedidasRepository.List(unme_EsAduana);
                 return result.Ok(list);
             }
             catch (Exception e)

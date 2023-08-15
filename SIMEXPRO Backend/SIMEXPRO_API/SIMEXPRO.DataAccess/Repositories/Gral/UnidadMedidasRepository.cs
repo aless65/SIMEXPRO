@@ -44,11 +44,17 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             return result;
         }
 
-        public IEnumerable<tbUnidadMedidas> List()
+        public IEnumerable<tbUnidadMedidas> List(bool unme_EsAduana)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();
-            return db.Query<tbUnidadMedidas>(ScriptsDataBase.ListarUnidadMedidas, null, commandType: CommandType.StoredProcedure);
+            parametros.Add("@unme_EsAduana", unme_EsAduana, DbType.Boolean, ParameterDirection.Input);
+            return db.Query<tbUnidadMedidas>(ScriptsDataBase.ListarUnidadMedidas, parametros, commandType: CommandType.StoredProcedure);
+        }
+
+        public IEnumerable<tbUnidadMedidas> List()
+        {
+            throw new NotImplementedException();
         }
 
         public RequestStatus Update(tbUnidadMedidas item)

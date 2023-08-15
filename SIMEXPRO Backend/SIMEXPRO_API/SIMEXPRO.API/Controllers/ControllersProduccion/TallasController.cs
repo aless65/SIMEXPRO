@@ -24,8 +24,6 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             _mapper = mapper;
         }
 
-    
-
         [HttpGet("Listar")]
         public IActionResult Index()
         {
@@ -51,13 +49,13 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        [HttpPost("Eliminar")]
-        public IActionResult Eliminar(TallasViewModel TallasViewModel)
-        {
-            var item = _mapper.Map<tbTallas>(TallasViewModel);
-            var respuesta = _produccionServices.EliminarTallas(item);
-            return Ok(respuesta);
-        }
+        //[HttpPost("Eliminar")]
+        //public IActionResult Eliminar(TallasViewModel TallasViewModel)
+        //{
+        //    var item = _mapper.Map<tbTallas>(TallasViewModel);
+        //    var respuesta = _produccionServices.EliminarTallas(item);
+        //    return Ok(respuesta);
+        //}
 
     }
 }

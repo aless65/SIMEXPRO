@@ -10798,7 +10798,7 @@ AS
 BEGIN
 	SELECT subc.subc_Id,
            subc.cate_Id, 
-	       cate.cate_Descripcion					AS categoriaDescripcion,
+	       cate.cate_Descripcion					
 	       subc.subc_Descripcion, 
 	       subc.usua_UsuarioCreacion,
 	       usuaCrea.usua_Nombre						AS usuarioCreacionNombre,

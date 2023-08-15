@@ -984,14 +984,14 @@ BEGIN
 	       ,carg.usua_UsuarioModificacion	
 	       ,usuaModifica.usua_Nombre		AS usuarioModificacionNombre
 	       ,carg_FechaModificacion			
-	       --,carg.usua_UsuarioEliminacion	
-	       --,usuaElimina.usua_Nombre			AS usuarioEliminacionNombre
-	       --,carg_FechaEliminacion			
+	       ,carg.usua_UsuarioEliminacion	
+	       ,usuaElimina.usua_Nombre			AS usuarioEliminacionNombre
+	       ,carg_FechaEliminacion			
 	       ,carg_Estado						
     FROM Gral.tbCargos carg 
 	INNER JOIN Acce.tbUsuarios usuaCrea		ON carg.usua_UsuarioCreacion = usuaCrea.usua_Id 
 	LEFT JOIN Acce.tbUsuarios usuaModifica	ON carg.usua_UsuarioModificacion = usuaModifica.usua_Id 
-	--LEFT JOIN Acce.tbUsuarios usuaElimina	ON carg.usua_UsuarioEliminacion = usuaCrea.usua_Id
+	LEFT JOIN Acce.tbUsuarios usuaElimina	ON carg.usua_UsuarioEliminacion = usuaCrea.usua_Id
 	WHERE carg_Estado = 1
 	AND carg_Aduana = @carg_Aduana
 	OR @carg_Aduana IS NULL
@@ -1061,13 +1061,16 @@ BEGIN
 	       ,colo_FechaCreacion					
 	       ,colo.usua_UsuarioModificacion		
 	       ,usuaModifica.usua_Nombre			AS usuarioModificacionNombre
-	       ,colo_FechaModificacion				
+	       ,colo.usua_UsuarioEliminacion
+		   ,usuaElimina.usua_Nombre				AS usuarioEliminacionNombre
+		   ,colo.colo_FechaEliminacion
 	       ,colo_Estado							
    FROM Gral.tbColonias colo 
    LEFT JOIN Gral.tbAldeas alde				ON colo.alde_Id = alde.alde_Id 
    LEFT JOIN Gral.tbCiudades ciud			ON colo.ciud_Id = ciud.ciud_Id 
    INNER JOIN Acce.tbUsuarios usuaCrea		ON colo.usua_UsuarioCreacion = usuaCrea.usua_Id 
    LEFT JOIN Acce.tbUsuarios usuaModifica	ON colo.usua_UsuarioModificacion = usuaCrea.usua_Id 
+   LEFT JOIN Acce.tbUsuarios usuaElimina	ON colo.usua_UsuarioEliminacion = usuaElimina.usua_Id
    WHERE colo_Estado = 1
 END
 GO
@@ -1615,9 +1618,9 @@ AS
 BEGIN
 SELECT	alde_Id								,
 		alde_Nombre							,
-		alde.ciud_Id						,
+		ciu.ciud_Id						,
 		ciu.ciud_Nombre						,
-		ciu.pvin_Id							,
+		provincias.pvin_Id							,
 		provincias.pvin_Codigo				,
 		provincias.pvin_Nombre				,
 		alde.usua_UsuarioCreacion			,
@@ -2550,6 +2553,7 @@ BEGIN
 
 			coin.colo_Id,
 			colo.colo_Nombre,
+			ciud.ciud_Id,
 			ciud.ciud_Nombre,
 			ciud.pvin_Id,
 			pvin.pvin_Codigo,
@@ -2570,8 +2574,10 @@ BEGIN
 
 
 			coin.usua_UsuarioCreacion, 
+			crea.usua_Nombre				AS usuarioCreacionNombre,
 			coin.coin_FechaCreacion, 
 			coin.usua_UsuarioModificacion, 
+			modi.usua_Nombre				AS usuarioModificacionNombre,
 			coin.coin_FechaModificacion, 
 			coin.coin_Estado
 	FROM Adua.tbComercianteIndividual		AS coin
@@ -2583,6 +2589,8 @@ BEGIN
 	LEFT JOIN Gral.tbCiudades				AS ciud		ON colo.ciud_Id =	ciud.ciud_Id
 	LEFT JOIN Gral.tbProvincias				AS pvin		ON ciud.pvin_Id =	pvin.pvin_Id
 	LEFT JOIN Gral.tbPaises					AS pais		ON pvin.pais_Id =	pais.pais_Id
+	LEFT JOIN Acce.tbUsuarios				AS crea		ON coin.usua_UsuarioCreacion = crea.usua_Id
+	LEFT JOIN Acce.tbUsuarios				AS modi		ON coin.usua_UsuarioModificacion = modi.usua_Id
 	WHERE coin.coin_Estado = 1
 END
 GO
@@ -3244,7 +3252,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbAduanas_Listar
 AS
 BEGIN
 SELECT	adu.adua_Id							,
-		Adu.adua_Codigo						,
+		adu.adua_Codigo						,
 		adu.adua_Nombre						,
 		adu.adua_Direccion_Exacta			,
 		usu.usua_Nombre						AS usarioCreacion,
@@ -4143,13 +4151,13 @@ GO
 
 CREATE OR ALTER VIEW Adua.VW_tbDeclaraciones_ValorCompleto
 AS
-SELECT		deva_Id, 
-			deva_AduanaIngresoId, 
+SELECT		deva.deva_Id, 
+			deva.deva_AduanaIngresoId, 
 			aduaIngreso.adua_Nombre				AS adua_IngresoNombre,
-			deva_AduanaDespachoId, 
+			deva.deva_AduanaDespachoId, 
 			aduaDespacho.adua_Nombre			AS adua_DespachoNombre,
-			deva_DeclaracionMercancia, 
-			deva_FechaAceptacion, 
+			deva.deva_DeclaracionMercancia, 
+			deva.deva_FechaAceptacion, 
 
 			impo.impo_Id, 
 			impo.impo_NumRegistro,
@@ -4184,33 +4192,33 @@ SELECT		deva_Id,
 			declaInte.ciud_Id					AS inte_ciudId,
 
 
-			deva_LugarEntrega, 
-			pais_EntregaId, 
+			deva.deva_LugarEntrega, 
+			deva.pais_EntregaId, 
 			inco.inco_Id, 
 			inco.inco_Descripcion,
-			inco_Version, 
-			deva_NumeroContrato, 
-			deva_FechaContrato, 
+			deva.inco_Version, 
+			deva.deva_NumeroContrato, 
+			deva.deva_FechaContrato, 
 			foen.foen_Id, 
 			foen.foen_Descripcion,
 
-			deva_FormaEnvioOtra, 
-			deva_PagoEfectuado, 
+			deva.deva_FormaEnvioOtra, 
+			deva.deva_PagoEfectuado, 
 			fopa_Id, 
-			deva_FormaPagoOtra, 
-			emba_Id, 
-			pais_ExportacionId, 
-			deva_FechaExportacion, 
-			mone_Id, 
-			mone_Otra, 
-			deva_ConversionDolares, 
+			deva.deva_FormaPagoOtra, 
+			deva.emba_Id, 
+			deva.pais_ExportacionId, 
+			deva.deva_FechaExportacion, 
+			deva.mone_Id, 
+			deva.mone_Otra, 
+			deva.deva_ConversionDolares, 
 			----deva_Condiciones, 
-			deva.usua_UsuarioCreacion, 
+			deva.deva.usua_UsuarioCreacion, 
 			usuaCrea.usua_Nombre				AS usua_CreacionNombre,
-			deva_FechaCreacion, 
-			deva.usua_UsuarioModificacion		AS usua_ModificacionNombre,
-			deva_FechaModificacion, 
-			deva_Estado 
+			deva.deva_FechaCreacion, 
+			deva.deva.usua_UsuarioModificacion		AS usua_ModificacionNombre,
+			deva.deva_FechaModificacion, 
+			deva.deva_Estado 
 	FROM	Adua.tbDeclaraciones_Valor deva 
 			LEFT JOIN Adua.tbAduanas aduaIngreso			ON deva.deva_AduanaIngresoId = aduaIngreso.adua_Id
 			LEFT JOIN Adua.tbAduanas aduaDespacho			ON deva.deva_AduanaDespachoId = aduaDespacho.adua_Id
@@ -7524,12 +7532,12 @@ BEGIN
 	SELECT  boletin.boen_Id, 
 	        boletin.liqu_Id, 
 			boletin.duca_No_Duca,
-			lig.lige_TotalGral           AS liquidacionGeneral,
+			lig.lige_TotalGral,
 			boletin.tipl_Id, 
-			tipli.tipl_Descripcion       AS TipoLiquiDescripcion,
+			tipli.tipl_Descripcion,
 			boletin.boen_FechaEmision, 
 			boletin.esbo_Id,
-			estadoB.esbo_Descripcion     AS estadoBoletinDescripcion,
+			estadoB.esbo_Descripcion,
 			boletin.boen_Observaciones, 
 			boletin.boen_NDeclaracion,
 			--boletin.pena_RTN, 
@@ -9050,10 +9058,10 @@ BEGIN
 	SELECT codi.coim_Id,							
 		   codi.coim_Descripcion,						
 	       codi.usua_UsuarioCreacion,		
-	       usuaCrea.usua_Nombre			AS usuarioCreacionNombre,
+	       usuaCrea.usua_Nombre				AS usuarioCreacionNombre,
 	       coim_FechaCreacion,				
 	       codi.usua_UsuarioModificacion,	
-	       usuaModifica.usua_Nombre		AS usuarioModificacionNombre,
+	       usuaModifica.usua_Nombre			AS usuarioModificacionNombre,
 	       coim_FechaModificacion,			
 	       codi.usua_UsuarioEliminacion	,
 	       usuaElimina.usua_Nombre			AS usuarioEliminacionNombre,
@@ -9645,8 +9653,10 @@ BEGIN
 			asor_FechaInicio,			
 			asor_FechaLimite,						
 			asor_Cantidad,				
-			proc_Id,						
-			asignacionesOrden.empl_Id,						
+			pro.proc_Id,	
+			pro.proc_Descripcion,
+			empl.empl_Id,			
+			empl.empl_Nombres + empl_Apellidos AS empl_NombreCompleto,
 			asignacionesOrden.usua_UsuarioCreacion,
 			usuarioCreacion.usua_Nombre					AS usuarioCreacionNombre,
 			asor_FechaCreacion,			
@@ -9654,6 +9664,8 @@ BEGIN
 			usuarioModificacion.usua_Nombre				AS usuarioModificacionNombre,
 			asor_FechaModificacion
 	   FROM Prod.tbAsignacionesOrden					AS asignacionesOrden 
+	   INNER JOIN Prod.tbProcesos pro					ON asignacionesOrden.proc_Id = pro.proc_Id
+	   INNER JOIN Gral.tbEmpleados empl					ON asignacionesOrden.empl_Id = empl.empl_Id
 	   INNER JOIN Acce.tbUsuarios usuarioCreacion		ON asignacionesOrden.usua_UsuarioCreacion = usuarioCreacion.usua_Id
 	   LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON asignacionesOrden.usua_UsuarioModificacion = usuarioModificacion.usua_Id
 END
@@ -9768,7 +9780,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrdenDetalle_Listado
 AS
 BEGIN
 	SELECT adet_Id,						
-		   lote_Id,						
+		   lote.lote_Id,
 		   adet_Cantidad,				
 		   AsignacionesOrdenDetalle.usua_UsuarioCreacion,
 		   usuarioCreacion.usua_Nombre							AS usuarioCreacionNombre,
@@ -9777,8 +9789,10 @@ BEGIN
 		   usuarioModificacion.usua_Nombre						AS usuarioModificacionNombre,
 		   adet_FechaModificacion
 	  FROM Prod.tbAsignacionesOrdenDetalle		AS AsignacionesOrdenDetalle
+INNER JOIN Prod.tbLote		lote				ON AsignacionesOrdenDetalle.lote_Id = lote.lote_Id
 INNER JOIN Acce.tbUsuarios usuarioCreacion		ON AsignacionesOrdenDetalle.usua_UsuarioCreacion = usuarioCreacion.usua_Id
  LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON AsignacionesOrdenDetalle.usua_UsuarioModificacion = usuarioModificacion.usua_Id
+
 WHERE 	AsignacionesOrdenDetalle.asor_Id = @asor_Id
 
 END

@@ -46,7 +46,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             return result;
         }
 
-        public IEnumerable<tbRoles> List(bool role_Aduana)
+        public IEnumerable<tbRoles> List(bool? role_Aduana)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();

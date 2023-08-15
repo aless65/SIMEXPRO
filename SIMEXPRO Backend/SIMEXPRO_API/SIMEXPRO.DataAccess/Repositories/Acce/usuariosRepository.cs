@@ -104,7 +104,14 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             var parametros = new DynamicParameters();
             return db.Query<tbUsuarios>(ScriptsDataBase.ListarUsuarios, null, commandType: CommandType.StoredProcedure);
         }
+        public IEnumerable<tbUsuarios> List(bool? empl_EsAduana)
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            var parametros = new DynamicParameters();
 
+            parametros.Add("@empl_EsAduana", empl_EsAduana, DbType.Boolean, ParameterDirection.Input);
+            return db.Query<tbUsuarios>(ScriptsDataBase.ListarUsuarios, parametros, commandType: CommandType.StoredProcedure);
+        }
 
         public RequestStatus Update(tbUsuarios item)
         {

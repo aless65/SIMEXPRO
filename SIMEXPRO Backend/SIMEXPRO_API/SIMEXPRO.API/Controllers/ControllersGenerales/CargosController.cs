@@ -23,8 +23,8 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             _mapper = mapper;
         }
 
-        [HttpGet("Listar/{carg_EsAduana}")]
-        public IActionResult Index(bool carg_EsAduana)
+        [HttpGet("Listar")]
+        public IActionResult Index(bool? carg_EsAduana)
         {
             var listado = _generalesServices.ListarCargos(carg_EsAduana);
             listado.Data = _mapper.Map<IEnumerable<CargosViewModel>>(listado.Data);

@@ -55,7 +55,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             return db.Query<tbProvincias>(ScriptsDataBase.ListarProvincias, null, commandType: CommandType.StoredProcedure);
         }
 
-        public IEnumerable<tbProvincias> List(bool pvin_EsAduana)
+        public IEnumerable<tbProvincias> List(bool? pvin_EsAduana)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();

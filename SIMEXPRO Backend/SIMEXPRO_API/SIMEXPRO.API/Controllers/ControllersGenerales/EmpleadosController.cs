@@ -23,9 +23,9 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             _mapper = mapper;
         }
         [HttpGet("Listar")]
-        public IActionResult Index()
+        public IActionResult Index(bool? empl_EsAduana)
         {
-            var listado = _generalesServices.ListarEmpleados();
+            var listado = _generalesServices.ListarEmpleados(empl_EsAduana);
             listado.Data = _mapper.Map<IEnumerable<EmpleadosViewModel>>(listado.Data);
             return Ok(listado);
         }

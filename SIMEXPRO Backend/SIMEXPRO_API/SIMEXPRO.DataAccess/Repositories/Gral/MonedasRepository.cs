@@ -47,7 +47,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             return result;
         }
 
-        public IEnumerable<tbMonedas> List(bool mone_EsAduana)
+        public IEnumerable<tbMonedas> List(bool? mone_EsAduana)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();

@@ -119,6 +119,7 @@ GO
 
 /*Listar Usuarios*/
 CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Listar
+	--@empl_EsAduana		BIT
 AS
 BEGIN
 	SELECT usua.usua_Id, 
@@ -129,6 +130,7 @@ BEGIN
 		   usua.usua_EsAdmin,
 		   usua.empl_Id,
 		   (empl_Nombres + ' ' + empl_Apellidos) AS empleadoNombreCompleto, 
+		   empl_EsAduana,
 		   empl_CorreoElectronico,
 		   usua.usua_UsuarioCreacion, 
 		   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
@@ -149,6 +151,8 @@ BEGIN
 	LEFT JOIN acce.tbUsuarios usuaModifica
 	ON usua.usua_UsuarioModificacion = usuaModifica.usua_Id LEFT JOIN acce.tbUsuarios usuaElimina
 	ON usua.usua_UsuarioEliminacion = usuaElimina.usua_Id
+--WHERE empl_EsAduana = @empl_EsAduana
+--OR    @empl_EsAduana IS NULL
 END
 --GO
 
@@ -1334,8 +1338,16 @@ BEGIN
 		END
 		ELSE
 		BEGIN
-			INSERT INTO Gral.tbPaises (pais_Codigo, pais_Nombre, pais_EsAduana, usua_UsuarioCreacion, pais_FechaCreacion)
-			VALUES (@pais_Codigo, @pais_Nombre, @pais_EsAduana, @usua_UsuarioCreacion, @pais_FechaCreacion)
+			INSERT INTO Gral.tbPaises (pais_Codigo, 
+									   pais_Nombre, 
+									   pais_EsAduana, 
+									   usua_UsuarioCreacion, 
+									   pais_FechaCreacion)
+			VALUES (@pais_Codigo, 
+					@pais_Nombre, 
+					@pais_EsAduana, 
+					@usua_UsuarioCreacion, 
+					@pais_FechaCreacion)
 			SELECT 1
 		END
 
@@ -2028,13 +2040,14 @@ GO
 --************EMPLEADOS******************--
 /*Listar EMPLEADOS*/
 CREATE OR ALTER PROCEDURE [Gral].[UDP_tbEmpleados_Listar]
+	@empl_EsAduana		BIT
 AS
 BEGIN
 
 SELECT  empl.empl_Id								,
 		empl_Nombres								,
 		empl_Apellidos								,
-		CONCAT(empl_Nombres, empl_Apellidos)		AS empl_NombreCompleto,
+		CONCAT(empl_Nombres, ' ', empl_Apellidos)		AS empl_NombreCompleto,
 		empl_DNI									,
 		empl.escv_Id								,
 		escv.escv_Nombre							,
@@ -2072,6 +2085,8 @@ FROM	Gral.tbEmpleados empl
 		INNER JOIN Gral.tbProvincias pvin		ON empl.pvin_Id = pvin.pvin_Id 
 		INNER JOIN Gral.tbPaises pais			ON pvin.pais_Id = pais.pais_Id 
 		INNER JOIN Gral.tbCargos carg			ON empl.carg_Id = carg.carg_Id
+WHERE empl_EsAduana = @empl_EsAduana
+OR @empl_EsAduana IS NULL
 END
 GO
 
@@ -9065,8 +9080,8 @@ BEGIN
 	       coim_Estado				
     FROM  Adua.tbCodigoImpuesto codi 
 	INNER JOIN Acce.tbUsuarios usuaCrea		ON codi.usua_UsuarioCreacion = usuaCrea.usua_Id 
-	LEFT JOIN Acce.tbUsuarios usuaModifica	ON codi.usua_UsuarioModificacion = usuaCrea.usua_Id 
-	LEFT JOIN Acce.tbUsuarios usuaElimina	ON codi.usua_UsuarioEliminacion = usuaCrea.usua_Id
+	LEFT JOIN Acce.tbUsuarios usuaModifica	ON codi.usua_UsuarioModificacion = usuaModifica.usua_Id 
+	LEFT JOIN Acce.tbUsuarios usuaElimina	ON codi.usua_UsuarioEliminacion = usuaElimina.usua_Id
 	WHERE coim_Estado = 1
 END
 GO

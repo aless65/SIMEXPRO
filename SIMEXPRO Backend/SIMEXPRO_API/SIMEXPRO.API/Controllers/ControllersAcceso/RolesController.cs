@@ -28,8 +28,8 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
         }
 
 
-        [HttpGet("Listar/{role_Aduana}")]
-        public IActionResult Index(bool role_Aduana)
+        [HttpGet("Listar")]
+        public IActionResult Index(bool? role_Aduana)
         {
             var listado = _accesoServices.ListarRoles(role_Aduana);
 

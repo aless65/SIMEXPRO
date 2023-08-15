@@ -61,6 +61,16 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             return db.Query<tbEmpleados>(ScriptsDataBase.ListarEmpleados, null, commandType: CommandType.StoredProcedure);
         }
 
+        public IEnumerable<tbEmpleados> List(bool? empl_EsAduana)
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            var parametros = new DynamicParameters();
+
+            parametros.Add("@empl_EsAduana", empl_EsAduana, DbType.Boolean, ParameterDirection.Input);
+
+            return db.Query<tbEmpleados>(ScriptsDataBase.ListarEmpleados, parametros, commandType: CommandType.StoredProcedure);
+        }
+
         public RequestStatus Update(tbEmpleados item)
         {
 

@@ -24,8 +24,8 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
 
 
-        [HttpGet("Listar/{unme_EsAduana}")]
-        public IActionResult Index(bool unme_EsAduana)
+        [HttpGet("Listar")]
+        public IActionResult Index(bool? unme_EsAduana)
         {
             var listado = _generalesServices.ListarUnidadMedidas(unme_EsAduana);
             listado.Data = _mapper.Map<IEnumerable<UnidadMedidaViewModel>>(listado.Data);

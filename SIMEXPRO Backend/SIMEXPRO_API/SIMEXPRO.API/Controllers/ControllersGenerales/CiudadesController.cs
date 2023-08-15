@@ -24,8 +24,8 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             _mapper = mapper;
         }
 
-        [HttpGet("Listar/{ciud_EsAduana}")]
-        public IActionResult Index(bool ciud_EsAduana)
+        [HttpGet("Listar")]
+        public IActionResult Index(bool? ciud_EsAduana)
         {
             var listado = _generalesServices.ListarCiudades(ciud_EsAduana);
             listado.Data = _mapper.Map<IEnumerable<CiudadesViewModel>>(listado.Data);

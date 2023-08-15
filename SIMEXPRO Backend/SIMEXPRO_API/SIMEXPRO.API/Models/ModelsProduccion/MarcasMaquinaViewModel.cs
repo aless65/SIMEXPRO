@@ -18,8 +18,9 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public bool? marq_Estado { get; set; }
 
 
-
-
+        public string UsuarioCreacion { get; set; }
+        public string UsuarioModificador { get; set; }
+        public string UsuarioEliminacion { get; set; }
 
     }
 }

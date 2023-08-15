@@ -6224,9 +6224,9 @@ END
 GO
 
 CREATE OR ALTER PROCEDURE Adua.UDP_tbItems_Eliminar
-@item_Id					INT,
-@item_FechaEliminacion		DATETIME,
-@usua_UsuarioEliminacion	INT
+	@item_Id					INT,
+	@item_FechaEliminacion		DATETIME,
+	@usua_UsuarioEliminacion	INT
 AS
 BEGIN
 	BEGIN TRANSACTION
@@ -6293,6 +6293,8 @@ BEGIN
 
 			DELETE FROM Adua.tbItems
 			WHERE item_Id = @item_Id
+
+			SELECT 1
 		END
 		COMMIT TRAN
 	END TRY

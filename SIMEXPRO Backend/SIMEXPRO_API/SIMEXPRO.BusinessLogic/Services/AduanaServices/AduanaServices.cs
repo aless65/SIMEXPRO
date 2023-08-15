@@ -1846,12 +1846,12 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         #endregion
 
         #region Items
-        public ServiceResult ListarItems(tbItems item)
+        public ServiceResult ListarItems(int fact_Id)
         {
             var resultado = new ServiceResult();
             try
             {
-                var list = _itemsRepository.List(item);
+                var list = _itemsRepository.List(fact_Id);
                 return resultado.Ok(list);
             }
             catch (Exception ex)

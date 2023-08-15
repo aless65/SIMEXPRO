@@ -17,28 +17,29 @@ INSERT INTO [Acce].[tbRoles]
     ,[role_FechaModificacion]
     ,[usua_UsuarioEliminacion]
     ,[role_FechaEliminacion]
-    ,[role_Estado])
+    ,[role_Estado]
+	,role_Aduana)
 VALUES
-    ('Gerente de Operaciones',					1, '10-16-2004', NULL, NULL, NULL, NULL, 1),
-    ('Ejecutivo de Ventas',						1, '10-16-2004', NULL, NULL, NULL, NULL, 1),
-    ('Analista de Logística',					1, '10-16-2004', NULL, NULL, NULL, NULL, 1),
-    ('Agente de Aduanas',						1, '10-16-2004', NULL, NULL, NULL, NULL, 1),
-    ('Asistente Administrativo',				1, '10-16-2004', NULL, NULL, NULL, NULL, 1),
-    ('Coordinador de Transporte',				1, '10-16-2004', NULL, NULL, NULL, NULL, 1),
-    ('Operador de Almacén',						1, '10-16-2004', NULL, NULL, NULL, NULL, 1),
-    ('Inspector Aduanero',						1, '10-16-2004', NULL, NULL, NULL, NULL, 1),
-    ('Analista de Documentación',				1, '10-16-2004', NULL, NULL, NULL, NULL, 1),
-    ('Asesor Comercial',						1, '10-16-2004', NULL, NULL, NULL, NULL, 1),
-    ('Operario de Máquina de Tejido',			1, '10-16-2004', NULL, NULL, NULL, NULL, 1),
-    ('Técnico de Mantenimiento de Telares',		1, '10-16-2004', NULL, NULL, NULL, NULL, 1),
-    ('Supervisor de Producción',				1, '10-16-2004', NULL, NULL, NULL, NULL, 1),
-    ('Control de Calidad',						1, '10-16-2004', NULL, NULL, NULL, NULL, 1),
-    ('Operario de Acabado',						1, '10-16-2004', NULL, NULL, NULL, NULL, 1),
-    ('Jefe de Línea de Producción',				1, '10-16-2004', NULL, NULL, NULL, NULL, 1),
-    ('Ingeniero Textil',						1, '10-16-2004', NULL, NULL, NULL, NULL, 1),
-    ('Auxiliar de Almacén de Materias Primas',	1, '10-16-2004', NULL, NULL, NULL, NULL, 1),
-    ('Diseñador Textil',						1, '10-16-2004', NULL, NULL, NULL, NULL, 1),
-    ('Operario de Corte de Telas',				1, '10-16-2004', NULL, NULL, NULL, NULL, 1);
+    ('Gerente de Operaciones',					1, '10-16-2004', NULL, NULL, NULL, NULL, 1, 1),
+    ('Ejecutivo de Ventas',						1, '10-16-2004', NULL, NULL, NULL, NULL, 1, 1),
+    ('Analista de Logística',					1, '10-16-2004', NULL, NULL, NULL, NULL, 1, 1),
+    ('Agente de Aduanas',						1, '10-16-2004', NULL, NULL, NULL, NULL, 1, 1),
+    ('Asistente Administrativo',				1, '10-16-2004', NULL, NULL, NULL, NULL, 1, 1),
+    ('Coordinador de Transporte',				1, '10-16-2004', NULL, NULL, NULL, NULL, 1, 1),
+    ('Operador de Almacén',						1, '10-16-2004', NULL, NULL, NULL, NULL, 1, 1),
+    ('Inspector Aduanero',						1, '10-16-2004', NULL, NULL, NULL, NULL, 1, 1),
+    ('Analista de Documentación',				1, '10-16-2004', NULL, NULL, NULL, NULL, 1, 1),
+    ('Asesor Comercial',						1, '10-16-2004', NULL, NULL, NULL, NULL, 1, 0),
+    ('Operario de Máquina de Tejido',			1, '10-16-2004', NULL, NULL, NULL, NULL, 1, 0),
+    ('Técnico de Mantenimiento de Telares',		1, '10-16-2004', NULL, NULL, NULL, NULL, 1, 0),
+    ('Supervisor de Producción',				1, '10-16-2004', NULL, NULL, NULL, NULL, 1, 0),
+    ('Control de Calidad',						1, '10-16-2004', NULL, NULL, NULL, NULL, 1, 0),
+    ('Operario de Acabado',						1, '10-16-2004', NULL, NULL, NULL, NULL, 1, 0),
+    ('Jefe de Línea de Producción',				1, '10-16-2004', NULL, NULL, NULL, NULL, 1, 0),
+    ('Ingeniero Textil',						1, '10-16-2004', NULL, NULL, NULL, NULL, 1, 0),
+    ('Auxiliar de Almacén de Materias Primas',	1, '10-16-2004', NULL, NULL, NULL, NULL, 1, 0),
+    ('Diseñador Textil',						1, '10-16-2004', NULL, NULL, NULL, NULL, 1, 0),
+    ('Operario de Corte de Telas',				1, '10-16-2004', NULL, NULL, NULL, NULL, 1, 0);
 
 
 /*---------------------------------*/
@@ -151,11 +152,11 @@ VALUES(1, 1,  1, '2023-08-11', 1),
 /*-----------------------------------*/
 --***** INSERT TABLA CARGOS --******--
 GO
-INSERT INTO [Gral].[tbCargos] ([carg_Nombre], usua_UsuarioCreacion, [carg_FechaCreacion])
-VALUES ('Operario',					1, GETDATE()),
-	   ('Supervisor de módulo',		1, GETDATE()),
-	   ('Coordinador de logística', 1, GETDATE()),
-	   ('Gerente de RRHH',			1, GETDATE());
+INSERT INTO [Gral].[tbCargos] ([carg_Nombre], usua_UsuarioCreacion, [carg_FechaCreacion], carg_Aduana)
+VALUES ('Operario',					1, GETDATE(), 0),
+	   ('Supervisor de módulo',		1, GETDATE(), 0),
+	   ('Coordinador de logística', 1, GETDATE(), 0),
+	   ('Gerente de RRHH',			1, GETDATE(), 0);
 
 
 /*-------------------------------------------*/

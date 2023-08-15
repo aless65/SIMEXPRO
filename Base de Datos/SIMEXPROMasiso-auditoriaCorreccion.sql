@@ -1267,6 +1267,7 @@ CREATE TABLE Prod.tbSubcategoria(
 	subc_Estado 				BIT					NOT NULL DEFAULT 1, 
 
 	CONSTRAINT PK_Prod_tbSubcategoria_subc_Id													PRIMARY KEY (subc_Id),
+	CONSTRAINT FK_Prod_tbSubcategoria_cate_Id_subc_Descripcion									UNIQUE		(subc_Descripcion, cate_Id),
 	CONSTRAINT FK_Prod_tbSubcategoria_cate_Id_Prod_tbCategoria_cate_Id							FOREIGN KEY (cate_Id) 					REFERENCES Prod.tbCategoria(cate_Id),
 	CONSTRAINT FK_Prod_tbSubCategoria_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id				FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbSubCategoria_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioEliminacion)	REFERENCES Acce.tbUsuarios (usua_Id),

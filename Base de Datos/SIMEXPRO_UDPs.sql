@@ -451,7 +451,7 @@ BEGIN
     ON tbroles.usua_UsuarioModificacion = usuModi.usua_Id
     INNER JOIN Acce.tbUsuarios usuCrea
     ON tbroles.[usua_UsuarioCreacion] = usuCrea.usua_Id
-	WHERE role_Estado = 1;
+	WHERE role_Estado = 1
 	AND role_Aduana = @role_Aduana
 
 END
@@ -1169,12 +1169,12 @@ GO
 
 /*Listar monedas*/
 CREATE OR ALTER PROCEDURE [Gral].[UDP_tbMonedas_Listar]
-	@mone_Aduana	BIT
+	@mone_EsAduana	BIT
 AS
 BEGIN
 	SELECT  mone_Id								
 	       ,mone_Codigo			
-		   ,mone_Aduana
+		   ,mone_EsAduana
 	       ,mone_Descripcion					
 	       ,mone.usua_UsuarioCreacion			
 	       ,usuaCrea.usua_Nombre				AS usuarioCreacionNombre
@@ -1192,14 +1192,14 @@ BEGIN
    --LEFT JOIN Acce.tbUsuarios usuaModifica   ON mone.usua_UsuarioModificacion = usuaCrea.usua_Id 
    --LEFT JOIN Acce.tbUsuarios usuaElimina	ON mone.usua_UsuarioEliminacion = usuaCrea.usua_Id
    WHERE mone_Estado = 1
-   AND mone_Aduana = @mone_Aduana
+   AND mone_EsAduana = @mone_EsAduana
 END
 GO
 
 /*Insertar monedas*/
 CREATE OR ALTER PROCEDURE gral.UDP_tbMonedas_Insertar 
 	@mone_Codigo			CHAR(3),
-	@mone_Aduana			BIT,
+	@mone_EsAduana			BIT,
 	@mone_Descripcion		NVARCHAR(150),
 	@usua_UsuarioCreacion	INT,
 	@mone_FechaCreacion     DATETIME
@@ -1208,12 +1208,12 @@ BEGIN
 	
 	BEGIN TRY
 				INSERT INTO Gral.tbMonedas ( mone_Codigo,
-											 mone_Aduana,
+											 mone_EsAduana,
 												 mone_Descripcion, 
 											     usua_UsuarioCreacion, 
 											     mone_FechaCreacion)
 			VALUES(@mone_Codigo,
-				   @mone_Aduana,
+				   @mone_EsAduana,
 				   @mone_Descripcion,	
 				   @usua_UsuarioCreacion,
 				   @mone_FechaCreacion)
@@ -1286,14 +1286,14 @@ GO
 --************PAISES******************--
 /*Listar PAISES*/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbPaises_Listar
-	@pais_Aduana			BIT
+	@pais_EsAduana			BIT
 AS
 BEGIN
 	
 SELECT	pais_Id								,
 		pais_Codigo							,
 		pais_Nombre							,
-		pais_Aduana							,
+		pais_EsAduana							,
 		pais.usua_UsuarioCreacion			,
 		usua.usua_Nombre					AS UsuarioCreacionNombre,
 		pais_FechaCreacion					, 
@@ -1305,14 +1305,14 @@ FROM	Gral.tbPaises pais
 		INNER JOIN Acce.tbUsuarios usua		ON pais.usua_UsuarioCreacion = usua.usua_Id 
 		LEFT JOIN  Acce.tbUsuarios usua2	ON pais.usua_UsuarioModificacion = usua2.usua_Id
 WHERE	pais_Estado = 1
-AND		pais_Aduana = @pais_Aduana
+AND		pais_EsAduana = @pais_EsAduana
 END
 GO
 /*Insertar PAISES*/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbPaises_Insertar
 	@pais_Codigo				CHAR(2), 
 	@pais_Nombre				NVARCHAR(150), 
-	@pais_Aduana				BIT,
+	@pais_EsAduana				BIT,
 	@usua_UsuarioCreacion		INT,
 	@pais_FechaCreacion			DATETIME
 
@@ -1330,8 +1330,8 @@ BEGIN
 		END
 		ELSE
 		BEGIN
-			INSERT INTO Gral.tbPaises (pais_Codigo, pais_Nombre, pais_Aduana, usua_UsuarioCreacion, pais_FechaCreacion)
-			VALUES (@pais_Codigo, @pais_Nombre, @pais_Aduana, @usua_UsuarioCreacion, @pais_FechaCreacion)
+			INSERT INTO Gral.tbPaises (pais_Codigo, pais_Nombre, pais_EsAduana, usua_UsuarioCreacion, pais_FechaCreacion)
+			VALUES (@pais_Codigo, @pais_Nombre, @pais_EsAduana, @usua_UsuarioCreacion, @pais_FechaCreacion)
 			SELECT 1
 		END
 
@@ -1368,12 +1368,12 @@ GO
 --************CIUDADES******************--
 /*Listar Paises*/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbCiudades_Listar
-	@ciud_Aduana		BIT
+	@ciud_EsAduana		BIT
 AS
 BEGIN
 SELECT	ciud_Id								,
 		ciud_Nombre							,
-		ciud_Aduana							,
+		ciud_EsAduana							,
 		ciu.pvin_Id							,
 		provi.pvin_Nombre					,
 		provi.pvin_Codigo					,
@@ -1392,14 +1392,14 @@ FROM	Gral.tbCiudades ciu
 		INNER JOIN Gral.tbProvincias provi		ON ciu.pvin_Id = provi.pvin_Id					
 		INNER JOIN Gral.tbPaises pais			ON provi.pais_Id = pais.pais_Id
 WHERE	ciud_Estado = 1
-WHERE	ciud_Aduana = @ciud_Aduana
+AND	ciud_EsAduana = @ciud_EsAduana
 END
 GO
 
 /*Insertar Ciudades*/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbCiudades_Insertar
 	@ciud_Nombre				NVARCHAR(150), 
-	@ciud_Aduana				BIT,
+	@ciud_EsAduana				BIT,
 	@pvin_Id					INT, 
 	@usua_UsuarioCreacion		INT,
 	@ciud_FechaCreacion		    DATETIME
@@ -1408,12 +1408,12 @@ BEGIN
 	
 	BEGIN TRY
 			INSERT INTO Gral.tbCiudades (ciud_Nombre, 
-										 ciud_Aduana,
+										 ciud_EsAduana,
 										 pvin_Id, 
 										 usua_UsuarioCreacion, 
 										 ciud_FechaCreacion)
 			VALUES (@ciud_Nombre, 
-					@ciud_Aduana,
+					@ciud_EsAduana,
 					@pvin_Id, 
 					@usua_UsuarioCreacion, 
 					@ciud_FechaCreacion)
@@ -1486,12 +1486,12 @@ GO
 --************PROVINCIAS******************--
 /*Listar Provincias*/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbProvincias_Listar
-	@pvin_Aduana		BIT
+	@pvin_EsAduana		BIT
 AS
 BEGIN
 SELECT	pvin_Id								,
 		pvin_Nombre							,
-		pvin_Aduana							,
+		pvin_EsAduana							,
 		pvin_Codigo							,
 		provin.pais_Id 						,
 		pais.pais_Nombre					AS pais_Nombre,
@@ -1511,7 +1511,7 @@ FROM	Gral.tbProvincias provin
 		LEFT JOIN Acce.tbUsuarios usua2		ON provin.usua_UsuarioModificacion = usua2.usua_Id 
 		LEFT JOIN Acce.tbUsuarios usua3		ON provin.usua_UsuarioEliminacion = usua3.usua_Id
 WHERE	pvin_Estado = 1
-AND		pvin_Aduana = @pvin_Aduana
+AND		pvin_EsAduana = @pvin_EsAduana
 END
 
 
@@ -1519,7 +1519,7 @@ GO
 /*Insertar Provincias*/
 CREATE OR ALTER PROCEDURE GrAL.UDP_tbProvincias_Insertar
  @pvin_Nombre				NVARCHAR(150), 
- @pvin_Aduana				BIT,
+ @pvin_EsAduana				BIT,
  @pvin_Codigo				NVARCHAR(20), 
  @pais_Id					INT, 
  @usua_UsuarioCreacion		INT,
@@ -1536,8 +1536,8 @@ BEGIN
 		END
 		ELSE
 		BEGIN
-			INSERT INTO Gral.tbProvincias (pvin_Nombre, pvin_Aduana, pvin_Codigo, pais_Id, usua_UsuarioCreacion, pvin_FechaCreacion)
-			VALUES(@pvin_Nombre, @pvin_Aduana, @pvin_Codigo, @pais_Id, @usua_UsuarioCreacion, @pvin_FechaCreacion)
+			INSERT INTO Gral.tbProvincias (pvin_Nombre, pvin_EsAduana, pvin_Codigo, pais_Id, usua_UsuarioCreacion, pvin_FechaCreacion)
+			VALUES(@pvin_Nombre, @pvin_EsAduana, @pvin_Codigo, @pais_Id, @usua_UsuarioCreacion, @pvin_FechaCreacion)
 			SELECT 1
 		END		
 	END TRY
@@ -2281,12 +2281,12 @@ GO
 
 /*Listar UNIDAD DE MEDIDA*/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_Listar
-	@unme_Aduana			BIT
+	@unme_EsAduana			BIT
 AS
 BEGIN
 SELECT	unme_Id											,
 		unme_Descripcion								,
-		unme_Aduana										,
+		unme_EsAduana										,
 		unidadMedidas.usua_UsuarioCreacion				,
 		usuarioCreacion.usua_Nombre						AS usuarioCreacionNombre,
 		unme_FechaCreacion								,
@@ -2301,14 +2301,14 @@ FROM Gral.tbUnidadMedidas unidadMedidas
 		LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON unidadMedidas.usua_UsuarioModificacion = usuarioModificacion.usua_Id
 		LEFT JOIN Acce.tbUsuarios usuarioEliminacion	ON unidadMedidas.usua_UsuarioEliminacion = usuarioEliminacion.usua_Id
 WHERE unme_Estado = 1
-AND	  unme_Aduana = @unme_Aduana
+AND	  unme_EsAduana = @unme_EsAduana
 END
 GO
 /*Insertar UNIDAD DE MEDIDA*/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbUnidadMedidas_Insertar --'111', 1, '10-16-2004'
 (
 	@unme_Descripcion		NVARCHAR(500),
-	@unme_Aduana			BIT,
+	@unme_EsAduana			BIT,
 	@usua_UsuarioCreacion	INT,
 	@unme_FechaCreacion		DATETIME
 )
@@ -2327,8 +2327,8 @@ BEGIN
 		END
 		ELSE
 		BEGIN
-			INSERT INTO Gral.tbUnidadMedidas (unme_Descripcion, unme_Aduana, usua_UsuarioCreacion, unme_FechaCreacion)
-			VALUES (@unme_Descripcion, @unme_Aduana, @usua_UsuarioCreacion, @unme_FechaCreacion)
+			INSERT INTO Gral.tbUnidadMedidas (unme_Descripcion, unme_EsAduana, usua_UsuarioCreacion, unme_FechaCreacion)
+			VALUES (@unme_Descripcion, @unme_EsAduana, @usua_UsuarioCreacion, @unme_FechaCreacion)
 		END
 
 		SELECT 1 AS Resultado
@@ -10728,28 +10728,6 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbOrde_Ensa_Acab_Etiq_Insertar
 @ensa_FechaInicio		DATE,	
 @ensa_FechaLimite		DATE,
 @ppro_Id				INT,
-        public int prov_Id { get; set; }
-        public string prov_NombreCompania { get; set; }
-        public string prov_NombreContacto { get; set; }
-        public string prov_Telefono { get; set; }
-        public string prov_CodigoPostal { get; set; }
-        public int prov_Ciudad { get; set; }
-        public string ciud_Nombre { get; set; }
-        public string pvin_Nombre { get; set; }
-        public string pais_Nombre { get; set; }
-        public string prov_DireccionExacta { get; set; }
-        public string prov_CorreoElectronico { get; set; }
-        public string prov_Fax { get; set; }
-        public string UsuarioCreacionNombre { get; set; }
-        public int usua_UsuarioCreacion { get; set; }
-        public DateTime prov_FechaCreacion { get; set; }
-        public string UsuarioModificadorNombre { get; set; }
-        public int? usua_UsuarioModificacion { get; set; }
-        public DateTime? prov_FechaModificacion { get; set; }
-        public string UsuarioEliminacionNombre { get; set; }
-        public int? usua_UsuarioEliminacion { get; set; }
-        public DateTime? prov_FechaEliminacion { get; set; }
-        public bool? prov_Estado { get; set; }
 @usua_UsuarioCreacion	INT,
 @ensa_FechaCreacion		DATETIME
 AS

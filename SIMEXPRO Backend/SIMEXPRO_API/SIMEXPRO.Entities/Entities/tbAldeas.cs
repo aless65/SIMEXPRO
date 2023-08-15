@@ -17,9 +17,16 @@ namespace SIMEXPRO.Entities.Entities
         public int alde_Id { get; set; }
         public string alde_Nombre { get; set; }
 
+        public int ciud_Id { get; set; }
         [NotMapped]
         public string ciud_Nombre { get; set; }
-        public int ciud_Id { get; set; }
+
+        [NotMapped]
+        public int pvin_Id { get; set; }
+        [NotMapped]
+        public string pvin_Codigo { get; set; }
+        [NotMapped]
+        public string pvin_Nombre { get; set; }
         public int usua_UsuarioCreacion { get; set; }
 
         [NotMapped]
@@ -35,12 +42,6 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime? alde_FechaEliminacion { get; set; }
         public bool? alde_Estado { get; set; }
 
-        [NotMapped]
-        public int pvin_Id { get; set; }
-        [NotMapped]
-        public string pvin_Codigo { get; set; }
-        [NotMapped]
-        public string pvin_Nombre { get; set; }
 
         public virtual tbCiudades ciud { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }

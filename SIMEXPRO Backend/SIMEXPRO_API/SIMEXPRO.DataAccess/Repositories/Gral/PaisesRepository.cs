@@ -61,7 +61,6 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@pais_Id", item.pais_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@pais_Codigo", item.pais_Codigo, DbType.String, ParameterDirection.Input);
             parametros.Add("@pais_Nombre", item.pais_Nombre, DbType.String, ParameterDirection.Input);
-            parametros.Add("@pais_EsAduana", item.pais_EsAduana, DbType.Boolean, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@pais_FechaModificacion", item.pais_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
             var answer = db.QueryFirst<string>(ScriptsDataBase.EditarPaises, parametros, commandType: CommandType.StoredProcedure);

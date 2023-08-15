@@ -21,7 +21,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@coim_FechaEliminacion", item.coim_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
             var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarCodigoImpuesto, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            result.MessageStatus = answer.ToString();
             return result;
         }
 
@@ -39,7 +39,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@coim_FechaCreacion", item.coim_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
             var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarCodigoImpuesto, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            result.MessageStatus = answer.ToString();
             return result;
         }
 
@@ -60,7 +60,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@coim_FechaModificacion", item.coim_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
             var answer = db.QueryFirst<int>(ScriptsDataBase.EditarCodigoImpuesto, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            result.MessageStatus = answer.ToString();
             return result;
         }
     }

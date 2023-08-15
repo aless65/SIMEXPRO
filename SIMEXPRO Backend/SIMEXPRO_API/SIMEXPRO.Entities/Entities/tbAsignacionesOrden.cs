@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -19,7 +20,11 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime asor_FechaLimite { get; set; }
         public int asor_Cantidad { get; set; }
         public int proc_Id { get; set; }
+        [NotMapped]
+        public string proc_Descripcion { get; set; }
         public int empl_Id { get; set; }
+        [NotMapped]
+        public string empl_NombreCompleto { get; set; }
         public int usua_UsuarioCreacion { get; set; }
         public DateTime asor_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }

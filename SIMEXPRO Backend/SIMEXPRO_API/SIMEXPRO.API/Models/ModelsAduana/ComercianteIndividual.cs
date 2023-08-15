@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,6 +12,9 @@ namespace SIMEXPRO.API.Models.ModelsAduana
         public int pers_Id { get; set; }
         public bool pers_FormaRepresentacion { get; set; }
         public int colo_Id { get; set; }
+
+        [NotMapped]
+        public string colo_Nombre { get; set; }
         public string coin_PuntoReferencia { get; set; }
         public int coin_ColoniaRepresentante { get; set; }
         public string coin_NumeroLocalReprentante { get; set; }

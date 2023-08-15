@@ -1194,6 +1194,7 @@ BEGIN
    --LEFT JOIN Acce.tbUsuarios usuaElimina	ON mone.usua_UsuarioEliminacion = usuaCrea.usua_Id
    WHERE mone_Estado = 1
    AND mone_EsAduana = @mone_EsAduana
+   OR @mone_EsAduana IS NULL
 END
 GO
 
@@ -1307,6 +1308,7 @@ FROM	Gral.tbPaises pais
 		LEFT JOIN  Acce.tbUsuarios usua2	ON pais.usua_UsuarioModificacion = usua2.usua_Id
 WHERE	pais_Estado = 1
 AND		pais_EsAduana = @pais_EsAduana
+OR		@pais_EsAduana IS NULL
 END
 GO
 /*Insertar PAISES*/
@@ -2309,6 +2311,7 @@ FROM Gral.tbUnidadMedidas unidadMedidas
 		LEFT JOIN Acce.tbUsuarios usuarioEliminacion	ON unidadMedidas.usua_UsuarioEliminacion = usuarioEliminacion.usua_Id
 WHERE unme_Estado = 1
 AND	  unme_EsAduana = @unme_EsAduana
+OR	  @unme_EsAduana IS NULL
 END
 GO
 /*Insertar UNIDAD DE MEDIDA*/
@@ -10801,7 +10804,7 @@ AS
 BEGIN
 	SELECT subc.subc_Id,
            subc.cate_Id, 
-	       cate.cate_Descripcion					AS categoriaDescripcion,
+	       cate.cate_Descripcion					
 	       subc.subc_Descripcion, 
 	       subc.usua_UsuarioCreacion,
 	       usuaCrea.usua_Nombre						AS usuarioCreacionNombre,

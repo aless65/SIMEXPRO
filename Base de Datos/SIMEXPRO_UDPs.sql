@@ -156,11 +156,14 @@ OR    @empl_EsAduana IS NULL
 END
 --GO
 
---EXEC acce.UDP_tbUsuarios_Insertar 'juan', '123', 1, 'nada', 1, 1, 1,'08-08-2023'
 
+
+
+--EXEC acce.UDP_tbUsuarios_Insertar 'juan', '123', 1, 'nada', 1, 1, 1,'08-08-2023'
+--EXEC acce.UDP_tbUsuarios_Insertar 'juanC', '123', 2, 'nada', 1, 1, 1,'08-08-2023'
 /*Insertar Usuarios*/
 GO
-CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Insertar
+CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Insertar 
 	@usua_Nombre			NVARCHAR(150),
 	@usua_Contrasenia		NVARCHAR(MAX),
 	@empl_Id				INT,
@@ -1056,7 +1059,16 @@ BEGIN
 	       ,colo.alde_Id						
 	       ,alde.alde_Nombre					
 	       ,colo.ciud_Id						
-	       ,ciud.ciud_Nombre					
+	       ,ciud.ciud_Nombre
+		   
+		   ,prov.pvin_Codigo
+		   ,prov.pvin_Id
+		   ,prov.pvin_Nombre
+
+		   ,pais.pais_Codigo
+		   ,pais_Nombre
+		   ,pais.pais_Id
+
 	       ,colo.usua_UsuarioCreacion			
 	       ,usuaCrea.usua_Nombre				AS usuarioCreacionNombre
 	       ,colo_FechaCreacion					
@@ -1069,6 +1081,8 @@ BEGIN
    FROM Gral.tbColonias colo 
    LEFT JOIN Gral.tbAldeas alde				ON colo.alde_Id = alde.alde_Id 
    LEFT JOIN Gral.tbCiudades ciud			ON colo.ciud_Id = ciud.ciud_Id 
+   INNER JOIN Gral.tbProvincias prov        ON ciud.pvin_Id = prov.pvin_Id
+   INNER JOIN Gral.tbPaises pais            ON pais.pais_Id = prov.pais_Id
    INNER JOIN Acce.tbUsuarios usuaCrea		ON colo.usua_UsuarioCreacion = usuaCrea.usua_Id 
    LEFT JOIN Acce.tbUsuarios usuaModifica	ON colo.usua_UsuarioModificacion = usuaCrea.usua_Id 
    LEFT JOIN Acce.tbUsuarios usuaElimina	ON colo.usua_UsuarioEliminacion = usuaElimina.usua_Id

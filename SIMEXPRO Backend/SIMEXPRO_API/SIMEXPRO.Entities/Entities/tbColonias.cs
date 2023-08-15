@@ -25,6 +25,24 @@ namespace SIMEXPRO.Entities.Entities
         public int? ciud_Id { get; set; }
         [NotMapped]
         public string ciud_Nombre { get; set; }
+
+        [NotMapped]
+        public int pvin_Id { get; set; }
+        [NotMapped]
+        public string pvin_Nombre { get; set; }
+        [NotMapped]
+        public string pvin_Codigo { get; set; }
+
+        [NotMapped]
+        public int pais_Id { get; set; }
+        [NotMapped]
+        public string pais_Codigo { get; set; }
+        [NotMapped]
+        public string pais_Nombre { get; set; }
+
+
+
+
         public int usua_UsuarioCreacion { get; set; }
         [NotMapped]
         public string UsuarioCreacionNombre { get; set; }

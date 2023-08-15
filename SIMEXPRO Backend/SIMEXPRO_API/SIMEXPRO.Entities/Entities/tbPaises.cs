@@ -28,17 +28,17 @@ namespace SIMEXPRO.Entities.Entities
         public string pais_Nombre { get; set; }
         public bool pais_EsAduana { get; set; }
         public int usua_UsuarioCreacion { get; set; }
+        [NotMapped]
+        public string UsuarioCreacionNombre { get; set; }
         public DateTime pais_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
+        [NotMapped]
+        public string UsuarioModificadorNombre { get; set; }
         public DateTime? pais_FechaModificacion { get; set; }
         public int? usua_UsuarioEliminacion { get; set; }
         public DateTime? pais_FechaEliminacion { get; set; }
         public bool? pais_Estado { get; set; }
 
-        [NotMapped]
-        public string UsuarioCreacionNombre { get; set; }
-        [NotMapped]
-        public string UsuarioModificadorNombre { get; set; }
 
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioEliminacionNavigation { get; set; }

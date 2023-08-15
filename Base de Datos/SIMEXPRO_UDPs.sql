@@ -7440,10 +7440,14 @@ SELECT	condi.coco_Id					,
 		condi.usua_UsuarioModificacion	,
 		usu1.usua_Nombre				AS UsuarioNombreModificacion,
 		coco_FechaModificacion			,
+		condi.usua_UsuarioEliminacion	,
+		elim.usua_Nombre				AS UsuarioNombreEliminacion,
+		condi.coco_FechaEliminacion		,	
 		condi.coco_Estado				
 FROM	Adua.tbCondicionesComerciales condi 
 		INNER JOIN Acce.tbUsuarios usu	ON condi.usua_UsuarioCreacion = usu.usua_Id 
 		LEFT JOIN Acce.tbUsuarios usu1	ON usu1.usua_Id = condi.usua_UsuarioModificacion
+		LEFT JOIN Acce.tbUsuarios elim ON elim.usua_Id = condi.usua_UsuarioEliminacion
 WHERE	coco_Estado = 1
 
 
@@ -8525,7 +8529,7 @@ BEGIN
 		,pdf.dpdf_DUCA
 		,pdf.dpdf_Boletin
 		,pdf.usua_UsuarioCreacion
-		,crea.usua_Nombre AS UsuarioCreacionNombre
+		,crea.usua_Nombre AS UsuarioCreacionNombre	
 		,pdf.dpdf_FechaCreacion
 		,pdf.usua_UsuarioModificacion
 		,modi.usua_Nombre AS UsuarioModificadorNombre
@@ -9393,10 +9397,10 @@ BEGIN
 			,ordenCompra.orco_EstadoOrdenCompra
 			,ordenCompra.orco_DireccionEntrega
 			,ordenCompra.usua_UsuarioCreacion
-			,usuarioCreacion.usua_Nombre
+			,usuarioCreacion.usua_Nombre		AS usuarioCreacionNombre
 			,ordenCompra.orco_FechaCreacion
 			,ordenCompra.usua_UsuarioModificacion
-			,usuarioModificacion.usua_Nombre
+			,usuarioModificacion.usua_Nombre	AS usuarioModificacionNombre
 			,ordenCompra.orco_FechaModificacion
 			,ordenCompra.orco_Estado
 	  FROM  Prod.tbOrdenCompra						ordenCompra
@@ -9517,19 +9521,19 @@ BEGIN
 			,ordenCompraDetalle.code_Documento
 			--,ordenCompraDetalle.code_Medidas
 			,ordenCompraDetalle.proc_IdComienza
-			,procesoComienza.proc_Descripcion
+			,procesoComienza.proc_Descripcion	AS proc_DescripcionComienza
 			,ordenCompraDetalle.proc_IdActual
-			,procesoActual.proc_Descripcion
+			,procesoActual.proc_Descripcion		AS proc_DescripcionActual
 			,ordenCompraDetalle.code_Unidad
 			,ordenCompraDetalle.code_Valor
 			,ordenCompraDetalle.code_Impuesto
 			,ordenCompraDetalle.code_Descuento
 			,ordenCompraDetalle.code_EspecificacionEmbalaje
 			,ordenCompraDetalle.usua_UsuarioCreacion
-			,usuarioCreacion.usua_Nombre
+			,usuarioCreacion.usua_Nombre AS usuarioCreacionNombre
 			,ordenCompraDetalle.code_FechaCreacion
 			,ordenCompraDetalle.usua_UsuarioModificacion
-			,usuarioModificacion.usua_Nombre
+			,usuarioModificacion.usua_Nombre AS usuarioModificacionNombre
 			,ordenCompraDetalle.code_FechaModificacion
 			,ordenCompraDetalle.code_Estado
 	  FROM	Prod.tbOrdenCompraDetalles			ordenCompraDetalle
@@ -10747,9 +10751,13 @@ SELECT	ensa_Id,
 		ensa_FechaInicio, 
 		ensa_FechaLimite, 
 		pp.ppro_Id, 
-		crea.usua_Nombre							AS usua_UsurioCreacion, 
+		pro.proc_Id,
+		pro.proc_Descripcion,
+		modu.modu_Id,
+		modu.modu_Nombre,
+		crea.usua_Nombre							AS UsurioCreacionNombre, 
 		ensa_FechaCreacion,							
-		modi.usua_Nombre							AS usua_UsuarioModificacion, 
+		modi.usua_Nombre							AS UsuarioModificacionNombre, 
 		ensa_FechaModificacion, 
 		ensa_Estado
 FROM	Prod.tbOrde_Ensa_Acab_Etiq ensa
@@ -10757,6 +10765,8 @@ FROM	Prod.tbOrde_Ensa_Acab_Etiq ensa
 		INNER JOIN Prod.tbOrdenCompraDetalles ocd	ON ocd.code_Id  = ensa.code_Id
 		INNER JOIN Prod.tbEstilos est				ON est.esti_Id	= ocd.esti_Id
 		INNER JOIN Prod.tbPedidosProduccion pp		ON pp.ppro_Id   = ensa.ppro_Id
+		INNER JOIN Prod.tbProcesos			pro		ON pro.proc_Id = ensa.proc_Id
+		INNER JOIN Prod.tbModulos			modu	ON ensa.modu_Id = modu.modu_Id
 		INNER JOIN Acce.tbUsuarios crea				ON crea.usua_Id = ensa.usua_UsuarioCreacion 
 		LEFT JOIN  Acce.tbUsuarios modi				ON modi.usua_Id = ensa.usua_UsuarioModificacion 
 
@@ -10938,7 +10948,7 @@ BEGIN
 	SELECT mate.mate_Id,
            mate.mate_Descripcion, 
 	       mate.subc_Id,
-	       subc.subc_Descripcion						AS subcategoriaDescripcion,
+	       subc.subc_Descripcion,					
 	       mate.mate_Precio, 
 	       mate.usua_UsuarioCreacion, 
 	       usuaCrea.usua_Nombre							AS usuarioCreacionNombre,
@@ -11135,25 +11145,27 @@ SELECT  modu_Id,
         modu_Nombre, 
 	    
 		modu.proc_Id,	
-		pro.proc_Descripcion AS ProcesoDescripcion,
+		pro.proc_Descripcion
 	    
-		empr_Id,
-	    emp.empl_Nombres + ' ' + emp.empl_Apellidos AS empleado_Nombre,
+		empl_Id,
+	    emp.empl_Nombres + ' ' + emp.empl_Apellidos AS empl_NombreCompleto,
 	    
 		modu.usua_UsuarioCreacion,
-	    usu.usua_Nombre AS UsuarioCreacion,
+	    crea.usua_Nombre AS UsuarioCreacion,
 		modu_FechaCreacion, 
 		modu.usua_UsuarioModificacion, 
-		usu1.usua_Nombre AS UsuarioModifica,
+		modi.usua_Nombre AS UsuarioModifica,
 		modu_FechaModificacion,	    
-		
+		usua_UsuarioEliminacion,
+		elim.usua_Nombre AS UsuarioEliminacion,
+		modu_FechaEliminacion,
 		
 		modu_Estado 
 		
 		FROM Prod.tbModulos modu 
-		inner join Acce.tbUsuarios usu       ON usu.usua_UsuarioCreacion = modu.usua_UsuarioCreacion		
-		LEFT JOIN Acce.tbUsuarios usu1       ON usu1.usua_Id = modu.usua_UsuarioModificacion
-		LEFT JOIN Acce.tbUsuarios usu2       ON usu2.usua_Id = modu.usua_UsuarioEliminacion
+		inner join Acce.tbUsuarios crea       ON crea.usua_Id = modu.usua_UsuarioCreacion		
+		LEFT JOIN Acce.tbUsuarios modi       ON modi.usua_Id = modu.usua_UsuarioModificacion
+		LEFT JOIN Acce.tbUsuarios elim       ON elim.usua_Id = modu.usua_UsuarioEliminacion
 		INNER JOIN Gral.tbEmpleados emp  ON modu.empr_Id = emp.empl_Id
 		INNER JOIN Prod.tbProcesos pro   ON pro.proc_Id = modu.proc_Id
 		WHERE modu.modu_Estado = 1
@@ -11363,18 +11375,20 @@ AS
 BEGIN
 	SELECT  mrqu.marq_Id,
 		    mrqu.marq_Nombre,
-			mrqu.usua_UsuarioCreacion,
-			
-			
-			Usu.usua_Nombre AS UsuarioCreacion,
+
+			mrqu.usua_UsuarioCreacion,			
+			Usu.usua_Nombre				AS UsuarioCreacion,
             mrqu.marq_FechaCreacion,
+
             mrqu.usua_UsuarioModificacion,
-			usu1.usua_Nombre AS UsuarioModificador, 
+			usu1.usua_Nombre			AS UsuarioModificador, 
             mrqu.marq_FechaModificacion,
-			usu2.usua_Nombre AS UsuarioEliminacion, 
-            mrqu.marq_FechaEliminacion AS FechaEliminacio,
+
+			mrqu.usua_UsuarioEliminacion,
+			usu2.usua_Nombre			AS UsuarioEliminacion, 
+            mrqu.marq_FechaEliminacion ,
            
-		    mrqu.marq_Estado AS Estado
+		    mrqu.marq_Estado 
    
     FROM    Prod.tbMarcasMaquina mrqu 
 	INNER JOIN Acce.tbUsuarios usu ON usu.usua_Id = mrqu.usua_UsuarioCreacion
@@ -11473,15 +11487,15 @@ BEGIN
 		    moma.mmaq_Nombre,
 		    moma.mmaq_Imagen,
 			moma.marq_Id,
-		    mrqu.marq_Nombre                             AS MarcaMaquina,
+		    mrqu.marq_Nombre,                            
 			moma.func_Id,
-		    fuma.func_Nombre                             AS FuncionMaquina,
+		    fuma.func_Nombre ,                           
 			moma.usua_UsuarioCreacion,
 			usu.usua_Nombre                              AS UsuarioCreacionNombre,
-			moma.mmaq_FechaCreacion                      AS FechaCreacion,
+			moma.mmaq_FechaCreacion,                      
 			moma.usua_UsuarioModificacion,
 			usu1.usua_Nombre                             AS UsuarioModificacionNombre,
-			moma.mmaq_FechaModificacion                  AS FechaModificacion,
+			moma.mmaq_FechaModificacion,            
             moma.usua_UsuarioEliminacion,
 			usuEli.usua_Nombre                           AS usuarioEliminacionNombre,
 			moma.mmaq_FechaEliminacion,
@@ -11854,22 +11868,23 @@ SELECT	peor_Id,
 		prov.prov_Ciudad,
 		peor_No_Duca, 
 		po.ciud_Id,
+		ciud.ciud_Nombre,
 		po.peor_DireccionExacta,
 		peor_FechaEntrada, 
 		peor_Obsevaciones, 
 		peor_DadoCliente, 
 		peor_Est, 
 		po.usua_UsuarioCreacion,
-		crea.usua_Nombre							AS usua_UsuarioCreacionNombre, 
+		crea.usua_Nombre							AS UsuarioCreacionNombre, 
 		peor_FechaCreacion, 
 		po.usua_UsuarioModificacion,
-		modi.usua_Nombre							AS usua_UsuarioModificacionNombre, 
+		modi.usua_Nombre							AS UsuarioModificacionNombre, 
 		peor_FechaModificacion, 
 		peor_Estado 
 FROM	Prod.tbPedidosOrden po
 		INNER JOIN Gral.tbProveedores prov			ON po.prov_Id   = prov.prov_Id
+		LEFT JOIN gral.tbCiudades	ciud			ON po.ciud_Id = ciud.ciud_Id
 		LEFT JOIN  Adua.tbDuca duca					ON po.peor_No_Duca = duca.duca_No_Duca
-		--LEFT JOIN 
 		LEFT JOIN Acce.tbUsuarios crea				ON crea.usua_Id = po.usua_UsuarioCreacion 
 		LEFT JOIN  Acce.tbUsuarios modi				ON modi.usua_Id = po.usua_UsuarioModificacion 	
 END
@@ -12362,20 +12377,20 @@ GO
 CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrdenDetalle_Listar
 AS
 BEGIN
-  SELECT    prod.prod_Id            AS IdPedidosOrdenDetalle,
-		    prod.pedi_Id            AS IdPedidosDetalles,
-		    prod.mate_Id            AS IdMaterial,
-		    prod.prod_Cantidad      AS Cantidad,
-			prod.prod_Precio        AS Precio,
-			prod.prod_Peso          AS Peso,
+  SELECT    prod.prod_Id           
+		    ,prod.pedi_Id           
+		    ,prod.mate_Id           
+		    ,prod.prod_Cantidad     
+			,prod.prod_Precio       
+			,prod.prod_Peso         
 		   		
-			usu.usua_Id             AS IDUsuarioCreacion,
-			usu.usua_Nombre         AS UsuarioCreacion ,
-			prod_FechaCreacion      AS FechaCreacion,
+			,usu.usua_Id            
+			,usu.usua_Nombre         AS UsuarioCreacionNombre 
+			,prod_FechaCreacion    
 
-			usu1.usua_Id            AS IDUsuarioModificacion,
-			usu1.usua_Nombre        AS UsuarioModificacion,
-			prod_FechaModificacion  AS FechaModificacion
+			,usu1.usua_Id          
+			,usu1.usua_Nombre        AS UsuarioModificacionNombre
+			,prod_FechaModificacion 
  
   FROM	    Prod.tbPedidosOrdenDetalle prod
             INNER JOIN Prod.tbPedidosOrden pedi ON prod.pedi_Id = pedi.peor_Id
@@ -12723,26 +12738,23 @@ GO
 CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccion_Listar
 AS BEGIN
 
-SELECT ppro_Id,
-	   pediproduccion.empl_Id,
-	   CONCAT(empl_Nombres, ' ', empl_Apellidos) AS empl_NombreCompleto,
-	   ppro_Fecha,
-	   ppro_Estados, 
-	   ppro_Observaciones, 
-	   Creacion.usua_Nombre AS usuCreacion,
-	   pediproduccion.usua_UsuarioCreacion,
-	   ppro_FechaCreacion,
-	   Modificacion.usua_Nombre AS usuModificacion,
-	   pediproduccion.usua_UsuarioModificacion, 
-	   ppro_FechaModificacion,
-	   ppro_Estado
-FROM Prod.tbPedidosProduccion pediproduccion
-INNER JOIN Gral.tbEmpleados emples
-ON pediproduccion.empl_Id = emples.empl_Id
-INNER JOIN Acce.tbUsuarios Creacion
-ON pediproduccion.usua_UsuarioCreacion = Creacion.usua_Id
-LEFT JOIN Acce.tbUsuarios Modificacion
-ON pediproduccion.usua_UsuarioModificacion = Modificacion.usua_Id
+	SELECT ppro_Id,
+		   pepo.empl_Id,
+		   CONCAT(empl_Nombres, ' ', empl_Apellidos) AS empl_NombreCompleto,
+		   ppro_Fecha,
+		   ppro_Estados, 
+		   ppro_Observaciones, 
+		   crea.usua_Nombre AS usuCreacion,
+		   pepo.usua_UsuarioCreacion,
+		   ppro_FechaCreacion,
+		   modi.usua_Nombre AS usuModificacion,
+		   pepo.usua_UsuarioModificacion, 
+		   ppro_FechaModificacion,
+		   ppro_Estado
+	FROM Prod.tbPedidosProduccion	pepo
+	INNER JOIN Gral.tbEmpleados		empl		ON pepo.empl_Id =				empl.empl_Id
+	INNER JOIN Acce.tbUsuarios		crea		ON pepo.usua_UsuarioCreacion =	crea.usua_Id
+	LEFT JOIN Acce.tbUsuarios		modi 	ON pepo.usua_UsuarioModificacion =	modi.usua_Id
 
 END
 GO
@@ -12826,11 +12838,15 @@ SELECT ppde_Id,
 	   lote_Id,
 	   ppde_Cantidad, 
 	   usua_UsuarioCreacion,
+	   crea.usua_Nombre AS usuarioCreacionNombre,
 	   ppde_FechaCreacion,
 	   usua_UsuarioModificacion,
+	   modi.usua_Nombre AS usuarioModificacionNombre,
 	   ppde_FechaModificacion, 
 	   ppde_Estado 
-FROM Prod.tbPedidosProduccionDetalles
+FROM Prod.tbPedidosProduccionDetalles ppde
+INNER JOIN Acce.tbUsuarios crea				ON ppde.usua_UsuarioCreacion = crea.usua_Id
+INNER JOIN Acce.tbUsuarios modi				ON ppde.usua_UsuarioModificacion = modi.usua_Id
 WHERE ppro_Id = @ppro_Id
 
 END

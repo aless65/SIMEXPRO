@@ -46,6 +46,16 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
 
         }
 
+        public IEnumerable<tbCargos> List(bool carg_EsAduana)
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            var parametros = new DynamicParameters();
+
+            parametros.Add("@carg_EsAduana", carg_EsAduana, DbType.Boolean, ParameterDirection.Input);
+            return db.Query<tbCargos>(ScriptsDataBase.ListarCargos, null, commandType: CommandType.StoredProcedure);
+
+        }
+
         public RequestStatus Update(tbCargos item)
         {
             RequestStatus result = new();

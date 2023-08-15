@@ -39,10 +39,18 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
 
         public IEnumerable<tbPaises> List()
         {
-
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();
             return db.Query<tbPaises>(ScriptsDataBase.ListarPaises, null, commandType: CommandType.StoredProcedure);
+        }
+
+        public IEnumerable<tbPaises> List(bool pais_EsAduana)
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            var parametros = new DynamicParameters();
+
+            parametros.Add("@pais_EsAduana", pais_EsAduana, DbType.Boolean, ParameterDirection.Input);
+            return db.Query<tbPaises>(ScriptsDataBase.ListarPaises, parametros, commandType: CommandType.StoredProcedure);
         }
 
         public RequestStatus Update(tbPaises item)

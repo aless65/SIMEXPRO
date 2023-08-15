@@ -53,6 +53,15 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             return db.Query<tbCiudades>(ScriptsDataBase.ListarCiudades, null, commandType: CommandType.StoredProcedure);
         }
 
+        public IEnumerable<tbCiudades> List(bool ciud_EsAduana)
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            var parametros = new DynamicParameters();
+
+            parametros.Add("@ciud_EsAduana", ciud_EsAduana, DbType.Boolean, ParameterDirection.Input);
+            return db.Query<tbCiudades>(ScriptsDataBase.ListarCiudades, parametros, commandType: CommandType.StoredProcedure);
+        }
+
         public IEnumerable<tbCiudades> CiudadesPorProvincia(int Id)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);

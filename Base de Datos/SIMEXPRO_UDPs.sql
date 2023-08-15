@@ -682,6 +682,7 @@ BEGIN
 					   usua.empl_Id,
 					   CONCAT(empl.empl_Nombres, ' ', empl.empl_Apellidos) AS emplNombreCompleto,
 					   empl_CorreoElectronico,
+					   empl_EsAduana,
 					   usua_Image,
 					   usua.role_Id,
 					   rol.role_Descripcion,

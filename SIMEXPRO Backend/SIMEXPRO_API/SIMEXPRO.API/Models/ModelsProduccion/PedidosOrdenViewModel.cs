@@ -10,6 +10,8 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public int peor_Id { get; set; }
         public int? prov_Id { get; set; }
         public string peor_No_Duca { get; set; }
+        public int ciud_Id { get; set; }
+        public string peor_DireccionExacta { get; set; }
         public DateTime? peor_FechaEntrada { get; set; }
         public string peor_Obsevaciones { get; set; }
         public bool? peor_DadoCliente { get; set; }
@@ -19,6 +21,5 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public int? usua_UsuarioModificacion { get; set; }
         public DateTime? peor_FechaModificacion { get; set; }
         public bool? peor_Estado { get; set; }
-
     }
 }

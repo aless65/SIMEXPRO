@@ -8,7 +8,6 @@
 
 /*-----------------------------------------------*/
 --***** INSERT TABLA TIPO DE LIQUIDACION --******--
-GO
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
 VALUES ('Importación Regular', 1, '10-16-2004');
 

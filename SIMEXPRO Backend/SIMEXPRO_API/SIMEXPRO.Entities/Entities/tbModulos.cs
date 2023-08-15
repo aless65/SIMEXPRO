@@ -12,6 +12,7 @@ namespace SIMEXPRO.Entities.Entities
         {
             tbMaquinas = new HashSet<tbMaquinas>();
             tbReporteModuloDia = new HashSet<tbReporteModuloDia>();
+            tbOrde_Ensa_Acab_Etiq = new HashSet<tbOrde_Ensa_Acab_Etiq>();
         }
 
         public int modu_Id { get; set; }
@@ -33,5 +34,6 @@ namespace SIMEXPRO.Entities.Entities
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbMaquinas> tbMaquinas { get; set; }
         public virtual ICollection<tbReporteModuloDia> tbReporteModuloDia { get; set; }
+        public virtual ICollection<tbOrde_Ensa_Acab_Etiq> tbOrde_Ensa_Acab_Etiq { get; set; }
     }
 }

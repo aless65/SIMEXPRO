@@ -41,6 +41,8 @@ namespace SIMEXPRO.API.Models.ModelsAduana
         public int? duca_Conductor_Id { get; set; }
         public string duca_Codigo_Tipo_Documento { get; set; }
         public DateTime duca_FechaVencimiento { get; set; }
+        public string duca_CanalAsignado { get; set; }
+        public string duca_Ventaja { get; set; }
         public int usua_UsuarioCreacion { get; set; }
         public DateTime duca_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }

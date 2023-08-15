@@ -16,6 +16,8 @@ namespace SIMEXPRO.Entities.Entities
         public int peor_Id { get; set; }
         public int? prov_Id { get; set; }
         public string peor_No_Duca { get; set; }
+        public int ciud_Id { get; set; }
+        public string peor_DireccionExacta { get; set; }
         public DateTime? peor_FechaEntrada { get; set; }
         public string peor_Obsevaciones { get; set; }
         public bool? peor_DadoCliente { get; set; }
@@ -26,6 +28,7 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime? peor_FechaModificacion { get; set; }
         public bool? peor_Estado { get; set; }
 
+        public virtual tbCiudades ciud { get; set; }
         public virtual tbDuca peor_No_DucaNavigation { get; set; }
         public virtual tbProveedores prov { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }

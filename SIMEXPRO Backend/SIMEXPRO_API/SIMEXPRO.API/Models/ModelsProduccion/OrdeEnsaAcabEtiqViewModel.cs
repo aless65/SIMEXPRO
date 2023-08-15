@@ -14,6 +14,8 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public DateTime ensa_FechaInicio { get; set; }
         public DateTime ensa_FechaLimite { get; set; }
         public int ppro_Id { get; set; }
+        public int proc_Id { get; set; }
+        public int modu_Id { get; set; }
         public int usua_UsuarioCreacion { get; set; }
         public DateTime ensa_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }

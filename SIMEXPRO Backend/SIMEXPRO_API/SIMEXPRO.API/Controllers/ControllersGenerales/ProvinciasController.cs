@@ -25,9 +25,9 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
 
 
         [HttpGet("Listar")]
-        public IActionResult Index()
+        public IActionResult Index(bool? pvin_EsAduana)
         {
-            var listado = _generalesServices.ListarProvincias();
+            var listado = _generalesServices.ListarProvincias(pvin_EsAduana);
             listado.Data = _mapper.Map<IEnumerable<ProvinciasViewModel>>(listado.Data);
             return Ok(listado);
         }

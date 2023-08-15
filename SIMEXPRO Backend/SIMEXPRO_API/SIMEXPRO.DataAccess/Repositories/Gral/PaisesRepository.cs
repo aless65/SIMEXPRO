@@ -44,7 +44,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             return db.Query<tbPaises>(ScriptsDataBase.ListarPaises, null, commandType: CommandType.StoredProcedure);
         }
 
-        public IEnumerable<tbPaises> List(bool pais_EsAduana)
+        public IEnumerable<tbPaises> List(bool? pais_EsAduana)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();

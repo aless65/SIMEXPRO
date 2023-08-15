@@ -187,7 +187,7 @@ CREATE TABLE Gral.tbPaises(
 	
 	CONSTRAINT PK_Gral_tbPaises_pais_Id		PRIMARY KEY (pais_Id),
 	CONSTRAINT UQ_Gral_tbPaises_pais_Nombre UNIQUE (pais_Nombre, pais_EsAduana),
-	CONSTRAINT UQ_Gral_tbPaises_pais_Codigo UNIQUE (pais_Codigo),
+	CONSTRAINT UQ_Gral_tbPaises_pais_Codigo UNIQUE (pais_Codigo, pais_EsAduana),
 	CONSTRAINT FK_Gral_tbPaises_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY(usua_UsuarioCreacion) 	REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbPaises_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id	FOREIGN KEY(usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
     CONSTRAINT FK_Gral_tbPaises_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY(usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios (usua_Id)

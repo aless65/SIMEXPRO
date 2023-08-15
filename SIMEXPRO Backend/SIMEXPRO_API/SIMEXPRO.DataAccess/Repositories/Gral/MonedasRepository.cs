@@ -47,11 +47,18 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             return result;
         }
 
-        public IEnumerable<tbMonedas> List()
+        public IEnumerable<tbMonedas> List(bool? mone_EsAduana)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();
-            return db.Query<tbMonedas>(ScriptsDataBase.ListarMonedas, null, commandType: CommandType.StoredProcedure);
+            parametros.Add("@mone_EsAduana", mone_EsAduana, DbType.Boolean, ParameterDirection.Input);
+
+            return db.Query<tbMonedas>(ScriptsDataBase.ListarMonedas, parametros, commandType: CommandType.StoredProcedure);
+        }
+
+        public IEnumerable<tbMonedas> List()
+        {
+            throw new NotImplementedException();
         }
 
         public RequestStatus Update(tbMonedas item)

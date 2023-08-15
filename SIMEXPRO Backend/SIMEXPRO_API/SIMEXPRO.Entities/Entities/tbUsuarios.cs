@@ -263,8 +263,8 @@ namespace SIMEXPRO.Entities.Entities
 
         [NotMapped]
         public string role_Descripcion { get; set; }
-
         public bool usua_EsAdmin { get; set; }
+        public bool empl_EsAduana { get; set; }
         public int usua_UsuarioCreacion { get; set; }
         [NotMapped]
         public string usuarioCreacionNombre { get; set; }

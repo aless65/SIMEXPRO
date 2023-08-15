@@ -86,14 +86,14 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
             }
         }
 
-        public ServiceResult ListarUsuarios()
+        public ServiceResult ListarUsuarios(bool? empl_EsAduana)
         {
 
             var resultado = new ServiceResult();
 
             try
             {
-                var list = _usuariosRepository.List();
+                var list = _usuariosRepository.List(empl_EsAduana);
                 return resultado.Ok(list);
             }
             catch (Exception ex)
@@ -258,12 +258,12 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
         #endregion
 
         #region Roles
-        public ServiceResult ListarRoles()
+        public ServiceResult ListarRoles(bool? role_Aduana)
         {
             var result = new ServiceResult();
             try
             {
-                var list = _rolesRepository.List();
+                var list = _rolesRepository.List(role_Aduana);
 
                 return result.Ok(list);
             }

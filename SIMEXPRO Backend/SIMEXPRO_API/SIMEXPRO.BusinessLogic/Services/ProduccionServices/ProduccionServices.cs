@@ -893,16 +893,17 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Maquina Historial
-        public IEnumerable<tbMaquinaHistorial> ListarMaquinaHistorial()
+        public ServiceResult ListarMaquinaHistorial()
         {
+            var resultado = new ServiceResult();
             try
             {
                 var list = _maquinaHistorialRepository.List();
-                return list;
+                return resultado.Ok(list);
             }
             catch (Exception ex)
             {
-                return Enumerable.Empty<tbMaquinaHistorial>();
+                return resultado.Error(ex.Message);
             }
         }
 
@@ -969,7 +970,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                if (item.maqu_Id != 0)
+                if (item.mahi_Id != 0)
                 {
                     var map = _maquinaHistorialRepository.Delete(item);
                     if (map.MessageStatus == "1")

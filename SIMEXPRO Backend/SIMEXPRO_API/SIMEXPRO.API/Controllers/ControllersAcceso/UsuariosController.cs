@@ -25,9 +25,9 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
         }
 
         [HttpGet("Listar")]
-        public IActionResult Index()
+        public IActionResult Index(bool? empl_EsAduana)
         {          
-            var listado = _accesoServices.ListarUsuarios();
+            var listado = _accesoServices.ListarUsuarios(empl_EsAduana);
             listado.Data = _mapper.Map<IEnumerable<UsuariosViewModel>>(listado.Data);
             return Ok(listado);
 

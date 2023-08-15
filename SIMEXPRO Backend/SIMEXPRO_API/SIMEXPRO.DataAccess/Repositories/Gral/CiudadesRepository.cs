@@ -50,10 +50,11 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();
+
             return db.Query<tbCiudades>(ScriptsDataBase.ListarCiudades, null, commandType: CommandType.StoredProcedure);
         }
 
-        public IEnumerable<tbCiudades> List(bool ciud_EsAduana)
+        public IEnumerable<tbCiudades> List(bool? ciud_EsAduana)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();

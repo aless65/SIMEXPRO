@@ -19,15 +19,15 @@ namespace SIMEXPRO.Entities.Entities
         public string mone_Descripcion { get; set; }
         public bool mone_EsAduana { get; set; }
         public int usua_UsuarioCreacion { get; set; }
+        [NotMapped]
+        public string usuarioModificacionNombre { get; set; }
         public DateTime mone_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
+        [NotMapped]
+        public string usuarioCreacionNombre { get; set; }
         public DateTime? mone_FechaModificacion { get; set; }
         public bool? mone_Estado { get; set; }
 
-        [NotMapped]
-        public string usuarioModificacionNombre { get; set; }
-        [NotMapped]
-        public string usuarioCreacionNombre { get; set; }
 
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }

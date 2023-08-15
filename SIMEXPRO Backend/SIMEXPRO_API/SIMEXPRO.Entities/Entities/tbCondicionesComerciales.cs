@@ -26,6 +26,8 @@ namespace SIMEXPRO.Entities.Entities
         public string UsuarioNombreModificacion { get; set; }
         public DateTime? coco_FechaModificacion { get; set; }
         public int? usua_UsuarioEliminacion { get; set; }
+        [NotMapped]
+        public string UsuarioNombreEliminacion { get; set; }
         public DateTime? coco_FechaEliminacion { get; set; }
         public bool? coco_Estado { get; set; }
 

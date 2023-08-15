@@ -52,6 +52,7 @@ namespace SIMEXPRO.Entities.Entities
         public string duca_Codigo_Tipo_Documento { get; set; }
         public DateTime duca_FechaVencimiento { get; set; }
         public string duca_CanalAsignado { get; set; }
+        public string duca_Ventaja { get; set; }
         public int usua_UsuarioCreacion { get; set; }
         public DateTime duca_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }

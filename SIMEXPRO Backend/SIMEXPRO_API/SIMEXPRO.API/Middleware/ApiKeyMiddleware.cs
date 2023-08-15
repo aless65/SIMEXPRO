@@ -29,23 +29,24 @@ namespace SIMEXPRO.API.Middleware
 
         public async Task InvokeAsync(HttpContext context)
         {
+            var appSettings = context.RequestServices.GetRequiredService<IConfiguration>();
+            var apiKey = appSettings.GetValue<string>(APIKEY);
+            var password = appSettings.GetValue<string>(ENCRYPTION);
 
-            var keyVaultEndpoint = "https://simexpro.vault.azure.net/"; // Replace with your Key Vault URI
-            var azureServiceTokenProvider = new AzureServiceTokenProvider();
-            var keyVaultClient = new KeyVaultClient(
-                new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback)
-            );
+            //var keyVaultEndpoint = "https://simexpro.vault.azure.net/"; // Replace with your Key Vault URI
+            //var azureServiceTokenProvider = new AzureServiceTokenProvider();
+            //var keyVaultClient = new KeyVaultClient(
+            //    new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback)
+            //);
 
             if (context.Request.Path == "/api/Usuarios/Login")
             {
-                //var appSettings = context.RequestServices.GetRequiredService<IConfiguration>();
-                //apiKey = appSettings.GetValue<string>("EncodingKey");
                 if (context.Response.StatusCode == 200)
                 {
-                    var secretKey = await keyVaultClient.GetSecretAsync($"{keyVaultEndpoint}secrets/{APIKEY}");
-                    var apiKey = secretKey.Value;
-                    var secretPassword = await keyVaultClient.GetSecretAsync($"{keyVaultEndpoint}secrets/{ENCRYPTION}");
-                    var password = secretPassword.Value;
+                    //var secretKey = await keyVaultClient.GetSecretAsync($"{keyVaultEndpoint}secrets/{APIKEY}");
+                    //var apiKey = secretKey.Value;
+                    //var secretPassword = await keyVaultClient.GetSecretAsync($"{keyVaultEndpoint}secrets/{ENCRYPTION}");
+                    //var password = secretPassword.Value;
 
                     var encryptedKey = Encryption.Encrypt(apiKey, Encoding.ASCII.GetBytes(password));
 
@@ -76,8 +77,8 @@ namespace SIMEXPRO.API.Middleware
                 try
                 {
                     // Retrieve the API key from Azure Key Vault
-                    var secret = await keyVaultClient.GetSecretAsync($"{keyVaultEndpoint}secrets/{APIKEY}");
-                    var apiKey = secret.Value;
+                    //var secret = await keyVaultClient.GetSecretAsync($"{keyVaultEndpoint}secrets/{APIKEY}");
+                    //var apiKey = secret.Value;
 
                     if (!apiKey.Equals(extractedApiKey))
                     {

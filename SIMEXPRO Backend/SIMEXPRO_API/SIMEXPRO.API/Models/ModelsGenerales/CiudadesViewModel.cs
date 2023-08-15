@@ -13,7 +13,8 @@ namespace SIMEXPRO.API.Models
         public int pvin_Id { get; set; }
         public bool ciud_EsAduana { get; set; }
 
-
+        [NotMapped]
+        public int pais_Id { get; set; }
         [NotMapped]
         public string pais_Codigo { get; set; }
 

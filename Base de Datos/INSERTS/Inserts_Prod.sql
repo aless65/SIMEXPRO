@@ -250,10 +250,10 @@ VALUES	( 1,'01/08/2023','01/08/2023',1,1,1,'p','MI CASA',1,'01/08/2023'),
 --***** INSERT TABLA ORDEN DE COMPRA DETALLE --******--
 GO
 INSERT INTO Prod.tbOrdenCompraDetalles
-(orco_Id, code_CantidadPrenda, esti_Id, tall_Id, code_Sexo, colr_Id, code_Documento, code_Medidas, proc_IdComienza, proc_IdActual, code_Unidad, code_Valor,	code_Impuesto,code_Descuento,	code_EspecificacionEmbalaje, usua_UsuarioCreacion, code_FechaCreacion)
-VALUES		(4,2,1,1,'F',1,'aca deberia ir un documento','aca deberia ir otro documento',1,1,20,10,8,9,'no se la verdad',1,'01/08/2023'),
-			(4,2,1,1,'F',1,'aca deberia ir un documento','aca deberia ir otro documento',1,1,20,10,8,9,'no se la verdad',1,'01/08/2023'),
-			(4,2,1,1,'F',1,'aca deberia ir un documento','aca deberia ir otro documento',1,1,20,10,8,9,'no se la verdad',1,'01/08/2023');
+(orco_Id, code_CantidadPrenda, esti_Id, tall_Id, code_Sexo, colr_Id, code_Documento, proc_IdComienza, proc_IdActual, code_Unidad, code_Valor,	code_Impuesto,code_Descuento,	code_EspecificacionEmbalaje, usua_UsuarioCreacion, code_FechaCreacion)
+VALUES		(4,2,1,1,'F',1,'aca deberia ir un documento',1,1,20,10,8,9,'no se la verdad',1,'01/08/2023'),
+			(4,2,1,1,'F',1,'aca deberia ir un documento',1,1,20,10,8,9,'no se la verdad',1,'01/08/2023'),
+			(4,2,1,1,'F',1,'aca deberia ir un documento',1,1,20,10,8,9,'no se la verdad',1,'01/08/2023');
 
 
 

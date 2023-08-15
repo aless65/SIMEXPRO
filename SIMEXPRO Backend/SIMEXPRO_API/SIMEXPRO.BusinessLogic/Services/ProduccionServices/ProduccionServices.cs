@@ -2682,22 +2682,15 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                if (item.subc_Descripcion != "")
+                var map = _subCategoriasRepository.Insert(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _subCategoriasRepository.Insert(item);
-    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2711,22 +2704,15 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                if (item.subc_Descripcion != "")
+                var map = _subCategoriasRepository.Update(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _subCategoriasRepository.Update(item);
-    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)
@@ -2740,22 +2726,15 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                if (item.subc_Id != 0)
+                var map = _subCategoriasRepository.Delete(item);
+                if (map.MessageStatus == "1")
                 {
-                    var map = _subCategoriasRepository.Delete(item);
-    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        
-                        return result.Error(map);
-                    }
+                    return result.Ok(map);
                 }
                 else
                 {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
+
+                    return result.Error(map);
                 }
             }
             catch (Exception ex)

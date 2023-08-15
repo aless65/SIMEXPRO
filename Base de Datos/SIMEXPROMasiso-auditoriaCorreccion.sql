@@ -12,12 +12,9 @@
 		*/
 	/*
 	CREATE DATABASE SIMEXPRO
-	--Primero crear y luego correr script
+	Primero crear y luego correr script
 	*/
-	--CREATE DATABASE SIMEXPRO
-	--GO
-	USE SIMEXPRO
-	GO
+
 	CREATE SCHEMA Adua
 	GO
 	CREATE SCHEMA Prod

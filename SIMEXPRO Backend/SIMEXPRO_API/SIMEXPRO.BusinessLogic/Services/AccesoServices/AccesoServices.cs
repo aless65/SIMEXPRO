@@ -86,14 +86,14 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
             }
         }
 
-        public ServiceResult ListarUsuarios()
+        public ServiceResult ListarUsuarios(bool? empl_EsAduana)
         {
 
             var resultado = new ServiceResult();
 
             try
             {
-                var list = _usuariosRepository.List();
+                var list = _usuariosRepository.List(empl_EsAduana);
                 return resultado.Ok(list);
             }
             catch (Exception ex)

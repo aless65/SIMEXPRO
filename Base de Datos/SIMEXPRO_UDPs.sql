@@ -119,6 +119,7 @@ GO
 
 /*Listar Usuarios*/
 CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Listar
+	--@empl_EsAduana		BIT
 AS
 BEGIN
 	SELECT usua.usua_Id, 
@@ -129,6 +130,7 @@ BEGIN
 		   usua.usua_EsAdmin,
 		   usua.empl_Id,
 		   (empl_Nombres + ' ' + empl_Apellidos) AS empleadoNombreCompleto, 
+		   empl_EsAduana,
 		   empl_CorreoElectronico,
 		   usua.usua_UsuarioCreacion, 
 		   usuaCrea.usua_Nombre AS usuarioCreacionNombre,
@@ -149,6 +151,8 @@ BEGIN
 	LEFT JOIN acce.tbUsuarios usuaModifica
 	ON usua.usua_UsuarioModificacion = usuaModifica.usua_Id LEFT JOIN acce.tbUsuarios usuaElimina
 	ON usua.usua_UsuarioEliminacion = usuaElimina.usua_Id
+--WHERE empl_EsAduana = @empl_EsAduana
+--OR    @empl_EsAduana IS NULL
 END
 --GO
 
@@ -2035,7 +2039,7 @@ GO
 
 --************EMPLEADOS******************--
 /*Listar EMPLEADOS*/
-CREATE OR ALTER PROCEDURE [Gral].[UDP_tbEmpleados_Listar] 
+CREATE OR ALTER PROCEDURE [Gral].[UDP_tbEmpleados_Listar]
 	@empl_EsAduana		BIT
 AS
 BEGIN
@@ -2043,7 +2047,7 @@ BEGIN
 SELECT  empl.empl_Id								,
 		empl_Nombres								,
 		empl_Apellidos								,
-		CONCAT(empl_Nombres, empl_Apellidos)		AS empl_NombreCompleto,
+		CONCAT(empl_Nombres, ' ', empl_Apellidos)		AS empl_NombreCompleto,
 		empl_DNI									,
 		empl.escv_Id								,
 		escv.escv_Nombre							,
@@ -9076,8 +9080,8 @@ BEGIN
 	       coim_Estado				
     FROM  Adua.tbCodigoImpuesto codi 
 	INNER JOIN Acce.tbUsuarios usuaCrea		ON codi.usua_UsuarioCreacion = usuaCrea.usua_Id 
-	LEFT JOIN Acce.tbUsuarios usuaModifica	ON codi.usua_UsuarioModificacion = usuaCrea.usua_Id 
-	LEFT JOIN Acce.tbUsuarios usuaElimina	ON codi.usua_UsuarioEliminacion = usuaCrea.usua_Id
+	LEFT JOIN Acce.tbUsuarios usuaModifica	ON codi.usua_UsuarioModificacion = usuaModifica.usua_Id 
+	LEFT JOIN Acce.tbUsuarios usuaElimina	ON codi.usua_UsuarioEliminacion = usuaElimina.usua_Id
 	WHERE coim_Estado = 1
 END
 GO

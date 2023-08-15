@@ -26,10 +26,16 @@ namespace SIMEXPRO.Entities.Entities
         public string doso_EntidadEmitioDocumento { get; set; }
         public string doso_Monto { get; set; }
         public int usua_UsuarioCreacion { get; set; }
+        [NotMapped]
+        public string UsuarioCreacionNombre { get; set; }
         public DateTime doso_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
+        [NotMapped]
+        public string UsuarioModificadorNombre { get; set; }
         public DateTime? doso_FechaModificacion { get; set; }
         public int? usua_UsuarioEliminacion { get; set; }
+        [NotMapped]
+        public string UsuarioElimincionNombre { get; set; }
         public DateTime? doso_FechaEliminacion { get; set; }
         public bool? doso_Estado { get; set; }
 

@@ -3728,14 +3728,15 @@ GO
 CREATE OR ALTER PROCEDURE adua.UDP_tbConductor_Listar
 AS
 BEGIN
-	SELECT cont_Id,
-	       cont_Nombre, 
-		   cont_Apellido, 
-		   cont_Licencia, 
-		   pais_IdExpedicion, 
-		   pais.pais_Nombre                  AS PaisNombre,
+	SELECT conduc.cont_Id,
+	       conduc.cont_Nombre, 
+		   conduc.cont_Apellido, 
+		   conduc.cont_Licencia, 
+		   conduc.pais_IdExpedicion, 
+		   pais.pais_Nombre,
 		   conduc.tran_Id, 
 		   trans.marca_Id,
+		   marc.marc_Descripcion,
 		   conduc.usua_UsuarioCreacion, 
 		   usuCrea.usua_Nombre               AS usuarioCreacionNombre,
 		   cont_FechaCreacion, 
@@ -3751,6 +3752,7 @@ BEGIN
 		   LEFT JOIN acce.tbUsuarios usuModi ON conduc.usua_UsuarioModificacion = usuModi.usua_Id
 		   LEFT JOIN Acce.tbUsuarios usuElim ON conduc.usua_UsuarioEliminacion = usuElim.usua_Id
 		   LEFT JOIN Adua.tbTransporte trans ON conduc.tran_Id = trans.tran_Id
+		   LEFT JOIN Adua.tbMarcas		marc ON trans.marca_Id = marc.marca_Id
 		   LEFT JOIN Gral.tbPaises		pais ON conduc.pais_IdExpedicion = pais.pais_Id
 	WHERE  cont_Estado = 1
 END
@@ -4375,7 +4377,7 @@ END
 --GO
 
 GO
-/* Listar Declarantes*/
+/* Listar Declarantes*/ 
 CREATE OR ALTER PROCEDURE Adua.UDP_tbDeclarantes_Listar
 AS
 BEGIN
@@ -8412,33 +8414,33 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbDocumentosDeSoporte_Listar
 AS 
 BEGIN
 
-	SELECT  DocumentoSoporte.doso_Id
-		   ,tipoDocumento.tido_Id
-		   ,tipoDocumento.tido_Codigo
-		   ,tipoDocumento.tido_Descripcion
-		   ,DocumentoSoporte.duca_No_Duca
-		   ,DocumentoSoporte.doso_NumeroDocumento
-		   ,DocumentoSoporte.doso_FechaEmision
-		   ,DocumentoSoporte.doso_FechaVencimiento
-		   ,DocumentoSoporte.doso_PaisEmision
-		   ,DocumentoSoporte.doso_LineaAplica
-		   ,DocumentoSoporte.doso_EntidadEmitioDocumento
-		   ,DocumentoSoporte.doso_Monto
-		   ,DocumentoSoporte.usua_UsuarioCreacion
-		   ,UsuarioCreacion.usua_Nombre
-		   ,DocumentoSoporte.doso_FechaCreacion
-		   ,DocumentoSoporte.usua_UsuarioModificacion
-		   ,UsuarioModificaion.usua_Nombre
-		   ,DocumentoSoporte.doso_FechaModificacion
-		   ,DocumentoSoporte.usua_UsuarioEliminacion
-		   ,UsuarioEliminacion.usua_Nombre
-		   ,DocumentoSoporte.doso_FechaEliminacion
-		   ,DocumentoSoporte.doso_Estado
-	  FROM Adua.tbDocumentosDeSoporte DocumentoSoporte	
-			INNER JOIN Adua.tbTipoDocumento tipoDocumento		 ON	DocumentoSoporte.tido_Id					= tipoDocumento.tido_Id 
-			INNER JOIN Acce.tbUsuarios	  UsuarioCreacion	     ON	DocumentoSoporte.usua_UsuarioCreacion		= UsuarioCreacion.usua_Id
-			INNER JOIN Acce.tbUsuarios	  UsuarioModificaion     ON	DocumentoSoporte.usua_UsuarioModificacion	= UsuarioModificaion.usua_Id
-			INNER JOIN Acce.tbUsuarios	  UsuarioEliminacion     ON	DocumentoSoporte.usua_UsuarioEliminacion	= UsuarioEliminacion.usua_Id
+	SELECT  doso.doso_Id
+		   ,tido.tido_Id
+		   ,tido.tido_Codigo
+		   ,tido.tido_Descripcion
+		   ,doso.duca_No_Duca
+		   ,doso.doso_NumeroDocumento
+		   ,doso.doso_FechaEmision
+		   ,doso.doso_FechaVencimiento
+		   ,doso.doso_PaisEmision
+		   ,doso.doso_LineaAplica
+		   ,doso.doso_EntidadEmitioDocumento
+		   ,doso.doso_Monto
+		   ,doso.usua_UsuarioCreacion
+		   ,crea.usua_Nombre AS UsuarioCreacionNombre
+		   ,doso.doso_FechaCreacion
+		   ,doso.usua_UsuarioModificacion 
+		   ,modi.usua_Nombre AS UsuarioModificadorNombre 
+		   ,doso.doso_FechaModificacion
+		   ,doso.usua_UsuarioEliminacion AS UsuarioElimincionNombre
+		   ,elim.usua_Nombre
+		   ,doso.doso_FechaEliminacion
+		   ,doso.doso_Estado
+	  FROM Adua.tbDocumentosDeSoporte doso	
+			INNER JOIN Adua.tbTipoDocumento tido   ON	doso.tido_Id					= tido.tido_Id 
+			INNER JOIN Acce.tbUsuarios	  crea	   ON	doso.usua_UsuarioCreacion		= crea.usua_Id
+			INNER JOIN Acce.tbUsuarios	  modi     ON	doso.usua_UsuarioModificacion	= modi.usua_Id
+			INNER JOIN Acce.tbUsuarios	  elim     ON	doso.usua_UsuarioEliminacion	= elim.usua_Id
 
 
 
@@ -8512,31 +8514,31 @@ AS
 BEGIN 
  
 
- SELECT	 documentoPdf.dpdf_Id
-		,declaracionDeValor.deva_Id
-		,declaracionDeValor.deva_NumeroContrato
-		,declaracionDeValor.deva_DeclaracionMercancia
- 		,declaracionDeValor.emba_Id
- 		,declaracionDeValor.deva_LugarEntrega
-  		,documentoPdf.dpdf_CA
-		,documentoPdf.dpdf_DVA
-		,documentoPdf.dpdf_DUCA
-		,documentoPdf.dpdf_Boletin
-		,documentoPdf.usua_UsuarioCreacion
-		,UsuarioCreacion.usua_Nombre
-		,documentoPdf.dpdf_FechaCreacion
-		,documentoPdf.usua_UsuarioModificacion
-		,UsuarioModificaion.usua_Nombre
-		,documentoPdf.dpdf_FechaModificacion
-		,documentoPdf.usua_UsuarioEliminacion
-		,UsuarioEliminacion.usua_Nombre
-		,documentoPdf.dpdf_FechaEliminacion
-		,documentoPdf.dpdf_Estado
-  FROM	Adua.tbDocumentosPDF		documentoPdf
-  INNER JOIN Adua.tbDeclaraciones_Valor declaracionDeValor		ON	documentoPdf.deva_Id					= declaracionDeValor.deva_Id
-  INNER JOIN Acce.tbUsuarios			UsuarioCreacion			ON	documentoPdf.usua_UsuarioCreacion		= UsuarioCreacion.usua_Id
-  LEFT JOIN Acce.tbUsuarios			UsuarioModificaion		ON	documentoPdf.usua_UsuarioModificacion	= UsuarioModificaion.usua_Id
-  LEFT JOIN Acce.tbUsuarios			UsuarioEliminacion		ON	documentoPdf.usua_UsuarioEliminacion	= UsuarioEliminacion.usua_Id
+ SELECT	 pdf.dpdf_Id
+		,deva.deva_Id
+		,deva.deva_NumeroContrato
+		,deva.deva_DeclaracionMercancia
+ 		,deva.emba_Id
+ 		,deva.deva_LugarEntrega
+  		,pdf.dpdf_CA
+		,pdf.dpdf_DVA
+		,pdf.dpdf_DUCA
+		,pdf.dpdf_Boletin
+		,pdf.usua_UsuarioCreacion
+		,crea.usua_Nombre AS UsuarioCreacionNombre
+		,pdf.dpdf_FechaCreacion
+		,pdf.usua_UsuarioModificacion
+		,modi.usua_Nombre AS UsuarioModificadorNombre
+		,pdf.dpdf_FechaModificacion
+		,pdf.usua_UsuarioEliminacion
+		,elim.usua_Nombre AS UsuarioElimincionNombre
+		,pdf.dpdf_FechaEliminacion
+		,pdf.dpdf_Estado
+  FROM	Adua.tbDocumentosPDF			pdf
+  INNER JOIN Adua.tbDeclaraciones_Valor deva		ON	pdf.deva_Id						= deva.deva_Id
+  INNER JOIN Acce.tbUsuarios			crea		ON	pdf.usua_UsuarioCreacion		= crea.usua_Id
+  LEFT JOIN Acce.tbUsuarios				modi		ON	pdf.usua_UsuarioModificacion	= modi.usua_Id
+  LEFT JOIN Acce.tbUsuarios				elim		ON	pdf.usua_UsuarioEliminacion		= elim.usua_Id
 
 END
 GO
@@ -8732,29 +8734,29 @@ AS
 BEGIN
  
 
-	SELECT	 documentoContrato.doco_Id
-			,comercianteIndividual.coin_Id
-			,comercianteIndividual.pers_Id
-			,Personas.pers_RTN
-			,comercianteIndividual.coin_CorreoElectronico
- 			,comercianteIndividual.coin_TelefonoFijo
-			,comercianteIndividual.coin_PuntoReferencia
-			,personaJuridica.peju_Id
-			,documentoContrato.doco_Numero_O_Referencia
-			,documentoContrato.doco_TipoDocumento
-			,documentoContrato.usua_UsuarioCreacion
-			,UsuarioCreacion.usua_Nombre
-			,documentoContrato.doco_FechaCreacion
-			,documentoContrato.usua_UsuarioModificacion
-			,UsuarioModificaion.usua_Nombre
-			,documentoContrato.doco_FechaModificacion
-			,documentoContrato.doco_Estado
-	 FROM	Adua.tbDocumentosContratos				documentoContrato
-			INNER JOIN	adua.tbComercianteIndividual	comercianteIndividual	ON	documentoContrato.coin_Id					= comercianteIndividual.coin_Id
-			INNER JOIN	adua.tbPersonaJuridica			personaJuridica			ON	documentoContrato.peju_Id					= personaJuridica.peju_Id
-			INNER JOIN	adua.tbPersonas					Personas				ON	comercianteIndividual.pers_Id				= Personas.pers_Id
-			INNER JOIN	Acce.tbUsuarios					UsuarioCreacion			ON	documentoContrato.usua_UsuarioCreacion		= UsuarioCreacion.usua_Id
-			INNER JOIN	Acce.tbUsuarios					UsuarioModificaion		ON	documentoContrato.usua_UsuarioModificacion	= UsuarioModificaion.usua_Id
+	SELECT	 doco.doco_Id
+			,comi.coin_Id
+			,comi.pers_Id
+			,pers.pers_RTN
+			,comi.coin_CorreoElectronico
+ 			,comi.coin_TelefonoFijo
+			,comi.coin_PuntoReferencia
+			,juri.peju_Id
+			,doco.doco_Numero_O_Referencia
+			,doco.doco_TipoDocumento
+			,doco.usua_UsuarioCreacion
+			,crea.usua_Nombre
+			,doco.doco_FechaCreacion
+			,doco.usua_UsuarioModificacion
+			,modi.usua_Nombre
+			,doco.doco_FechaModificacion
+			,doco.doco_Estado
+	 FROM	Adua.tbDocumentosContratos					doco
+			INNER JOIN	adua.tbComercianteIndividual	comi	ON	doco.coin_Id					= comi.coin_Id
+			INNER JOIN	adua.tbPersonaJuridica			juri	ON	doco.peju_Id					= juri.peju_Id
+			INNER JOIN	adua.tbPersonas					pers	ON	comi.pers_Id					= pers.pers_Id
+			INNER JOIN	Acce.tbUsuarios					crea	ON	doco.usua_UsuarioCreacion		= crea.usua_Id
+			INNER JOIN	Acce.tbUsuarios					modi	ON	doco.usua_UsuarioModificacion	= modi.usua_Id
 
 END
 GO

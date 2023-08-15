@@ -119,7 +119,7 @@ GO
 
 /*Listar Usuarios*/
 CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Listar
-	--@empl_EsAduana		BIT
+	@empl_EsAduana		BIT
 AS
 BEGIN
 	SELECT usua.usua_Id, 
@@ -151,16 +151,19 @@ BEGIN
 	LEFT JOIN acce.tbUsuarios usuaModifica
 	ON usua.usua_UsuarioModificacion = usuaModifica.usua_Id LEFT JOIN acce.tbUsuarios usuaElimina
 	ON usua.usua_UsuarioEliminacion = usuaElimina.usua_Id
---WHERE empl_EsAduana = @empl_EsAduana
---OR    @empl_EsAduana IS NULL
+WHERE empl_EsAduana = @empl_EsAduana
+OR    @empl_EsAduana IS NULL
 END
 --GO
 
---EXEC acce.UDP_tbUsuarios_Insertar 'juan', '123', 1, 'nada', 1, 1, 1,'08-08-2023'
 
+
+
+--EXEC acce.UDP_tbUsuarios_Insertar 'juan', '123', 1, 'nada', 1, 1, 1,'08-08-2023'
+--EXEC acce.UDP_tbUsuarios_Insertar 'juanC', '123', 2, 'nada', 1, 1, 1,'08-08-2023'
 /*Insertar Usuarios*/
 GO
-CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Insertar
+CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Insertar 
 	@usua_Nombre			NVARCHAR(150),
 	@usua_Contrasenia		NVARCHAR(MAX),
 	@empl_Id				INT,
@@ -989,14 +992,10 @@ BEGIN
 	       ,carg.usua_UsuarioModificacion	
 	       ,usuaModifica.usua_Nombre		AS usuarioModificacionNombre
 	       ,carg_FechaModificacion			
-	       ,carg.usua_UsuarioEliminacion	
-	       ,usuaElimina.usua_Nombre			AS usuarioEliminacionNombre
-	       ,carg_FechaEliminacion			
 	       ,carg_Estado						
     FROM Gral.tbCargos carg 
 	INNER JOIN Acce.tbUsuarios usuaCrea		ON carg.usua_UsuarioCreacion = usuaCrea.usua_Id 
 	LEFT JOIN Acce.tbUsuarios usuaModifica	ON carg.usua_UsuarioModificacion = usuaModifica.usua_Id 
-	LEFT JOIN Acce.tbUsuarios usuaElimina	ON carg.usua_UsuarioEliminacion = usuaCrea.usua_Id
 	WHERE carg_Estado = 1
 	AND carg_Aduana = @carg_Aduana
 	OR @carg_Aduana IS NULL
@@ -1060,7 +1059,16 @@ BEGIN
 	       ,colo.alde_Id						
 	       ,alde.alde_Nombre					
 	       ,colo.ciud_Id						
-	       ,ciud.ciud_Nombre					
+	       ,ciud.ciud_Nombre
+		   
+		   ,prov.pvin_Codigo
+		   ,prov.pvin_Id
+		   ,prov.pvin_Nombre
+
+		   ,pais.pais_Codigo
+		   ,pais_Nombre
+		   ,pais.pais_Id
+
 	       ,colo.usua_UsuarioCreacion			
 	       ,usuaCrea.usua_Nombre				AS usuarioCreacionNombre
 	       ,colo_FechaCreacion					
@@ -1073,6 +1081,8 @@ BEGIN
    FROM Gral.tbColonias colo 
    LEFT JOIN Gral.tbAldeas alde				ON colo.alde_Id = alde.alde_Id 
    LEFT JOIN Gral.tbCiudades ciud			ON colo.ciud_Id = ciud.ciud_Id 
+   INNER JOIN Gral.tbProvincias prov        ON ciud.pvin_Id = prov.pvin_Id
+   INNER JOIN Gral.tbPaises pais            ON pais.pais_Id = prov.pais_Id
    INNER JOIN Acce.tbUsuarios usuaCrea		ON colo.usua_UsuarioCreacion = usuaCrea.usua_Id 
    LEFT JOIN Acce.tbUsuarios usuaModifica	ON colo.usua_UsuarioModificacion = usuaCrea.usua_Id 
    LEFT JOIN Acce.tbUsuarios usuaElimina	ON colo.usua_UsuarioEliminacion = usuaElimina.usua_Id
@@ -1396,6 +1406,7 @@ SELECT	ciud_Id								,
 		ciu.pvin_Id							,
 		provi.pvin_Nombre					,
 		provi.pvin_Codigo					,
+		pais.pais_Id                        ,
 		pais.pais_Codigo					,
 		pais.pais_Nombre					,
 		ciu.usua_UsuarioCreacion			,
@@ -1628,14 +1639,14 @@ GO
 
 --************ALDEAS******************--
 /*Listar ALDEAS*/
-CREATE OR ALTER PROCEDURE Gral.UDP_tbAldeas_Listar
+CREATE OR ALTER PROCEDURE [Gral].[UDP_tbAldeas_Listar]
 AS
 BEGIN
 SELECT	alde_Id								,
 		alde_Nombre							,
-		ciu.ciud_Id						,
+		alde.ciud_Id						,
 		ciu.ciud_Nombre						,
-		provincias.pvin_Id							,
+		ciu.pvin_Id							,
 		provincias.pvin_Codigo				,
 		provincias.pvin_Nombre				,
 		alde.usua_UsuarioCreacion			,
@@ -1649,7 +1660,7 @@ FROM	Gral.tbAldeas alde
 		INNER JOIN Gral.tbCiudades		AS ciu			ON alde.ciud_Id = ciu.ciud_Id
 		INNER JOIN Gral.tbProvincias	AS provincias	ON ciu.pvin_Id = provincias.pvin_Id
 		INNER JOIN Acce.tbUsuarios		AS usu1			ON alde.usua_UsuarioCreacion = usu1.usua_Id 
-		LEFT JOIN Acce.tbUsuarios		AS usu2			ON alde.usua_UsuarioCreacion = usu2.usua_Id
+		LEFT JOIN Acce.tbUsuarios		AS usu2			ON alde.usua_UsuarioModificacion = usu2.usua_Id
 WHERE	alde_Estado = 1
 END
 GO
@@ -4234,10 +4245,10 @@ SELECT		deva.deva_Id,
 			deva.mone_Otra, 
 			deva.deva_ConversionDolares, 
 			----deva_Condiciones, 
-			deva.deva.usua_UsuarioCreacion, 
+			deva.usua_UsuarioCreacion, 
 			usuaCrea.usua_Nombre				AS usua_CreacionNombre,
 			deva.deva_FechaCreacion, 
-			deva.deva.usua_UsuarioModificacion		AS usua_ModificacionNombre,
+			deva.usua_UsuarioModificacion		AS usua_ModificacionNombre,
 			deva.deva_FechaModificacion, 
 			deva.deva_Estado 
 	FROM	Adua.tbDeclaraciones_Valor deva 
@@ -6229,9 +6240,9 @@ END
 GO
 
 CREATE OR ALTER PROCEDURE Adua.UDP_tbItems_Eliminar
-@item_Id					INT,
-@item_FechaEliminacion		DATETIME,
-@usua_UsuarioEliminacion	INT
+	@item_Id					INT,
+	@item_FechaEliminacion		DATETIME,
+	@usua_UsuarioEliminacion	INT
 AS
 BEGIN
 	BEGIN TRANSACTION
@@ -6298,6 +6309,8 @@ BEGIN
 
 			DELETE FROM Adua.tbItems
 			WHERE item_Id = @item_Id
+
+			SELECT 1
 		END
 		COMMIT TRAN
 	END TRY
@@ -9370,7 +9383,7 @@ GO
 -----------------------------------------------/UDPS Para orden de compra---------------------------------------------
 
 
-CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompra_Listado
+CREATE OR ALTER PROCEDURE [Prod].[UDP_tbOrdenCompra_Listado]
 AS
 BEGIN
 
@@ -9403,14 +9416,11 @@ BEGIN
 			,usuarioModificacion.usua_Nombre	AS usuarioModificacionNombre
 			,ordenCompra.orco_FechaModificacion
 			,ordenCompra.orco_Estado
-	  FROM  Prod.tbOrdenCompra						ordenCompra
-			INNER JOIN Prod.tbClientes					cliente				ON ordenCompra.orco_IdCliente  = cliente.clie_Id
-			INNER JOIN Prod.tbTipoEmbalaje				tipoEmbajale		ON ordenCompra.orco_IdEmbalaje = tipoEmbajale.tiem_Id
+	  FROM  Prod.tbOrdenCompra							ordenCompra
+			INNER JOIN  Prod.tbClientes					cliente				ON ordenCompra.orco_IdCliente  = cliente.clie_Id
+			INNER JOIN  Prod.tbTipoEmbalaje				tipoEmbajale		ON ordenCompra.orco_IdEmbalaje = tipoEmbajale.tiem_Id
 		    INNER JOIN  Acce.tbUsuarios					usuarioCreacion		ON ordenCompra.usua_UsuarioCreacion			= usuarioCreacion.usua_Id
-			INNER JOIN  Acce.tbUsuarios					usuarioModificacion ON ordenCompra.usua_UsuarioModificacion		= usuarioModificacion.usua_Id
-
-	
-
+			LEFT  JOIN  Acce.tbUsuarios					usuarioModificacion ON ordenCompra.usua_UsuarioModificacion		= usuarioModificacion.usua_Id
 END
 GO
 
@@ -9501,9 +9511,7 @@ GO
 -----------------------------------------------/UDPS Para orden de compra---------------------------------------------
 
 --------------------------------------------UDPS Para orden de compra detalle-----------------------------------------
-
-GO
-CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalle_Listado
+CREATE OR ALTER   PROCEDURE [Prod].[UDP_tbOrdenCompraDetalle_Listado] 
 @orco_Id			INT
 AS
 BEGIN
@@ -9536,14 +9544,14 @@ BEGIN
 			,usuarioModificacion.usua_Nombre AS usuarioModificacionNombre
 			,ordenCompraDetalle.code_FechaModificacion
 			,ordenCompraDetalle.code_Estado
-	  FROM	Prod.tbOrdenCompraDetalles			ordenCompraDetalle
+	  FROM	Prod.tbOrdenCompraDetalles			    ordenCompraDetalle
 			INNER JOIN	Prod.tbEstilos				estilo						ON	ordenCompraDetalle.esti_Id						= estilo.esti_Id
 			INNER JOIN	Prod.tbTallas				talla						ON	ordenCompraDetalle.tall_Id						= talla.tall_Id
 			INNER JOIN  Prod.tbColores				colores						ON	ordenCompraDetalle.colr_Id						= colores.colr_Id
 			INNER JOIN  Prod.tbProcesos				procesoComienza				ON	ordenCompraDetalle.proc_IdComienza				= procesoComienza.proc_Id
 			INNER JOIN  Prod.tbProcesos				procesoActual				ON	ordenCompraDetalle.proc_IdActual				= procesoActual.proc_Id
 			INNER JOIN  Acce.tbUsuarios				usuarioCreacion				ON  ordenCompraDetalle.usua_UsuarioCreacion			= usuarioCreacion.usua_Id
-			INNER JOIN  Acce.tbUsuarios				usuarioModificacion			ON  ordenCompraDetalle.usua_UsuarioModificacion		= usuarioModificacion.usua_Id
+			LEFT  JOIN  Acce.tbUsuarios				usuarioModificacion			ON  ordenCompraDetalle.usua_UsuarioModificacion		= usuarioModificacion.usua_Id
 			WHERE ordenCompraDetalle.orco_Id	=	@orco_Id
 END
 GO
@@ -10846,7 +10854,7 @@ AS
 BEGIN
 	SELECT subc.subc_Id,
            subc.cate_Id, 
-	       cate.cate_Descripcion					
+	       cate.cate_Descripcion,					
 	       subc.subc_Descripcion, 
 	       subc.usua_UsuarioCreacion,
 	       usuaCrea.usua_Nombre						AS usuarioCreacionNombre,

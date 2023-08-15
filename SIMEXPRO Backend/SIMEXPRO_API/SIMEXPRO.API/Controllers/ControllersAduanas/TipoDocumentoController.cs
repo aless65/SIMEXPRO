@@ -49,12 +49,12 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             return Ok(respuesta);
         }
 
-        [HttpPost("Eliminar")]
-        public IActionResult Delete(TipoDocumentoViewModel tipoDocumentoViewModel)
-        {
-            var item = _mapper.Map<tbTipoDocumento>(tipoDocumentoViewModel);
-            var respuesta = _aduanaServices.EliminarTipoDocumento(item);
-            return Ok(respuesta);
-        }
+        //[HttpPost("Eliminar")]
+        //public IActionResult Delete(TipoDocumentoViewModel tipoDocumentoViewModel)
+        //{
+        //    var item = _mapper.Map<tbTipoDocumento>(tipoDocumentoViewModel);
+        //    var respuesta = _aduanaServices.EliminarTipoDocumento(item);
+        //    return Ok(respuesta);
+        //}
     }
 }

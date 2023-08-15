@@ -47,6 +47,7 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime? ensa_FechaModificacion { get; set; }
         public bool? ensa_Estado { get; set; }
 
+        public virtual tbModulos modu { get; set; }
         public virtual tbOrdenCompraDetalles code { get; set; }
         public virtual tbEmpleados empl { get; set; }
         public virtual tbProcesos proc { get; set; }

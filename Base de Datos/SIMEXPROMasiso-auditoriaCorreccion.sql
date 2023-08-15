@@ -12,12 +12,9 @@
 		*/
 	/*
 	CREATE DATABASE SIMEXPRO
-	--Primero crear y luego correr script
+	Primero crear y luego correr script
 	*/
-	--CREATE DATABASE SIMEXPRO
-	--GO
-	USE SIMEXPRO
-	GO
+
 	CREATE SCHEMA Adua
 	GO
 	CREATE SCHEMA Prod
@@ -103,6 +100,8 @@ CREATE TABLE Acce.tbPantallas(
 		pant_URL					NVARCHAR(100),
 		pant_Icono					NVARCHAR(50),
 		pant_Esquema				NVARCHAR(100),
+		pant_EsAduana				BIT	         ,
+
 
 		usua_UsuarioCreacion 		INT				NOT NULL,
 		pant_FechaCreacion 			DATETIME 		NOT NULL,
@@ -111,6 +110,9 @@ CREATE TABLE Acce.tbPantallas(
 		usua_UsuarioEliminacion		INT 			DEFAULT NULL,
 		pant_FechaEliminacion		DATETIME 		DEFAULT NULL,
 		pant_Estado					BIT				DEFAULT 1,
+
+
+
 
 	CONSTRAINT PK_Acce_tbPantallas_pant_Id	PRIMARY KEY (pant_Id),
 

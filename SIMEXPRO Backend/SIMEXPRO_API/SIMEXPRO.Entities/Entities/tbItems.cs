@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -40,6 +41,11 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime item_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
         public string usuarioModificacionNombre { get; set; }
+
+        [NotMapped]
+        public int? usua_UsuarioEliminacion { get; set; }
+        public DateTime item_FechaEliminacion { get; set; }
+
         public DateTime? item_FechaModificacion { get; set; }
         public bool? item_Estado { get; set; }
 

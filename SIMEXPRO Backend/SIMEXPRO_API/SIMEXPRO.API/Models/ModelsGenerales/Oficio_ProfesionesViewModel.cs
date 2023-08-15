@@ -15,6 +15,6 @@ namespace SIMEXPRO.API.Models
         public DateTime? ofpr_FechaModificacion { get; set; }
         public bool? ofpr_Estado { get; set; }
         public string UsuarioCreacionNombre { get; set; }
-        public string UsuarioModificadorNombre { get; set; }
+        public string UsuarioModificacionNombre { get; set; }
     }
 }

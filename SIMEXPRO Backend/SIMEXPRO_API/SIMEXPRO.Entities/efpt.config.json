@@ -14,27 +14,11 @@
    "SelectedToBeGenerated": 2,
    "Tables": [
       {
-         "Name": "[Gral].[tbCiudades]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[Gral].[tbMonedas]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[Gral].[tbPaises]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[Gral].[tbProvincias]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[Gral].[tbUnidadMedidas]",
+         "Name": "[Acce].[tbPantallas]",
          "ObjectType": 0
       }
    ],
-   "UiHint": "EJSM\\SQLEXPRESS.SIMEXPRO",
+   "UiHint": "practicaahm.SIMEXPRO",
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": true,
    "UseDbContextSplitting": false,

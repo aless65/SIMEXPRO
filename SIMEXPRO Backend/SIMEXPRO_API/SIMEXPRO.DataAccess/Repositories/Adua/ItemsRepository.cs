@@ -19,6 +19,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();
             parametros.Add("@item_Id", item.item_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@item_FechaEliminacion", item.item_FechaEliminacion, DbType.Int32, ParameterDirection.Input);
 
             var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarItems, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
@@ -67,12 +69,12 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             return result;
         }
 
-        public IEnumerable<tbItems> List(tbItems item)
+        public IEnumerable<tbItems> List(int fact_Id)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
 
             var parametros = new DynamicParameters();
-            parametros.Add("@fact_Id", item.fact_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@fact_Id", fact_Id, DbType.Int32, ParameterDirection.Input);
 
             return db.Query<tbItems>(ScriptsDataBase.ListarItems, parametros, commandType: CommandType.StoredProcedure);
         }

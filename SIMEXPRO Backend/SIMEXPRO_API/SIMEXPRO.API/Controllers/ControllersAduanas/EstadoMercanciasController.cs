@@ -51,13 +51,13 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
         }
 
 
-        [HttpPost("Eliminar")]
-        public IActionResult Eliminar(EstadoMercanciasViewModel EstadoMercanciasViewModel)
-        {
-            var item = _mapper.Map<tbEstadoMercancias>(EstadoMercanciasViewModel);
-            var respuesta = _aduanaServices.EliminarEstadoMercancias(item);
-            return Ok(respuesta);
-        }
+        //[HttpPost("Eliminar")]
+        //public IActionResult Eliminar(EstadoMercanciasViewModel EstadoMercanciasViewModel)
+        //{
+        //    var item = _mapper.Map<tbEstadoMercancias>(EstadoMercanciasViewModel);
+        //    var respuesta = _aduanaServices.EliminarEstadoMercancias(item);
+        //    return Ok(respuesta);
+        //}
 
     }
 }

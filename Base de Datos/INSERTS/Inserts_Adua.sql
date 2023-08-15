@@ -8,7 +8,6 @@
 
 /*-----------------------------------------------*/
 --***** INSERT TABLA TIPO DE LIQUIDACION --******--
-GO
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
 VALUES ('Importación Regular', 1, '10-16-2004');
 
@@ -562,12 +561,11 @@ VALUES	('BR','BROKER',1,GETDATE()),
 --***** INSERT TABLA INTERMEDIARIOS --******--
 GO
 INSERT INTO Adua.tbIntermediarios (tite_Id, inte_Tipo_Otro, decl_Id, usua_UsuarioCreacion, inte_FechaCreacion)
-VALUES	(1,NULL,1,1,GETDATE()),
-		(2,NULL,2,1,GETDATE()),
+VALUES	(1,NULL,3,1,GETDATE()),
+		(2,NULL,4,1,GETDATE()),
 		(3,NULL,3,1,GETDATE()),
 		(4,NULL,4,1,GETDATE()),
 		(5,NULL,5,1,GETDATE());
-
 
 /*-----------------------------------------------*/
 --***** INSERT TABLA LUGARES DE ENBARQUE --******--
@@ -80998,8 +80996,8 @@ VALUES('ZWBAT','BATA',1,GETDATE(),1),
 --***** INSERT TABLA PROVEEDORES DECLARACION --******--
 GO
 INSERT INTO Adua.tbProveedoresDeclaracion (coco_Id, pvde_Condicion_Otra, decl_Id, usua_UsuarioCreacion, pvde_FechaCreacion)
-VALUES	(1,NULL,1,1,GETDATE()),
-		(1,NULL,2,1,GETDATE()),
+VALUES	(1,NULL,3,1,GETDATE()),
+		(1,NULL,3,1,GETDATE()),
 		(2,NULL,3,1,GETDATE()),
 		(2,NULL,4,1,GETDATE()),
 		(1,NULL,5,1,GETDATE()),
@@ -81008,7 +81006,6 @@ VALUES	(1,NULL,1,1,GETDATE()),
 		(4,NULL,8,1,GETDATE()),
 		(5,NULL,9,1,GETDATE()),
 		(5,NULL,10,1,GETDATE());
-
 
 
 /*-------------------------------------*/
@@ -81066,7 +81063,7 @@ VALUES	( 1, 1, 1, 'Frente a bodega Los Hermanos', 1, 'A001', 'A la par de Maxi-D
 		( 4, 1, 2, 'Una cuadra despues de Caf� Gloria', 10, 'A020', 'Esquina opuesta a Taller Mendoza', '91914545', '21213434', 'CdTm@gmail.com', '', 1, GETDATE()),
 		( 5, 1, 9, 'Una cuadra antes del Banco de Occidente', 6, 'B007', 'Local #30, 2da Planta, Mall Galerias del Valle', '97975754', '20345579', 'FgDV@gmail.com', '', 1, GETDATE())
 
-
+sELECT * FROM [Adua].[tbImportadores]
 
 /*-------------------------------------------------*/
 --********** INSERT TABLA IMPORTADORES ************--
@@ -81074,18 +81071,18 @@ GO
 INSERT INTO [Adua].[tbImportadores]
            ([nico_Id] ,[decl_Id] ,[impo_NivelComercial_Otro] ,[impo_RTN] ,[impo_NumRegistro] ,[usua_UsuarioCreacion] ,[impo_FechaCreacion])
      VALUES
-           (1 ,1 ,'Alto'		 ,'2657-4768-566604' ,'432343543534' ,1 ,GETDATE()),
-           (2 ,2 ,'DISTRIBUIDOR' ,'8652-5764-354521' ,'848495849413' ,1 ,GETDATE()),
-		   (3 ,1 ,'MAYORISTA'    ,'4325-7663-124451' ,'038023839177' ,1 ,GETDATE()),
-           (4 ,2 ,'MINORISTA'    ,'2132-1312-345213' ,'436587798968' ,1 ,GETDATE()),
-           (1 ,1 ,'Alto'		 ,'2657-4768-956045' ,'432343543534' ,1 ,GETDATE()),
-           (2 ,2 ,'DISTRIBUIDOR' ,'8652-5764-454521' ,'848495849413' ,1 ,GETDATE()),
-		   (3 ,1 ,'MAYORISTA'    ,'4325-7663-124341' ,'038023839177' ,1 ,GETDATE()),
-           (4 ,2 ,'MINORISTA'    ,'2132-1312-324513' ,'436587798968' ,1 ,GETDATE()),
-           (1 ,1 ,'Alto'		 ,'2657-4768-923560' ,'432343543534' ,1 ,GETDATE()),
-           (2 ,2 ,'DISTRIBUIDOR' ,'8652-5764-352231' ,'848495849413' ,1 ,GETDATE()),
-		   (3 ,1 ,'MAYORISTA'    ,'4325-7663-123241' ,'038023839177' ,1 ,GETDATE()),
-           (4 ,2 ,'MINORISTA'    ,'2132-1312-321233' ,'436587798968' ,1 ,GETDATE());
+           (1 ,3 ,'Alto'		 ,'2657-4768-566604' ,'432343543534' ,1 ,GETDATE()),
+           (2 ,5 ,'DISTRIBUIDOR' ,'8652-5764-354521' ,'848495849413' ,1 ,GETDATE()),
+		   (3 ,4 ,'MAYORISTA'    ,'4325-7663-124451' ,'038023839177' ,1 ,GETDATE()),
+           (4 ,5 ,'MINORISTA'    ,'2132-1312-345213' ,'436587798968' ,1 ,GETDATE()),
+           (1 ,3 ,'Alto'		 ,'2657-4768-956045' ,'432343543534' ,1 ,GETDATE()),
+           (2 ,4 ,'DISTRIBUIDOR' ,'8652-5764-454521' ,'848495849413' ,1 ,GETDATE()),
+		   (3 ,3 ,'MAYORISTA'    ,'4325-7663-124341' ,'038023839177' ,1 ,GETDATE()),
+           (4 ,5 ,'MINORISTA'    ,'2132-1312-324513' ,'436587798968' ,1 ,GETDATE()),
+           (1 ,3 ,'Alto'		 ,'2657-4768-923560' ,'432343543534' ,1 ,GETDATE()),
+           (2 ,4 ,'DISTRIBUIDOR' ,'8652-5764-352231' ,'848495849413' ,1 ,GETDATE()),
+		   (3 ,3 ,'MAYORISTA'    ,'4325-7663-123241' ,'038023839177' ,1 ,GETDATE()),
+           (4 ,4 ,'MINORISTA'    ,'2132-1312-321233' ,'436587798968' ,1 ,GETDATE());
 
 /*-------------------------------------------------*/
 --********** INSERT TABLA CONCEPTO PAGO ************--
@@ -81095,7 +81092,7 @@ VALUES	('Concepto Pago 1', 1, GETDATE()),
 		('Concepto Pago 2', 1, GETDATE()),
 		('Concepto Pago 3', 1, GETDATE());
 
-
+GO
 INSERT INTO [Adua].[tbDeclaraciones_Valor] ([deva_AduanaIngresoId], --
 											[deva_AduanaDespachoId], --
 											[deva_DeclaracionMercancia], --
@@ -81123,9 +81120,9 @@ VALUES (1,
 		2, 
 		'Algun documento importante o dato importante', 
 		GETDATE(), 
-		3, 
-		1, 
-		1, 
+		11, 
+		6, 
+		4, 
 		'En un lugar cerquita de la casa del que recibe', --
 		1, --
 		1, --
@@ -81145,13 +81142,14 @@ VALUES (1,
 GO
 
 
+
 /*--------------------------------------------------------*/
 --********** INSERT TABLA DECLARACION DE VALOR ************--
 GO
 INSERT INTO [Adua].[tbDeclaraciones_Valor]   ([deva_AduanaIngresoId],[deva_AduanaDespachoId],[deva_DeclaracionMercancia],[deva_FechaAceptacion],[impo_Id],[pvde_Id],[inte_Id],[deva_LugarEntrega],[pais_EntregaId],[inco_Id],[inco_Version],[deva_NumeroContrato],[deva_FechaContrato],[foen_Id],[deva_FormaEnvioOtra],[deva_PagoEfectuado],[fopa_Id],[deva_FormaPagoOtra],[emba_Id],[pais_ExportacionId],[deva_FechaExportacion],[mone_Id],[mone_Otra],[deva_ConversionDolares],[usua_UsuarioCreacion],[deva_FechaCreacion])
      VALUES
-           (1 ,2 ,'Importacion de platanos' ,GETDATE() ,1 ,1 ,1 ,'Guasaule' ,8 ,1 ,'EXW' ,'93949389' ,GETDATE() ,1 ,'Maritimo' ,1 ,2 ,'Aerio' ,1 ,2  ,GETDATE() ,1 ,1 ,24 ,1  ,GETDATE()),
-           (1 ,2 ,'Importacion de Guineos' ,GETDATE() ,1 ,1 ,1 ,'Guasaule' ,2 ,1 ,'EXW' ,'3232432423' ,GETDATE() ,1 ,'Terrestre' ,1 ,2 ,'Aerio' ,1 ,2  ,GETDATE() ,1 ,1 ,24 ,1  ,GETDATE());
+           (1 ,2 ,'Importacion de platanos' ,GETDATE() ,11 ,6 ,4 ,'Guasaule' ,8 ,1 ,'EXW' ,'93949389' ,GETDATE() ,1 ,'Maritimo' ,1 ,2 ,'Aerio' ,1 ,2  ,GETDATE() ,1 ,1 ,24 ,1  ,GETDATE()),
+           (1 ,2 ,'Importacion de Guineos' ,GETDATE() ,11 ,6 ,5 ,'Guasaule' ,2 ,1 ,'EXW' ,'3232432423' ,GETDATE() ,1 ,'Terrestre' ,1 ,2 ,'Aerio' ,1 ,2  ,GETDATE() ,1 ,1 ,24 ,1  ,GETDATE());
 
 
 
@@ -81288,4 +81286,5 @@ VALUES
 GO
 INSERT INTO Adua.tbCondiciones(deva_Id, codi_Restricciones_Utilizacion, codi_Indicar_Restricciones_Utilizacion, codi_Depende_Precio_Condicion, codi_Indicar_Existe_Condicion, codi_Condicionada_Revertir, codi_Vinculacion_Comprador_Vendedor, codi_Tipo_Vinculacion, codi_Vinculacion_Influye_Precio, codi_Pagos_Descuentos_Indirectos, codi_Concepto_Monto_Declarado, codi_Existen_Canones, codi_Indicar_Canones, usua_UsuarioCreacion, codi_FechaCreacion)
 VALUES
-        (1, 0, '', 0, '', 0, 0, '', 0, 0, '', 0, '', 1, GETDATE())
+        (14, 0, '', 0, '', 0, 0, '', 0, 0, '', 0, '', 1, GETDATE())
+

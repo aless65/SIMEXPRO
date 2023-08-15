@@ -34,5 +34,9 @@ namespace SIMEXPRO.API.Models.ModelsAduana
         public int? usua_UsuarioModificacion { get; set; }
         public DateTime? item_FechaModificacion { get; set; }
         public bool? item_Estado { get; set; }
+
+
+        public int? usua_UsuarioEliminacion { get; set; }
+        public DateTime item_FechaEliminacion { get; set; }
     }
 }

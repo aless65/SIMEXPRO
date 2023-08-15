@@ -41,6 +41,7 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime? peor_FechaModificacion { get; set; }
         public bool? peor_Estado { get; set; }
 
+        public virtual tbCiudades ciud { get; set; }
         public virtual tbDuca peor_No_DucaNavigation { get; set; }
         public virtual tbProveedores prov { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }

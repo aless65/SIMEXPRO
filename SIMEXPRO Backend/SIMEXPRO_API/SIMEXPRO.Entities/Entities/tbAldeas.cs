@@ -31,12 +31,16 @@ namespace SIMEXPRO.Entities.Entities
         [NotMapped]
         public string UsuarioModificadorNombre { get; set; }
         public DateTime? alde_FechaModificacion { get; set; }
-      
         public int? usua_UsuarioEliminacion { get; set; }
-
-      
         public DateTime? alde_FechaEliminacion { get; set; }
         public bool? alde_Estado { get; set; }
+
+        [NotMapped]
+        public int pvin_Id { get; set; }
+        [NotMapped]
+        public string pvin_Codigo { get; set; }
+        [NotMapped]
+        public string pvin_Nombre { get; set; }
 
         public virtual tbCiudades ciud { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }

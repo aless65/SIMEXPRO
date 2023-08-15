@@ -537,6 +537,13 @@ namespace SIMEXPRO.DataAccess
         public static string EliminarLotes = "Prod.UDP_tbLotes_Eliminar";
         #endregion
 
+        #region MaquinasHitorial
+        public static string ListarMaquinasHistorial = "Prod.UDP_tbMaquinaHistorial_Listar";
+        public static string InsertarMaquinasHistorial = "Prod.UDP_tbMaquinaHistorial_Insertar";
+        public static string EditarMaquinasHistorial = "Prod.UDP_tbMaquinaHistorial_Editar";
+        public static string EliminarMaquinasHistorial = "Prod.UDP_tbMaquinaHistorial_Eliminar";
+        #endregion
+
         #region Maquinas
         public static string ListarMaquinas = "Prod.UDP_tbMaquinas_Listar";
         public static string InsertarMaquinas = "Prod.UDP_tbMaquinas_Insertar";

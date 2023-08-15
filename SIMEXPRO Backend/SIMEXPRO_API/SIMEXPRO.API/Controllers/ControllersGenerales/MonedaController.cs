@@ -25,10 +25,10 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
         }
       
         
-        [HttpGet("Listar")]
-        public IActionResult Index()
+        [HttpGet("Listar/{mone_EsAduana}")]
+        public IActionResult Index(bool mone_EsAduana)
         {
-            var listado = _generalesServices.ListarMonedas();
+            var listado = _generalesServices.ListarMonedas(mone_EsAduana);
             listado.Data = _mapper.Map<IEnumerable<MonedasViewModel>>(listado.Data);
             return Ok(listado);
         }

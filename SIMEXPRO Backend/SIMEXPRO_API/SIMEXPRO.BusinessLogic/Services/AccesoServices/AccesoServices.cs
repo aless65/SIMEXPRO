@@ -258,12 +258,12 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
         #endregion
 
         #region Roles
-        public ServiceResult ListarRoles()
+        public ServiceResult ListarRoles(bool role_Aduana)
         {
             var result = new ServiceResult();
             try
             {
-                var list = _rolesRepository.List();
+                var list = _rolesRepository.List(role_Aduana);
 
                 return result.Ok(list);
             }

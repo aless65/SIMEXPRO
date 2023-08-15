@@ -46,12 +46,19 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             return result;
         }
 
-        public IEnumerable<tbRoles> List()
+        public IEnumerable<tbRoles> List(bool role_Aduana)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();
-            return db.Query<tbRoles>(ScriptsDataBase.ListarRoles, null, commandType: CommandType.StoredProcedure);
+            parametros.Add("@role_Aduana", role_Aduana, DbType.Boolean, ParameterDirection.Input);
 
+            return db.Query<tbRoles>(ScriptsDataBase.ListarRoles, parametros, commandType: CommandType.StoredProcedure);
+
+        }
+
+        public IEnumerable<tbRoles> List()
+        {
+            throw new NotImplementedException();
         }
 
         public RequestStatus Update(tbRoles item)

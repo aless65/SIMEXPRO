@@ -46,12 +46,12 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             return Ok(result);
         }
 
-        [HttpPost("Eliminar")]
-        public IActionResult Delete(FormasDePagoViewModel item)
-        {
-            var result = _aduanaServices.EliminarFormasdePago(_mapper.Map<tbFormasdePago>(item));
+        //[HttpPost("Eliminar")]
+        //public IActionResult Delete(FormasDePagoViewModel item)
+        //{
+        //    var result = _aduanaServices.EliminarFormasdePago(_mapper.Map<tbFormasdePago>(item));
 
-            return Ok(result);
-        }
+        //    return Ok(result);
+        //}
     }
 }

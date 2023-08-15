@@ -29,14 +29,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             //var item = _mapper.Map<tbItems>(concepto);
             var respuesta = _aduanaServices.ListarItems(fact_Id);
 
-            if (respuesta.Code == 200)
-            {
-                return Ok(respuesta);
-            }
-            else
-            {
-                return BadRequest(respuesta);
-            }
+            return Ok(respuesta);
         }
 
         [HttpPost("Insertar")]
@@ -46,14 +39,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
 
             var respuesta = _aduanaServices.InsertarItems(item);
 
-            if (respuesta.Code == 200)
-            {
-                return Ok(respuesta);
-            }
-            else
-            {
-                return BadRequest(respuesta);
-            }
+            return Ok(respuesta);
         }
 
         [HttpPost("Editar")]
@@ -63,14 +49,17 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
 
             var respuesta = _aduanaServices.ActualizarItems(item);
 
-            if (respuesta.Code == 200)
-            {
-                return Ok(respuesta);
-            }
-            else
-            {
-                return BadRequest(respuesta);
-            }
+            return Ok(respuesta);
+        }
+
+        [HttpPost("Eliminar")]
+        public IActionResult Delete(ItemsViewModel concepto)
+        {
+            var item = _mapper.Map<tbItems>(concepto);
+
+            var respuesta = _aduanaServices.EliminarItems(item);
+
+            return Ok(respuesta);
         }
     }
 }

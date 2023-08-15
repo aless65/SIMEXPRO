@@ -453,7 +453,7 @@ BEGIN
     ON tbroles.[usua_UsuarioCreacion] = usuCrea.usua_Id
 	WHERE role_Estado = 1
 	AND role_Aduana = @role_Aduana
-
+	OR @role_Aduana IS NULL
 END
 GO
 
@@ -994,6 +994,7 @@ BEGIN
 	--LEFT JOIN Acce.tbUsuarios usuaElimina	ON carg.usua_UsuarioEliminacion = usuaCrea.usua_Id
 	WHERE carg_Estado = 1
 	AND carg_Aduana = @carg_Aduana
+	OR @carg_Aduana IS NULL
 END
 GO
 
@@ -1393,6 +1394,7 @@ FROM	Gral.tbCiudades ciu
 		INNER JOIN Gral.tbPaises pais			ON provi.pais_Id = pais.pais_Id
 WHERE	ciud_Estado = 1
 AND	ciud_EsAduana = @ciud_EsAduana
+OR @ciud_EsAduana IS NULL
 END
 GO
 
@@ -1512,6 +1514,7 @@ FROM	Gral.tbProvincias provin
 		LEFT JOIN Acce.tbUsuarios usua3		ON provin.usua_UsuarioEliminacion = usua3.usua_Id
 WHERE	pvin_Estado = 1
 AND		pvin_EsAduana = @pvin_EsAduana
+OR		@pvin_EsAduana IS NULL
 END
 
 

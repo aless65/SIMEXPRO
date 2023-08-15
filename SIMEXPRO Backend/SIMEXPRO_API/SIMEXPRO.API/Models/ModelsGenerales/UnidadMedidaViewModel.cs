@@ -9,6 +9,7 @@ namespace SIMEXPRO.API.Models
     {
         public int unme_Id { get; set; }
         public string unme_Descripcion { get; set; }
+        public bool unme_EsAduana { get; set; }
         public int usua_UsuarioCreacion { get; set; }
         public DateTime unme_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }

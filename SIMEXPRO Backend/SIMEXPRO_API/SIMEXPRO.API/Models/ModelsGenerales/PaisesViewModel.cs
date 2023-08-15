@@ -11,6 +11,7 @@ namespace SIMEXPRO.API.Models
         public int pais_Id { get; set; }
         public string pais_Codigo { get; set; }
         public string pais_Nombre { get; set; }
+        public bool pais_EsAduana { get; set; }
         public int usua_UsuarioCreacion { get; set; }
         public DateTime pais_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }

@@ -14,11 +14,27 @@
    "SelectedToBeGenerated": 2,
    "Tables": [
       {
-         "Name": "[Adua].[VW_tbDeclaraciones_ValorCompleto]",
-         "ObjectType": 3
+         "Name": "[Gral].[tbCiudades]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Gral].[tbMonedas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Gral].[tbPaises]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Gral].[tbProvincias]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Gral].[tbUnidadMedidas]",
+         "ObjectType": 0
       }
    ],
-   "UiHint": "practicaahm.SIMEXPRO",
+   "UiHint": "EJSM\\SQLEXPRESS.SIMEXPRO",
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": true,
    "UseDbContextSplitting": false,

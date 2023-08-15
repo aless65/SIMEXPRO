@@ -40,6 +40,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@pvin_Nombre",          item.pvin_Nombre,           DbType.String,      ParameterDirection.Input);
             parametros.Add("@pvin_Codigo",          item.pvin_Codigo,           DbType.String,      ParameterDirection.Input);
             parametros.Add("@pais_Id",              item.pais_Id,               DbType.Int32,       ParameterDirection.Input);
+            parametros.Add("@pvin_EsAduana",        item.pvin_EsAduana,         DbType.Boolean,     ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion,  DbType.Int32,       ParameterDirection.Input);
             parametros.Add("@pvin_FechaCreacion",   item.pvin_FechaCreacion,    DbType.DateTime,    ParameterDirection.Input);
             var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarProvincias, parametros, commandType: CommandType.StoredProcedure);
@@ -71,6 +72,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@pvin_Nombre",              item.pvin_Nombre, DbType.String, ParameterDirection.Input);
             parametros.Add("@pvin_Codigo",              item.pvin_Codigo, DbType.String, ParameterDirection.Input);
             parametros.Add("@pais_Id",                  item.pais_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@pvin_EsAduana",            item.pvin_EsAduana, DbType.Boolean, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@pvin_FechaModificacion",   item.pvin_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
             var answer = db.QueryFirst<string>(ScriptsDataBase.EditarProvincias, parametros, commandType: CommandType.StoredProcedure);

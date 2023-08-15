@@ -20,33 +20,23 @@ namespace SIMEXPRO.Entities.Entities
         public string pvin_Nombre { get; set; }
         public string pvin_Codigo { get; set; }
         public int pais_Id { get; set; }
+        public bool pvin_EsAduana { get; set; }
+        public int usua_UsuarioCreacion { get; set; }
+        public DateTime pvin_FechaCreacion { get; set; }
+        public int? usua_UsuarioModificacion { get; set; }
+        public DateTime? pvin_FechaModificacion { get; set; }
+        public int? usua_UsuarioEliminacion { get; set; }
+        public DateTime? pvin_FechaEliminacion { get; set; }
+        public bool? pvin_Estado { get; set; }
 
         [NotMapped]
         public string pais_Nombre { get; set; }
 
-
-
-        public int usua_UsuarioCreacion { get; set; }
-
         [NotMapped]
         public string UsuarioCreacionNombre { get; set; }
 
-        public DateTime pvin_FechaCreacion { get; set; }
-
-        public int? usua_UsuarioModificacion { get; set; }
-
         [NotMapped]
         public string UsuarioModificadorNombre { get; set; }
-
-        public DateTime? pvin_FechaModificacion { get; set; }
-
-
-        public int? usua_UsuarioEliminacion { get; set; }
-
-        public DateTime? pvin_FechaEliminacion { get; set; }
-
-
-        public bool? pvin_Estado { get; set; }
 
         public virtual tbPaises pais { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }

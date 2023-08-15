@@ -10,6 +10,7 @@ namespace SIMEXPRO.API.Models
         public int mone_Id { get; set; }
         public string mone_Codigo { get; set; }
         public string mone_Descripcion { get; set; }
+        public bool mone_EsAduana { get; set; }
         public int usua_UsuarioCreacion { get; set; }
         public DateTime mone_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }

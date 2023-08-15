@@ -36,6 +36,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
             parametros.Add("@unme_Descripcion",         item.unme_Descripcion,      DbType.String,  ParameterDirection.Input);
+            parametros.Add("@unme_EsAduana",            item.unme_EsAduana, DbType.Boolean, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion",     item.usua_UsuarioCreacion,  DbType.Int32,   ParameterDirection.Input);
             parametros.Add("@unme_FechaCreacion",       item.unme_FechaCreacion,    DbType.DateTime,ParameterDirection.Input);
             var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarUnidadMedidas, parametros, commandType: CommandType.StoredProcedure);
@@ -57,6 +58,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             var parametros = new DynamicParameters();
             parametros.Add("@unme_Id",                  item.unme_Id,                   DbType.Int32,       ParameterDirection.Input);
             parametros.Add("@unme_Descripcion",         item.unme_Descripcion,          DbType.String,      ParameterDirection.Input);
+            parametros.Add("@unme_EsAduana",            item.unme_EsAduana, DbType.Boolean, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion,  DbType.Int32,       ParameterDirection.Input);
             parametros.Add("@unme_FechaModificacion",   item.unme_FechaModificacion,    DbType.DateTime,    ParameterDirection.Input);
             var answer = db.QueryFirst<string>(ScriptsDataBase.EditarUnidadMedidas, parametros, commandType: CommandType.StoredProcedure);

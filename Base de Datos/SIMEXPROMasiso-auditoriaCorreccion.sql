@@ -175,6 +175,8 @@ CREATE TABLE Gral.tbPaises(
 		pais_Id						INT 			IDENTITY(1,1),
 		pais_Codigo 				CHAR(2)			NOT NULL,
 		pais_Nombre 				NVARCHAR(150) 	NOT NULL,
+		pais_EsAduana				BIT				NOT NULL,
+
 		usua_UsuarioCreacion 		INT				NOT NULL,
 		pais_FechaCreacion 			DATETIME 		NOT NULL,
 		usua_UsuarioModificacion	INT				DEFAULT NULL,
@@ -184,7 +186,7 @@ CREATE TABLE Gral.tbPaises(
 		pais_Estado					BIT				DEFAULT 1,
 	
 	CONSTRAINT PK_Gral_tbPaises_pais_Id		PRIMARY KEY (pais_Id),
-	CONSTRAINT UQ_Gral_tbPaises_pais_Nombre UNIQUE (pais_Nombre),
+	CONSTRAINT UQ_Gral_tbPaises_pais_Nombre UNIQUE (pais_Nombre, pais_EsAduana),
 	CONSTRAINT UQ_Gral_tbPaises_pais_Codigo UNIQUE (pais_Codigo),
 	CONSTRAINT FK_Gral_tbPaises_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY(usua_UsuarioCreacion) 	REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbPaises_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id	FOREIGN KEY(usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
@@ -222,6 +224,7 @@ CREATE TABLE Gral.tbMonedas
 		mone_Id						INT 		IDENTITY(1,1),
 		mone_Codigo					CHAR(3),
 		mone_Descripcion			NVARCHAR(500),
+		mone_EsAduana				BIT			NOT NULL,
 
 		usua_UsuarioCreacion 		INT			NOT NULL,
 		mone_FechaCreacion 			DATETIME 	NOT NULL,
@@ -233,7 +236,7 @@ CREATE TABLE Gral.tbMonedas
 
 	CONSTRAINT PK_Gral_tbMonedas_mone_Id 		  PRIMARY KEY (mone_Id),
 	CONSTRAINT UQ_Gral_tbMonedas_mone_Codigo 	  UNIQUE (mone_Codigo),
-	CONSTRAINT UQ_Gral_tbMonedas_mone_Descripcion UNIQUE (mone_Descripcion),
+	CONSTRAINT UQ_Gral_tbMonedas_mone_Descripcion UNIQUE (mone_Descripcion, mone_EsAduana),
 	CONSTRAINT FK_Gral_tbMonedas_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id 	  FOREIGN KEY(usua_UsuarioCreacion) 	REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbMonedas_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	--CONSTRAINT FK_Gral_tbMonedas_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id  FOREIGN KEY(usua_UsuarioEliminacion) 	REFERENCES Acce.tbUsuarios (usua_Id)
@@ -246,7 +249,8 @@ CREATE TABLE Gral.tbProvincias(
 		pvin_Nombre 				NVARCHAR(150) 	NOT NULL,
 		pvin_Codigo 				NVARCHAR(20) 	NOT NULL,
 		pais_Id						INT				NOT NULL,
-	
+		pvin_EsAduana				BIT				NOT NULL,
+
 		usua_UsuarioCreacion 		INT				NOT NULL,
 		pvin_FechaCreacion 			DATETIME 		NOT NULL,
 		usua_UsuarioModificacion	INT				DEFAULT NULL,
@@ -256,7 +260,7 @@ CREATE TABLE Gral.tbProvincias(
 		pvin_Estado					BIT				DEFAULT 1,
 	
 	CONSTRAINT PK_Gral_tbProvincias_pvin_Id 			  PRIMARY KEY (pvin_Id),
-	--CONSTRAINT UQ_Gral_tbProvincias_pvin_Codigo 		  UNIQUE(pvin_Codigo),
+	CONSTRAINT UQ_Gral_tbProvincias_pvin_Codigo 		  UNIQUE(pvin_Codigo, pvin_EsAduana),
 	CONSTRAINT UQ_tbProvincias_pvin_Nombre_pvin_Codigo	  UNIQUE (pvin_Codigo, pvin_Nombre),
 	CONSTRAINT FK_Gral_tbPaises_Gral_tbProvincias_pais_Id FOREIGN KEY (pais_Id) 	 REFERENCES Gral.tbPaises(pais_Id),
 
@@ -270,7 +274,8 @@ CREATE TABLE Gral.tbCiudades(
 		ciud_Id						INT 			IDENTITY(1,1),
 		ciud_Nombre 				NVARCHAR(150) 	NOT NULL,
 		pvin_Id 					INT				NOT NULL,
-	
+		ciud_EsAduana				BIT				NOT NULL,
+
 		usua_UsuarioCreacion 		INT				NOT NULL,
 		ciud_FechaCreacion 			DATETIME 		NOT NULL,
 		usua_UsuarioModificacion	INT				DEFAULT NULL,
@@ -281,7 +286,7 @@ CREATE TABLE Gral.tbCiudades(
 	
 	CONSTRAINT PK_Gral_tbCiudades_ciud_Id 					PRIMARY KEY (ciud_Id),
 	CONSTRAINT FK_Gral_tbProvincias_Gral_tbCiudades_pvin_Id FOREIGN KEY (pvin_Id) REFERENCES Gral.tbProvincias(pvin_Id),
-	CONSTRAINT UQ_Gral_tbCiudades_ciud_Nombre_pvin_Id	    UNIQUE		(pvin_Id, ciud_Nombre),
+	CONSTRAINT UQ_Gral_tbCiudades_ciud_Nombre_pvin_Id	    UNIQUE		(pvin_Id, ciud_Nombre, ciud_EsAduana),
 	CONSTRAINT FK_Gral_tbCiudades_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id 	   FOREIGN KEY(usua_UsuarioCreacion) 	 REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbCiudades_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id FOREIGN KEY(usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Gral_tbCiudades_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id  FOREIGN KEY(usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios (usua_Id)
@@ -382,7 +387,6 @@ GO
 CREATE TABLE Gral.tbCargos(
 		carg_Id							INT 			IDENTITY(1,1),
 		carg_Nombre 					NVARCHAR(150) 	NOT NULL,
-
 		carg_Aduana						BIT				NOT NULL,
 
 		usua_UsuarioCreacion 			INT				NOT NULL,
@@ -404,7 +408,7 @@ GO
 
 
 --Seccion 2 Chris
-GO
+
 CREATE TABLE Gral.tbUnidadMedidas
 (
 		unme_Id							INT 			IDENTITY(1,1),
@@ -413,13 +417,14 @@ CREATE TABLE Gral.tbUnidadMedidas
 		unme_FechaCreacion				DATETIME 		NOT NULL,
 		usua_UsuarioModificacion		INT,
 		unme_FechaModificacion		    DATETIME 		DEFAULT NULL,
-	
+		unme_EsAduana					BIT				NOT NULL,
+		
 		usua_UsuarioEliminacion 		INT,
 		unme_FechaEliminacion		    DATETIME 		DEFAULT NULL,
 		unme_Estado						BIT				DEFAULT 1,
 
 CONSTRAINT PK_Gral_tbUnidadMedida_unme_Id PRIMARY KEY (unme_Id),
-CONSTRAINT UQ_Gral_tbUnidadMedida_unme_Descripcion	UNIQUE (unme_Descripcion),
+CONSTRAINT UQ_Gral_tbUnidadMedida_unme_Descripcion UNIQUE (unme_Descripcion, unme_EsAduana),
 CONSTRAINT FK_Acce_tbUsuarios_Gral_tbUnidadesMedidas_unme_UsuarioCreacion 		FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios(usua_Id),
 CONSTRAINT FK_Acce_tbUsuarios_Gral_tbUnidadesMedidas_unme_UsuarioModificacion   FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios(usua_Id),
 CONSTRAINT FK_Acce_tbUsuarios_Gral_tbUnidadesMedidas_unme_UsuarioEliminacion    FOREIGN KEY (usua_UsuarioEliminacion)	REFERENCES Acce.tbUsuarios(usua_Id)
@@ -2287,7 +2292,7 @@ CREATE TABLE Prod.tbOrde_Ensa_Acab_Etiq(
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_ppro_Id_Prod_tbPedidoProduccion_ppro_Id			FOREIGN KEY (ppro_Id)					REFERENCES Prod.tbPedidosProduccion			(ppro_Id),
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_usua_UsuarioCreacion_Acce_tbUsuario_usua_Id		FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios					(usua_Id),
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_usua_UsuarioModificacion_Acce_tbUsuario_usua_Id	FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios					(usua_Id),
-	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_Prod_tbProcesos_proc_Id							FOREIGN KEY (proc_Id)					REFERENCES Prod.tbProcesos					(proc_Id)
+	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_Prod_tbProcesos_proc_Id							FOREIGN KEY (proc_Id)					REFERENCES Prod.tbProcesos					(proc_Id),
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_Prod_tbModulos_modu_Id							FOREIGN KEY (modu_Id) REFERENCES Prod.tbModulos (modu_Id)
 );
 GO

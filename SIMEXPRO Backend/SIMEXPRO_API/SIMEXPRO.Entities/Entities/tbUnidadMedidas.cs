@@ -21,9 +21,11 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime unme_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
         public DateTime? unme_FechaModificacion { get; set; }
+        public bool unme_EsAduana { get; set; }
         public int? usua_UsuarioEliminacion { get; set; }
         public DateTime? unme_FechaEliminacion { get; set; }
         public bool? unme_Estado { get; set; }
+
         [NotMapped]
         public string usuarioCreacionNombre { get; set; }
         [NotMapped]

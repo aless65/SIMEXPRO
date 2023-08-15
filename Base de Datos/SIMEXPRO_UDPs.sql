@@ -974,7 +974,8 @@ CREATE OR ALTER PROCEDURE gral.UDP_tbCargos_Listar
 AS
 BEGIN
 	SELECT carg_Id							
-		   ,carg_Nombre						
+		   ,carg_Nombre
+		   ,carg_Aduana
 	       ,carg.usua_UsuarioCreacion		
 	       ,usuaCrea.usua_Nombre			AS usuarioCreacionNombre
 	       ,carg_FechaCreacion				

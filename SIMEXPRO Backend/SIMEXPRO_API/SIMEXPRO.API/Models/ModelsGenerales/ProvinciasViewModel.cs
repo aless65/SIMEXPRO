@@ -13,11 +13,10 @@ namespace SIMEXPRO.API.Models
         public string pvin_Nombre { get; set; }
         public string pvin_Codigo { get; set; }
         public int pais_Id { get; set; }
+        public bool pvin_EsAduana { get; set; }
 
         [NotMapped]
         public string pais_Nombre { get; set; }
-
-
 
         public int usua_UsuarioCreacion { get; set; }
 

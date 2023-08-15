@@ -10,6 +10,8 @@ namespace SIMEXPRO.API.Models.ModelsAduana
     {
         public int coim_Id { get; set; }
         public string coim_Descripcion { get; set; }
+
+        public int usua_UsuarioCreacion { get; set; }
         [NotMapped]
         public string usuarioCreacionNombre { get; set; }
         public DateTime coim_FechaCreacion { get; set; }

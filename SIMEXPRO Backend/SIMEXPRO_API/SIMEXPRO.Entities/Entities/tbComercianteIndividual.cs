@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -21,6 +22,9 @@ namespace SIMEXPRO.Entities.Entities
 
         public bool pers_FormaRepresentacion { get; set; }
         public int colo_Id { get; set; }
+
+        [NotMapped]
+        public string colo_Nombre { get; set; }
         public string coin_PuntoReferencia { get; set; }
         public int coin_ColoniaRepresentante { get; set; }
         public string coin_NumeroLocalReprentante { get; set; }

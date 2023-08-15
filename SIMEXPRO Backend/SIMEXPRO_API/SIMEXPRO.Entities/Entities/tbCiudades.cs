@@ -29,6 +29,11 @@ namespace SIMEXPRO.Entities.Entities
         public string pais_Codigo { get; set; }
         [NotMapped]
         public string pais_Nombre { get; set; }
+
+        [NotMapped]
+        public int pais_Id { get; set; }
+        
+
         public bool ciud_EsAduana { get; set; }
         public int usua_UsuarioCreacion { get; set; }
         [NotMapped]

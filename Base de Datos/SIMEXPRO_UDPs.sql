@@ -119,7 +119,7 @@ GO
 
 /*Listar Usuarios*/
 CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Listar
-	--@empl_EsAduana		BIT
+	@empl_EsAduana		BIT
 AS
 BEGIN
 	SELECT usua.usua_Id, 
@@ -151,8 +151,8 @@ BEGIN
 	LEFT JOIN acce.tbUsuarios usuaModifica
 	ON usua.usua_UsuarioModificacion = usuaModifica.usua_Id LEFT JOIN acce.tbUsuarios usuaElimina
 	ON usua.usua_UsuarioEliminacion = usuaElimina.usua_Id
---WHERE empl_EsAduana = @empl_EsAduana
---OR    @empl_EsAduana IS NULL
+WHERE empl_EsAduana = @empl_EsAduana
+OR    @empl_EsAduana IS NULL
 END
 --GO
 
@@ -1396,6 +1396,7 @@ SELECT	ciud_Id								,
 		ciu.pvin_Id							,
 		provi.pvin_Nombre					,
 		provi.pvin_Codigo					,
+		pais.pais_Id                        ,
 		pais.pais_Codigo					,
 		pais.pais_Nombre					,
 		ciu.usua_UsuarioCreacion			,

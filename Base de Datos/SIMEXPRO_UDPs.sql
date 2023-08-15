@@ -1334,8 +1334,16 @@ BEGIN
 		END
 		ELSE
 		BEGIN
-			INSERT INTO Gral.tbPaises (pais_Codigo, pais_Nombre, pais_EsAduana, usua_UsuarioCreacion, pais_FechaCreacion)
-			VALUES (@pais_Codigo, @pais_Nombre, @pais_EsAduana, @usua_UsuarioCreacion, @pais_FechaCreacion)
+			INSERT INTO Gral.tbPaises (pais_Codigo, 
+									   pais_Nombre, 
+									   pais_EsAduana, 
+									   usua_UsuarioCreacion, 
+									   pais_FechaCreacion)
+			VALUES (@pais_Codigo, 
+					@pais_Nombre, 
+					@pais_EsAduana, 
+					@usua_UsuarioCreacion, 
+					@pais_FechaCreacion)
 			SELECT 1
 		END
 
@@ -2027,7 +2035,8 @@ GO
 
 --************EMPLEADOS******************--
 /*Listar EMPLEADOS*/
-CREATE OR ALTER PROCEDURE [Gral].[UDP_tbEmpleados_Listar]
+CREATE OR ALTER PROCEDURE [Gral].[UDP_tbEmpleados_Listar] 
+	@empl_EsAduana		BIT
 AS
 BEGIN
 
@@ -2072,6 +2081,8 @@ FROM	Gral.tbEmpleados empl
 		INNER JOIN Gral.tbProvincias pvin		ON empl.pvin_Id = pvin.pvin_Id 
 		INNER JOIN Gral.tbPaises pais			ON pvin.pais_Id = pais.pais_Id 
 		INNER JOIN Gral.tbCargos carg			ON empl.carg_Id = carg.carg_Id
+WHERE empl_EsAduana = @empl_EsAduana
+OR @empl_EsAduana IS NULL
 END
 GO
 

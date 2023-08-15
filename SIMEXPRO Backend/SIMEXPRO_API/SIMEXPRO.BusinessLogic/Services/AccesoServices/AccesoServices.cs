@@ -258,7 +258,7 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
         #endregion
 
         #region Roles
-        public ServiceResult ListarRoles(bool role_Aduana)
+        public ServiceResult ListarRoles(bool? role_Aduana)
         {
             var result = new ServiceResult();
             try

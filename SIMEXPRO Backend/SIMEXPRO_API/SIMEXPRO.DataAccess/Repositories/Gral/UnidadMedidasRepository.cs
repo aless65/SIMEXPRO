@@ -44,7 +44,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             return result;
         }
 
-        public IEnumerable<tbUnidadMedidas> List(bool unme_EsAduana)
+        public IEnumerable<tbUnidadMedidas> List(bool? unme_EsAduana)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();

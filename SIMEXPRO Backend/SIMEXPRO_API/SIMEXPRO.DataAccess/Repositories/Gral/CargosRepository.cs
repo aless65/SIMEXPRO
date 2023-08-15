@@ -46,7 +46,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
 
         }
 
-        public IEnumerable<tbCargos> List(bool carg_EsAduana)
+        public IEnumerable<tbCargos> List(bool? carg_EsAduana)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();

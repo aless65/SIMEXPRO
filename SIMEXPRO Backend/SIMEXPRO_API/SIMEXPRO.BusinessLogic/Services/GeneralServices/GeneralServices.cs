@@ -158,7 +158,7 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Cargos
-        public ServiceResult ListarCargos(bool carg_EsAduana)
+        public ServiceResult ListarCargos(bool? carg_EsAduana)
         {
             var resultado = new ServiceResult();
             try
@@ -217,7 +217,7 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Ciudades
-        public ServiceResult ListarCiudades(bool ciud_EsAduana)
+        public ServiceResult ListarCiudades(bool? ciud_EsAduana)
         {
             var result = new ServiceResult();
             try
@@ -368,12 +368,12 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Empleados
-        public ServiceResult ListarEmpleados()
+        public ServiceResult ListarEmpleados(bool? empl_EsAduana)
         {
             var result = new ServiceResult();
             try
             {
-                var list = _empleadosRepository.List();
+                var list = _empleadosRepository.List(empl_EsAduana);
                 return result.Ok(list);
             }
             catch (Exception ex)
@@ -630,7 +630,7 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Monedas
-        public ServiceResult ListarMonedas(bool mone_EsAduana)
+        public ServiceResult ListarMonedas(bool? mone_EsAduana)
         {
             var result = new ServiceResult();
             try
@@ -835,7 +835,7 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Paises
-        public ServiceResult ListarPaises(bool pais_EsAduana)
+        public ServiceResult ListarPaises(bool? pais_EsAduana)
         {
             var result = new ServiceResult();
             try
@@ -922,7 +922,7 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
         #endregion
 
         #region Provincias
-        public ServiceResult ListarProvincias(bool pvin_EsAduana)
+        public ServiceResult ListarProvincias(bool? pvin_EsAduana)
         {
             var result = new ServiceResult();
             try
@@ -1057,7 +1057,7 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
 
         #region UnidadMedidas
 
-        public ServiceResult ListarUnidadMedidas(bool unme_EsAduana)
+        public ServiceResult ListarUnidadMedidas(bool? unme_EsAduana)
         {
             var result = new ServiceResult();
             try

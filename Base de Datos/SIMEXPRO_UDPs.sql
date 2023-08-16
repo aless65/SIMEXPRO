@@ -10938,14 +10938,39 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbSubcategoria_Editar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE  Prod.tbSubcategoria
-		SET		cate_Id                  = @cate_Id,
-		        subc_Descripcion         = @subc_Descripcion,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				subc_FechaModificacion   = @subc_FechaModificacion
-		WHERE	subc_Id = @subc_Id
+		IF EXISTS (SELECT *
+				   FROM Prod.tbSubcategoria
+				   WHERE cate_Id = @cate_Id
+				   AND	 subc_Descripcion = @subc_Descripcion
+				   AND subc_Estado = 0)
+			BEGIN
+				UPDATE Prod.tbSubcategoria
+				SET subc_Estado = 0,
+					usua_UsuarioEliminacion = @usua_UsuarioModificacion,
+					subc_FechaEliminacion = @subc_FechaModificacion
+				WHERE subc_Id = @subc_Id
 
-		SELECT 1
+				UPDATE Prod.tbSubcategoria
+				SET subc_Estado = 1,
+					usua_UsuarioModificacion = @usua_UsuarioModificacion,
+					subc_FechaModificacion = @subc_FechaModificacion
+				WHERE cate_Id = @cate_Id
+				AND	 subc_Descripcion = @subc_Descripcion
+
+				SELECT 1
+
+			END
+		ELSE
+			BEGIN
+				UPDATE  Prod.tbSubcategoria
+				SET		cate_Id                  = @cate_Id,
+						subc_Descripcion         = @subc_Descripcion,
+						usua_UsuarioModificacion = @usua_UsuarioModificacion,
+						subc_FechaModificacion   = @subc_FechaModificacion
+				WHERE	subc_Id = @subc_Id
+
+				SELECT 1
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()

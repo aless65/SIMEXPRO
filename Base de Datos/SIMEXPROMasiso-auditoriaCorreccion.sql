@@ -667,6 +667,7 @@ CREATE TABLE Adua.tbTipoIntermediario(
 
    CONSTRAINT PK_Adua_tbNivelesComerciales PRIMARY KEY (tite_Id),
    CONSTRAINT UQ_Adua_tbTipoIntermediario  UNIQUE(tite_Descripcion),
+   CONSTRAINT UQ_Adua_tbTipoItermediario_tite_Codigo UNIQUE (tite_Codigo),
    CONSTRAINT FK_Acce_tbUsuarios_Adua_tbTipoIntermediario_inte_UsuarioCreacion 			FOREIGN KEY (usua_UsuarioCreacion) 	   REFERENCES Acce.tbUsuarios(usua_Id),
    CONSTRAINT FK_Acce_tbUsuarios_Adua_tbTipoIntermediario_inte_usua_UsuarioModificacion FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios(usua_Id),
    CONSTRAINT FK_Acce_tbUsuarios_Adua_tbTipoIntermediario_inte_usua_UsuarioEliminacion 	FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios(usua_Id)
@@ -1547,7 +1548,8 @@ CREATE TABLE Prod.tbClientes(
 	clie_Numero_Contacto		CHAR(50)NOT NULL,
 	clie_Correo_Electronico		NVARCHAR(200)NOT NULL,
 	clie_FAX					NVARCHAR(50),
-	
+	pvin_Id						INT NOT NULL,
+
 	usua_UsuarioCreacion       	INT NOT NULL,
 	clie_FechaCreacion         	DATETIME NOT NULL,
 	usua_UsuarioModificacion   	INT DEFAULT NULL,
@@ -1557,7 +1559,11 @@ CREATE TABLE Prod.tbClientes(
     clie_Estado                	BIT DEFAULT 1,
 	
 	CONSTRAINT PK_Prod_tbClientes_clie_Id											PRIMARY KEY	(clie_Id),
-	CONSTRAINT UQ_Prod_tbClientes_clie_RTN											UNIQUE		(clie_RTN),
+	CONSTRAINT UQ_Prod_tbClientes_clie_Numero_Contacto								UNIQUE ([clie_Numero_Contacto]),
+	CONSTRAINT UQ_Prod_tbClientes_clie_Correo_Electronico							UNIQUE ([clie_Correo_Electronico]),
+	CONSTRAINT UQ_Prod_tbClientes_clie_FAX											UNIQUE (clie_FAX),
+	CONSTRAINT UQ_Prod_tbClientes_clie_RTN											UNIQUE (clie_RTN),
+	CONSTRAINT FK_Prod_tbClientes_pvin_Id_Gral_tbProvincias_pvin_Id					FOREIGN KEY (pvin_Id)					REFERENCES Gral.tbProvincias (pvin_Id),
 	CONSTRAINT FK_Prod_tbClientes_clie_UsuarioCreacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbClientes_clie_UsuarioModificacion_Acce_tbUsuarios_usua_Id	FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbClientes_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id	FOREIGN KEY (usua_UsuarioEliminacion)	REFERENCES Acce.tbUsuarios (usua_Id),
@@ -2282,7 +2288,7 @@ CREATE TABLE Prod.tbOrde_Ensa_Acab_Etiq(
 	ensa_FechaLimite			DATE NOT NULL, 
 	ppro_Id						INT NOT NULL,
 	proc_Id						INT NOT NULL,
-	modu_Id INT ,
+	modu_Id						INT,
  
 	usua_UsuarioCreacion		INT NOT NULL,
 	ensa_FechaCreacion			DATETIME NOT NULL,
@@ -2301,6 +2307,7 @@ CREATE TABLE Prod.tbOrde_Ensa_Acab_Etiq(
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_Prod_tbModulos_modu_Id							FOREIGN KEY (modu_Id) REFERENCES Prod.tbModulos (modu_Id)
 );
 GO
+
 CREATE TABLE Adua.tbModoTransporte(
 	motr_Id				     INT IDENTITY(1,1),
 	motr_Descripcion	     NVARCHAR(75) NOT NULL,
@@ -2319,8 +2326,6 @@ CREATE TABLE Adua.tbModoTransporte(
 	CONSTRAINT FK_Prod_tbModoTransporte__Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 );
 GO
-
-
 
 CREATE TABLE Adua.tbTiposIdentificacion(
 	iden_Id						INT IDENTITY(1,1),

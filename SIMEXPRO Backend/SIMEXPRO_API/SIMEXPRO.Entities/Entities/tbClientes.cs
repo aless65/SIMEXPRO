@@ -22,21 +22,26 @@ namespace SIMEXPRO.Entities.Entities
         public string clie_Numero_Contacto { get; set; }
         public string clie_Correo_Electronico { get; set; }
         public string clie_FAX { get; set; }
+        public int pvin_Id { get; set; }
         public int usua_UsuarioCreacion { get; set; }
-        [NotMapped]
-        public String usuarioNombreCreacion { get; set; }
         public DateTime clie_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
 
-        [NotMapped]
-        public String usuarioNombreModificacion { get; set; }
         public DateTime? clie_FechaModificacion { get; set; }
         public int? usua_UsuarioEliminacion { get; set; }
 
-        [NotMapped]
-        public String usuarioNombreEliminacion { get; set; }
         public DateTime? clie_FechaEliminacion { get; set; }
         public bool? clie_Estado { get; set; }
+
+
+        [NotMapped]
+        public string usuarioNombreCreacion { get; set; }
+
+        [NotMapped]
+        public string usuarioNombreModificacion { get; set; }
+
+        [NotMapped]
+        public string usuarioNombreEliminacion { get; set; }
 
 
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }

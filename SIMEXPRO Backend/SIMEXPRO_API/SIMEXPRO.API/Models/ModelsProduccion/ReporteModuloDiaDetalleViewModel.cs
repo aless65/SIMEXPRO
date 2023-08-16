@@ -18,5 +18,10 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public DateTime? rdet_FechaModificacion { get; set; }
         public bool? rdet_Estado { get; set; }
 
+         public string usua_NombreUsuarioCreacion { get; set; }
+
+         public string usua_NombreUsuarioModificacion { get; set; }
+
+
     }
 }

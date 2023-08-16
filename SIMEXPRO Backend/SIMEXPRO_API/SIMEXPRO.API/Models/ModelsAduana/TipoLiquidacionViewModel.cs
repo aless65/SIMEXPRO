@@ -14,5 +14,10 @@ namespace SIMEXPRO.API.Models.ModelsAduana
         public int? usua_UsuarioModificacion { get; set; }
         public DateTime? tipl_FechaModificacion { get; set; }
         public bool? tipl_Estado { get; set; }
+
+         public string usarioCreacion { get; set; }
+
+         public string usuarioModificacion { get; set; }
+
     }
 }

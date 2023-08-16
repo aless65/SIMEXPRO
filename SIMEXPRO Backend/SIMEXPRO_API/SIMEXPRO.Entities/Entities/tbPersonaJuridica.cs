@@ -35,8 +35,12 @@ namespace SIMEXPRO.Entities.Entities
         public string peju_CorreoElectronico { get; set; }
         public string peju_CorreoElectronicoAlternativo { get; set; }
         public int usua_UsuarioCreacion { get; set; }
+        [NotMapped]
+        public string usuarioCreacionNombre { get; set; }
         public DateTime peju_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
+        [NotMapped]
+        public string usuarioModificaNombre { get; set; }
         public DateTime? peju_FechaModificacion { get; set; }
         public bool? peju_Estado { get; set; }
 

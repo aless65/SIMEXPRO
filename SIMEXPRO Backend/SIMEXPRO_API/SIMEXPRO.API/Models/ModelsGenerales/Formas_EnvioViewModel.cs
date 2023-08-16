@@ -8,7 +8,7 @@ namespace SIMEXPRO.API.Models
 {
     public class Formas_EnvioViewModel
     {
-        
+
         public int foen_Id { get; set; }
         public string foen_Codigo { get; set; }
         public string foen_Descripcion { get; set; }
@@ -18,14 +18,11 @@ namespace SIMEXPRO.API.Models
         public DateTime? foen_FechaModificacion { get; set; }
         public int? usua_UsuarioEliminacion { get; set; }
 
-        [NotMapped]
-        public string UsuarioCreacionNombre { get; set; }
+         public string UsuarioCreacionNombre { get; set; }
 
-        [NotMapped]
-        public string UsuarioModificacionNombre { get; set; }
+         public string UsuarioModificacionNombre { get; set; }
 
-        [NotMapped]
-        public string UsuarioEliminacionNombre { get; set; }
+         public string UsuarioEliminacionNombre { get; set; }
         public DateTime? foen_FechaEliminacion { get; set; }
         public bool? foen_Estado { get; set; }
     }

@@ -15,20 +15,17 @@ namespace SIMEXPRO.API.Models
         public int pais_Id { get; set; }
         public bool pvin_EsAduana { get; set; }
 
-        [NotMapped]
-        public string pais_Nombre { get; set; }
+         public string pais_Nombre { get; set; }
 
         public int usua_UsuarioCreacion { get; set; }
 
-        [NotMapped]
-        public string UsuarioCreacionNombre { get; set; }
+         public string UsuarioCreacionNombre { get; set; }
 
         public DateTime pvin_FechaCreacion { get; set; }
 
         public int? usua_UsuarioModificacion { get; set; }
 
-        [NotMapped]
-        public string UsuarioModificadorNombre { get; set; }
+         public string UsuarioModificadorNombre { get; set; }
 
         public DateTime? pvin_FechaModificacion { get; set; }
 

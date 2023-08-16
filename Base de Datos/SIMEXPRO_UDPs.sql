@@ -1798,7 +1798,7 @@ SELECT	prov_Id								,
 		usu2.usua_Nombre					AS UsuarioModificadorNombre,
 		prov.usua_UsuarioEliminacion,
 		prov_FechaEliminacion,
-		usu3.usua_Nombre AS UsuarioEliminacionNombre,
+		usu3.usua_Nombre 					AS UsuarioEliminacionNombre,
 		prov_FechaModificacion	 			,
 		prov.usua_UsuarioEliminacion		,
 		usu3.usua_Nombre					AS UsuarioEliminacionNombre,
@@ -2457,9 +2457,9 @@ BEGIN
 
 				Personas.pers_FormaRepresentacion, 
 				Personas.pers_escvRepresentante,
-				Civil2.escv_Nombre,
+				Civil2.escv_Nombre,					AS EstadoCivilRepresentante
 				Personas.pers_OfprRepresentante,
-				Profesion2.ofpr_Nombre,
+				Profesion2.ofpr_Nombre,				AS OficioProfecionRepresentante
 
 				Personas.usua_UsuarioCreacion, 
 				Personas.pers_FechaCreacion, 
@@ -2918,10 +2918,10 @@ BEGIN
 			,personaJuridica.peju_CorreoElectronico
 			,personaJuridica.peju_CorreoElectronicoAlternativo
 			,personaJuridica.usua_UsuarioCreacion
-			,usuarioCreacion.usua_Nombre
+			,usuarioCreacion.usua_Nombre				as usuarioCreacionNombre
 			,personaJuridica.peju_FechaCreacion
 			,personaJuridica.usua_UsuarioModificacion
-			,usuarioModificacion.usua_Nombre
+			,usuarioModificacion.usua_Nombre			as usuarioModificaNombre
 			,personaJuridica.peju_FechaModificacion
 			,personaJuridica.peju_Estado
 			FROM	Adua.tbPersonaJuridica					personaJuridica
@@ -12572,7 +12572,7 @@ BEGIN
 SELECT lote_Id, 
 	   lotes.mate_Id, 
 	   lotes.prod_Id,
-	   materiales.mate_Descripcion,
+		materiales.mate_Descripcion,
 	   lotes.unme_Id,
 	   UnidadesMedida.unme_Descripcion,
 	   lotes.lote_Observaciones,

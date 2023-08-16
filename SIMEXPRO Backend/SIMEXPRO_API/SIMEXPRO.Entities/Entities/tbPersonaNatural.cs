@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -12,6 +13,9 @@ namespace SIMEXPRO.Entities.Entities
         public int pers_Id { get; set; }
         public string pena_DireccionExacta { get; set; }
         public int ciud_Id { get; set; }
+
+        [NotMapped]
+        public string ciud_Nombre { get; set; }
         public string pena_TelefonoFijo { get; set; }
         public string pena_TelefonoCelular { get; set; }
         public string pena_CorreoElectronico { get; set; }
@@ -27,6 +31,12 @@ namespace SIMEXPRO.Entities.Entities
         public int? usua_UsuarioModificacion { get; set; }
         public DateTime? pena_FechaModificacion { get; set; }
         public bool? pena_Estado { get; set; }
+
+        [NotMapped]
+        public string usuarioCreacion { get; set; }
+
+        [NotMapped]
+        public string usuarioModificacion { get; set; }
 
         public virtual tbCiudades ciud { get; set; }
         public virtual tbPersonas pers { get; set; }

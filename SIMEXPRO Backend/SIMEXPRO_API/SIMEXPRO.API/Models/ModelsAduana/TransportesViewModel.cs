@@ -24,5 +24,16 @@ namespace SIMEXPRO.API.Models.ModelsAduana
         public int? usua_UsuarioEliminacion { get; set; }
         public DateTime? trant_FechaEliminacion { get; set; }
         public bool? tran_Estado { get; set; }
+
+         public string paisNombre { get; set; }
+ 
+        public string marcaDescripcion { get; set; }
+ 
+        public string usuarioCreacionNombre { get; set; }
+ 
+        public string usuarioModificacionNombre { get; set; }
+ 
+        public string usuarioEliminacionNombre { get; set; }
+
     }
 }

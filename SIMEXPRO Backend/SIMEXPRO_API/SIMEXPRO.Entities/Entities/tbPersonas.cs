@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -18,14 +19,29 @@ namespace SIMEXPRO.Entities.Entities
         public int pers_Id { get; set; }
         public string pers_RTN { get; set; }
         public int ofic_Id { get; set; }
+
+        [NotMapped]
+        public string ofic_Nombre { get; set; }
         public int escv_Id { get; set; }
+        [NotMapped]
+        public string escv_Nombre { get; set; }
         public int ofpr_Id { get; set; }
+        [NotMapped]
+        public string ofpr_Nombre { get; set; }
         public bool pers_FormaRepresentacion { get; set; }
         public int pers_escvRepresentante { get; set; }
+        [NotMapped]
+        public string EstadoCivilRepresentante { get; set; }
         public int pers_OfprRepresentante { get; set; }
+        [NotMapped]
+        public string OficioProfecionRepresentante { get; set; }
         public int usua_UsuarioCreacion { get; set; }
+        [NotMapped]
+        public string usuarioCreacion { get; set; }
         public DateTime pers_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
+        [NotMapped]
+        public string usuarioModificacion { get; set; }
         public DateTime? pers_FechaModificacion { get; set; }
         public bool? pers_Estado { get; set; }
 

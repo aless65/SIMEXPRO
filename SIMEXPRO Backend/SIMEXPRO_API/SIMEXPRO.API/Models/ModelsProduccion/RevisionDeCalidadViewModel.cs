@@ -9,6 +9,7 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
     {
         public int reca_Id { get; set; }
         public int ensa_Id { get; set; }
+         public string modu_Nombre { get; set; }
         public string reca_Descripcion { get; set; }
         public int reca_Cantidad { get; set; }
         public bool reca_Scrap { get; set; }
@@ -19,6 +20,11 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public int? usua_UsuarioModificacion { get; set; }
         public DateTime? reca_FechaModificacion { get; set; }
         public bool? reca_Estado { get; set; }
+
+         public string usua_NombreUsuarioCreacion { get; set; }
+
+         public string usua_NombreUsuarioModificacion { get; set; }
+
 
     }
 }

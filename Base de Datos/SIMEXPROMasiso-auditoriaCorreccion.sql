@@ -1860,8 +1860,8 @@ CREATE TABLE Prod.tbOrdenCompraDetalles(
 	tall_Id						INT NOT NULL,
 	code_Sexo					CHAR(1) NOT NULL,
 	colr_Id						INT NOT NULL,
-	code_Documento				NVARCHAR(250) NOT NULL,
-	--code_Medidas				NVARCHAR(250) NOT NULL,
+	code_Documento				NVARCHAR(MAX),
+	code_Medidas				NVARCHAR(MAX) NOT NULL,
 	proc_IdComienza				INT NOT NULL,
 	proc_IdActual				INT NOT NULL,
 	code_Unidad					DECIMAL(18,2) NOT NULL,
@@ -1898,6 +1898,7 @@ CREATE TABLE Prod.tbMaterialesBrindar(
 	code_Id						INT NOT NULL,
 	mate_Id						INT NOT NULL,
 	mabr_Cantidad				INT NOT NULL,
+    unme_Id                     INT NOT NULL,
 	
 	usua_UsuarioCreacion       	INT NOT NULL,
 	mabr_FechaCreacion         	DATETIME NOT NULL,
@@ -1910,7 +1911,7 @@ CREATE TABLE Prod.tbMaterialesBrindar(
 	CONSTRAINT PK_Prod_tbMaterialesBrindar_mabr_Id PRIMARY KEY(mabr_Id),
 	CONSTRAINT FK_Prod_tbtbMaterialesBrindar_code_Id_Prod_tbOrdenCompraDetalles_code_Id 			FOREIGN KEY(code_Id) REFERENCES  Prod.tbOrdenCompraDetalles(code_Id),
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_mate_Id_Prod_tbMateriales_mate_Id 						FOREIGN KEY(mate_Id) REFERENCES  Prod.tbMateriales(mate_Id),
-	
+	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_unme_Id_Gral_tbUnidadMedidas                           FOREIGN KEY(unme_Id) REFERENCES  Gral.tbUnidadMedidas(unme_Id),
 	CONSTRAINT FK_Prod_tbMaterialesBrindar_mabr_UsuarioCreacion_Acce_tbUsuarios_usua_Id         	FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbMaterialesBrindar_mabr_UsuarioModificacion_Acce_tbUsuarios_code_usua_Id	FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	--CONSTRAINT FK_Prod_tbMaterialesBrindar_mabr__Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)

@@ -381,6 +381,19 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
                 return result.Error(ex.Message);
             }
         }
+        public ServiceResult ListarEmpleadosSinUsuario(bool? empl_EsAduana)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _empleadosRepository.ListNoTieneUsuario(empl_EsAduana);
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
 
         public ServiceResult InsertarEmpleados(tbEmpleados item)
         {

@@ -129,6 +129,7 @@ BEGIN
 		   rol.role_Descripcion, 
 		   usua.usua_EsAdmin,
 		   usua.empl_Id,
+		   usua.usua_Image,
 		   (empl_Nombres + ' ' + empl_Apellidos) AS empleadoNombreCompleto, 
 		   empl_EsAduana,
 		   empl_CorreoElectronico,
@@ -154,10 +155,26 @@ BEGIN
 WHERE empl_EsAduana = @empl_EsAduana
 OR    @empl_EsAduana IS NULL
 END
---GO
+GO
 
+CREATE OR ALTER   PROCEDURE Gral.UDP_tbEmpleados_ListarNoTieneUsuario 
+	@empl_EsAduana		BIT
+AS
+BEGIN
 
-
+SELECT		empl.empl_Id								,
+			empl_Nombres								,
+			empl_Apellidos								,
+			empl_EsAduana,
+			CONCAT(empl_Nombres, ' ', empl_Apellidos)		AS empl_NombreCompleto,
+			empl_Estado								
+FROM		Gral.tbEmpleados	empl 
+FULL JOIN	Acce.tbUsuarios		usua
+ON			empl.empl_Id = usua.empl_Id
+WHERE (empl_EsAduana = @empl_EsAduana
+OR	  @empl_EsAduana IS NULL)
+AND   (usua.usua_Id IS NULL AND empl.empl_Estado = 1)
+END
 
 --EXEC acce.UDP_tbUsuarios_Insertar 'juan', '123', 1, 'nada', 1, 1, 1,'08-08-2023'
 --EXEC acce.UDP_tbUsuarios_Insertar 'juanC', '123', 2, 'nada', 1, 1, 1,'08-08-2023'
@@ -1798,7 +1815,7 @@ SELECT	prov_Id								,
 		usu2.usua_Nombre					AS UsuarioModificadorNombre,
 		prov.usua_UsuarioEliminacion,
 		prov_FechaEliminacion,
-		usu3.usua_Nombre AS UsuarioEliminacionNombre,
+		usu3.usua_Nombre 					AS UsuarioEliminacionNombre,
 		prov_FechaModificacion	 			,
 		prov.usua_UsuarioEliminacion		,
 		usu3.usua_Nombre					AS UsuarioEliminacionNombre,
@@ -2457,9 +2474,9 @@ BEGIN
 
 				Personas.pers_FormaRepresentacion, 
 				Personas.pers_escvRepresentante,
-				Civil2.escv_Nombre,
+				Civil2.escv_Nombre,					AS EstadoCivilRepresentante
 				Personas.pers_OfprRepresentante,
-				Profesion2.ofpr_Nombre,
+				Profesion2.ofpr_Nombre,				AS OficioProfecionRepresentante
 
 				Personas.usua_UsuarioCreacion, 
 				Personas.pers_FechaCreacion, 
@@ -2918,10 +2935,10 @@ BEGIN
 			,personaJuridica.peju_CorreoElectronico
 			,personaJuridica.peju_CorreoElectronicoAlternativo
 			,personaJuridica.usua_UsuarioCreacion
-			,usuarioCreacion.usua_Nombre
+			,usuarioCreacion.usua_Nombre				as usuarioCreacionNombre
 			,personaJuridica.peju_FechaCreacion
 			,personaJuridica.usua_UsuarioModificacion
-			,usuarioModificacion.usua_Nombre
+			,usuarioModificacion.usua_Nombre			as usuarioModificaNombre
 			,personaJuridica.peju_FechaModificacion
 			,personaJuridica.peju_Estado
 			FROM	Adua.tbPersonaJuridica					personaJuridica
@@ -9931,7 +9948,7 @@ SELECT	est.esti_Id						,
 		est.esti_Estado					
 FROM	Prod.tbEstilos est 
 		INNER JOIN Acce.tbUsuarios usu	ON est.usua_UsuarioCreacion = usu.usua_Id 
-		LEFT JOIN Acce.tbUsuarios usu2 ON usu2.usua_UsuarioModificacion = est.usua_UsuarioModificacion 
+		LEFT JOIN Acce.tbUsuarios usu2 ON usu2.usua_Id = est.usua_UsuarioModificacion 
 WHERE	esti_Estado = 1
 END 
 
@@ -10885,10 +10902,25 @@ AS
 BEGIN
 	
 	BEGIN TRY
-		INSERT INTO Prod.tbSubcategoria (cate_Id, subc_Descripcion, usua_UsuarioCreacion, subc_FechaCreacion)
-		VALUES(@cate_Id, @subc_Descripcion, @usua_UsuarioCreacion, @usua_FechaCreacion)
+		IF EXISTS (SELECT *
+				   FROM Prod.tbSubcategoria
+				   WHERE cate_Id = @cate_Id
+				   AND subc_Descripcion = @subc_Descripcion)
+			BEGIN
+				UPDATE Prod.tbSubcategoria
+				SET subc_Estado = 1
+				WHERE cate_Id = @cate_Id
+				AND subc_Descripcion = @subc_Descripcion
+
+				SELECT 1
+			END
+		ELSE
+			BEGIN
+				INSERT INTO Prod.tbSubcategoria (cate_Id, subc_Descripcion, usua_UsuarioCreacion, subc_FechaCreacion)
+				VALUES(@cate_Id, @subc_Descripcion, @usua_UsuarioCreacion, @usua_FechaCreacion)
 		
-		SELECT 1
+				SELECT 1
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -10906,14 +10938,39 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbSubcategoria_Editar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE  Prod.tbSubcategoria
-		SET		cate_Id                  = @cate_Id,
-		        subc_Descripcion         = @subc_Descripcion,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				subc_FechaModificacion   = @subc_FechaModificacion
-		WHERE	subc_Id = @subc_Id
+		IF EXISTS (SELECT *
+				   FROM Prod.tbSubcategoria
+				   WHERE cate_Id = @cate_Id
+				   AND	 subc_Descripcion = @subc_Descripcion
+				   AND subc_Estado = 0)
+			BEGIN
+				UPDATE Prod.tbSubcategoria
+				SET subc_Estado = 0,
+					usua_UsuarioEliminacion = @usua_UsuarioModificacion,
+					subc_FechaEliminacion = @subc_FechaModificacion
+				WHERE subc_Id = @subc_Id
 
-		SELECT 1
+				UPDATE Prod.tbSubcategoria
+				SET subc_Estado = 1,
+					usua_UsuarioModificacion = @usua_UsuarioModificacion,
+					subc_FechaModificacion = @subc_FechaModificacion
+				WHERE cate_Id = @cate_Id
+				AND	 subc_Descripcion = @subc_Descripcion
+
+				SELECT 1
+
+			END
+		ELSE
+			BEGIN
+				UPDATE  Prod.tbSubcategoria
+				SET		cate_Id                  = @cate_Id,
+						subc_Descripcion         = @subc_Descripcion,
+						usua_UsuarioModificacion = @usua_UsuarioModificacion,
+						subc_FechaModificacion   = @subc_FechaModificacion
+				WHERE	subc_Id = @subc_Id
+
+				SELECT 1
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -12572,7 +12629,7 @@ BEGIN
 SELECT lote_Id, 
 	   lotes.mate_Id, 
 	   lotes.prod_Id,
-	   materiales.mate_Descripcion,
+		materiales.mate_Descripcion,
 	   lotes.unme_Id,
 	   UnidadesMedida.unme_Descripcion,
 	   lotes.lote_Observaciones,

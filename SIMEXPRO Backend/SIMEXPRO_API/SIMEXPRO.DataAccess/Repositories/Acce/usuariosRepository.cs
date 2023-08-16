@@ -144,8 +144,5 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             result.CodeStatus = answer;
             return result;
         }
-
-
-
     }
 }

@@ -20,6 +20,7 @@ namespace SIMEXPRO.Entities.Entities
         public string prov_Telefono { get; set; }
         public string prov_CodigoPostal { get; set; }
         public int prov_Ciudad { get; set; }
+        [NotMapped]
         public string ciud_Nombre { get; set; }
         public string pvin_Id { get; set; }
         public string pvin_Nombre { get; set; }

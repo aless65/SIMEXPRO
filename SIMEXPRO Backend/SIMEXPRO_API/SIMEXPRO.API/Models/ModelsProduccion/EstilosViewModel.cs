@@ -17,6 +17,10 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public DateTime? esti_FechaEliminacion { get; set; }
         public bool? esti_Estado { get; set; }
 
+         public string usarioCreacion { get; set; }
+
+         public string usuarioModificacion { get; set; }
+
 
     }
 }

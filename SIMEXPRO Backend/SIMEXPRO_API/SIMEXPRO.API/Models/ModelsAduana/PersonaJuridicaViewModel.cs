@@ -9,6 +9,10 @@ namespace SIMEXPRO.API.Models.ModelsAduana
     {
         public int peju_Id { get; set; }
         public int pers_Id { get; set; }
+         public string pers_RTN { get; set; }
+         public int ofic_Id { get; set; }
+         public string pais_RepresentanteNombre { get; set; }
+
         public int peju_EstadoRepresentante { get; set; }
         public int colo_Id { get; set; }
         public string peju_PuntoReferencia { get; set; }
@@ -21,9 +25,12 @@ namespace SIMEXPRO.API.Models.ModelsAduana
         public string peju_CorreoElectronico { get; set; }
         public string peju_CorreoElectronicoAlternativo { get; set; }
         public int usua_UsuarioCreacion { get; set; }
+         public string usuarioCreacionNombre { get; set; }
         public DateTime peju_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
+         public string usuarioModificaNombre { get; set; }
         public DateTime? peju_FechaModificacion { get; set; }
         public bool? peju_Estado { get; set; }
+
     }
 }

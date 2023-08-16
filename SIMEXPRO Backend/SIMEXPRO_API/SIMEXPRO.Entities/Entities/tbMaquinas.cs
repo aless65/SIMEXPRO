@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -18,8 +19,16 @@ namespace SIMEXPRO.Entities.Entities
         public int mmaq_Id { get; set; }
         public int modu_Id { get; set; }
         public int usua_UsuarioCreacion { get; set; }
+        [NotMapped]
+
+        public string UsuarioCreaNombre { get; set; }
         public DateTime maqu_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
+        [NotMapped]
+
+        public string UsuarioModificaNombre { get; set; }
+
+
         public DateTime? maqu_FechaModificacion { get; set; }
         public int? usua_UsuarioEliminacion { get; set; }
         public DateTime? maqu_FechaEliminacion { get; set; }

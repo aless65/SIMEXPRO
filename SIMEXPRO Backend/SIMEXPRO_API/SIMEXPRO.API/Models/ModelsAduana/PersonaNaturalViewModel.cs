@@ -11,6 +11,8 @@ namespace SIMEXPRO.API.Models.ModelsAduana
         public int pers_Id { get; set; }
         public string pena_DireccionExacta { get; set; }
         public int ciud_Id { get; set; }
+
+         public string ciud_Nombre { get; set; }
         public string pena_TelefonoFijo { get; set; }
         public string pena_TelefonoCelular { get; set; }
         public string pena_CorreoElectronico { get; set; }
@@ -26,5 +28,10 @@ namespace SIMEXPRO.API.Models.ModelsAduana
         public int? usua_UsuarioModificacion { get; set; }
         public DateTime? pena_FechaModificacion { get; set; }
         public bool? pena_Estado { get; set; }
+
+         public string usuarioCreacion { get; set; }
+
+         public string usuarioModificacion { get; set; }
+
     }
 }

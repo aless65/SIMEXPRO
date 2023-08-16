@@ -14,14 +14,12 @@ namespace SIMEXPRO.API.Models
         public string prov_Telefono { get; set; }
         public string prov_CodigoPostal { get; set; }
         public int prov_Ciudad { get; set; }
-        public string ciud_Nombre { get; set; }
+         public string ciud_Nombre { get; set; }
         public string pvin_Id { get; set; }
         public string pvin_Nombre { get; set; }
         public string pais_Nombre { get; set; }
 
-        [NotMapped]
-        public string pais_Codigo { get; set; }
-
+         public string pais_Codigo { get; set; }
         public string pais_Id { get; set; }
         public string prov_DireccionExacta { get; set; }
         public string prov_CorreoElectronico { get; set; }
@@ -36,5 +34,6 @@ namespace SIMEXPRO.API.Models
         public int? usua_UsuarioEliminacion { get; set; }
         public DateTime? prov_FechaEliminacion { get; set; }
         public bool? prov_Estado { get; set; }
+
     }
 }

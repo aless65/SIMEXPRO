@@ -37,9 +37,13 @@ namespace SIMEXPRO.Entities.Entities
         public string item_ReglasAccesorias { get; set; }
         public string item_CriterioCertificarOrigen { get; set; }
         public int usua_UsuarioCreacion { get; set; }
+
+        [NotMapped]
         public string usuarioCreacionNombre { get; set; }
         public DateTime item_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
+
+        [NotMapped]
         public string usuarioModificacionNombre { get; set; }
 
         [NotMapped]

@@ -3099,8 +3099,9 @@ BEGIN
 	       INNER JOIN Acce.tbUsuarios usuaCrea			ON lugar.usua_UsuarioCreacion     = usuaCrea.usua_Id 
 		   LEFT JOIN  Acce.tbUsuarios usuaModifica		ON lugar.usua_UsuarioModificacion = usuaModifica.usua_Id 
 		   LEFT JOIN  Acce.tbUsuarios usuaElimi		    ON lugar.usua_UsuarioEliminacion  = usuaElimi.usua_Id 
-	 WHERE SUBSTRING(lugar.emba_Codigo,1,2) = @emba_Codigo AND
-			emba_Estado = 1
+	 WHERE SUBSTRING(lugar.emba_Codigo,1,2) = @emba_Codigo 
+	 OR @emba_Codigo IS NULL
+	 AND emba_Estado = 1
 END
 GO
 
@@ -10380,10 +10381,13 @@ AS
 BEGIN
 SELECT	proc_Id								,
 		proc_Descripcion					,
+		pro.usua_UsuarioCreacion				,
 		crea.usua_Nombre					AS usarioCreacion,			 
 		proc_FechaCreacion					,
+		pro.usua_UsuarioModificacion			,
 		modi.usua_Nombre  					AS usuarioModificacion,
 		proc_FechaModificacion				,
+		pro.usua_UsuarioEliminacion				,
 		elim.usua_Nombre 					AS usuarioEliminacion,
 		proc_FechaEliminacion				,
 		proc_Estado							
@@ -11688,31 +11692,9 @@ SELECT func_Id										,
 		func_Estado									
 FROM	Prod.tbFuncionesMaquina func 
 		INNER JOIN Acce.tbUsuarios usuaCrea		ON func.usua_UsuarioCreacion = usuaCrea.usua_Id 
-		LEFT JOIN Acce.tbUsuarios usuaModifica	ON func.usua_UsuarioModificacion = usuaCrea.usua_Id 
-		LEFT JOIN Acce.tbUsuarios usuaElimina	ON func.usua_UsuarioEliminacion = usuaCrea.usua_Id 
+		LEFT JOIN Acce.tbUsuarios usuaModifica	ON func.usua_UsuarioModificacion = usuaModifica.usua_Id 
+		LEFT JOIN Acce.tbUsuarios usuaElimina	ON func.usua_UsuarioEliminacion = usuaElimina.usua_Id 
 WHERE	func_Estado = 1
-
-	SELECT func_Id							AS funcionId, 
-		   func_Nombre						AS funcionNombre, 
-		   func.usua_UsuarioCreacion		AS usuarioCreacion, 
-		   usuaCrea.usua_Nombre				AS usuarioCreacionNombre,
-		   func_FechaCreacion				AS fechaCreacion, 
-		   func.usua_UsuarioModificacion	AS usuarioModificacion, 
-		   usuaModifica.usua_Nombre			AS usuarioModificacionNombre,
-		   func_FechaModificacion			AS fechaModificacion,
-		   func.usua_UsuarioEliminacion		AS usuarioEliminacion, 
-		   usuaElimina.usua_Nombre			AS usuarioEliminacionNombre,
-		   func_FechaEliminacion			AS fechaEliminacion, 
-		   func_Estado						AS funcionEstado
-	  FROM Prod.tbFuncionesMaquina func 
-INNER JOIN Acce.tbUsuarios usuaCrea
-		ON func.usua_UsuarioCreacion = usuaCrea.usua_Id 
- LEFT JOIN Acce.tbUsuarios usuaModifica
-		ON func.usua_UsuarioModificacion = usuaCrea.usua_Id 
- LEFT JOIN Acce.tbUsuarios usuaElimina
-		ON func.usua_UsuarioEliminacion = usuaCrea.usua_Id 
-	 WHERE func_Estado = 1
-
 END
 GO
 

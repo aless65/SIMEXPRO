@@ -33,9 +33,6 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
 
         public string MarcaMaquina { get; set; }
         public string FuncionMaquina { get; set; }
-        public string UsuarioCreacionNombre { get; set; }
-        public string UsuarioModificacionNombre { get; set; }
-        public string usuarioEliminacionNombre { get; set; }
 
     }
 }

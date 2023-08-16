@@ -30,6 +30,13 @@ namespace SIMEXPRO.API.Controllers.ControllersGenerales
             return Ok(listado);
         }
 
+        [HttpGet("ListarNoTieneUsuario")]
+        public IActionResult IndexSinUsuario(bool? empl_EsAduana)
+        {
+            var listado = _generalesServices.ListarEmpleadosSinUsuario(empl_EsAduana);
+            listado.Data = _mapper.Map<IEnumerable<EmpleadosViewModel>>(listado.Data);
+            return Ok(listado);
+        }
 
         [HttpPost("Insertar")]
         public IActionResult Insert(EmpleadosViewModel empleadosViewModel)

@@ -154,10 +154,26 @@ BEGIN
 WHERE empl_EsAduana = @empl_EsAduana
 OR    @empl_EsAduana IS NULL
 END
---GO
+GO
 
+CREATE OR ALTER   PROCEDURE Gral.UDP_tbEmpleados_ListarNoTieneUsuario 
+	@empl_EsAduana		BIT
+AS
+BEGIN
 
-
+SELECT		empl.empl_Id								,
+			empl_Nombres								,
+			empl_Apellidos								,
+			empl_EsAduana,
+			CONCAT(empl_Nombres, ' ', empl_Apellidos)		AS empl_NombreCompleto,
+			empl_Estado								
+FROM		Gral.tbEmpleados	empl 
+FULL JOIN	Acce.tbUsuarios		usua
+ON			empl.empl_Id = usua.empl_Id
+WHERE (empl_EsAduana = @empl_EsAduana
+OR	  @empl_EsAduana IS NULL)
+AND   (usua.usua_Id IS NULL AND empl.empl_Estado = 1)
+END
 
 --EXEC acce.UDP_tbUsuarios_Insertar 'juan', '123', 1, 'nada', 1, 1, 1,'08-08-2023'
 --EXEC acce.UDP_tbUsuarios_Insertar 'juanC', '123', 2, 'nada', 1, 1, 1,'08-08-2023'

@@ -135,6 +135,7 @@ namespace SIMEXPRO.DataAccess
 
         #region Empleados
         public static string ListarEmpleados = "Gral.UDP_tbEmpleados_Listar";
+        public static string ListarEmpleadosSinUsuario = "Gral.UDP_tbEmpleados_ListarNoTieneUsuario";
         public static string InsertarEmpleados = "gral.UDP_tbEmpleados_Insertar";
         public static string EditarEmpleados = "gral.UDP_tbEmpleados_Editar";
         public static string EliminarEmpleados = "gral.UDP_tbEmpleados_Eliminar";

@@ -3081,7 +3081,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Listar
 @emba_Codigo	CHAR(5)
 AS
 BEGIN
-	SELECT @emba_Codigo = SUBSTRING(@emba_Codigo ,1,2)
+	--SELECT @emba_Codigo = SUBSTRING(@emba_Codigo ,1,2)
 	SELECT lugar.emba_Id,
 	       lugar.emba_Codigo, 
 		   lugar.emba_Descripcion, 
@@ -3106,19 +3106,33 @@ END
 GO
 
 /*Insertar lugares embarque*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Insertar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Insertar 
 	 @emba_Codigo             CHAR(5),
 	 @emba_Descripcion        NVARCHAR(200),
 	 @usua_UsuarioCreacion    INT, 
 	 @emba_FechaCreacion      DATETIME
 AS 
 BEGIN
-	
 	BEGIN TRY
-		INSERT INTO Adua.tbLugaresEmbarque (emba_Codigo, emba_Descripcion, usua_UsuarioCreacion, emba_FechaCreacion)
-		VALUES(@emba_Codigo, @emba_Descripcion, @usua_UsuarioCreacion, @emba_FechaCreacion)
+		IF EXISTS (SELECT emba_Codigo
+				   FROM Adua.tbLugaresEmbarque
+				   WHERE emba_Codigo = @emba_Codigo
+				   AND emba_Estado = 0)
+			BEGIN
+				UPDATE Adua.tbLugaresEmbarque
+				SET emba_Estado = 1,
+					emba_Descripcion = @emba_Descripcion
+				WHERE emba_Codigo = @emba_Codigo
+
+				SELECT 1
+			END
+		ELSE
+			BEGIN
+				INSERT INTO Adua.tbLugaresEmbarque (emba_Codigo, emba_Descripcion, usua_UsuarioCreacion, emba_FechaCreacion)
+				VALUES(@emba_Codigo, @emba_Descripcion, @usua_UsuarioCreacion, @emba_FechaCreacion)
 		
-		SELECT 1
+				SELECT 1
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -9555,7 +9569,7 @@ BEGIN
 			,ordenCompraDetalle.code_Unidad
 			,ordenCompraDetalle.code_Valor
 			,ordenCompraDetalle.code_Impuesto
-			,ordenCompraDetalle.code_Descuento
+			--,ordenCompraDetalle.code_Descuento
 			,ordenCompraDetalle.code_EspecificacionEmbalaje
 			,ordenCompraDetalle.usua_UsuarioCreacion
 			,usuarioCreacion.usua_Nombre AS usuarioCreacionNombre
@@ -9591,7 +9605,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Insertar
 	@code_Unidad					DECIMAL(18,2),
 	@code_Valor						DECIMAL(18,2),
 	@code_Impuesto					DECIMAL(18,2),
-	@code_Descuento					DECIMAL(18,2),
+	--@code_Descuento					DECIMAL(18,2),
 	@code_EspecificacionEmbalaje	NVARCHAR(200),
 	@usua_UsuarioCreacion       	INT,
 	@code_FechaCreacion         	DATETIME
@@ -9613,7 +9627,7 @@ BEGIN
 					code_Unidad,					
 					code_Valor,						
 					code_Impuesto,					
-					code_Descuento,					
+					--code_Descuento,					
 					code_EspecificacionEmbalaje,	
 					usua_UsuarioCreacion,       	
 					code_FechaCreacion)
@@ -9630,7 +9644,7 @@ BEGIN
 					@code_Unidad,					
 					@code_Valor,						
 					@code_Impuesto,					
-					@code_Descuento,					
+					--@code_Descuento,					
 					@code_EspecificacionEmbalaje,	
 					@usua_UsuarioCreacion,       	
 					@code_FechaCreacion)
@@ -9659,7 +9673,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Editar
 	@code_Unidad					DECIMAL(18,2),
 	@code_Valor						DECIMAL(18,2),
 	@code_Impuesto					DECIMAL(18,2),
-	@code_Descuento					DECIMAL(18,2),
+	--@code_Descuento					DECIMAL(18,2),
 	@code_EspecificacionEmbalaje	NVARCHAR(200),
 	@usua_UsuarioCreacion       	INT,
 	@code_FechaCreacion         	DATETIME
@@ -9681,7 +9695,7 @@ BEGIN
 				code_Unidad					= @code_Unidad,					
 				code_Valor					= @code_Valor,						
 				code_Impuesto				= @code_Impuesto,					
-				code_Descuento				= @code_Descuento,					
+				--code_Descuento				= @code_Descuento,					
 				code_EspecificacionEmbalaje	= @code_EspecificacionEmbalaje,	
 				usua_UsuarioCreacion       	= @usua_UsuarioCreacion,       	
 				code_FechaCreacion         	= @code_FechaCreacion    

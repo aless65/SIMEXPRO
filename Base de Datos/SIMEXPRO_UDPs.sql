@@ -129,6 +129,7 @@ BEGIN
 		   rol.role_Descripcion, 
 		   usua.usua_EsAdmin,
 		   usua.empl_Id,
+		   usua.usua_Image,
 		   (empl_Nombres + ' ' + empl_Apellidos) AS empleadoNombreCompleto, 
 		   empl_EsAduana,
 		   empl_CorreoElectronico,

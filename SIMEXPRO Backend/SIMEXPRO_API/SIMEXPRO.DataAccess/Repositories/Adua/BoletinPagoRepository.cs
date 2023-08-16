@@ -49,7 +49,6 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
            
             return new RequestStatus()
             {
-                CodeStatus = answer == "1" ? 1 : 0,
                 MessageStatus = answer
             };
         }
@@ -89,7 +88,6 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
 
             return new RequestStatus()
             {
-                CodeStatus = answer == "1" ? 1 : 0,
                 MessageStatus = answer
             };
         }

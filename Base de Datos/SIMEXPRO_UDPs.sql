@@ -11025,6 +11025,37 @@ BEGIN
 	END CATCH
 END
 GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbSubcategoria_ListarByIdCategoria
+(
+	@cate_Id		INT
+)
+AS
+BEGIN
+	SELECT subc.subc_Id,
+           subc.cate_Id, 
+	       cate.cate_Descripcion,					
+	       subc.subc_Descripcion, 
+	       subc.usua_UsuarioCreacion,
+	       usuaCrea.usua_Nombre						AS usuarioCreacionNombre,
+	       subc.subc_FechaCreacion, 
+	       subc.usua_UsuarioModificacion, 
+	       usuaModifica.usua_Nombre					AS usuarioModificaNombre,
+	       subc.subc_FechaModificacion, 
+           subc.usua_UsuarioEliminacion,
+		   usuaElim.usua_Nombre                     AS usuarioEliminaNombre,                   
+           subc_FechaEliminacion,
+	       subc.subc_Estado
+      FROM Prod.tbSubcategoria subc 
+	       INNER JOIN Acce.tbUsuarios usuaCrea      ON subc.usua_UsuarioCreacion = usuaCrea.usua_Id 
+		   LEFT JOIN Acce.tbUsuarios usuaModifica   ON subc.usua_UsuarioModificacion = usuaModifica.usua_Id 
+		   LEFT JOIN Acce.tbUsuarios usuaElim       ON subc.usua_UsuarioEliminacion = usuaElim.usua_Id 
+		   INNER JOIN Prod.tbCategoria cate         ON subc.cate_Id = cate.cate_Id
+	 WHERE subc_Estado = 1
+	   AND subc.cate_Id = @cate_Id
+END
+GO
+
 --************MATERIALES******************--
 /*Listar materiales*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMateriales_Listar
@@ -13037,104 +13068,6 @@ GO
 
 --GO
 
-/*Listar procedimiento de listar MarcasMaquina*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbMarcasMaquinas_Listar
-AS
-BEGIN
-	 SELECT mrqu.marq_Id,
-		    mrqu.marq_Nombre,
-			mrqu.usua_UsuarioCreacion,
-			Usu.usua_Nombre                                AS UsuarioCreacionNombre,
-            mrqu.marq_FechaCreacion,
-            mrqu.usua_UsuarioModificacion,
-			usu1.usua_Nombre                               AS UsuarioModificadorNombre, 
-            mrqu.marq_FechaModificacion,
-			mrqu.usua_UsuarioEliminacion,
-			usuElimina.usua_Nombre                         AS usuarioEliminacionNombre,
-			mrqu.marq_FechaEliminacion,
-		    mrqu.marq_Estado
-       FROM Prod.tbMarcasMaquina mrqu 
-	        LEFT JOIN Acce.tbUsuarios usu                 ON usu.usua_Id        = mrqu.usua_UsuarioCreacion
-	        LEFT JOIN Acce.tbUsuarios usu1                ON usu1.usua_Id       =  mrqu.usua_UsuarioModificacion
-	        LEFT JOIN Acce.tbUsuarios usuElimina          ON usuElimina.usua_Id =  mrqu.usua_UsuarioEliminacion
-      WHERE mrqu.marq_Estado                                                    = 1
-END
-GO
-
-/*Insertar procedimiento de listar MarcasMaquina*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbMarcasMaquina_Insertar 
-	@marq_Nombre			NVARCHAR(250),
-	@usua_UsuarioCreacion	INT,
-	@marq_FechaCreacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
-	INSERT INTO Prod.tbMarcasMaquina (marq_Nombre,
-	                                  usua_UsuarioCreacion,
-									  marq_FechaCreacion)
-	     VALUES (@marq_Nombre,
-		         @usua_UsuarioCreacion,
-				 @marq_FechaCreacion)
-	SELECT 1
-	END TRY
-	BEGIN CATCH
-		SELECT 'Error Message: ' + ERROR_MESSAGE()
-	END CATCH
-END
-GO
-
-/*Editar procedimiento de listar MarcasMaquina*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbMarcasMaquina_Editar 
-	@marq_Id					INT,
-	@marq_Nombre				NVARCHAR(250),
-	@usua_UsuarioModificacion	INT,
-	@marq_FechaModificacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
-		UPDATE	Prod.tbMarcasMaquina
-		SET		marq_Nombre              = @marq_Nombre,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				marq_FechaModificacion   = @marq_FechaModificacion
-		WHERE	marq_Id                  = @marq_Id
-		SELECT 1
-	END TRY
-	BEGIN CATCH
-		SELECT 'Error Message: ' + ERROR_MESSAGE()
-	END CATCH
-END
-
-GO
-
-/*Eliminar procedimiento de listar MarcasMaquina*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbMarcasMaquina_Eliminar 
-	@marq_Id					INT,
-	@usua_UsuarioEliminacion	INT,
-	@marq_FechaEliminacion		DATETIME
-AS
-BEGIN
-	SET @marq_FechaEliminacion = GETDATE();
-	BEGIN TRY
-		DECLARE @respuesta INT
-		EXEC dbo.UDP_ValidarReferencias 'marq_Id', @marq_Id, 'Prod.tbMarcasMaquina', @respuesta OUTPUT
-
-		SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
-				BEGIN
-					UPDATE	Prod.tbMarcasMaquina
-					SET		marq_Estado             = 0,
-							usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-							marq_FechaEliminacion   = @marq_FechaEliminacion
-					WHERE	marq_Id = @marq_Id
-
-				END
-				SELECT @respuesta AS Resultado
-	END TRY
-	BEGIN CATCH
-		SELECT 'Error Message: ' + ERROR_MESSAGE()	
-	END CATCH
-END
-GO
 --************************************************************************   Tabla Marcas maquinas fin   ***********************************************************************************************
 GO
 --************************************************************************   Tabla Modelos maquinas inicio   ***********************************************************************************************
@@ -13149,11 +13082,11 @@ BEGIN
 		    moma.mmaq_Nombre,
 		    moma.mmaq_Imagen,
 			moma.marq_Id,       
-		    mrqu.marq_Nombre                          AS MarcaMaquina,
+		    mrqu.marq_Nombre ,                         
 			moma.func_Id,
-		    fuma.func_Nombre                          AS FuncionMaquina,	
+		    fuma.func_Nombre      ,                    
 			moma.usua_UsuarioCreacion,
-			usu.usua_Nombre                           AS UsuarioCreacion ,
+			usu.usua_Nombre         ,                  
 			moma.mmaq_FechaCreacion,
 			moma.usua_UsuarioModificacion,
 			usu1.usua_Nombre                          AS UsuarioModificacion,

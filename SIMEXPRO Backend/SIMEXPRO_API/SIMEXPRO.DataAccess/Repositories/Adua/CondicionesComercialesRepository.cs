@@ -20,8 +20,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@coco_Id",                  item.coco_Id,                   DbType.Int32,       ParameterDirection.Input);
             parametros.Add("@usua_UsuarioEliminacion",  item.usua_UsuarioEliminacion,   DbType.Int32,       ParameterDirection.Input);
             parametros.Add("@coco_FechaEliminacion",    item.coco_FechaEliminacion,     DbType.DateTime,    ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarCondicionesComerciales, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarCondicionesComerciales, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 

@@ -2474,9 +2474,9 @@ BEGIN
 
 				Personas.pers_FormaRepresentacion, 
 				Personas.pers_escvRepresentante,
-				Civil2.escv_Nombre,					AS EstadoCivilRepresentante
+				Civil2.escv_Nombre					AS EstadoCivilRepresentante,
 				Personas.pers_OfprRepresentante,
-				Profesion2.ofpr_Nombre,				AS OficioProfecionRepresentante
+				Profesion2.ofpr_Nombre				AS OficioProfecionRepresentante,
 
 				Personas.usua_UsuarioCreacion, 
 				Personas.pers_FechaCreacion, 
@@ -3795,7 +3795,7 @@ BEGIN
 		   LEFT JOIN acce.tbUsuarios usuModi ON conduc.usua_UsuarioModificacion = usuModi.usua_Id
 		   LEFT JOIN Acce.tbUsuarios usuElim ON conduc.usua_UsuarioEliminacion = usuElim.usua_Id
 		   LEFT JOIN Adua.tbTransporte trans ON conduc.tran_Id = trans.tran_Id
-		   LEFT JOIN Adua.tbMarcas		marc ON trans.marca_Id = marc.marca_Id
+		   LEFT JOIN Adua.tbMarcas		marc ON trans.marca_Id = marc.marc_Id
 		   LEFT JOIN Gral.tbPaises		pais ON conduc.pais_IdExpedicion = pais.pais_Id
 	WHERE  cont_Estado = 1
 END
@@ -10763,7 +10763,7 @@ AS
 BEGIN
 	BEGIN TRY
 		DECLARE @respuesta INT
-	 EXEC dbo.UDP_ValidarReferencias 'tiem_Id', @tiem_Id, 'Prod.tbProcesos', @respuesta OUTPUT
+	 EXEC dbo.UDP_ValidarReferencias 'tiem_Id', @tiem_Id, 'Prod.tbTipoEmbalaje', @respuesta OUTPUT
 	 IF(@respuesta) = 1
 	 BEGIN
 		UPDATE Prod.tbTipoEmbalaje
@@ -11025,6 +11025,37 @@ BEGIN
 	END CATCH
 END
 GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbSubcategoria_ListarByIdCategoria
+(
+	@cate_Id		INT
+)
+AS
+BEGIN
+	SELECT subc.subc_Id,
+           subc.cate_Id, 
+	       cate.cate_Descripcion,					
+	       subc.subc_Descripcion, 
+	       subc.usua_UsuarioCreacion,
+	       usuaCrea.usua_Nombre						AS usuarioCreacionNombre,
+	       subc.subc_FechaCreacion, 
+	       subc.usua_UsuarioModificacion, 
+	       usuaModifica.usua_Nombre					AS usuarioModificaNombre,
+	       subc.subc_FechaModificacion, 
+           subc.usua_UsuarioEliminacion,
+		   usuaElim.usua_Nombre                     AS usuarioEliminaNombre,                   
+           subc_FechaEliminacion,
+	       subc.subc_Estado
+      FROM Prod.tbSubcategoria subc 
+	       INNER JOIN Acce.tbUsuarios usuaCrea      ON subc.usua_UsuarioCreacion = usuaCrea.usua_Id 
+		   LEFT JOIN Acce.tbUsuarios usuaModifica   ON subc.usua_UsuarioModificacion = usuaModifica.usua_Id 
+		   LEFT JOIN Acce.tbUsuarios usuaElim       ON subc.usua_UsuarioEliminacion = usuaElim.usua_Id 
+		   INNER JOIN Prod.tbCategoria cate         ON subc.cate_Id = cate.cate_Id
+	 WHERE subc_Estado = 1
+	   AND subc.cate_Id = @cate_Id
+END
+GO
+
 --************MATERIALES******************--
 /*Listar materiales*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMateriales_Listar
@@ -11230,9 +11261,9 @@ SELECT  modu_Id,
         modu_Nombre, 
 	    
 		modu.proc_Id,	
-		pro.proc_Descripcion
+		pro.proc_Descripcion,
 	    
-		empl_Id,
+		empr_Id,
 	    emp.empl_Nombres + ' ' + emp.empl_Apellidos AS empl_NombreCompleto,
 	    
 		modu.usua_UsuarioCreacion,
@@ -11241,7 +11272,7 @@ SELECT  modu_Id,
 		modu.usua_UsuarioModificacion, 
 		modi.usua_Nombre AS UsuarioModifica,
 		modu_FechaModificacion,	    
-		usua_UsuarioEliminacion,
+		modu.usua_UsuarioEliminacion,
 		elim.usua_Nombre AS UsuarioEliminacion,
 		modu_FechaEliminacion,
 		
@@ -12900,10 +12931,10 @@ SELECT ppde_Id,
 	   ppro_Id,
 	   lote_Id,
 	   ppde_Cantidad, 
-	   usua_UsuarioCreacion,
+	   ppde.usua_UsuarioCreacion,
 	   crea.usua_Nombre AS usuarioCreacionNombre,
 	   ppde_FechaCreacion,
-	   usua_UsuarioModificacion,
+	   ppde.usua_UsuarioModificacion,
 	   modi.usua_Nombre AS usuarioModificacionNombre,
 	   ppde_FechaModificacion, 
 	   ppde_Estado 
@@ -12912,129 +12943,6 @@ INNER JOIN Acce.tbUsuarios crea				ON ppde.usua_UsuarioCreacion = crea.usua_Id
 INNER JOIN Acce.tbUsuarios modi				ON ppde.usua_UsuarioModificacion = modi.usua_Id
 WHERE ppro_Id = @ppro_Id
 
-END
-
-----------------------------------------------------------------//  Modulos de Producci n Procedimientos Inicio \\-------------------------------------------------------------------------------------------
---************************************************************************   Tabla Modulos inicio   ***********************************************************************************************
-
-GO
-
-
-
-CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Listar
-AS
-BEGIN
-SELECT  modu_Id AS IDModulo, 
-        modu_Nombre AS ModuloNombre, 
-	    
-		modu.proc_Id AS IdProceso,	
-		pro.proc_Descripcion AS ProcesoDescripcion,
-	    
-		empr_Id AS IDEmpleado,
-	    emp.empl_Nombres + ' ' + emp.empl_Apellidos AS empleado_Nombre,
-	    
-		modu.usua_UsuarioCreacion AS IDUsuarioCreacion,
-	    usu.usua_Nombre AS UsuarioCreacion,
-		modu_FechaCreacion, 
-		modu.usua_UsuarioModificacion AS IDUsuarioModifica, 
-		usu1.usua_Nombre AS UsuarioModifica,
-		modu_FechaModificacion,	    
-		
-		
-		modu_Estado 
-		
-		FROM Prod.tbModulos modu 
-		inner join Acce.tbUsuarios usu       ON usu.usua_UsuarioCreacion = modu.usua_UsuarioCreacion		
-		LEFT JOIN Acce.tbUsuarios usu1       ON usu1.usua_Id = modu.usua_UsuarioModificacion
-		LEFT JOIN Acce.tbUsuarios usu2       ON usu2.usua_Id = modu.usua_UsuarioEliminacion
-		INNER JOIN Gral.tbEmpleados emp  ON modu.empr_Id = emp.empl_Id
-		INNER JOIN Prod.tbProcesos pro   ON pro.proc_Id = modu.proc_Id
-		WHERE modu.modu_Estado = 1
-END
-
-GO
-
-/*Insertar Modulos*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Insertar 
-	@modu_Nombre			NVARCHAR(200),
-	@proc_Id				INT,
-	@empr_Id				INT,
-	@usua_UsuarioCreacion	INT,
-	@modu_FechaCreacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
-		IF EXISTS(SELECT modu_Id FROM Prod.tbModulos WHERE modu_Nombre = @modu_Nombre AND proc_Id = @proc_Id AND empr_Id = @empr_Id AND modu_Estado = 0)
-			BEGIN
-				UPDATE Prod.tbModulos
-				SET	   modu_Estado = 1
-				WHERE  modu_Nombre = @modu_Nombre AND proc_Id = @proc_Id AND empr_Id = @empr_Id
-				SELECT 1
-			END
-		ELSE
-			BEGIN 
-				INSERT INTO Prod.tbModulos (modu_Nombre, proc_Id, empr_Id, usua_UsuarioCreacion, modu_FechaCreacion)
-				VALUES (@modu_Nombre,@proc_Id,@empr_Id,@usua_UsuarioCreacion,@modu_FechaCreacion);
-				SELECT 1
-			END
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END 
-
-GO
-
-/*Editar Modulos*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Editar  
-	@modu_Id					INT,
-	@modu_Nombre				NVARCHAR(200),
-	@proc_Id					INT,
-	@empr_Id					INT,
-	@usua_UsuarioModificacion	INT,
-	@modu_FechaModificacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
-		UPDATE Prod.tbModulos
-		   SET modu_Nombre = @modu_Nombre
-			  ,proc_Id = @proc_Id
-			  ,empr_Id = @empr_Id
-			  ,usua_UsuarioModificacion = @usua_UsuarioModificacion
-			  ,modu_FechaModificacion = @modu_FechaModificacion
-		 WHERE modu_Id = @modu_Id
-		 SELECT 1
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END
-
-GO
-
-/*Eliminar Modulos*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Eliminar    
-	@modu_Id					INT,
-	@usua_UsuarioEliminacion	INT,
-	@modu_FechaEliminacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
-			DECLARE @respuesta INT
-			EXEC dbo.UDP_ValidarReferencias 'modu_Id', @modu_Id, 'Prod.tbModulos', @respuesta OUTPUT
-
-			SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
-			BEGIN
-				UPDATE	Prod.tbModulos
-				SET		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-						modu_FechaEliminacion = @modu_FechaEliminacion,
-						modu_Estado = 0
-			END
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
 END
 
 --************************************************************************   Tabla Modulos fin   ***********************************************************************************************
@@ -13272,11 +13180,11 @@ BEGIN
 		    moma.mmaq_Nombre,
 		    moma.mmaq_Imagen,
 			moma.marq_Id,       
-		    mrqu.marq_Nombre                          AS MarcaMaquina,
+		    mrqu.marq_Nombre ,                         
 			moma.func_Id,
-		    fuma.func_Nombre                          AS FuncionMaquina,	
+		    fuma.func_Nombre      ,                    
 			moma.usua_UsuarioCreacion,
-			usu.usua_Nombre                           AS UsuarioCreacion ,
+			usu.usua_Nombre         ,                  
 			moma.mmaq_FechaCreacion,
 			moma.usua_UsuarioModificacion,
 			usu1.usua_Nombre                          AS UsuarioModificacion,

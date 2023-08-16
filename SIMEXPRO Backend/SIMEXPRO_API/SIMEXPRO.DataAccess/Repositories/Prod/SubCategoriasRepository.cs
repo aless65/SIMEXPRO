@@ -56,7 +56,13 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             return db.Query<tbSubcategoria>(ScriptsDataBase.ListarSubCategoria, null, commandType: CommandType.StoredProcedure);
         }
 
-
+        public IEnumerable<tbSubcategoria> ListByIdCategoria(int cate_Id)
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            var parametros = new DynamicParameters();
+            parametros.Add("@cate_Id", cate_Id, DbType.Int32, ParameterDirection.Input);
+            return db.Query<tbSubcategoria>(ScriptsDataBase.ListarSubcategoriaByIdCategoria, parametros, commandType: CommandType.StoredProcedure);
+        }
 
         public RequestStatus Update(tbSubcategoria item)
         {

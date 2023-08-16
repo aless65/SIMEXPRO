@@ -16,21 +16,19 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public string proc_Descripcion { get; set; }
 
         public int usua_UsuarioCreacion { get; set; }
-        public DateTime tipa_FechaCreacion { get; set; }
-        public int? usua_UsuarioModificacion { get; set; }
-        public DateTime? tipa_FechaModificacion { get; set; }
-        public int? usua_UsuarioEliminacion { get; set; }
-        public DateTime? tipa_FechaEliminacion { get; set; }
-        public bool? tipa_Estado { get; set; }
-
         [NotMapped]
         public string usarioCreacion { get; set; }
+        public DateTime tipa_FechaCreacion { get; set; }
+        public int? usua_UsuarioModificacion { get; set; }
 
         [NotMapped]
         public string usuarioModificacion { get; set; }
-
+        public DateTime? tipa_FechaModificacion { get; set; }
+        public int? usua_UsuarioEliminacion { get; set; }
         [NotMapped]
         public string usuarioEliminacion { get; set; }
+        public DateTime? tipa_FechaEliminacion { get; set; }
+        public bool? tipa_Estado { get; set; }
 
     }
 }

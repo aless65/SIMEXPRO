@@ -31,6 +31,8 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime? ppro_FechaModificacion { get; set; }
         public bool? ppro_Estado { get; set; }
 
+        [NotMapped]
+        public string detalles { get; set; }
 
 
         public virtual tbEmpleados empl { get; set; }

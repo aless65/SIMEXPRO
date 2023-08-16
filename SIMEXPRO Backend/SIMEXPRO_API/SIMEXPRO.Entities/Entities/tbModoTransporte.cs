@@ -29,6 +29,7 @@ namespace SIMEXPRO.Entities.Entities
         public string usuarioEliminacionNombre { get; set; }
         public DateTime? motr_FechaEliminacion { get; set; }
         public bool? motr_Estado { get; set; }
+        //e
 
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioEliminacionNavigation { get; set; }

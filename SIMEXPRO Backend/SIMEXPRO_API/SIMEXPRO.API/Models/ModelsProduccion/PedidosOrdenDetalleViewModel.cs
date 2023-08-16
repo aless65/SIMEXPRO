@@ -7,18 +7,21 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
 {
     public class PedidosOrdenDetalleViewModel
     {
-        public int ppde_Id { get; set; }
-        public int ppro_Id { get; set; }
-        public int lote_Id { get; set; }
-        public int ppde_Cantidad { get; set; }
+        public int prod_Id { get; set; }
+        public int pedi_Id { get; set; }
+        public int mate_Id { get; set; }
+        public int prod_Cantidad { get; set; }
+        public decimal prod_Precio { get; set; }
+        public decimal prod_Peso { get; set; }
         public int usua_UsuarioCreacion { get; set; }
-         public string usuarioCreacionNombre { get; set; }
-        public DateTime ppde_FechaCreacion { get; set; }
+        [NotMapped]
+        public string UsuarioCreacionNombre { get; set; }
+        public DateTime prod_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
-         public string usuarioModificacionNombre { get; set; }
-        public DateTime? ppde_FechaModificacion { get; set; }
-        public bool? ppde_Estado { get; set; }
-
+        [NotMapped]
+        public string UsuarioModificacionNombre { get; set; }
+        public DateTime? prod_FechaModificacion { get; set; }
+        public bool? prod_Estado { get; set; }
 
 
     }

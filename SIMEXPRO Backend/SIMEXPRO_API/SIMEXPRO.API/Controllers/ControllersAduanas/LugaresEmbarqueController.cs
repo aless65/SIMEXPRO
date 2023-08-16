@@ -23,7 +23,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             _mapper = mapper;
         }
 
-        [HttpPost("Listar")]
+        [HttpGet("Listar")]
         public IActionResult Index(String codigo)
         {
             var respuesta = _aduanaServices.ListarLugaresEmbarque(codigo);

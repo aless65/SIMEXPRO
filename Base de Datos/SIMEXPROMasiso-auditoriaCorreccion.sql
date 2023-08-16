@@ -489,7 +489,7 @@ CREATE TABLE Adua.tbAduanas
 
 CONSTRAINT PK_Adua_tbAduanas_adua_Id 	 PRIMARY KEY (adua_Id),
 --CONSTRAINT UQ_Adua_tbAduanas_adua_Nombre UNIQUE (adua_Nombre),
-CONSTRAINT UQ_Adua_tbAduanas_adua_Codigo UNIQUE (adua_Codigo),
+CONSTRAINT UQ_Adua_tbAduanas_adua_Codigo UNIQUE (adua_Codigo, adua_Nombre),
 CONSTRAINT FK_Adua_tbAduanas_tbUsuarios_adua_UsucCrea								FOREIGN KEY (usua_UsuarioCreacion)			REFERENCES Acce.tbUsuarios (usua_Id),
 CONSTRAINT FK_Adua_tbAduanas_tbUsuarios_adua_usua_UsuarioModificacion				FOREIGN KEY (usua_UsuarioModificacion) 		REFERENCES Acce.tbUsuarios (usua_Id),
 CONSTRAINT FK_Adua_tbAduanas_tbUsuarios_adua_usua_UsuarioEliminacion				FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios (usua_Id)
@@ -1230,6 +1230,7 @@ CREATE TABLE Prod.tbFuncionesMaquina(
 	func_Estado 				BIT					NOT NULL DEFAULT 1, 
 
 	CONSTRAINT PK_Prod_tbFuncionesMaquina_func_Id												PRIMARY KEY (func_Id),
+	CONSTRAINT UQ_Prod_tbFuncionesMaquina_func_Nombre											UNIQUE		(func_Nombre),
 	CONSTRAINT FK_Prod_tbFuncionesMaquina_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbFuncionesMaquina_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbFuncionesMaquina_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios (usua_Id),

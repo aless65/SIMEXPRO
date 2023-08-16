@@ -26,8 +26,12 @@ namespace SIMEXPRO.Entities.Entities
         [NotMapped]
         public string empl_NombreCompleto { get; set; }
         public int usua_UsuarioCreacion { get; set; }
+        [NotMapped]
+        public string usuarioCreacionNombre { get; set; }
         public DateTime asor_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
+        [NotMapped]
+        public string usuarioModificacionNombre { get; set; }
         public DateTime? asor_FechaModificacion { get; set; }
 
         public virtual tbOrdenCompraDetalles asor_OrdenDet { get; set; }

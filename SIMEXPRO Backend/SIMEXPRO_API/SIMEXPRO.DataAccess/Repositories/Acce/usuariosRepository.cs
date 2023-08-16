@@ -69,8 +69,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             parametros.Add("@usua_Id", item.usua_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_FechaEliminacion ", item.usua_FechaEliminacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarUsuarios, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarUsuarios, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -127,8 +127,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             parametros.Add("@usua_EsAdmin", item.usua_EsAdmin, DbType.Boolean, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_FechaModificacion", item.usua_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarUsuarios, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarUsuarios, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -140,8 +140,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             parametros.Add("@usua_Id", item.usua_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_FechaModificacion", item.usua_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
-            var answer = db.QueryFirst<int>(ScriptsDataBase.ActivarEstadoUsuarios, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.ActivarEstadoUsuarios, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
     }

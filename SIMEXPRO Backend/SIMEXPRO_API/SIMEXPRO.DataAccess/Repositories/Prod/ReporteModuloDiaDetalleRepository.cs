@@ -21,8 +21,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             var parametros = new DynamicParameters();
             parametros.Add("@rdet_Id", item.rdet_Id, DbType.Int32, ParameterDirection.Input);
               
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EliminarReporteModuloDiaDetalle, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarReporteModuloDiaDetalle, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 

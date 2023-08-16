@@ -495,92 +495,6 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             }
         }
 
-        public ServiceResult InsertarEstadosCiviles(tbEstadosCiviles item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (item.escv_Nombre != "")
-                {
-                    var map = _estadosCivilesRepository.Insert(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult ActualizarEstadosCiviles(tbEstadosCiviles item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (item.escv_Nombre != "")
-                {
-                    var map = _estadosCivilesRepository.Update(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
-
-        public ServiceResult EliminarEstadosCiviles(tbEstadosCiviles item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (item.escv_Id != 0)
-                {
-                    var map = _estadosCivilesRepository.Delete(item);
-                    if (map.CodeStatus > 0)
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-                        map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
         #endregion
 
         #region Formas_Envio
@@ -904,34 +818,6 @@ namespace SIMEXPRO.BussinessLogic.Services.GeneralServices
             }
         }
 
-        //public ServiceResult EliminarPaises(tbPaises item)
-        //{
-        //    var result = new ServiceResult();
-        //    try
-        //    {
-        //        if (item.pais_Id != 0)
-        //        {
-        //            var map = _paisesRepository.Delete(item);
-        //            if (map.CodeStatus > 0)
-        //            {
-        //                return result.Ok(map);
-        //            }
-        //            else
-        //            {
-        //                map.MessageStatus = (map.CodeStatus == 0) ? "401 Error de Consulta" : map.MessageStatus;
-        //                return result.Error(map);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return result.Error(ex.Message);
-        //    }
-        //}
         #endregion
 
         #region Provincias

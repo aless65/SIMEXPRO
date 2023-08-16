@@ -35,7 +35,6 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
 
             return new RequestStatus()
             {
-                CodeStatus = respuesta == "1" ? 1 : 0,
                 MessageStatus = respuesta
             };
         }
@@ -62,7 +61,6 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
            
             return new RequestStatus()
             {
-                CodeStatus = respuesta == "1" ? 1 : 0,
                 MessageStatus = respuesta
             };
         }

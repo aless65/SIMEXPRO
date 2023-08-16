@@ -10763,7 +10763,7 @@ AS
 BEGIN
 	BEGIN TRY
 		DECLARE @respuesta INT
-	 EXEC dbo.UDP_ValidarReferencias 'tiem_Id', @tiem_Id, 'Prod.tbProcesos', @respuesta OUTPUT
+	 EXEC dbo.UDP_ValidarReferencias 'tiem_Id', @tiem_Id, 'Prod.tbTipoEmbalaje', @respuesta OUTPUT
 	 IF(@respuesta) = 1
 	 BEGIN
 		UPDATE Prod.tbTipoEmbalaje

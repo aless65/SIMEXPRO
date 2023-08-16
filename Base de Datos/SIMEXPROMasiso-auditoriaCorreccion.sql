@@ -1868,7 +1868,7 @@ CREATE TABLE Prod.tbOrdenCompraDetalles(
 	code_Unidad					DECIMAL(18,2) NOT NULL,
 	code_Valor					DECIMAL(18,2) NOT NULL,
 	code_Impuesto				DECIMAL(18,2) NOT NULL,
-	code_Descuento				DECIMAL(18,2) NOT NULL,
+	--code_Descuento				DECIMAL(18,2) NOT NULL,
 	code_EspecificacionEmbalaje	NVARCHAR(200) NOT NULL,
 	
 	usua_UsuarioCreacion       	INT NOT NULL,

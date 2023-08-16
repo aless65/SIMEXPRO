@@ -27,6 +27,9 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime? mabr_FechaModificacion { get; set; }
         public bool? mabr_Estado { get; set; }
 
+        public int unme_Id { get; set; }
+
+        public virtual tbUnidadMedidas unme { get; set; }
         public virtual tbOrdenCompraDetalles code { get; set; }
         public virtual tbMateriales mate { get; set; }
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }

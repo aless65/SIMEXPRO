@@ -1545,7 +1545,7 @@ CREATE TABLE Prod.tbClientes(
 	clie_Direccion				NVARCHAR(250)NOT NULL,
 	clie_RTN					NVARCHAR(40)NOT NULL,
 	clie_Nombre_Contacto		NVARCHAR(200)NOT NULL,
-	clie_Numero_Contacto		CHAR(50)NOT NULL,
+	clie_Numero_Contacto		VARCHAR(15)NOT NULL,
 	clie_Correo_Electronico		NVARCHAR(200)NOT NULL,
 	clie_FAX					NVARCHAR(50),
 	pvin_Id						INT NOT NULL,

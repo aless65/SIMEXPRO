@@ -44,6 +44,7 @@ namespace SIMEXPRO.Entities.Entities
         public string usuarioNombreEliminacion { get; set; }
 
 
+        public virtual tbProvincias pvin { get; set; } 
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioEliminacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }

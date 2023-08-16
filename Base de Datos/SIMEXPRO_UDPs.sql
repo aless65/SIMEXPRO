@@ -7853,6 +7853,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Listar
 AS
 BEGIN 
 SELECT	tite_Id							,
+		tite_Codigo						,	
 		tite_Descripcion				, 
 		usu.usua_Nombre					AS usarioCreacion,
 		tite_FechaCreacion				,
@@ -8068,6 +8069,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbEstadoMercancias_Listar
 AS
 BEGIN
 SELECT	merc_Id										,
+		merc_Codigo									,
 		merc_Descripcion							,
 		estadoMercancia.usua_UsuarioCreacion		,
 		usuarioCreacion.usua_Nombre					AS usuarioCreacionNombre,
@@ -11570,14 +11572,14 @@ BEGIN
 		    moma.mmaq_Nombre,
 		    moma.mmaq_Imagen,
 			moma.marq_Id,
-		    mrqu.marq_Nombre,                            
+		    mrqu.marq_Nombre							 AS marcaMaquina,                            
 			moma.func_Id,
-		    fuma.func_Nombre ,                           
+		    fuma.func_Nombre							 AS funcionMaquina,                           
 			moma.usua_UsuarioCreacion,
-			usu.usua_Nombre                              AS UsuarioCreacionNombre,
+			usu.usua_Nombre                              AS usuarioCreacionNombre,
 			moma.mmaq_FechaCreacion,                      
 			moma.usua_UsuarioModificacion,
-			usu1.usua_Nombre                             AS UsuarioModificacionNombre,
+			usu1.usua_Nombre                             AS usuarioModificacionNombre,
 			moma.mmaq_FechaModificacion,            
             moma.usua_UsuarioEliminacion,
 			usuEli.usua_Nombre                           AS usuarioEliminacionNombre,

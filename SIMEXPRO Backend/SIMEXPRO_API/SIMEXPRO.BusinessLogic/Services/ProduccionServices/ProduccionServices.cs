@@ -2929,7 +2929,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 if (item.tiem_Id != 0)
                 {
                     var map = _tipoEmbalajeRepository.Delete(item);
-    if (map.MessageStatus == "1")
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }

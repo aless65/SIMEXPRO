@@ -2474,9 +2474,9 @@ BEGIN
 
 				Personas.pers_FormaRepresentacion, 
 				Personas.pers_escvRepresentante,
-				Civil2.escv_Nombre,					AS EstadoCivilRepresentante
+				Civil2.escv_Nombre					AS EstadoCivilRepresentante,
 				Personas.pers_OfprRepresentante,
-				Profesion2.ofpr_Nombre,				AS OficioProfecionRepresentante
+				Profesion2.ofpr_Nombre				AS OficioProfecionRepresentante,
 
 				Personas.usua_UsuarioCreacion, 
 				Personas.pers_FechaCreacion, 
@@ -3081,7 +3081,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Listar
 @emba_Codigo	CHAR(5)
 AS
 BEGIN
-	SELECT @emba_Codigo = SUBSTRING(@emba_Codigo ,1,2)
+	--SELECT @emba_Codigo = SUBSTRING(@emba_Codigo ,1,2)
 	SELECT lugar.emba_Id,
 	       lugar.emba_Codigo, 
 		   lugar.emba_Descripcion, 
@@ -3106,19 +3106,33 @@ END
 GO
 
 /*Insertar lugares embarque*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Insertar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Insertar 
 	 @emba_Codigo             CHAR(5),
 	 @emba_Descripcion        NVARCHAR(200),
 	 @usua_UsuarioCreacion    INT, 
 	 @emba_FechaCreacion      DATETIME
 AS 
 BEGIN
-	
 	BEGIN TRY
-		INSERT INTO Adua.tbLugaresEmbarque (emba_Codigo, emba_Descripcion, usua_UsuarioCreacion, emba_FechaCreacion)
-		VALUES(@emba_Codigo, @emba_Descripcion, @usua_UsuarioCreacion, @emba_FechaCreacion)
+		IF EXISTS (SELECT emba_Codigo
+				   FROM Adua.tbLugaresEmbarque
+				   WHERE emba_Codigo = @emba_Codigo
+				   AND emba_Estado = 0)
+			BEGIN
+				UPDATE Adua.tbLugaresEmbarque
+				SET emba_Estado = 1,
+					emba_Descripcion = @emba_Descripcion
+				WHERE emba_Codigo = @emba_Codigo
+
+				SELECT 1
+			END
+		ELSE
+			BEGIN
+				INSERT INTO Adua.tbLugaresEmbarque (emba_Codigo, emba_Descripcion, usua_UsuarioCreacion, emba_FechaCreacion)
+				VALUES(@emba_Codigo, @emba_Descripcion, @usua_UsuarioCreacion, @emba_FechaCreacion)
 		
-		SELECT 1
+				SELECT 1
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -3781,7 +3795,7 @@ BEGIN
 		   LEFT JOIN acce.tbUsuarios usuModi ON conduc.usua_UsuarioModificacion = usuModi.usua_Id
 		   LEFT JOIN Acce.tbUsuarios usuElim ON conduc.usua_UsuarioEliminacion = usuElim.usua_Id
 		   LEFT JOIN Adua.tbTransporte trans ON conduc.tran_Id = trans.tran_Id
-		   LEFT JOIN Adua.tbMarcas		marc ON trans.marca_Id = marc.marca_Id
+		   LEFT JOIN Adua.tbMarcas		marc ON trans.marca_Id = marc.marc_Id
 		   LEFT JOIN Gral.tbPaises		pais ON conduc.pais_IdExpedicion = pais.pais_Id
 	WHERE  cont_Estado = 1
 END
@@ -9555,7 +9569,7 @@ BEGIN
 			,ordenCompraDetalle.code_Unidad
 			,ordenCompraDetalle.code_Valor
 			,ordenCompraDetalle.code_Impuesto
-			,ordenCompraDetalle.code_Descuento
+			--,ordenCompraDetalle.code_Descuento
 			,ordenCompraDetalle.code_EspecificacionEmbalaje
 			,ordenCompraDetalle.usua_UsuarioCreacion
 			,usuarioCreacion.usua_Nombre AS usuarioCreacionNombre
@@ -9591,7 +9605,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Insertar
 	@code_Unidad					DECIMAL(18,2),
 	@code_Valor						DECIMAL(18,2),
 	@code_Impuesto					DECIMAL(18,2),
-	@code_Descuento					DECIMAL(18,2),
+	--@code_Descuento					DECIMAL(18,2),
 	@code_EspecificacionEmbalaje	NVARCHAR(200),
 	@usua_UsuarioCreacion       	INT,
 	@code_FechaCreacion         	DATETIME
@@ -9613,7 +9627,7 @@ BEGIN
 					code_Unidad,					
 					code_Valor,						
 					code_Impuesto,					
-					code_Descuento,					
+					--code_Descuento,					
 					code_EspecificacionEmbalaje,	
 					usua_UsuarioCreacion,       	
 					code_FechaCreacion)
@@ -9630,7 +9644,7 @@ BEGIN
 					@code_Unidad,					
 					@code_Valor,						
 					@code_Impuesto,					
-					@code_Descuento,					
+					--@code_Descuento,					
 					@code_EspecificacionEmbalaje,	
 					@usua_UsuarioCreacion,       	
 					@code_FechaCreacion)
@@ -9659,7 +9673,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Editar
 	@code_Unidad					DECIMAL(18,2),
 	@code_Valor						DECIMAL(18,2),
 	@code_Impuesto					DECIMAL(18,2),
-	@code_Descuento					DECIMAL(18,2),
+	--@code_Descuento					DECIMAL(18,2),
 	@code_EspecificacionEmbalaje	NVARCHAR(200),
 	@usua_UsuarioCreacion       	INT,
 	@code_FechaCreacion         	DATETIME
@@ -9681,7 +9695,7 @@ BEGIN
 				code_Unidad					= @code_Unidad,					
 				code_Valor					= @code_Valor,						
 				code_Impuesto				= @code_Impuesto,					
-				code_Descuento				= @code_Descuento,					
+				--code_Descuento				= @code_Descuento,					
 				code_EspecificacionEmbalaje	= @code_EspecificacionEmbalaje,	
 				usua_UsuarioCreacion       	= @usua_UsuarioCreacion,       	
 				code_FechaCreacion         	= @code_FechaCreacion    
@@ -11247,9 +11261,9 @@ SELECT  modu_Id,
         modu_Nombre, 
 	    
 		modu.proc_Id,	
-		pro.proc_Descripcion
+		pro.proc_Descripcion,
 	    
-		empl_Id,
+		empr_Id,
 	    emp.empl_Nombres + ' ' + emp.empl_Apellidos AS empl_NombreCompleto,
 	    
 		modu.usua_UsuarioCreacion,
@@ -11258,7 +11272,7 @@ SELECT  modu_Id,
 		modu.usua_UsuarioModificacion, 
 		modi.usua_Nombre AS UsuarioModifica,
 		modu_FechaModificacion,	    
-		usua_UsuarioEliminacion,
+		modu.usua_UsuarioEliminacion,
 		elim.usua_Nombre AS UsuarioEliminacion,
 		modu_FechaEliminacion,
 		
@@ -12917,10 +12931,10 @@ SELECT ppde_Id,
 	   ppro_Id,
 	   lote_Id,
 	   ppde_Cantidad, 
-	   usua_UsuarioCreacion,
+	   ppde.usua_UsuarioCreacion,
 	   crea.usua_Nombre AS usuarioCreacionNombre,
 	   ppde_FechaCreacion,
-	   usua_UsuarioModificacion,
+	   ppde.usua_UsuarioModificacion,
 	   modi.usua_Nombre AS usuarioModificacionNombre,
 	   ppde_FechaModificacion, 
 	   ppde_Estado 
@@ -12929,129 +12943,6 @@ INNER JOIN Acce.tbUsuarios crea				ON ppde.usua_UsuarioCreacion = crea.usua_Id
 INNER JOIN Acce.tbUsuarios modi				ON ppde.usua_UsuarioModificacion = modi.usua_Id
 WHERE ppro_Id = @ppro_Id
 
-END
-
-----------------------------------------------------------------//  Modulos de Producci n Procedimientos Inicio \\-------------------------------------------------------------------------------------------
---************************************************************************   Tabla Modulos inicio   ***********************************************************************************************
-
-GO
-
-
-
-CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Listar
-AS
-BEGIN
-SELECT  modu_Id AS IDModulo, 
-        modu_Nombre AS ModuloNombre, 
-	    
-		modu.proc_Id AS IdProceso,	
-		pro.proc_Descripcion AS ProcesoDescripcion,
-	    
-		empr_Id AS IDEmpleado,
-	    emp.empl_Nombres + ' ' + emp.empl_Apellidos AS empleado_Nombre,
-	    
-		modu.usua_UsuarioCreacion AS IDUsuarioCreacion,
-	    usu.usua_Nombre AS UsuarioCreacion,
-		modu_FechaCreacion, 
-		modu.usua_UsuarioModificacion AS IDUsuarioModifica, 
-		usu1.usua_Nombre AS UsuarioModifica,
-		modu_FechaModificacion,	    
-		
-		
-		modu_Estado 
-		
-		FROM Prod.tbModulos modu 
-		inner join Acce.tbUsuarios usu       ON usu.usua_UsuarioCreacion = modu.usua_UsuarioCreacion		
-		LEFT JOIN Acce.tbUsuarios usu1       ON usu1.usua_Id = modu.usua_UsuarioModificacion
-		LEFT JOIN Acce.tbUsuarios usu2       ON usu2.usua_Id = modu.usua_UsuarioEliminacion
-		INNER JOIN Gral.tbEmpleados emp  ON modu.empr_Id = emp.empl_Id
-		INNER JOIN Prod.tbProcesos pro   ON pro.proc_Id = modu.proc_Id
-		WHERE modu.modu_Estado = 1
-END
-
-GO
-
-/*Insertar Modulos*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Insertar 
-	@modu_Nombre			NVARCHAR(200),
-	@proc_Id				INT,
-	@empr_Id				INT,
-	@usua_UsuarioCreacion	INT,
-	@modu_FechaCreacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
-		IF EXISTS(SELECT modu_Id FROM Prod.tbModulos WHERE modu_Nombre = @modu_Nombre AND proc_Id = @proc_Id AND empr_Id = @empr_Id AND modu_Estado = 0)
-			BEGIN
-				UPDATE Prod.tbModulos
-				SET	   modu_Estado = 1
-				WHERE  modu_Nombre = @modu_Nombre AND proc_Id = @proc_Id AND empr_Id = @empr_Id
-				SELECT 1
-			END
-		ELSE
-			BEGIN 
-				INSERT INTO Prod.tbModulos (modu_Nombre, proc_Id, empr_Id, usua_UsuarioCreacion, modu_FechaCreacion)
-				VALUES (@modu_Nombre,@proc_Id,@empr_Id,@usua_UsuarioCreacion,@modu_FechaCreacion);
-				SELECT 1
-			END
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END 
-
-GO
-
-/*Editar Modulos*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Editar  
-	@modu_Id					INT,
-	@modu_Nombre				NVARCHAR(200),
-	@proc_Id					INT,
-	@empr_Id					INT,
-	@usua_UsuarioModificacion	INT,
-	@modu_FechaModificacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
-		UPDATE Prod.tbModulos
-		   SET modu_Nombre = @modu_Nombre
-			  ,proc_Id = @proc_Id
-			  ,empr_Id = @empr_Id
-			  ,usua_UsuarioModificacion = @usua_UsuarioModificacion
-			  ,modu_FechaModificacion = @modu_FechaModificacion
-		 WHERE modu_Id = @modu_Id
-		 SELECT 1
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END
-
-GO
-
-/*Eliminar Modulos*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Eliminar    
-	@modu_Id					INT,
-	@usua_UsuarioEliminacion	INT,
-	@modu_FechaEliminacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
-			DECLARE @respuesta INT
-			EXEC dbo.UDP_ValidarReferencias 'modu_Id', @modu_Id, 'Prod.tbModulos', @respuesta OUTPUT
-
-			SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
-			BEGIN
-				UPDATE	Prod.tbModulos
-				SET		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-						modu_FechaEliminacion = @modu_FechaEliminacion,
-						modu_Estado = 0
-			END
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
 END
 
 --************************************************************************   Tabla Modulos fin   ***********************************************************************************************

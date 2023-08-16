@@ -9947,7 +9947,7 @@ SELECT	est.esti_Id						,
 		est.esti_Estado					
 FROM	Prod.tbEstilos est 
 		INNER JOIN Acce.tbUsuarios usu	ON est.usua_UsuarioCreacion = usu.usua_Id 
-		LEFT JOIN Acce.tbUsuarios usu2 ON usu2.usua_UsuarioModificacion = est.usua_UsuarioModificacion 
+		LEFT JOIN Acce.tbUsuarios usu2 ON usu2.usua_Id = est.usua_UsuarioModificacion 
 WHERE	esti_Estado = 1
 END 
 
@@ -10901,10 +10901,25 @@ AS
 BEGIN
 	
 	BEGIN TRY
-		INSERT INTO Prod.tbSubcategoria (cate_Id, subc_Descripcion, usua_UsuarioCreacion, subc_FechaCreacion)
-		VALUES(@cate_Id, @subc_Descripcion, @usua_UsuarioCreacion, @usua_FechaCreacion)
+		IF EXISTS (SELECT *
+				   FROM Prod.tbSubcategoria
+				   WHERE cate_Id = @cate_Id
+				   AND subc_Descripcion = @subc_Descripcion)
+			BEGIN
+				UPDATE Prod.tbSubcategoria
+				SET subc_Estado = 1
+				WHERE cate_Id = @cate_Id
+				AND subc_Descripcion = @subc_Descripcion
+
+				SELECT 1
+			END
+		ELSE
+			BEGIN
+				INSERT INTO Prod.tbSubcategoria (cate_Id, subc_Descripcion, usua_UsuarioCreacion, subc_FechaCreacion)
+				VALUES(@cate_Id, @subc_Descripcion, @usua_UsuarioCreacion, @usua_FechaCreacion)
 		
-		SELECT 1
+				SELECT 1
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()

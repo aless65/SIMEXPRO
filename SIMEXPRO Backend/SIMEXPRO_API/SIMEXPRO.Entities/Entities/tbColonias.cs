@@ -25,7 +25,6 @@ namespace SIMEXPRO.Entities.Entities
         public int? ciud_Id { get; set; }
         [NotMapped]
         public string ciud_Nombre { get; set; }
-
         [NotMapped]
         public int pvin_Id { get; set; }
         [NotMapped]
@@ -39,10 +38,6 @@ namespace SIMEXPRO.Entities.Entities
         public string pais_Codigo { get; set; }
         [NotMapped]
         public string pais_Nombre { get; set; }
-
-
-
-
         public int usua_UsuarioCreacion { get; set; }
         [NotMapped]
         public string UsuarioCreacionNombre { get; set; }
@@ -54,7 +49,6 @@ namespace SIMEXPRO.Entities.Entities
         public int? usua_UsuarioEliminacion { get; set; }
         [NotMapped]
         public string usuarioEliminacionNombre { get; set; }
-
         public DateTime? colo_FechaEliminacion { get; set; }
         public bool? colo_Estado { get; set; }
 

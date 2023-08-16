@@ -10,10 +10,16 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public int mate_Id { get; set; }
         public string mate_Descripcion { get; set; }
         public int? subc_Id { get; set; }
+        [NotMapped]
+        public string subc_Descripcion { get; set; }
         public decimal? mate_Precio { get; set; }
         public int usua_UsuarioCreacion { get; set; }
+        [NotMapped]
+        public string usuarioCreacionNombre { get; set; }
         public DateTime mate_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
+        [NotMapped]
+        public string usuarioModificaNombre { get; set; }
         public DateTime? mate_FechaModificacion { get; set; }
         public bool? mate_Estado { get; set; }
     }

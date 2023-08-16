@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace SIMEXPRO.Entities.Entities
 {
     public partial class tbCondiciones
-    {
+    {   
         public int codi_Id { get; set; }
         public int deva_Id { get; set; }
         public bool codi_Restricciones_Utilizacion { get; set; }

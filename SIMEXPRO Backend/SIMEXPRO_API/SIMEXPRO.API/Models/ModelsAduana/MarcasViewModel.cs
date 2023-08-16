@@ -10,10 +10,16 @@ namespace SIMEXPRO.API.Models.ModelsAduana
         public int marc_Id { get; set; }
         public string marc_Descripcion { get; set; }
         public int usua_UsuarioCreacion { get; set; }
+        [NotMapped]
+        public string usuarioCreacionNombre { get; set; }
         public DateTime marc_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
+        [NotMapped]
+        public string usuarioModificacionNombre { get; set; }
         public DateTime? marc_FechaModificacion { get; set; }
         public int? usua_UsuarioEliminacion { get; set; }
+        [NotMapped]
+        public string usuarioEliminacionNombre { get; set; }
         public DateTime? marc_FechaEliminacion { get; set; }
         public bool? marc_Estado { get; set; }
     }

@@ -2657,6 +2657,21 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             }
         }
 
+        public ServiceResult ListarSubCategoriasByIdCategoria(int cate_Id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _subCategoriasRepository.ListByIdCategoria(cate_Id);
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+
         public ServiceResult InsertarSubCategorias(tbSubcategoria item)
         {
             var result = new ServiceResult();

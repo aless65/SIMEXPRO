@@ -18,16 +18,10 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public string func_Nombre { get; set; }
         public string mmaq_Imagen { get; set; }
         public int usua_UsuarioCreacion { get; set; }
-        [NotMapped]
-        public string UsuarioCreacionNombre { get; set; }
         public DateTime mmaq_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
-        [NotMapped]
-        public string UsuarioModificacionNombre { get; set; }
         public DateTime? mmaq_FechaModificacion { get; set; }
         public int? usua_UsuarioEliminacion { get; set; }
-        [NotMapped]
-        public string usuarioEliminacionNombre { get; set; }
         public DateTime? mmaq_FechaEliminacion { get; set; }
         public bool? mmaq_Estado { get; set; }
 

@@ -11011,6 +11011,37 @@ BEGIN
 	END CATCH
 END
 GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbSubcategoria_ListarByIdCategoria
+(
+	@cate_Id		INT
+)
+AS
+BEGIN
+	SELECT subc.subc_Id,
+           subc.cate_Id, 
+	       cate.cate_Descripcion,					
+	       subc.subc_Descripcion, 
+	       subc.usua_UsuarioCreacion,
+	       usuaCrea.usua_Nombre						AS usuarioCreacionNombre,
+	       subc.subc_FechaCreacion, 
+	       subc.usua_UsuarioModificacion, 
+	       usuaModifica.usua_Nombre					AS usuarioModificaNombre,
+	       subc.subc_FechaModificacion, 
+           subc.usua_UsuarioEliminacion,
+		   usuaElim.usua_Nombre                     AS usuarioEliminaNombre,                   
+           subc_FechaEliminacion,
+	       subc.subc_Estado
+      FROM Prod.tbSubcategoria subc 
+	       INNER JOIN Acce.tbUsuarios usuaCrea      ON subc.usua_UsuarioCreacion = usuaCrea.usua_Id 
+		   LEFT JOIN Acce.tbUsuarios usuaModifica   ON subc.usua_UsuarioModificacion = usuaModifica.usua_Id 
+		   LEFT JOIN Acce.tbUsuarios usuaElim       ON subc.usua_UsuarioEliminacion = usuaElim.usua_Id 
+		   INNER JOIN Prod.tbCategoria cate         ON subc.cate_Id = cate.cate_Id
+	 WHERE subc_Estado = 1
+	   AND subc.cate_Id = @cate_Id
+END
+GO
+
 --************MATERIALES******************--
 /*Listar materiales*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMateriales_Listar

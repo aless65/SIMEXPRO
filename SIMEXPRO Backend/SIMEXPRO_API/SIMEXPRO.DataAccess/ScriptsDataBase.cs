@@ -459,6 +459,7 @@ namespace SIMEXPRO.DataAccess
         public static string InsertarSubCategoria = "Prod.UDP_tbSubcategoria_Insertar";
         public static string EditarSubCategoria = "Prod.UDP_tbSubcategoria_Editar";
         public static string EliminarSubCategoria = "Prod.UDP_tbSubcategoria_Eliminar";
+        public static string ListarSubcategoriaByIdCategoria = "Prod.UDP_tbSubcategoria_ListarByIdCategoria";
         #endregion
 
         #region Tallas
@@ -636,7 +637,5 @@ namespace SIMEXPRO.DataAccess
         #endregion
 
     }
-
-
 }
 

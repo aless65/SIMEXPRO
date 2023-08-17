@@ -11,10 +11,8 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public int mmaq_Id { get; set; }
         public string mmaq_Nombre { get; set; }
         public int marq_Id { get; set; }
-        [NotMapped]
         public string marq_Nombre { get; set; }
         public int func_Id { get; set; }
-        [NotMapped]
         public string func_Nombre { get; set; }
         public string mmaq_Imagen { get; set; }
         public int usua_UsuarioCreacion { get; set; }
@@ -25,11 +23,11 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public DateTime? mmaq_FechaEliminacion { get; set; }
         public bool? mmaq_Estado { get; set; }
 
-        public string MarcaMaquina { get; set; }
-        public string FuncionMaquina { get; set; }
-        //public string UsuarioCreacionNombre { get; set; }
-        //public string UsuarioModificacionNombre { get; set; }
-        //public string usuarioEliminacionNombre { get; set; }
+        public string marcaMaquina { get; set; }
+        public string funcionMaquina { get; set; }
+        public string usuarioCreacionNombre { get; set; }
+        public string usuarioModificacionNombre { get; set; }
+        public string usuarioEliminacionNombre { get; set; }
 
     }
 }

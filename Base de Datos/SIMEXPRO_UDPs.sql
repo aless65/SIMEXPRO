@@ -1091,6 +1091,7 @@ BEGIN
 	       ,colo_FechaCreacion					
 	       ,colo.usua_UsuarioModificacion		
 	       ,usuaModifica.usua_Nombre			AS usuarioModificacionNombre
+		   ,colo.colo_FechaModificacion
 	       ,colo.usua_UsuarioEliminacion
 		   ,usuaElimina.usua_Nombre				AS usuarioEliminacionNombre
 		   ,colo.colo_FechaEliminacion
@@ -1101,7 +1102,7 @@ BEGIN
    INNER JOIN Gral.tbProvincias prov        ON ciud.pvin_Id = prov.pvin_Id
    INNER JOIN Gral.tbPaises pais            ON pais.pais_Id = prov.pais_Id
    INNER JOIN Acce.tbUsuarios usuaCrea		ON colo.usua_UsuarioCreacion = usuaCrea.usua_Id 
-   LEFT JOIN Acce.tbUsuarios usuaModifica	ON colo.usua_UsuarioModificacion = usuaCrea.usua_Id 
+   LEFT JOIN Acce.tbUsuarios usuaModifica	ON colo.usua_UsuarioModificacion = usuaModifica.usua_Id 
    LEFT JOIN Acce.tbUsuarios usuaElimina	ON colo.usua_UsuarioEliminacion = usuaElimina.usua_Id
    WHERE colo_Estado = 1
 END
@@ -1427,10 +1428,10 @@ SELECT	ciud_Id								,
 		pais.pais_Codigo					,
 		pais.pais_Nombre					,
 		ciu.usua_UsuarioCreacion			,
-		usu1.usua_Nombre					AS UsuarioCreacionNombre,
+		usu1.usua_Nombre					AS usuarioCreacionNombre,
 		ciud_FechaCreacion					, 
 		ciu.usua_UsuarioModificacion		,
-		usu2.usua_Nombre					AS UsuarioModificadorNombre,
+		usu2.usua_Nombre					AS usuarioModificadorNombre,
 		ciud_FechaModificacion				,
 		ciud_Estado
 FROM	Gral.tbCiudades ciu					
@@ -7849,7 +7850,7 @@ END
 GO
 
 /********************Listar Tipo intermediario***************************/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Listar
+CREATE OR ALTER  PROCEDURE [Adua].[UDP_tbTipoIntermediario_Listar]
 AS
 BEGIN 
 SELECT	tite_Id							,
@@ -7862,11 +7863,11 @@ SELECT	tite_Id							,
 		tite_Estado						
 FROM	Adua.tbTipoIntermediario tip 
 		INNER JOIN Acce.tbUsuarios usu	ON tip.usua_UsuarioCreacion = usu.usua_Id 
-		LEFT JOIN Acce.tbUsuarios usu1	ON usu1.usua_UsuarioModificacion = tip.usua_UsuarioModificacion
+		LEFT JOIN Acce.tbUsuarios usu1	ON tip.usua_UsuarioModificacion = usu1.usua_Id 
 WHERE	tite_Estado = 1
+END 
+GO
 
- END 
- GO
  /********************Crear Tipo Intermediario******************************/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Insertar
 	@tite_Codigo			CHAR(2),
@@ -8072,10 +8073,10 @@ SELECT	merc_Id										,
 		merc_Codigo									,
 		merc_Descripcion							,
 		estadoMercancia.usua_UsuarioCreacion		,
-		usuarioCreacion.usua_Nombre					AS usuarioCreacionNombre,
+		usuarioCreacion.usua_Nombre					AS usua_NombreCreacion,
 		merc_FechaCreacion							,
 		estadoMercancia.usua_UsuarioModificacion	,
-		usuarioModificacion.usua_Nombre				AS usuarioModificacionNombre,
+		usuarioModificacion.usua_Nombre				AS usua_NombreModificacion,
 		merc_FechaModificacion						,
 		merc_Estado									
 FROM	Adua.tbEstadoMercancias estadoMercancia
@@ -8775,8 +8776,6 @@ BEGIN
 		END CATCH 
 
 END
-
-
 GO
 
 /* LISTAR DOCUMENTOS CONTRATOS */
@@ -10064,6 +10063,9 @@ SELECT	clie.clie_Id					,
 		clie.clie_Direccion				,
 		clie.clie_FAX					,
 		clie.clie_RTN					,
+		clie.pvin_Id					,
+		provi.pvin_Codigo				,
+		provi.pvin_Nombre				,
 		clie.usua_UsuarioCreacion		,
 		usu.usua_Nombre					AS usuarioNombreCreacion,
 		clie.clie_FechaCreacion			,
@@ -10074,21 +10076,23 @@ SELECT	clie.clie_Id					,
 		usu2.usua_Nombre				AS usuarioNombreEliminacion,
 		clie.clie_Estado				
 FROM	Prod.tbClientes clie 
-		INNER JOIN Acce.tbUsuarios usu	ON usu.usua_Id = clie.usua_UsuarioCreacion 
-		LEFT JOIN Acce.tbUsuarios usu1	ON usu1.usua_Id = clie.usua_UsuarioModificacion
-		lEFT JOIN Acce.tbUsuarios usu2	ON usu2.usua_Id = clie.usua_UsuarioEliminacion
+		INNER JOIN Acce.tbUsuarios usu		  ON usu.usua_Id = clie.usua_UsuarioCreacion
+		INNER JOIN Gral.tbProvincias provi    ON provi.pvin_Id = clie.pvin_Id
+		LEFT JOIN Acce.tbUsuarios usu1		  ON usu1.usua_Id = clie.usua_UsuarioModificacion
+		LEFT JOIN Acce.tbUsuarios usu2		  ON usu2.usua_Id = clie.usua_UsuarioEliminacion
 END
-
 GO
+
 /*Crear Clientes*/
 CREATE OR ALTER PROCEDURE prod.UDP_tbClientes_Insertar 
    @clie_Nombre_O_Razon_Social    NVARCHAR(200), 
    @clie_Direccion                NVARCHAR(250), 
    @clie_RTN                      CHAR(13), 
    @clie_Nombre_Contacto          NVARCHAR(200), 
-   @clie_Numero_Contacto          CHAR(50), 
+   @clie_Numero_Contacto          VARCHAR(15), 
    @clie_Correo_Electronico       NVARCHAR(200), 
    @clie_FAX                      NVARCHAR(50), 
+   @pvin_Id						  INT,
    @usua_UsuarioCreacion          INT, 
    @clie_FechaCreacion            DATETIME
 
@@ -10104,6 +10108,7 @@ BEGIN
 		  clie_Numero_Contacto,
 		  clie_Correo_Electronico,
 		  clie_FAX ,
+		  pvin_Id,
 		  usua_UsuarioCreacion,
 		  clie_FechaCreacion            	  		  
 		  )
@@ -10114,7 +10119,8 @@ BEGIN
 		  @clie_Nombre_Contacto ,  
 		  @clie_Numero_Contacto  ,  
 		  @clie_Correo_Electronico,  
-		  @clie_FAX,  
+		  @clie_FAX,
+		  @pvin_Id,
 		  @usua_UsuarioCreacion,  
 		  @clie_FechaCreacion           
 		  )	 
@@ -10134,9 +10140,10 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Editar
   @clie_Direccion     NVARCHAR(200), 
   @clie_RTN CHAR(13), 
   @clie_Nombre_Contacto   NVARCHAR(200),
-  @clie_Numero_Contacto CHAR(50), 
+  @clie_Numero_Contacto VARCHAR(15), 
   @clie_Correo_Electronico  NVARCHAR(200) , 
-  @clie_FAX  NVARCHAR(50) ,  
+  @clie_FAX  NVARCHAR(50) , 
+  @pvin_Id   INT,
   @usua_UsuarioModificacion INT, 
   @clie_FechaModificacion DATETIME
 AS
@@ -10150,6 +10157,7 @@ BEGIN
 			clie_Numero_Contacto=@clie_Numero_Contacto, 
 			clie_Correo_Electronico=@clie_Correo_Electronico, 
 			clie_FAX=@clie_FAX, 
+			pvin_Id = @pvin_Id,
 			usua_UsuarioModificacion=@usua_UsuarioModificacion, 
 			clie_FechaModificacion=@clie_FechaModificacion 
 		WHERE clie_Id = @clie_Id
@@ -11482,8 +11490,8 @@ BEGIN
    
     FROM    Prod.tbMarcasMaquina mrqu 
 	INNER JOIN Acce.tbUsuarios usu ON usu.usua_Id = mrqu.usua_UsuarioCreacion
-	INNER JOIN Acce.tbUsuarios usu1 ON usu1.usua_Id =  mrqu.usua_UsuarioModificacion
-	INNER JOIN Acce.tbUsuarios usu2 ON usu2.usua_Id =  mrqu.usua_UsuarioEliminacion
+	 LEFT JOIN Acce.tbUsuarios usu1 ON usu1.usua_Id =  mrqu.usua_UsuarioModificacion
+	 LEFT JOIN Acce.tbUsuarios usu2 ON usu2.usua_Id =  mrqu.usua_UsuarioEliminacion
     WHERE	mrqu.marq_Estado = 1
 END
 GO

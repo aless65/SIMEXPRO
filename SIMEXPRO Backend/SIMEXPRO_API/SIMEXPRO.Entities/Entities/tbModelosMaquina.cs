@@ -29,13 +29,13 @@ namespace SIMEXPRO.Entities.Entities
 
 
         [NotMapped]
-        public string MarcaMaquina { get; set; }
+        public string marcaMaquina { get; set; }
         [NotMapped]
-        public string FuncionMaquina { get; set; }
+        public string funcionMaquina { get; set; }
         [NotMapped]
-        public string UsuarioCreacionNombre { get; set; }
+        public string usuarioCreacionNombre { get; set; }
         [NotMapped]
-        public string UsuarioModificacionNombre { get; set; }
+        public string usuarioModificacionNombre { get; set; }
         [NotMapped]
         public string usuarioEliminacionNombre { get; set; }
 

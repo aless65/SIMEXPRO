@@ -14,6 +14,7 @@ namespace SIMEXPRO.Entities.Entities
             tbCiudades = new HashSet<tbCiudades>();
             tbEmpleados = new HashSet<tbEmpleados>();
             tbPersonaJuridica = new HashSet<tbPersonaJuridica>();
+            tbClientes = new HashSet<tbClientes>();
         }
 
         public int pvin_Id { get; set; }
@@ -45,5 +46,6 @@ namespace SIMEXPRO.Entities.Entities
         public virtual ICollection<tbCiudades> tbCiudades { get; set; }
         public virtual ICollection<tbEmpleados> tbEmpleados { get; set; }
         public virtual ICollection<tbPersonaJuridica> tbPersonaJuridica { get; set; }
+        public virtual ICollection<tbClientes> tbClientes { get; set; }
     }
 }

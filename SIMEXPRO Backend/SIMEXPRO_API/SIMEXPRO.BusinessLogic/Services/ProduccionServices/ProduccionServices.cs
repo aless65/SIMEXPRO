@@ -42,6 +42,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         private readonly SubCategoriasRepository                     _subCategoriasRepository;
         private readonly TallasRepository                            _tallasRepository;
         private readonly TipoEmbalajeRepository                      _tipoEmbalajeRepository;
+        private readonly DocumentosOrdenCompraDetallesRepository     _documentosOrdenCompraDetallesRepository;
 
 
         public ProduccionServices(  AreasRepository  areasRepository,                                 
@@ -74,7 +75,8 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                                     RevisionDeCalidadRepository revisionDeCalidadRepository,
                                     SubCategoriasRepository subCategoriasRepository,
                                     TallasRepository tallasRepository,
-                                    TipoEmbalajeRepository tipoEmbalajeRepository )
+                                    TipoEmbalajeRepository tipoEmbalajeRepository,
+                                    DocumentosOrdenCompraDetallesRepository documentosOrdenCompraDetallesRepository)
         {
 
 
@@ -109,6 +111,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             _subCategoriasRepository = subCategoriasRepository;
             _tallasRepository = tallasRepository;
             _tipoEmbalajeRepository = tipoEmbalajeRepository;
+            _documentosOrdenCompraDetallesRepository = documentosOrdenCompraDetallesRepository;
 
 
         }
@@ -725,6 +728,87 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 return result.Error(ex.Message);
             }
         }
+        #endregion
+
+        #region DocumentosOrdenCompraDetalles
+        //public ServiceResult ListarDocumentosOrdenCompraDetalles()
+        //{
+        //    var result = new ServiceResult();
+        //    try
+        //    {
+        //        var list = _documentosOrdenCompraDetallesRepository.List();
+        //        return result.Ok(list);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return result.Error(ex.Message);
+        //    }
+        //}
+
+        //public ServiceResult InsertarDocumentosOrdenCompraDetalles(tbDocumentosOrdenCompraDetalles item)
+        //{
+        //    var result = new ServiceResult();
+        //    try
+        //    {
+        //        var map = _documentosOrdenCompraDetallesRepository.Insert(item);
+        //        if (map.MessageStatus == "1")
+        //        {
+        //            return result.Ok(map);
+        //        }
+        //        else
+        //        {
+        //            return result.Error(map);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return result.Error(ex.Message);
+        //    }
+        //}
+
+        //public ServiceResult ActualizarDocumentosOrdenCompraDetalles(tbDocumentosOrdenCompraDetalles item)
+        //{
+        //    var result = new ServiceResult();
+        //    try
+        //    {
+
+        //        var map = _documentosOrdenCompraDetallesRepository.Update(item);
+        //        if (map.MessageStatus == "1")
+        //        {
+        //            return result.Ok(map);
+        //        }
+        //        else
+        //        {
+        //            return result.Error(map);
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return result.Error(ex.Message);
+        //    }
+        //}
+
+        //public ServiceResult EliminarDocumentosOrdenCompraDetalles(tbDocumentosOrdenCompraDetalles item)
+        //{
+        //    var result = new ServiceResult();
+        //    try
+        //    {
+        //        var map = _documentosOrdenCompraDetallesRepository.Delete(item);
+        //        if (map.MessageStatus == "1")
+        //        {
+        //            return result.Ok(map);
+        //        }
+        //        else
+        //        {
+        //            return result.Error(map);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return result.Error(ex.Message);
+        //    }
+        //}
         #endregion
 
         #region Funciones Maquina

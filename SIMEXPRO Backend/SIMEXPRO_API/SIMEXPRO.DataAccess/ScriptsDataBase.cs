@@ -587,6 +587,13 @@ namespace SIMEXPRO.DataAccess
         public static string EliminarModulos = "Prod.UDP_tbModulos_Eliminar";
         #endregion
 
+        #region DocumentosOrdenCompraDetalles
+        public static string ListarDocumentosOrdenCompraDetalles   = "Prod.UDP_tbDocumentosOrdenCompraDetalles_Listar";
+        public static string InsertarDocumentosOrdenCompraDetalles = "Prod.UDP_tbDocumentosOrdenCompraDetalles_Insertar";
+        public static string EditarDocumentosOrdenCompraDetalles   = "Prod.UDP_tbDocumentosOrdenCompraDetalles_Editar";
+        public static string EliminarDocumentosOrdenCompraDetalles = "Prod.UDP_tbDocumentosOrdenCompraDetalles_Eliminar";
+        #endregion
+
         #region Orden Ensamblado - Acabado - Etiquetado
         public static string ListarOrde_Ensa_Acab_Etiq = "Prod.UDP_tbOrde_Ensa_Acab_Etiq_Listar";
         public static string InsertarOrde_Ensa_Acab_Etiq = "Prod.UDP_tbOrde_Ensa_Acab_Etiq_Insertar";

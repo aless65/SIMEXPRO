@@ -3233,7 +3233,106 @@ BEGIN
 	END CATCH
 END
 GO
+/******************************** Documentos Orden CompraDetalles *****************************************/
 
+
+GO
+CREATE OR ALTER PROCEDURE Prod.UDP_tbDocumentosOrdenCompraDetalles_Listar
+AS
+BEGIN
+ 
+	SELECT	 [dopo_Id]
+			,[code_Id]
+			,[dopo_Archivo]
+			,[dopo_TipoArchivo]
+			,documentosOrdenCompraDetalle.[usua_UsuarioCreacion]
+ 			,documentosOrdenCompraDetalle.[dopo_FechaCreacion]
+			,documentosOrdenCompraDetalle.[usua_UsuarioModificacion]
+ 			,documentosOrdenCompraDetalle.[dopo_FechaModificacion]
+			,[code_Estado]
+	  FROM	[Prod].[tbDocumentosOrdenCompraDetalles]			documentosOrdenCompraDetalle
+			INNER JOIN [Acce].[tbUsuarios] UsuarioCreacion			ON UsuarioCreacion.usua_Id			= documentosOrdenCompraDetalle.usua_UsuarioCreacion
+			LEFT  JOIN [Acce].[tbUsuarios] UsuarioModificacion		ON UsuarioModificacion.usua_Id		= documentosOrdenCompraDetalle.usua_UsuarioModificacion
+	  WHERE [code_Estado] = 1
+
+END
+
+
+GO
+CREATE OR ALTER PROCEDURE Prod.UDP_tbDocumentosOrdenCompraDetalles_Insertar  
+@code_Id					 int,
+@dopo_Archivo				 nvarchar(max),
+@dopo_TipoArchivo			 nvarchar(40),
+@usua_UsuarioCreacion		 int,
+@dopo_FechaCreacion			 datetime
+AS
+BEGIN
+BEGIN TRY 
+ 
+	INSERT INTO [Prod].[tbDocumentosOrdenCompraDetalles]
+			   ([code_Id]
+			   ,[dopo_Archivo]
+			   ,[dopo_TipoArchivo]
+			   ,[usua_UsuarioCreacion]
+			   ,[dopo_FechaCreacion] )
+		 VALUES
+			   (@code_Id
+			   ,@dopo_Archivo
+			   ,@dopo_TipoArchivo
+			   ,@usua_UsuarioCreacion
+			   ,@dopo_FechaCreacion)
+ 		 SELECT 1
+	END TRY 
+	BEGIN CATCH
+	   SELECT 0	
+	END CATCH    
+END
+
+GO
+CREATE OR ALTER PROCEDURE Prod.UDP_tbDocumentosOrdenCompraDetalles_Editar
+@dopo_Id					 INT,
+@code_Id					 INT,
+@dopo_Archivo				 NVARCHAR(max),
+@dopo_TipoArchivo			 NVARCHAR(40),
+@usua_UsuarioModificacion	 INT,
+@dopo_FechaModificacion		 DATETIME
+AS
+BEGIN
+ BEGIN TRY 
+ 
+	UPDATE [Prod].[tbDocumentosOrdenCompraDetalles]
+	   SET [code_Id]                  =		@code_Id
+		  ,[dopo_Archivo]             =		@dopo_Archivo
+		  ,[dopo_TipoArchivo]         =		@dopo_TipoArchivo
+ 		  ,[usua_UsuarioModificacion] =		@usua_UsuarioModificacion
+		  ,[dopo_FechaModificacion]   =		@dopo_FechaModificacion
+ 	 WHERE dopo_Id = @dopo_Id
+ 
+ 		 SELECT 1
+	END TRY 
+	BEGIN CATCH
+	   SELECT 0	
+	END CATCH    
+END
+
+GO
+CREATE OR ALTER PROCEDURE Prod.UDP_tbDocumentosOrdenCompraDetalles_Eliminar  
+@dopo_Id					 INT
+AS
+BEGIN
+ BEGIN TRY 
+	UPDATE [Prod].[tbDocumentosOrdenCompraDetalles]
+	   SET [code_Estado] = 0
+	 WHERE dopo_Id = @dopo_Id
+	   
+		 SELECT 1
+	END TRY 
+	BEGIN CATCH
+	   SELECT 0	
+	END CATCH    
+
+END
+-- me quede aqui 
 /******************************** Formas de pago*****************************************/
 
 CREATE OR ALTER PROCEDURE Adua.UDP_tbFormadePago_Listar
@@ -3644,7 +3743,7 @@ AS
 BEGIN
 	BEGIN TRY
 
-	IF EXISTS(SELECT * FROM Prod.tbTipoLiquidacion WHERE tipl_Descripcion = @tipl_Descripcion AND tipl_Estado = 0)
+	IF EXISTS(SELECT * FROM Adua.tbTipoLiquidacion WHERE tipl_Descripcion = @tipl_Descripcion AND tipl_Estado = 0)
 			BEGIN
 				UPDATE	Adua.tbTipoLiquidacion
 				SET		tipl_Estado = 1
@@ -3675,7 +3774,7 @@ AS
 BEGIN
 	BEGIN TRY
 
-			IF EXISTS(SELECT * FROM Prod.tbTipoLiquidacion WHERE tipl_Descripcion = @tipl_Descripcion AND tipl_Estado = 0)
+			IF EXISTS(SELECT * FROM Adua.tbTipoLiquidacion WHERE tipl_Descripcion = @tipl_Descripcion AND tipl_Estado = 0)
 			BEGIN
 				UPDATE	Adua.tbTipoLiquidacion
 				SET		tipl_Estado = 1

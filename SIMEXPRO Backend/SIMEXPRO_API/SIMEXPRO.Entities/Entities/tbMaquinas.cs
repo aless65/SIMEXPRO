@@ -17,26 +17,29 @@ namespace SIMEXPRO.Entities.Entities
         public int maqu_Id { get; set; }
         public string maqu_NumeroSerie { get; set; }
         public int mmaq_Id { get; set; }
-        [NotMapped]
-        public string mmaq_Nombre { get; set; }
         public int modu_Id { get; set; }
-        [NotMapped]
-        public string modu_Nombre { get; set; }
         public int usua_UsuarioCreacion { get; set; }
-        [NotMapped]
-
-        public string UsuarioCreaNombre { get; set; }
         public DateTime maqu_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
-        [NotMapped]
-
-        public string UsuarioModificaNombre { get; set; }
-
-
         public DateTime? maqu_FechaModificacion { get; set; }
         public int? usua_UsuarioEliminacion { get; set; }
         public DateTime? maqu_FechaEliminacion { get; set; }
         public bool? maqu_Estado { get; set; }
+
+        [NotMapped]
+        public string mmaq_Nombre { get; set; }
+
+        [NotMapped]
+        public string modu_Nombre { get; set; }
+      
+        [NotMapped]
+        public string usuarioCreacionNombre { get; set; }
+
+        [NotMapped]
+        public string usuarioModificacionNombre { get; set; }
+
+        [NotMapped]
+        public string usuarioEliminacionNombre { get; set; }
 
         public virtual tbModelosMaquina mmaq { get; set; }
         public virtual tbModulos modu { get; set; }

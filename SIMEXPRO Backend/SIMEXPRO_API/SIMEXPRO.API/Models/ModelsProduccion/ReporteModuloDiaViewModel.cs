@@ -9,6 +9,8 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
     {
         public int remo_Id { get; set; }
         public int modu_Id { get; set; }
+        public string modu_Nombre { get; set; }
+
         public DateTime remo_Fecha { get; set; }
         public int remo_TotalDia { get; set; }
         public int remo_TotalDanado { get; set; }

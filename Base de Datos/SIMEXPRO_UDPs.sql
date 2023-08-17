@@ -3176,16 +3176,11 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Editar
 AS
 BEGIN
 	BEGIN TRY
-		IF EXISTS (SELECT emba_Codigo FROM Adua.tbLugaresEmbarque WHERE emba_Codigo = @emba_Codigo AND emba_Estado = 0)
+		IF EXISTS (SELECT emba_Codigo
+				   FROM Adua.tbLugaresEmbarque
+				   WHERE emba_Codigo = @emba_Codigo
+				   AND emba_Estado = 0)
 			BEGIN
-
-				UPDATE	Adua.tbLugaresEmbarque
-				SET	emba_Estado             = 0,
-				    usua_UsuarioEliminacion = @usua_UsuarioModificacion,
-					emba_FechaEliminacion   = @emba_FechaModificacion
-				WHERE emba_Id                 = @emba_Id 
-				
-				
 				UPDATE Adua.tbLugaresEmbarque
 				SET emba_Estado = 1,
 					emba_Descripcion = @emba_Descripcion
@@ -3195,15 +3190,15 @@ BEGIN
 			END
 		ELSE
 			BEGIN
-				UPDATE  Adua.tbLugaresEmbarque
-				SET		emba_Codigo              = @emba_Codigo,
-						emba_Descripcion         = @emba_Descripcion,
-						usua_UsuarioModificacion = @usua_UsuarioModificacion,
-						emba_FechaModificacion   = @emba_FechaModificacion
-				WHERE	emba_Id                  = @emba_Id
+		UPDATE  Adua.tbLugaresEmbarque
+		SET		emba_Codigo              = @emba_Codigo,
+		        emba_Descripcion         = @emba_Descripcion,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				emba_FechaModificacion   = @emba_FechaModificacion
+		WHERE	emba_Id                  = @emba_Id
 
-				SELECT 1
-			END
+		SELECT 1
+		END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -3251,8 +3246,10 @@ BEGIN
 			,[dopo_Archivo]
 			,[dopo_TipoArchivo]
 			,documentosOrdenCompraDetalle.[usua_UsuarioCreacion]
+			,UsuarioCreacion.[usua_Nombre]							AS UsuarioCreacionNombre
  			,documentosOrdenCompraDetalle.[dopo_FechaCreacion]
 			,documentosOrdenCompraDetalle.[usua_UsuarioModificacion]
+			,UsuarioModificacion.[usua_Nombre]							AS UsuarioModificacionNombre
  			,documentosOrdenCompraDetalle.[dopo_FechaModificacion]
 			,[code_Estado]
 	  FROM	[Prod].[tbDocumentosOrdenCompraDetalles]			documentosOrdenCompraDetalle
@@ -10933,20 +10930,11 @@ BEGIN
 
 	IF EXISTS (SELECT * FROM Prod.tbTipoEmbalaje WHERE tiem_Descripcion = @tiem_Descripcion AND tiem_Estado = 0)
 		BEGIN
-			
-			UPDATE	Prod.tbTipoEmbalaje
-			SET		tiem_Estado = 0,
-					tiem_FechaEliminacion = @tiem_FechaModificacion,
-					usua_UsuarioEliminacion = @usua_UsuarioModificacion
-			WHERE	tiem_Id = @tiem_Id
-			
-
 			UPDATE Prod.tbTipoEmbalaje
 			SET tiem_Estado = 1,
 				usua_UsuarioModificacion = @usua_UsuarioModificacion,
 				tiem_FechaModificacion = @tiem_FechaModificacion
 			WHERE tiem_Descripcion = @tiem_Descripcion
-
 			SELECT 1			
 		END
 	ELSE
@@ -11743,18 +11731,8 @@ BEGIN
 	IF EXISTS(SELECT * FROM Prod.tbMarcasMaquina WHERE marq_Nombre = @marq_Nombre AND marq_Estado = 0)
 			BEGIN
 				UPDATE	Prod.tbMarcasMaquina
-				SET		marq_Estado = 0,
-						usua_UsuarioEliminacion = @usua_UsuarioModificacion,
-						marq_FechaEliminacion = @marq_FechaModificacion
-				WHERE	marq_Id = @marq_Id
-						
-				
-				UPDATE	Prod.tbMarcasMaquina
-				SET		marq_Estado = 1,
-						usua_UsuarioModificacion = @usua_UsuarioModificacion,
-						marq_FechaModificacion = @marq_FechaModificacion
+				SET		marq_Estado = 1
 				WHERE   marq_Nombre = @marq_Nombre
-
 				SELECT 1
 			END
 	ELSE
@@ -12587,7 +12565,8 @@ BEGIN
 			usua_UsuarioModificacion, 
 			rdet_FechaModificacion, 
 			rdet_Estado 
-	FROM	Prod.tbReporteModuloDiaDetalle
+	FROM	Prod.tbReporteModuloDiaDetalle reporteModuloDia
+	
 END
 GO
 

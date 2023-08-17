@@ -18,7 +18,7 @@ INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacio
 VALUES ('Importación Temporal', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
-VALUES ('Importación para Reexportaci�n en el Mismo Estado', 1, '10-16-2004');
+VALUES ('Importación para Reexportación en el Mismo Estado', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTipoLiquidacion] ([tipl_Descripcion], [usua_UsuarioCreacion], [tipl_FechaCreacion])
 VALUES ('Exportación Temporal', 1, '10-16-2004');
@@ -59,7 +59,7 @@ INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCre
 VALUES ('Registro Civil', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCreacion], [iden_FechaCreacion])
-VALUES ('NIT (N�mero de Identificación Tributaria)', 1, '10-16-2004');
+VALUES ('NIT (Número de Identificación Tributaria)', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCreacion], [iden_FechaCreacion])
 VALUES ('RUT (Registro Único Tributario)', 1, '10-16-2004');
@@ -68,7 +68,7 @@ INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCre
 VALUES ('PAS (Permiso de Apartado Postal)', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCreacion], [iden_FechaCreacion])
-VALUES ('PEP (Persona Expuesta Pol�ticamente)', 1, '10-16-2004');
+VALUES ('PEP (Persona Expuesta Políticamente)', 1, '10-16-2004');
 
 INSERT INTO [Adua].[tbTiposIdentificacion] ([iden_Descripcion], [usua_UsuarioCreacion], [iden_FechaCreacion])
 VALUES ('Carné Diplomático', 1, '10-16-2004');
@@ -106,14 +106,14 @@ INSERT INTO [Adua].[tbTransporte]
 			[tran_FechaCreacion])	
 VALUES	(1, 'CH1234', 1, 'REM5678', 5000, 1234, 'GPS Tracker',				'Carga General',			'CNT9876', 1, '10-16-2004'),
 	    (2, 'CH5678', 2, 'REM9012', 7000, 5678, 'Rastreo Satelital',		'Carga Peligrosa',			'CNT5432', 1, '10-16-2004'),
-		(3, 'CH9012', 3, 'REM3456', 6000, 9012, 'Bloques de Refrigeraci�n', 'Carga Perecedera',			'CNT7654', 1, '10-16-2004'),
+		(3, 'CH9012', 3, 'REM3456', 6000, 9012, 'Bloques de Refrigeración', 'Carga Perecedera',			'CNT7654', 1, '10-16-2004'),
 	    (4, 'CH3456', 1, 'REM7890', 8000, 3456, 'Contenedor Refrigerado',	'Carga A granel',			'CNT1234', 1, '10-16-2004'),
 	    (5, 'CH6789', 2, 'REM2345', 9000, 6789, 'Contenedor Cisterna',		'Carga Líquida',			'CNT5678', 1, '10-16-2004'),
 	    (1, 'CH9010', 3, 'REM6543', 7500, 9010, 'Plataforma',				'Carga Sobredimensionada',	'CNT4567', 1, '10-16-2004'),
 	    (2, 'CH6543', 1, 'REM8901', 5500, 6543, 'Racks de Carga',			'Carga Paletizada',			'CNT8765', 1, '10-16-2004'),
 	    (3, 'CH2345', 2, 'REM6789', 6500, 2345, 'Toldos Protector',			'Carga Liviana',			'CNT3456', 1, '10-16-2004'),
-	    (4, 'CH8901', 3, 'REM0123', 4500, 8901, 'Contenedor Cerrado',		'Carga de Veh�culos',		'CNT2345', 1, '10-16-2004'),
-	    (5, 'CH0123', 1, 'REM4567', 7000, 0123, 'Furg�n',					'Carga Seca',				'CNT6789', 1, '10-16-2004');
+	    (4, 'CH8901', 3, 'REM0123', 4500, 8901, 'Contenedor Cerrado',		'Carga de Vehículos',		'CNT2345', 1, '10-16-2004'),
+	    (5, 'CH0123', 1, 'REM4567', 7000, 0123, 'Furgón',					'Carga Seca',				'CNT6789', 1, '10-16-2004');
 
 
 
@@ -129,8 +129,8 @@ VALUES	('Juan David','Lopez','6420651011315844845',100,1,1,GETDATE(),1),
 --***** INSERT TABLA MODO TRANSPORTE --******--
 GO
 INSERT INTO Adua.tbModoTransporte(motr_Descripcion,usua_UsuarioCreacion,motr_FechaCreacion)
-VALUES	('Mar�timo',1,GETDATE()),
-		('A�reo',1,GETDATE()),
+VALUES	('Marítimo',1,GETDATE()),
+		('Aéreo',1,GETDATE()),
 		('Terrestre',1,GETDATE()),
 		('Fluvial',1,GETDATE());
 
@@ -147,8 +147,8 @@ VALUES	('DF','DUCA-F',1,GETDATE()),
 --***** INSERT TABLA DECLARANTES --******--
 GO
 INSERT INTO Adua.tbDeclarantes (decl_Nombre_Raso, decl_Direccion_Exacta, ciud_Id, decl_Correo_Electronico, decl_Telefono, decl_Fax, usua_UsuarioCreacion, decl_FechaCreacion)
-VALUES	('ABC Ingeniería y Construcci�n S.A.'		,'Calle de la Ingeniería 123, San Pedro Sula, Cortes'	,1,'info@abc-ingenieria.com'					,'1234-5678',null,1,GETDATE()),
-		('MegaCorp Tecnolog�as Inc.'				,'Avenida Tecnológica 456, San Pedro Sula, Cortes'		,1,'contacto@megacorp-tech.com'					,'9876-5432',null,1,GETDATE()),
+VALUES	('ABC Ingeniería y Construcción S.A.'		,'Calle de la Ingeniería 123, San Pedro Sula, Cortes'	,1,'info@abc-ingenieria.com'					,'1234-5678',null,1,GETDATE()),
+		('MegaCorp Tecnologías Inc.'				,'Avenida Tecnológica 456, San Pedro Sula, Cortes'		,1,'contacto@megacorp-tech.com'					,'9876-5432',null,1,GETDATE()),
 		('Flores y Cía. Floristería S.L.'			,'Plaza de las Flores 789, San Pedro Sula, Cortes'		,1,'ventas@floresycia-floristeria.com'			,'2468-1357',null,1,GETDATE()),
 		('Viajes Aventura Explora Ltda.'			,'Camino de la Aventura 321, San Pedro Sula, Cortes'	,1,'reservas@viajesaventuraexplora.com'			,'8642-7913',null,1,GETDATE()),
 		('Delicias Repostería Fina S.A. de C.V.'	,'Calle de los Sabores 654, San Pedro Sula, Cortes'		,1,'pedidos@deliciasreposteriafina.com'			,'5793-2816',null,1,GETDATE()),
@@ -156,7 +156,7 @@ VALUES	('ABC Ingeniería y Construcci�n S.A.'		,'Calle de la Ingeniería 123, 
 		('GreenEco Energías Renovables S.A.'		,'Avenida Sostenible 789, San Pedro Sula, Cortes'		,1,'soporte@greeneco-energiasrenovables.com'	,'6481-7392',null,1,GETDATE()),
 		('SaludTotal Clínica Médica Ltda.'			,'Calle de la Salud 543, San Pedro Sula, Cortes'		,1,'citas@saludtotalclinica.com'				,'3194-6257',null,1,GETDATE()),
 		('InterGlobal Consultores Asociados S.C.'	,'Plaza Internacional 345, San Pedro Sula, Cortes'		,1,'contacto@interglobalconsultores.com'		,'3396-2352',null,1,GETDATE()),
-		('FastDelivery Log�stica Express S.R.L. '	,'Avenida R�pida 567, San Pedro Sula, Cortes'			,1,'info@fastdelivery-logisticaexpress.com'		,'6464-8164',null,1,GETDATE());
+		('FastDelivery Logística Express S.R.L. '	,'Avenida Rápida 567, San Pedro Sula, Cortes'			,1,'info@fastdelivery-logisticaexpress.com'		,'6464-8164',null,1,GETDATE());
 
 
 
@@ -184,7 +184,7 @@ VALUES ('AV', 'AVERIADAS', 1, GETDATE()),
 	   ('SO', 'SOLIDOS', 1, GETDATE()),
 	   ('US', 'USADAS', 1, GETDATE()),
 	   ('VI', 'VIVOS', 1, GETDATE()),
-	   ('ZL', 'ZOLI DESPERDICIOS-BIENES DA�ADOS', 1, GETDATE());
+	   ('ZL', 'ZOLI DESPERDICIOS-BIENES DADOS', 1, GETDATE());
 
 	   
 /*-------------------------------------*/
@@ -251,40 +251,40 @@ VALUES	('DT','Distribuidor',1,GETDATE()),
 GO
 INSERT INTO [Adua].[tbAduanas](adua_Codigo, [adua_Nombre], [adua_Direccion_Exacta], [usua_UsuarioCreacion], [adua_FechaCreacion])
 VALUES	('0001', 'ADUANA AMAPALA', '1st Street, Amapala, Valle, Honduras', 1, GETDATE()),
-		('0002', 'ADUANA LA CEIBA', '2nd Avenue, La Ceiba, Atl�ntida, Honduras', 1, GETDATE()),
-		('0003', 'ADUANA PUERTO HENECAN-SN LORENZO', '3rd Road, Puerto Henec�n, San Lorenzo, Valle, Honduras', 1, GETDATE()),
-		('0004', 'ADUANA PUERTO CORTES', '4th Street, Puerto Cort�s, Cort�s, Honduras', 1, GETDATE()),
+		('0002', 'ADUANA LA CEIBA', '2nd Avenue, La Ceiba, Atlántida, Honduras', 1, GETDATE()),
+		('0003', 'ADUANA PUERTO HENECAN-SN LORENZO', '3rd Road, Puerto Henecón, San Lorenzo, Valle, Honduras', 1, GETDATE()),
+		('0004', 'ADUANA PUERTO CORTES', '4th Street, Puerto Cortés, Cortés, Honduras', 1, GETDATE()),
 		('0005', 'ADUANA PUERTO LEMPIRA', '5th Avenue, Puerto Lempira, Gracias a Dios, Honduras', 1, GETDATE()),
-		('0006', 'ADUANA ROATAN', '6th Road, Roat�n, Bay Islands, Honduras', 1, GETDATE()),
-		('0007', 'GUARDATURA ROATAN', '7th Street, Roat�n, Bay Islands, Honduras', 1, GETDATE()),
-		('0008', 'ADUANA TELA', '8th Avenue, Tela, Atl�ntida, Honduras', 1, GETDATE()),
-		('0009', 'ADUANA PUERTO CASTILLA', '9th Road, Puerto Castilla, Col�n, Honduras', 1, GETDATE()),
-		('0010', 'GUARDATURA GOLOSON-CEIBA', '10th Street, Golos�n, La Ceiba, Atl�ntida, Honduras', 1, GETDATE()),
+		('0006', 'ADUANA ROATAN', '6th Road, Roatán, Bay Islands, Honduras', 1, GETDATE()),
+		('0007', 'GUARDATURA ROATAN', '7th Street, Roatán, Bay Islands, Honduras', 1, GETDATE()),
+		('0008', 'ADUANA TELA', '8th Avenue, Tela, Atlántida, Honduras', 1, GETDATE()),
+		('0009', 'ADUANA PUERTO CASTILLA', '9th Road, Puerto Castilla, Colón, Honduras', 1, GETDATE()),
+		('0010', 'GUARDATURA GOLOSON-CEIBA', '10th Street, Golosón, La Ceiba, Atlántida, Honduras', 1, GETDATE()),
 		('0011', 'ADUANA LA MESA', '11th Avenue, La Mesa, Lempira, Honduras', 1, GETDATE()),
 		('0013', 'GUARDATURA LA MESA', '13th Road, La Mesa, Lempira, Honduras', 1, GETDATE()),
-		('0014', 'ADUANA TONCONTIN', '14th Street, Tegucigalpa, Francisco Moraz�n, Honduras', 1, GETDATE()),
-		('0015', 'GUARDATURA TONCONTIN', '15th Avenue, Tegucigalpa, Francisco Moraz�n, Honduras', 1, GETDATE()),
-		('0016', 'PASO FRONTERIZO CORINTO HN-GT', '16th Road, Paso Fronterizo Corinto, Cort�s, Honduras', 1, GETDATE()),
+		('0014', 'ADUANA TONCONTIN', '14th Street, Tegucigalpa, Francisco Morazán, Honduras', 1, GETDATE()),
+		('0015', 'GUARDATURA TONCONTIN', '15th Avenue, Tegucigalpa, Francisco Morazán, Honduras', 1, GETDATE()),
+		('0016', 'PASO FRONTERIZO CORINTO HN-GT', '16th Road, Paso Fronterizo Corinto, Cortés, Honduras', 1, GETDATE()),
 		('0017', 'ADUANA PALMEROLA', '17th Street, Comayagua, Comayagua, Honduras', 1, GETDATE()),
 		('0018', 'GUARDATURA PALMEROLA', '18th Avenue, Comayagua, Comayagua, Honduras', 1, GETDATE()),
 		('0020', 'ADUANA AGUA CALIENTE', '20th Road, Agua Caliente, Ocotepeque, Honduras', 1, GETDATE()),
-		('0021', 'ADUANA MOCALEMPA', '21st Street, Moc�lempa, Valle, Honduras', 1, GETDATE()),
-		('0022', 'ADUANA LA CONCORDIA', '22nd Avenue, La Concordia, Cop�n, Honduras', 1, GETDATE()),
+		('0021', 'ADUANA MOCALEMPA', '21st Street, Mocálempa, Valle, Honduras', 1, GETDATE()),
+		('0022', 'ADUANA LA CONCORDIA', '22nd Avenue, La Concordia, Copán, Honduras', 1, GETDATE()),
 		('0023', 'ADUANA EL AMATILLO', '23rd Road, El Amatillo, Valle, Honduras', 1, GETDATE()),
-		('0024', 'ADUANA EL FLORIDO', '24th Street, El Florido, Cop�n, Honduras', 1, GETDATE()),
+		('0024', 'ADUANA EL FLORIDO', '24th Street, El Florido, Copán, Honduras', 1, GETDATE()),
 		('0025', 'ADUANA EL POY', '25th Avenue, El Poy, Chalatenango, El Salvador', 1, GETDATE()),
 		('0027', 'ADUANA LA FRATERNIDAD', '27th Road, La Fraternidad, Ocotepeque, Honduras', 1, GETDATE()),
 		('0029', 'ADUANA GUASAULE', '29th Street, Guasaule, Chinandega, Nicaragua', 1, GETDATE()),
 		('0034', 'ADUANA LAS MANOS', '34th Avenue, Las Manos, Ocotepeque, Honduras', 1, GETDATE()),
-		('3004', 'ADUANA TECUN UMAN', 'Tec�n Um�n Bridge, International Bridge, Guatemala', 1, GETDATE()),
-		('6001', 'ZOLI PUERTO CORTES', 'Puerto Cort�s, Cort�s, Honduras', 1, GETDATE()),
-		('6003', 'ZOLI INHDELVA', 'Inhdelva Industrial Park, San Pedro Sula, Cort�s, Honduras', 1, GETDATE()),
-		('6005', 'CONSTRUCCIONES Y DESARROLLOS VICTOR', '5th Avenue, Tegucigalpa, Francisco Moraz�n, Honduras', 1, GETDATE()),
-		('6011', 'HONDURAS AMERICAN TABACO SA (HATSA)', '11th Street, Danl�, El Para�so, Honduras', 1, GETDATE()),
-		('6012', 'CONFECCIONES INTERNACIONALES S.A. DE C.V.', '12th Avenue, San Pedro Sula, Cort�s, Honduras', 1, GETDATE()),
-		('6013', 'ZOLI NOVEM CAR', 'Novem Car Factory, Choloma, Cort�s, Honduras', 1, GETDATE()),
-		('6017', 'ZOLI DELI DE HONDURAS S.A. DE C.V.', 'Deli de Honduras, Villanueva, Cort�s, Honduras', 1, GETDATE()),
-		('6021', 'ZOLI EMPACADORA DE CAMARONES SANTA INES', 'Empacadora de Camarones, Puerto Cort�s, Cort�s, Honduras', 1, GETDATE()),
+		('3004', 'ADUANA TECUN UMAN', 'Tecún Umán Bridge, International Bridge, Guatemala', 1, GETDATE()),
+		('6001', 'ZOLI PUERTO CORTES', 'Puerto Cortés, Cortés, Honduras', 1, GETDATE()),
+		('6003', 'ZOLI INHDELVA', 'Inhdelva Industrial Park, San Pedro Sula, Cortés, Honduras', 1, GETDATE()),
+		('6005', 'CONSTRUCCIONES Y DESARROLLOS VICTOR', '5th Avenue, Tegucigalpa, Francisco Morazán, Honduras', 1, GETDATE()),
+		('6011', 'HONDURAS AMERICAN TABACO SA (HATSA)', '11th Street, Danlí, El Paraíso, Honduras', 1, GETDATE()),
+		('6012', 'CONFECCIONES INTERNACIONALES S.A. DE C.V.', '12th Avenue, San Pedro Sula, Cortés, Honduras', 1, GETDATE()),
+		('6013', 'ZOLI NOVEM CAR', 'Novem Car Factory, Choloma, Cortés, Honduras', 1, GETDATE()),
+		('6017', 'ZOLI DELI DE HONDURAS S.A. DE C.V.', 'Deli de Honduras, Villanueva, Cortés, Honduras', 1, GETDATE()),
+		('6021', 'ZOLI EMPACADORA DE CAMARONES SANTA INES', 'Empacadora de Camarones, Puerto Cortés, Cortés, Honduras', 1, GETDATE()),
 		('6022', 'ZOLI EMPACADORA DE PRODUCTO ACUATICOS SAN LORENZO', '123 Main Street, San Lorenzo, Honduras', 1, GETDATE()),
 		('6023', 'ZOLI HATSA (DANLI)', '456 Elm Avenue, Danli, Honduras', 1, GETDATE()),
 		('6029', 'ZOLI CONFECCIONES MONZINI S.A.', '789 Oak Road, Tegucigalpa, Honduras', 1, GETDATE()),
@@ -295,7 +295,7 @@ VALUES	('0001', 'ADUANA AMAPALA', '1st Street, Amapala, Valle, Honduras', 1, GET
 		('6047', 'ZOLI IBEROAMERICANA DE MARISCO', '300 Cherry Lane, La Ceiba, Honduras', 1, GETDATE()),
 		('6048', 'ZOLI CARACOL KNITS', '400 Oakwood Street, Puerto Cortes, Honduras', 1, GETDATE()),
 		('6056', 'ASTRO CARTON HONDURAS SA DE CV', '500 Maple Avenue, Tela, Honduras', 1, GETDATE()),
-		('6059', 'ZOLI MANUFACTURERA CEIBE�A', '600 Elm Street, Ceiba, Honduras', 1, GETDATE()),
+		('6059', 'ZOLI MANUFACTURERA CEIBEÑA', '600 Elm Street, Ceiba, Honduras', 1, GETDATE()),
 		('6060', 'ZOLI ATUTO', '700 Pine Lane, Atuto, Honduras', 1, GETDATE()),
 		('6064', 'ZOLI TABACOS DE DANLI', '800 Cedar Road, Danli, Honduras', 1, GETDATE()),
 		('6065', 'ZOLI COTTONWISE TEXTILES HOND.', '900 Walnut Drive, Choloma, Honduras', 1, GETDATE()),
@@ -374,7 +374,7 @@ VALUES	('0001', 'ADUANA AMAPALA', '1st Street, Amapala, Valle, Honduras', 1, GET
 		('6211', 'ZOLI ACEITES Y DERIVADOS, S.A.', '5100 Cherry Lane, La Ceiba, Honduras', 1, GETDATE()),
 		('6212', 'ZOLI CORUMO INTERNACIONAL, SRL', '5200 Oakwood Street, Siguatepeque, Honduras', 1, GETDATE()),
 		('6215', 'ZOLI AGROINDUSTRIAL PALMA REAL', '5300 Elm Street, Comayagua, Honduras', 1, GETDATE()),
-		('6216', 'ZOLI AGRICOLA INDUSTRIAL CEIBE�A S.', '5400 Pine Lane, San Pedro Sula, Honduras', 1, GETDATE()),
+		('6216', 'ZOLI AGRICOLA INDUSTRIAL CEIBEÑA S.', '5400 Pine Lane, San Pedro Sula, Honduras', 1, GETDATE()),
 		('6218', 'ZOLI ALTIA BUSINESS PARK', '5500 Cherry Lane, Tegucigalpa, Honduras', 1, GETDATE()),
 		('6219', 'ZOLI  VOGUE CORPORATION INTERNATIO.', '5600 Oakwood Street, La Ceiba, Honduras', 1, GETDATE()),
 		('6220', 'ZOLI  SCANDINAVIAN TOBACCO GROUP', '5700 Elm Street, Puerto Cortes, Honduras', 1, GETDATE()),
@@ -399,7 +399,7 @@ VALUES	('0001', 'ADUANA AMAPALA', '1st Street, Amapala, Valle, Honduras', 1, GET
 		('6240', 'HILOS A&E DE HONDURAS', '7600 Pine Lane, La Ceiba, Honduras', 1, GETDATE()),
 		('6241', 'INVERSIONES LAS FLORES', '7700 Cherry Lane, Puerto Cortes, Honduras', 1, GETDATE()),
 		('6242', 'RIO NANCE AGRO-INDUSTRIAL SA DE CV', '7800 Oakwood Street, Choloma, Honduras', 1, GETDATE()),
-		('6244', 'INDUSTRIA HONDURE�A DE MECHAS SA CV', '7900 Pine Lane, San Miguel, Honduras', 1, GETDATE()),
+		('6244', 'INDUSTRIA HONDUREÑA DE MECHAS SA CV', '7900 Pine Lane, San Miguel, Honduras', 1, GETDATE()),
 		('6245', 'ARTESANOS SA DE CV', '8000 Cherry Lane, Tela, Honduras', 1, GETDATE()),
 		('6246', 'FIBRAS Y TEXTILES SA DE CV', '8100 Oakwood Street, Puerto Cortes, Honduras', 1, GETDATE()),
 		('6247', 'YKK HONDURAS SA', '8200 Pine Lane, Choloma, Honduras', 1, GETDATE()),
@@ -454,7 +454,7 @@ VALUES	('0001', 'ADUANA AMAPALA', '1st Street, Amapala, Valle, Honduras', 1, GET
 		('6300', 'ARNESES Y ENSAMBLES S DE RL', '13100 Cherry Lane, Comayagua, Honduras', 1, GETDATE()),
 		('6301', 'O. R. S. DE HONDURAS S. DE R. L.', '13200 Oakwood Street, Siguatepeque, Honduras', 1, GETDATE()),
 		('6302', 'EXPORTADORA ECO INDUSTRIAL SA DE C', '13300 Pine Lane, San Pedro Sula, Honduras', 1, GETDATE()),
-		('6303', 'COMPA�IA INTERNACIONAL DE CONFECCIO', '13400 Cherry Lane, Tegucigalpa, Honduras', 1, GETDATE()),
+		('6303', 'COMPAÑIA INTERNACIONAL DE CONFECCIO', '13400 Cherry Lane, Tegucigalpa, Honduras', 1, GETDATE()),
 		('6304', 'LOS ROBLES SA DE CV', '13500 Oakwood Street, La Ceiba, Honduras', 1, GETDATE()),
 		('6305', 'INDUSTRIAS CONTINENTAL S DE RL', '13600 Pine Lane, Puerto Cortes, Honduras', 1, GETDATE()),
 		('6306', 'SISTEMAS DE ENERGIA DE HONDURAS SA', '13700 Cherry Lane, Comayagua, Honduras', 1, GETDATE()),
@@ -470,7 +470,7 @@ VALUES	('0001', 'ADUANA AMAPALA', '1st Street, Amapala, Valle, Honduras', 1, GET
 		('6316', 'BIOCOMBUSTIBLES Y SALUD S A DE C', '67890 Oak Avenue, Tegucigalpa, Honduras', 1, GETDATE()),
 		('6317', 'SAN JUAN INNOVATION PARK SA DE CV', '24680 Maple Lane, La Ceiba, Honduras', 1, GETDATE()),
 		('6318', 'PRIDE PERFORMANCE FABRICS, S.A. DE', '13579 Pine Road, Puerto Cortes, Honduras', 1, GETDATE()),
-		('6320', 'CIA AGRICOLA IND CEIBE�A S A DE CV', '97531 Birch Street, Comayagua, Honduras', 1, GETDATE()),
+		('6320', 'CIA AGRICOLA IND CEIBEÑA S A DE CV', '97531 Birch Street, Comayagua, Honduras', 1, GETDATE()),
 		('6321', 'ALMACENADORA DE MATERIALES A GRANEL', '86420 Cedar Avenue, Siguatepeque, Honduras', 1, GETDATE()),
 		('6322', 'GUAYACAN FARMS S A DE C V', '24680 Elm Street, San Pedro Sula, Honduras', 1, GETDATE()),
 		('6323', 'PROGRESSIVE ENERGY CORPORATION SA D', '13579 Oak Avenue, Tegucigalpa, Honduras', 1, GETDATE()),
@@ -481,7 +481,7 @@ VALUES	('0001', 'ADUANA AMAPALA', '1st Street, Amapala, Valle, Honduras', 1, GET
 		('6328', 'LEVANTER SA DE CV', '24680 Oak Avenue, San Pedro Sula, Honduras', 1, GETDATE()),
 		('6329', 'ALMACENADORA DE MATERIALES A GRANEL', '13579 Maple Lane, Tegucigalpa, Honduras', 1, GETDATE()),
 		('6330', 'REMA S.A.', '97531 Birch Street, La Ceiba, Honduras', 1, GETDATE()),
-		('6331', 'FABRICA HONDURE�A DE RECICLAJE S', '86420 Cedar Avenue, Puerto Cortes, Honduras', 1, GETDATE()),
+		('6331', 'FABRICA HONDUREÑA DE RECICLAJE S', '86420 Cedar Avenue, Puerto Cortes, Honduras', 1, GETDATE()),
 		('6332', 'GRAN COSTA HONDURAS S DE R L', '12345 Oak Avenue, Comayagua, Honduras', 1, GETDATE()),
 		('6333', 'BENEFICIO DE CAFE INLOHER S DE RL', '67890 Maple Lane, Siguatepeque, Honduras', 1, GETDATE()),
 		('6334', 'CARIBBEAN APPETIZERS SA DE CV', '24680 Elm Street, San Pedro Sula, Honduras', 1, GETDATE()),
@@ -529,7 +529,7 @@ VALUES	('0001', 'ADUANA AMAPALA', '1st Street, Amapala, Valle, Honduras', 1, GET
 		('6376', 'EMPACADORA DE PRODUCTOS ACUATICOS SAN LORENZO S.A', '24680 Oak Avenue, San Pedro Sula, Honduras', 1, GETDATE()),
 		('6377', 'EMPACADORA DE PRODUCTOS ACUATICOS SAN LORENZO S.A', '13579 Cedar Avenue, Tegucigalpa, Honduras', 1, GETDATE()),
 		('6378', 'EMPACADORA DE PRODUCTOS ACUATICOS SAN LORENZO S.A', '97531 Elm Street, La Ceiba, Honduras', 1, GETDATE()),
-		('6379', 'PLASTICOS INDUSTRIALES HONDURE�OS SA DE CV', '86420 Maple Lane, Puerto Cortes, Honduras', 1, GETDATE()),
+		('6379', 'PLASTICOS INDUSTRIALES HONDUREÑOS SA DE CV', '86420 Maple Lane, Puerto Cortes, Honduras', 1, GETDATE()),
 		('6380', 'EXPORTADORA AGRICOLA MESOAMERICANA, SOCIEDAD ANONI', '12345 Cedar Avenue, Comayagua, Honduras', 1, GETDATE()),
 		('6381', 'RESULTS HONDURAS, S.A.', '67890 Elm Street, Siguatepeque, Honduras', 1, GETDATE()),
 		('6382', 'ZONA LIBRE GREEN VALLEY INDUSTRIAL PARK SA DE CV', '24680 Oak Avenue, San Pedro Sula, Honduras', 1, GETDATE()),
@@ -856,7 +856,7 @@ VALUES ('AOMDZ', 'MAQUELA DO ZOMBO', 1, GETDATE()),
 	   ('AOSDD', 'LUBANGO', 1, GETDATE()),
 	   ('AOSOQ', 'SOYO-QUINFUQUENA TERMINAL', 1, GETDATE()),
 	   ('AOSPP', 'MENONGUE', 1, GETDATE()),
-	   ('AOSSY', 'M''BANZA CONGO', 1, GETDATE()),
+	   ('AOSSY', 'M BANZA CONGO', 1, GETDATE()),
 	   ('AOSTC', 'SANTA CLARA', 1, GETDATE()),
 	   ('AOSTL', 'SAZAIRE TERMINAL', 1, GETDATE()),
 	   ('AOSVP', 'KUITO', 1, GETDATE()),
@@ -1791,7 +1791,7 @@ VALUES ('BJBOH', 'BOHICON', 1, GETDATE()),
 	   ('BOCCO', 'CALACOTO', 1, GETDATE()),
 	   ('BOCCR', 'CORO CORO', 1, GETDATE()),
 	   ('BOCEP', 'CONCEPCION', 1, GETDATE()),
-	   ('BOCHA', 'CHARA�A', 1, GETDATE()),
+	   ('BOCHA', 'CHARAÑA', 1, GETDATE()),
 	   ('BOCHM', 'CHUMA', 1, GETDATE()),
 	   ('BOCHR', 'CHACARILLA', 1, GETDATE()),
 	   ('BOCHU', 'CHULUMANI', 1, GETDATE()),
@@ -1804,7 +1804,7 @@ VALUES ('BJBOH', 'BOHICON', 1, GETDATE()),
 	   ('BOCMR', 'CAMARGO', 1, GETDATE());
 
 INSERT INTO [Adua].[tbLugaresEmbarque](emba_Codigo, emba_Descripcion, usua_UsuarioCreacion, emba_FechaCreacion)
-VALUES ('BOCNO', 'CA�ADA ORURO', 1, GETDATE()),
+VALUES ('BOCNO', 'CAÑADA ORURO', 1, GETDATE()),
 	   ('BOCOL', 'COLLPANI', 1, GETDATE()),
 	   ('BOCOM', 'COMBAYA', 1, GETDATE()),
 	   ('BOCOR', 'COROICO', 1, GETDATE()),
@@ -1878,7 +1878,7 @@ VALUES ('BOCNO', 'CA�ADA ORURO', 1, GETDATE()),
 	   ('BOREY', 'REYES', 1, GETDATE()),
 	   ('BORIB', 'RIBERALTA', 1, GETDATE()),
 	   ('BOSAM', 'SAN ANDRES DE MACHACA', 1, GETDATE()),
-	   ('BOSAN', 'SANTIVA�EZ', 1, GETDATE()),
+	   ('BOSAN', 'SANTIVAÑEZ', 1, GETDATE()),
 	   ('BOSAP', 'SAPAHAQUI', 1, GETDATE()),
 	   ('BOSBL', 'SANTA ANA', 1, GETDATE()),
 	   ('BOSBV', 'SAN BUENAVENTURA', 1, GETDATE()),
@@ -1939,7 +1939,7 @@ VALUES ('BOTDD', 'TRINIDAD', 1, GETDATE()),
 	   ('BOYOT', 'YOTALA', 1, GETDATE()),
 	   ('BOYUN', 'YUNCHARA', 1, GETDATE()),
 	   ('BOYUO', 'YUCUMO', 1, GETDATE()),
-	   ('BOZUD', 'ZUDA�EZ', 1, GETDATE()),
+	   ('BOZUD', 'ZUDAÑEZ', 1, GETDATE()),
 	   ('BQBON', 'BONAIRE', 1, GETDATE()),
 	   ('BQBOT', 'THE BOTTOM', 1, GETDATE()),
 	   ('BQDTK', 'DORP TERA KORA', 1, GETDATE()),
@@ -2685,7 +2685,7 @@ VALUES ('BRELO','ELDORADO',1,GETDATE()),
        ('BRGCV','GRAVATAI',1,GETDATE()),
        ('BRGDA','GOVERNADOR LACERDA DE AGUIAR',1,GETDATE()),
        ('BRGDG','GLORIA DO GOITA',1,GETDATE()),
-       ('BRGDM','GUARANI DAS MISS�ES',1,GETDATE()),
+       ('BRGDM','GUARANI DAS MISSOES',1,GETDATE()),
        ('BRGDO','GLORIA DE DOURADOS',1,GETDATE()),
        ('BRGDP','GUADALUPE',1,GETDATE()),
        ('BRGDS','GUARUJA DO SUL',1,GETDATE()),
@@ -3226,7 +3226,7 @@ VALUES ('BRMNX','MANICORE',1,GETDATE()),
        ('BRMSR','MAUA DA SERRA',1,GETDATE()),
        ('BRMTA','MATA',1,GETDATE()),
        ('BRMTB','MARITUBA',1,GETDATE()),
-       ('BRMTC','MUITOS CAP�ES',1,GETDATE()),
+       ('BRMTC','MUITOS CAPOES',1,GETDATE()),
        ('BRMTD','MOSTARDAS',1,GETDATE()),
        ('BRMTE','MONTE ALEGRE',1,GETDATE()),
        ('BRMTL','MATEUS LEME',1,GETDATE()),
@@ -4260,13 +4260,13 @@ VALUES('BWBBK','KASANE',1,GETDATE()),
 	  ('BWTBY','TSABONG',1,GETDATE()),
 	  ('BWTLD','TULI LODGE',1,GETDATE()),
 	  ('BYBAR','BARYSAW',1,GETDATE()),
-	  ('BYBER','BER�ZA',1,GETDATE()),
+	  ('BYBER','BERAZA',1,GETDATE()),
 	  ('BYBMO','BOL''SHIYE MOTYKALY',1,GETDATE()),
 	  ('BYBNV','BARANOVICHI',1,GETDATE()),
 	  ('BYBOB','BOBRUYSK',1,GETDATE()),
 	  ('BYBOR','BOROVLYANY',1,GETDATE()),
 	  ('BYBQT','BREST',1,GETDATE()),
-	  ('BYBZA','BER�ZOVKA',1,GETDATE()),
+	  ('BYBZA','BEREZOVKA',1,GETDATE()),
 	  ('BYCHV','CHAVUSI',1,GETDATE()),
 	  ('BYDEM','DEMIDOV',1,GETDATE()),
 	  ('BYDRH','DRAHICHYN',1,GETDATE()),
@@ -7995,7 +7995,7 @@ VALUES('CHAAB','AARBURG',1,GETDATE()),
 	  ('CHCHR','CHUR',1,GETDATE()),
 	  ('CHCHS','CHESIERES',1,GETDATE()),
 	  ('CHCHT','THORISHAUS',1,GETDATE()),
-	  ('CHCHX','CHO�X',1,GETDATE()),
+	  ('CHCHX','CHOEX',1,GETDATE()),
 	  ('CHCHY','CONTHEY',1,GETDATE()),
 	  ('CHCLA','CLARMONT',1,GETDATE()),
 	  ('CHCLC','LE CRET-DU-LOCLE',1,GETDATE()),
@@ -9365,7 +9365,7 @@ INSERT INTO [Adua].[tbLugaresEmbarque]([emba_Codigo],[emba_Descripcion],[usua_Us
 VALUES('CLABB','ALTO BIO BIO',1,GETDATE()),
 	  ('CLACH','ACHAO',1,GETDATE()),
 	  ('CLADC','ALTO DEL CARMEN',1,GETDATE()),
-	  ('CLAGN','PASO AGUA NEGRA-JUNTAS DE TORO/VICU�A',1,GETDATE()),
+	  ('CLAGN','PASO AGUA NEGRA-JUNTAS DE TORO/VICUÑA',1,GETDATE()),
 	  ('CLAHP','ALTO HOSPICIO',1,GETDATE()),
 	  ('CLALG','ALGARROBO',1,GETDATE()),
 	  ('CLALH','ALHUE',1,GETDATE()),
@@ -9389,7 +9389,7 @@ VALUES('CLABB','ALTO BIO BIO',1,GETDATE()),
 	  ('CLB7X','CHARRUA',1,GETDATE()),
 	  ('CLCAA','CALDERILLA',1,GETDATE()),
 	  ('CLCAB','CABRERO',1,GETDATE()),
-	  ('CLCAI','PASO CARIRRI�E/PANGUIPULLI',1,GETDATE()),
+	  ('CLCAI','PASO CARIRRIÑE/PANGUIPULLI',1,GETDATE()),
 	  ('CLCAL','CALETA PATILLOS',1,GETDATE()),
 	  ('CLCAM','CAMARONES',1,GETDATE()),
 	  ('CLCAN','CANELA',1,GETDATE()),
@@ -9432,12 +9432,12 @@ VALUES('CLABB','ALTO BIO BIO',1,GETDATE()),
 	  ('CLCLL','CALLE LARGA',1,GETDATE()),
 	  ('CLCLN','COLINA',1,GETDATE()),
 	  ('CLCLR','CALETA CLARENCIA',1,GETDATE()),
-	  ('CLCMA','CAMI�A',1,GETDATE()),
+	  ('CLCMA','CAMIÑA',1,GETDATE()),
 	  ('CLCMO','COCHAMO',1,GETDATE()),
 	  ('CLCMP','CAMPANARIO',1,GETDATE()),
 	  ('CLCNE','COLCHANE',1,GETDATE()),
 	  ('CLCNL','CORONEL',1,GETDATE()),
-	  ('CLCNR','CHA�ARAL',1,GETDATE()),
+	  ('CLCNR','CHAERAL',1,GETDATE()),
 	  ('CLCNV','CERRO NAVIA',1,GETDATE()),
 	  ('CLCNX','CABO NEGRO',1,GETDATE()),
 	  ('CLCOB','COLBUN',1,GETDATE()),
@@ -9462,7 +9462,7 @@ VALUES('CLABB','ALTO BIO BIO',1,GETDATE()),
 	  ('CLCSA','PASO CARDENAL A. SAMORE/PUYEHUE',1,GETDATE()),
 	  ('CLCST','CONSTITUCION',1,GETDATE()),
 	  ('CLCTC','COLTAUCO',1,GETDATE()),
-	  ('CLCTE','CA�ETE',1,GETDATE()),
+	  ('CLCTE','CAÑETE',1,GETDATE()),
 	  ('CLCTM','CONTULMO',1,GETDATE()),
 	  ('CLCUN','CUNCO',1,GETDATE()),
 	  ('CLCUR','CURICO',1,GETDATE()),
@@ -28697,7 +28697,7 @@ INSERT INTO [Adua].[tbLugaresEmbarque]
 VALUES ('HUKJZ', 'KAJASZO', '1', GETDATE(), '1');	
 INSERT INTO [Adua].[tbLugaresEmbarque]
 ([emba_Codigo],[emba_Descripcion],[usua_UsuarioCreacion],[emba_FechaCreacion],[emba_Estado])
-VALUES ('HUKKS', 'KISK�ROS', '1', GETDATE(), '1');	
+VALUES ('HUKKS', 'KISKOROS', '1', GETDATE(), '1');	
 INSERT INTO [Adua].[tbLugaresEmbarque]
 ([emba_Codigo],[emba_Descripcion],[usua_UsuarioCreacion],[emba_FechaCreacion],[emba_Estado])
 VALUES ('HUKKU', 'KEKKUT', '1', GETDATE(), '1');	

@@ -3176,14 +3176,34 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Editar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE  Adua.tbLugaresEmbarque
-		SET		emba_Codigo              = @emba_Codigo,
-		        emba_Descripcion         = @emba_Descripcion,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				emba_FechaModificacion   = @emba_FechaModificacion
-		WHERE	emba_Id                  = @emba_Id
+		IF EXISTS (SELECT emba_Codigo FROM Adua.tbLugaresEmbarque WHERE emba_Codigo = @emba_Codigo AND emba_Estado = 0)
+			BEGIN
 
-		SELECT 1
+				UPDATE	Adua.tbLugaresEmbarque
+				SET	emba_Estado             = 0,
+				    usua_UsuarioEliminacion = @usua_UsuarioModificacion,
+					emba_FechaEliminacion   = @emba_FechaModificacion
+				WHERE emba_Id                 = @emba_Id 
+				
+				
+				UPDATE Adua.tbLugaresEmbarque
+				SET emba_Estado = 1,
+					emba_Descripcion = @emba_Descripcion
+				WHERE emba_Codigo = @emba_Codigo
+
+				SELECT 1
+			END
+		ELSE
+			BEGIN
+				UPDATE  Adua.tbLugaresEmbarque
+				SET		emba_Codigo              = @emba_Codigo,
+						emba_Descripcion         = @emba_Descripcion,
+						usua_UsuarioModificacion = @usua_UsuarioModificacion,
+						emba_FechaModificacion   = @emba_FechaModificacion
+				WHERE	emba_Id                  = @emba_Id
+
+				SELECT 1
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -3218,7 +3238,106 @@ BEGIN
 	END CATCH
 END
 GO
+/******************************** Documentos Orden CompraDetalles *****************************************/
 
+
+GO
+CREATE OR ALTER PROCEDURE Prod.UDP_tbDocumentosOrdenCompraDetalles_Listar
+AS
+BEGIN
+ 
+	SELECT	 [dopo_Id]
+			,[code_Id]
+			,[dopo_Archivo]
+			,[dopo_TipoArchivo]
+			,documentosOrdenCompraDetalle.[usua_UsuarioCreacion]
+ 			,documentosOrdenCompraDetalle.[dopo_FechaCreacion]
+			,documentosOrdenCompraDetalle.[usua_UsuarioModificacion]
+ 			,documentosOrdenCompraDetalle.[dopo_FechaModificacion]
+			,[code_Estado]
+	  FROM	[Prod].[tbDocumentosOrdenCompraDetalles]			documentosOrdenCompraDetalle
+			INNER JOIN [Acce].[tbUsuarios] UsuarioCreacion			ON UsuarioCreacion.usua_Id			= documentosOrdenCompraDetalle.usua_UsuarioCreacion
+			LEFT  JOIN [Acce].[tbUsuarios] UsuarioModificacion		ON UsuarioModificacion.usua_Id		= documentosOrdenCompraDetalle.usua_UsuarioModificacion
+	  WHERE [code_Estado] = 1
+
+END
+
+
+GO
+CREATE OR ALTER PROCEDURE Prod.UDP_tbDocumentosOrdenCompraDetalles_Insertar  
+@code_Id					 int,
+@dopo_Archivo				 nvarchar(max),
+@dopo_TipoArchivo			 nvarchar(40),
+@usua_UsuarioCreacion		 int,
+@dopo_FechaCreacion			 datetime
+AS
+BEGIN
+BEGIN TRY 
+ 
+	INSERT INTO [Prod].[tbDocumentosOrdenCompraDetalles]
+			   ([code_Id]
+			   ,[dopo_Archivo]
+			   ,[dopo_TipoArchivo]
+			   ,[usua_UsuarioCreacion]
+			   ,[dopo_FechaCreacion] )
+		 VALUES
+			   (@code_Id
+			   ,@dopo_Archivo
+			   ,@dopo_TipoArchivo
+			   ,@usua_UsuarioCreacion
+			   ,@dopo_FechaCreacion)
+ 		 SELECT 1
+	END TRY 
+	BEGIN CATCH
+	   SELECT 0	
+	END CATCH    
+END
+
+GO
+CREATE OR ALTER PROCEDURE Prod.UDP_tbDocumentosOrdenCompraDetalles_Editar
+@dopo_Id					 INT,
+@code_Id					 INT,
+@dopo_Archivo				 NVARCHAR(max),
+@dopo_TipoArchivo			 NVARCHAR(40),
+@usua_UsuarioModificacion	 INT,
+@dopo_FechaModificacion		 DATETIME
+AS
+BEGIN
+ BEGIN TRY 
+ 
+	UPDATE [Prod].[tbDocumentosOrdenCompraDetalles]
+	   SET [code_Id]                  =		@code_Id
+		  ,[dopo_Archivo]             =		@dopo_Archivo
+		  ,[dopo_TipoArchivo]         =		@dopo_TipoArchivo
+ 		  ,[usua_UsuarioModificacion] =		@usua_UsuarioModificacion
+		  ,[dopo_FechaModificacion]   =		@dopo_FechaModificacion
+ 	 WHERE dopo_Id = @dopo_Id
+ 
+ 		 SELECT 1
+	END TRY 
+	BEGIN CATCH
+	   SELECT 0	
+	END CATCH    
+END
+
+GO
+CREATE OR ALTER PROCEDURE Prod.UDP_tbDocumentosOrdenCompraDetalles_Eliminar  
+@dopo_Id					 INT
+AS
+BEGIN
+ BEGIN TRY 
+	UPDATE [Prod].[tbDocumentosOrdenCompraDetalles]
+	   SET [code_Estado] = 0
+	 WHERE dopo_Id = @dopo_Id
+	   
+		 SELECT 1
+	END TRY 
+	BEGIN CATCH
+	   SELECT 0	
+	END CATCH    
+
+END
+-- me quede aqui 
 /******************************** Formas de pago*****************************************/
 
 CREATE OR ALTER PROCEDURE Adua.UDP_tbFormadePago_Listar
@@ -3628,13 +3747,22 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoLiquidacion_Insertar
 AS
 BEGIN
 	BEGIN TRY
-		INSERT INTO Adua.tbTipoLiquidacion (tipl_Descripcion,usua_UsuarioCreacion, tipl_FechaCreacion)
-		VALUES (
-		@tipl_Descripcion,		
-		@usua_UsuarioCreacion,
-		@tipl_FechaCreacion	
-		)
-		SELECT 1
+
+	IF EXISTS(SELECT * FROM Adua.tbTipoLiquidacion WHERE tipl_Descripcion = @tipl_Descripcion AND tipl_Estado = 0)
+			BEGIN
+				UPDATE	Adua.tbTipoLiquidacion
+				SET		tipl_Estado = 1
+				WHERE   tipl_Descripcion = @tipl_Descripcion
+				SELECT 1
+			END
+	ELSE
+			BEGIN
+
+				INSERT INTO Adua.tbTipoLiquidacion (tipl_Descripcion,usua_UsuarioCreacion, tipl_FechaCreacion)
+				VALUES ( @tipl_Descripcion,		 @usua_UsuarioCreacion, @tipl_FechaCreacion	 )
+				SELECT 1
+			END
+
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -3650,12 +3778,23 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoLiquidacion_Editar
 AS
 BEGIN
 	BEGIN TRY
-			UPDATE Adua.tbTipoLiquidacion
-			SET tipl_Descripcion = @tipl_Descripcion,
-			usua_UsuarioModificacion = @usua_UsuarioModificacion,
-			tipl_FechaModificacion = @tipl_FechaModificacion
-			WHERE tipl_Id = @tipl_Id
-			SELECT 1
+
+			IF EXISTS(SELECT * FROM Adua.tbTipoLiquidacion WHERE tipl_Descripcion = @tipl_Descripcion AND tipl_Estado = 0)
+			BEGIN
+				UPDATE	Adua.tbTipoLiquidacion
+				SET		tipl_Estado = 1
+				WHERE   tipl_Descripcion = @tipl_Descripcion
+				SELECT 1
+			END
+	ELSE
+			BEGIN
+				UPDATE Adua.tbTipoLiquidacion
+				SET tipl_Descripcion = @tipl_Descripcion,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				tipl_FechaModificacion = @tipl_FechaModificacion
+				WHERE tipl_Id = @tipl_Id
+				SELECT 1
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -10794,11 +10933,20 @@ BEGIN
 
 	IF EXISTS (SELECT * FROM Prod.tbTipoEmbalaje WHERE tiem_Descripcion = @tiem_Descripcion AND tiem_Estado = 0)
 		BEGIN
+			
+			UPDATE	Prod.tbTipoEmbalaje
+			SET		tiem_Estado = 0,
+					tiem_FechaEliminacion = @tiem_FechaModificacion,
+					usua_UsuarioEliminacion = @usua_UsuarioModificacion
+			WHERE	tiem_Id = @tiem_Id
+			
+
 			UPDATE Prod.tbTipoEmbalaje
 			SET tiem_Estado = 1,
 				usua_UsuarioModificacion = @usua_UsuarioModificacion,
 				tiem_FechaModificacion = @tiem_FechaModificacion
 			WHERE tiem_Descripcion = @tiem_Descripcion
+
 			SELECT 1			
 		END
 	ELSE
@@ -11592,12 +11740,32 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbMarcasMaquina_Editar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE	Prod.tbMarcasMaquina
-		SET		marq_Nombre = @marq_Nombre,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				marq_FechaModificacion = @marq_FechaModificacion
-		WHERE	marq_Id  = @marq_Id
-		SELECT 1
+	IF EXISTS(SELECT * FROM Prod.tbMarcasMaquina WHERE marq_Nombre = @marq_Nombre AND marq_Estado = 0)
+			BEGIN
+				UPDATE	Prod.tbMarcasMaquina
+				SET		marq_Estado = 0,
+						usua_UsuarioEliminacion = @usua_UsuarioModificacion,
+						marq_FechaEliminacion = @marq_FechaModificacion
+				WHERE	marq_Id = @marq_Id
+						
+				
+				UPDATE	Prod.tbMarcasMaquina
+				SET		marq_Estado = 1,
+						usua_UsuarioModificacion = @usua_UsuarioModificacion,
+						marq_FechaModificacion = @marq_FechaModificacion
+				WHERE   marq_Nombre = @marq_Nombre
+
+				SELECT 1
+			END
+	ELSE
+			BEGIN
+				UPDATE	Prod.tbMarcasMaquina
+				SET		marq_Nombre = @marq_Nombre,
+						usua_UsuarioModificacion = @usua_UsuarioModificacion,
+						marq_FechaModificacion = @marq_FechaModificacion
+				WHERE	marq_Id  = @marq_Id
+				SELECT 1
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()

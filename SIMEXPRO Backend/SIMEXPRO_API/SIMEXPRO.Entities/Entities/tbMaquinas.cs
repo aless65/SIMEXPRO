@@ -18,6 +18,8 @@ namespace SIMEXPRO.Entities.Entities
         public string maqu_NumeroSerie { get; set; }
         public int mmaq_Id { get; set; }
         public int modu_Id { get; set; }
+        [NotMapped]
+        public string modu_Nombre { get; set; }
         public int usua_UsuarioCreacion { get; set; }
         [NotMapped]
 

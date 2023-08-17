@@ -1854,12 +1854,15 @@ CREATE TABLE Prod.tbTallas(
 	tall_FechaEliminacion		DATETIME DEFAULT NULL,
 	tall_Estado                	BIT	DEFAULT 1,
 
-	CONSTRAINT PK_Prod_tbTalla_tall_Id PRIMARY KEY (tall_Id),
-	CONSTRAINT FK_Prod_tbOrdenCompra_tall_UsuarioCreacion_Acce_tbUsuarios_usua_Id					FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Prod_tbOrdenCompra_tall_UsuarioModificacion_Acce_tbUsuarios_usua_Id				FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT PK_Prod_tbTalla_tall_Id														PRIMARY KEY (tall_Id),
+	CONSTRAINT UQ_Prod_tbTallas_tall_Codigo													UNIQUE (tall_Codigo),
+	CONSTRAINT UQ_Prod_tbTallas_tall_Nombre													UNIQUE (tall_Nombre),
+	CONSTRAINT FK_Prod_tbOrdenCompra_tall_UsuarioCreacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT FK_Prod_tbOrdenCompra_tall_UsuarioModificacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbOrdenCompra_tall__Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 )
 GO
+
 
 --Campo proc_IdActual = si es 0 está pendiente, si tiene un número está asignado a un proceso, si es null ya terminó
 CREATE TABLE Prod.tbOrdenCompraDetalles(

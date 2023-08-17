@@ -319,12 +319,12 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
 
         #region Pantallas
 
-        public ServiceResult ListarPantallas()
+        public ServiceResult ListarPantallas(bool? pant_EsAduana)
         {
             var result = new ServiceResult();
             try
             {
-                var list = _pantallasRepository.List();
+                var list = _pantallasRepository.List(pant_EsAduana);
                 
                 return result.Ok(list);
             }

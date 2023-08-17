@@ -33,6 +33,15 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             return db.Query<tbPantallas>(ScriptsDataBase.ListarPantallas, null, commandType: CommandType.StoredProcedure);
         }
 
+        public IEnumerable<tbPantallas> List(bool? pant_EsAduana)
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+
+            var parametros = new DynamicParameters();
+            parametros.Add("@pant_EsAduana", pant_EsAduana, DbType.Boolean, ParameterDirection.Input);
+            return db.Query<tbPantallas>(ScriptsDataBase.ListarPantallas, parametros, commandType: CommandType.StoredProcedure);
+        }
+
         public RequestStatus Update(tbPantallas item)
         {
             throw new NotImplementedException();

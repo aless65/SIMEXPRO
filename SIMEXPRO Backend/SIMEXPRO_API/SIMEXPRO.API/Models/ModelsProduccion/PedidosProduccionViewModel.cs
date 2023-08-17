@@ -16,7 +16,7 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public string ppro_Observaciones { get; set; }
         public int usua_UsuarioCreacion { get; set; }
         [NotMapped]
-        public string usuCreacion { get; set; }
+        public string UsuarioCreacionNombre { get; set; } 
         public DateTime ppro_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
         [NotMapped]

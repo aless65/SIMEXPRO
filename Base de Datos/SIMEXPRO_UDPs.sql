@@ -11383,32 +11383,6 @@ BEGIN
 END
 GO
 --************MAQUINAS******************--
-/*Listar Maquinas*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinas_Listar
-AS
-BEGIN
-	
-	SELECT	maqu_Id AS IdMaquinas,
-		    maqu_NumeroSerie AS NumeroDeSerie,
-			
-			maqu.modu_Id AS IdModulo,		    
-			modu.modu_Nombre AS Modulo,
-		    
-			usu.usua_Id AS IdUsuarioCrea,
-		    usu.usua_Nombre AS UsuarioCreaNombre,
-		    usu1.usua_Id AS IdUsuarioModifica,
-		    usu1.usua_Nombre AS UsuarioModificaNombre
-   
-   FROM  	Prod.tbMaquinas maqu		
-   INNER JOIN Prod.tbModulos modu      ON modu.modu_Id = maqu.modu_Id
-
-   INNER JOIN Acce.tbUsuarios usu  ON usu.usua_Id = maqu.usua_UsuarioCreacion
-   LEFT JOIN Acce.tbUsuarios usu1     ON usu1.usua_UsuarioModificacion = maqu.usua_UsuarioModificacion
-   LEFT JOIN Acce.tbUsuarios usu2     on usu2.usua_UsuarioModificacion = maqu.usua_UsuarioEliminacion
-   WHERE	maqu.maqu_Estado = 1
-END
-GO
-
 /*Insertar Maquinas*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinas_Insertar 
 	@maqu_NumeroSerie		NVARCHAR(100),
@@ -12969,8 +12943,9 @@ BEGIN
 	SELECT	maqu_Id,
 		    maqu_NumeroSerie,
 			maqu.mmaq_Id,
+			molM.mmaq_Nombre,
 			maqu.modu_Id,		    
-			modu.modu_Nombre                    AS Modulo,
+			modu.modu_Nombre                    ,
 			maqu.usua_UsuarioCreacion,
 		    usu.usua_Nombre                     AS UsuarioCreaNombre,
 		    maqu.usua_UsuarioModificacion,

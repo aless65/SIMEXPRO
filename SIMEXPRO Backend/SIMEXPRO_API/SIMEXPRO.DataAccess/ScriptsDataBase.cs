@@ -52,6 +52,9 @@ namespace SIMEXPRO.DataAccess
 
         #region Estados Civiles
         public static string ListarEstadosCiviles = "gral.UDP_tbEstadosCiviles_Listar";
+        public static string InsertarEstadosCiviles = "gral.UDP_tbEstadosCiviles_Insertar";
+        public static string EditarEstadosCiviles = "gral.UDP_tbEstadosCiviles_Editar";
+        public static string EliminarEstadosCiviles = "gral.UDP_tbEstadosCiviles_Eliminar";
         #endregion
 
         #region Oficinas
@@ -585,6 +588,13 @@ namespace SIMEXPRO.DataAccess
         public static string InsertarModulos = "Prod.UDP_tbModulos_Insertar";
         public static string EditarModulos = "Prod.UDP_tbModulos_Editar";
         public static string EliminarModulos = "Prod.UDP_tbModulos_Eliminar";
+        #endregion
+
+        #region DocumentosOrdenCompraDetalles
+        public static string ListarDocumentosOrdenCompraDetalles   = "Prod.UDP_tbDocumentosOrdenCompraDetalles_Listar";
+        public static string InsertarDocumentosOrdenCompraDetalles = "Prod.UDP_tbDocumentosOrdenCompraDetalles_Insertar";
+        public static string EditarDocumentosOrdenCompraDetalles   = "Prod.UDP_tbDocumentosOrdenCompraDetalles_Editar";
+        public static string EliminarDocumentosOrdenCompraDetalles = "Prod.UDP_tbDocumentosOrdenCompraDetalles_Eliminar";
         #endregion
 
         #region Orden Ensamblado - Acabado - Etiquetado

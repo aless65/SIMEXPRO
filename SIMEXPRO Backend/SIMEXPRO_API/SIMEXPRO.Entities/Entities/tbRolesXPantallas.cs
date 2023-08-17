@@ -18,8 +18,12 @@ namespace SIMEXPRO.Entities.Entities
         [NotMapped]
         public string pant_Icono { get; set; }
         [NotMapped]
+
+       
         public string pant_Esquema { get; set; }
         public int? role_Id { get; set; }
+        [NotMapped]
+        public string Asignada { get; set; }
         public int usua_UsuarioCreacion { get; set; }
         public DateTime ropa_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }

@@ -26,9 +26,9 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
 
 
         [HttpGet("Listar")]
-        public IActionResult Index(PedidosProduccionDetalleViewModel pedidosProduccionDetalleViewModel)
+        public IActionResult Index(int ppro_Id)
         {
-            var listado = _produccionServices.ListarPedidosProduccioDetalles(pedidosProduccionDetalleViewModel.ppro_Id);
+            var listado = _produccionServices.ListarPedidosProduccioDetalles(ppro_Id);
             listado.Data = _mapper.Map<IEnumerable<PedidosProduccionDetalleViewModel>>(listado.Data);
             return Ok(listado);
         }

@@ -808,6 +808,87 @@ BEGIN
 END
 GO
 
+/*Insertar estados civiles*/
+
+CREATE OR ALTER PROCEDURE gral.UDP_tbEstadosCiviles_Insertar --'prueba1', 1, '2023-07-28 14:26:31.000'
+	@escv_Nombre			NVARCHAR(150),
+	@usua_UsuarioCreacion	INT,
+	@escv_FechaCreacion     DATETIME
+AS 
+BEGIN
+	
+	BEGIN TRY
+
+		INSERT INTO Gral.tbEstadosCiviles(escv_Nombre,
+		                                  usua_UsuarioCreacion, 
+										  escv_FechaCreacion)
+			  VALUES (@escv_Nombre,
+			          @usua_UsuarioCreacion, 
+					  @escv_FechaCreacion)
+			SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH 
+END
+GO
+
+/*Editar Estados Civiles*/
+CREATE OR ALTER PROCEDURE gral.UDP_tbEstadosCiviles_Editar 
+	@escv_Id					INT,
+	@escv_Nombre				NVARCHAR(150),
+	@usua_UsuarioModificacion	INT,
+	@escv_FechaModificacion     DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE  Gral.tbEstadosCiviles
+		SET		escv_Nombre = @escv_Nombre,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				escv_FechaModificacion = @escv_FechaModificacion
+		WHERE	escv_Id = @escv_Id
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
+/*Eliminar estados civiles*/
+
+CREATE OR ALTER PROCEDURE Gral.UDP_tbEstadosCiviles_Eliminar  
+	@escv_Id					INT,
+	@usua_UsuarioEliminacion	INT,
+	@escv_FechaEliminacion		DATETIME
+AS
+BEGIN
+	BEGIN TRY
+		BEGIN
+				DECLARE @respuesta INT
+				EXEC dbo.UDP_ValidarReferencias 'escv_Id', @escv_Id, 'Gral.tbEstadosCiviles', @respuesta OUTPUT
+
+				SELECT @respuesta AS Resultado
+				IF(@respuesta) = 1
+					BEGIN
+						UPDATE	Gral.tbEstadosCiviles
+						SET		escv_Estado = 0,
+								usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+								escv_FechaEliminacion = @escv_FechaEliminacion
+						WHERE	escv_Id = @escv_Id
+					END
+			END
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+
+
+GO
+
+
 --**********OFICINAS**********--
 
 /*Listar oficinas*/

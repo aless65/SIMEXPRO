@@ -418,7 +418,8 @@ GO
 --*************   Tabla pantallas  ****************
 
 /* Listar pantallas*/
-CREATE OR ALTER PROCEDURE Acce.UDP_tbPantallas_Listar
+CREATE OR ALTER PROCEDURE Acce.UDP_tbPantallas_Listar 
+	@pant_EsAduana  BIT
 AS
 BEGIN
 	SELECT [pant_Id], 
@@ -426,6 +427,7 @@ BEGIN
 		   [pant_URL], 
 		   [pant_Icono], 
 		   [pant_Esquema],
+		   pant_EsAduana,
 		   [usua_UsuarioCreacion],
 		   [pant_FechaCreacion],
 		   [usua_UsuarioModificacion],
@@ -434,6 +436,8 @@ BEGIN
 		   [pant_FechaEliminacion]
 	  FROM [Acce].[tbPantallas]
 	 WHERE [pant_Estado] = 1
+	 AND pant_EsAduana = @pant_EsAduana
+	 OR @pant_EsAduana IS NULL
 END
 GO
 

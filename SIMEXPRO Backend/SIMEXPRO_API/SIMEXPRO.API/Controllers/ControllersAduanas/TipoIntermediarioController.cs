@@ -50,12 +50,12 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             return Ok(respuesta);
         }
 
-        [HttpPost("Eliminar")]
-        public IActionResult Delete(TipoIntermediarioViewModel tipoIntermediarioViewModel)
-        {
-            var item = _mapper.Map<tbTipoIntermediario>(tipoIntermediarioViewModel);
-            var respuesta = _aduanaServices.EliminarTipoIntermediario(item);
-            return Ok(respuesta);
-        }
+        //[HttpPost("Eliminar")]
+        //public IActionResult Delete(TipoIntermediarioViewModel tipoIntermediarioViewModel)
+        //{
+        //    var item = _mapper.Map<tbTipoIntermediario>(tipoIntermediarioViewModel);
+        //    var respuesta = _aduanaServices.EliminarTipoIntermediario(item);
+        //    return Ok(respuesta);
+        //}
     }
 }

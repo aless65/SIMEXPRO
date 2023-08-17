@@ -38,14 +38,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
 
             var respuesta = _aduanaServices.InsertarLugaresEmbarque(item);
 
-            if (respuesta.Code == 200)
-            {
-                return Ok(respuesta);
-            }
-            else
-            {
-                return BadRequest(respuesta);
-            }
+            return Ok(respuesta);
         }
 
         [HttpPost("Editar")]
@@ -55,14 +48,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
 
             var respuesta = _aduanaServices.ActualizarLugaresEmbarque(item);
 
-            if (respuesta.Code == 200)
-            {
-                return Ok(respuesta);
-            }
-            else
-            {
-                return BadRequest(respuesta);
-            }
+            return Ok(respuesta);
         }
 
         [HttpPost("Eliminar")]
@@ -72,14 +58,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
 
             var respuesta = _aduanaServices.EliminarLugaresEmbarque(item);
 
-            if (respuesta.Code == 200)
-            {
-                return Ok(respuesta);
-            }
-            else
-            {
-                return BadRequest(respuesta);
-            }
+            return Ok(respuesta);
         }
     }
 }

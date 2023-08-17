@@ -11013,7 +11013,9 @@ BEGIN
 	SELECT mate.mate_Id,
            mate.mate_Descripcion, 
 	       mate.subc_Id,
-	       subc.subc_Descripcion,					
+	       subc.subc_Descripcion,
+		   cate.cate_Id,
+		   cate.cate_Descripcion,
 	       mate.mate_Precio, 
 	       mate.usua_UsuarioCreacion, 
 	       usuaCrea.usua_Nombre							AS usuarioCreacionNombre,
@@ -11025,6 +11027,7 @@ BEGIN
 	       INNER JOIN Acce.tbUsuarios usuaCrea			ON mate.usua_UsuarioCreacion     = usuaCrea.usua_Id 
 	       LEFT JOIN Acce.tbUsuarios usuaModifica		ON mate.usua_UsuarioModificacion = usuaCrea.usua_Id 
 	       LEFT JOIN Prod.tbSubcategoria subc			ON mate.subc_Id                  = subc.subc_Id
+		   INNER JOIN Prod.tbCategoria  cate            ON cate.cate_Id                  = subc.cate_Id
 	 WHERE mate_Estado = 1
 
 END

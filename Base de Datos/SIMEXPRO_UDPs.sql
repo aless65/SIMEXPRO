@@ -1802,6 +1802,7 @@ BEGIN
 								alde_FechaEliminacion = @alde_FechaEliminacion
 						WHERE	alde_Id = @alde_Id
 					END
+			}
 			END
 	END TRY
 	BEGIN CATCH
@@ -1845,7 +1846,7 @@ SELECT	prov_Id								,
 		prov_FechaModificacion	 			,
 		prov.usua_UsuarioEliminacion		,
 		usu3.usua_Nombre					AS UsuarioEliminacionNombre,
-		prov.prov_FechaEliminacion
+		prov.prov_FechaEliminacion,
 		prov_Estado
 FROM	Gral.tbProveedores prov					
 		INNER JOIN Gral.tbCiudades ciu	ON prov.prov_Ciudad = ciu.ciud_Id				

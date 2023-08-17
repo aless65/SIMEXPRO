@@ -14,7 +14,7 @@
    "SelectedToBeGenerated": 2,
    "Tables": [
       {
-         "Name": "[Acce].[tbPantallas]",
+         "Name": "[Prod].[tbDocumentosOrdenCompraDetalles]",
          "ObjectType": 0
       }
    ],

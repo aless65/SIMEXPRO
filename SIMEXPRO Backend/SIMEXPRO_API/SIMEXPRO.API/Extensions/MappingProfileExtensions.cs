@@ -104,7 +104,7 @@ namespace SIMEXPRO.API.Extentions
 
 
             CreateMap<tbModulos, ModulosViewModel>().ReverseMap();
-            //CreateMap<tbDocumentosOrdenCompraDetalles, DocumentosOrdenCompraDetallesViewModel>().ReverseMap();
+            CreateMap<tbDocumentosOrdenCompraDetalles, DocumentosOrdenCompraDetallesViewModel>().ReverseMap();
             CreateMap<tbOrde_Ensa_Acab_Etiq, OrdeEnsaAcabEtiqViewModel>().ReverseMap();
             CreateMap<tbOrdenCompra, OrdenCompraViewModel>().ReverseMap();
             CreateMap<tbOrdenCompraDetalles, OrdenCompraDetalleViewModel>().ReverseMap();

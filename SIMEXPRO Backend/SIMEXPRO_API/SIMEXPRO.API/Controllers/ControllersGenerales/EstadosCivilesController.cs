@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SIMEXPRO.API.Models;
 using SIMEXPRO.BussinessLogic.Services;
 using SIMEXPRO.BussinessLogic.Services.GeneralServices;
+using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,28 +36,28 @@ namespace SIMEXPRO.API.Controllers
             return Ok(list);
         }
 
-        //[HttpPost("InsertarEstadoCivil")]
-        //public IActionResult InsertarEstadoCivil(EstadosCivilesViewModel item)
-        //{
-        //    var item2 = _mapper.Map<tbEstadosCiviles>(item);
-        //    var response = _generalesServices.InsertarEstadoCivil(item2);
-        //    return Ok(response);
-        //}
+        [HttpPost("Insertar")]
+        public IActionResult InsertarEstadoCivil(EstadosCivilesViewModel EstadosCivilesViewModel)
+        {
+            var item = _mapper.Map<tbEstadosCiviles>(EstadosCivilesViewModel);
+            var response = _generalesServices.InsertarEstadosCiviles(item);
+            return Ok(response);
+        }
 
-        //[HttpPost("ActualizarEstadoCivil")]
-        //public IActionResult ActualizarEstadoCivil(EstadosCivilesViewModel item)
-        //{
-        //    var item2 = _mapper.Map<tbEstadosCiviles>(item);
-        //    var response = _generalesServices.ActualizarEstadoCivil(item2);
-        //    return Ok(response);
-        //}
+        [HttpPost("Editar")]
+        public IActionResult ActualizarEstadoCivil(EstadosCivilesViewModel estadosCivilesViewModel)
+        {
+            var item = _mapper.Map<tbEstadosCiviles>(estadosCivilesViewModel);
+            var response = _generalesServices.ActualizarEstadosCiviles(item);
+            return Ok(response);
+        }
 
-        //[HttpPost("ListarDetallesEstadosCiviles")]
-        //public IActionResult ListarDetallesEstadosCiviles(EstadosCivilesViewModel item)
-        //{
-        //    var item2 = _mapper.Map<tbEstadosCiviles>(item);
-        //    var response = _generalesServices.ListarDetallesEstadosCiviles(item2);
-        //    return Ok(response);
-        //}
+        [HttpPost("Eliminar")]
+        public IActionResult Delete(EstadosCivilesViewModel estadosCivilesViewModel)
+        {
+            var item = _mapper.Map<tbEstadosCiviles>(estadosCivilesViewModel);
+            var respuesta = _generalesServices.EliminarEstadosCiviles(item);
+            return Ok(respuesta);
+        }
     }
 }

@@ -52,6 +52,9 @@ namespace SIMEXPRO.DataAccess
 
         #region Estados Civiles
         public static string ListarEstadosCiviles = "gral.UDP_tbEstadosCiviles_Listar";
+        public static string InsertarEstadosCiviles = "gral.UDP_tbEstadosCiviles_Insertar";
+        public static string EditarEstadosCiviles = "gral.UDP_tbEstadosCiviles_Editar";
+        public static string EliminarEstadosCiviles = "gral.UDP_tbEstadosCiviles_Eliminar";
         #endregion
 
         #region Oficinas

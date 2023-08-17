@@ -13,6 +13,7 @@ namespace SIMEXPRO.Entities.Entities
         {
             tbItems = new HashSet<tbItems>();
             tbLotes = new HashSet<tbLotes>();
+            tbMaterialesBrindar = new HashSet<tbMaterialesBrindar>();
         }
 
         public int unme_Id { get; set; }
@@ -38,5 +39,6 @@ namespace SIMEXPRO.Entities.Entities
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbItems> tbItems { get; set; }
         public virtual ICollection<tbLotes> tbLotes { get; set; }
+        public virtual ICollection<tbMaterialesBrindar> tbMaterialesBrindar { get; set; }
     }
 }

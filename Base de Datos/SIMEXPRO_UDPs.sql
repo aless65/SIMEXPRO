@@ -98,22 +98,24 @@ GO
 --GO
 
 /*Dibujar menu*/
-CREATE OR ALTER PROCEDURE Acce.UDP_RolesPorPantalla_DibujadoMenu
+CREATE OR ALTER PROCEDURE Acce.UDP_RolesPorPantalla_DibujadoMenu 
 @role_ID    INT
 AS
 BEGIN
-SELECT    ropa_Id, 
+SELECT  ropa_Id, 
         pnt.pant_Id, 
         pant_Nombre,
         pant_URL,
         pant_Icono,
         pant_Esquema,
         role_Id, 
+		case role_Id
+			when @role_ID then 'Asignada'
+		else 'No asignada' end		AS Asignada,
         pnt.usua_UsuarioCreacion, 
         ropa_FechaCreacion
 FROM    Acce.tbRolesXPantallas rxp
         INNER JOIN Acce.tbPantallas pnt ON rxp.pant_Id = pnt.pant_Id
-WHERE    role_Id = @role_ID
 END
 GO
 
@@ -419,6 +421,7 @@ GO
 
 /* Listar pantallas*/
 CREATE OR ALTER PROCEDURE Acce.UDP_tbPantallas_Listar
+	@pant_EsAduana  BIT
 AS
 BEGIN
 	SELECT [pant_Id], 
@@ -426,6 +429,7 @@ BEGIN
 		   [pant_URL], 
 		   [pant_Icono], 
 		   [pant_Esquema],
+		   pant_EsAduana,
 		   [usua_UsuarioCreacion],
 		   [pant_FechaCreacion],
 		   [usua_UsuarioModificacion],
@@ -434,6 +438,9 @@ BEGIN
 		   [pant_FechaEliminacion]
 	  FROM [Acce].[tbPantallas]
 	 WHERE [pant_Estado] = 1
+	 AND (pant_EsAduana = @pant_EsAduana 
+	 OR pant_EsAduana IS NULL)
+	 OR @pant_EsAduana IS NULL
 END
 GO
 
@@ -1091,6 +1098,7 @@ BEGIN
 	       ,colo_FechaCreacion					
 	       ,colo.usua_UsuarioModificacion		
 	       ,usuaModifica.usua_Nombre			AS usuarioModificacionNombre
+		   ,colo.colo_FechaModificacion
 	       ,colo.usua_UsuarioEliminacion
 		   ,usuaElimina.usua_Nombre				AS usuarioEliminacionNombre
 		   ,colo.colo_FechaEliminacion
@@ -1101,7 +1109,7 @@ BEGIN
    INNER JOIN Gral.tbProvincias prov        ON ciud.pvin_Id = prov.pvin_Id
    INNER JOIN Gral.tbPaises pais            ON pais.pais_Id = prov.pais_Id
    INNER JOIN Acce.tbUsuarios usuaCrea		ON colo.usua_UsuarioCreacion = usuaCrea.usua_Id 
-   LEFT JOIN Acce.tbUsuarios usuaModifica	ON colo.usua_UsuarioModificacion = usuaCrea.usua_Id 
+   LEFT JOIN Acce.tbUsuarios usuaModifica	ON colo.usua_UsuarioModificacion = usuaModifica.usua_Id 
    LEFT JOIN Acce.tbUsuarios usuaElimina	ON colo.usua_UsuarioEliminacion = usuaElimina.usua_Id
    WHERE colo_Estado = 1
 END
@@ -1427,10 +1435,10 @@ SELECT	ciud_Id								,
 		pais.pais_Codigo					,
 		pais.pais_Nombre					,
 		ciu.usua_UsuarioCreacion			,
-		usu1.usua_Nombre					AS UsuarioCreacionNombre,
+		usu1.usua_Nombre					AS usuarioCreacionNombre,
 		ciud_FechaCreacion					, 
 		ciu.usua_UsuarioModificacion		,
-		usu2.usua_Nombre					AS UsuarioModificadorNombre,
+		usu2.usua_Nombre					AS usuarioModificadorNombre,
 		ciud_FechaModificacion				,
 		ciud_Estado
 FROM	Gral.tbCiudades ciu					
@@ -2474,9 +2482,9 @@ BEGIN
 
 				Personas.pers_FormaRepresentacion, 
 				Personas.pers_escvRepresentante,
-				Civil2.escv_Nombre,					AS EstadoCivilRepresentante
+				Civil2.escv_Nombre					AS EstadoCivilRepresentante,
 				Personas.pers_OfprRepresentante,
-				Profesion2.ofpr_Nombre,				AS OficioProfecionRepresentante
+				Profesion2.ofpr_Nombre				AS OficioProfecionRepresentante,
 
 				Personas.usua_UsuarioCreacion, 
 				Personas.pers_FechaCreacion, 
@@ -3081,7 +3089,7 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Listar
 @emba_Codigo	CHAR(5)
 AS
 BEGIN
-	SELECT @emba_Codigo = SUBSTRING(@emba_Codigo ,1,2)
+	--SELECT @emba_Codigo = SUBSTRING(@emba_Codigo ,1,2)
 	SELECT lugar.emba_Id,
 	       lugar.emba_Codigo, 
 		   lugar.emba_Descripcion, 
@@ -3099,25 +3107,40 @@ BEGIN
 	       INNER JOIN Acce.tbUsuarios usuaCrea			ON lugar.usua_UsuarioCreacion     = usuaCrea.usua_Id 
 		   LEFT JOIN  Acce.tbUsuarios usuaModifica		ON lugar.usua_UsuarioModificacion = usuaModifica.usua_Id 
 		   LEFT JOIN  Acce.tbUsuarios usuaElimi		    ON lugar.usua_UsuarioEliminacion  = usuaElimi.usua_Id 
-	 WHERE SUBSTRING(lugar.emba_Codigo,1,2) = @emba_Codigo AND
-			emba_Estado = 1
+	 WHERE SUBSTRING(lugar.emba_Codigo,1,2) = @emba_Codigo 
+	 OR @emba_Codigo IS NULL
+	 AND emba_Estado = 1
 END
 GO
 
 /*Insertar lugares embarque*/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Insertar
+CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Insertar 
 	 @emba_Codigo             CHAR(5),
 	 @emba_Descripcion        NVARCHAR(200),
 	 @usua_UsuarioCreacion    INT, 
 	 @emba_FechaCreacion      DATETIME
 AS 
 BEGIN
-	
 	BEGIN TRY
-		INSERT INTO Adua.tbLugaresEmbarque (emba_Codigo, emba_Descripcion, usua_UsuarioCreacion, emba_FechaCreacion)
-		VALUES(@emba_Codigo, @emba_Descripcion, @usua_UsuarioCreacion, @emba_FechaCreacion)
+		IF EXISTS (SELECT emba_Codigo
+				   FROM Adua.tbLugaresEmbarque
+				   WHERE emba_Codigo = @emba_Codigo
+				   AND emba_Estado = 0)
+			BEGIN
+				UPDATE Adua.tbLugaresEmbarque
+				SET emba_Estado = 1,
+					emba_Descripcion = @emba_Descripcion
+				WHERE emba_Codigo = @emba_Codigo
+
+				SELECT 1
+			END
+		ELSE
+			BEGIN
+				INSERT INTO Adua.tbLugaresEmbarque (emba_Codigo, emba_Descripcion, usua_UsuarioCreacion, emba_FechaCreacion)
+				VALUES(@emba_Codigo, @emba_Descripcion, @usua_UsuarioCreacion, @emba_FechaCreacion)
 		
-		SELECT 1
+				SELECT 1
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -3780,7 +3803,7 @@ BEGIN
 		   LEFT JOIN acce.tbUsuarios usuModi ON conduc.usua_UsuarioModificacion = usuModi.usua_Id
 		   LEFT JOIN Acce.tbUsuarios usuElim ON conduc.usua_UsuarioEliminacion = usuElim.usua_Id
 		   LEFT JOIN Adua.tbTransporte trans ON conduc.tran_Id = trans.tran_Id
-		   LEFT JOIN Adua.tbMarcas		marc ON trans.marca_Id = marc.marca_Id
+		   LEFT JOIN Adua.tbMarcas		marc ON trans.marca_Id = marc.marc_Id
 		   LEFT JOIN Gral.tbPaises		pais ON conduc.pais_IdExpedicion = pais.pais_Id
 	WHERE  cont_Estado = 1
 END
@@ -7834,10 +7857,11 @@ END
 GO
 
 /********************Listar Tipo intermediario***************************/
-CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Listar
+CREATE OR ALTER  PROCEDURE [Adua].[UDP_tbTipoIntermediario_Listar]
 AS
 BEGIN 
 SELECT	tite_Id							,
+		tite_Codigo						,	
 		tite_Descripcion				, 
 		usu.usua_Nombre					AS usarioCreacion,
 		tite_FechaCreacion				,
@@ -7846,11 +7870,11 @@ SELECT	tite_Id							,
 		tite_Estado						
 FROM	Adua.tbTipoIntermediario tip 
 		INNER JOIN Acce.tbUsuarios usu	ON tip.usua_UsuarioCreacion = usu.usua_Id 
-		LEFT JOIN Acce.tbUsuarios usu1	ON usu1.usua_UsuarioModificacion = tip.usua_UsuarioModificacion
+		LEFT JOIN Acce.tbUsuarios usu1	ON tip.usua_UsuarioModificacion = usu1.usua_Id 
 WHERE	tite_Estado = 1
+END 
+GO
 
- END 
- GO
  /********************Crear Tipo Intermediario******************************/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoIntermediario_Insertar
 	@tite_Codigo			CHAR(2),
@@ -8053,12 +8077,13 @@ CREATE OR ALTER PROCEDURE Adua.UDP_VW_tbEstadoMercancias_Listar
 AS
 BEGIN
 SELECT	merc_Id										,
+		merc_Codigo									,
 		merc_Descripcion							,
 		estadoMercancia.usua_UsuarioCreacion		,
-		usuarioCreacion.usua_Nombre					AS usuarioCreacionNombre,
+		usuarioCreacion.usua_Nombre					AS usua_NombreCreacion,
 		merc_FechaCreacion							,
 		estadoMercancia.usua_UsuarioModificacion	,
-		usuarioModificacion.usua_Nombre				AS usuarioModificacionNombre,
+		usuarioModificacion.usua_Nombre				AS usua_NombreModificacion,
 		merc_FechaModificacion						,
 		merc_Estado									
 FROM	Adua.tbEstadoMercancias estadoMercancia
@@ -8758,8 +8783,6 @@ BEGIN
 		END CATCH 
 
 END
-
-
 GO
 
 /* LISTAR DOCUMENTOS CONTRATOS */
@@ -9552,7 +9575,7 @@ BEGIN
 			,ordenCompraDetalle.code_Unidad
 			,ordenCompraDetalle.code_Valor
 			,ordenCompraDetalle.code_Impuesto
-			,ordenCompraDetalle.code_Descuento
+			--,ordenCompraDetalle.code_Descuento
 			,ordenCompraDetalle.code_EspecificacionEmbalaje
 			,ordenCompraDetalle.usua_UsuarioCreacion
 			,usuarioCreacion.usua_Nombre AS usuarioCreacionNombre
@@ -9588,7 +9611,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Insertar
 	@code_Unidad					DECIMAL(18,2),
 	@code_Valor						DECIMAL(18,2),
 	@code_Impuesto					DECIMAL(18,2),
-	@code_Descuento					DECIMAL(18,2),
+	--@code_Descuento					DECIMAL(18,2),
 	@code_EspecificacionEmbalaje	NVARCHAR(200),
 	@usua_UsuarioCreacion       	INT,
 	@code_FechaCreacion         	DATETIME
@@ -9610,7 +9633,7 @@ BEGIN
 					code_Unidad,					
 					code_Valor,						
 					code_Impuesto,					
-					code_Descuento,					
+					--code_Descuento,					
 					code_EspecificacionEmbalaje,	
 					usua_UsuarioCreacion,       	
 					code_FechaCreacion)
@@ -9627,7 +9650,7 @@ BEGIN
 					@code_Unidad,					
 					@code_Valor,						
 					@code_Impuesto,					
-					@code_Descuento,					
+					--@code_Descuento,					
 					@code_EspecificacionEmbalaje,	
 					@usua_UsuarioCreacion,       	
 					@code_FechaCreacion)
@@ -9656,7 +9679,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Editar
 	@code_Unidad					DECIMAL(18,2),
 	@code_Valor						DECIMAL(18,2),
 	@code_Impuesto					DECIMAL(18,2),
-	@code_Descuento					DECIMAL(18,2),
+	--@code_Descuento					DECIMAL(18,2),
 	@code_EspecificacionEmbalaje	NVARCHAR(200),
 	@usua_UsuarioCreacion       	INT,
 	@code_FechaCreacion         	DATETIME
@@ -9678,7 +9701,7 @@ BEGIN
 				code_Unidad					= @code_Unidad,					
 				code_Valor					= @code_Valor,						
 				code_Impuesto				= @code_Impuesto,					
-				code_Descuento				= @code_Descuento,					
+				--code_Descuento				= @code_Descuento,					
 				code_EspecificacionEmbalaje	= @code_EspecificacionEmbalaje,	
 				usua_UsuarioCreacion       	= @usua_UsuarioCreacion,       	
 				code_FechaCreacion         	= @code_FechaCreacion    
@@ -10047,6 +10070,9 @@ SELECT	clie.clie_Id					,
 		clie.clie_Direccion				,
 		clie.clie_FAX					,
 		clie.clie_RTN					,
+		clie.pvin_Id					,
+		provi.pvin_Codigo				,
+		provi.pvin_Nombre				,
 		clie.usua_UsuarioCreacion		,
 		usu.usua_Nombre					AS usuarioNombreCreacion,
 		clie.clie_FechaCreacion			,
@@ -10057,21 +10083,23 @@ SELECT	clie.clie_Id					,
 		usu2.usua_Nombre				AS usuarioNombreEliminacion,
 		clie.clie_Estado				
 FROM	Prod.tbClientes clie 
-		INNER JOIN Acce.tbUsuarios usu	ON usu.usua_Id = clie.usua_UsuarioCreacion 
-		LEFT JOIN Acce.tbUsuarios usu1	ON usu1.usua_Id = clie.usua_UsuarioModificacion
-		lEFT JOIN Acce.tbUsuarios usu2	ON usu2.usua_Id = clie.usua_UsuarioEliminacion
+		INNER JOIN Acce.tbUsuarios usu		  ON usu.usua_Id = clie.usua_UsuarioCreacion
+		INNER JOIN Gral.tbProvincias provi    ON provi.pvin_Id = clie.pvin_Id
+		LEFT JOIN Acce.tbUsuarios usu1		  ON usu1.usua_Id = clie.usua_UsuarioModificacion
+		LEFT JOIN Acce.tbUsuarios usu2		  ON usu2.usua_Id = clie.usua_UsuarioEliminacion
 END
-
 GO
+
 /*Crear Clientes*/
 CREATE OR ALTER PROCEDURE prod.UDP_tbClientes_Insertar 
    @clie_Nombre_O_Razon_Social    NVARCHAR(200), 
    @clie_Direccion                NVARCHAR(250), 
    @clie_RTN                      CHAR(13), 
    @clie_Nombre_Contacto          NVARCHAR(200), 
-   @clie_Numero_Contacto          CHAR(50), 
+   @clie_Numero_Contacto          VARCHAR(15), 
    @clie_Correo_Electronico       NVARCHAR(200), 
    @clie_FAX                      NVARCHAR(50), 
+   @pvin_Id						  INT,
    @usua_UsuarioCreacion          INT, 
    @clie_FechaCreacion            DATETIME
 
@@ -10087,6 +10115,7 @@ BEGIN
 		  clie_Numero_Contacto,
 		  clie_Correo_Electronico,
 		  clie_FAX ,
+		  pvin_Id,
 		  usua_UsuarioCreacion,
 		  clie_FechaCreacion            	  		  
 		  )
@@ -10097,7 +10126,8 @@ BEGIN
 		  @clie_Nombre_Contacto ,  
 		  @clie_Numero_Contacto  ,  
 		  @clie_Correo_Electronico,  
-		  @clie_FAX,  
+		  @clie_FAX,
+		  @pvin_Id,
 		  @usua_UsuarioCreacion,  
 		  @clie_FechaCreacion           
 		  )	 
@@ -10117,9 +10147,10 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Editar
   @clie_Direccion     NVARCHAR(200), 
   @clie_RTN CHAR(13), 
   @clie_Nombre_Contacto   NVARCHAR(200),
-  @clie_Numero_Contacto CHAR(50), 
+  @clie_Numero_Contacto VARCHAR(15), 
   @clie_Correo_Electronico  NVARCHAR(200) , 
-  @clie_FAX  NVARCHAR(50) ,  
+  @clie_FAX  NVARCHAR(50) , 
+  @pvin_Id   INT,
   @usua_UsuarioModificacion INT, 
   @clie_FechaModificacion DATETIME
 AS
@@ -10133,6 +10164,7 @@ BEGIN
 			clie_Numero_Contacto=@clie_Numero_Contacto, 
 			clie_Correo_Electronico=@clie_Correo_Electronico, 
 			clie_FAX=@clie_FAX, 
+			pvin_Id = @pvin_Id,
 			usua_UsuarioModificacion=@usua_UsuarioModificacion, 
 			clie_FechaModificacion=@clie_FechaModificacion 
 		WHERE clie_Id = @clie_Id
@@ -10380,10 +10412,13 @@ AS
 BEGIN
 SELECT	proc_Id								,
 		proc_Descripcion					,
+		pro.usua_UsuarioCreacion				,
 		crea.usua_Nombre					AS usarioCreacion,			 
 		proc_FechaCreacion					,
+		pro.usua_UsuarioModificacion			,
 		modi.usua_Nombre  					AS usuarioModificacion,
 		proc_FechaModificacion				,
+		pro.usua_UsuarioEliminacion				,
 		elim.usua_Nombre 					AS usuarioEliminacion,
 		proc_FechaEliminacion				,
 		proc_Estado							
@@ -10743,7 +10778,7 @@ AS
 BEGIN
 	BEGIN TRY
 		DECLARE @respuesta INT
-	 EXEC dbo.UDP_ValidarReferencias 'tiem_Id', @tiem_Id, 'Prod.tbProcesos', @respuesta OUTPUT
+	 EXEC dbo.UDP_ValidarReferencias 'tiem_Id', @tiem_Id, 'Prod.tbTipoEmbalaje', @respuesta OUTPUT
 	 IF(@respuesta) = 1
 	 BEGIN
 		UPDATE Prod.tbTipoEmbalaje
@@ -11005,6 +11040,37 @@ BEGIN
 	END CATCH
 END
 GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbSubcategoria_ListarByIdCategoria
+(
+	@cate_Id		INT
+)
+AS
+BEGIN
+	SELECT subc.subc_Id,
+           subc.cate_Id, 
+	       cate.cate_Descripcion,					
+	       subc.subc_Descripcion, 
+	       subc.usua_UsuarioCreacion,
+	       usuaCrea.usua_Nombre						AS usuarioCreacionNombre,
+	       subc.subc_FechaCreacion, 
+	       subc.usua_UsuarioModificacion, 
+	       usuaModifica.usua_Nombre					AS usuarioModificaNombre,
+	       subc.subc_FechaModificacion, 
+           subc.usua_UsuarioEliminacion,
+		   usuaElim.usua_Nombre                     AS usuarioEliminaNombre,                   
+           subc_FechaEliminacion,
+	       subc.subc_Estado
+      FROM Prod.tbSubcategoria subc 
+	       INNER JOIN Acce.tbUsuarios usuaCrea      ON subc.usua_UsuarioCreacion = usuaCrea.usua_Id 
+		   LEFT JOIN Acce.tbUsuarios usuaModifica   ON subc.usua_UsuarioModificacion = usuaModifica.usua_Id 
+		   LEFT JOIN Acce.tbUsuarios usuaElim       ON subc.usua_UsuarioEliminacion = usuaElim.usua_Id 
+		   INNER JOIN Prod.tbCategoria cate         ON subc.cate_Id = cate.cate_Id
+	 WHERE subc_Estado = 1
+	   AND subc.cate_Id = @cate_Id
+END
+GO
+
 --************MATERIALES******************--
 /*Listar materiales*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMateriales_Listar
@@ -11213,9 +11279,9 @@ SELECT  modu_Id,
         modu_Nombre, 
 	    
 		modu.proc_Id,	
-		pro.proc_Descripcion
+		pro.proc_Descripcion,
 	    
-		empl_Id,
+		empr_Id,
 	    emp.empl_Nombres + ' ' + emp.empl_Apellidos AS empl_NombreCompleto,
 	    
 		modu.usua_UsuarioCreacion,
@@ -11224,7 +11290,7 @@ SELECT  modu_Id,
 		modu.usua_UsuarioModificacion, 
 		modi.usua_Nombre AS UsuarioModifica,
 		modu_FechaModificacion,	    
-		usua_UsuarioEliminacion,
+		modu.usua_UsuarioEliminacion,
 		elim.usua_Nombre AS UsuarioEliminacion,
 		modu_FechaEliminacion,
 		
@@ -11323,32 +11389,6 @@ BEGIN
 END
 GO
 --************MAQUINAS******************--
-/*Listar Maquinas*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinas_Listar
-AS
-BEGIN
-	
-	SELECT	maqu_Id AS IdMaquinas,
-		    maqu_NumeroSerie AS NumeroDeSerie,
-			
-			maqu.modu_Id AS IdModulo,		    
-			modu.modu_Nombre AS Modulo,
-		    
-			usu.usua_Id AS IdUsuarioCrea,
-		    usu.usua_Nombre AS UsuarioCreaNombre,
-		    usu1.usua_Id AS IdUsuarioModifica,
-		    usu1.usua_Nombre AS UsuarioModificaNombre
-   
-   FROM  	Prod.tbMaquinas maqu		
-   INNER JOIN Prod.tbModulos modu      ON modu.modu_Id = maqu.modu_Id
-
-   INNER JOIN Acce.tbUsuarios usu  ON usu.usua_Id = maqu.usua_UsuarioCreacion
-   LEFT JOIN Acce.tbUsuarios usu1     ON usu1.usua_UsuarioModificacion = maqu.usua_UsuarioModificacion
-   LEFT JOIN Acce.tbUsuarios usu2     on usu2.usua_UsuarioModificacion = maqu.usua_UsuarioEliminacion
-   WHERE	maqu.maqu_Estado = 1
-END
-GO
-
 /*Insertar Maquinas*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinas_Insertar 
 	@maqu_NumeroSerie		NVARCHAR(100),
@@ -11460,8 +11500,8 @@ BEGIN
    
     FROM    Prod.tbMarcasMaquina mrqu 
 	INNER JOIN Acce.tbUsuarios usu ON usu.usua_Id = mrqu.usua_UsuarioCreacion
-	INNER JOIN Acce.tbUsuarios usu1 ON usu1.usua_Id =  mrqu.usua_UsuarioModificacion
-	INNER JOIN Acce.tbUsuarios usu2 ON usu2.usua_Id =  mrqu.usua_UsuarioEliminacion
+	 LEFT JOIN Acce.tbUsuarios usu1 ON usu1.usua_Id =  mrqu.usua_UsuarioModificacion
+	 LEFT JOIN Acce.tbUsuarios usu2 ON usu2.usua_Id =  mrqu.usua_UsuarioEliminacion
     WHERE	mrqu.marq_Estado = 1
 END
 GO
@@ -11555,14 +11595,14 @@ BEGIN
 		    moma.mmaq_Nombre,
 		    moma.mmaq_Imagen,
 			moma.marq_Id,
-		    mrqu.marq_Nombre,                            
+		    mrqu.marq_Nombre							 AS marcaMaquina,                            
 			moma.func_Id,
-		    fuma.func_Nombre ,                           
+		    fuma.func_Nombre							 AS funcionMaquina,                           
 			moma.usua_UsuarioCreacion,
-			usu.usua_Nombre                              AS UsuarioCreacionNombre,
+			usu.usua_Nombre                              AS usuarioCreacionNombre,
 			moma.mmaq_FechaCreacion,                      
 			moma.usua_UsuarioModificacion,
-			usu1.usua_Nombre                             AS UsuarioModificacionNombre,
+			usu1.usua_Nombre                             AS usuarioModificacionNombre,
 			moma.mmaq_FechaModificacion,            
             moma.usua_UsuarioEliminacion,
 			usuEli.usua_Nombre                           AS usuarioEliminacionNombre,
@@ -11691,31 +11731,9 @@ SELECT func_Id										,
 		func_Estado									
 FROM	Prod.tbFuncionesMaquina func 
 		INNER JOIN Acce.tbUsuarios usuaCrea		ON func.usua_UsuarioCreacion = usuaCrea.usua_Id 
-		LEFT JOIN Acce.tbUsuarios usuaModifica	ON func.usua_UsuarioModificacion = usuaCrea.usua_Id 
-		LEFT JOIN Acce.tbUsuarios usuaElimina	ON func.usua_UsuarioEliminacion = usuaCrea.usua_Id 
+		LEFT JOIN Acce.tbUsuarios usuaModifica	ON func.usua_UsuarioModificacion = usuaModifica.usua_Id 
+		LEFT JOIN Acce.tbUsuarios usuaElimina	ON func.usua_UsuarioEliminacion = usuaElimina.usua_Id 
 WHERE	func_Estado = 1
-
-	SELECT func_Id							AS funcionId, 
-		   func_Nombre						AS funcionNombre, 
-		   func.usua_UsuarioCreacion		AS usuarioCreacion, 
-		   usuaCrea.usua_Nombre				AS usuarioCreacionNombre,
-		   func_FechaCreacion				AS fechaCreacion, 
-		   func.usua_UsuarioModificacion	AS usuarioModificacion, 
-		   usuaModifica.usua_Nombre			AS usuarioModificacionNombre,
-		   func_FechaModificacion			AS fechaModificacion,
-		   func.usua_UsuarioEliminacion		AS usuarioEliminacion, 
-		   usuaElimina.usua_Nombre			AS usuarioEliminacionNombre,
-		   func_FechaEliminacion			AS fechaEliminacion, 
-		   func_Estado						AS funcionEstado
-	  FROM Prod.tbFuncionesMaquina func 
-INNER JOIN Acce.tbUsuarios usuaCrea
-		ON func.usua_UsuarioCreacion = usuaCrea.usua_Id 
- LEFT JOIN Acce.tbUsuarios usuaModifica
-		ON func.usua_UsuarioModificacion = usuaCrea.usua_Id 
- LEFT JOIN Acce.tbUsuarios usuaElimina
-		ON func.usua_UsuarioEliminacion = usuaCrea.usua_Id 
-	 WHERE func_Estado = 1
-
 END
 GO
 
@@ -12897,149 +12915,25 @@ GO
 
 
 
-CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccionDetalle_Listar
-@ppro_Id INT
+CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccionDetalle_Listar 
+	@ppro_Id INT
 AS BEGIN
-
 SELECT ppde_Id,
 	   ppro_Id,
 	   lote_Id,
 	   ppde_Cantidad, 
-	   usua_UsuarioCreacion,
+	   ppde.usua_UsuarioCreacion,
 	   crea.usua_Nombre AS usuarioCreacionNombre,
 	   ppde_FechaCreacion,
-	   usua_UsuarioModificacion,
+	   ppde.usua_UsuarioModificacion,
 	   modi.usua_Nombre AS usuarioModificacionNombre,
 	   ppde_FechaModificacion, 
 	   ppde_Estado 
 FROM Prod.tbPedidosProduccionDetalles ppde
 INNER JOIN Acce.tbUsuarios crea				ON ppde.usua_UsuarioCreacion = crea.usua_Id
-INNER JOIN Acce.tbUsuarios modi				ON ppde.usua_UsuarioModificacion = modi.usua_Id
+LEFT JOIN Acce.tbUsuarios modi				ON ppde.usua_UsuarioModificacion = modi.usua_Id
 WHERE ppro_Id = @ppro_Id
 
-END
-
-----------------------------------------------------------------//  Modulos de Producci n Procedimientos Inicio \\-------------------------------------------------------------------------------------------
---************************************************************************   Tabla Modulos inicio   ***********************************************************************************************
-
-GO
-
-
-
-CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Listar
-AS
-BEGIN
-SELECT  modu_Id AS IDModulo, 
-        modu_Nombre AS ModuloNombre, 
-	    
-		modu.proc_Id AS IdProceso,	
-		pro.proc_Descripcion AS ProcesoDescripcion,
-	    
-		empr_Id AS IDEmpleado,
-	    emp.empl_Nombres + ' ' + emp.empl_Apellidos AS empleado_Nombre,
-	    
-		modu.usua_UsuarioCreacion AS IDUsuarioCreacion,
-	    usu.usua_Nombre AS UsuarioCreacion,
-		modu_FechaCreacion, 
-		modu.usua_UsuarioModificacion AS IDUsuarioModifica, 
-		usu1.usua_Nombre AS UsuarioModifica,
-		modu_FechaModificacion,	    
-		
-		
-		modu_Estado 
-		
-		FROM Prod.tbModulos modu 
-		inner join Acce.tbUsuarios usu       ON usu.usua_UsuarioCreacion = modu.usua_UsuarioCreacion		
-		LEFT JOIN Acce.tbUsuarios usu1       ON usu1.usua_Id = modu.usua_UsuarioModificacion
-		LEFT JOIN Acce.tbUsuarios usu2       ON usu2.usua_Id = modu.usua_UsuarioEliminacion
-		INNER JOIN Gral.tbEmpleados emp  ON modu.empr_Id = emp.empl_Id
-		INNER JOIN Prod.tbProcesos pro   ON pro.proc_Id = modu.proc_Id
-		WHERE modu.modu_Estado = 1
-END
-
-GO
-
-/*Insertar Modulos*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Insertar 
-	@modu_Nombre			NVARCHAR(200),
-	@proc_Id				INT,
-	@empr_Id				INT,
-	@usua_UsuarioCreacion	INT,
-	@modu_FechaCreacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
-		IF EXISTS(SELECT modu_Id FROM Prod.tbModulos WHERE modu_Nombre = @modu_Nombre AND proc_Id = @proc_Id AND empr_Id = @empr_Id AND modu_Estado = 0)
-			BEGIN
-				UPDATE Prod.tbModulos
-				SET	   modu_Estado = 1
-				WHERE  modu_Nombre = @modu_Nombre AND proc_Id = @proc_Id AND empr_Id = @empr_Id
-				SELECT 1
-			END
-		ELSE
-			BEGIN 
-				INSERT INTO Prod.tbModulos (modu_Nombre, proc_Id, empr_Id, usua_UsuarioCreacion, modu_FechaCreacion)
-				VALUES (@modu_Nombre,@proc_Id,@empr_Id,@usua_UsuarioCreacion,@modu_FechaCreacion);
-				SELECT 1
-			END
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END 
-
-GO
-
-/*Editar Modulos*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Editar  
-	@modu_Id					INT,
-	@modu_Nombre				NVARCHAR(200),
-	@proc_Id					INT,
-	@empr_Id					INT,
-	@usua_UsuarioModificacion	INT,
-	@modu_FechaModificacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
-		UPDATE Prod.tbModulos
-		   SET modu_Nombre = @modu_Nombre
-			  ,proc_Id = @proc_Id
-			  ,empr_Id = @empr_Id
-			  ,usua_UsuarioModificacion = @usua_UsuarioModificacion
-			  ,modu_FechaModificacion = @modu_FechaModificacion
-		 WHERE modu_Id = @modu_Id
-		 SELECT 1
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
-END
-
-GO
-
-/*Eliminar Modulos*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Eliminar    
-	@modu_Id					INT,
-	@usua_UsuarioEliminacion	INT,
-	@modu_FechaEliminacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
-			DECLARE @respuesta INT
-			EXEC dbo.UDP_ValidarReferencias 'modu_Id', @modu_Id, 'Prod.tbModulos', @respuesta OUTPUT
-
-			SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
-			BEGIN
-				UPDATE	Prod.tbModulos
-				SET		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-						modu_FechaEliminacion = @modu_FechaEliminacion,
-						modu_Estado = 0
-			END
-	END TRY
-	BEGIN CATCH
-		SELECT 0
-	END CATCH
 END
 
 --************************************************************************   Tabla Modulos fin   ***********************************************************************************************
@@ -13054,8 +12948,9 @@ BEGIN
 	SELECT	maqu_Id,
 		    maqu_NumeroSerie,
 			maqu.mmaq_Id,
+			molM.mmaq_Nombre,
 			maqu.modu_Id,		    
-			modu.modu_Nombre                    AS Modulo,
+			modu.modu_Nombre                    ,
 			maqu.usua_UsuarioCreacion,
 		    usu.usua_Nombre                     AS UsuarioCreaNombre,
 		    maqu.usua_UsuarioModificacion,
@@ -13165,104 +13060,6 @@ GO
 
 --GO
 
-/*Listar procedimiento de listar MarcasMaquina*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbMarcasMaquinas_Listar
-AS
-BEGIN
-	 SELECT mrqu.marq_Id,
-		    mrqu.marq_Nombre,
-			mrqu.usua_UsuarioCreacion,
-			Usu.usua_Nombre                                AS UsuarioCreacionNombre,
-            mrqu.marq_FechaCreacion,
-            mrqu.usua_UsuarioModificacion,
-			usu1.usua_Nombre                               AS UsuarioModificadorNombre, 
-            mrqu.marq_FechaModificacion,
-			mrqu.usua_UsuarioEliminacion,
-			usuElimina.usua_Nombre                         AS usuarioEliminacionNombre,
-			mrqu.marq_FechaEliminacion,
-		    mrqu.marq_Estado
-       FROM Prod.tbMarcasMaquina mrqu 
-	        LEFT JOIN Acce.tbUsuarios usu                 ON usu.usua_Id        = mrqu.usua_UsuarioCreacion
-	        LEFT JOIN Acce.tbUsuarios usu1                ON usu1.usua_Id       =  mrqu.usua_UsuarioModificacion
-	        LEFT JOIN Acce.tbUsuarios usuElimina          ON usuElimina.usua_Id =  mrqu.usua_UsuarioEliminacion
-      WHERE mrqu.marq_Estado                                                    = 1
-END
-GO
-
-/*Insertar procedimiento de listar MarcasMaquina*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbMarcasMaquina_Insertar 
-	@marq_Nombre			NVARCHAR(250),
-	@usua_UsuarioCreacion	INT,
-	@marq_FechaCreacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
-	INSERT INTO Prod.tbMarcasMaquina (marq_Nombre,
-	                                  usua_UsuarioCreacion,
-									  marq_FechaCreacion)
-	     VALUES (@marq_Nombre,
-		         @usua_UsuarioCreacion,
-				 @marq_FechaCreacion)
-	SELECT 1
-	END TRY
-	BEGIN CATCH
-		SELECT 'Error Message: ' + ERROR_MESSAGE()
-	END CATCH
-END
-GO
-
-/*Editar procedimiento de listar MarcasMaquina*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbMarcasMaquina_Editar 
-	@marq_Id					INT,
-	@marq_Nombre				NVARCHAR(250),
-	@usua_UsuarioModificacion	INT,
-	@marq_FechaModificacion		DATETIME
-AS
-BEGIN
-	BEGIN TRY
-		UPDATE	Prod.tbMarcasMaquina
-		SET		marq_Nombre              = @marq_Nombre,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				marq_FechaModificacion   = @marq_FechaModificacion
-		WHERE	marq_Id                  = @marq_Id
-		SELECT 1
-	END TRY
-	BEGIN CATCH
-		SELECT 'Error Message: ' + ERROR_MESSAGE()
-	END CATCH
-END
-
-GO
-
-/*Eliminar procedimiento de listar MarcasMaquina*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbMarcasMaquina_Eliminar 
-	@marq_Id					INT,
-	@usua_UsuarioEliminacion	INT,
-	@marq_FechaEliminacion		DATETIME
-AS
-BEGIN
-	SET @marq_FechaEliminacion = GETDATE();
-	BEGIN TRY
-		DECLARE @respuesta INT
-		EXEC dbo.UDP_ValidarReferencias 'marq_Id', @marq_Id, 'Prod.tbMarcasMaquina', @respuesta OUTPUT
-
-		SELECT @respuesta AS Resultado
-			IF(@respuesta) = 1
-				BEGIN
-					UPDATE	Prod.tbMarcasMaquina
-					SET		marq_Estado             = 0,
-							usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-							marq_FechaEliminacion   = @marq_FechaEliminacion
-					WHERE	marq_Id = @marq_Id
-
-				END
-				SELECT @respuesta AS Resultado
-	END TRY
-	BEGIN CATCH
-		SELECT 'Error Message: ' + ERROR_MESSAGE()	
-	END CATCH
-END
-GO
 --************************************************************************   Tabla Marcas maquinas fin   ***********************************************************************************************
 GO
 --************************************************************************   Tabla Modelos maquinas inicio   ***********************************************************************************************
@@ -13277,11 +13074,11 @@ BEGIN
 		    moma.mmaq_Nombre,
 		    moma.mmaq_Imagen,
 			moma.marq_Id,       
-		    mrqu.marq_Nombre                          AS MarcaMaquina,
+		    mrqu.marq_Nombre ,                         
 			moma.func_Id,
-		    fuma.func_Nombre                          AS FuncionMaquina,	
+		    fuma.func_Nombre      ,                    
 			moma.usua_UsuarioCreacion,
-			usu.usua_Nombre                           AS UsuarioCreacion ,
+			usu.usua_Nombre         ,                  
 			moma.mmaq_FechaCreacion,
 			moma.usua_UsuarioModificacion,
 			usu1.usua_Nombre                          AS UsuarioModificacion,

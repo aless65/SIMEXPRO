@@ -45,8 +45,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.DateTime, ParameterDirection.Input);
             parametros.Add("@code_FechaCreacion", item.code_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<int>(ScriptsDataBase.InsertarOrdenCompraDetalles, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarOrdenCompraDetalles, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
 
@@ -90,8 +90,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.DateTime, ParameterDirection.Input);
             parametros.Add("@code_FechaModificacion", item.code_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<int>(ScriptsDataBase.EditarOrdenCompraDetalles, parametros, commandType: CommandType.StoredProcedure);
-            result.CodeStatus = answer;
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarOrdenCompraDetalles, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
             return result;
         }
     }

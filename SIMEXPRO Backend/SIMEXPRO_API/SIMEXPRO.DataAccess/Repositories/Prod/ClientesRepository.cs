@@ -42,6 +42,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@clie_Numero_Contacto",         item.clie_Numero_Contacto,          DbType.String,      ParameterDirection.Input);
             parametros.Add("@clie_Correo_Electronico",      item.clie_Correo_Electronico,       DbType.String,      ParameterDirection.Input);
             parametros.Add("@clie_FAX",                     item.clie_FAX,                      DbType.String,      ParameterDirection.Input);
+            parametros.Add("@pvin_Id",                      item.pvin_Id,                       DbType.Int32,       ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion",         item.usua_UsuarioCreacion,          DbType.Int32,       ParameterDirection.Input);
             parametros.Add("@clie_FechaCreacion",           item.clie_FechaCreacion,            DbType.DateTime,    ParameterDirection.Input);
             var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarClientes, parametros, commandType: CommandType.StoredProcedure);
@@ -69,6 +70,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@clie_Numero_Contacto",         item.clie_Numero_Contacto,          DbType.String,      ParameterDirection.Input);
             parametros.Add("@clie_Correo_Electronico",      item.clie_Correo_Electronico,       DbType.String,      ParameterDirection.Input);
             parametros.Add("@clie_FAX",                     item.clie_FAX,                      DbType.String,      ParameterDirection.Input);
+            parametros.Add("@pvin_Id",                      item.pvin_Id,                       DbType.Int32,       ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion",     item.usua_UsuarioModificacion,      DbType.Int32,       ParameterDirection.Input);
             parametros.Add("@clie_FechaModificacion",       item.clie_FechaModificacion,        DbType.DateTime,    ParameterDirection.Input);
             var answer = db.QueryFirst<string>(ScriptsDataBase.EditarClientes, parametros, commandType: CommandType.StoredProcedure);
@@ -88,8 +90,5 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             result.MessageStatus = answer;
             return result;
         }
-
-
-
     }
 }

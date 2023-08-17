@@ -851,6 +851,15 @@ namespace SIMEXPRO.DataAccess.Context
 
                 entity.ToTable("tbClientes", "Prod");
 
+                entity.HasIndex(e => e.clie_Correo_Electronico, "UQ_Prod_tbClientes_clie_Correo_Electronico")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.clie_FAX, "UQ_Prod_tbClientes_clie_FAX")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.clie_Numero_Contacto, "UQ_Prod_tbClientes_clie_Numero_Contacto")
+                    .IsUnique();
+
                 entity.HasIndex(e => e.clie_RTN, "UQ_Prod_tbClientes_clie_RTN")
                     .IsUnique();
 
@@ -889,6 +898,11 @@ namespace SIMEXPRO.DataAccess.Context
                 entity.Property(e => e.clie_RTN)
                     .IsRequired()
                     .HasMaxLength(40);
+
+                entity.HasOne(d => d.pvin)
+                    .WithMany(p => p.tbClientes)
+                    .HasForeignKey(d => d.pvin_Id)
+                    .HasConstraintName("FK_Prod_tbClientes_pvin_Id_Gral_tbProvincias");
 
                 entity.HasOne(d => d.usua_UsuarioCreacionNavigation)
                     .WithMany(p => p.tbClientesusua_UsuarioCreacionNavigation)
@@ -2378,6 +2392,9 @@ namespace SIMEXPRO.DataAccess.Context
 
                 entity.ToTable("tbFuncionesMaquina", "Prod");
 
+                entity.HasIndex(e => e.func_Nombre, "UQ_Prod_tbFuncionesMaquina_func_Nombre")
+                    .IsUnique();
+
                 entity.Property(e => e.func_Estado)
                     .IsRequired()
                     .HasDefaultValueSql("((1))");
@@ -3218,6 +3235,11 @@ namespace SIMEXPRO.DataAccess.Context
                     .HasForeignKey(d => d.mate_Id)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Prod_tbOrdenCompraDetalles_mate_Id_Prod_tbMateriales_mate_Id");
+
+                entity.HasOne(d => d.unme)
+                    .WithMany(p => p.tbMaterialesBrindar)
+                    .HasForeignKey(d => d.unme_Id)
+                    .HasConstraintName("FK_Prod_tbOrdenCompraDetalles_unme_Id_Gral_tbUnidadMedidas");
 
                 entity.HasOne(d => d.usua_UsuarioCreacionNavigation)
                     .WithMany(p => p.tbMaterialesBrindarusua_UsuarioCreacionNavigation)
@@ -4793,6 +4815,9 @@ namespace SIMEXPRO.DataAccess.Context
                 entity.ToTable("tbTipoIntermediario", "Adua");
 
                 entity.HasIndex(e => e.tite_Descripcion, "UQ_Adua_tbTipoIntermediario")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.tite_Codigo, "UQ_Adua_tbTipoItermediario_tite_Codigo")
                     .IsUnique();
 
                 entity.Property(e => e.tite_Codigo)

@@ -31,7 +31,25 @@ VALUES	('Bordado',1,GETDATE()),
 		('Tejido de punto',1,GETDATE()),
 		('Urdimbre y tricotado',1,GETDATE()),
 		('Hilatura',1,GETDATE()),
-		('Tejido de hilo',1,GETDATE());
+		('Tejido de hilo',1,GETDATE()),
+		('Pegado de Cuello', 1, '2023-08-16')
+		,('Pegado de Manga', 1, '2023-08-16')
+		,('Cierre de Costado', 1, '2023-08-16')
+		,('Ruedo', 1, '2023-08-16')
+		,('Pegado de Cinta', 1, '2023-08-16')
+		,('Tiro Delantero', 1, '2023-08-16')
+		,('Tiro Trasero', 1, '2023-08-16')
+		,('Pegado de Elástico', 1, '2023-08-16')
+		,('Costura de Entrepierna', 1, '2023-08-16')
+		,('Pegado de Bolsa', 1, '2023-08-16')
+		,('Pegado de Gorro', 1, '2023-08-16')
+		,('Sobrecostura', 1, '2023-08-16')
+		,('Remate', 1, '2023-08-16')
+		,('Pegado de Banda de Cintura', 1, '2023-08-16')
+		,('Pegado de Banda de Pierna', 1, '2023-08-16')
+		,('Cierre de Puño', 1, '2023-08-16')
+		,('Unir Hombro', 1, '2023-08-16')
+		,('Fijar Cuellos', 1, '2023-08-16')
 
 
 

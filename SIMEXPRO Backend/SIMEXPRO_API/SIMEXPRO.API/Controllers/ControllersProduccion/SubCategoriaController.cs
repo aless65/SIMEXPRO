@@ -32,7 +32,15 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             listado.Data = _mapper.Map<IEnumerable<SubCategoriaViewModel>>(listado.Data);
             return Ok(listado);
         }
+        
+        [HttpGet("ListarByIdCategoria")]
+        public IActionResult ListByIdCategoria(int cate_Id)
+        {
+            var listado = _produccionServices.ListarSubCategoriasByIdCategoria(cate_Id);
 
+            listado.Data = _mapper.Map<IEnumerable<SubCategoriaViewModel>>(listado.Data);
+            return Ok(listado);
+        }
 
         [HttpPost("Insertar")]
         public IActionResult Insert(SubCategoriaViewModel SubCategoriaViewModel)

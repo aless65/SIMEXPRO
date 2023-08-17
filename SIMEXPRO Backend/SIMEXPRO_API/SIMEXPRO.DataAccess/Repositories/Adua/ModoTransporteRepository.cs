@@ -31,7 +31,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
 
             parametros.Add("@motr_Descripcion", item.motr_Descripcion, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@motr_FechaCreacion", item.motr_FechaCreacion, DbType.String, ParameterDirection.Input);
+            parametros.Add("@motr_FechaCreacion", item.motr_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
 
             var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarModoTransporte, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
@@ -54,7 +54,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@motr_Id", item.motr_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@motr_Descripcion", item.motr_Descripcion, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@motr_FechaModificacion", item.motr_FechaModificacion, DbType.String, ParameterDirection.Input);
+            parametros.Add("@motr_FechaModificacion", item.motr_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
 
             var answer = db.QueryFirst<string>(ScriptsDataBase.EditarModoTransporte, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;

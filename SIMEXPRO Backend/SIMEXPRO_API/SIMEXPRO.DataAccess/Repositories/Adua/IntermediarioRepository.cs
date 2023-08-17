@@ -22,11 +22,10 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
             parametros.Add("@usua_UsuarioEliminacion", item.usua_UsuarioEliminacion, DbType.String, ParameterDirection.Input);
             parametros.Add("@inte_FechaEliminacion", item.inte_FechaEliminacion, DbType.String, ParameterDirection.Input);
 
-            var resultado = db.QueryFirst<tbIntermediarios>(ScriptsDataBase.IniciarSesion, parametros, commandType: CommandType.StoredProcedure);
+            var resultado = db.QueryFirst<string>(ScriptsDataBase.IniciarSesion, parametros, commandType: CommandType.StoredProcedure);
             RequestStatus requestStatus = new RequestStatus()
             {
-                CodeStatus = resultado.tite_Id,
-                MessageStatus = resultado.inte_FechaCreacion.ToString()
+                MessageStatus = resultado
             };
             return requestStatus;
         }

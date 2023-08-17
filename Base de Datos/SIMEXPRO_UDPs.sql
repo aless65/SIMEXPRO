@@ -11091,7 +11091,7 @@ BEGIN
 	       mate.mate_Estado
       FROM Prod.tbMateriales mate 
 	       INNER JOIN Acce.tbUsuarios usuaCrea			ON mate.usua_UsuarioCreacion     = usuaCrea.usua_Id 
-	       LEFT JOIN Acce.tbUsuarios usuaModifica		ON mate.usua_UsuarioModificacion = usuaCrea.usua_Id 
+	       LEFT JOIN Acce.tbUsuarios usuaModifica		ON mate.usua_UsuarioModificacion = usuaModifica.usua_Id 
 	       LEFT JOIN Prod.tbSubcategoria subc			ON mate.subc_Id                  = subc.subc_Id
 		   INNER JOIN Prod.tbCategoria  cate            ON cate.cate_Id                  = subc.cate_Id
 	 WHERE mate_Estado = 1
@@ -12189,6 +12189,7 @@ BEGIN
 	LEFT JOIN  Acce.tbUsuarios	usuarioCrea			ON maquiHisto.usua_UsuarioCreacion = usuarioCrea.usua_Id 
 	LEFT JOIN  Acce.tbUsuarios	usuarioModifica		ON maquiHisto.usua_UsuarioModificacion = usuarioModifica.usua_Id	
 	LEFT JOIN  Acce.tbUsuarios	usuarioElimina		ON maquiHisto.usua_UsuarioEliminacion = usuarioElimina.usua_Id
+	WHERE mahi_Estado = 1
 END
 
 /*Insertar Maquinaria Historial*/
@@ -12270,6 +12271,7 @@ BEGIN
 	END CATCH
 END
 GO
+
 
 
 

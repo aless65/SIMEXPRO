@@ -12939,6 +12939,7 @@ BEGIN
 	SELECT	maqu_Id,
 		    maqu_NumeroSerie,
 			maqu.mmaq_Id,
+			molM.mmaq_Nombre,
 			maqu.modu_Id,		    
 			modu.modu_Nombre                    ,
 			maqu.usua_UsuarioCreacion,

@@ -42,7 +42,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         private readonly SubCategoriasRepository                     _subCategoriasRepository;
         private readonly TallasRepository                            _tallasRepository;
         private readonly TipoEmbalajeRepository                      _tipoEmbalajeRepository;
-        private readonly DocumentosOrdenCompraDetallesRepository     _documentosOrdenCompraDetallesRepository;
+        //private readonly DocumentosOrdenCompraDetallesRepository     _documentosOrdenCompraDetallesRepository;
 
 
         public ProduccionServices(  AreasRepository  areasRepository,                                 
@@ -75,8 +75,8 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                                     RevisionDeCalidadRepository revisionDeCalidadRepository,
                                     SubCategoriasRepository subCategoriasRepository,
                                     TallasRepository tallasRepository,
-                                    TipoEmbalajeRepository tipoEmbalajeRepository,
-                                    DocumentosOrdenCompraDetallesRepository documentosOrdenCompraDetallesRepository)
+                                    TipoEmbalajeRepository tipoEmbalajeRepository)
+                                    //,DocumentosOrdenCompraDetallesRepository documentosOrdenCompraDetallesRepository)
         {
 
 
@@ -111,7 +111,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             _subCategoriasRepository = subCategoriasRepository;
             _tallasRepository = tallasRepository;
             _tipoEmbalajeRepository = tipoEmbalajeRepository;
-            _documentosOrdenCompraDetallesRepository = documentosOrdenCompraDetallesRepository;
+           // _documentosOrdenCompraDetallesRepository = documentosOrdenCompraDetallesRepository;
 
 
         }

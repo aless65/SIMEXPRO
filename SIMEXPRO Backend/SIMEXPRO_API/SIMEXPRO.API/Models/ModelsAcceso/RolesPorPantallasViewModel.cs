@@ -10,6 +10,8 @@ namespace SIMEXPRO.API.Models.ModelsAcceso
         public int ropa_Id { get; set; }
         public int? pant_Id { get; set; }
         public int? role_Id { get; set; }
+
+        public string Asignada { get; set; }
         public int usua_UsuarioCreacion { get; set; }
         public DateTime ropa_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }

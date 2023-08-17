@@ -23,9 +23,9 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
         }
 
         [HttpGet("Listar")]
-        public IActionResult Index()
+        public IActionResult Index(bool? pant_EsAduana)
         {
-            var listado = _accesoServices.ListarPantallas();
+            var listado = _accesoServices.ListarPantallas(pant_EsAduana);
 
             listado.Data = _mapper.Map<IEnumerable<PantallasViewModel>>(listado.Data);
 

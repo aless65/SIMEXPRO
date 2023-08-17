@@ -118,6 +118,7 @@ namespace SIMEXPRO.BussinessLogic
             services.AddScoped<SubCategoriasRepository>();
             services.AddScoped<TallasRepository>();
             services.AddScoped<TipoEmbalajeRepository>();
+            services.AddScoped<DocumentosOrdenCompraDetallesRepository>();
             
             //services.AddScoped<GraficaRepository>();
 

@@ -3176,6 +3176,20 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbLugaresEmbarque_Editar
 AS
 BEGIN
 	BEGIN TRY
+		IF EXISTS (SELECT emba_Codigo
+				   FROM Adua.tbLugaresEmbarque
+				   WHERE emba_Codigo = @emba_Codigo
+				   AND emba_Estado = 0)
+			BEGIN
+				UPDATE Adua.tbLugaresEmbarque
+				SET emba_Estado = 1,
+					emba_Descripcion = @emba_Descripcion
+				WHERE emba_Codigo = @emba_Codigo
+
+				SELECT 1
+			END
+		ELSE
+			BEGIN
 		UPDATE  Adua.tbLugaresEmbarque
 		SET		emba_Codigo              = @emba_Codigo,
 		        emba_Descripcion         = @emba_Descripcion,
@@ -3184,6 +3198,7 @@ BEGIN
 		WHERE	emba_Id                  = @emba_Id
 
 		SELECT 1
+		END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -3623,13 +3638,22 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoLiquidacion_Insertar
 AS
 BEGIN
 	BEGIN TRY
-		INSERT INTO Adua.tbTipoLiquidacion (tipl_Descripcion,usua_UsuarioCreacion, tipl_FechaCreacion)
-		VALUES (
-		@tipl_Descripcion,		
-		@usua_UsuarioCreacion,
-		@tipl_FechaCreacion	
-		)
-		SELECT 1
+
+	IF EXISTS(SELECT * FROM Prod.tbTipoLiquidacion WHERE tipl_Descripcion = @tipl_Descripcion AND tipl_Estado = 0)
+			BEGIN
+				UPDATE	Adua.tbTipoLiquidacion
+				SET		tipl_Estado = 1
+				WHERE   tipl_Descripcion = @tipl_Descripcion
+				SELECT 1
+			END
+	ELSE
+			BEGIN
+
+				INSERT INTO Adua.tbTipoLiquidacion (tipl_Descripcion,usua_UsuarioCreacion, tipl_FechaCreacion)
+				VALUES ( @tipl_Descripcion,		 @usua_UsuarioCreacion, @tipl_FechaCreacion	 )
+				SELECT 1
+			END
+
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -3645,12 +3669,23 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbTipoLiquidacion_Editar
 AS
 BEGIN
 	BEGIN TRY
-			UPDATE Adua.tbTipoLiquidacion
-			SET tipl_Descripcion = @tipl_Descripcion,
-			usua_UsuarioModificacion = @usua_UsuarioModificacion,
-			tipl_FechaModificacion = @tipl_FechaModificacion
-			WHERE tipl_Id = @tipl_Id
-			SELECT 1
+
+			IF EXISTS(SELECT * FROM Prod.tbTipoLiquidacion WHERE tipl_Descripcion = @tipl_Descripcion AND tipl_Estado = 0)
+			BEGIN
+				UPDATE	Adua.tbTipoLiquidacion
+				SET		tipl_Estado = 1
+				WHERE   tipl_Descripcion = @tipl_Descripcion
+				SELECT 1
+			END
+	ELSE
+			BEGIN
+				UPDATE Adua.tbTipoLiquidacion
+				SET tipl_Descripcion = @tipl_Descripcion,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				tipl_FechaModificacion = @tipl_FechaModificacion
+				WHERE tipl_Id = @tipl_Id
+				SELECT 1
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -11587,12 +11622,22 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbMarcasMaquina_Editar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE	Prod.tbMarcasMaquina
-		SET		marq_Nombre = @marq_Nombre,
-				usua_UsuarioModificacion = @usua_UsuarioModificacion,
-				marq_FechaModificacion = @marq_FechaModificacion
-		WHERE	marq_Id  = @marq_Id
-		SELECT 1
+	IF EXISTS(SELECT * FROM Prod.tbMarcasMaquina WHERE marq_Nombre = @marq_Nombre AND marq_Estado = 0)
+			BEGIN
+				UPDATE	Prod.tbMarcasMaquina
+				SET		marq_Estado = 1
+				WHERE   marq_Nombre = @marq_Nombre
+				SELECT 1
+			END
+	ELSE
+			BEGIN
+				UPDATE	Prod.tbMarcasMaquina
+				SET		marq_Nombre = @marq_Nombre,
+						usua_UsuarioModificacion = @usua_UsuarioModificacion,
+						marq_FechaModificacion = @marq_FechaModificacion
+				WHERE	marq_Id  = @marq_Id
+				SELECT 1
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()

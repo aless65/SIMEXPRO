@@ -41,23 +41,23 @@ namespace SIMEXPRO.API.Middleware
 
             if (context.Request.Path == "/api/Usuarios/Login")
             {
-                if (context.Response.StatusCode == 200)
+                context.Response.OnStarting(async () =>
                 {
-                    //var secretKey = await keyVaultClient.GetSecretAsync($"{keyVaultEndpoint}secrets/{APIKEY}");
-                    //var apiKey = secretKey.Value;
-                    //var secretPassword = await keyVaultClient.GetSecretAsync($"{keyVaultEndpoint}secrets/{ENCRYPTION}");
-                    //var password = secretPassword.Value;
+                    if (context.Response.StatusCode == 200)
+                    {
+                        //var secretKey = await keyVaultClient.GetSecretAsync($"{keyVaultEndpoint}secrets/{APIKEY}");
+                        //var apiKey = secretKey.Value;
+                        //var secretPassword = await keyVaultClient.GetSecretAsync($"{keyVaultEndpoint}secrets/{ENCRYPTION}");
+                        //var password = secretPassword.Value;
 
-                    var encryptedKey = Encryption.Encrypt(apiKey, Encoding.ASCII.GetBytes(password));
+                        var encryptedKey = Encryption.Encrypt(apiKey, Encoding.ASCII.GetBytes(password));
 
-                    context.Response.Headers.Add("Authorization", Convert.ToBase64String(encryptedKey));
-                    await _next(context);
-                }
-                else
-                {
-                    await _next(context);
-                    context.Response.Headers.Add("Authorization", "no access");
-                }
+                        context.Response.Headers.Add("Authorization", Convert.ToBase64String(encryptedKey));
+                    }
+
+                });
+
+                await _next(context);
             }
             else if (context.Request.Path == "/api/Usuarios/UsuarioCorreo" || context.Request.Path == "/api/Usuarios/CambiarContrasenia")
             {

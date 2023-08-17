@@ -1212,13 +1212,16 @@ CREATE TABLE Prod.tbTipoEmbalaje(
 	usua_UsuarioEliminacion 	INT	DEFAULT NULL,
 	tiem_FechaEliminacion		DATETIME DEFAULT NULL, 
 	tiem_Estado 				BIT					NOT NULL DEFAULT 1, 
-
+	
 	CONSTRAINT PK_Prod_tbTipoEmbalaje_tiem_Id												PRIMARY KEY (tiem_Id),
+	CONSTRAINT UQ_Prod_tbTipoEmbalaje_tiem_Descripcion										UNIQUE		(tiem_Descripcion),
 	CONSTRAINT FK_Prod_tbTipoEmbalaje_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbTipoEmbajale_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbTipoEmbajale_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios (usua_Id),
 );
 GO
+
+
 CREATE TABLE Prod.tbFuncionesMaquina(
 	func_Id   					INT IDENTITY(1,1),
 	func_Nombre  				NVARCHAR(200)		NOT NULL,
@@ -1851,12 +1854,15 @@ CREATE TABLE Prod.tbTallas(
 	tall_FechaEliminacion		DATETIME DEFAULT NULL,
 	tall_Estado                	BIT	DEFAULT 1,
 
-	CONSTRAINT PK_Prod_tbTalla_tall_Id PRIMARY KEY (tall_Id),
-	CONSTRAINT FK_Prod_tbOrdenCompra_tall_UsuarioCreacion_Acce_tbUsuarios_usua_Id					FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
-	CONSTRAINT FK_Prod_tbOrdenCompra_tall_UsuarioModificacion_Acce_tbUsuarios_usua_Id				FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT PK_Prod_tbTalla_tall_Id														PRIMARY KEY (tall_Id),
+	CONSTRAINT UQ_Prod_tbTallas_tall_Codigo													UNIQUE (tall_Codigo),
+	CONSTRAINT UQ_Prod_tbTallas_tall_Nombre													UNIQUE (tall_Nombre),
+	CONSTRAINT FK_Prod_tbOrdenCompra_tall_UsuarioCreacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT FK_Prod_tbOrdenCompra_tall_UsuarioModificacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbOrdenCompra_tall__Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
 )
 GO
+
 
 --Campo proc_IdActual = si es 0 está pendiente, si tiene un número está asignado a un proceso, si es null ya terminó
 CREATE TABLE Prod.tbOrdenCompraDetalles(

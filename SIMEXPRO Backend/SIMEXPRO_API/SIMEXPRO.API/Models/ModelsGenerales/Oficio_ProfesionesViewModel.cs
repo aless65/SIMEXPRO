@@ -11,17 +11,12 @@ namespace SIMEXPRO.API.Models
         public int ofpr_Id { get; set; }
         public string ofpr_Nombre { get; set; }
         public int usua_UsuarioCreacion { get; set; }
-        [NotMapped]
-        public string usuarioCreacionNombre { get; set; }
         public DateTime ofpr_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
-        [NotMapped]
-        public string usuarioModificacionNombre { get; set; }
         public DateTime? ofpr_FechaModificacion { get; set; }
-        [NotMapped]
-        public string UsuarioCreacionNombre { get; set; }
-        [NotMapped]
-        public string UsuarioModificacionNombre { get; set; }
         public bool? ofpr_Estado { get; set; }
+        public string usuarioCreacionNombre { get; set; }
+        public string usuarioModificacionNombre { get; set; }
+
     }
 }

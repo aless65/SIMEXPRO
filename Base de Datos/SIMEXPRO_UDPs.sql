@@ -4144,7 +4144,9 @@ AS
 BEGIN
 	BEGIN TRY
 		UPDATE  Adua.tbMarcas
-		SET		marc_Descripcion = @marc_Descripcion
+		SET		marc_Descripcion = @marc_Descripcion,
+			    usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				marc_FechaModificacion = @marc_FechaModificacion
 		WHERE	marc_Id = @marc_Id
 
 		SELECT 1
@@ -4154,6 +4156,7 @@ BEGIN
 	END CATCH
 END
 GO
+
 /*Eliminar Marcas*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbMarcas_Eliminar --3, 1, '2023-07-31 10:46:58.590'
 	@marc_Id					INT,

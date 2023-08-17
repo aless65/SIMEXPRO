@@ -40,7 +40,8 @@ namespace SIMEXPRO.API
                 {
                     builder.WithOrigins("http://localhost:3000", "https://simexpro.onrender.com") //NOMBRE DEL SERVIDOR
                     .AllowAnyHeader()
-                    .AllowAnyMethod();
+                    .AllowAnyMethod()
+                    .WithExposedHeaders("Authorization");
                 }
                 );
             }

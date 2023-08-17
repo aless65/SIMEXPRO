@@ -98,22 +98,24 @@ GO
 --GO
 
 /*Dibujar menu*/
-CREATE OR ALTER PROCEDURE Acce.UDP_RolesPorPantalla_DibujadoMenu
+CREATE OR ALTER PROCEDURE Acce.UDP_RolesPorPantalla_DibujadoMenu 
 @role_ID    INT
 AS
 BEGIN
-SELECT    ropa_Id, 
+SELECT  ropa_Id, 
         pnt.pant_Id, 
         pant_Nombre,
         pant_URL,
         pant_Icono,
         pant_Esquema,
         role_Id, 
+		case role_Id
+			when @role_ID then 'Asignada'
+		else 'No asignada' end		AS Asignada,
         pnt.usua_UsuarioCreacion, 
         ropa_FechaCreacion
 FROM    Acce.tbRolesXPantallas rxp
         INNER JOIN Acce.tbPantallas pnt ON rxp.pant_Id = pnt.pant_Id
-WHERE    role_Id = @role_ID
 END
 GO
 

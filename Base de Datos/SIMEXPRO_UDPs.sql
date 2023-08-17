@@ -98,26 +98,44 @@ GO
 --GO
 
 /*Dibujar menu*/
+--CREATE OR ALTER PROCEDURE Acce.UDP_RolesPorPantalla_DibujadoMenu 
+--@role_ID    INT
+--AS
+--BEGIN
+--SELECT  ropa_Id, 
+--        pnt.pant_Id, 
+--        pant_Nombre,
+--        pant_URL,
+--        pant_Icono,
+--        pant_Esquema,
+--        role_Id, 
+--		case role_Id
+--			when @role_ID then 'Asignada'
+--		else 'No asignada' end		AS Asignada,
+--        pnt.usua_UsuarioCreacion, 
+--        ropa_FechaCreacion
+--FROM    Acce.tbRolesXPantallas rxp
+--        INNER JOIN Acce.tbPantallas pnt ON rxp.pant_Id = pnt.pant_Id
+--END
+--GO
+
 CREATE OR ALTER PROCEDURE Acce.UDP_RolesPorPantalla_DibujadoMenu 
 @role_ID    INT
 AS
 BEGIN
-SELECT  ropa_Id, 
+SELECT   ropa_Id, 
         pnt.pant_Id, 
         pant_Nombre,
         pant_URL,
         pant_Icono,
         pant_Esquema,
         role_Id, 
-		case role_Id
-			when @role_ID then 'Asignada'
-		else 'No asignada' end		AS Asignada,
         pnt.usua_UsuarioCreacion, 
         ropa_FechaCreacion
 FROM    Acce.tbRolesXPantallas rxp
         INNER JOIN Acce.tbPantallas pnt ON rxp.pant_Id = pnt.pant_Id
+WHERE    role_Id = @role_ID
 END
-GO
 
 /*Listar Usuarios*/
 CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Listar
@@ -10740,13 +10758,22 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbTipoEmbalaje_Insertar
 AS
 BEGIN
 	BEGIN TRY
-		INSERT INTO Prod.tbTipoEmbalaje (tiem_Descripcion, usua_UsuarioCreacion, tiem_FechaCreacion)
-		VALUES (
-		@tiem_Descripcion,
-		@usua_UsuarioCreacion,
-		@tiem_FechaCreacion
-		)
-		SELECT 1
+
+		IF EXISTS (SELECT * FROM Prod.tbTipoEmbalaje WHERE tiem_Descripcion = @tiem_Descripcion AND tiem_Estado = 0)
+		BEGIN
+		UPDATE Prod.tbTipoEmbalaje
+			SET tiem_Estado = 1,
+				usua_UsuarioCreacion = @usua_UsuarioCreacion,
+				tiem_FechaCreacion = @tiem_FechaCreacion
+			WHERE tiem_Descripcion = @tiem_Descripcion
+			SELECT 1	
+		END
+		ELSE
+		BEGIN
+			INSERT INTO Prod.tbTipoEmbalaje (tiem_Descripcion, usua_UsuarioCreacion, tiem_FechaCreacion)
+			VALUES ( @tiem_Descripcion, @usua_UsuarioCreacion, @tiem_FechaCreacion )
+			SELECT 1
+		END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE() 
@@ -10762,12 +10789,28 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbTipoEmbalaje_Editar
 AS
 BEGIN
 	BEGIN TRY
-		UPDATE Prod.tbTipoEmbalaje
-		SET tiem_Descripcion = @tiem_Descripcion,
-		usua_UsuarioModificacion = @usua_UsuarioModificacion,
-		tiem_FechaModificacion = @tiem_FechaModificacion
-		WHERE tiem_Id = @tiem_Id
-		SELECT 1
+
+	 
+
+	IF EXISTS (SELECT * FROM Prod.tbTipoEmbalaje WHERE tiem_Descripcion = @tiem_Descripcion AND tiem_Estado = 0)
+		BEGIN
+			UPDATE Prod.tbTipoEmbalaje
+			SET tiem_Estado = 1,
+				usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				tiem_FechaModificacion = @tiem_FechaModificacion
+			WHERE tiem_Descripcion = @tiem_Descripcion
+			SELECT 1			
+		END
+	ELSE
+		BEGIN
+			UPDATE Prod.tbTipoEmbalaje
+			SET tiem_Descripcion = @tiem_Descripcion,
+			usua_UsuarioModificacion = @usua_UsuarioModificacion,
+			tiem_FechaModificacion = @tiem_FechaModificacion
+			WHERE tiem_Id = @tiem_Id
+
+			SELECT 1
+		END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE() 
@@ -11084,7 +11127,9 @@ BEGIN
 	SELECT mate.mate_Id,
            mate.mate_Descripcion, 
 	       mate.subc_Id,
-	       subc.subc_Descripcion,					
+	       subc.subc_Descripcion,
+		   cate.cate_Id,
+		   cate.cate_Descripcion,
 	       mate.mate_Precio, 
 	       mate.usua_UsuarioCreacion, 
 	       usuaCrea.usua_Nombre							AS usuarioCreacionNombre,
@@ -11096,6 +11141,7 @@ BEGIN
 	       INNER JOIN Acce.tbUsuarios usuaCrea			ON mate.usua_UsuarioCreacion     = usuaCrea.usua_Id 
 	       LEFT JOIN Acce.tbUsuarios usuaModifica		ON mate.usua_UsuarioModificacion = usuaCrea.usua_Id 
 	       LEFT JOIN Prod.tbSubcategoria subc			ON mate.subc_Id                  = subc.subc_Id
+		   INNER JOIN Prod.tbCategoria  cate            ON cate.cate_Id                  = subc.cate_Id
 	 WHERE mate_Estado = 1
 
 END
@@ -11998,11 +12044,9 @@ AS BEGIN
 		   		   ppde_Cantidad,
 		   		   mate_Descripcion
 		   	  FROM Prod.tbPedidosProduccionDetalles tbdetalles
-		   INNER JOIN Prod.tbLotes tblotes
-				   ON tbdetalles.lote_Id = tblotes.lote_Id
-		   INNER JOIN Prod.tbMateriales tbmats
-				   ON tblotes.mate_Id = tbmats.mate_Id
-				WHERE pediproduccion.ppro_Id = tbdetalles.ppro_Id
+					INNER JOIN Prod.tbLotes tblotes			ON tbdetalles.lote_Id = tblotes.lote_Id
+					INNER JOIN Prod.tbMateriales tbmats		ON tblotes.mate_Id = tbmats.mate_Id
+			  WHERE pediproduccion.ppro_Id = tbdetalles.ppro_Id
 				  FOR JSON PATH)										AS Detalles
 	  FROM Prod.tbPedidosProduccion pediproduccion
 INNER JOIN Gral.tbEmpleados emples

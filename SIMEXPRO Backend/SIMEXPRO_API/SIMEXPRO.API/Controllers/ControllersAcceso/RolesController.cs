@@ -19,10 +19,6 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
 
         public RolesController(AccesoServices accesoService, IMapper mapper)
         {
-
-
-
-
             _accesoServices = accesoService;
             _mapper = mapper;
         }

@@ -38,14 +38,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
 
             var respuesta = _aduanaServices.InsertarNivelesComerciales(item);
 
-            if (respuesta.Code == 200)
-            {
-                return Ok(respuesta);
-            }
-            else
-            {
-                return BadRequest(respuesta);
-            }
+            return Ok(respuesta);
         }
 
         [HttpPost("Editar")]
@@ -55,31 +48,24 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
 
             var respuesta = _aduanaServices.ActualizarNivelesComerciales(item);
 
-            if (respuesta.Code == 200)
-            {
-                return Ok(respuesta);
-            }
-            else
-            {
-                return BadRequest(respuesta);
-            }
+            return Ok(respuesta);
         }
 
-        [HttpPost("Eliminar")]
-        public IActionResult Delete(NivelesComercialesViewModel concepto)
-        {
-            var item = _mapper.Map<tbNivelesComerciales>(concepto);
+        //[HttpPost("Eliminar")]
+        //public IActionResult Delete(NivelesComercialesViewModel concepto)
+        //{
+        //    var item = _mapper.Map<tbNivelesComerciales>(concepto);
 
-            var respuesta = _aduanaServices.EliminarNivelesComerciales(item);
+        //    var respuesta = _aduanaServices.EliminarNivelesComerciales(item);
 
-            if (respuesta.Code == 200)
-            {
-                return Ok(respuesta);
-            }
-            else
-            {
-                return BadRequest(respuesta);
-            }
-        }
+        //    if (respuesta.Code == 200)
+        //    {
+        //        return Ok(respuesta);
+        //    }
+        //    else
+        //    {
+        //        return BadRequest(respuesta);
+        //    }
+        //}
     }
 }

@@ -19,6 +19,10 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public DateTime? maqu_FechaEliminacion { get; set; }
         public bool? maqu_Estado { get; set; }
 
-
+        public string mmaq_Nombre { get; set; }
+        public string modu_Nombre { get; set; }
+        public string usuarioCreacionNombre { get; set; }
+        public string usuarioModificacionNombre { get; set; }
+        public string usuarioEliminacionNombre { get; set; }
     }
 }

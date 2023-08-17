@@ -3457,10 +3457,14 @@ AS
 BEGIN
 SELECT	modo.motr_Id						,
 		modo.motr_Descripcion				,
-		crea.usua_Nombre					AS usarioCreacion,
+		modo.usua_UsuarioCreacion			,
+		crea.usua_Nombre					AS usuarioCreacionNombre,
 		modo.motr_FechaCreacion				,
-		modi.usua_Nombre					AS usuarioModificacion,
+		modo.usua_UsuarioModificacion		,
+		modi.usua_Nombre					AS usuarioModificacionNombre,
 		modo.motr_FechaModificacion			,
+		modo.usua_UsuarioEliminacion		,
+		elim.usua_Nombre					AS usuarioEliminacionNombre,
 		modo.motr_Estado					
 FROM	Adua.tbModoTransporte modo 
 		INNER JOIN Acce.tbUsuarios crea		ON crea.usua_Id = modo.usua_UsuarioCreacion		
@@ -3469,6 +3473,7 @@ FROM	Adua.tbModoTransporte modo
 WHERE	motr_Estado = 1
 END
 GO
+
 /*Insertar Modo Transporte*/
 CREATE OR ALTER PROCEDURE Adua.UDP_tbModoTransporte_Insertar
 @motr_Descripcion		NVARCHAR(75),
@@ -12949,9 +12954,9 @@ BEGIN
 			maqu.modu_Id,		    
 			modu.modu_Nombre                    ,
 			maqu.usua_UsuarioCreacion,
-		    usu.usua_Nombre                     AS UsuarioCreaNombre,
+		    usu.usua_Nombre                     AS usuarioCreacionNombre,
 		    maqu.usua_UsuarioModificacion,
-		    usu1.usua_Nombre                    AS UsuarioModificaNombre,
+		    usu1.usua_Nombre                    AS usuarioModificacionNombre,
 			usu2.usua_Nombre                    AS usuarioEliminacionNombre,
 			maqu.usua_UsuarioEliminacion,
 			maqu_Estado

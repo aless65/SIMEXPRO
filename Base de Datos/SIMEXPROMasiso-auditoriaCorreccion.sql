@@ -1905,6 +1905,24 @@ CREATE TABLE Prod.tbOrdenCompraDetalles(
 );
 GO
 
+CREATE TABLE Prod.tbDocumentosOrdenCompraDetalles(
+	dopo_Id						INT IDENTITY(1,1),
+	code_Id						INT				 NOT NULL,
+	dopo_Archivo				NVARCHAR(MAX)	 NOT NULL,
+	dopo_TipoArchivo			NVARCHAR(40)	 NOT NULL,
+												 
+	usua_UsuarioCreacion       	INT				 NOT NULL,
+	dopo_FechaCreacion         	DATETIME		 NOT NULL,
+	usua_UsuarioModificacion   	INT DEFAULT		 NULL,
+	dopo_FechaModificacion     	DATETIME DEFAULT NULL,
+	code_Estado                	BIT DEFAULT 1
+
+	CONSTRAINT PK_Prod_tbDocumentosOrdenCompraDetalles_dopo_Id											PRIMARY KEY(dopo_Id),
+	CONSTRAINT FK_Prod_tbDocumentosOrdenCompraDetalles_tbOrdenCompraDetalles_code_Id					FOREIGN KEY(code_Id)					REFERENCES Prod.tbOrdenCompraDetalles(code_Id),
+	CONSTRAINT FK_Prod_tbDocumentosOrdenCompraDetalles_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY(usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT FK_Prod_tbDocumentosOrdenCompraDetalles_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id	FOREIGN KEY(usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios (usua_Id)
+);
+GO
 
 CREATE TABLE Prod.tbMaterialesBrindar(
 	mabr_Id						INT IDENTITY(1,1),

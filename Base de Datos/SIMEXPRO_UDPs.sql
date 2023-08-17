@@ -11353,6 +11353,7 @@ BEGIN
 	       mate.mate_FechaCreacion, 
 	       mate.usua_UsuarioModificacion, 
 	       usuaModifica.usua_Nombre						AS usuarioModificaNombre,
+		   mate.mate_FechaModificacion,
 	       mate.mate_Estado
       FROM Prod.tbMateriales mate 
 	       INNER JOIN Acce.tbUsuarios usuaCrea			ON mate.usua_UsuarioCreacion     = usuaCrea.usua_Id 

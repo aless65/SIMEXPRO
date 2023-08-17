@@ -13,6 +13,13 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public int? subc_Id { get; set; }
         [NotMapped]
         public string subc_Descripcion { get; set; }
+        [NotMapped]
+        public int cate_Id { get; set; }
+
+        [NotMapped]
+        public string cate_Descripcion { get; set; }
+
+
         public decimal? mate_Precio { get; set; }
         public int usua_UsuarioCreacion { get; set; }
         [NotMapped]

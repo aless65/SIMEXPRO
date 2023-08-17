@@ -438,7 +438,7 @@ GO
 --*************   Tabla pantallas  ****************
 
 /* Listar pantallas*/
-CREATE OR ALTER PROCEDURE Acce.UDP_tbPantallas_Listar 
+CREATE OR ALTER PROCEDURE Acce.UDP_tbPantallas_Listar
 	@pant_EsAduana  BIT
 AS
 BEGIN
@@ -456,7 +456,8 @@ BEGIN
 		   [pant_FechaEliminacion]
 	  FROM [Acce].[tbPantallas]
 	 WHERE [pant_Estado] = 1
-	 AND pant_EsAduana = @pant_EsAduana
+	 AND (pant_EsAduana = @pant_EsAduana 
+	 OR pant_EsAduana IS NULL)
 	 OR @pant_EsAduana IS NULL
 END
 GO
@@ -11121,7 +11122,9 @@ BEGIN
 	SELECT mate.mate_Id,
            mate.mate_Descripcion, 
 	       mate.subc_Id,
-	       subc.subc_Descripcion,					
+	       subc.subc_Descripcion,
+		   cate.cate_Id,
+		   cate.cate_Descripcion,
 	       mate.mate_Precio, 
 	       mate.usua_UsuarioCreacion, 
 	       usuaCrea.usua_Nombre							AS usuarioCreacionNombre,
@@ -11133,6 +11136,7 @@ BEGIN
 	       INNER JOIN Acce.tbUsuarios usuaCrea			ON mate.usua_UsuarioCreacion     = usuaCrea.usua_Id 
 	       LEFT JOIN Acce.tbUsuarios usuaModifica		ON mate.usua_UsuarioModificacion = usuaCrea.usua_Id 
 	       LEFT JOIN Prod.tbSubcategoria subc			ON mate.subc_Id                  = subc.subc_Id
+		   INNER JOIN Prod.tbCategoria  cate            ON cate.cate_Id                  = subc.cate_Id
 	 WHERE mate_Estado = 1
 
 END
@@ -12952,10 +12956,9 @@ GO
 
 
 
-CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccionDetalle_Listar
-@ppro_Id INT
+CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccionDetalle_Listar 
+	@ppro_Id INT
 AS BEGIN
-
 SELECT ppde_Id,
 	   ppro_Id,
 	   lote_Id,
@@ -12969,7 +12972,7 @@ SELECT ppde_Id,
 	   ppde_Estado 
 FROM Prod.tbPedidosProduccionDetalles ppde
 INNER JOIN Acce.tbUsuarios crea				ON ppde.usua_UsuarioCreacion = crea.usua_Id
-INNER JOIN Acce.tbUsuarios modi				ON ppde.usua_UsuarioModificacion = modi.usua_Id
+LEFT JOIN Acce.tbUsuarios modi				ON ppde.usua_UsuarioModificacion = modi.usua_Id
 WHERE ppro_Id = @ppro_Id
 
 END

@@ -12883,12 +12883,12 @@ BEGIN
  
   FROM	    Prod.tbPODetallePorPedidoOrdenDetalle ocpo
 			LEFT JOIN  Prod.tbOrdenCompra orco				ON ocpo.orco_Id = orco.orco_Id
-			INNER JOIN Prod.tbClientes clie					ON orco.orco_IdCliente = clie.clie_Id
+			LEFT JOIN Prod.tbClientes clie					ON orco.orco_IdCliente = clie.clie_Id
             LEFT JOIN  Prod.tbOrdenCompraDetalles code		ON ocpo.code_Id = code.code_Id
-			INNER JOIN Prod.tbEstilos esti					ON code.esti_Id = esti.esti_Id
-			INNER JOIN Prod.tbTallas talla					ON code.tall_Id = talla.tall_Id
-			INNER JOIN Prod.tbColores colr					ON code.colr_Id = colr.colr_Id
-			INNER JOIN Acce.tbUsuarios usu					ON usu.usua_Id = ocpo.usua_UsuarioCreacion 
+			LEFT JOIN Prod.tbEstilos esti					ON code.esti_Id = esti.esti_Id
+			LEFT JOIN Prod.tbTallas talla					ON code.tall_Id = talla.tall_Id
+			LEFT JOIN Prod.tbColores colr					ON code.colr_Id = colr.colr_Id
+			LEFT JOIN Acce.tbUsuarios usu					ON usu.usua_Id = ocpo.usua_UsuarioCreacion 
 END 
 GO
 

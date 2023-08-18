@@ -411,6 +411,8 @@ GO
 
 --Seccion 2 Chris
 
+select * from Gral.tbUnidadMedidas
+
 CREATE TABLE Gral.tbUnidadMedidas
 (
 		unme_Id							INT 			IDENTITY(1,1),

@@ -39,7 +39,7 @@ AS BEGIN
 		,fi AS (SELECT ROW_NUMBER() OVER (ORDER BY RN DESC) RNK, Joined
 				FROM   re)
 
-	/*Se crea el query para verificar si el campo se us�*/
+	/*Se crea el query para verificar si el campo se usó*/
 	SELECT @QUERY  = '
 			SELECT CASE WHEN XX.REFERENCED IS NULL THEN 1 ELSE 0 END Referenced
 			FROM   '+ @tabla_Nombre + ' OO
@@ -8474,21 +8474,21 @@ END
 /*Insertar condiciones*/
 GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Insertar 
-	parametros.Add("@@deva_Id									INT, 
-	parametros.Add("@@codi_Restricciones_Utilizacion				BIT, 
-	parametros.Add("@@codi_Indicar_Restricciones_Utilizacion		NVARCHAR(500), 
-	parametros.Add("@@codi_Depende_Precio_Condicion				BIT, 
-	parametros.Add("@@codi_Indicar_Existe_Condicion				NVARCHAR(500),
-	parametros.Add("@@codi_Condicionada_Revertir					BIT, 
-	parametros.Add("@@codi_Vinculacion_Comprador_Vendedor		BIT, 
-	parametros.Add("@@codi_Tipo_Vinculacion						NVARCHAR(500), 
-	parametros.Add("@@codi_Vinculacion_Influye_Precio			BIT, 
-	parametros.Add("@@codi_Pagos_Descuentos_Indirectos			BIT, 
-	parametros.Add("@@codi_Concepto_Monto_Declarado				NVARCHAR(500), 
-	parametros.Add("@@codi_Existen_Canones						BIT, 
-	parametros.Add("@@codi_Indicar_Canones						NVARCHAR(500), 
-	parametros.Add("@@usua_UsuarioCreacion						INT, 
-	parametros.Add("@@codi_FechaCreacion							DATE
+	@deva_Id									INT, 
+	@codi_Restricciones_Utilizacion				BIT, 
+	@codi_Indicar_Restricciones_Utilizacion		NVARCHAR(500), 
+	@codi_Depende_Precio_Condicion				BIT, 
+	@codi_Indicar_Existe_Condicion				NVARCHAR(500),
+	@codi_Condicionada_Revertir					BIT, 
+	@codi_Vinculacion_Comprador_Vendedor		BIT, 
+	@codi_Tipo_Vinculacion						NVARCHAR(500), 
+	@codi_Vinculacion_Influye_Precio			BIT, 
+	@codi_Pagos_Descuentos_Indirectos			BIT, 
+	@codi_Concepto_Monto_Declarado				NVARCHAR(500), 
+	@codi_Existen_Canones						BIT, 
+	@codi_Indicar_Canones						NVARCHAR(500), 
+	@usua_UsuarioCreacion						INT, 
+	@codi_FechaCreacion							DATE
 AS
 BEGIN
 	BEGIN TRY

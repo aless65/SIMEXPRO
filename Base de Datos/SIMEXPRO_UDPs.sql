@@ -39,7 +39,7 @@ AS BEGIN
 		,fi AS (SELECT ROW_NUMBER() OVER (ORDER BY RN DESC) RNK, Joined
 				FROM   re)
 
-	/*Se crea el query para verificar si el campo se us�*/
+	/*Se crea el query para verificar si el campo se usó*/
 	SELECT @QUERY  = '
 			SELECT CASE WHEN XX.REFERENCED IS NULL THEN 1 ELSE 0 END Referenced
 			FROM   '+ @tabla_Nombre + ' OO

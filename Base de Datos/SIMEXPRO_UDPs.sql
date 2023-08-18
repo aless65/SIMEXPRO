@@ -136,7 +136,6 @@ FROM    Acce.tbRolesXPantallas rxp
         INNER JOIN Acce.tbPantallas pnt ON rxp.pant_Id = pnt.pant_Id
 WHERE    role_Id = @role_ID
 END
-GO
 
 /*Listar Usuarios*/
 CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Listar
@@ -818,7 +817,7 @@ BEGIN
 	INNER JOIN Acce.tbUsuarios usuaCrea		ON esta.usua_UsuarioCreacion = usuaCrea.usua_Id 
 	LEFT JOIN Acce.tbUsuarios usuaModifica  ON esta.usua_UsuarioModificacion = usuaModifica.usua_Id 
 	LEFT JOIN Acce.tbUsuarios usuaElimina   ON esta.usua_UsuarioEliminacion = usuaElimina.usua_Id
-
+	WHERE escv_Estado = 1
 END
 GO
 
@@ -1897,7 +1896,7 @@ BEGIN
 								alde_FechaEliminacion = @alde_FechaEliminacion
 						WHERE	alde_Id = @alde_Id
 					END
-			
+			}
 			END
 	END TRY
 	BEGIN CATCH
@@ -3430,7 +3429,6 @@ BEGIN
 	END CATCH    
 
 END
-GO
 -- me quede aqui 
 /******************************** Formas de pago*****************************************/
 
@@ -9825,7 +9823,7 @@ BEGIN
 			,ordenCompraDetalle.colr_Id
 			--,colores.colr_Codigo
 			,colores.colr_Nombre
-			--,ordenCompraDetalle.code_Documento
+			,ordenCompraDetalle.code_Documento
 			--,ordenCompraDetalle.code_Medidas
 			,ordenCompraDetalle.proc_IdComienza
 			,procesoComienza.proc_Descripcion	AS proc_DescripcionComienza
@@ -9863,7 +9861,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Insertar
 	@tall_Id						INT,
 	@code_Sexo						CHAR(1),
 	@colr_Id						INT,
-	--@code_Documento					NVARCHAR(250),
+	@code_Documento					NVARCHAR(250),
 	--@code_Medidas					NVARCHAR(250),
 	@proc_IdComienza				INT,
 	@proc_IdActual					INT,
@@ -9885,7 +9883,7 @@ BEGIN
 					tall_Id,						
 					code_Sexo,						
 					colr_Id,						
-					--code_Documento,					
+					code_Documento,					
 					--code_Medidas,					
 					proc_IdComienza,				
 					proc_IdActual,					
@@ -9902,7 +9900,7 @@ BEGIN
 					@tall_Id,						
 					@code_Sexo,						
 					@colr_Id,						
-					--@code_Documento,					
+					@code_Documento,					
 					--@code_Medidas,					
 					@proc_IdComienza,				
 					@proc_IdActual,					
@@ -9931,7 +9929,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Editar
 	@tall_Id						INT,
 	@code_Sexo						CHAR(1),
 	@colr_Id						INT,
-	--@code_Documento					NVARCHAR(250),
+	@code_Documento					NVARCHAR(250),
 	--@code_Medidas					NVARCHAR(250),
 	@proc_IdComienza				INT,
 	@proc_IdActual					INT,
@@ -9953,7 +9951,7 @@ BEGIN
 				tall_Id						= @tall_Id,						
 				code_Sexo					= @code_Sexo,						
 				colr_Id						= @colr_Id,						
-				--code_Documento				= @code_Documento,					
+				code_Documento				= @code_Documento,					
 				--code_Medidas				= @code_Medidas,					
 				proc_IdComienza				= @proc_IdComienza,				
 				proc_IdActual				= @proc_IdActual,					
@@ -12898,7 +12896,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbPODetallePorPedidoOrdenDetalle_Insertar
 	@code_Id						INT,
 	@orco_Id						INT,
 	@usua_UsuarioCreacion			INT,
-	@ocpo_FechaCreacion				DATETIME 
+	@popo_FechaCreacion				DATETIME 
 AS
 BEGIN
 	BEGIN TRY
@@ -12906,12 +12904,12 @@ BEGIN
 														  code_Id,
 														  orco_Id,
 														  usua_UsuarioCreacion,
-														  ocpo_FechaCreacion)
+														  popo_FechaCreacion)
 		VALUES (@prod_Id,
 				@code_Id,
 				@orco_Id,
 				@usua_UsuarioCreacion,
-				@ocpo_FechaCreacion)
+				@popo_FechaCreacion)
 
 		SELECT 1
 
@@ -12928,15 +12926,13 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbPODetallePorPedidoOrdenDetalle_Editar
 	@code_Id						INT,
 	@orco_Id						INT,
 	@usua_UsuarioModificacion		INT,
-	@ocpo_FechaModificacion			DATETIME 
+	@popo_FechaModificacion			DATETIME 
 AS
 BEGIN
 	BEGIN TRY
 		UPDATE Prod.tbPODetallePorPedidoOrdenDetalle
 		SET code_Id = @code_Id,
-			orco_Id = @orco_Id,
-			usua_UsuarioModificacion = @usua_UsuarioModificacion,
-			ocpo_FechaModificacion = @ocpo_FechaModificacion
+			code_Id = @code_Id
 		WHERE ocpo_Id = @ocpo_Id
 
 		SELECT 1

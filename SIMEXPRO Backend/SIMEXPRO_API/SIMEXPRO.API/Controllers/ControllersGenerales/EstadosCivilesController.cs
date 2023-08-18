@@ -14,8 +14,6 @@ namespace SIMEXPRO.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
-
     public class EstadosCivilesController : Controller
     {
         private readonly GeneralServices _generalesServices;

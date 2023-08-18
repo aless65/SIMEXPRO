@@ -284,8 +284,8 @@ INSERT INTO Prod.tbOrdenCompraDetalles(orco_Id,
 									   code_FechaCreacion)
 VALUES		(4,2,1,1,'F',1,1,1,20,10,8,'no se la verdad',1,'01/08/2023'),
 			(4,2,1,1,'F',1,1,1,20,10,8,'no se la verdad',1,'01/08/2023'),
-			(4,2,1,1,'F',1,1,1,20,10,8,'no se la verdad',1,'01/08/2023');
-
+			(4,2,1,1,'F',1,1,1,20,10,8,'no se la verdad',1,'01/08/2023'),
+			
 
 
 /*----------------------------------------------*/
@@ -410,6 +410,9 @@ select * from [Prod].tbmateriales
 /*------------------------------------------------------*/
 --****** INSERT TABLA PEDIDOS ORDEN DETALLES *******--
 GO
+
+select * from prod.[tbPedidosOrdenDetalle]
+
 INSERT INTO [Prod].[tbPedidosOrdenDetalle] (pedi_Id, mate_Id, prod_Cantidad,prod_Precio,prod_Peso, usua_UsuarioCreacion, prod_FechaCreacion)
 VALUES		(1, 2, 20, 500.00, 20.5, 1, GETDATE()),
 			(1, 1, 50, 500.00, 20.5, 1, GETDATE()),
@@ -474,11 +477,19 @@ VALUES		(1, 2, 20, 500.00, 20.5, 1, GETDATE()),
 
 
 INSERT INTO Prod.tbPODetallePorPedidoOrdenDetalle (prod_Id, code_Id,usua_UsuarioCreacion,popo_FechaCreacion)
-VALUES	(1,1,1,GETDATE()),
-		(1,1,1,GETDATE()),
-		(1,1,1,GETDATE()),
-		(1,1,1,GETDATE()),
-		(1,1,1,GETDATE()),
-		(1,1,1,GETDATE()),
-		(1,1,1,GETDATE()),
-		(1,1,1,GETDATE())
+VALUES	(40,1,1,GETDATE()),
+		(41,1,1,GETDATE()),
+		(4,1,1,GETDATE()),
+		(6,1,1,GETDATE()),
+		(7,1,1,GETDATE()),
+		(7,2,1,GETDATE()),
+		(55,2,1,GETDATE()),
+		(4,2,1,GETDATE()),
+		(9,2,1,GETDATE()),
+		(10,2,1,GETDATE()),
+		(11,3,1,GETDATE()),
+		(13,3,1,GETDATE()),
+		(4,3,1,GETDATE()),
+		(9,3,1,GETDATE()),
+		(45,3,1,GETDATE())
+

@@ -2557,6 +2557,7 @@ CREATE TABLE Prod.tbPODetallePorPedidoOrdenDetalle(
 GO
 
 
+
 CREATE TABLE Prod.tbLotes(
 	lote_Id   					INT IDENTITY(1,1),
 	mate_Id						INT NOT NULL,

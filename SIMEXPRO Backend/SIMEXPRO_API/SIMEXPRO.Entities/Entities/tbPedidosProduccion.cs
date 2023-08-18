@@ -22,15 +22,15 @@ namespace SIMEXPRO.Entities.Entities
         public string ppro_Estados { get; set; }
         public string ppro_Observaciones { get; set; }
         public int usua_UsuarioCreacion { get; set; }
-        [NotMapped]
-        public string UsuarioCreacionNombre { get; set; }
         public DateTime ppro_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
-        [NotMapped]
-        public string UsuarioModificacionNombre { get; set; }
         public DateTime? ppro_FechaModificacion { get; set; }
         public bool? ppro_Estado { get; set; }
 
+        [NotMapped]
+        public string UsuarioCreacionNombre { get; set; }
+        [NotMapped]
+        public string UsuarioModificacionNombre { get; set; }
         [NotMapped]
         public string detalles { get; set; }
 

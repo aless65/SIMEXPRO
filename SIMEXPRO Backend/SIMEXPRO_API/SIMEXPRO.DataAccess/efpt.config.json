@@ -330,6 +330,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[Prod].[tbDocumentosOrdenCompraDetalles]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[Prod].[tbEstilos]",
          "ObjectType": 0
       },

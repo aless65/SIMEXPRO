@@ -41,21 +41,13 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             return result;
         }
 
-        public IEnumerable<tbPedidosOrdenDetalle> List(tbPedidosOrdenDetalle item)
-        {
-            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
-            var parametros = new DynamicParameters();
-            parametros.Add("@prod_Id", item.prod_Id, DbType.Int32, ParameterDirection.Input);
-            var result = db.Query<tbPedidosOrdenDetalle>(ScriptsDataBase.ListarPedidosOrden, parametros, commandType: System.Data.CommandType.StoredProcedure);
-            return result;
-        }
-
         public IEnumerable<tbPedidosOrdenDetalle> List()
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
-            var result = db.Query<tbPedidosOrdenDetalle>(ScriptsDataBase.ListarPedidosOrden, null, commandType: System.Data.CommandType.StoredProcedure);
+            var result = db.Query<tbPedidosOrdenDetalle>(ScriptsDataBase.ListarPedidosOrdenDetalles, null, commandType: System.Data.CommandType.StoredProcedure);
             return result;
         }
+
         public RequestStatus Update(tbPedidosOrdenDetalle item)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);

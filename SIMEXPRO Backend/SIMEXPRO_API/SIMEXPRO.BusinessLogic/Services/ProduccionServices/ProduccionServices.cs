@@ -1685,12 +1685,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Orden Compra Detalles
-        public ServiceResult ListarOrdenCompraDetalles(tbOrdenCompraDetalles item)
+        public ServiceResult ListarOrdenCompraDetalles(int orco_Id)
         {
             var result = new ServiceResult();
             try
             {
-                var list = _ordenCompraDetallesRepository.List(item);
+                var list = _ordenCompraDetallesRepository.ListByIdOrdenCompra(orco_Id);
                 return result.Ok(list);
 
             }
@@ -1894,12 +1894,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region Pedidos Orden Detalles
-        public ServiceResult ListarPedidosOrdenDetalle(tbPedidosOrdenDetalle item)
+        public ServiceResult ListarPedidosOrdenDetalle()
         {
             var result = new ServiceResult();
             try
             {
-                var list = _pedidosOrdenDetallesRepository.List(item);
+                var list = _pedidosOrdenDetallesRepository.List();
                 return result.Ok(list);
 
             }

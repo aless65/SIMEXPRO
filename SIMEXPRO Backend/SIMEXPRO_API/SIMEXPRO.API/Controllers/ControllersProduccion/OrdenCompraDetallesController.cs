@@ -26,9 +26,9 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
 
 
         [HttpGet("Listar")]
-        public IActionResult Index(tbOrdenCompraDetalles item)
+        public IActionResult Index(int orco_Id)
         {
-            var listado = _produccionServices.ListarOrdenCompraDetalles(item);
+            var listado = _produccionServices.ListarOrdenCompraDetalles(orco_Id);
             listado.Data = _mapper.Map<IEnumerable<OrdenCompraDetalleViewModel>>(listado.Data);
             return Ok(listado);
         }
@@ -43,7 +43,7 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         }
 
         [HttpPost("Editar")]
-        public IActionResult Update(OrdeEnsaAcabEtiqViewModel ordenCompraDetalleViewModel)
+        public IActionResult Update(OrdenCompraDetalleViewModel ordenCompraDetalleViewModel)
         {
             var item = _mapper.Map<tbOrdenCompraDetalles>(ordenCompraDetalleViewModel);
             var respuesta = _produccionServices.ActualizarOrdenCompraDetalles(item);

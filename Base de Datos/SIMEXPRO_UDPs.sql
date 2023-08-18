@@ -9808,11 +9808,10 @@ GO
 -----------------------------------------------/UDPS Para orden de compra---------------------------------------------
 
 --------------------------------------------UDPS Para orden de compra detalle-----------------------------------------
-CREATE OR ALTER   PROCEDURE [Prod].[UDP_tbOrdenCompraDetalle_Listado] 
+CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalle_Listado
 @orco_Id			INT
 AS
 BEGIN
-
 	SELECT	 ordenCompraDetalle.code_Id
 			,ordenCompraDetalle.orco_Id
 			,ordenCompraDetalle.code_CantidadPrenda

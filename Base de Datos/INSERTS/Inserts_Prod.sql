@@ -258,9 +258,9 @@ VALUES	('00001',1,1,1,GETDATE()),
 --***** INSERT TABLA ORDEN DE COMPRA --******--
 GO
 INSERT INTO Prod.tbOrdenCompra (orco_IdCliente, orco_FechaEmision,	orco_FechaLimite, orco_MetodoPago, orco_Materiales,	orco_IdEmbalaje, orco_EstadoOrdenCompra, orco_DireccionEntrega,	usua_UsuarioCreacion, orco_FechaCreacion)
-VALUES	( 1,'01/08/2023','01/08/2023',1,1,1,'p','OTRO WEBÓN',1,'01/08/2023'),
-		( 1,'01/08/2023','01/08/2023',1,1,1,'p','QUE COPIÓ',1,'08/16/2023'),
-		( 1,'01/08/2023','01/08/2023',1,1,1,'p','TODOS LOS',1,'01/17/2023'),
+VALUES	( 1,'01/08/2023','01/08/2023',1,1,1,'P','OTRO WEBÓN',1,'01/08/2023'),
+		( 1,'01/08/2023','01/08/2023',1,1,1,'T','QUE COPIÓ',1,'08/16/2023'),
+		( 1,'01/08/2023','01/08/2023',1,1,1,'C','TODOS LOS',1,'01/17/2023'),
 		( 1,'01/08/2023','01/08/2023',1,1,1,'p','REGISTROS',1,'01/17/2023');
 
 

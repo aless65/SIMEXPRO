@@ -52,17 +52,15 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
 
         public IEnumerable<tbOrdenCompraDetalles> List()
         {
-            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
-            var result = db.Query<tbOrdenCompraDetalles>(ScriptsDataBase.ListarOrdenCompraDetalles, null, commandType: System.Data.CommandType.StoredProcedure);
-            return result;
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<tbOrdenCompraDetalles> List(tbOrdenCompraDetalles item)
+        public IEnumerable<tbOrdenCompraDetalles> ListByIdOrdenCompra(int orco_Id)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();
-            parametros.Add("@code_Id", item.code_Id, DbType.Int32, ParameterDirection.Input);
-            var result = db.Query<tbOrdenCompraDetalles>(ScriptsDataBase.ListarOrdenCompraDetalles, null, commandType: System.Data.CommandType.StoredProcedure);
+            parametros.Add("@orco_Id", orco_Id, DbType.Int32, ParameterDirection.Input);
+            var result = db.Query<tbOrdenCompraDetalles>(ScriptsDataBase.ListarOrdenCompraDetalles, parametros, commandType: System.Data.CommandType.StoredProcedure);
             return result;
         }
 

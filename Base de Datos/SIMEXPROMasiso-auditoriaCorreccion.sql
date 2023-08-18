@@ -2563,7 +2563,7 @@ CREATE TABLE Prod.tbLotes(
 	mate_Id						INT NOT NULL,
 	unme_Id						INT NOT NULL,
 	prod_Id						INT,
-	lote_Stock  				INT NOT NULL,
+	lote_Stock  				DECIMAL(18,2) NOT NULL,
 	lote_CantIngresada			DECIMAL(18,2) NOT NULL,
 	lote_Observaciones			NVARCHAR(500),
 	tipa_Id						INT NOT NULL,

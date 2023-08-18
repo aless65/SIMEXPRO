@@ -12287,10 +12287,14 @@ AS BEGIN
 	   	      (SELECT ppde_Id,
 		   		   tbdetalles.lote_Id,
 		   		   ppde_Cantidad,
-		   		   mate_Descripcion
+		   		   mate_Descripcion,
+				   tblotes.lote_Stock,
+				   tbarea.tipa_area
+				  
 		   	  FROM Prod.tbPedidosProduccionDetalles tbdetalles
 					INNER JOIN Prod.tbLotes tblotes			ON tbdetalles.lote_Id = tblotes.lote_Id
 					INNER JOIN Prod.tbMateriales tbmats		ON tblotes.mate_Id = tbmats.mate_Id
+					INNER JOIN Prod.tbArea	tbarea			ON tblotes.tipa_Id = tbarea.tipa_Id
 			  WHERE pediproduccion.ppro_Id = tbdetalles.ppro_Id
 				  FOR JSON PATH)										AS Detalles
 	  FROM Prod.tbPedidosProduccion pediproduccion
@@ -13736,6 +13740,7 @@ WHERE col.ciud_Id = @ciud_Id AND col.colo_Estado = 1
 
 GO
 ----------*********************TRIGGERS*******************----------
+--Aduanas
 /*Declarantes*/
 CREATE OR ALTER TRIGGER Adua.TR_tbDeclarantes_Update
 ON Adua.tbDeclarantes AFTER UPDATE 
@@ -13820,4 +13825,24 @@ AS
 		   @usua_UsuarioModificacion,
 		   @inte_FechaModificacion
 	FROM deleted
+GO
+
+--Producción
+/*Reducir stock de lotes*/
+CREATE OR ALTER TRIGGER Prod.TR_tbPedidosProduccionDetalles_InsertUpdate
+ON Prod.tbPedidosProduccionDetalles AFTER INSERT, UPDATE 
+AS
+
+	DECLARE @ppde_Cantidad DECIMAL(18,2) = (SELECT ppde_Cantidad FROM inserted)
+	DECLARE @ppde_CantidadAnterior DECIMAL(18,2) = (SELECT ppde_Cantidad FROM deleted)
+
+	DECLARE @lote_Id INT = (SELECT lote_Id FROM inserted)
+
+	UPDATE Prod.tbLotes
+	SET lote_Stock =+ @ppde_CantidadAnterior
+	WHERE lote_Id = @lote_Id
+
+	UPDATE Prod.tbLotes
+	SET lote_Stock =- @ppde_Cantidad
+	WHERE lote_Id = @lote_Id
 GO

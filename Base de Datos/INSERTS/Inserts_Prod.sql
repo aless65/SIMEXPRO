@@ -9,8 +9,8 @@
 /*-------------------------------------*/
 --***** INSERT TABLA CLIENTES --******--
 GO
-INSERT INTO [Prod].[tbClientes](clie_Nombre_O_Razon_Social, clie_Direccion, clie_RTN, clie_Nombre_Contacto, clie_Numero_Contacto, clie_Correo_Electronico, clie_FAX, usua_UsuarioCreacion, clie_FechaCreacion)
-VALUES('Miguel','Direccionando','054564','Josue','465465','sdkjssdasd','45454',1,'05-10-2021');
+INSERT INTO [Prod].[tbClientes](clie_Nombre_O_Razon_Social, clie_Direccion, clie_RTN, clie_Nombre_Contacto, clie_Numero_Contacto, clie_Correo_Electronico, clie_FAX, pvin_Id, usua_UsuarioCreacion, clie_FechaCreacion)
+VALUES('Miguel','Direccionando','054564','Josue','465465','sdkjssdasd','45454',5,1,'05-10-2021');
 
 
 /*--------------------------------------------*/
@@ -57,12 +57,12 @@ VALUES	('Bordado',1,GETDATE()),
 
 /*------------------------------------*/
 --***** INSERT TABLA TALLAS --******--
-GO
-INSERT INTO [Prod].[tbTallas] (tall_Codigo, tall_Nombre, usua_UsuarioCreacion, tall_FechaCreacion, tall_Estado)
-VALUES	('L','Large',1,GETDATE(),1),
-		('M','Medium',1,GETDATE(),1),
-		('S','Small',1,GETDATE(),1),
-		('XL','Extra Large',1,GETDATE(),1);
+--GO
+--INSERT INTO [Prod].[tbTallas] (tall_Codigo, tall_Nombre, usua_UsuarioCreacion, tall_FechaCreacion, tall_Estado)
+--VALUES	('L','Large',1,GETDATE(),1),
+--		('M','Medium',1,GETDATE(),1),
+--		('S','Small',1,GETDATE(),1),
+--		('XL','Extra Large',1,GETDATE(),1);
 
 /*-------------------------------------------*/
 --***** INSERT TABLA MODELOS MAQUINA --******--
@@ -267,11 +267,24 @@ VALUES	( 1,'01/08/2023','01/08/2023',1,1,1,'p','MI CASA',1,'01/08/2023'),
 /*---------------------------------------------------*/
 --***** INSERT TABLA ORDEN DE COMPRA DETALLE --******--
 GO
-INSERT INTO Prod.tbOrdenCompraDetalles
-(orco_Id, code_CantidadPrenda, esti_Id, tall_Id, code_Sexo, colr_Id, code_Documento, proc_IdComienza, proc_IdActual, code_Unidad, code_Valor,	code_Impuesto,code_Descuento,	code_EspecificacionEmbalaje, usua_UsuarioCreacion, code_FechaCreacion)
-VALUES		(4,2,1,1,'F',1,'aca deberia ir un documento',1,1,20,10,8,9,'no se la verdad',1,'01/08/2023'),
-			(4,2,1,1,'F',1,'aca deberia ir un documento',1,1,20,10,8,9,'no se la verdad',1,'01/08/2023'),
-			(4,2,1,1,'F',1,'aca deberia ir un documento',1,1,20,10,8,9,'no se la verdad',1,'01/08/2023');
+INSERT INTO Prod.tbOrdenCompraDetalles(orco_Id, 
+									   code_CantidadPrenda, 
+									   esti_Id, 
+									   tall_Id, 
+									   code_Sexo, 
+									   colr_Id, 
+									   --code_Documento, 
+									   proc_IdComienza, 
+									   proc_IdActual, 
+									   code_Unidad, 
+									   code_Valor,	
+									   code_Impuesto,	
+									   code_EspecificacionEmbalaje, 
+									   usua_UsuarioCreacion, 
+									   code_FechaCreacion)
+VALUES		(4,2,1,1,'F',1,1,1,20,10,8,'no se la verdad',1,'01/08/2023'),
+			(4,2,1,1,'F',1,1,1,20,10,8,'no se la verdad',1,'01/08/2023'),
+			(4,2,1,1,'F',1,1,1,20,10,8,'no se la verdad',1,'01/08/2023');
 
 
 

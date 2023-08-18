@@ -81,7 +81,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             parametros.Add("@ciud_Id", item.ciud_Id, DbType.String, ParameterDirection.Input);
             parametros.Add("@ciud_Nombre", item.ciud_Nombre, DbType.String, ParameterDirection.Input);
             parametros.Add("@pvin_Id", item.pvin_Id, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacionNavigation, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@ciud_FechaModificacion", item.ciud_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
             var answer = db.QueryFirst<string>(ScriptsDataBase.EditarCiudades, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;

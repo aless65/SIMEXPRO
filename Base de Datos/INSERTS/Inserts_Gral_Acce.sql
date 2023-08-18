@@ -360,15 +360,15 @@ VALUES
 	  (25, 15, 1, '2023-08-11', 1),
 	  (26, 16, 1, '2023-08-11', 1),
 	  (27, 16, 1, '2023-08-11', 1),
-	  (54, 16, 1, '2023-08-11', 1),
-	  (55, 17, 1, '2023-08-11', 1),
-	  (56, 17, 1, '2023-08-11', 1),
-	  (57, 17, 1, '2023-08-11', 1),
-	  (58, 18, 1, '2023-08-11', 1),
-	  (59, 18, 1, '2023-08-11', 1),
-	  (60, 18, 1, '2023-08-11', 1),
-	  (61, 19, 1, '2023-08-11', 1),
-	  (62, 19, 1, '2023-08-11', 1),
+	  --(54, 16, 1, '2023-08-11', 1),
+	  --(55, 17, 1, '2023-08-11', 1),
+	  --(56, 17, 1, '2023-08-11', 1),
+	  --(57, 17, 1, '2023-08-11', 1),
+	  --(58, 18, 1, '2023-08-11', 1),
+	  --(59, 18, 1, '2023-08-11', 1),
+	  --(60, 18, 1, '2023-08-11', 1),
+	  --(61, 19, 1, '2023-08-11', 1),
+	  --(62, 19, 1, '2023-08-11', 1),
 	  (10, 19, 1, '2023-08-11', 1),
 	  (10, 20, 1, '2023-08-11', 1),
 	  (11, 20, 1, '2023-08-11', 1),
@@ -1458,20 +1458,20 @@ VALUES	('EUR', 'COMUNIDAD EUROPEA, EURO', 1, 1,  GETDATE()),
 --***** INSERT TABLA EMPLEADOS --******--
 GO
 INSERT INTO [Gral].[tbEmpleados](empl_Nombres, empl_Apellidos, empl_DNI, escv_Id, empl_Sexo, empl_FechaNacimiento, empl_Telefono, empl_DireccionExacta, pvin_Id, empl_CorreoElectronico, carg_Id, empl_EsAduana, usua_UsuarioCreacion, empl_FechaCreacion)
-values('Mario Antoni','Lopez Suazo','0311-2005-00908',1,'M','05-10-2022','97856222','col. el Amatillo casa #5',1,'mario@gmail.com',1,1,1,'05-06-2000');
+values('Mario Antoni','Lopez Suazo','0311-2005-00908',1,'M','05-10-2022','9785-6222','col. el Amatillo casa #5',1,'mario@gmail.com',1,1,1,'05-06-2000');
 
 GO
 INSERT INTO Gral.tbEmpleados (empl_Nombres, empl_Apellidos, empl_DNI, escv_Id, empl_Sexo, empl_FechaNacimiento, empl_Telefono, empl_DireccionExacta, pvin_Id, empl_CorreoElectronico, carg_Id, empl_EsAduana, usua_UsuarioCreacion, empl_FechaCreacion)
-VALUES ('Karla Melissa',		'Lopez Medina',		'0502-2000-01549',1,'F','10-16-2004','98041263','Calle principal', 65,'karlamedina12@gmail.com',1,1,1,GETDATE()),
-       ('Paulo Gustavo',		'Mejia Vides',		'0502-2000-96478',1,'M','10-16-2004','99011263','Calle principal', 66,'gustavomejia2@gmail.com',2,1,1,GETDATE()),
-	   ('Alex',					'Mendez',			'0502-1994-96478',1,'M','10-16-2004','33011263','1  Calle 2 Avenida', 66,'alexmendez43@gmail.com',2,1,1,GETDATE()),
-	   ('Jose Luis',			'Velazquez',		'0501-1996-96478',1,'M','10-16-2004','97894321','3  Calle 2 Avenida', 66,'joseluis3@gmail.com',1,1,1,GETDATE()),
-	   ('Luis',					'Molina',			'0501-2002-96478',1,'M','10-16-2004','32524321','3  Calle 2 Avenida', 67,'luismedina12@gmail.com',1,1,1,GETDATE()),
-	   ('Marcia Patricia',		'Hernandez Rauda',	'0501-7002-96478',1,'F','10-16-2004','33524321','3  Calle 3 Avenida', 68,'marciarauda@gmail.com',1,1,1,GETDATE()),
-	   ('Alonso',				'Medina',			'0501-2000-96478',1,'M','10-16-2004','32524321','3  Calle 3 Avenida', 69,'marciarauda@gmail.com',1,1,1,GETDATE()),
-	   ('Claudia Esmeralda',	'Portillo',			'0503-2000-96400',1,'F','10-16-2004','95524321','Calle principal', 69,'marciarauda@gmail.com',1,1,1,GETDATE()),
-	   ('Mauricio',				'Lopez',			'0503-2001-90400',1,'M','10-16-2004','90924321','Calle principal', 70,'mauriciolopez@gmail.com',1,1,1,GETDATE()),
-	   ('Maria Julia',			'Matute',			'0503-2001-90110',1,'F','10-16-2004','99924321','Calle principal', 70,'maria@gmail.com',1,1,1,GETDATE());
+VALUES ('Karla Melissa',		'Lopez Medina',		'0502-2000-01549',1,'F','10-16-2004','9804-1263','Calle principal', 65,'karlamedina12@gmail.com',1,1,1,GETDATE()),
+       ('Paulo Gustavo',		'Mejia Vides',		'0502-2000-96478',1,'M','10-16-2004','9901-1263','Calle principal', 66,'gustavomejia2@gmail.com',2,1,1,GETDATE()),
+	   ('Alex',					'Mendez',			'0502-1994-96478',1,'M','10-16-2004','3301-1263','1  Calle 2 Avenida', 66,'alexmendez43@gmail.com',2,1,1,GETDATE()),
+	   ('Jose Luis',			'Velazquez',		'0501-1996-96478',1,'M','10-16-2004','9789-4321','3  Calle 2 Avenida', 66,'joseluis3@gmail.com',1,1,1,GETDATE()),
+	   ('Luis',					'Molina',			'0501-2002-96478',1,'M','10-16-2004','3252-4321','3  Calle 2 Avenida', 67,'luismedina12@gmail.com',1,1,1,GETDATE()),
+	   ('Marcia Patricia',		'Hernandez Rauda',	'0501-7002-96478',1,'F','10-16-2004','3352-4321','3  Calle 3 Avenida', 68,'marciarauda@gmail.com',1,1,1,GETDATE()),
+	   ('Alonso',				'Medina',			'0501-2000-96478',1,'M','10-16-2004','3252-4321','3  Calle 3 Avenida', 69,'marciarauda@gmail.com',1,1,1,GETDATE()),
+	   ('Claudia Esmeralda',	'Portillo',			'0503-2000-96400',1,'F','10-16-2004','9552-4321','Calle principal', 69,'marciarauda@gmail.com',1,1,1,GETDATE()),
+	   ('Mauricio',				'Lopez',			'0503-2001-90400',1,'M','10-16-2004','9092-4321','Calle principal', 70,'mauriciolopez@gmail.com',1,1,1,GETDATE()),
+	   ('Maria Julia',			'Matute',			'0503-2001-90110',1,'F','10-16-2004','9992-4321','Calle principal', 70,'maria@gmail.com',1,1,1,GETDATE());
 
 
 /*-----------------------------------*/
@@ -1480,7 +1480,7 @@ GO
 INSERT INTO [Gral].[tbProveedores]
 (prov_NombreCompania, prov_NombreContacto, prov_Telefono, prov_CodigoPostal, prov_Ciudad, prov_DireccionExacta, prov_CorreoElectronico, usua_UsuarioCreacion, prov_FechaCreacion, prov_Estado)
 VALUES
-('ECOMODA','BEATRIZ PINZON ZOLANO','98159299','21004',1,'--------','is@hotmail.com',1,GETDATE(),1);
+('ECOMODA','BEATRIZ PINZON ZOLANO','9815-9299','21004',1,'--------','is@hotmail.com',1,GETDATE(),1);
 
 /*-----------------------------------*/
 --***** INSERT TABLA FORMAS DE ENVIO --******--

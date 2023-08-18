@@ -473,12 +473,12 @@ GO
 --**************** SCHEMA Aduana ***************************--
 --**********************************************************--
 
-
 CREATE TABLE Adua.tbAduanas
 (
 		adua_Id							INT 			IDENTITY(1,1),
 		adua_Codigo						CHAR(4)			NOT NULL,
 		adua_Nombre						NVARCHAR(500) 	NOT NULL,
+		ciud_Id                         INT,
 		adua_Direccion_Exacta			NVARCHAR(800) 	NOT NULL,
 		usua_UsuarioCreacion			INT 			NOT NULL,
 		adua_FechaCreacion				DATETIME		NOT NULL,
@@ -494,7 +494,8 @@ CONSTRAINT PK_Adua_tbAduanas_adua_Id 	 PRIMARY KEY (adua_Id),
 CONSTRAINT UQ_Adua_tbAduanas_adua_Codigo UNIQUE (adua_Codigo, adua_Nombre),
 CONSTRAINT FK_Adua_tbAduanas_tbUsuarios_adua_UsucCrea								FOREIGN KEY (usua_UsuarioCreacion)			REFERENCES Acce.tbUsuarios (usua_Id),
 CONSTRAINT FK_Adua_tbAduanas_tbUsuarios_adua_usua_UsuarioModificacion				FOREIGN KEY (usua_UsuarioModificacion) 		REFERENCES Acce.tbUsuarios (usua_Id),
-CONSTRAINT FK_Adua_tbAduanas_tbUsuarios_adua_usua_UsuarioEliminacion				FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios (usua_Id)
+CONSTRAINT FK_Adua_tbAduanas_tbUsuarios_adua_usua_UsuarioEliminacion				FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios (usua_Id),
+CONSTRAINT FK_Adua_tbAduanas_Gral_tbCiudades_Adua_ciud_Id FOREIGN KEY (ciud_Id) REFERENCES Gral.tbCiudades (ciud_Id)
 );
 
 
@@ -1418,6 +1419,8 @@ CREATE TABLE Prod.tbMateriales(
 	CONSTRAINT FK_Prod_tbMateriales_subc_Id_Prod_tbSubcategoria_subc_Id								FOREIGN KEY (subc_Id) 					REFERENCES Prod.tbSubcategoria(subc_Id),
 	CONSTRAINT FK_Prod_tbMateriales_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id					FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbMateriales_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id				FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios (usua_Id),
+    CONSTRAINT UQ_Prod_tbMateriales_mate_Descripcion UNIQUE(mate_Descripcion)
+
 	--CONSTRAINT FK_Prod_tbMateriales_usua_UsuarioEliminacion_Acce_tbUsuarios_usua_Id					FOREIGN KEY (usua_UsuarioEliminacion)	REFERENCES Acce.tbUsuarios (usua_Id),
 );
 GO
@@ -2564,7 +2567,7 @@ CREATE TABLE Prod.tbLotes(
 	mate_Id						INT NOT NULL,
 	unme_Id						INT NOT NULL,
 	prod_Id						INT,
-	lote_Stock  				INT NOT NULL,
+	lote_Stock  				DECIMAL(18,2) NOT NULL,
 	lote_CantIngresada			DECIMAL(18,2) NOT NULL,
 	lote_Observaciones			NVARCHAR(500),
 	tipa_Id						INT NOT NULL,

@@ -12,13 +12,13 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
   </PropertyGroup>
   <ItemGroup>
     <File Include="appsettings.json">
-      <publishTime>08/15/2023 11:12:23</publishTime>
+      <publishTime>08/15/2023 07:46:22</publishTime>
     </File>
     <File Include="AutoMapper.dll">
-      <publishTime>01/05/2022 09:27:54</publishTime>
+      <publishTime>05/01/2022 09:27:54</publishTime>
     </File>
     <File Include="AutoMapper.Extensions.Microsoft.DependencyInjection.dll">
-      <publishTime>08/12/2019 07:19:42</publishTime>
+      <publishTime>12/08/2019 07:19:42</publishTime>
     </File>
     <File Include="Dapper.dll">
       <publishTime>06/20/2023 06:37:10</publishTime>
@@ -30,10 +30,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>04/15/2022 16:18:12</publishTime>
     </File>
     <File Include="Microsoft.Azure.KeyVault.dll">
-      <publishTime>02/03/2020 13:31:18</publishTime>
+      <publishTime>03/02/2020 13:31:18</publishTime>
     </File>
     <File Include="Microsoft.Azure.KeyVault.WebKey.dll">
-      <publishTime>02/03/2020 13:31:14</publishTime>
+      <publishTime>03/02/2020 13:31:14</publishTime>
     </File>
     <File Include="Microsoft.Azure.Services.AppAuthentication.dll">
       <publishTime>06/13/2018 11:39:42</publishTime>
@@ -138,19 +138,19 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>08/25/2020 14:34:56</publishTime>
     </File>
     <File Include="runtimes/win-arm/native/Microsoft.Data.SqlClient.SNI.pdb">
-      <publishTime>08/25/2020 14:31:56</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.dll">
       <publishTime>08/25/2020 14:35:06</publishTime>
     </File>
     <File Include="runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.pdb">
-      <publishTime>08/25/2020 14:31:56</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll">
       <publishTime>08/25/2020 14:34:56</publishTime>
     </File>
     <File Include="runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.pdb">
-      <publishTime>08/25/2020 14:31:56</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll">
       <publishTime>08/25/2020 14:34:56</publishTime>
@@ -180,7 +180,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>08/18/2023 16:08:37</publishTime>
     </File>
     <File Include="SIMEXPRO.API.runtimeconfig.json">
-      <publishTime>08/11/2023 11:02:27</publishTime>
+      <publishTime>08/02/2023 08:29:41</publishTime>
     </File>
     <File Include="SIMEXPRO.BusinessLogic.dll">
       <publishTime>08/18/2023 16:08:25</publishTime>

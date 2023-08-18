@@ -8472,21 +8472,21 @@ END
 /*Insertar condiciones*/
 GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Insertar 
-	@deva_Id									INT, 
-	@codi_Restricciones_Utilizacion				BIT, 
-	@codi_Indicar_Restricciones_Utilizacion		NVARCHAR(500), 
-	@codi_Depende_Precio_Condicion				BIT, 
-	@codi_Indicar_Existe_Condicion				NVARCHAR(500),
-	@codi_Condicionada_Revertir					BIT, 
-	@codi_Vinculacion_Comprador_Vendedor		BIT, 
-	@codi_Tipo_Vinculacion						NVARCHAR(500), 
-	@codi_Vinculacion_Influye_Precio			BIT, 
-	@codi_Pagos_Descuentos_Indirectos			BIT, 
-	@codi_Concepto_Monto_Declarado				NVARCHAR(500), 
-	@codi_Existen_Canones						BIT, 
-	@codi_Indicar_Canones						NVARCHAR(500), 
-	@usua_UsuarioCreacion						INT, 
-	@codi_FechaCreacion							DATE
+	parametros.Add("@@deva_Id									INT, 
+	parametros.Add("@@codi_Restricciones_Utilizacion				BIT, 
+	parametros.Add("@@codi_Indicar_Restricciones_Utilizacion		NVARCHAR(500), 
+	parametros.Add("@@codi_Depende_Precio_Condicion				BIT, 
+	parametros.Add("@@codi_Indicar_Existe_Condicion				NVARCHAR(500),
+	parametros.Add("@@codi_Condicionada_Revertir					BIT, 
+	parametros.Add("@@codi_Vinculacion_Comprador_Vendedor		BIT, 
+	parametros.Add("@@codi_Tipo_Vinculacion						NVARCHAR(500), 
+	parametros.Add("@@codi_Vinculacion_Influye_Precio			BIT, 
+	parametros.Add("@@codi_Pagos_Descuentos_Indirectos			BIT, 
+	parametros.Add("@@codi_Concepto_Monto_Declarado				NVARCHAR(500), 
+	parametros.Add("@@codi_Existen_Canones						BIT, 
+	parametros.Add("@@codi_Indicar_Canones						NVARCHAR(500), 
+	parametros.Add("@@usua_UsuarioCreacion						INT, 
+	parametros.Add("@@codi_FechaCreacion							DATE
 AS
 BEGIN
 	BEGIN TRY
@@ -12881,12 +12881,12 @@ BEGIN
  
   FROM	    Prod.tbPODetallePorPedidoOrdenDetalle ocpo
 			LEFT JOIN  Prod.tbOrdenCompra orco				ON ocpo.orco_Id = orco.orco_Id
-			INNER JOIN Prod.tbClientes clie					ON orco.orco_IdCliente = clie.clie_Id
+			LEFT JOIN Prod.tbClientes clie					ON orco.orco_IdCliente = clie.clie_Id
             LEFT JOIN  Prod.tbOrdenCompraDetalles code		ON ocpo.code_Id = code.code_Id
-			INNER JOIN Prod.tbEstilos esti					ON code.esti_Id = esti.esti_Id
-			INNER JOIN Prod.tbTallas talla					ON code.tall_Id = talla.tall_Id
-			INNER JOIN Prod.tbColores colr					ON code.colr_Id = colr.colr_Id
-			INNER JOIN Acce.tbUsuarios usu					ON usu.usua_Id = ocpo.usua_UsuarioCreacion 
+			LEFT JOIN Prod.tbEstilos esti					ON code.esti_Id = esti.esti_Id
+			LEFT JOIN Prod.tbTallas talla					ON code.tall_Id = talla.tall_Id
+			LEFT JOIN Prod.tbColores colr					ON code.colr_Id = colr.colr_Id
+			LEFT JOIN Acce.tbUsuarios usu					ON usu.usua_Id = ocpo.usua_UsuarioCreacion 
 END 
 GO
 

@@ -12847,9 +12847,12 @@ GO
 CREATE OR ALTER PROCEDURE Prod.UDP_tbPODetallePorPedidoOrdenDetalle_Listar
 AS
 BEGIN
-  SELECT    popo.popo_Id,
+  SELECT    ocpo.ocpo_Id,
 			code.code_Id,
-			popo.prod_Id,
+			ocpo.orco_Id,
+			clie.clie_Id,
+			clie.clie_Nombre_O_Razon_Social,
+			ocpo.prod_Id,
 			code.esti_Id,
 			code.code_CantidadPrenda,
 			code.code_Sexo,
@@ -12859,16 +12862,18 @@ BEGIN
 			colr.colr_Nombre,
 			esti.esti_Descripcion,
 		   		
-			popo.usua_UsuarioCreacion,
+			ocpo.usua_UsuarioCreacion,
 			usu.usua_Nombre						  AS usua_UsuarioCreacionNombre,
-			popo_FechaCreacion
+			ocpo_FechaCreacion
  
-  FROM	    Prod.tbPODetallePorPedidoOrdenDetalle popo
-            INNER JOIN Prod.tbOrdenCompraDetalles code		ON popo.code_Id = code.code_Id
+  FROM	    Prod.tbPODetallePorPedidoOrdenDetalle ocpo
+			LEFT JOIN  Prod.tbOrdenCompra orco				ON ocpo.orco_Id = orco.orco_Id
+			INNER JOIN Prod.tbClientes clie					ON orco.orco_IdCliente = clie.clie_Id
+            LEFT JOIN  Prod.tbOrdenCompraDetalles code		ON ocpo.code_Id = code.code_Id
 			INNER JOIN Prod.tbEstilos esti					ON code.esti_Id = esti.esti_Id
 			INNER JOIN Prod.tbTallas talla					ON code.tall_Id = talla.tall_Id
 			INNER JOIN Prod.tbColores colr					ON code.colr_Id = colr.colr_Id
-			INNER JOIN Acce.tbUsuarios usu					ON usu.usua_Id = popo.usua_UsuarioCreacion 
+			INNER JOIN Acce.tbUsuarios usu					ON usu.usua_Id = ocpo.usua_UsuarioCreacion 
 END 
 GO
 
@@ -12876,6 +12881,7 @@ GO
 CREATE OR ALTER PROCEDURE Prod.UDP_tbPODetallePorPedidoOrdenDetalle_Insertar 
 	@prod_Id						INT,
 	@code_Id						INT,
+	@orco_Id						INT,
 	@usua_UsuarioCreacion			INT,
 	@popo_FechaCreacion				DATETIME 
 AS
@@ -12883,10 +12889,12 @@ BEGIN
 	BEGIN TRY
 		INSERT INTO Prod.tbPODetallePorPedidoOrdenDetalle(prod_Id,
 														  code_Id,
+														  orco_Id,
 														  usua_UsuarioCreacion,
 														  popo_FechaCreacion)
 		VALUES (@prod_Id,
 				@code_Id,
+				@orco_Id,
 				@usua_UsuarioCreacion,
 				@popo_FechaCreacion)
 
@@ -12899,13 +12907,37 @@ BEGIN
 END
 GO
 
+CREATE OR ALTER PROCEDURE Prod.UDP_tbPODetallePorPedidoOrdenDetalle_Editar 
+	@ocpo_Id						INT,
+	@prod_Id						INT,
+	@code_Id						INT,
+	@orco_Id						INT,
+	@usua_UsuarioModificacion		INT,
+	@popo_FechaModificacion			DATETIME 
+AS
+BEGIN
+	BEGIN TRY
+		UPDATE Prod.tbPODetallePorPedidoOrdenDetalle
+		SET code_Id = @code_Id,
+			code_Id = @code_Id
+		WHERE ocpo_Id = @ocpo_Id
+
+		SELECT 1
+
+	END TRY
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
 CREATE OR ALTER PROCEDURE Prod.UDP_tbPODetallePorPedidoOrdenDetalle_Eliminar 
-	@popo_Id						INT
+	@ocpo_Id						INT
 AS
 BEGIN
 	BEGIN TRY
 		DELETE FROM Prod.tbPODetallePorPedidoOrdenDetalle
-		WHERE popo_Id = @popo_Id
+		WHERE ocpo_Id = @ocpo_Id
 
 		SELECT 1
 
@@ -12928,10 +12960,12 @@ GO
 CREATE OR ALTER PROCEDURE Prod.UDP_tbLotes_Listar
 AS
 BEGIN
-SELECT lote_Id, 
+SELECT 
+	   --CAMPOS PROPIOS DE LOTES
+	   lote_Id, 
 	   lotes.mate_Id, 
 	   lotes.prod_Id,
-		materiales.mate_Descripcion,
+	   materiales.mate_Descripcion,
 	   lotes.unme_Id,
 	   UnidadesMedida.unme_Descripcion,
 	   lotes.lote_Observaciones,
@@ -12939,6 +12973,8 @@ SELECT lote_Id,
 	   lote_CantIngresada,
 	   areas.tipa_area,
 	   lotes.tipa_id,
+
+	   --PEDIDOS DE MATERIALES
 	   pedidos.peor_Id,
 	   pedidosDetalle.prod_Id,
 	   (SELECT RowNumber
@@ -12947,11 +12983,28 @@ SELECT lote_Id,
 				  FROM [Prod].[tbPedidosOrdenDetalle]
 				 WHERE pedi_Id = pedidos.peor_Id)			AS RowNumbers
 		 WHERE prod_Id = pedidosDetalle.prod_Id)			AS prod_NumeroLinea,
-	   pedidos.peor_No_Duca,
 	   pedidos.prov_Id,
 	   prov.prov_NombreCompania,
 	   prov.prov_NombreContacto,
 	   prov.prov_DireccionExacta,
+
+	   --ASIGNACION A P.O
+	   po.orco_Id,
+	   po.orco_IdCliente,
+	   poDetalle.code_Id,
+	   poDetalle.code_CantidadPrenda,
+	   poDetalle.esti_Id,
+	   poDetalle.tall_Id,
+	   poDetalle.esti_Id,
+	   poDetalle.code_CantidadPrenda,
+	   poDetalle.code_Sexo,
+	   talla.tall_Nombre,
+	   poDetalle.colr_Id,
+	   colr.colr_Nombre,
+	   esti.esti_Descripcion,
+
+	   --INFO DUCA (PENDIENTE)
+	   pedidos.peor_No_Duca,
 	   UsuCreacion.usua_Nombre        AS UsuarioCreacionNombre,
 	   lotes.usua_UsuarioCreacion,
 	   lotes.lote_FechaCreacion, 
@@ -12970,7 +13023,10 @@ SELECT lote_Id,
 	   LEFT JOIN Prod.tbPedidosOrden					AS pedidos			 ON pedidosDetalle.pedi_Id		   = pedidos.peor_Id
 	   LEFT JOIN Prod.tbPODetallePorPedidoOrdenDetalle  AS poDetpedidoDet	 ON pedidosDetalle.prod_Id         = poDetpedidoDet.prod_Id
 	   LEFT JOIN Prod.tbOrdenCompraDetalles				AS poDetalle		 ON poDetpedidoDet.code_Id		   = poDetalle.code_Id
-	   LEFT JOIN Prod.tbOrdenCompra						AS po				 ON poDetalle.orco_Id			   = po.orco_Id
+	   LEFT JOIN Prod.tbEstilos							AS esti				 ON poDetalle.esti_Id			   = esti.esti_Id
+	   LEFT JOIN Prod.tbTallas							AS talla			 ON poDetalle.tall_Id			   = talla.tall_Id
+	   LEFT JOIN Prod.tbColores							AS colr				 ON poDetalle.colr_Id			   = colr.colr_Id
+	   LEFT JOIN Prod.tbOrdenCompra						AS po				 ON poDetpedidoDet.orco_Id		   = po.orco_Id
 	   LEFT JOIN Gral.tbProveedores						AS prov				 ON pedidos.prov_Id			       = prov.prov_Id
 	   LEFT JOIN Adua.tbDuca							AS duca				 ON pedidos.peor_No_Duca		   = duca.duca_No_Duca
 	   LEFT JOIN Acce.tbUsuarios						AS UsuCreacion       ON lotes.usua_UsuarioCreacion     = UsuCreacion.usua_Id

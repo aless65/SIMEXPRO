@@ -2537,18 +2537,20 @@ GO
 
 --Créditos a Dani por nomenclatura popo
 CREATE TABLE Prod.tbPODetallePorPedidoOrdenDetalle(
-	popo_Id						INT IDENTITY(1,1),
+	ocpo_Id						INT IDENTITY(1,1),
 	prod_Id						INT NOT NULL,
-	code_Id						INT NOT NULL,
+	code_Id						INT NULL,
+	orco_Id						INT NULL,
 
 	usua_UsuarioCreacion		INT NOT NULL,
 	popo_FechaCreacion			DATETIME NOT NULL,
 	--usua_UsuarioModificacion	INT DEFAULT NULL,
 	--popo_FechaModificacion		DATETIME DEFAULT NULL
 
-	CONSTRAINT PK_Prod_tbPODetallePorPedidoOrdenDetalle_popo_Id										PRIMARY KEY(popo_Id),
+	CONSTRAINT PK_Prod_tbPODetallePorPedidoOrdenDetalle_ocpo_Id										PRIMARY KEY(ocpo_Id),
 	CONSTRAINT FK_Prod_tbPODetallePorPedidoOrdenDetalle_tbPedidosOrdenDetalle_prod_Id				FOREIGN KEY(prod_Id)					REFERENCES Prod.tbPedidosOrdenDetalle(prod_Id),
-	CONSTRAINT FK_Prod_tbPODetallePorPedidoOrdenDetalle_tbOrdenCompra_code_Id						FOREIGN KEY(code_Id)					REFERENCES Prod.tbOrdenCompraDetalles(code_Id),
+	CONSTRAINT FK_Prod_tbPODetallePorPedidoOrdenDetalle_tbOrdenCompraDetalle_code_Id				FOREIGN KEY(code_Id)					REFERENCES Prod.tbOrdenCompraDetalles(code_Id),
+	CONSTRAINT FK_Prod_tbPODetallePorPedidoOrdenDetalle_tbOrdenCompra_orco_Id						FOREIGN KEY(orco_Id)					REFERENCES Prod.tbOrdenCompraDetalles(orco_Id),
 	CONSTRAINT FK_Prod_tbPODetallePorPedidoOrdenDetalle_Acce_tbUsuarios_usua_UsuarioCreacion		FOREIGN KEY(usua_UsuarioCreacion)       REFERENCES Acce.tbUsuarios(usua_Id),
 	--CONSTRAINT FK_Prod_tbPODetallePorPedidoOrdenDetalle_Acce_tbUsuarios_usua_UsuarioModificacion	FOREIGN KEY(usua_UsuarioModificacion)   REFERENCES Acce.tbUsuarios(usua_Id)
 );
@@ -2561,7 +2563,7 @@ CREATE TABLE Prod.tbLotes(
 	unme_Id						INT NOT NULL,
 	prod_Id						INT,
 	lote_Stock  				INT NOT NULL,
-	lote_CantIngresada			INT NOT NULL,
+	lote_CantIngresada			DECIMAL(18,2) NOT NULL,
 	lote_Observaciones			NVARCHAR(500),
 	tipa_Id						INT NOT NULL,
 

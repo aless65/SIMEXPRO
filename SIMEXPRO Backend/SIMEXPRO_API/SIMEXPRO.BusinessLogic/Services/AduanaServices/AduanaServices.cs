@@ -19,6 +19,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         private readonly CodigoImpuestoRepository _codigoImpuestoRepository;
         private readonly ComercianteIndividualRepository _comercianteIndividualRepository;
         private readonly ConceptoPagoRepository _conceptoPagoRepository;
+        private readonly CondicionesRepository _condicionesRepository;
         private readonly CondicionesComercialesRepository _condicionesComercialesRepository;
         private readonly Declaraciones_ValorHistorialRepository _declaraciones_ValorHistorialRepository;
         private readonly Declaraciones_ValorRepository _declaraciones_ValorRepository;
@@ -51,7 +52,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         private readonly TransporteRepository _transporteRepository;
 
         public AduanaServices(AduanasRepository AduanasRepository, ArancelesRepository ArancelesRepository, BaseCalculosRepository BaseCalculosRepository, BoletinPagoRepository BoletinPagoRepository, BoletinPagoDetallesRepository BoletinPagoDetallesRepository,
-                                CodigoImpuestoRepository CodigoImpuestoRepository, ComercianteIndividualRepository ComercianteIndividualRepository, ConceptoPagoRepository ConceptoPagoRepository,
+                                CodigoImpuestoRepository CodigoImpuestoRepository, ComercianteIndividualRepository ComercianteIndividualRepository, ConceptoPagoRepository ConceptoPagoRepository, CondicionesRepository CondicionesRepository,
                                 CondicionesComercialesRepository CondicionesComercialesRepository,Declaraciones_ValorHistorialRepository Declaraciones_ValorHistorialRepository, Declaraciones_ValorRepository Declaraciones_ValorRepository,
                                 DocumentosContratosRepository DocumentosContratosRepository, DocumentosdeSoporteRepository DocumentosdeSoporteRepository, DocumentosPDFRepository DocumentosPDFRepository, 
                                 DucaRepository DucaRepository, EstadoBoletinRepository EstadoBoletinRepository, EstadoMercanciasRepository EstadoMercanciasRepository, FacturasRepository FacturasRepository , FormasdePagoRepository FormasdePagoRepository, ImpuestosporAracelRepository ImpuestosporAracelRepository,
@@ -68,6 +69,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             _codigoImpuestoRepository = CodigoImpuestoRepository;
             _comercianteIndividualRepository = ComercianteIndividualRepository;
             _conceptoPagoRepository = ConceptoPagoRepository;
+            _condicionesRepository = CondicionesRepository;
             _condicionesComercialesRepository = CondicionesComercialesRepository;
             _declaraciones_ValorHistorialRepository = Declaraciones_ValorHistorialRepository;
             _declaraciones_ValorRepository = Declaraciones_ValorRepository;
@@ -613,6 +615,67 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         }
         #endregion
 
+        #region Condiciones
+
+        public ServiceResult ListarCondiciones()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _condicionesRepository.List();
+                return result.Ok(list);
+            }
+            catch (Exception e)
+            {
+                return result.Error(e.Message);
+            }
+        }
+
+        public ServiceResult InsertarCondiciones(tbCondiciones item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _condicionesRepository.Insert(item);
+                if (map.MessageStatus == "1")
+                {
+                    return result.Ok(map);
+                }
+                else
+                {
+
+                    return result.Error(map);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ActualizarCondiciones(tbCondiciones item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _condicionesRepository.Update(item);
+                if (map.MessageStatus == "1")
+                {
+                    return result.Ok(map);
+                }
+                else
+                {
+
+                    return result.Error(map);
+                }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        #endregion
         #region CondicionesComerciales
 
         public ServiceResult ListarCondicionesComerciales()

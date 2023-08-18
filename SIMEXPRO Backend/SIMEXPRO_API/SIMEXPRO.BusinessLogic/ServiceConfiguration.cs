@@ -39,6 +39,7 @@ namespace SIMEXPRO.BussinessLogic
             services.AddScoped<ComercianteIndividualRepository>();
             services.AddScoped<ConceptoPagoRepository>();
             services.AddScoped<CondicionesComercialesRepository>();
+            services.AddScoped<CondicionesRepository>();
             services.AddScoped<Declaraciones_ValorHistorialRepository>();
             services.AddScoped<Declaraciones_ValorRepository>();
             services.AddScoped<DocumentosContratosRepository>();

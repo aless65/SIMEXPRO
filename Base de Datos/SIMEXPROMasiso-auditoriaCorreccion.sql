@@ -16,7 +16,7 @@
 	*/
 
 	CREATE SCHEMA Adua
-	GO
+	GO  
 	CREATE SCHEMA Prod
 	GO
 	CREATE SCHEMA Acce
@@ -410,6 +410,8 @@ GO
 
 
 --Seccion 2 Chris
+
+select * from Gral.tbUnidadMedidas
 
 CREATE TABLE Gral.tbUnidadMedidas
 (
@@ -1876,8 +1878,8 @@ CREATE TABLE Prod.tbOrdenCompraDetalles(
 	tall_Id						INT NOT NULL,
 	code_Sexo					CHAR(1) NOT NULL,
 	colr_Id						INT NOT NULL,
-	code_Documento				NVARCHAR(MAX),
-	code_Medidas				NVARCHAR(MAX) NOT NULL,
+	--code_Documento				NVARCHAR(MAX),
+	--code_Medidas				NVARCHAR(MAX) NOT NULL,
 	proc_IdComienza				INT NOT NULL,
 	proc_IdActual				INT NOT NULL,
 	code_Unidad					DECIMAL(18,2) NOT NULL,
@@ -2540,22 +2542,25 @@ GO
 
 --Créditos a Dani por nomenclatura popo
 CREATE TABLE Prod.tbPODetallePorPedidoOrdenDetalle(
-	popo_Id						INT IDENTITY(1,1),
+	ocpo_Id						INT IDENTITY(1,1),
 	prod_Id						INT NOT NULL,
-	code_Id						INT NOT NULL,
+	code_Id						INT NULL,
+	orco_Id						INT NULL,
 
 	usua_UsuarioCreacion		INT NOT NULL,
-	popo_FechaCreacion			DATETIME NOT NULL,
-	--usua_UsuarioModificacion	INT DEFAULT NULL,
-	--popo_FechaModificacion		DATETIME DEFAULT NULL
+	ocpo_FechaCreacion			DATETIME NOT NULL,
+	usua_UsuarioModificacion	INT DEFAULT NULL,
+	ocpo_FechaModificacion		DATETIME DEFAULT NULL
 
-	CONSTRAINT PK_Prod_tbPODetallePorPedidoOrdenDetalle_popo_Id										PRIMARY KEY(popo_Id),
+	CONSTRAINT PK_Prod_tbPODetallePorPedidoOrdenDetalle_ocpo_Id										PRIMARY KEY(ocpo_Id),
 	CONSTRAINT FK_Prod_tbPODetallePorPedidoOrdenDetalle_tbPedidosOrdenDetalle_prod_Id				FOREIGN KEY(prod_Id)					REFERENCES Prod.tbPedidosOrdenDetalle(prod_Id),
-	CONSTRAINT FK_Prod_tbPODetallePorPedidoOrdenDetalle_tbOrdenCompra_code_Id						FOREIGN KEY(code_Id)					REFERENCES Prod.tbOrdenCompraDetalles(code_Id),
+	CONSTRAINT FK_Prod_tbPODetallePorPedidoOrdenDetalle_tbOrdenCompraDetalle_code_Id				FOREIGN KEY(code_Id)					REFERENCES Prod.tbOrdenCompraDetalles(code_Id),
+	CONSTRAINT FK_Prod_tbPODetallePorPedidoOrdenDetalle_tbOrdenCompra_orco_Id						FOREIGN KEY(orco_Id)					REFERENCES Prod.tbOrdenCompra(orco_Id),
 	CONSTRAINT FK_Prod_tbPODetallePorPedidoOrdenDetalle_Acce_tbUsuarios_usua_UsuarioCreacion		FOREIGN KEY(usua_UsuarioCreacion)       REFERENCES Acce.tbUsuarios(usua_Id),
-	--CONSTRAINT FK_Prod_tbPODetallePorPedidoOrdenDetalle_Acce_tbUsuarios_usua_UsuarioModificacion	FOREIGN KEY(usua_UsuarioModificacion)   REFERENCES Acce.tbUsuarios(usua_Id)
+	CONSTRAINT FK_Prod_tbPODetallePorPedidoOrdenDetalle_Acce_tbUsuarios_usua_UsuarioModificacion	FOREIGN KEY(usua_UsuarioModificacion)   REFERENCES Acce.tbUsuarios(usua_Id)
 );
 GO
+
 
 
 CREATE TABLE Prod.tbLotes(
@@ -2563,8 +2568,8 @@ CREATE TABLE Prod.tbLotes(
 	mate_Id						INT NOT NULL,
 	unme_Id						INT NOT NULL,
 	prod_Id						INT,
-	lote_Stock  				INT NOT NULL,
-	lote_CantIngresada			INT NOT NULL,
+	lote_Stock  				DECIMAL(18,2) NOT NULL,
+	lote_CantIngresada			DECIMAL(18,2) NOT NULL,
 	lote_Observaciones			NVARCHAR(500),
 	tipa_Id						INT NOT NULL,
 
@@ -2840,7 +2845,7 @@ CREATE TABLE Adua.tbBoletinPago(
     boen_FechaModificacion         DATETIME DEFAULT NULL,
 	--usua_UsuarioEliminacion		   INT	DEFAULT NULL,
 	--boen_FechaEliminacion		   DATETIME DEFAULT NULL,
-    boen_Estado                    BIT NOT NULL,
+    boen_Estado                    BIT DEFAULT 1 NOT NULL,
     CONSTRAINT PK_Adua_tbBoletinPago_boen_Id 									      PRIMARY KEY (boen_Id),
     CONSTRAINT FK_Adua_tbBoletinPago_lige_Id_Adua_tbLiquidacionGeneral_lige_Id 		  FOREIGN KEY (liqu_Id)                  REFERENCES Adua.tbLiquidacionGeneral(lige_Id),
 	CONSTRAINT FK_Adua_tbBoletinPago_tbDuca_duca_No_Duca							  FOREIGN KEY (duca_No_Duca)			 REFERENCES Adua.tbDuca(duca_No_Duca),

@@ -17,5 +17,10 @@ namespace SIMEXPRO.API.Models
         public int? usua_UsuarioEliminacion { get; set; }
         public DateTime? escv_FechaEliminacion { get; set; }
         public bool? escv_Estado { get; set; }
+        public string UsuarioCreacionNombre { get; set; }
+
+        public string usuarioModificadorNombre { get; set; }
+        
+
     }
 }

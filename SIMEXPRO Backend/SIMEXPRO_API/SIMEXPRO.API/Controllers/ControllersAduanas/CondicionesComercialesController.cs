@@ -25,7 +25,7 @@ namespace SIMEXPRO.API.Controllers.ControllersAduanas
             _mapper = mapper;
         }
 
-
+        
         [HttpGet("Listar")]
         public IActionResult Index()
         {

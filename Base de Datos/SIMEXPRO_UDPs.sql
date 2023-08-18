@@ -801,10 +801,23 @@ GO
 CREATE OR ALTER PROCEDURE gral.UDP_tbEstadosCiviles_Listar
 AS
 BEGIN
-	SELECT escv_Id, 
-		   escv_Nombre
-    FROM Gral.tbEstadosCiviles
-	WHERE escv_Estado = 1
+	SELECT escv_Id,
+	       escv_Nombre, 
+		   esta.usua_UsuarioCreacion,
+		   usuaCrea.usua_Nombre			AS usuarioCreacionNombre,
+		   escv_FechaCreacion, 
+		   esta.usua_UsuarioModificacion, 
+		   usuaModifica.usua_Nombre		AS usuarioModificacionNombre,
+		   escv_FechaModificacion, 
+		   esta.usua_UsuarioEliminacion, 
+		   usuaElimina.usua_Nombre		AS usuarioEliminacionNombre,
+		   escv_FechaEliminacion, 
+		   escv_Estado
+    FROM Gral.tbEstadosCiviles esta
+	INNER JOIN Acce.tbUsuarios usuaCrea		ON esta.usua_UsuarioCreacion = usuaCrea.usua_Id 
+	LEFT JOIN Acce.tbUsuarios usuaModifica  ON esta.usua_UsuarioModificacion = usuaModifica.usua_Id 
+	LEFT JOIN Acce.tbUsuarios usuaElimina   ON esta.usua_UsuarioEliminacion = usuaElimina.usua_Id
+
 END
 GO
 

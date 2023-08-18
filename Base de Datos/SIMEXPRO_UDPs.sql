@@ -10321,7 +10321,7 @@ AS
 BEGIN 
 SELECT	clie.clie_Id					,
 		clie.clie_Nombre_O_Razon_Social ,
-		clie.clie_Numero_Contacto		,
+		clie.clie_Numero_Contacto,
 		clie.clie_Nombre_Contacto		,
 		clie.clie_Correo_Electronico	,
 		clie.clie_Direccion				,
@@ -10330,6 +10330,7 @@ SELECT	clie.clie_Id					,
 		clie.pvin_Id					,
 		provi.pvin_Codigo				,
 		provi.pvin_Nombre				,
+		pais.pais_Id					,
 		clie.usua_UsuarioCreacion		,
 		usu.usua_Nombre					AS usuarioNombreCreacion,
 		clie.clie_FechaCreacion			,
@@ -10340,10 +10341,11 @@ SELECT	clie.clie_Id					,
 		usu2.usua_Nombre				AS usuarioNombreEliminacion,
 		clie.clie_Estado				
 FROM	Prod.tbClientes clie 
-		INNER JOIN Acce.tbUsuarios usu		  ON usu.usua_Id = clie.usua_UsuarioCreacion
-		INNER JOIN Gral.tbProvincias provi    ON provi.pvin_Id = clie.pvin_Id
+		INNER JOIN Acce.tbUsuarios usu		  ON usu.usua_Id = clie.usua_UsuarioCreacion 
 		LEFT JOIN Acce.tbUsuarios usu1		  ON usu1.usua_Id = clie.usua_UsuarioModificacion
 		LEFT JOIN Acce.tbUsuarios usu2		  ON usu2.usua_Id = clie.usua_UsuarioEliminacion
+		INNER JOIN Gral.tbProvincias provi    ON provi.pvin_Id = clie.pvin_Id
+		INNER JOIN Gral.tbPaises pais		  ON provi.pais_Id = pais.pais_Id
 END
 GO
 
@@ -10395,8 +10397,8 @@ END TRY
 	 SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
    END CATCH
 END
-
 GO
+
 /*Editar Clientes*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Editar 
   @clie_Id    INT, 

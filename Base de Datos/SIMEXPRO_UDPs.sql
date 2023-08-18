@@ -11335,7 +11335,6 @@ BEGIN
 	   AND subc.cate_Id = @cate_Id
 END
 GO
-
 --************MATERIALES******************--
 /*Listar materiales*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMateriales_Listar
@@ -11359,9 +11358,8 @@ BEGIN
 	       INNER JOIN Acce.tbUsuarios usuaCrea			ON mate.usua_UsuarioCreacion     = usuaCrea.usua_Id 
 	       LEFT JOIN Acce.tbUsuarios usuaModifica		ON mate.usua_UsuarioModificacion = usuaModifica.usua_Id 
 	       LEFT JOIN Prod.tbSubcategoria subc			ON mate.subc_Id                  = subc.subc_Id
-		   INNER JOIN Prod.tbCategoria  cate            ON cate.cate_Id                  = subc.cate_Id
+		   LEFT JOIN Prod.tbCategoria  cate            ON cate.cate_Id                  = subc.cate_Id
 	 WHERE mate_Estado = 1
-
 END
 GO
 
@@ -11389,7 +11387,7 @@ END
 GO
 
 /*Editar material*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbMateriales_Editar
+CREATE OR ALTER PROCEDURE Prod.UDP_tbMateriales_Editar  
 	@mate_Id                   INT,
 	@mate_Descripcion          NVARCHAR(200), 
 	@subc_Id                   INT, 

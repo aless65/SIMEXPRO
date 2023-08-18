@@ -8474,21 +8474,21 @@ END
 /*Insertar condiciones*/
 GO
 CREATE OR ALTER PROCEDURE Adua.UDP_tbCondiciones_Insertar 
-	parametros.Add("@@deva_Id									INT, 
-	parametros.Add("@@codi_Restricciones_Utilizacion				BIT, 
-	parametros.Add("@@codi_Indicar_Restricciones_Utilizacion		NVARCHAR(500), 
-	parametros.Add("@@codi_Depende_Precio_Condicion				BIT, 
-	parametros.Add("@@codi_Indicar_Existe_Condicion				NVARCHAR(500),
-	parametros.Add("@@codi_Condicionada_Revertir					BIT, 
-	parametros.Add("@@codi_Vinculacion_Comprador_Vendedor		BIT, 
-	parametros.Add("@@codi_Tipo_Vinculacion						NVARCHAR(500), 
-	parametros.Add("@@codi_Vinculacion_Influye_Precio			BIT, 
-	parametros.Add("@@codi_Pagos_Descuentos_Indirectos			BIT, 
-	parametros.Add("@@codi_Concepto_Monto_Declarado				NVARCHAR(500), 
-	parametros.Add("@@codi_Existen_Canones						BIT, 
-	parametros.Add("@@codi_Indicar_Canones						NVARCHAR(500), 
-	parametros.Add("@@usua_UsuarioCreacion						INT, 
-	parametros.Add("@@codi_FechaCreacion							DATE
+	@deva_Id									INT, 
+	@codi_Restricciones_Utilizacion				BIT, 
+	@codi_Indicar_Restricciones_Utilizacion		NVARCHAR(500), 
+	@codi_Depende_Precio_Condicion				BIT, 
+	@codi_Indicar_Existe_Condicion				NVARCHAR(500),
+	@codi_Condicionada_Revertir					BIT, 
+	@codi_Vinculacion_Comprador_Vendedor		BIT, 
+	@codi_Tipo_Vinculacion						NVARCHAR(500), 
+	@codi_Vinculacion_Influye_Precio			BIT, 
+	@codi_Pagos_Descuentos_Indirectos			BIT, 
+	@codi_Concepto_Monto_Declarado				NVARCHAR(500), 
+	@codi_Existen_Canones						BIT, 
+	@codi_Indicar_Canones						NVARCHAR(500), 
+	@usua_UsuarioCreacion						INT, 
+	@codi_FechaCreacion							DATE
 AS
 BEGIN
 	BEGIN TRY
@@ -10323,7 +10323,7 @@ AS
 BEGIN 
 SELECT	clie.clie_Id					,
 		clie.clie_Nombre_O_Razon_Social ,
-		clie.clie_Numero_Contacto		,
+		clie.clie_Numero_Contacto,
 		clie.clie_Nombre_Contacto		,
 		clie.clie_Correo_Electronico	,
 		clie.clie_Direccion				,
@@ -10332,6 +10332,7 @@ SELECT	clie.clie_Id					,
 		clie.pvin_Id					,
 		provi.pvin_Codigo				,
 		provi.pvin_Nombre				,
+		pais.pais_Id					,
 		clie.usua_UsuarioCreacion		,
 		usu.usua_Nombre					AS usuarioNombreCreacion,
 		clie.clie_FechaCreacion			,
@@ -10342,10 +10343,11 @@ SELECT	clie.clie_Id					,
 		usu2.usua_Nombre				AS usuarioNombreEliminacion,
 		clie.clie_Estado				
 FROM	Prod.tbClientes clie 
-		INNER JOIN Acce.tbUsuarios usu		  ON usu.usua_Id = clie.usua_UsuarioCreacion
-		INNER JOIN Gral.tbProvincias provi    ON provi.pvin_Id = clie.pvin_Id
+		INNER JOIN Acce.tbUsuarios usu		  ON usu.usua_Id = clie.usua_UsuarioCreacion 
 		LEFT JOIN Acce.tbUsuarios usu1		  ON usu1.usua_Id = clie.usua_UsuarioModificacion
 		LEFT JOIN Acce.tbUsuarios usu2		  ON usu2.usua_Id = clie.usua_UsuarioEliminacion
+		INNER JOIN Gral.tbProvincias provi    ON provi.pvin_Id = clie.pvin_Id
+		INNER JOIN Gral.tbPaises pais		  ON provi.pais_Id = pais.pais_Id
 END
 GO
 
@@ -10397,8 +10399,8 @@ END TRY
 	 SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
    END CATCH
 END
-
 GO
+
 /*Editar Clientes*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Editar 
   @clie_Id    INT, 

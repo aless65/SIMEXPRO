@@ -43,6 +43,14 @@ namespace SIMEXPRO.Entities.Entities
         [NotMapped]
         public string usuarioNombreEliminacion { get; set; }
 
+        [NotMapped]
+        public int pvin_Codigo { get; set; }
+
+        [NotMapped]
+        public string pvin_Nombre { get; set; }
+
+        [NotMapped]
+        public int pais_Id { get; set; }
 
         public virtual tbProvincias pvin { get; set; } 
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }

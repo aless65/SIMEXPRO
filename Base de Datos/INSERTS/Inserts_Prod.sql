@@ -368,20 +368,104 @@ INSERT INTO Prod.tbReporteModuloDiaDetalle (remo_Id, rdet_TotalDia, rdet_TotalDa
 VALUES (1,50,0,1,1,GETDATE()),
        (1,50,0,1,1,GETDATE()),
 	   (2,100,0,2,1,GETDATE()),
-	   (3,100,0,3,1,GETDATE());
+	   (3,100,0,3,1,GETDATE())
 
 
 /*-------------------------------------------*/
 --******** INSERT TABLA PEDIDOS ORDEN *******--
 GO
 INSERT INTO [Prod].[tbPedidosOrden] (prov_Id, peor_No_Duca, peor_FechaEntrada, peor_Obsevaciones, peor_DadoCliente, peor_Est, usua_UsuarioCreacion, peor_FechaCreacion)
-VALUES    (1, '83739333921', GETDATE(), '----', 1, 1, 1 , GETDATE());
+VALUES    (1, '83739333921', GETDATE(), '----', 1, 1, 1 , GETDATE())
 
+
+INSERT INTO [Prod].[tbPedidosOrden] (prov_Id, peor_No_Duca,ciud_Id,peor_DireccionExacta, peor_FechaEntrada, peor_Obsevaciones, peor_DadoCliente, peor_Est, usua_UsuarioCreacion, peor_FechaCreacion)
+VALUES    (1, NULL,2,'----', GETDATE(), '----', 1, 1, 1 , GETDATE()),
+(1, NULL,2,'----', GETDATE(), '----', 1, 1, 1 , GETDATE()),
+(1, NULL,3,'----', GETDATE(), '----', 1, 1, 1 , GETDATE()),
+(1, NULL,63,'Calle Flores #123, Colonia Esperanza', GETDATE(), '----', 2, 1, 1 , GETDATE()),
+(1, NULL,63,'Avenida del Sol #456, Barrio San Antonio', GETDATE(), '----', 5, 1, 1 , GETDATE()),
+(1, NULL,63,'Calle Principal #789, Residencial Los Pinos', GETDATE(), '----', 7, 1, 1 , GETDATE()),
+(1, NULL,63,'Pasaje Mariposas #234, Colonia Primavera', GETDATE(), '----', 2, 1, 1 , GETDATE()),
+(1, NULL,63,'Avenida del Río #567, Urbanización Rioja', GETDATE(), '----', 2, 1, 1 , GETDATE()),
+(1, NULL,63,'Callejón Azul #890, Barrio Santa Teresa', GETDATE(), '----', 5, 1, 1 , GETDATE()),
+(1, NULL,63,'Carrera de los Palmares #345, Colonia El Bosque', GETDATE(), '----', 5, 1, 1 , GETDATE()),
+(1, NULL,63,'Avenida de las Maravillas #678, Residencial Vista Hermosa', GETDATE(), '----', 7, 1, 1 , GETDATE()),
+(1, NULL,63,'Callejuela del Arte #1234, Barrio Bohemio', GETDATE(), '----', 2, 1, 1 , GETDATE()),
+(1, NULL,63,'Avenida de los Cielos #987, Urbanización Alta Vista', GETDATE(), '----', 7, 1, 1 , GETDATE())
+
+select * from [Prod].tbmateriales
 /*------------------------------------------------------*/
 --****** INSERT TABLA PEDIDOS ORDEN DETALLES *******--
 GO
 INSERT INTO [Prod].[tbPedidosOrdenDetalle] (pedi_Id, mate_Id, prod_Cantidad,prod_Precio,prod_Peso, usua_UsuarioCreacion, prod_FechaCreacion)
 VALUES		(1, 2, 20, 500.00, 20.5, 1, GETDATE()),
 			(1, 1, 50, 500.00, 20.5, 1, GETDATE()),
-			(1, 3, 30, 500.00, 20.5, 1, GETDATE());
+			(1, 3, 30, 1500.00, 20.5, 1, GETDATE()),
+			(2, 2, 20, 1500.00, 20.5, 1, GETDATE()),
+			(2, 1, 50, 1500.00, 20.5, 1, GETDATE()),
+			(2, 3, 30, 1500.00, 20.5, 1, GETDATE()),
+			(2, 2, 20, 1500.00, 20.5, 1, GETDATE()),
+			(2, 1, 50, 1500.00, 20.5, 1, GETDATE()),
+			(3, 3, 30, 1500.00, 20.5, 1, GETDATE()),
+			(3, 2, 20, 1500.00, 20.5, 1, GETDATE()),
+			(3, 1, 50, 1500.00, 20.5, 1, GETDATE()),
+			(3, 3, 30, 1500.00, 20.5, 1, GETDATE()),
+			(3, 2, 20, 1500.00, 20.5, 1, GETDATE()),
+			(4, 1, 50, 1500.00, 20.5, 1, GETDATE()),
+			(4, 3, 30, 1500.00, 20.5, 1, GETDATE()),
+			(4, 2, 20, 1500.00, 20.5, 1, GETDATE()),
+			(4, 1, 50, 1500.00, 20.5, 1, GETDATE()),
+			(4, 3, 30, 1500.00, 20.5, 1, GETDATE()),
+			(4, 2, 20, 1500.00, 20.5, 1, GETDATE()),
+			(4, 1, 50, 1500.00, 20.5, 1, GETDATE()),
+			(5, 3, 30, 1500.00, 20.5, 1, GETDATE()),
+			(5, 2, 20, 1500.00, 20.5, 1, GETDATE()),
+			(5, 1, 50, 1500.00, 20.5, 1, GETDATE()),
+			(5, 3, 30, 1500.00, 20.5, 1, GETDATE()),
+			(5, 2, 20, 1500.00, 20.5, 1, GETDATE()),
+			(7, 1, 50, 1500.00, 20.5, 1, GETDATE()),
+			(7, 3, 30, 1500.00, 20.5, 1, GETDATE()),
+			(7, 1, 50, 1500.00, 20.5, 1, GETDATE()),
+			(7, 3, 30, 1500.00, 20.5, 1, GETDATE()),
+			(7, 1, 50, 1500.00, 20.5, 1, GETDATE()),
+			(7, 3, 30, 2500.00, 20.5, 1, GETDATE()),
+			(7, 1, 50, 2500.00, 20.5, 1, GETDATE()),
+			(6, 3, 30, 2500.00, 20.5, 1, GETDATE()),
+			(6, 1, 50, 2500.00, 20.5, 1, GETDATE()),
+			(6, 3, 30, 2500.00, 20.5, 1, GETDATE()),
+			(6, 3, 30, 2500.00, 20.5, 1, GETDATE()),
+			(6, 1, 50, 2500.00, 20.5, 1, GETDATE()),
+			(6, 3, 30, 2500.00, 20.5, 1, GETDATE()),
+			(6, 1, 50, 2500.00, 20.5, 1, GETDATE()),
+			(8, 3, 30, 2500.00, 20.5, 1, GETDATE()),
+			(8, 3, 30, 2500.00, 20.5, 1, GETDATE()),
+			(8, 1, 50, 2500.00, 20.5, 1, GETDATE()),
+			(8, 3, 30, 2500.00, 20.5, 1, GETDATE()),
+			(8, 1, 50, 2500.00, 20.5, 1, GETDATE()),
+			(8, 3, 30, 2500.00, 20.5, 1, GETDATE()),
+			(8, 3, 30, 2500.00, 20.5, 1, GETDATE()),
+			(9, 1, 50, 2500.00, 20.5, 1, GETDATE()),
+			(9, 3, 30, 2500.00, 20.5, 1, GETDATE()),
+			(9, 1, 50, 2500.00, 20.5, 1, GETDATE()),
+			(9, 3, 30, 2500.00, 20.5, 1, GETDATE()),
+			(9, 3, 30, 2500.00, 20.5, 1, GETDATE()),
+			(9, 1, 50, 2500.00, 20.5, 1, GETDATE()),
+			(9, 3, 30, 2500.00, 20.5, 1, GETDATE()),
+			(10, 1, 50, 500.00, 20.5, 1, GETDATE()),
+			(10, 3, 30, 500.00, 20.5, 1, GETDATE()),
+			(10, 3, 30, 500.00, 20.5, 1, GETDATE()),
+			(10, 1, 50, 500.00, 20.5, 1, GETDATE()),
+			(10, 3, 30, 500.00, 20.5, 1, GETDATE()),
+			(10, 1, 50, 500.00, 20.5, 1, GETDATE()),
+			(10, 3, 30, 500.00, 20.5, 1, GETDATE())
 
+
+INSERT INTO Prod.tbPODetallePorPedidoOrdenDetalle (prod_Id, code_Id,usua_UsuarioCreacion,popo_FechaCreacion)
+VALUES	(1,1,1,GETDATE()),
+		(1,1,1,GETDATE()),
+		(1,1,1,GETDATE()),
+		(1,1,1,GETDATE()),
+		(1,1,1,GETDATE()),
+		(1,1,1,GETDATE()),
+		(1,1,1,GETDATE()),
+		(1,1,1,GETDATE())

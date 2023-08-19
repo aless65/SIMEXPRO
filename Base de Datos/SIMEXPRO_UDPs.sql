@@ -119,24 +119,24 @@ GO
 --END
 --GO
 
-CREATE OR ALTER PROCEDURE Acce.UDP_RolesPorPantalla_DibujadoMenu 
-@role_ID    INT
-AS
-BEGIN
-SELECT   ropa_Id, 
-        pnt.pant_Id, 
-        pant_Nombre,
-        pant_URL,
-        pant_Icono,
-        pant_Esquema,
-        role_Id, 
-        pnt.usua_UsuarioCreacion, 
-        ropa_FechaCreacion
-FROM    Acce.tbRolesXPantallas rxp
-        INNER JOIN Acce.tbPantallas pnt ON rxp.pant_Id = pnt.pant_Id
-WHERE    role_Id = @role_ID
-END
-GO
+--CREATE OR ALTER PROCEDURE Acce.UDP_RolesPorPantalla_DibujadoMenu 
+--@role_ID    INT
+--AS
+--BEGIN
+--SELECT   ropa_Id, 
+--        pnt.pant_Id, 
+--        pant_Nombre,
+--        pant_URL,
+--        pant_Icono,
+--        pant_Esquema,
+--        role_Id, 
+--        pnt.usua_UsuarioCreacion, 
+--        ropa_FechaCreacion
+--FROM    Acce.tbRolesXPantallas rxp
+--        INNER JOIN Acce.tbPantallas pnt ON rxp.pant_Id = pnt.pant_Id
+--WHERE    role_Id = @role_ID
+--END
+--GO
 
 /*Listar Usuarios*/
 CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Listar

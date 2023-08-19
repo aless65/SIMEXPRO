@@ -136,6 +136,7 @@ FROM    Acce.tbRolesXPantallas rxp
         INNER JOIN Acce.tbPantallas pnt ON rxp.pant_Id = pnt.pant_Id
 WHERE    role_Id = @role_ID
 END
+GO
 
 /*Listar Usuarios*/
 CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Listar
@@ -1896,7 +1897,7 @@ BEGIN
 								alde_FechaEliminacion = @alde_FechaEliminacion
 						WHERE	alde_Id = @alde_Id
 					END
-			}
+
 			END
 	END TRY
 	BEGIN CATCH
@@ -3430,6 +3431,7 @@ BEGIN
 
 END
 -- me quede aqui 
+GO
 /******************************** Formas de pago*****************************************/
 
 CREATE OR ALTER PROCEDURE Adua.UDP_tbFormadePago_Listar
@@ -9822,7 +9824,7 @@ BEGIN
 			,ordenCompraDetalle.colr_Id
 			--,colores.colr_Codigo
 			,colores.colr_Nombre
-			,ordenCompraDetalle.code_Documento
+			--,ordenCompraDetalle.code_Documento
 			--,ordenCompraDetalle.code_Medidas
 			,ordenCompraDetalle.proc_IdComienza
 			,procesoComienza.proc_Descripcion	AS proc_DescripcionComienza
@@ -9860,7 +9862,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Insertar
 	@tall_Id						INT,
 	@code_Sexo						CHAR(1),
 	@colr_Id						INT,
-	@code_Documento					NVARCHAR(250),
+	--@code_Documento					NVARCHAR(250),
 	--@code_Medidas					NVARCHAR(250),
 	@proc_IdComienza				INT,
 	@proc_IdActual					INT,
@@ -9882,7 +9884,7 @@ BEGIN
 					tall_Id,						
 					code_Sexo,						
 					colr_Id,						
-					code_Documento,					
+					--code_Documento,					
 					--code_Medidas,					
 					proc_IdComienza,				
 					proc_IdActual,					
@@ -9899,7 +9901,7 @@ BEGIN
 					@tall_Id,						
 					@code_Sexo,						
 					@colr_Id,						
-					@code_Documento,					
+					--@code_Documento,					
 					--@code_Medidas,					
 					@proc_IdComienza,				
 					@proc_IdActual,					
@@ -9928,7 +9930,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Editar
 	@tall_Id						INT,
 	@code_Sexo						CHAR(1),
 	@colr_Id						INT,
-	@code_Documento					NVARCHAR(250),
+	--@code_Documento					NVARCHAR(250),
 	--@code_Medidas					NVARCHAR(250),
 	@proc_IdComienza				INT,
 	@proc_IdActual					INT,
@@ -9950,7 +9952,7 @@ BEGIN
 				tall_Id						= @tall_Id,						
 				code_Sexo					= @code_Sexo,						
 				colr_Id						= @colr_Id,						
-				code_Documento				= @code_Documento,					
+				--code_Documento				= @code_Documento,					
 				--code_Medidas				= @code_Medidas,					
 				proc_IdComienza				= @proc_IdComienza,				
 				proc_IdActual				= @proc_IdActual,					
@@ -12236,7 +12238,7 @@ GO
 
 --*****Pedidos Orden*****-
 --*****Listado*****--
-CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Listar
+CREATE OR ALTER PROCEDURE [Prod].[UDP_tbPedidosOrden_Listar]
 AS
 BEGIN
 SELECT	peor_Id, 
@@ -12251,6 +12253,9 @@ SELECT	peor_Id,
 		peor_FechaEntrada, 
 		peor_Obsevaciones, 
 		peor_DadoCliente, 
+		CASE peor_DadoCliente
+		WHEN 1 THEN 'Sí'
+		ELSE 'NO' END AS DadoCliente,
 		peor_Est, 
 		po.usua_UsuarioCreacion,
 		crea.usua_Nombre							AS UsuarioCreacionNombre, 
@@ -12258,7 +12263,21 @@ SELECT	peor_Id,
 		po.usua_UsuarioModificacion,
 		modi.usua_Nombre							AS UsuarioModificacionNombre, 
 		peor_FechaModificacion, 
-		peor_Estado 
+		peor_Estado,
+		   (SELECT [prod_Id],
+				   [pedi_Id],
+				   pod.[mate_Id],
+				   mate_Descripcion,
+				   prod_Cantidad,
+				   prod_Precio,
+				   prod_Peso
+   FROM Prod.tbPedidosOrdenDetalle pod
+   INNER JOIN Prod.tbMateriales mates
+   ON pod.mate_Id = mates.mate_Id
+   WHERE po.peor_Id = pod.pedi_Id
+
+   FOR JSON PATH) 
+   AS Detalles
 FROM	Prod.tbPedidosOrden po
 		INNER JOIN Gral.tbProveedores prov			ON po.prov_Id   = prov.prov_Id
 		LEFT JOIN gral.tbCiudades	ciud			ON po.ciud_Id = ciud.ciud_Id
@@ -12899,7 +12918,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbPODetallePorPedidoOrdenDetalle_Insertar
 	@code_Id						INT,
 	@orco_Id						INT,
 	@usua_UsuarioCreacion			INT,
-	@popo_FechaCreacion				DATETIME 
+	@ocpo_FechaCreacion				DATETIME 
 AS
 BEGIN
 	BEGIN TRY
@@ -12907,12 +12926,12 @@ BEGIN
 														  code_Id,
 														  orco_Id,
 														  usua_UsuarioCreacion,
-														  popo_FechaCreacion)
+														  ocpo_FechaCreacion)
 		VALUES (@prod_Id,
 				@code_Id,
 				@orco_Id,
 				@usua_UsuarioCreacion,
-				@popo_FechaCreacion)
+				@ocpo_FechaCreacion)
 
 		SELECT 1
 
@@ -12929,13 +12948,13 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbPODetallePorPedidoOrdenDetalle_Editar
 	@code_Id						INT,
 	@orco_Id						INT,
 	@usua_UsuarioModificacion		INT,
-	@popo_FechaModificacion			DATETIME 
+	@ocpo_FechaModificacion			DATETIME 
 AS
 BEGIN
 	BEGIN TRY
 		UPDATE Prod.tbPODetallePorPedidoOrdenDetalle
 		SET code_Id = @code_Id,
-			code_Id = @code_Id
+			orco_Id = @orco_Id
 		WHERE ocpo_Id = @ocpo_Id
 
 		SELECT 1

@@ -411,7 +411,7 @@ GO
 
 --Seccion 2 Chris
 
-select * from Gral.tbUnidadMedidas
+--select * from Gral.tbUnidadMedidas
 
 CREATE TABLE Gral.tbUnidadMedidas
 (

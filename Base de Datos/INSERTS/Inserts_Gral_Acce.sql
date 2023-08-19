@@ -74,313 +74,333 @@ VALUES
 --        ('Ubicaciones.colonias', 'Colonias/Index', '', 1, GETDATE()),
 --        ('Personas.cargos', 'Cargos/Index', '', 1, GETDATE())
 --Acceso
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Inicio','/dashboards/analytics','heroicons-outline:clipboard-check','Gral',null,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas](	[pant_Nombre],	[pant_URL],				[pant_Icono],						[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES (						'Inicio',		'/dashboards/analytics','heroicons-outline:clipboard-check','Gral',			null, null,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Usuarios','/Usuarios/Index','material-outline:hail','Acce',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Usuarios','/Usuarios/Index','material-outline:hail','Acce', 'Acceso', null,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Roles','/Roles/Index','material-outline:manage_search','Acce',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Roles','/Roles/Index','material-outline:manage_search','Acce',  'Acceso', null,1,GETDATE())
 GO
---Acceso
+--//Acceso//
 
 --Generales
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Formas de envío','/FormasEnvio/Index','material-outline:taxi_alert','Gral',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Formas de envío','/FormasEnvio/Index','material-outline:taxi_alert','Gral', 'Generales',NULL,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Monedas','Monedas/Index','material-outline:attach_money','Gral',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Monedas','Monedas/Index','material-outline:attach_money','Gral', 'Generales',NULL,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Tipos de Identificacion','TipoIdentificacion/Index','heroicons-outline:identification','Gral',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Tipos de Identificacion','TipoIdentificacion/Index','heroicons-outline:identification','Gral', 'Generales',NULL,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Oficinas','Oficinas/Index','material-outline:computer','Gral',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])--???????????????????????????
+     VALUES ('Oficinas','Oficinas/Index','material-outline:computer','Adua', 'Administración', 1,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Oficios y Profesiones','OficiosProfesiones/Index','heroicons-outline:academic-cap','Gral',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Oficios y Profesiones','OficiosProfesiones/Index','heroicons-outline:academic-cap','Gral', 'Generales',NULL,1,GETDATE())
+GO
+--//Generales//
+
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Unidades de medida','UnidadesMedida/Index','material-outline:aspect_ratio','Gral', 'Generales', NULL,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Unidades de medida','UnidadesMedida/Index','material-outline:aspect_ratio','Gral',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+--UBICACION
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Aldeas','/Aldeas/Index','material-outline:cabin','Gral', 'Ubicaciones', 0,1,GETDATE())
+GO
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Ciudades','Ciudades/Index','material-outline:business','Gral', 'Ubicaciones', NULL,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Países','Paises/Index','material-outline:map','Gral',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Colonias','/Colonias/Index','material-outline:holiday_village','Gral', 'Ubicaciones', 0,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Provincias','Provincias/Index','material-outline:house','Gral',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Países','Paises/Index','material-outline:map','Gral',  'Ubicaciones', NULL,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Ciudades','Ciudades/Index','material-outline:business','Gral',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Provincias','Provincias/Index','material-outline:house','Gral', 'Ubicaciones', NULL,1,GETDATE())
+GO
+--//UBICACION//
+--PERSONAS
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Cargos','Cargos/Index','material-outline:cleaning_services','Gral', 'Personas', 0,1,GETDATE())
+GO
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])--???????????????????????????
+     VALUES ('Clientes','Clientes/Index','material-outline:airline_seat_recline_normal','Gral', 'Personas',1,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Aldeas','/Aldeas/Index','material-outline:cabin','Gral',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Estados Civiles','EstadosCiviles/Index','material-outline:male','Gral', 'Personas',NULL,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Colonias','/Colonias/Index','material-outline:holiday_village','Gral',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Empleados','Empleados/Index','material-outline:groups','Gral', 'Personas',NULL,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Cargos','Cargos/Index','material-outline:cleaning_services','Gral',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Proveedores','/Proveedores/Index','heroicons-solid:user','Gral', 'Personas',NULL,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Estados Civiles','EstadosCiviles/Index','material-outline:male','Gral',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Personas','Personas/Index','heroicons-solid:users','Gral', 'Personas',1,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Empleados','Empleados/Index','material-outline:groups','Gral',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Tipos de Intermediarios','/TipoIntermediario/Index','heroicons-solid:user-add','Gral', 'Personas',1,1,GETDATE())
 GO
+--//PERSONAS//
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Proveedores','/Proveedores/Index','heroicons-solid:user','Gral',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
-GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Personas','Personas/Index','heroicons-solid:users','Gral',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
-GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Tipos de Intermediarios','/TipoIntermediario/Index','heroicons-solid:user-add','Gral',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
-GO
 
---Generales
-
+--//Generales//
 --Aduanas
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Persona Natural','/Contrato-de-Adhesion-Persona-Natural/Index','heroicons-solid:user','Adua',1,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+--Contrato de adhesion
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Persona Natural','/Contrato-de-Adhesion-Persona-Natural/Index','heroicons-solid:user','Adua', 'Contrato de Adhesión', 1,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Comerciante Individual','/Contrato-de-Adhesion-Comerciante-Individual/Index','heroicons-solid:user','Adua',1,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Comerciante Individual','/Contrato-de-Adhesion-Comerciante-Individual/Index','heroicons-solid:user','Adua', 'Contrato de Adhesión', 1,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Persona Juridica','/Contrato-de-Adhesion-Persona-Juridica/Index','heroicons-solid:user','Adua',1,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Persona Juridica','/Contrato-de-Adhesion-Persona-Juridica/Index','heroicons-solid:user','Adua', 'Contrato de Adhesión', 1,1,GETDATE())
+GO
+--//Contrato de adhesion//
+--Declaracion de valor
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Declaracion de valor','Declaracion_Valor/Index','material-outline:fact_check','Adua', null, 1,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Duca','Duca/Index','material-outline:article','Adua',1,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+--//Declaracion de valor//
+--DUCA
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Duca','Duca/Index','material-outline:article','Adua', null, 1,1,GETDATE())
 GO
-
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Boletin de Pago','BoletindePago/BoletinDePagoIndex','material-outline:price_check','Adua',1,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+--//DUCA//
+--Boletin de pago
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Boletin de Pago','BoletindePago/BoletinDePagoIndex','material-outline:price_check','Adua', null, 1,1,GETDATE())
 GO
-
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Documento de Sanciones','Documentos/Sanciones','material-twotone:find_in_page','Adua',1,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+--//Boletin de pago//
+--Documento de Sanciones
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Documento de Sanciones','Documentos/Sanciones','material-twotone:find_in_page','Adua', null, 1,1,GETDATE())
 GO
---Aduanas
-
+--//Documento de Sanciones//
 --Impuestos
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Aranceles','/Aranceles/Index','heroicons-solid:newspaper','Adua',1,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Aranceles','/Aranceles/Index','heroicons-solid:newspaper','Adua', 'Impuestos', 1,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Código de Impuestos','/CodigoImpuesto/Index','heroicons-solid:qrcode','Adua',1,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Código de Impuestos','/CodigoImpuesto/Index','heroicons-solid:qrcode','Adua', 'Impuestos',1,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Concepto de Pago','/ConceptoPago/Index','heroicons-solid:receipt-refund','Adua',1,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Concepto de Pago','/ConceptoPago/Index','heroicons-solid:receipt-refund','Adua', 'Impuestos',1,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Impuestos','/Impuestos/Index','heroicons-solid:scale','Adua',1,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Impuestos','/Impuestos/Index','heroicons-solid:scale','Adua', 'Impuestos',1,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Íncoterms','/Incoterm/Index','heroicons-solid:table','Adua',1,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Íncoterms','/Incoterm/Index','heroicons-solid:table','Adua', 'Impuestos',1,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Liquidación General','/LiquidacionGeneral/Index','material-solid:campaign','Adua',1,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Liquidación General','/LiquidacionGeneral/Index','material-solid:campaign','Adua', 'Impuestos',1,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Liquidación Por Línea','/LiquidacionPorLinea/Index','material-solid:charging_station','Adua',1,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Liquidación Por Línea','/LiquidacionPorLinea/Index','material-solid:charging_station','Adua', 'Impuestos',1,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Tipo de Liquidación','/TipoLiquidacion/Index','material-solid:donut_small','Adua',1,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Tipo de Liquidación','/TipoLiquidacion/Index','material-solid:donut_small','Adua','Impuestos',1,1,GETDATE())
+GO
+--//Impuestos//
+--Transporte
+
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Marcas de Carros','/MarcasCarros/Index','material-solid:directions_car','Adua', 'Transporte',1,1,GETDATE())
 GO
 
---Impuests
-
-
---AduanasTransporte
-
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Marcas de Carros','/MarcasCarros/Index','material-solid:directions_car','Adua',1,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Modo de Transporte','/ModoTransporte/Index','material-solid:local_shipping','Adua', 'Transporte',1,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Modo de Transporte','/ModoTransporte/Index','material-solid:local_shipping','Adua',1,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+--//Transporte//
+--Facturacion
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Formas de Pago','/FormasPago/Index','material-solid:file_present','Adua', 'Facturación',1,1,GETDATE())
+GO
+--//Facturacion//
+
+
+--Administracion
+
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Estados del Boletín','/EstadoBoletin/Index','material-solid:nfc','Adua', 'Administración',1,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Transporte','/Transporte/Index','material-solid:electric_rickshaw','Adua',1,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Estados de las mercancías','/EstadoMercancia/Index','material-solid:offline_pin','Adua', 'Administración',1,1,GETDATE())
 GO
 
---Aduanas Transporte
-
-
---Aduanas Facturacion
-
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Formas de Pago','/FormasPago/Index','material-solid:file_present','Adua',1,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Lugares de Embarque','/LugaresEmbarque/Index','material-solid:sailing','Adua', 'Administración',1,1,GETDATE())
 GO
 
---Aduanas Facturacion
-
-
---Aduanas Administracion
-
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Estados del Boletín','/EstadoBoletin/Index','material-solid:nfc','Adua',1,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Niveles Comerciales','/NivelesComerciales/Index','material-solid:shopping_cart','Adua', 'Administración',1,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Estados de las mercancías','/EstadoMercancia/Index','material-solid:offline_pin','Adua',1,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+--// Administracion//
+
+--//Aduanas//
+
+
+
+
+
+
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])--???????????????????????????
+     VALUES ('Tipo de Documento','/TipoDocumento/Index','material-outline:backup_table','Adua', 'Administración', 1,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Lugares de Embarque','/LugaresEmbarque/Index','material-solid:sailing','Adua',1,1,GETDATE(),NULL,NULL,NULL,NULL,1)
-GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Niveles Comerciales','/NivelesComerciales/Index','material-solid:shopping_cart','Adua',1,1,GETDATE(),NULL,NULL,NULL,NULL,1)
-GO
-
---Aduanas Administracion
 
 
 --Producción
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Planificación','/Planificacion/Index','material-outline:hail','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+--Producción 2 xd
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Planificación','/Planificacion/Index','material-outline:hail','Prod', 'Producción',0,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Inspecciones','/Inspecciones/Index','material-outline:manage_search','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Inspecciones','/Inspecciones/Index','material-outline:manage_search','Prod', 'Producción',0,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Módulos','/Modulos/Index','material-outline:iron','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Módulos','/Modulos/Index','material-outline:iron','Prod', 'Producción',0,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Orden de Procesos','/OrdenProcesos/Index','material-outline:insights','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Orden de Procesos','/OrdenProcesos/Index','material-outline:insights','Prod', 'Producción',0,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Órden de Compra','/OrdenCompra/Index','material-outline:library_books','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Órden de Compra','/OrdenCompra/Index','material-outline:library_books','Prod', 'Producción',0,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Órden de Pedido','/OrdenPedido/Index','material-outline:library_books','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Órden de Pedido','/OrdenPedido/Index','material-outline:library_books','Prod', 'Producción',0,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Pedidos de Producción','PedidosProduccion/Index','material-outline:local_mall','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Pedidos de Producción','PedidosProduccion/Index','material-outline:local_mall','Prod', 'Producción',0,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Procesos','/Procesos/Index','material-outline:mediation','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Procesos','/Procesos/Index','material-outline:mediation','Prod', 'Producción',0,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Revisión de Calidad','/RevisionCalidad/Index','material-outline:pageview','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Revisión de Calidad','/RevisionCalidad/Index','material-outline:pageview','Prod', 'Producción',0,1,GETDATE())
 GO
---Producción
-
-
---Prendas
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Colores','/Colores/Index','material-outline:format_color_fill','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
-GO
-
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Estilos','/Estilos/Index','material-outline:design_services','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
-GO
-
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Tallas','/Tallas/Index','material-outline:dry_cleaning','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
-GO
---Prendas
+--//Producción//
 
 --Maquinaria
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Funciones Máquinas','/FuncionesMaquina/Index','material-outline:bike_scooter','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Funciones de Máquinas','/FuncionesMaquina/Index','material-outline:bike_scooter','Prod', 'Maquinaria',0,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Historial de Máquinas','/MaquinaHistorial/Index','material-outline:all_inbox','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Historial de Máquinas','/MaquinaHistorial/Index','material-outline:all_inbox','Prod', 'Maquinaria',0,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Marcas de Máquinas','/MarcasMaquina/Index','material-outline:auto_stories','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Marcas de Máquinas','/MarcasMaquina/Index','material-outline:auto_stories','Prod', 'Maquinaria',0,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Máquinas','/Maquinas/Index','material-outline:auto_stories','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Máquinas','/Maquinas/Index','material-outline:auto_stories','Prod', 'Maquinaria',0,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Modelos de Máquinas','/ModelosMaquina/Index','material-outline:biotech','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Modelos de Máquinas','/ModelosMaquina/Index','material-outline:biotech','Prod', 'Maquinaria',0,1,GETDATE())
 GO
---Maquinaria
-
+--//Maquinaria//
 
 --Inventario
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Áreas','/Areas/Index','material-outline:all_inbox','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Áreas','/Areas/Index','material-outline:all_inbox','Prod', 'Inventario',0,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Categorías','/Categorias/Index','material-outline:category','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Categorías','/Categorias/Index','material-outline:category','Prod', 'Inventario',0,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Lotes','/Lotes/Index','material-outline:card_membership','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Lotes','/Lotes/Index','material-outline:card_membership','Prod', 'Inventario',0,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Materiales','/Materiales/Index','material-outline:bakery_dining','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Materiales','/Materiales/Index','material-outline:bakery_dining','Prod', 'Inventario',0,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Materiales a Brindar','/MaterialesBrindar/Index','material-outline:business_center','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Materiales a Brindar','/MaterialesBrindar/Index','material-outline:business_center','Prod', 'Inventario',0,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Subcategorias','/Subcategorias/Index','material-outline:apps','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Subcategorias','/Subcategorias/Index','material-outline:apps','Prod', 'Inventario',0,1,GETDATE())
 GO
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Tipo de Embalaje','/TipoEmbalaje/Index','material-outline:integration_instructions','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Tipo de Embalaje','/TipoEmbalaje/Index','material-outline:integration_instructions','Prod', 'Inventario',0,1,GETDATE())
 GO
---Inventario
+--//Inventario//
+
+--Prendas
+
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Colores','/Colores/Index','material-outline:format_color_fill','Prod', 'Prendas',0,1,GETDATE())
+GO
+
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Estilos','/Estilos/Index','material-outline:design_services','Prod', 'Prendas',0,1,GETDATE())
+GO
+
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Tallas','/Tallas/Index','material-outline:dry_cleaning','Prod', 'Prendas',0,1,GETDATE())
+GO
+--//Prendas//
 
 --Reportes
 
-INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion],[usua_UsuarioModificacion],[pant_FechaModificacion],[usua_UsuarioEliminacion],[pant_FechaEliminacion],[pant_Estado])
-     VALUES ('Reportes de Módulos','/ReporteModulo/Index','heroicons-outline:document-report','Prod',0,1,GETDATE(),NULL,NULL,NULL,NULL,1)
+INSERT INTO [Acce].[tbPantallas]([pant_Nombre],[pant_URL],[pant_Icono],[pant_Esquema], [pant_Subcategoria],[pant_EsAduana],[usua_UsuarioCreacion],[pant_FechaCreacion])
+     VALUES ('Reportes de Módulos','/ReporteModulo/Index','heroicons-outline:document-report','Prod', null,0,1,GETDATE())
 GO
 
 --Reportes

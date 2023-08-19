@@ -98,8 +98,33 @@ GO
 --GO
 
 /*Dibujar menu*/
+CREATE OR ALTER PROCEDURE Acce.UDP_RolesPorPantalla_DibujadoMenu 
+    @role_ID INT
+AS
+BEGIN
+    SELECT 
+        ropa_Id, 
+        pnt.pant_Id, 
+        pant_Nombre,
+        pant_URL,
+        pant_Icono,
+        pant_Esquema,
+		pant_EsAduana,
+        CASE 
+            WHEN pnt.pant_Id = rxp.pant_Id THEN 'Asignada'
+            ELSE 'No asignada' 
+        END AS Asignada,
+        pnt.usua_UsuarioCreacion, 
+        ropa_FechaCreacion
+    FROM Acce.tbPantallas pnt
+    LEFT JOIN Acce.tbRolesXPantallas rxp 
+	ON pnt.pant_Id = rxp.pant_Id 
+	AND rxp.role_Id = @role_ID;
+END
+GO
+
 --CREATE OR ALTER PROCEDURE Acce.UDP_RolesPorPantalla_DibujadoMenu 
---@role_ID    INT
+--	@role_ID    INT
 --AS
 --BEGIN
 --SELECT  ropa_Id, 
@@ -115,9 +140,10 @@ GO
 --        pnt.usua_UsuarioCreacion, 
 --        ropa_FechaCreacion
 --FROM    Acce.tbRolesXPantallas rxp
---        INNER JOIN Acce.tbPantallas pnt ON rxp.pant_Id = pnt.pant_Id
+--        LEFT JOIN Acce.tbPantallas pnt ON rxp.pant_Id = pnt.pant_Id
 --END
 --GO
+
 
 --CREATE OR ALTER PROCEDURE Acce.UDP_RolesPorPantalla_DibujadoMenu 
 --@role_ID    INT

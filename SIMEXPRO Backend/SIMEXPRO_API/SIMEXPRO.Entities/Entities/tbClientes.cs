@@ -44,7 +44,7 @@ namespace SIMEXPRO.Entities.Entities
         public string usuarioNombreEliminacion { get; set; }
 
         [NotMapped]
-        public int pvin_Codigo { get; set; }
+        public string pvin_Codigo { get; set; }
 
         [NotMapped]
         public string pvin_Nombre { get; set; }

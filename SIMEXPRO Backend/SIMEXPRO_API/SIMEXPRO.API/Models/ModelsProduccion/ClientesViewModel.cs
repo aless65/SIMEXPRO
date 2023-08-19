@@ -25,7 +25,7 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public DateTime? clie_FechaEliminacion { get; set; }
         public bool? clie_Estado { get; set; }
 
-        public int pvin_Codigo { get; set; }
+        public string pvin_Codigo { get; set; }
         public string pvin_Nombre { get; set; }
         public int pais_Id { get; set; }
 

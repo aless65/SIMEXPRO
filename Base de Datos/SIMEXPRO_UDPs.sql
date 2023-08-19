@@ -10376,11 +10376,12 @@ FROM	Prod.tbClientes clie
 END
 GO
 
+
 /*Crear Clientes*/
 CREATE OR ALTER PROCEDURE prod.UDP_tbClientes_Insertar 
    @clie_Nombre_O_Razon_Social    NVARCHAR(200), 
    @clie_Direccion                NVARCHAR(250), 
-   @clie_RTN                      CHAR(13), 
+   @clie_RTN                      NVARCHAR(40), 
    @clie_Nombre_Contacto          NVARCHAR(200), 
    @clie_Numero_Contacto          VARCHAR(15), 
    @clie_Correo_Electronico       NVARCHAR(200), 
@@ -10431,7 +10432,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Editar
   @clie_Id    INT, 
   @clie_Nombre_O_Razon_Social NVARCHAR(200), 
   @clie_Direccion     NVARCHAR(200), 
-  @clie_RTN CHAR(13), 
+  @clie_RTN			  NVARCHAR(40),
   @clie_Nombre_Contacto   NVARCHAR(200),
   @clie_Numero_Contacto VARCHAR(15), 
   @clie_Correo_Electronico  NVARCHAR(200) , 
@@ -10462,6 +10463,7 @@ BEGIN
 	END CATCH
 END
 
+
 /*Eliminar Clientes*/
 GO
 CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Eliminar --1, 1, '10-16-2004'
@@ -10471,6 +10473,12 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Eliminar --1, 1, '10-16-2004'
 AS
 BEGIN
 	BEGIN TRY
+	DECLARE @respuesta INT
+		EXEC dbo.UDP_ValidarReferencias 'clie_Id', @clie_Id, 'Prod.tbClientes', @respuesta OUTPUT
+
+		
+		IF(@respuesta) = 1
+			BEGIN
 
 		UPDATE Prod.tbClientes
 		SET clie_Estado = 0, 
@@ -10478,13 +10486,15 @@ BEGIN
 				clie_FechaEliminacion =@clie_FechaEliminacion
 		WHERE clie_Id = @clie_Id
 
-		SELECT 1
+		END
+		SELECT @respuesta AS Resultado
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
 END
 GO
+
 
 /* Activar Clientes*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbClientes_Activar

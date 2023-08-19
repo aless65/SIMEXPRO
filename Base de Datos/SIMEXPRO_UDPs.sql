@@ -10373,6 +10373,7 @@ FROM	Prod.tbClientes clie
 		LEFT JOIN Acce.tbUsuarios usu2		  ON usu2.usua_Id = clie.usua_UsuarioEliminacion
 		INNER JOIN Gral.tbProvincias provi    ON provi.pvin_Id = clie.pvin_Id
 		INNER JOIN Gral.tbPaises pais		  ON provi.pais_Id = pais.pais_Id
+		WHERE clie.clie_Estado = 1
 END
 GO
 

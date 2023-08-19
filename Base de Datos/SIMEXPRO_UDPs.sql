@@ -10394,6 +10394,17 @@ CREATE OR ALTER PROCEDURE prod.UDP_tbClientes_Insertar
 AS
 BEGIN 
   BEGIN TRY
+	  IF EXISTS (SELECT*FROM Prod.tbClientes WHERE clie_Nombre_O_Razon_Social = @clie_Nombre_O_Razon_Social AND clie_RTN = @clie_RTN
+	  AND clie_Estado = 0)
+		BEGIN
+			UPDATE Prod.tbClientes 
+			SET clie_Estado = 1, clie_Correo_Electronico = @clie_Correo_Electronico, clie_FAX = @clie_FAX,
+			clie_Numero_Contacto = @clie_Numero_Contacto,clie_Nombre_Contacto = @clie_Nombre_Contacto
+			WHERE clie_Nombre_O_Razon_Social = @clie_Nombre_O_Razon_Social AND clie_RTN = @clie_RTN
+			SELECT 1
+		END
+		ELSE
+		BEGIN
 	      INSERT INTO Prod.tbClientes
 		  ( 
 	      clie_Nombre_O_Razon_Social,
@@ -10419,7 +10430,7 @@ BEGIN
 		  @usua_UsuarioCreacion,  
 		  @clie_FechaCreacion           
 		  )	 
-
+		  END
 	   SELECT 1
 END TRY	    
    BEGIN CATCH 	 

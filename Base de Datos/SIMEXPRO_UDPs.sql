@@ -10283,7 +10283,7 @@ BEGIN
       END
    END TRY
    BEGIN CATCH
-      SELECT 0
+      SELECT 'Error Message: ' + ERROR_MESSAGE()
    END CATCH  
 END
 
@@ -10305,7 +10305,7 @@ BEGIN
 	  SELECT 1
    END TRY 
    BEGIN CATCH 
-       SELECT 0
+       SELECT 'Error Message: ' + ERROR_MESSAGE()
    END CATCH
 END
 
@@ -10336,7 +10336,7 @@ BEGIN
 		END
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 GO

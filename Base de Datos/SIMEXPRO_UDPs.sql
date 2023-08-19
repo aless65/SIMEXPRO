@@ -197,8 +197,8 @@ OR	  @empl_EsAduana IS NULL)
 AND   (usua.usua_Id IS NULL AND empl.empl_Estado = 1)
 END
 
---EXEC acce.UDP_tbUsuarios_Insertar 'juan', '123', 1, 'nada', 1, 1, 1,'08-08-2023'
---EXEC acce.UDP_tbUsuarios_Insertar 'juanC', '123', 2, 'nada', 1, 1, 1,'08-08-2023'
+--EXEC acce.UDP_tbUsuarios_Insertar 'juan', '123', 1, 'https://www.dumpaday.com/wp-content/uploads/2019/04/the-random-pics-4.jpg', 1, 1, 1,'08-08-2023'
+--EXEC acce.UDP_tbUsuarios_Insertar 'angie', '123', 2, 'https://i.pinimg.com/originals/10/b8/50/10b8509d551e5a264227dee8248fc1fa.jpg', 1, 1, 1,'08-08-2023'
 /*Insertar Usuarios*/
 GO
 CREATE OR ALTER PROCEDURE acce.UDP_tbUsuarios_Insertar 

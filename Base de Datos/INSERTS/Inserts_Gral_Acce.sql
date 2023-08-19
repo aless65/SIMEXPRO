@@ -44,18 +44,18 @@ VALUES
 
 /*---------------------------------*/
 --***** INSERT TABLA USUARIOS --******--
-GO
-INSERT INTO Acce.tbUsuarios (usua_Nombre, usua_Contrasenia, empl_Id, usua_Image, role_Id, usua_EsAdmin, usua_UsuarioCreacion, usua_FechaCreacion)
-VALUES	('Juan Perez',		'contrasenia123',	1, 'imagen_juan.jpg',	1,	0, 1,'10-16-2004'),
-		('Maria Rodriguez',	'maria2023',		1, 'imagen_maria.jpg',	2,	0, 1,'10-16-2004'),
-		('Pedro Gomez',		'12345678',			1, 'imagen_pedro.jpg',	3,	0, 1,'10-16-2004'),
-		('Ana Torres',		'ana2023',			1, 'imagen_ana.jpg',	4,	0, 1,'10-16-2004'),
-		('Carlos Ramirez',	'carlos789',		1, 'imagen_carlos.jpg', 5,	0, 1,'10-16-2004'),
-		('Luisa Chavez',	'luisa123',			1, 'imagen_luisa.jpg',	10, 0, 1,'10-16-2004'),
-		('Sofia Fernandez',	'sofia2023',		1, 'imagen_sofia.jpg',	11, 0, 1,'10-16-2004'),
-		('Diego Morales',	'morales321',		1, 'imagen_diego.jpg',	12, 0, 1,'10-16-2004'),
-		('Laura Ramirez',	'laura456',			1, 'imagen_laura.jpg',	13, 0, 1,'10-16-2004'),
-		('Ricardo Herrera',	'ricardo2023',		1, 'imagen_ricardo.jpg',14, 0, 1,'10-16-2004');
+--GO
+--INSERT INTO Acce.tbUsuarios (usua_Nombre, usua_Contrasenia, empl_Id, usua_Image, role_Id, usua_EsAdmin, usua_UsuarioCreacion, usua_FechaCreacion)
+--VALUES	('Juan Perez',		'contrasenia123',	1, 'imagen_juan.jpg',	1,	0, 1,'10-16-2004'),
+--		('Maria Rodriguez',	'maria2023',		1, 'imagen_maria.jpg',	2,	0, 1,'10-16-2004'),
+--		('Pedro Gomez',		'12345678',			1, 'imagen_pedro.jpg',	3,	0, 1,'10-16-2004'),
+--		('Ana Torres',		'ana2023',			1, 'imagen_ana.jpg',	4,	0, 1,'10-16-2004'),
+--		('Carlos Ramirez',	'carlos789',		1, 'imagen_carlos.jpg', 5,	0, 1,'10-16-2004'),
+--		('Luisa Chavez',	'luisa123',			1, 'imagen_luisa.jpg',	10, 0, 1,'10-16-2004'),
+--		('Sofia Fernandez',	'sofia2023',		1, 'imagen_sofia.jpg',	11, 0, 1,'10-16-2004'),
+--		('Diego Morales',	'morales321',		1, 'imagen_diego.jpg',	12, 0, 1,'10-16-2004'),
+--		('Laura Ramirez',	'laura456',			1, 'imagen_laura.jpg',	13, 0, 1,'10-16-2004'),
+--		('Ricardo Herrera',	'ricardo2023',		1, 'imagen_ricardo.jpg',14, 0, 1,'10-16-2004');
 
 
 
@@ -1534,7 +1534,13 @@ VALUES	('EUR', 'COMUNIDAD EUROPEA, EURO', 1, 1,  GETDATE()),
 --***** INSERT TABLA EMPLEADOS --******--
 GO
 INSERT INTO [Gral].[tbEmpleados](empl_Nombres, empl_Apellidos, empl_DNI, escv_Id, empl_Sexo, empl_FechaNacimiento, empl_Telefono, empl_DireccionExacta, pvin_Id, empl_CorreoElectronico, carg_Id, empl_EsAduana, usua_UsuarioCreacion, empl_FechaCreacion)
-values('Mario Antoni','Lopez Suazo','0311-2005-00908',1,'M','05-10-2022','9785-6222','col. el Amatillo casa #5',1,'mario@gmail.com',1,1,1,'05-06-2000');
+values('Mario Antoni','Lopez Suazo','0311-2005-00908',1,'M','05-10-2022','+504 9785-6222','col. el Amatillo casa #5',1,'mario@gmail.com',1,1,1,'05-06-2000');
+
+INSERT INTO Gral.tbEmpleados([empl_Nombres], [empl_Apellidos],[empl_DNI], [escv_Id], [empl_Sexo], [empl_FechaNacimiento],[empl_Telefono],
+								[empl_DireccionExacta],[pvin_Id], [empl_CorreoElectronico],[carg_Id],[empl_EsAduana],[usua_UsuarioCreacion],
+								[empl_FechaCreacion])
+VALUES							('Angie Yahaira', 'Campos Arias', '0512-2003-00736', 1, 'F', '2003-01-03', '+504 9588-7062', 
+								'Res. Oro Verde, La Lima', 24, 'angie.camposyc03@gmail.com',2, 0, 1, '2023-08-18')
 
 GO
 INSERT INTO Gral.tbEmpleados (empl_Nombres, empl_Apellidos, empl_DNI, escv_Id, empl_Sexo, empl_FechaNacimiento, empl_Telefono, empl_DireccionExacta, pvin_Id, empl_CorreoElectronico, carg_Id, empl_EsAduana, usua_UsuarioCreacion, empl_FechaCreacion)

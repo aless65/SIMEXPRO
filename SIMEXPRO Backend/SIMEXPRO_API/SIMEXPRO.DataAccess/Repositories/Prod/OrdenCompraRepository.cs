@@ -33,7 +33,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@orco_MetodoPago", item.orco_MetodoPago, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@orco_Materiales", item.orco_Materiales, DbType.Boolean, ParameterDirection.Input);
             parametros.Add("@orco_IdEmbalaje", item.orco_IdEmbalaje, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@orco_EstadoOrdenCompra", item.usua_UsuarioCreacion, DbType.String, ParameterDirection.Input);
+            parametros.Add("@orco_EstadoOrdenCompra", item.orco_EstadoOrdenCompra, DbType.String, ParameterDirection.Input);
             parametros.Add("@orco_DireccionEntrega", item.orco_DireccionEntrega, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@orco_FechaCreacion", item.orco_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
@@ -62,7 +62,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@orco_MetodoPago", item.orco_MetodoPago, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@orco_Materiales", item.orco_Materiales, DbType.Boolean, ParameterDirection.Input);
             parametros.Add("@orco_IdEmbalaje", item.orco_IdEmbalaje, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@orco_EstadoOrdenCompra", item.usua_UsuarioCreacion, DbType.String, ParameterDirection.Input);
+            parametros.Add("@orco_EstadoOrdenCompra", item.orco_EstadoOrdenCompra, DbType.String, ParameterDirection.Input);
             parametros.Add("@orco_DireccionEntrega", item.orco_DireccionEntrega, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@orco_FechaModificacion", item.orco_FechaModificacion, DbType.DateTime, ParameterDirection.Input);

@@ -23,6 +23,15 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public int empl_Id { get; set; }
         [NotMapped]
         public string empl_NombreCompleto { get; set; }
+
+
+        [NotMapped]
+        public string tall_Nombre { get; set; }
+        [NotMapped]
+        public string colr_Nombre { get; set; }
+        [NotMapped]
+        public string esti_Descripcion { get; set; }
+
         public int usua_UsuarioCreacion { get; set; }
         [NotMapped]
         public string usuarioCreacionNombre { get; set; }

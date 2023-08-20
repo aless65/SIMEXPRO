@@ -10082,6 +10082,13 @@ BEGIN
 END
 GO
 
+--CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Find
+--	@code_Id		INT
+--AS
+--BEGIN
+--	SELECT 
+--END
+
 CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrden_Insertar --1,'10-16-2004', '10-16-2004', 1,1,1,1, '10-16-2004'  
 (
 	@asor_OrdenDetId			INT,

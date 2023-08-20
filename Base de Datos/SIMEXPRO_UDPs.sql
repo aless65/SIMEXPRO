@@ -10049,14 +10049,16 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrden_Listado
 AS
 BEGIN
 	 SELECT asor_Id,						
-			asor_OrdenDetId,				
+			asor_OrdenDetId,
+			orco.orco_Id,
+			clie.clie_Nombre_O_Razon_Social,
 			asor_FechaInicio,			
 			asor_FechaLimite,						
 			asor_Cantidad,				
 			pro.proc_Id,	
 			pro.proc_Descripcion,
 			empl.empl_Id,			
-			empl.empl_Nombres + empl_Apellidos AS empl_NombreCompleto,
+			empl.empl_Nombres + ' ' + empl_Apellidos AS empl_NombreCompleto,
 			asignacionesOrden.usua_UsuarioCreacion,
 			usuarioCreacion.usua_Nombre					AS usuarioCreacionNombre,
 			asor_FechaCreacion,			
@@ -10066,6 +10068,9 @@ BEGIN
 	   FROM Prod.tbAsignacionesOrden					AS asignacionesOrden 
 	   INNER JOIN Prod.tbProcesos pro					ON asignacionesOrden.proc_Id = pro.proc_Id
 	   INNER JOIN Gral.tbEmpleados empl					ON asignacionesOrden.empl_Id = empl.empl_Id
+	   INNER JOIN Prod.tbOrdenCompraDetalles code		ON asignacionesOrden.asor_OrdenDetId = code.code_Id
+	   INNER JOIN Prod.tbOrdenCompra orco				ON code.orco_Id = orco.orco_Id
+	   INNER JOIN Prod.tbClientes clie					ON orco.orco_IdCliente = clie.clie_Id
 	   INNER JOIN Acce.tbUsuarios usuarioCreacion		ON asignacionesOrden.usua_UsuarioCreacion = usuarioCreacion.usua_Id
 	   LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON asignacionesOrden.usua_UsuarioModificacion = usuarioModificacion.usua_Id
 END

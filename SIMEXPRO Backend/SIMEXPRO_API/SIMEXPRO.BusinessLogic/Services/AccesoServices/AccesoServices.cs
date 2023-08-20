@@ -242,12 +242,25 @@ namespace SIMEXPRO.BussinessLogic.Services.AccesoServices
 
             }
         }
-        public ServiceResult DibujarMenu()
+        public ServiceResult DibujarMenu(tbRolesXPantallas item)
         {
             var result = new ServiceResult();
             try
             {
-                var map = _rolesPorPantallaRepository.DibujarMenu();
+                var map = _rolesPorPantallaRepository.DibujarMenu(item);
+                return result.Ok(map);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        public ServiceResult DibujadoDeMenu()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _rolesPorPantallaRepository.DibujadoDeMenu();
                 return result.Ok(map);
             }
             catch (Exception ex)

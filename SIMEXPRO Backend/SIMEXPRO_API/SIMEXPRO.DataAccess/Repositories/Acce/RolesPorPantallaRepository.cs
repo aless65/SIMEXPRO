@@ -68,13 +68,20 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             result.MessageStatus = answer;
             return result;
         }
-        public IEnumerable<tbPantallas> DibujarMenu()
+        public IEnumerable<tbRolesXPantallas> DibujarMenu(tbRolesXPantallas item)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
-           
-            var answer = db.Query<tbPantallas>(ScriptsDataBase.DibujarMenuRolesXPantallas, null, commandType: CommandType.StoredProcedure);
+            parametros.Add("@role_Id", item.role_Id, DbType.Int32, ParameterDirection.Input);
+            var answer = db.Query<tbRolesXPantallas>(ScriptsDataBase.DibujarMenuRolesXPantallas, parametros, commandType: CommandType.StoredProcedure);
+            return answer;
+        }
+        public IEnumerable<tbPantallas> DibujadoDeMenu()
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var answer = db.Query<tbPantallas>(ScriptsDataBase.DibujadoMenu, null, commandType: CommandType.StoredProcedure);
             return answer;
         }
     }

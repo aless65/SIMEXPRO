@@ -39,6 +39,7 @@ namespace SIMEXPRO.DataAccess
         public static string EditarRolesXPantallas = "Acce.UDP_tbRolesXPantallas_Editar";
         public static string EliminarRolesXPantallas = "Acce.UDP_tbRolesXPantallas_Eliminar";
         public static string DibujarMenuRolesXPantallas = "Acce.UDP_RolesPorPantalla_DibujadoMenu";
+        public static string DibujadoMenu = "Acce.UDP_RolesPorPantalla_DibujarMenu";
         #endregion
 
         #region Login

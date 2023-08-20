@@ -98,54 +98,35 @@ GO
 --GO
 
 --/*Dibujar menu*/ ESTE ES EL PROCEDIMIENTO VIEJO 
---CREATE OR ALTER PROCEDURE Acce.UDP_RolesPorPantalla_DibujadoMenu 
---    @role_ID INT
---AS
---BEGIN
---    SELECT 
---        ropa_Id, 
---        pnt.pant_Id, 
---        pant_Nombre,
---        pant_URL,
---        pant_Icono,
---        pant_Esquema,
---		pant_EsAduana,
---        CASE 
---            WHEN pnt.pant_Id = rxp.pant_Id THEN 'Asignada'
---            ELSE 'No asignada' 
---        END AS Asignada,
---        pnt.usua_UsuarioCreacion, 
---        ropa_FechaCreacion
---    FROM Acce.tbPantallas pnt
---    LEFT JOIN Acce.tbRolesXPantallas rxp 
---	ON pnt.pant_Id = rxp.pant_Id 
---	AND rxp.role_Id = @role_ID;
---END
---GO
-
---ESTE ES EL PROCEDIMIENTO QUE HIZO JAVIER SI ESTA MALO PATEENLO
 CREATE OR ALTER PROCEDURE Acce.UDP_RolesPorPantalla_DibujadoMenu 
+    @role_ID INT
 AS
 BEGIN
- --   SELECT 
- --       ropa_Id, 
- --       pnt.pant_Id, 
- --       pant_Nombre,
- --       pant_URL,
- --       pant_Icono,
- --       pant_Esquema,
-	--	pant_EsAduana,
- --       CASE 
- --           WHEN pnt.pant_Id = rxp.pant_Id THEN 'Asignada'
- --           ELSE 'No asignada' 
- --       END AS Asignada,
- --       pnt.usua_UsuarioCreacion, 
- --       ropa_FechaCreacion
- --   FROM Acce.tbPantallas pnt
- --   LEFT JOIN Acce.tbRolesXPantallas rxp 
-	--ON pnt.pant_Id = rxp.pant_Id 
-	--AND rxp.role_Id = @role_ID;
-	
+    SELECT 
+        ropa_Id, 
+        pnt.pant_Id, 
+        pant_Nombre,
+        pant_URL,
+        pant_Icono,
+        pant_Esquema,
+		pant_EsAduana,
+        CASE 
+            WHEN pnt.pant_Id = rxp.pant_Id THEN 'Asignada'
+            ELSE 'No asignada' 
+        END AS Asignada,
+        pnt.usua_UsuarioCreacion, 
+        ropa_FechaCreacion
+    FROM Acce.tbPantallas pnt
+    LEFT JOIN Acce.tbRolesXPantallas rxp 
+	ON pnt.pant_Id = rxp.pant_Id 
+	AND rxp.role_Id = @role_ID;
+END
+GO
+
+--ESTE ES EL PROCEDIMIENTO QUE HIZO JAVIER SI ESTA MALO PATEENLO
+CREATE OR ALTER PROCEDURE Acce.UDP_RolesPorPantalla_DibujarMenu 
+AS
+BEGIN
 
 	SELECT	pant.pant_Id, 
 			pant.pant_Nombre, 

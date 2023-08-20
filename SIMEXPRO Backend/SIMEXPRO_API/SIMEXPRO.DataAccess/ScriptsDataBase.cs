@@ -573,6 +573,7 @@ namespace SIMEXPRO.DataAccess
 
         #region Materiales Brindar
         public static string ListarMaterialesBrindar = "prod.UDP_tbMaterialesBrindar_Listar";
+        public static string ListarMaterialesBrindarFiltrado = "Prod.UDP_tbMaterialesBrindarPorOrdenCompraDetalle_Listar";
         public static string InsertarMaterialesBrindar = "prod.UDP_tbMaterialesBrindar_Insertar";
         public static string EditarMaterialesBrindar = "prod.UDP_tbMaterialesBrindar_Editar";
         #endregion

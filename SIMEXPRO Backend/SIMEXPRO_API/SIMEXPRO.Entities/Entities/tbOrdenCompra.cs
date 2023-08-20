@@ -13,6 +13,7 @@ namespace SIMEXPRO.Entities.Entities
         {
             tbFacturasExportacion = new HashSet<tbFacturasExportacion>();
             tbOrdenCompraDetalles = new HashSet<tbOrdenCompraDetalles>();
+            tbPODetallePorPedidoOrdenDetalle = new HashSet<tbPODetallePorPedidoOrdenDetalle>();
         }
 
         public int orco_Id { get; set; }
@@ -59,6 +60,7 @@ namespace SIMEXPRO.Entities.Entities
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbOrdenCompraDetalles> tbOrdenCompraDetalles { get; set; }
         public virtual ICollection<tbFacturasExportacion> tbFacturasExportacion { get; set; }
+        public virtual ICollection<tbPODetallePorPedidoOrdenDetalle> tbPODetallePorPedidoOrdenDetalle { get; set; }
 
     }
 }

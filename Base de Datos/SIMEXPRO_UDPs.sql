@@ -212,6 +212,9 @@ BEGIN
 		   usua.usua_FechaModificacion,
 		   usuaElimina.usua_Nombre AS usuarioEliminacionNombre, 
 		   usua.usua_FechaEliminacion,
+		   usua.usua_UsuarioActivacion,
+		   usuaActiva.usua_Nombre	AS usuarioActivacionNombre,
+		   usuaActiva.usua_FechaActivacion,
 		   usua.usua_Estado,
 		   empl.empl_CorreoElectronico
 	FROM Acce.tbUsuarios usua LEFT JOIN Acce.tbRoles rol
@@ -221,8 +224,11 @@ BEGIN
 	LEFT JOIN acce.tbUsuarios usuaCrea
 	ON usua.usua_UsuarioCreacion = usuaCrea.usua_Id
 	LEFT JOIN acce.tbUsuarios usuaModifica
-	ON usua.usua_UsuarioModificacion = usuaModifica.usua_Id LEFT JOIN acce.tbUsuarios usuaElimina
+	ON usua.usua_UsuarioModificacion = usuaModifica.usua_Id 
+	LEFT JOIN acce.tbUsuarios usuaElimina
 	ON usua.usua_UsuarioEliminacion = usuaElimina.usua_Id
+	LEFT JOIN acce.tbUsuarios usuaActiva
+	ON usua.usua_UsuarioActivacion = usuaActiva.usua_Id
 WHERE empl_EsAduana = @empl_EsAduana
 OR    @empl_EsAduana IS NULL
 END
@@ -392,19 +398,19 @@ GO
 /* Activar Usuarios*/
 CREATE OR ALTER PROCEDURE Acce.UDP_tbUsuarios_Activar
 	@usua_Id					INT,
-	@usua_UsuarioModificacion	INT,
-	@usua_FechaModificacion		DATETIME
+	@usua_UsuarioActivacion		INT,
+	@usua_FechaActivacion		DATETIME
 AS
 BEGIN
 	BEGIN TRY
 		BEGIN
 			 UPDATE Acce.tbUsuarios
-			    SET usua_Estado               = 1,
-					usua_UsuarioModificacion  = @usua_UsuarioModificacion,
-					usua_FechaModificacion    = @usua_FechaModificacion
-			  WHERE usua_Id                   = @usua_Id
+			    SET usua_Estado             = 1,
+					usua_UsuarioActivacion  = @usua_UsuarioActivacion,
+					usua_FechaActivacion    = @usua_FechaActivacion
+			  WHERE usua_Id                 = @usua_Id
+			  
 			  SELECT 1
-
 
 			  INSERT INTO acce.tbUsuariosHistorial (	usua_Id,
 												usua_Nombre, 
@@ -423,8 +429,8 @@ BEGIN
 				   usua_Image, 
 				   role_Id, 
 				   usua_EsAdmin,
-				   @usua_UsuarioModificacion, 
-				   @usua_FechaModificacion,
+				   @usua_UsuarioActivacion, 
+				   @usua_FechaActivacion,
 				   'Activar'
 			FROM acce.tbUsuarios
 			WHERE usua_Id = @usua_Id
@@ -436,8 +442,6 @@ BEGIN
 	END CATCH
 END
 GO
-
-
 
 
 
@@ -516,7 +520,7 @@ GO
 
 --*********** Tabla Roles *****************
 /* listar Roles*/
-CREATE OR ALTER PROCEDURE Acce.UDP_tbRoles_Listar 1
+CREATE OR ALTER PROCEDURE Acce.UDP_tbRoles_Listar
 	@role_Aduana	BIT
 AS
 BEGIN
@@ -9730,6 +9734,50 @@ GO
 -----------------PROCEDIMIENTOS ALMACENADOS Y VISTAS MÓDULO PRODUCCION
 
 -----------------------------------------------/UDPS Para orden de compra---------------------------------------------
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompra_ObtenerPorId_Para_LineaTiempo
+(
+	@orco_Id		INT
+)	
+AS
+BEGIN
+	 SELECT ordenCompra.orco_Id,
+		    --Informacion del cliente
+		    ordenCompra.orco_IdCliente,
+			cliente.clie_Nombre_O_Razon_Social,
+			cliente.clie_Direccion,
+			cliente.clie_RTN,
+			cliente.clie_Nombre_Contacto,
+			cliente.clie_Numero_Contacto,
+			cliente.clie_Correo_Electronico,
+			cliente.clie_FAX,
+			
+			ordenCompra.orco_FechaEmision,
+			ordenCompra.orco_FechaLimite,
+			ordenCompra.orco_MetodoPago,
+			ordenCompra.orco_Materiales,
+
+			--Informacion del Embalaje
+			ordenCompra.orco_IdEmbalaje,
+			tipoEmbajale.tiem_Descripcion,
+
+			ordenCompra.orco_EstadoOrdenCompra,
+			ordenCompra.orco_DireccionEntrega,
+			ordenCompra.usua_UsuarioCreacion,
+			usuarioCreacion.usua_Nombre				AS usuarioCreacionNombre,
+			ordenCompra.orco_FechaCreacion,
+			ordenCompra.usua_UsuarioModificacion,
+			usuarioModificacion.usua_Nombre			AS usuarioModificacionNombre,
+			ordenCompra.orco_FechaModificacion,
+			ordenCompra.orco_Estado
+	   FROM Prod.tbOrdenCompra		ordenCompra
+ INNER JOIN Prod.tbClientes			cliente					ON ordenCompra.orco_IdCliente				= cliente.clie_Id
+ INNER JOIN Prod.tbTipoEmbalaje		tipoEmbajale			ON ordenCompra.orco_IdEmbalaje				= tipoEmbajale.tiem_Id
+ INNER JOIN Acce.tbUsuarios			usuarioCreacion			ON ordenCompra.usua_UsuarioCreacion			= usuarioCreacion.usua_Id
+  LEFT JOIN Acce.tbUsuarios			usuarioModificacion		ON ordenCompra.usua_UsuarioModificacion		= usuarioModificacion.usua_Id
+	  WHERE orco_Id = @orco_Id
+END
+GO
 
 
 CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompra_Listado

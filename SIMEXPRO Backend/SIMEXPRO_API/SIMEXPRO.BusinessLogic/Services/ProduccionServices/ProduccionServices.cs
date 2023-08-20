@@ -42,7 +42,8 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         private readonly SubCategoriasRepository                     _subCategoriasRepository;
         private readonly TallasRepository                            _tallasRepository;
         private readonly TipoEmbalajeRepository                      _tipoEmbalajeRepository;
-        private readonly DocumentosOrdenCompraDetallesRepository _documentosOrdenCompraDetallesRepository;
+        private readonly DocumentosOrdenCompraDetallesRepository    _documentosOrdenCompraDetallesRepository;
+        private readonly GraficasRepository                         _graficasRepository;
 
 
         public ProduccionServices(  AreasRepository  areasRepository,                                 
@@ -75,8 +76,11 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                                     RevisionDeCalidadRepository revisionDeCalidadRepository,
                                     SubCategoriasRepository subCategoriasRepository,
                                     TallasRepository tallasRepository,
-                                    TipoEmbalajeRepository tipoEmbalajeRepository
-                                    ,DocumentosOrdenCompraDetallesRepository documentosOrdenCompraDetallesRepository)
+                                    TipoEmbalajeRepository tipoEmbalajeRepository,
+                                    DocumentosOrdenCompraDetallesRepository documentosOrdenCompraDetallesRepository,
+                                    GraficasRepository graficasRepository
+                                    
+            )
         {
 
 
@@ -112,7 +116,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             _tallasRepository = tallasRepository;
             _tipoEmbalajeRepository = tipoEmbalajeRepository;
             _documentosOrdenCompraDetallesRepository = documentosOrdenCompraDetallesRepository;
-
+            _graficasRepository = graficasRepository;
 
         }
 
@@ -3055,6 +3059,50 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 {
                     return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
                 }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Graficas
+        public ServiceResult Avance_Orden_Compra(tbGraficas item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.Avance_Orden_Compra(item);
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult TotalOrdenesCompraAnual()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.TotalOrdenesCompraAnual();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ContadorOrdenesCompraPorEstado()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.ContadorOrdenesCompraPorEstado();
+                return result.Ok(list);
             }
             catch (Exception ex)
             {

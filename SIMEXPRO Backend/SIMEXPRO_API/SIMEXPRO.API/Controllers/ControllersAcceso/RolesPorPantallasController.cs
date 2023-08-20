@@ -63,16 +63,9 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
         public IActionResult Dibujar()
         {
             var datos = _accesoServices.DibujarMenu();
-           
 
-            if (datos.Code == 200)
-            {
-                return Ok(datos);
-            }
-            else
-            {
-                return BadRequest(datos);
-            }
+            var mapped = _mapper.Map<IEnumerable<PantallasViewModel>>(datos);
+            return Ok(mapped);
         }
     }
 }

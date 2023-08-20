@@ -10007,6 +10007,9 @@ AS
 BEGIN
 	 SELECT asor_Id,						
 			asor_OrdenDetId,
+			esti.esti_Descripcion,
+			colr.colr_Nombre,
+			tall.tall_Nombre,
 			orco.orco_Id,
 			clie.clie_Nombre_O_Razon_Social,
 			asor_FechaInicio,			
@@ -10026,6 +10029,9 @@ BEGIN
 	   INNER JOIN Prod.tbProcesos pro					ON asignacionesOrden.proc_Id = pro.proc_Id
 	   INNER JOIN Gral.tbEmpleados empl					ON asignacionesOrden.empl_Id = empl.empl_Id
 	   INNER JOIN Prod.tbOrdenCompraDetalles code		ON asignacionesOrden.asor_OrdenDetId = code.code_Id
+	   INNER JOIN Prod.tbEstilos esti					ON code.esti_Id = esti.esti_Id
+	   INNER JOIN Prod.tbColores colr					ON code.colr_Id = colr.colr_Id
+	   INNER JOIN Prod.tbTallas tall					ON code.tall_Id = tall.tall_Id
 	   INNER JOIN Prod.tbOrdenCompra orco				ON code.orco_Id = orco.orco_Id
 	   INNER JOIN Prod.tbClientes clie					ON orco.orco_IdCliente = clie.clie_Id
 	   INNER JOIN Acce.tbUsuarios usuarioCreacion		ON asignacionesOrden.usua_UsuarioCreacion = usuarioCreacion.usua_Id

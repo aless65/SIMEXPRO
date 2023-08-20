@@ -32,6 +32,14 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(listado);
         }
 
+        [HttpGet("ListarFiltrado")]
+        public IActionResult Index(int code_Id)
+        {
+            var listado = _produccionServices.ListarMaterialesBrindadosFiltrado(code_Id);
+            listado.Data = _mapper.Map<IEnumerable<MaterialesBrindarViewModel>>(listado.Data);
+            return Ok(listado);
+        }
+
 
         [HttpPost("Insertar")]
         public IActionResult Insert(MaterialesBrindarViewModel materialesBrindarViewModel)

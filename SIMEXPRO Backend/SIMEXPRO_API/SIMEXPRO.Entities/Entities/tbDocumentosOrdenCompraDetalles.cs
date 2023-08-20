@@ -24,5 +24,9 @@ namespace SIMEXPRO.Entities.Entities
         public string UsuarioModificacionNombre { get; set; }
         public DateTime? dopo_FechaModificacion { get; set; }
         public bool? code_Estado { get; set; }
+
+        public virtual tbOrdenCompraDetalles code { get; set; }
+        public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
+        public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }
     }
 }

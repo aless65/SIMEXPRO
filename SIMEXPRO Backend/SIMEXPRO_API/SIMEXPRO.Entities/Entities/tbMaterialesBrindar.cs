@@ -17,6 +17,12 @@ namespace SIMEXPRO.Entities.Entities
         [NotMapped]
         public string mate_Descripcion { get; set; }
         public int mabr_Cantidad { get; set; }
+
+        public int unme_Id { get; set; }
+
+        [NotMapped]
+        public string unme_Descripcion { get; set; }
+
         public int usua_UsuarioCreacion { get; set; }
         [NotMapped]
         public string usuarioCreacionNombre { get; set; }
@@ -27,7 +33,7 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime? mabr_FechaModificacion { get; set; }
         public bool? mabr_Estado { get; set; }
 
-        public int unme_Id { get; set; }
+      
 
         public virtual tbUnidadMedidas unme { get; set; }
         public virtual tbOrdenCompraDetalles code { get; set; }

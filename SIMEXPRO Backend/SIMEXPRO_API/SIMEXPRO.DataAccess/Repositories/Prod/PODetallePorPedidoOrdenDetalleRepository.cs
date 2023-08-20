@@ -17,7 +17,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
-            parametros.Add("@popo_Id", item.popo_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@ocpo_Id", item.ocpo_Id, DbType.Int32, ParameterDirection.Input);
 
             var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarPedidosOrdenDetalles, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
@@ -37,7 +37,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@prod_Id", item.prod_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@code_Id", item.code_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@popo_FechaCreacion", item.popo_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@ocpo_FechaCreacion", item.ocpo_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
 
             var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarPODetallePorPedidoOrdenDetalle, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;

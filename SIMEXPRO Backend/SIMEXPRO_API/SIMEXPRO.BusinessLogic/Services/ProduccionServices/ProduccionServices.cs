@@ -1275,6 +1275,20 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             }
         }
 
+        public ServiceResult ListarMaterialesBrindadosFiltrado(int code_Id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _materialesBrindarRepository.List2(code_Id);
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
         public ServiceResult InsertarMaterialesBrindados(tbMaterialesBrindar item)
         {
             var result = new ServiceResult();

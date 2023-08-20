@@ -20,6 +20,7 @@ namespace SIMEXPRO.DataAccess.Context
         }
 
         public virtual DbSet<VW_tbDeclaraciones_ValorCompleto> VW_tbDeclaraciones_ValorCompleto { get; set; }
+        public virtual DbSet<VW_tbOrdenCompraDetalle_LineaTiempo> VW_tbOrdenCompraDetalle_LineaTiempo { get; set; }
         public virtual DbSet<tbAduanas> tbAduanas { get; set; }
         public virtual DbSet<tbAldeas> tbAldeas { get; set; }
         public virtual DbSet<tbAranceles> tbAranceles { get; set; }
@@ -213,6 +214,88 @@ namespace SIMEXPRO.DataAccess.Context
                 entity.Property(e => e.pvde_Condicion_Otra).HasMaxLength(300);
 
                 entity.Property(e => e.usua_CreacionNombre).HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<VW_tbOrdenCompraDetalle_LineaTiempo>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("VW_tbOrdenCompraDetalle_LineaTiempo", "Prod");
+
+                entity.Property(e => e.code_EspecificacionEmbalaje)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.code_FechaCreacion).HasColumnType("datetime");
+
+                entity.Property(e => e.code_FechaModificacion).HasColumnType("datetime");
+
+                entity.Property(e => e.code_Impuesto).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.code_Sexo)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.code_Unidad).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.code_Valor).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.colr_Nombre)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.dni_empleado_procActual)
+                    .IsRequired()
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.dni_empleado_procInicio)
+                    .IsRequired()
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.esti_Descripcion)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.nombre_empleado_procActual)
+                    .IsRequired()
+                    .HasMaxLength(301);
+
+                entity.Property(e => e.nombre_empleado_procInicio)
+                    .IsRequired()
+                    .HasMaxLength(301);
+
+                entity.Property(e => e.procActual_FechaInicio).HasColumnType("date");
+
+                entity.Property(e => e.procActual_FechaLimite).HasColumnType("date");
+
+                entity.Property(e => e.procInicio_FechaInicio).HasColumnType("date");
+
+                entity.Property(e => e.procInicio_FechaLimite).HasColumnType("date");
+
+                entity.Property(e => e.proc_DescripcionActual)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.proc_DescripcionComienza)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.tall_Codigo)
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.tall_Nombre)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.usuarioCreacionNombre)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.usuarioModificacionNombre).HasMaxLength(100);
             });
 
             modelBuilder.Entity<tbAduanas>(entity =>

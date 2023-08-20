@@ -444,6 +444,10 @@
       {
          "Name": "[Adua].[VW_tbDeclaraciones_ValorCompleto]",
          "ObjectType": 3
+      },
+      {
+         "Name": "[Prod].[VW_tbOrdenCompraDetalle_LineaTiempo]",
+         "ObjectType": 3
       }
    ],
    "UiHint": "practicaahm.SIMEXPRO",

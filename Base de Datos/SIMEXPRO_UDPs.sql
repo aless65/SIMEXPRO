@@ -109,6 +109,7 @@ BEGIN
         pant_URL,
         pant_Icono,
         pant_Esquema,
+		pant_Subcategoria,
 		pant_EsAduana,
         CASE 
             WHEN pnt.pant_Id = rxp.pant_Id THEN 'Asignada'
@@ -9756,6 +9757,7 @@ BEGIN
 			ordenCompra.orco_FechaEmision,
 			ordenCompra.orco_FechaLimite,
 			ordenCompra.orco_MetodoPago,
+			formasPago.fopa_Descripcion,
 			ordenCompra.orco_Materiales,
 
 			--Informacion del Embalaje
@@ -9773,12 +9775,14 @@ BEGIN
 			ordenCompra.orco_Estado
 	   FROM Prod.tbOrdenCompra		ordenCompra
  INNER JOIN Prod.tbClientes			cliente					ON ordenCompra.orco_IdCliente				= cliente.clie_Id
+  LEFT JOIN Adua.tbFormasdePago     formasPago				ON ordenCompra.orco_MetodoPago				= formasPago.fopa_Id
  INNER JOIN Prod.tbTipoEmbalaje		tipoEmbajale			ON ordenCompra.orco_IdEmbalaje				= tipoEmbajale.tiem_Id
  INNER JOIN Acce.tbUsuarios			usuarioCreacion			ON ordenCompra.usua_UsuarioCreacion			= usuarioCreacion.usua_Id
   LEFT JOIN Acce.tbUsuarios			usuarioModificacion		ON ordenCompra.usua_UsuarioModificacion		= usuarioModificacion.usua_Id
 	  WHERE orco_Id = @orco_Id
 END
 GO
+
 
 
 CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompra_Listado
@@ -9909,8 +9913,70 @@ GO
 -----------------------------------------------/UDPS Para orden de compra---------------------------------------------
 
 --------------------------------------------UDPS Para orden de compra detalle-----------------------------------------
+
+CREATE OR ALTER VIEW Prod.VW_tbOrdenCompraDetalle_LineaTiempo
+AS
+ SELECT ordenCompraDetalle.code_Id,
+			ordenCompraDetalle.orco_Id,
+			ordenCompraDetalle.code_CantidadPrenda,
+			ordenCompraDetalle.esti_Id,
+			estilo.esti_Descripcion,
+			ordenCompraDetalle.tall_Id,
+			talla.tall_Codigo,
+			talla.tall_Nombre,
+			ordenCompraDetalle.code_Sexo,
+			ordenCompraDetalle.colr_Id,
+			colores.colr_Nombre,
+			ordenCompraDetalle.proc_IdComienza,
+			procesoComienza.proc_Descripcion											AS proc_DescripcionComienza,
+			orden_Ensa_Acab_EtiqComienza.ensa_FechaInicio								AS procInicio_FechaInicio,
+			orden_Ensa_Acab_EtiqComienza.ensa_FechaLimite								AS procInicio_FechaLimite,
+			empleadoComienza.empl_DNI													AS dni_empleado_procInicio,
+			empleadoComienza.empl_Nombres + ' ' + empleadoComienza.empl_Apellidos		AS nombre_empleado_procInicio,
+			ordenCompraDetalle.proc_IdActual,
+			procesoActual.proc_Descripcion												AS proc_DescripcionActual,
+			orden_Ensa_Acab_EtiqProcActual.ensa_FechaInicio								AS procActual_FechaInicio,
+			orden_Ensa_Acab_EtiqProcActual.ensa_FechaLimite								AS procActual_FechaLimite,
+			empleadoProcActual.empl_DNI													AS dni_empleado_procActual,
+			empleadoProcActual.empl_Nombres + ' ' + empleadoProcActual.empl_Apellidos	AS nombre_empleado_procActual,
+			ordenCompraDetalle.code_Unidad,
+			ordenCompraDetalle.code_Valor,
+			ordenCompraDetalle.code_Impuesto,
+			ordenCompraDetalle.code_EspecificacionEmbalaje,
+			ordenCompraDetalle.usua_UsuarioCreacion,
+			usuarioCreacion.usua_Nombre													AS usuarioCreacionNombre,
+			ordenCompraDetalle.code_FechaCreacion,
+			ordenCompraDetalle.usua_UsuarioModificacion,
+			usuarioModificacion.usua_Nombre												AS usuarioModificacionNombre,
+			ordenCompraDetalle.code_FechaModificacion,
+			ordenCompraDetalle.code_Estado
+	   FROM Prod.tbOrdenCompraDetalles			ordenCompraDetalle
+ INNER JOIN Prod.tbEstilos						estilo								ON	ordenCompraDetalle.esti_Id						= estilo.esti_Id
+ INNER JOIN	Prod.tbTallas						talla								ON	ordenCompraDetalle.tall_Id						= talla.tall_Id
+ INNER JOIN Prod.tbColores						colores								ON	ordenCompraDetalle.colr_Id						= colores.colr_Id
+ INNER JOIN Prod.tbProcesos						procesoComienza						ON	ordenCompraDetalle.proc_IdComienza				= procesoComienza.proc_Id
+ INNER JOIN Prod.tbOrde_Ensa_Acab_Etiq			orden_Ensa_Acab_EtiqComienza		ON	ordenCompraDetalle.proc_IdComienza				= orden_Ensa_Acab_EtiqComienza.proc_Id
+ INNER JOIN Gral.tbEmpleados					empleadoComienza					ON  orden_Ensa_Acab_EtiqComienza.empl_Id			= empleadoComienza.empl_Id
+ INNER JOIN Prod.tbProcesos						procesoActual						ON	ordenCompraDetalle.proc_IdActual				= procesoActual.proc_Id
+ INNER JOIN Prod.tbOrde_Ensa_Acab_Etiq			Orden_Ensa_Acab_EtiqProcActual		ON	ordenCompraDetalle.proc_IdActual				= orden_Ensa_Acab_EtiqProcActual.proc_Id
+ INNER JOIN Gral.tbEmpleados					empleadoProcActual					ON  orden_Ensa_Acab_EtiqProcActual.empl_Id			= empleadoProcActual.empl_Id
+ INNER JOIN Acce.tbUsuarios						usuarioCreacion						ON  ordenCompraDetalle.usua_UsuarioCreacion			= usuarioCreacion.usua_Id
+  LEFT JOIN Acce.tbUsuarios						usuarioModificacion					ON  ordenCompraDetalle.usua_UsuarioModificacion		= usuarioModificacion.usua_Id
+GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalle_ObtenerPorIdOrdenCompra_ParaLineaTiempo
+(
+	@orco_Id			INT
+)
+AS
+BEGIN
+	 SELECT * FROM Prod.VW_tbOrdenCompraDetalle_LineaTiempo ordenCompraDetalle
+	 WHERE ordenCompraDetalle.orco_Id = @orco_Id
+END
+GO
+
 CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalle_Listado
-@orco_Id			INT
+	@orco_Id			INT
 AS
 BEGIN
 	SELECT	 ordenCompraDetalle.code_Id
@@ -9952,7 +10018,6 @@ BEGIN
 			WHERE ordenCompraDetalle.orco_Id	=	@orco_Id
 END
 GO
-
 
 
 CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Find 

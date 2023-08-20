@@ -57,5 +57,13 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             var respuesta = _produccionServices.EliminarOrdenCompraDetalles(item);
             return Ok(respuesta);
         }
+
+        [HttpGet("LineaTiempoOrdenCompraDetalles")]
+        public IActionResult LineaTiempo(int orco_Id)
+        {
+            var resultado = _produccionServices.LineaTiempoOrdenCompraDetalles(orco_Id);
+
+            return Ok(resultado);
+        }
     }
 }

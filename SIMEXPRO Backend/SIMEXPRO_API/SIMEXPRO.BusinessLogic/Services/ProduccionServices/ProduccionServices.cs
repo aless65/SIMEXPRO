@@ -302,7 +302,21 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 return result.Error(e.Message);
             }
         }
-       
+
+        public ServiceResult FindOrdenCompraDetalles(int id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _asignacionesOrdenRepository.Find(id);
+                return result.Ok(list);
+            }
+            catch (Exception e)
+            {
+                return result.Error(e.Message);
+            }
+        }
+
         public ServiceResult InsertarAsignacionOrden(tbAsignacionesOrden item)
         {
             var result = new ServiceResult();

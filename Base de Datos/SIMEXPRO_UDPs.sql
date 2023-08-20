@@ -3404,6 +3404,7 @@ BEGIN
 	  WHERE code_Estado = 1
 
 END
+GO
 
 
 GO
@@ -9904,6 +9905,28 @@ BEGIN
 END
 GO
 
+
+
+CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Find 
+	@code_Id		INT
+AS
+BEGIN
+	SELECT	 ordenCompraDetalle.code_Id
+			,ordenCompraDetalle.orco_Id
+			,ordenCompraDetalle.esti_Id
+			,estilo.esti_Descripcion
+			,ordenCompraDetalle.tall_Id
+			,talla.tall_Nombre
+			,ordenCompraDetalle.colr_Id
+			,colores.colr_Nombre
+	  FROM	Prod.tbOrdenCompraDetalles			    ordenCompraDetalle
+			INNER JOIN	Prod.tbEstilos				estilo						ON	ordenCompraDetalle.esti_Id						= estilo.esti_Id
+			INNER JOIN	Prod.tbTallas				talla						ON	ordenCompraDetalle.tall_Id						= talla.tall_Id
+			INNER JOIN  Prod.tbColores				colores						ON	ordenCompraDetalle.colr_Id						= colores.colr_Id
+	  WHERE ordenCompraDetalle.code_Id	=	@code_Id 
+END
+GO
+
 CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Insertar
 (
 	@orco_Id						INT,
@@ -10062,13 +10085,6 @@ BEGIN
 	   LEFT JOIN Acce.tbUsuarios usuarioModificacion	ON asignacionesOrden.usua_UsuarioModificacion = usuarioModificacion.usua_Id
 END
 GO
-
---CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Find
---	@code_Id		INT
---AS
---BEGIN
---	SELECT 
---END
 
 CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrden_Insertar --1,'10-16-2004', '10-16-2004', 1,1,1,1, '10-16-2004'  
 (
@@ -11316,7 +11332,8 @@ BEGIN
 		IF EXISTS (SELECT *
 				   FROM Prod.tbSubcategoria
 				   WHERE cate_Id = @cate_Id
-				   AND subc_Descripcion = @subc_Descripcion)
+				   AND subc_Descripcion = @subc_Descripcion
+				   AND subc_Estado = 0)
 			BEGIN
 				UPDATE Prod.tbSubcategoria
 				SET subc_Estado = 1

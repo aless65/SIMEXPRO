@@ -491,6 +491,8 @@ namespace SIMEXPRO.DataAccess
         public static string InsertarAsignacinesOrden = "Prod.UDP_tbAsignacionesOrden_Insertar";
         public static string EditarAsignacionesOrden = "Prod.UDP_tbAsignacionesOrden_Editar";
         public static string EliminarAsignacionesOrden = "Prod.UDP_tbAsignacionesOrden_Eliminar";
+
+        public static string FindOrdenCompraDetalle = "Prod.UDP_tbOrdenCompraDetalles_Find";
         #endregion
 
         #region Asignaciones Orden Detalle

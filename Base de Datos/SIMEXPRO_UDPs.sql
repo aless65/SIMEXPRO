@@ -97,31 +97,74 @@ GO
 		   
 --GO
 
-/*Dibujar menu*/
+--/*Dibujar menu*/ ESTE ES EL PROCEDIMIENTO VIEJO 
+--CREATE OR ALTER PROCEDURE Acce.UDP_RolesPorPantalla_DibujadoMenu 
+--    @role_ID INT
+--AS
+--BEGIN
+--    SELECT 
+--        ropa_Id, 
+--        pnt.pant_Id, 
+--        pant_Nombre,
+--        pant_URL,
+--        pant_Icono,
+--        pant_Esquema,
+--		pant_EsAduana,
+--        CASE 
+--            WHEN pnt.pant_Id = rxp.pant_Id THEN 'Asignada'
+--            ELSE 'No asignada' 
+--        END AS Asignada,
+--        pnt.usua_UsuarioCreacion, 
+--        ropa_FechaCreacion
+--    FROM Acce.tbPantallas pnt
+--    LEFT JOIN Acce.tbRolesXPantallas rxp 
+--	ON pnt.pant_Id = rxp.pant_Id 
+--	AND rxp.role_Id = @role_ID;
+--END
+--GO
+
+--ESTE ES EL PROCEDIMIENTO QUE HIZO JAVIER SI ESTA MALO PATEENLO
 CREATE OR ALTER PROCEDURE Acce.UDP_RolesPorPantalla_DibujadoMenu 
-    @role_ID INT
 AS
 BEGIN
-    SELECT 
-        ropa_Id, 
-        pnt.pant_Id, 
-        pant_Nombre,
-        pant_URL,
-        pant_Icono,
-        pant_Esquema,
-		pant_EsAduana,
-        CASE 
-            WHEN pnt.pant_Id = rxp.pant_Id THEN 'Asignada'
-            ELSE 'No asignada' 
-        END AS Asignada,
-        pnt.usua_UsuarioCreacion, 
-        ropa_FechaCreacion
-    FROM Acce.tbPantallas pnt
-    LEFT JOIN Acce.tbRolesXPantallas rxp 
-	ON pnt.pant_Id = rxp.pant_Id 
-	AND rxp.role_Id = @role_ID;
+ --   SELECT 
+ --       ropa_Id, 
+ --       pnt.pant_Id, 
+ --       pant_Nombre,
+ --       pant_URL,
+ --       pant_Icono,
+ --       pant_Esquema,
+	--	pant_EsAduana,
+ --       CASE 
+ --           WHEN pnt.pant_Id = rxp.pant_Id THEN 'Asignada'
+ --           ELSE 'No asignada' 
+ --       END AS Asignada,
+ --       pnt.usua_UsuarioCreacion, 
+ --       ropa_FechaCreacion
+ --   FROM Acce.tbPantallas pnt
+ --   LEFT JOIN Acce.tbRolesXPantallas rxp 
+	--ON pnt.pant_Id = rxp.pant_Id 
+	--AND rxp.role_Id = @role_ID;
+	
+
+	SELECT	pant.pant_Id, 
+			pant.pant_Nombre, 
+			pant.pant_URL, 
+			pant.pant_Icono, 
+			pant.pant_Esquema, 
+			pant.pant_EsAduana, 
+			pant.pant_Subcategoria,
+			(select	inerropa.role_Id, innerrols.role_Descripcion from Acce.tbRolesXPantallas inerropa INNER JOIN Acce.tbPantallas innerpant  ON inerropa.pant_Id = innerpant.pant_Id INNER JOIN Acce.tbRoles innerrols ON inerropa.role_Id = innerrols.role_Id
+			WHERE innerpant.pant_Nombre = pant.pant_Nombre
+			ORDER BY innerpant.pant_Nombre  
+			FOR JSON PATH ) 
+			AS Detalles
+	FROM	Acce.tbPantallas pant 
+
 END
 GO
+
+
 
 --CREATE OR ALTER PROCEDURE Acce.UDP_RolesPorPantalla_DibujadoMenu 
 --	@role_ID    INT
@@ -469,20 +512,20 @@ CREATE OR ALTER PROCEDURE Acce.UDP_tbPantallas_Listar
 	@pant_EsAduana  BIT
 AS
 BEGIN
-	SELECT [pant_Id], 
-		   [pant_Nombre], 
-		   [pant_URL], 
-		   [pant_Icono], 
-		   [pant_Esquema],
+	SELECT pant_Id, 
+		   pant_Nombre, 
+		   pant_URL, 
+		   pant_Icono, 
+		   pant_Esquema,
 		   pant_EsAduana,
-		   [usua_UsuarioCreacion],
-		   [pant_FechaCreacion],
-		   [usua_UsuarioModificacion],
-		   [pant_FechaModificacion],
-		   [usua_UsuarioEliminacion],
-		   [pant_FechaEliminacion]
-	  FROM [Acce].[tbPantallas]
-	 WHERE [pant_Estado] = 1
+		   usua_UsuarioCreacion,
+		   pant_FechaCreacion,
+		   usua_UsuarioModificacion,
+		   pant_FechaModificacion,
+		   usua_UsuarioEliminacion,
+		   pant_FechaEliminacion
+	  FROM Acce.tbPantallas
+	 WHERE pant_Estado = 1
 	 AND (pant_EsAduana = @pant_EsAduana 
 	 OR pant_EsAduana IS NULL)
 	 OR @pant_EsAduana IS NULL
@@ -492,41 +535,41 @@ GO
 
 --*********** Tabla Roles *****************
 /* listar Roles*/
-CREATE OR ALTER PROCEDURE [Acce].[UDP_tbRoles_Listar]
+CREATE OR ALTER PROCEDURE Acce.UDP_tbRoles_Listar 1
 	@role_Aduana	BIT
 AS
 BEGIN
-	SELECT tbroles.[role_Id], 
-		   [role_Descripcion],
-		   tbroles.[role_Aduana], 
-		   CASE [role_Aduana]
+	SELECT tbroles.role_Id, 
+		   role_Descripcion,
+		   tbroles.role_Aduana, 
+		   CASE role_Aduana
 		   WHEN 1 THEN 'Sí'
 		   ELSE 'No' END AS Aduanero,
-		   tbroles.[usua_UsuarioCreacion],
+		   tbroles.usua_UsuarioCreacion,
 		   usuCrea.usua_Nombre as UsuarioCreacionNombre,
-		   [role_FechaCreacion], 
-		   tbroles.[usua_UsuarioModificacion],
+		   role_FechaCreacion, 
+		   tbroles.usua_UsuarioModificacion,
 		   usuModi.usua_Nombre as UsuarioModificadorNombre,
-		   [role_FechaModificacion], 
-		   tbroles.[usua_UsuarioEliminacion], 
-		   [role_FechaEliminacion],
-		   [role_Estado],
-		   (SELECT [ropa_Id],
-				   tbropa.[pant_Id],
+		   role_FechaModificacion, 
+		   tbroles.usua_UsuarioEliminacion, 
+		   role_FechaEliminacion,
+		   role_Estado,
+		   (SELECT ropa_Id,
+				   tbropa.pant_Id,
 				   pant_Nombre
-   FROM [Acce].[tbRolesXPantallas] tbropa
-   INNER JOIN [Acce].[tbPantallas] tbpa
+   FROM Acce.tbRolesXPantallas tbropa
+   INNER JOIN Acce.tbPantallas tbpa
    ON tbropa.pant_Id = tbpa.pant_Id
    WHERE tbroles.role_Id = tbropa.role_Id
 
    FOR JSON PATH) 
    AS Detalles
 
-	FROM [Acce].[tbRoles] tbroles
+	FROM Acce.tbRoles tbroles
 	LEFT JOIN Acce.tbUsuarios usuModi
     ON tbroles.usua_UsuarioModificacion = usuModi.usua_Id
     INNER JOIN Acce.tbUsuarios usuCrea
-    ON tbroles.[usua_UsuarioCreacion] = usuCrea.usua_Id
+    ON tbroles.usua_UsuarioCreacion = usuCrea.usua_Id
 	WHERE role_Estado = 1
 	AND role_Aduana = @role_Aduana
 	OR @role_Aduana IS NULL
@@ -555,10 +598,10 @@ BEGIN
 
 				DECLARE @role_Id INT = SCOPE_IDENTITY();
 
-				INSERT INTO [Acce].[tbRolesXPantallas] ([pant_Id], 
-													    [role_Id], 
-													    [usua_UsuarioCreacion], 
-													    [ropa_FechaCreacion] )
+				INSERT INTO Acce.tbRolesXPantallas (pant_Id, 
+													    role_Id, 
+													    usua_UsuarioCreacion, 
+													    ropa_FechaCreacion )
 				SELECT *,
 				      @role_Id,
 					  @usua_UsuarioCreacion,
@@ -600,10 +643,10 @@ BEGIN
         WHERE role_Id = @role_Id
 
         -- Inserta nuevas asignaciones de pantallas
-        INSERT INTO [Acce].[tbRolesXPantallas] ([pant_Id], 
-                                                [role_Id], 
-                                                [usua_UsuarioCreacion], 
-                                                [ropa_FechaCreacion])
+        INSERT INTO Acce.tbRolesXPantallas (pant_Id, 
+                                                role_Id, 
+                                                usua_UsuarioCreacion, 
+                                                ropa_FechaCreacion)
         SELECT DISTINCT
                 pant.pant_Id,
                 @role_Id,
@@ -787,8 +830,8 @@ AS
 BEGIN
 	SELECT empl_CorreoElectronico 
 	FROM (VALUES(NULL))V(N)
-	LEFT JOIN [Gral].[tbEmpleados] empl
-	INNER JOIN [Acce].[tbUsuarios] usua	ON empl.empl_Id = usua.empl_Id
+	LEFT JOIN Gral.tbEmpleados empl
+	INNER JOIN Acce.tbUsuarios usua	ON empl.empl_Id = usua.empl_Id
 	ON usua_Nombre = @usua_Nombre
 	AND usua_Estado = 1
 END
@@ -1351,7 +1394,7 @@ GO
 --**********MONEDAS**********--
 
 /*Listar monedas*/
-CREATE OR ALTER PROCEDURE [Gral].[UDP_tbMonedas_Listar]
+CREATE OR ALTER PROCEDURE Gral.UDP_tbMonedas_Listar
 	@mone_EsAduana	BIT
 AS
 BEGIN
@@ -1436,7 +1479,7 @@ BEGIN
 END
 GO
 
---CREATE OR ALTER PROCEDURE [Gral].[UDP_tbMonedas_Eliminar] 
+--CREATE OR ALTER PROCEDURE Gral.UDP_tbMonedas_Eliminar 
 --	@mone_Id					INT,
 --	@usua_UsuarioEliminacion	INT,
 --	@mone_FechaEliminacion		DATETIME
@@ -1649,7 +1692,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER PROCEDURE [Gral].[UDP_tbCiudades_Eliminar] 
+CREATE OR ALTER PROCEDURE Gral.UDP_tbCiudades_Eliminar 
 	@ciud_Id					INT,
 	@usua_UsuarioEliminacion	INT,
 	@ciud_FechaEliminacion		DATETIME
@@ -1803,7 +1846,7 @@ GO
 
 --************ALDEAS******************--
 /*Listar ALDEAS*/
-CREATE OR ALTER PROCEDURE [Gral].[UDP_tbAldeas_Listar]
+CREATE OR ALTER PROCEDURE Gral.UDP_tbAldeas_Listar
 AS
 BEGIN
 SELECT	alde_Id								,
@@ -2218,7 +2261,7 @@ GO
 
 --************EMPLEADOS******************--
 /*Listar EMPLEADOS*/
-CREATE OR ALTER PROCEDURE [Gral].[UDP_tbEmpleados_Listar]
+CREATE OR ALTER PROCEDURE Gral.UDP_tbEmpleados_Listar
 	@empl_EsAduana		BIT
 AS
 BEGIN
@@ -3363,21 +3406,21 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbDocumentosOrdenCompraDetalles_Listar
 AS
 BEGIN
  
-	SELECT	 [dopo_Id]
-			,[code_Id]
-			,[dopo_Archivo]
-			,[dopo_TipoArchivo]
-			,documentosOrdenCompraDetalle.[usua_UsuarioCreacion]
-			,UsuarioCreacion.[usua_Nombre]							AS UsuarioCreacionNombre
- 			,documentosOrdenCompraDetalle.[dopo_FechaCreacion]
-			,documentosOrdenCompraDetalle.[usua_UsuarioModificacion]
-			,UsuarioModificacion.[usua_Nombre]							AS UsuarioModificacionNombre
- 			,documentosOrdenCompraDetalle.[dopo_FechaModificacion]
-			,[code_Estado]
-	  FROM	[Prod].[tbDocumentosOrdenCompraDetalles]			documentosOrdenCompraDetalle
-			INNER JOIN [Acce].[tbUsuarios] UsuarioCreacion			ON UsuarioCreacion.usua_Id			= documentosOrdenCompraDetalle.usua_UsuarioCreacion
-			LEFT  JOIN [Acce].[tbUsuarios] UsuarioModificacion		ON UsuarioModificacion.usua_Id		= documentosOrdenCompraDetalle.usua_UsuarioModificacion
-	  WHERE [code_Estado] = 1
+	SELECT	 dopo_Id
+			,code_Id
+			,dopo_Archivo
+			,dopo_TipoArchivo
+			,documentosOrdenCompraDetalle.usua_UsuarioCreacion
+			,UsuarioCreacion.usua_Nombre							AS UsuarioCreacionNombre
+ 			,documentosOrdenCompraDetalle.dopo_FechaCreacion
+			,documentosOrdenCompraDetalle.usua_UsuarioModificacion
+			,UsuarioModificacion.usua_Nombre							AS UsuarioModificacionNombre
+ 			,documentosOrdenCompraDetalle.dopo_FechaModificacion
+			,code_Estado
+	  FROM	Prod.tbDocumentosOrdenCompraDetalles			documentosOrdenCompraDetalle
+			INNER JOIN Acce.tbUsuarios UsuarioCreacion			ON UsuarioCreacion.usua_Id			= documentosOrdenCompraDetalle.usua_UsuarioCreacion
+			LEFT  JOIN Acce.tbUsuarios UsuarioModificacion		ON UsuarioModificacion.usua_Id		= documentosOrdenCompraDetalle.usua_UsuarioModificacion
+	  WHERE code_Estado = 1
 
 END
 
@@ -3393,12 +3436,12 @@ AS
 BEGIN
 BEGIN TRY 
  
-	INSERT INTO [Prod].[tbDocumentosOrdenCompraDetalles]
-			   ([code_Id]
-			   ,[dopo_Archivo]
-			   ,[dopo_TipoArchivo]
-			   ,[usua_UsuarioCreacion]
-			   ,[dopo_FechaCreacion] )
+	INSERT INTO Prod.tbDocumentosOrdenCompraDetalles
+			   (code_Id
+			   ,dopo_Archivo
+			   ,dopo_TipoArchivo
+			   ,usua_UsuarioCreacion
+			   ,dopo_FechaCreacion )
 		 VALUES
 			   (@code_Id
 			   ,@dopo_Archivo
@@ -3424,12 +3467,12 @@ AS
 BEGIN
  BEGIN TRY 
  
-	UPDATE [Prod].[tbDocumentosOrdenCompraDetalles]
-	   SET [code_Id]                  =		@code_Id
-		  ,[dopo_Archivo]             =		@dopo_Archivo
-		  ,[dopo_TipoArchivo]         =		@dopo_TipoArchivo
- 		  ,[usua_UsuarioModificacion] =		@usua_UsuarioModificacion
-		  ,[dopo_FechaModificacion]   =		@dopo_FechaModificacion
+	UPDATE Prod.tbDocumentosOrdenCompraDetalles
+	   SET code_Id                  =		@code_Id
+		  ,dopo_Archivo             =		@dopo_Archivo
+		  ,dopo_TipoArchivo         =		@dopo_TipoArchivo
+ 		  ,usua_UsuarioModificacion =		@usua_UsuarioModificacion
+		  ,dopo_FechaModificacion   =		@dopo_FechaModificacion
  	 WHERE dopo_Id = @dopo_Id
  
  		 SELECT 1
@@ -3445,8 +3488,8 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbDocumentosOrdenCompraDetalles_Eliminar
 AS
 BEGIN
  BEGIN TRY 
-	UPDATE [Prod].[tbDocumentosOrdenCompraDetalles]
-	   SET [code_Estado] = 0
+	UPDATE Prod.tbDocumentosOrdenCompraDetalles
+	   SET code_Estado = 0
 	 WHERE dopo_Id = @dopo_Id
 	   
 		 SELECT 1
@@ -4614,10 +4657,10 @@ BEGIN
 		   inte.inte_Tipo_Otro,
 		   prov.coco_Id,
 		   prov.pvde_Condicion_Otra
-	FROM   [Adua].[tbDeclarantes] decl
-	LEFT JOIN [Adua].[tbImportadores] impo				ON decl.decl_Id = impo.decl_Id
-	LEFT JOIN [Adua].[tbIntermediarios] inte			ON decl.decl_Id = inte.decl_Id
-	LEFT JOIN [Adua].[tbProveedoresDeclaracion]	prov	ON decl.decl_Id = prov.decl_Id
+	FROM   Adua.tbDeclarantes decl
+	LEFT JOIN Adua.tbImportadores impo				ON decl.decl_Id = impo.decl_Id
+	LEFT JOIN Adua.tbIntermediarios inte			ON decl.decl_Id = inte.decl_Id
+	LEFT JOIN Adua.tbProveedoresDeclaracion	prov	ON decl.decl_Id = prov.decl_Id
 	WHERE decl_NumeroIdentificacion = @decl_NumeroIdentificacion
 END
 
@@ -4880,7 +4923,7 @@ BEGIN
 		DECLARE @impo_Id INT;
 
 		-- SI NO EXISTE UN REGISTRO CON ESE RTN SE INSERTA
-		IF NOT EXISTS (SELECT decl_NumeroIdentificacion FROM [Adua].tbDeclarantes WHERE decl_NumeroIdentificacion = @impo_RTN)
+		IF NOT EXISTS (SELECT decl_NumeroIdentificacion FROM Adua.tbDeclarantes WHERE decl_NumeroIdentificacion = @impo_RTN)
 		BEGIN
 			EXEC adua.UDP_tbDeclarantes_Insertar @decl_Nombre_Raso,
 											     @decl_Direccion_Exacta,
@@ -4966,7 +5009,7 @@ BEGIN
 											 impo_NivelComercial_Otro,
 											 impo_RTN,
 											 impo_NumRegistro
-									  FROM [Adua].[tbImportadores]
+									  FROM Adua.tbImportadores
 									  WHERE impo_Id = @impo_Id
 									  EXCEPT 
 									  SELECT @nico_Id					AS nico_Id,
@@ -4974,7 +5017,7 @@ BEGIN
 											 @impo_RTN				    AS impo_RTN,
 											 @impo_NumRegistro			AS impo_NumRegistro)
 							BEGIN
-								UPDATE [Adua].[tbImportadores]
+								UPDATE Adua.tbImportadores
 								SET    nico_Id = @nico_Id,
 									   impo_NivelComercial_Otro = @impo_NivelComercial_Otro,
 									   impo_RTN = @impo_RTN,
@@ -5088,7 +5131,7 @@ BEGIN
 
 		-- SI NO EXISTE UN REGISTRO CON ESE RTN, SE INSERTA
 		IF NOT EXISTS (SELECT decl_NumeroIdentificacion 
-					   FROM [Adua].tbDeclarantes 
+					   FROM Adua.tbDeclarantes 
 					   WHERE decl_NumeroIdentificacion = @impo_RTN)
 			BEGIN
 				EXEC adua.UDP_tbDeclarantes_Insertar @decl_Nombre_Raso,
@@ -5167,7 +5210,7 @@ BEGIN
 											 impo_NivelComercial_Otro,
 											 impo_RTN,
 											 impo_NumRegistro
-									  FROM [Adua].[tbImportadores]
+									  FROM Adua.tbImportadores
 									  WHERE impo_Id = @impo_Id
 									  EXCEPT 
 									  SELECT @nico_Id					AS nico_Id,
@@ -5175,7 +5218,7 @@ BEGIN
 											 @impo_RTN				    AS impo_RTN,
 											 @impo_NumRegistro			AS impo_NumRegistro)
 							BEGIN
-								UPDATE [Adua].[tbImportadores]
+								UPDATE Adua.tbImportadores
 								SET    nico_Id = @nico_Id,
 									   impo_NivelComercial_Otro = @impo_NivelComercial_Otro,
 									   impo_RTN = @impo_RTN,
@@ -5331,7 +5374,7 @@ BEGIN
 		/*Declarantes de proveedores*/
 		-- SI NO EXISTE UN REGISTRO CON ESE RTN SE INSERTA
 
-			IF NOT EXISTS ( SELECT decl_Id FROM [Adua].tbDeclarantes WHERE decl_NumeroIdentificacion = @prov_RTN)
+			IF NOT EXISTS ( SELECT decl_Id FROM Adua.tbDeclarantes WHERE decl_NumeroIdentificacion = @prov_RTN)
 				BEGIN
 					EXEC adua.UDP_tbDeclarantes_Insertar @prov_decl_Nombre_Raso,
 													   @prov_decl_Direccion_Exacta,
@@ -5402,17 +5445,17 @@ BEGIN
 					IF(@prov_Id > 0)
 						BEGIN
 							--REVISAMOS SI HUBO CAMBIOS EN LA TABLA DE PROVEEDORES
-							IF EXISTS(SELECT [coco_Id], 
-												[pvde_Condicion_Otra]
-										FROM [Adua].[tbProveedoresDeclaracion]
+							IF EXISTS(SELECT coco_Id, 
+												pvde_Condicion_Otra
+										FROM Adua.tbProveedoresDeclaracion
 										WHERE pvde_Id = @prov_Id
 										EXCEPT
 										SELECT @coco_Id				AS coco_Id, 
 												@pvde_Condicion_Otra	AS pvde_Condicion_Otra)
 								BEGIN
-									UPDATE [Adua].[tbProveedoresDeclaracion]
-									SET	   [coco_Id] = @coco_Id,
-											[pvde_Condicion_Otra] = @pvde_Condicion_Otra,
+									UPDATE Adua.tbProveedoresDeclaracion
+									SET	   coco_Id = @coco_Id,
+											pvde_Condicion_Otra = @pvde_Condicion_Otra,
 											usua_UsuarioModificacion = @usua_UsuarioCreacion,
 											pvde_FechaModificacion = @deva_FechaCreacion
 									WHERE pvde_Id = @prov_Id
@@ -5441,7 +5484,7 @@ BEGIN
 			BEGIN
 
 				-- SI NO EXISTE UN REGISTRO CON ESE RTN SE INSERTA
-				IF NOT EXISTS (SELECT decl_Id FROM [Adua].tbDeclarantes WHERE decl_NumeroIdentificacion = @inte_RTN)
+				IF NOT EXISTS (SELECT decl_Id FROM Adua.tbDeclarantes WHERE decl_NumeroIdentificacion = @inte_RTN)
 					BEGIN
 						EXEC adua.UDP_tbDeclarantes_Insertar @inte_decl_Nombre_Raso,
 																@inte_decl_Direccion_Exacta,
@@ -5514,8 +5557,8 @@ BEGIN
 						IF	(@inte_Id > 0)
 							BEGIN
 								--REVISAMOS SI HUBO CAMBIOS EN LA TABLA DE INTERMEDIARIOS
-								IF EXISTS (SELECT [tite_Id], 
-												  [inte_Tipo_Otro]
+								IF EXISTS (SELECT tite_Id, 
+												  inte_Tipo_Otro
 										   FROM Adua.tbIntermediarios
 										   WHERE inte_Id = @inte_Id
 										   EXCEPT 
@@ -5523,8 +5566,8 @@ BEGIN
 												  @inte_Tipo_Otro	AS inte_Tipo_Otro)
 									BEGIN
 										UPDATE Adua.tbIntermediarios
-										SET	   [tite_Id] = @tite_Id, 
-											   [inte_Tipo_Otro] = @inte_Tipo_Otro,
+										SET	   tite_Id = @tite_Id, 
+											   inte_Tipo_Otro = @inte_Tipo_Otro,
 											   usua_UsuarioModificacion = @usua_UsuarioCreacion,
 											   inte_FechaModificacion = @deva_FechaCreacion
 										WHERE inte_Id = @inte_Id
@@ -5626,7 +5669,7 @@ GO
 
 --		/*Declarantes de proveedores*/
 --		-- SI NO EXISTE UN PROVEEDOR CON ESE RTN SE INSERTA
---		IF NOT EXISTS (SELECT decl_NumeroIdentificacion FROM [Adua].tbDeclarantes WHERE decl_NumeroIdentificacion = @prov_RTN)
+--		IF NOT EXISTS (SELECT decl_NumeroIdentificacion FROM Adua.tbDeclarantes WHERE decl_NumeroIdentificacion = @prov_RTN)
 --			BEGIN
 
 --					EXEC adua.UDP_tbDeclarantes_Insertar @prov_decl_Nombre_Raso,
@@ -5697,17 +5740,17 @@ GO
 --						END
 
 --					--REVISAMOS SI HUBO CAMBIOS EN LA TABLA DE PROVEEDORES
---					IF EXISTS(SELECT [coco_Id], 
---									 [pvde_Condicion_Otra]
---								FROM [Adua].[tbProveedoresDeclaracion]
+--					IF EXISTS(SELECT coco_Id, 
+--									 pvde_Condicion_Otra
+--								FROM Adua.tbProveedoresDeclaracion
 --								WHERE pvde_Id = @pvde_Id
 --								EXCEPT
 --								SELECT  @coco_Id				AS coco_Id, 
 --										@pvde_Condicion_Otra	AS pvde_Condicion_Otra)
 --						BEGIN
---							UPDATE [Adua].[tbProveedoresDeclaracion]
---							SET	   [coco_Id] = @coco_Id,
---									[pvde_Condicion_Otra] = @pvde_Condicion_Otra,
+--							UPDATE Adua.tbProveedoresDeclaracion
+--							SET	   coco_Id = @coco_Id,
+--									pvde_Condicion_Otra = @pvde_Condicion_Otra,
 --									usua_UsuarioModificacion = @usua_UsuarioModificacion,
 --									pvde_FechaModificacion = @deva_FechaModificacion
 --							WHERE pvde_Id = @pvde_Id
@@ -5722,7 +5765,7 @@ GO
 --			BEGIN
 
 --				-- SI NO EXISTE UN REGISTRO CON ESE RTN SE INSERTA
---				IF NOT EXISTS (SELECT decl_Id FROM [Adua].tbDeclarantes WHERE decl_NumeroIdentificacion = @inte_RTN)
+--				IF NOT EXISTS (SELECT decl_Id FROM Adua.tbDeclarantes WHERE decl_NumeroIdentificacion = @inte_RTN)
 --					BEGIN
 --						EXEC adua.UDP_tbDeclarantes_Insertar @inte_decl_Nombre_Raso,
 --																@inte_decl_Direccion_Exacta,
@@ -5792,8 +5835,8 @@ GO
 							
 
 --						--REVISAMOS SI HUBO CAMBIOS EN LA TABLA DE INTERMEDIARIOS
---						IF EXISTS (SELECT [tite_Id], 
---										  [inte_Tipo_Otro]
+--						IF EXISTS (SELECT tite_Id, 
+--										  inte_Tipo_Otro
 --								   FROM Adua.tbIntermediarios
 --								   WHERE inte_Id = @inte_Id
 --								   EXCEPT 
@@ -5801,8 +5844,8 @@ GO
 --										  @inte_Tipo_Otro	AS inte_Tipo_Otro)
 --							BEGIN
 --								UPDATE Adua.tbIntermediarios
---								SET	   [tite_Id] = @tite_Id, 
---									   [inte_Tipo_Otro] = @inte_Tipo_Otro,
+--								SET	   tite_Id = @tite_Id, 
+--									   inte_Tipo_Otro = @inte_Tipo_Otro,
 --									   usua_UsuarioModificacion = @usua_UsuarioModificacion,
 --									   inte_FechaModificacion = @deva_FechaModificacion
 --								WHERE inte_Id = @inte_Id
@@ -6158,7 +6201,7 @@ AS
 BEGIN
 	BEGIN TRANSACTION
 	BEGIN TRY
-		INSERT INTO [Adua].[tbFacturas](deva_Id, 
+		INSERT INTO Adua.tbFacturas(deva_Id, 
 										fact_Numero,
 										fact_Fecha, 
 										usua_UsuarioCreacion, 
@@ -6172,7 +6215,7 @@ BEGIN
 		SELECT SCOPE_IDENTITY()
 
 
-		INSERT INTO [Adua].[tbFacturasHistorial](fact_Id, 
+		INSERT INTO Adua.tbFacturasHistorial(fact_Id, 
 												 fact_Numero,
 												 deva_Id, 
 												 fect_Fecha, 
@@ -6208,7 +6251,7 @@ BEGIN
 	BEGIN TRANSACTION
 	BEGIN TRY
 
-		UPDATE [Adua].[tbFacturas]
+		UPDATE Adua.tbFacturas
 		SET   deva_Id = @deva_Id, 
 		      fact_Numero = @fact_Numero,
 			  fact_Fecha = @fact_Fecha, 
@@ -6217,7 +6260,7 @@ BEGIN
 		WHERE fact_Id = @fact_Id
 
 
-		INSERT INTO [Adua].[tbFacturasHistorial](fact_Id, 
+		INSERT INTO Adua.tbFacturasHistorial(fact_Id, 
 												 fact_Numero,
 												 deva_Id, 
 												 fect_Fecha, 
@@ -6250,7 +6293,7 @@ BEGIN
 		DELETE FROM Adua.tbItems
 		WHERE fact_Id = @fact_Id
 
-		DELETE FROM [Adua].[tbFacturas]
+		DELETE FROM Adua.tbFacturas
 		WHERE fact_Id = @fact_Id
 
 		SELECT 1
@@ -7403,10 +7446,10 @@ BEGIN
 	BEGIN TRY
 		DECLARE @Duca_Id AS NVARCHAR(100)
 
-		INSERT INTO [Adua].[tbDuca] ([duca_No_Duca], [duca_No_Correlativo_Referencia], [deva_Id], [duca_AduanaRegistro], [duca_AduanaSalida], [duca_Regimen_Aduanero], [duca_Modalidad],[duca_Clase], [duca_FechaVencimiento],[duca_Pais_Procedencia],[duca_Pais_Exportacion],[duca_Pais_Destino] ,[duca_Deposito_Aduanero] ,[duca_Lugar_Embarque], [duca_Lugar_Desembarque],[duca_Manifiesto],[duca_DomicilioFiscal_Exportador], [duca_Tipo_Iden_Exportador], [duca_Pais_Emision_Exportador], [duca_Numero_Id_Importador], [duca_Pais_Emision_Importador], [duca_DomicilioFiscal_Importador])
+		INSERT INTO Adua.tbDuca (duca_No_Duca, duca_No_Correlativo_Referencia, deva_Id, duca_AduanaRegistro, duca_AduanaSalida, duca_Regimen_Aduanero, duca_Modalidad,duca_Clase, duca_FechaVencimiento,duca_Pais_Procedencia,duca_Pais_Exportacion,duca_Pais_Destino ,duca_Deposito_Aduanero ,duca_Lugar_Embarque, duca_Lugar_Desembarque,duca_Manifiesto,duca_DomicilioFiscal_Exportador, duca_Tipo_Iden_Exportador, duca_Pais_Emision_Exportador, duca_Numero_Id_Importador, duca_Pais_Emision_Importador, duca_DomicilioFiscal_Importador)
 		VALUES (@duca_No_Duca, @duca_No_Correlativo_Referencia, @deva_Id, @duca_AduanaRegistro,@duca_AduanaSalida, @duca_Regimen_Aduanero, @duca_Modalidad,@duca_Clase,@duca_FechaVencimiento,@duca_Pais_Procedencia,@duca_Pais_Exportacion,@duca_Pais_Destino,@duca_Deposito_Aduanero,@duca_Lugar_Embarque,@duca_Lugar_Desembarque,@duca_Manifiesto,@domicilio_Fiscal_ex,@iden_Id_ex,@pais_ex,@NoIdentificacion_im,@pais_im,@domicilio_Fiscal_im)
 		
-		--SET @Duca_Id = (SELECT [duca_No_Duca] FROM Adua.tbDuca WHERE [duca_No_Correlativo_Referencia] = @duca_No_Correlativo_Referencia);
+		--SET @Duca_Id = (SELECT duca_No_Duca FROM Adua.tbDuca WHERE duca_No_Correlativo_Referencia = @duca_No_Correlativo_Referencia);
 		SET @Duca_Id = @duca_No_Duca
 
 		SELECT @Duca_Id
@@ -7447,26 +7490,26 @@ BEGIN
 	SET @tran_FechaCreacion = GETDATE();
 	BEGIN TRY
 		BEGIN TRAN 
-			INSERT INTO [Adua].[tbTransporte] ([pais_Id], [tran_Chasis], [marca_Id], [tran_Remolque], [tran_CantCarga], [tran_NumDispositivoSeguridad], [tran_Equipamiento], [tran_TipoCarga], [tran_IdContenedor], [usua_UsuarioCreacio], [tran_FechaCreacion], [usua_UsuarioModificacion], [tran_FechaModificacion], [usua_UsuarioEliminacion], [trant_FechaEliminacion], [tran_Estado])
+			INSERT INTO Adua.tbTransporte (pais_Id, tran_Chasis, marca_Id, tran_Remolque, tran_CantCarga, tran_NumDispositivoSeguridad, tran_Equipamiento, tran_TipoCarga, tran_IdContenedor, usua_UsuarioCreacio, tran_FechaCreacion, usua_UsuarioModificacion, tran_FechaModificacion, usua_UsuarioEliminacion, trant_FechaEliminacion, tran_Estado)
 			VALUES(@pais_Id,@tran_Chasis,@marca_Id,@tran_Remolque,@tran_CantCarga,@tran_NumDispositivoSeguridad,@tran_Equipamiento,@tran_TipoCarga,@tran_IdContenedor,@usua_UsuarioCreacio,@tran_FechaCreacion,NULL,NULL,NULL,NULL,1);
 
-			DECLARE @Transporte_Id INT = (SELECT TOP 1 tran_Id FROM [Adua].[tbTransporte] ORDER BY tran_Id DESC);
+			DECLARE @Transporte_Id INT = (SELECT TOP 1 tran_Id FROM Adua.tbTransporte ORDER BY tran_Id DESC);
 			
-			INSERT INTO [Adua].[tbConductor] ([cont_Nombre], [cont_Apellido], [cont_Licencia], [pais_IdExpedicion], [tran_Id], [usua_UsuarioCreacion], [cont_FechaCreacion], [usua_UsuarioModificacion], [cont_FechaModificacion], [usua_UsuarioEliminacion], [cont_FechaEliminacion], [cont_Estado])
+			INSERT INTO Adua.tbConductor (cont_Nombre, cont_Apellido, cont_Licencia, pais_IdExpedicion, tran_Id, usua_UsuarioCreacion, cont_FechaCreacion, usua_UsuarioModificacion, cont_FechaModificacion, usua_UsuarioEliminacion, cont_FechaEliminacion, cont_Estado)
 			VALUES(@cont_Nombre,@cont_Apellido,@cont_Licencia,@pais_IdExpedicion,@Transporte_Id,@usua_UsuarioCreacio,@tran_FechaCreacion,NULL,NULL,NULL,NULL,1);
 
-			DECLARE @ducaConductor INT = (SELECT TOP 1 cont_Id FROM [Adua].[tbConductor] ORDER BY cont_Id DESC);
+			DECLARE @ducaConductor INT = (SELECT TOP 1 cont_Id FROM Adua.tbConductor ORDER BY cont_Id DESC);
 
-			UPDATE [Adua].[tbDuca]
-			   SET [duca_Codigo_Declarante] = @duca_Codigo_Declarante
-				  ,[duca_Numero_Id_Declarante] = @duca_Numero_Id_Declarante
-				  ,[duca_NombreSocial_Declarante] = @duca_NombreSocial_Declarante
-				  ,[duca_DomicilioFiscal_Declarante] = @duca_DomicilioFiscal_Declarante
-				  ,[duca_Codigo_Transportista] = @duca_Codigo_Transportista 
-				  ,[motr_id] = @motr_Id
-				  ,[duca_Transportista_Nombre] = @duca_Transportista_Nombre
-				  ,[duca_Conductor_Id] = @ducaConductor      
-			 WHERE [duca_No_Duca] = @duca_No_Duca
+			UPDATE Adua.tbDuca
+			   SET duca_Codigo_Declarante = @duca_Codigo_Declarante
+				  ,duca_Numero_Id_Declarante = @duca_Numero_Id_Declarante
+				  ,duca_NombreSocial_Declarante = @duca_NombreSocial_Declarante
+				  ,duca_DomicilioFiscal_Declarante = @duca_DomicilioFiscal_Declarante
+				  ,duca_Codigo_Transportista = @duca_Codigo_Transportista 
+				  ,motr_id = @motr_Id
+				  ,duca_Transportista_Nombre = @duca_Transportista_Nombre
+				  ,duca_Conductor_Id = @ducaConductor      
+			 WHERE duca_No_Duca = @duca_No_Duca
 		COMMIT 
 		SELECT 1
 	END TRY
@@ -7493,7 +7536,7 @@ CREATE OR ALTER PROCEDURE  Adua.UDP_tbDuca_InsertarTab3
 AS
 BEGIN
 	BEGIN TRY
-		INSERT INTO [Adua].[tbDocumentosDeSoporte] ([tido_Id], [duca_No_Duca], [doso_NumeroDocumento], [doso_FechaEmision], [doso_FechaVencimiento], [doso_PaisEmision], [doso_LineaAplica], [doso_EntidadEmitioDocumento], [doso_Monto], [usua_UsuarioCreacion], [doso_FechaCreacion], [usua_UsuarioModificacion], [doso_FechaModificacion], [usua_UsuarioEliminacion], [doso_FechaEliminacion], [doso_Estado])
+		INSERT INTO Adua.tbDocumentosDeSoporte (tido_Id, duca_No_Duca, doso_NumeroDocumento, doso_FechaEmision, doso_FechaVencimiento, doso_PaisEmision, doso_LineaAplica, doso_EntidadEmitioDocumento, doso_Monto, usua_UsuarioCreacion, doso_FechaCreacion, usua_UsuarioModificacion, doso_FechaModificacion, usua_UsuarioEliminacion, doso_FechaEliminacion, doso_Estado)
 		VALUES(@tido_Id, @duca_No_Duca, @doso_NumeroDocumento,@doso_FechaEmision,@doso_FechaVencimiento,@doso_PaisEmision,@doso_LineaAplica,@doso_EntiadEmitioDocumento,@doso_Monto,@usua_UsuarioCreacio,@doso_FechaCreacion,NULL,NULL,NULL,NULL,1);
 		SELECT 1
 	END TRY
@@ -7532,31 +7575,31 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbDuca_EditarTab1
 AS
 BEGIN
 	BEGIN TRY
-		  UPDATE [Adua].[tbDuca]
-			 SET [deva_Id] = @deva_Id,
-				 [duca_No_Correlativo_Referencia] = @duca_No_Correlativo_Referencia,
-			     [duca_AduanaRegistro] = @duca_AduanaRegistro, 
-				 [duca_AduanaSalida] = @duca_AduanaSalida,
-				 [duca_Regimen_Aduanero] = @duca_Regimen_Aduanero,
-				 [duca_Modalidad] = @duca_Modalidad,
-				 [duca_Clase] = @duca_Clase,
-				 [duca_FechaVencimiento] = @duca_FechaVencimiento,
-				 [duca_Pais_Procedencia] = @duca_Pais_Procedencia ,
-				 [duca_Pais_Exportacion] = @duca_Pais_Exportacion,
-				 [duca_Pais_Destino] = @duca_Pais_Destino,
-				 [duca_Deposito_Aduanero] = @duca_Deposito_Aduanero,
-				 [duca_Lugar_Embarque] = @duca_Lugar_Embarque, 
-				 [duca_Lugar_Desembarque] = @duca_Lugar_Desembarque,
-				 [duca_Manifiesto] = @duca_Manifiesto,
-				 [duca_Tipo_Iden_Exportador] = @iden_Id_ex, 
-				 [duca_Pais_Emision_Exportador] = @pais_ex,
-				 [duca_DomicilioFiscal_Exportador] = @domicilio_Fiscal_ex, 
-				 [duca_Numero_Id_Importador] = @NoIdentificacion_im, 
-				 [duca_Pais_Emision_Importador] = @pais_im, 
-				 [duca_DomicilioFiscal_Importador] = @domicilio_Fiscal_im,
-				 [usua_UsuarioModificacion] = @usua_UsuarioModificacion,
-				 [duca_FechaModificacion] = @duca_FechaModificacion
-		   WHERE [duca_No_Duca] = @duca_No_Duca  
+		  UPDATE Adua.tbDuca
+			 SET deva_Id = @deva_Id,
+				 duca_No_Correlativo_Referencia = @duca_No_Correlativo_Referencia,
+			     duca_AduanaRegistro = @duca_AduanaRegistro, 
+				 duca_AduanaSalida = @duca_AduanaSalida,
+				 duca_Regimen_Aduanero = @duca_Regimen_Aduanero,
+				 duca_Modalidad = @duca_Modalidad,
+				 duca_Clase = @duca_Clase,
+				 duca_FechaVencimiento = @duca_FechaVencimiento,
+				 duca_Pais_Procedencia = @duca_Pais_Procedencia ,
+				 duca_Pais_Exportacion = @duca_Pais_Exportacion,
+				 duca_Pais_Destino = @duca_Pais_Destino,
+				 duca_Deposito_Aduanero = @duca_Deposito_Aduanero,
+				 duca_Lugar_Embarque = @duca_Lugar_Embarque, 
+				 duca_Lugar_Desembarque = @duca_Lugar_Desembarque,
+				 duca_Manifiesto = @duca_Manifiesto,
+				 duca_Tipo_Iden_Exportador = @iden_Id_ex, 
+				 duca_Pais_Emision_Exportador = @pais_ex,
+				 duca_DomicilioFiscal_Exportador = @domicilio_Fiscal_ex, 
+				 duca_Numero_Id_Importador = @NoIdentificacion_im, 
+				 duca_Pais_Emision_Importador = @pais_im, 
+				 duca_DomicilioFiscal_Importador = @domicilio_Fiscal_im,
+				 usua_UsuarioModificacion = @usua_UsuarioModificacion,
+				 duca_FechaModificacion = @duca_FechaModificacion
+		   WHERE duca_No_Duca = @duca_No_Duca  
 
 		  SELECT 1
 	END TRY
@@ -7595,45 +7638,45 @@ BEGIN
 	BEGIN TRY
 		BEGIN TRAN
 
-	    DECLARE @Transporte_Id INT = (SELECT TOP 1 tran_Id FROM [Adua].[tbTransporte] ORDER BY tran_Id DESC);
+	    DECLARE @Transporte_Id INT = (SELECT TOP 1 tran_Id FROM Adua.tbTransporte ORDER BY tran_Id DESC);
 
-		UPDATE [Adua].[tbTransporte] 
-		SET    [pais_Id] = @pais_Id, 
-		       [tran_Chasis] = @tran_Chasis, 
-		       [marca_Id] = @marca_Id, 
-			   [tran_Remolque] = @tran_Remolque, 
-			   [tran_CantCarga] = @tran_CantCarga,
-			   [tran_NumDispositivoSeguridad] = @tran_NumDispositivoSeguridad,
-			   [tran_Equipamiento] = @tran_Equipamiento, 
-			   [tran_TipoCarga] = @tran_TipoCarga, 
-			   [tran_IdContenedor] = @tran_IdContenedor, 
-			   [usua_UsuarioModificacion] = @usua_UsuarioModificacion, 
-			   [tran_FechaModificacion] = @duca_FechaModificacion
+		UPDATE Adua.tbTransporte 
+		SET    pais_Id = @pais_Id, 
+		       tran_Chasis = @tran_Chasis, 
+		       marca_Id = @marca_Id, 
+			   tran_Remolque = @tran_Remolque, 
+			   tran_CantCarga = @tran_CantCarga,
+			   tran_NumDispositivoSeguridad = @tran_NumDispositivoSeguridad,
+			   tran_Equipamiento = @tran_Equipamiento, 
+			   tran_TipoCarga = @tran_TipoCarga, 
+			   tran_IdContenedor = @tran_IdContenedor, 
+			   usua_UsuarioModificacion = @usua_UsuarioModificacion, 
+			   tran_FechaModificacion = @duca_FechaModificacion
 		WHERE  tran_Id = @Transporte_Id
 		
-		DECLARE @ducaConductor INT = (SELECT TOP 1 cont_Id FROM [Adua].[tbConductor] ORDER BY cont_Id DESC);
-		UPDATE [Adua].[tbConductor]
-		SET    [cont_Nombre] = @cont_Nombre,
-		       [cont_Apellido] = @cont_Apellido,
-			   [cont_Licencia] = @cont_Licencia,
-			   [pais_IdExpedicion] = @pais_IdExpedicion,
-			   [tran_Id] = @Transporte_Id,
-			   [usua_UsuarioModificacion] = @usua_UsuarioModificacion,
-			   [cont_FechaModificacion] = @duca_FechaModificacion
-        WHERE @ducaConductor = [cont_Id]
+		DECLARE @ducaConductor INT = (SELECT TOP 1 cont_Id FROM Adua.tbConductor ORDER BY cont_Id DESC);
+		UPDATE Adua.tbConductor
+		SET    cont_Nombre = @cont_Nombre,
+		       cont_Apellido = @cont_Apellido,
+			   cont_Licencia = @cont_Licencia,
+			   pais_IdExpedicion = @pais_IdExpedicion,
+			   tran_Id = @Transporte_Id,
+			   usua_UsuarioModificacion = @usua_UsuarioModificacion,
+			   cont_FechaModificacion = @duca_FechaModificacion
+        WHERE @ducaConductor = cont_Id
 
-		UPDATE [Adua].[tbDuca]
-		   SET [duca_Codigo_Declarante] = @duca_Codigo_Declarante
-			  ,[duca_Numero_Id_Declarante] = @duca_Numero_Id_Declarante
-			  ,[duca_NombreSocial_Declarante] = @duca_NombreSocial_Declarante
-			  ,[duca_DomicilioFiscal_Declarante] = @duca_DomicilioFiscal_Declarante
-			  ,[duca_Codigo_Transportista] = @duca_Codigo_Transportista 
-			  ,[motr_id] = @motr_Id
-			  ,[duca_Transportista_Nombre] = @duca_Transportista_Nombre
-			  ,[duca_Conductor_Id] = @ducaConductor
-			  ,[usua_UsuarioModificacion] = @usua_UsuarioModificacion
-			  ,[duca_FechaModificacion] = @duca_FechaModificacion
-		 WHERE [duca_No_Duca] = @duca_No_Duca
+		UPDATE Adua.tbDuca
+		   SET duca_Codigo_Declarante = @duca_Codigo_Declarante
+			  ,duca_Numero_Id_Declarante = @duca_Numero_Id_Declarante
+			  ,duca_NombreSocial_Declarante = @duca_NombreSocial_Declarante
+			  ,duca_DomicilioFiscal_Declarante = @duca_DomicilioFiscal_Declarante
+			  ,duca_Codigo_Transportista = @duca_Codigo_Transportista 
+			  ,motr_id = @motr_Id
+			  ,duca_Transportista_Nombre = @duca_Transportista_Nombre
+			  ,duca_Conductor_Id = @ducaConductor
+			  ,usua_UsuarioModificacion = @usua_UsuarioModificacion
+			  ,duca_FechaModificacion = @duca_FechaModificacion
+		 WHERE duca_No_Duca = @duca_No_Duca
 		
 		COMMIT
 		SELECT 1
@@ -7660,18 +7703,18 @@ CREATE OR ALTER PROCEDURE Adua.UDP_tbDuca_EditarTab3
 AS
 BEGIN
     BEGIN TRY
-	    UPDATE [Adua].[tbDocumentosDeSoporte] 
-		   SET [duca_No_Duca] = @duca_No_Duca,
-		       [doso_NumeroDocumento] = @doso_NumeroDocumento,
-			   [doso_FechaEmision] = @doso_FechaEmision,
-			   [doso_FechaVencimiento] = @doso_FechaVencimiento,
-			   [doso_PaisEmision] = @doso_PaisEmision,
-			   [doso_LineaAplica] = @doso_LineaAplica,
-			   [doso_EntidadEmitioDocumento] = @doso_EntiadEmitioDocumento,
-			   [doso_Monto] = @doso_Monto,
-			   [usua_UsuarioModificacion] = @usua_UsuarioModificacion,
-			   [doso_FechaModificacion] = @doso_FechaModificacion
-		 WHERE [tido_Id] = @tido_Id
+	    UPDATE Adua.tbDocumentosDeSoporte 
+		   SET duca_No_Duca = @duca_No_Duca,
+		       doso_NumeroDocumento = @doso_NumeroDocumento,
+			   doso_FechaEmision = @doso_FechaEmision,
+			   doso_FechaVencimiento = @doso_FechaVencimiento,
+			   doso_PaisEmision = @doso_PaisEmision,
+			   doso_LineaAplica = @doso_LineaAplica,
+			   doso_EntidadEmitioDocumento = @doso_EntiadEmitioDocumento,
+			   doso_Monto = @doso_Monto,
+			   usua_UsuarioModificacion = @usua_UsuarioModificacion,
+			   doso_FechaModificacion = @doso_FechaModificacion
+		 WHERE tido_Id = @tido_Id
 
 		SELECT 1
     END TRY
@@ -8142,7 +8185,7 @@ END
 GO
 
 /********************Listar Tipo intermediario***************************/
-CREATE OR ALTER  PROCEDURE [Adua].[UDP_tbTipoIntermediario_Listar]
+CREATE OR ALTER  PROCEDURE Adua.UDP_tbTipoIntermediario_Listar
 AS
 BEGIN 
 SELECT	tite_Id							,
@@ -9708,7 +9751,7 @@ GO
 -----------------------------------------------/UDPS Para orden de compra---------------------------------------------
 
 
-CREATE OR ALTER PROCEDURE [Prod].[UDP_tbOrdenCompra_Listado]
+CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompra_Listado
 AS
 BEGIN
 
@@ -12287,7 +12330,7 @@ GO
 
 --*****Pedidos Orden*****-
 --*****Listado*****--
-CREATE OR ALTER PROCEDURE [Prod].[UDP_tbPedidosOrden_Listar]
+CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Listar
 AS
 BEGIN
 SELECT	peor_Id, 
@@ -12313,9 +12356,9 @@ SELECT	peor_Id,
 		modi.usua_Nombre							AS UsuarioModificacionNombre, 
 		peor_FechaModificacion, 
 		peor_Estado,
-		   (SELECT [prod_Id],
-				   [pedi_Id],
-				   pod.[mate_Id],
+		   (SELECT prod_Id,
+				   pedi_Id,
+				   pod.mate_Id,
 				   mate_Descripcion,
 				   prod_Cantidad,
 				   prod_Precio,
@@ -12336,7 +12379,7 @@ FROM	Prod.tbPedidosOrden po
 END
 GO
 
-CREATE OR ALTER PROC [Prod].[UDP_tbPedidosProduccion_Listar]
+CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccion_Listar
 AS BEGIN
 	SELECT ppro_Id,
 		   pediproduccion.empl_Id,
@@ -13036,7 +13079,7 @@ GO
 --SELECT RowNumber
 --		FROM (SELECT ROW_NUMBER() OVER (ORDER BY prod_Id) AS RowNumber,
 --					 prod_Id 
---			  FROM [Prod].[tbPedidosOrdenDetalle]
+--			  FROM Prod.tbPedidosOrdenDetalle
 --			  WHERE pedi_Id = 4) AS RowNumbers
 --		WHERE prod_Id = 8
 
@@ -13064,7 +13107,7 @@ SELECT
 	   (SELECT RowNumber
 		  FROM (SELECT ROW_NUMBER() OVER (ORDER BY prod_Id) AS RowNumber,
 					   prod_Id 
-				  FROM [Prod].[tbPedidosOrdenDetalle]
+				  FROM Prod.tbPedidosOrdenDetalle
 				 WHERE pedi_Id = pedidos.peor_Id)			AS RowNumbers
 		 WHERE prod_Id = pedidosDetalle.prod_Id)			AS prod_NumeroLinea,
 	   pedidos.prov_Id,
@@ -13781,7 +13824,7 @@ CREATE OR ALTER PROC Gral.UDP_FiltrarAldeasPorCiudades
 AS
 BEGIN
     SELECT    alde_Id, alde_Nombre
-    FROM    [Gral].[tbAldeas]
+    FROM    Gral.tbAldeas
     WHERE    ciud_Id = @ciud_Id AND alde_Estado = 1
 
 END
@@ -13816,7 +13859,7 @@ AS
 	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
 	DECLARE @decl_FechaModificacion DATETIME = (SELECT decl_FechaModificacion FROM inserted)
 
-	INSERT INTO [Adua].[tbDeclarantesHistorial]
+	INSERT INTO Adua.tbDeclarantesHistorial
 	SELECT decl_Id,
 		   decl_NumeroIdentificacion,
 		   decl_Nombre_Raso,
@@ -13840,7 +13883,7 @@ AS
 	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
 	DECLARE @impo_FechaModificacion DATETIME = (SELECT impo_FechaModificacion FROM inserted)
 
-	INSERT INTO [Adua].[tbImportadoresHistorial]
+	INSERT INTO Adua.tbImportadoresHistorial
 	SELECT impo_Id,
 		   nico_Id,
 		   decl_Id,
@@ -13862,7 +13905,7 @@ AS
 	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
 	DECLARE @pvde_FechaModificacion DATETIME = (SELECT pvde_FechaModificacion FROM inserted)
 
-	INSERT INTO [Adua].[tbProveedoresDeclaracionHistorial]
+	INSERT INTO Adua.tbProveedoresDeclaracionHistorial
 	SELECT pvde_Id,
 		   coco_Id,
 		   pvde_Condicion_Otra,
@@ -13882,7 +13925,7 @@ AS
 	DECLARE @usua_UsuarioModificacion INT = (SELECT usua_UsuarioModificacion FROM inserted)
 	DECLARE @inte_FechaModificacion DATETIME = (SELECT inte_FechaModificacion FROM inserted)
 
-	INSERT INTO [Adua].[tbIntermediariosHistorial]
+	INSERT INTO Adua.tbIntermediariosHistorial
 	SELECT inte_Id,
 		   tite_Id,
 		   inte_Tipo_Otro,

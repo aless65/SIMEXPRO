@@ -60,10 +60,9 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
         }
 
         [HttpPut("DibujarMenu")]
-        public IActionResult Dibujar(RolesPorPantallasViewModel rolesPantalla)
+        public IActionResult Dibujar()
         {
-            var mapped = _mapper.Map<tbRolesXPantallas>(rolesPantalla);
-            var datos = _accesoServices.DibujarMenu(mapped);
+            var datos = _accesoServices.DibujarMenu();
            
 
             if (datos.Code == 200)

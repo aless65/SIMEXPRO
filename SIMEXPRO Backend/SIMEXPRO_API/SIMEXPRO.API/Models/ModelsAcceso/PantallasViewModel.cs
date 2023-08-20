@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +13,10 @@ namespace SIMEXPRO.API.Models.ModelsAcceso
         public string pant_URL { get; set; }
         public string pant_Icono { get; set; }
         public string pant_Esquema { get; set; }
+        [NotMapped]
+        public string pant_Subcategoria { get; set; }
+        [NotMapped]
+        public string Detalles { get; set; }
         public bool? pant_EsAduana { get; set; }
         public int usua_UsuarioCreacion { get; set; }
         public DateTime pant_FechaCreacion { get; set; }

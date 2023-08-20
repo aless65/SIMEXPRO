@@ -1709,7 +1709,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 if (item.code_CantidadPrenda.ToString() != "")
                 {
                     var map = _ordenCompraDetallesRepository.Insert(item);
-    if (map.MessageStatus == "1")
+                    if (map.MessageStatus != "0")
                     {
                         return result.Ok(map);
                     }
@@ -1813,7 +1813,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 if (item.orco_IdCliente.ToString() != "")
                 {
                     var map = _ordenCompraRepository.Insert(item);
-    if (map.MessageStatus == "1")
+                    if (map.MessageStatus != "0")
                     {
                         return result.Ok(map);
                     }

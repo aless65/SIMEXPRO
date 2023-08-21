@@ -75,7 +75,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             result.MessageStatus = answer;
             return result;
         }
-        public IEnumerable<tbLotes> LotesMateriales(tbLotes item)
+        public IEnumerable<tbLotes> LotesMateriales(int item)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             RequestStatus result = new();

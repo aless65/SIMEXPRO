@@ -14,7 +14,14 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
     {
         public RequestStatus Delete(tbMaterialesBrindar item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@mabr_Id", item.mabr_Id, DbType.Int32, ParameterDirection.Input);
+
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarMaterialesBrindar, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
+            return result;
         }
 
         public tbMaterialesBrindar Find(int? id)

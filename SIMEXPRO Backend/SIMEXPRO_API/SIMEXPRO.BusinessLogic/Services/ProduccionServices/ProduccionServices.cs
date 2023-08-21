@@ -1806,7 +1806,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                if (item.orco_Id != 0)
+                if (item.code_Id != 0)
                 {
                     var map = _ordenCompraDetallesRepository.Delete(item);
                     if (map.MessageStatus == "1")

@@ -13506,9 +13506,11 @@ AS
 BEGIN
 	SELECT	ppde_Id,
 			tbdetalles.lote_Id,
-			ppde_Cantidad,
-			mate_Descripcion,
 			tblotes.lote_Stock,
+			ppde_Cantidad,
+			tblotes.mate_Id,
+			mate_Descripcion,
+			tblotes.tipa_Id,
 			tbarea.tipa_area
 				  
 	FROM Prod.tbPedidosProduccionDetalles tbdetalles
@@ -13521,11 +13523,11 @@ GO
 
 
 CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccionDetalle_Insertar 
-(@ppro_Id INT,
- @lote_Id INT,
- @ppde_Cantidad INT,
- @usua_UsuarioCreacion INT,
- @ppde_FechaCreacion DATETIME)
+(@ppro_Id				INT,
+ @lote_Id				INT,
+ @ppde_Cantidad			INT,
+ @usua_UsuarioCreacion	INT,
+ @ppde_FechaCreacion	DATETIME)
 AS
 BEGIN
 	BEGIN TRY

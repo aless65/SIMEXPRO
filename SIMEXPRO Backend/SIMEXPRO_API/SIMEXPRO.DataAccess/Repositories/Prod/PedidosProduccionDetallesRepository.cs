@@ -14,7 +14,13 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
     {
         public RequestStatus Delete(tbPedidosProduccionDetalles item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@ppde_Id", item.ppde_Id, DbType.Int32, ParameterDirection.Input);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarPedidosProduccionDetalles, parametros, commandType: System.Data.CommandType.StoredProcedure);
+            result.MessageStatus = answer;
+            return result;
         }
 
         public tbPedidosProduccionDetalles Find(int? id)
@@ -24,7 +30,17 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
 
         public RequestStatus Insert(tbPedidosProduccionDetalles item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@ppro_Id", item.ppro_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@lote_Id", item.lote_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@ppde_Cantidad", item.ppde_Cantidad, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@ppde_FechaCreacion", item.ppde_FechaCreacion, DbType.Int32, ParameterDirection.Input);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarPedidosProduccionDetalles, parametros, commandType: System.Data.CommandType.StoredProcedure);
+            result.MessageStatus = answer;
+            return result;
         }
 
         public IEnumerable<tbPedidosProduccionDetalles> List(int ppro_Id)
@@ -39,15 +55,23 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
 
         public IEnumerable<tbPedidosProduccionDetalles> List()
         {
-            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
-
-            var result = db.Query<tbPedidosProduccionDetalles>(ScriptsDataBase.ListarPedidosOrden, null, commandType: System.Data.CommandType.StoredProcedure);
-            return result;
+            throw new NotImplementedException();
         }
 
         public RequestStatus Update(tbPedidosProduccionDetalles item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@ppde_Id", item.ppde_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@ppro_Id", item.ppro_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@lote_Id", item.lote_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@ppde_Cantidad", item.ppde_Cantidad, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@ppde_FechaModificacion", item.ppde_FechaModificacion, DbType.Int32, ParameterDirection.Input);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarPedidosProduccionDetalles, parametros, commandType: System.Data.CommandType.StoredProcedure);
+            result.MessageStatus = answer;
+            return result;
         }
     }
 }

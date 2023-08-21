@@ -57,9 +57,8 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
         }
 
         [HttpGet("LotesMateriales")]
-        public IActionResult LotesMateriales(LotesViewModel lotesViewModel)
+        public IActionResult LotesMateriales(int item)
         {
-            var item = _mapper.Map<tbLotes>(lotesViewModel);
             var listado = _produccionServices.LotesMateriales(item);
             listado.Data = _mapper.Map<IEnumerable<LotesViewModel>>(listado.Data);
             return Ok(listado);

@@ -13500,12 +13500,14 @@ GO
 
 
 
-CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccionDetalle_Listar  
+CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccionDetalle_Listar 
 	@ppro_Id INT
 AS 
 BEGIN
 	SELECT	ppde_Id,
+			ppro_Id,
 			tbdetalles.lote_Id,
+
 			ppde_Cantidad,
 			mate_Descripcion,
 			tblotes.lote_Stock,

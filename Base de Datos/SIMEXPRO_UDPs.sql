@@ -13365,13 +13365,14 @@ END
 GO
 
 /*Seleccionar lotes Material*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbLotes_Materiales
+CREATE OR ALTER PROCEDURE Prod.UDP_tbLotes_Materiales 
 (
 	@lote_Id INT
 )
 AS
 BEGIN
 	SELECT	lote_Id,
+			tblotes.mate_Id,
 			mate_Descripcion,
 			tblotes.lote_Stock,
 			tbarea.tipa_area

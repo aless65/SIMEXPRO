@@ -58,7 +58,13 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
-        
+        [HttpPost("Eliminar")]
+        public IActionResult Eliminar(MaterialesBrindarViewModel materialesBrindarViewModel)
+        {
+            var item = _mapper.Map<tbMaterialesBrindar>(materialesBrindarViewModel);
+            var respuesta = _produccionServices.EliminarMaterialesBrindados(item);
+            return Ok(respuesta);
+        }
 
     }
 }

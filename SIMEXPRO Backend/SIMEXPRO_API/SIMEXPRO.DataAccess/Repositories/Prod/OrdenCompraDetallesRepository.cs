@@ -14,7 +14,14 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
     {
         public RequestStatus Delete(tbOrdenCompraDetalles item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            RequestStatus result = new RequestStatus();
+            var parametros = new DynamicParameters();
+            parametros.Add("@code_Id", item.code_Id, DbType.Int32, ParameterDirection.Input);
+
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EliminarOrdenCompraDetalles, parametros, commandType: CommandType.StoredProcedure);
+            result.MessageStatus = answer;
+            return result;
         }
 
         public tbOrdenCompraDetalles Find(int? id)

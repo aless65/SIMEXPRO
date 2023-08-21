@@ -29,14 +29,16 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             var parametros = new DynamicParameters();
             parametros.Add("@prov_Id", item.prov_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@peor_No_Duca", item.peor_No_Duca, DbType.String, ParameterDirection.Input);
+            parametros.Add("@ciud_Id", item.ciud_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@peor_DireccionExacta", item.peor_DireccionExacta, DbType.String, ParameterDirection.Input);
             parametros.Add("@peor_FechaEntrada", item.peor_FechaEntrada, DbType.DateTime, ParameterDirection.Input);
             parametros.Add("@peor_Obsevaciones", item.peor_Obsevaciones, DbType.String, ParameterDirection.Input);
             parametros.Add("@peor_DadoCliente", item.peor_DadoCliente, DbType.Boolean, ParameterDirection.Input);
-            parametros.Add("@peor_Est", item.peor_Est, DbType.String, ParameterDirection.Input);
+            parametros.Add("@peor_Est", item.peor_Est, DbType.Boolean, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@peor_FechaCreacion", item.peor_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarOrdenCompra, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarPedidosOrden, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
             return result;
         }
@@ -56,14 +58,16 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@peor_Id", item.peor_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@prov_Id", item.prov_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@peor_No_Duca", item.peor_No_Duca, DbType.String, ParameterDirection.Input);
+            parametros.Add("@ciud_Id", item.ciud_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@peor_DireccionExacta", item.peor_DireccionExacta, DbType.String, ParameterDirection.Input);
             parametros.Add("@peor_FechaEntrada", item.peor_FechaEntrada, DbType.DateTime, ParameterDirection.Input);
             parametros.Add("@peor_Obsevaciones", item.peor_Obsevaciones, DbType.String, ParameterDirection.Input);
             parametros.Add("@peor_DadoCliente", item.peor_DadoCliente, DbType.Boolean, ParameterDirection.Input);
-            parametros.Add("@peor_Est", item.peor_Est, DbType.String, ParameterDirection.Input);
+            parametros.Add("@peor_Est", item.peor_Est, DbType.Boolean, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@peor_FechaModificacion", item.peor_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarOrdenCompra, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarPedidosOrden, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
             return result;
         }

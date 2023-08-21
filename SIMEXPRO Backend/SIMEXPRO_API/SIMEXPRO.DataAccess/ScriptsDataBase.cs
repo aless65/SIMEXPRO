@@ -579,6 +579,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarMaterialesBrindarFiltrado = "Prod.UDP_tbMaterialesBrindarPorOrdenCompraDetalle_Listar";
         public static string InsertarMaterialesBrindar = "prod.UDP_tbMaterialesBrindar_Insertar";
         public static string EditarMaterialesBrindar = "prod.UDP_tbMaterialesBrindar_Editar";
+        public static string EliminarMaterialesBrindar = "Prod.UDP_tbMaterialesBrindar_Eliminar";
         #endregion
 
         #region Modelos Maquina
@@ -620,6 +621,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarOrdenCompraDetalles = "Prod.UDP_tbOrdenCompraDetalle_Listado";
         public static string InsertarOrdenCompraDetalles = "Prod.UDP_tbOrdenCompraDetalles_Insertar";
         public static string EditarOrdenCompraDetalles = "Prod.UDP_tbOrdenCompraDetalles_Editar";
+        public static string EliminarOrdenCompraDetalles = "Prod.UDP_tbOrdenCompraDetalles_Eliminar";
         #endregion
 
         #region Orden de Pedido

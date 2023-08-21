@@ -887,7 +887,18 @@ AS
 BEGIN
 	
 	BEGIN TRY
+	IF EXISTS (SELECT * FROM Gral.tbEstadosCiviles
+						WHERE escv_Nombre = @escv_Nombre
+						AND escv_Estado = 0)
+		BEGIN 
+		   UPDATE Gral.tbEstadosCiviles
+			SET	   escv_Estado = 1
+			WHERE  escv_Nombre = @escv_Nombre
 
+			SELECT 1
+		END
+		ELSE
+		BEGIN
 		INSERT INTO Gral.tbEstadosCiviles(escv_Nombre,
 		                                  usua_UsuarioCreacion, 
 										  escv_FechaCreacion)
@@ -895,6 +906,7 @@ BEGIN
 			          @usua_UsuarioCreacion, 
 					  @escv_FechaCreacion)
 			SELECT 1
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -11849,6 +11861,12 @@ BEGIN
 	END CATCH
 END 
 
+
+
+
+
+
+
 GO
 /*Editar Modulos*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Editar  
@@ -11889,10 +11907,11 @@ BEGIN
 
 			IF(@respuesta) = 1
 			BEGIN
-				UPDATE	Prod.tbModulos
-				SET		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-						modu_FechaEliminacion = @modu_FechaEliminacion,
-						modu_Estado = 0
+				 UPDATE Prod.tbModulos
+				    SET usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+						modu_FechaEliminacion   = @modu_FechaEliminacion,
+						modu_Estado             = 0
+				  WHERE modu_Id                 = @modu_Id
 			END
 
 			SELECT @respuesta AS Resultado
@@ -11902,6 +11921,8 @@ BEGIN
 	END CATCH
 END
 GO
+
+
 --************MAQUINAS******************--
 /*Insertar Maquinas*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinas_Insertar 
@@ -12877,6 +12898,11 @@ BEGIN
 			rdet_TotalDia, 
 			rdet_TotalDanado, 
 			OrdenCompra.orco_Id,
+			colores.colr_Nombre,
+			case ordencompradetalle.code_Sexo 
+			when 'M' then 'Masculino'
+			when 'F' then 'Femenino'
+			else ordencompradetalle.code_Sexo end as Sexo,
 			clientes.[clie_Nombre_Contacto],
 			clientes.[clie_RTN],
  			ReporteModuloDia.code_Id, 
@@ -12892,6 +12918,7 @@ BEGIN
 			INNER JOIN Prod.tbEstilos			estilos					ON ordencompradetalle.esti_Id = estilos.esti_Id
 			INNER JOIN Prod.tbOrdenCompra		OrdenCompra				ON	ordencompradetalle.orco_Id = OrdenCompra.orco_Id
 			INNER JOIN Prod.tbClientes			clientes				ON  OrdenCompra.orco_IdCliente = clientes.clie_Id
+			INNER JOIN Prod.tbColores			colores					ON	ordencompradetalle.code_Id	= colores.colr_Id
 			WHERE ReporteModuloDia.remo_Id = @remo_Id
 
 	

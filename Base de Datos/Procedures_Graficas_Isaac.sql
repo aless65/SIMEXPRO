@@ -4,7 +4,7 @@ SELECT * FROM Prod.tbClientes
 GO
 
 
-
+-- PROCEDIMIENTO PARA VER EL AVANCE DE LAS ORDENES DE COMPRA SEGUN EL ID 
 CREATE OR ALTER PROCEDURE Prod.UDP_AvanceOrdenCompraByID 
 	@orco_Id INT
 AS
@@ -32,6 +32,7 @@ WHERE orco_Id = @orco_Id
 END
 GO
 
+-- PROCEDIMIENTO PARA MOSTRAR EL TOTAL; DE OPRDENES DE COMPRA MENSUALES
 CREATE OR ALTER PROCEDURE Prod.UDP_TotalOrdenesCompraMensual
 AS
 BEGIN
@@ -48,6 +49,7 @@ SET LANGUAGE Spanish;
 END
 GO
 
+-- PROCEDIMIENTO PARA MOSTRAR LAS ORDENES DE COMPRA DIARIAS
 CREATE OR ALTER PROCEDURE Prod.UDP_TotalOrdenesCompraDiario
 AS
 BEGIN
@@ -55,6 +57,7 @@ BEGIN
 
     DECLARE @FechaInicial DATE, @FechaFinal DATE;
     SET @FechaInicial = DATEADD(DAY, -7, GETDATE()); 
+	SELECT @FechaInicial
     SET @FechaFinal = GETDATE();
     SELECT
         CAST(orco_FechaCreacion AS DATE) AS Fecha,
@@ -67,7 +70,7 @@ END
 GO
 
 
--- PROCEDIMEINTO PARA MOSTRAR EL TOTAL DE ORDENES DE COMPRA RECIBIDOS POR AÑO
+-- PROCEDIMEINTO PARA MOSTRAR EL TOTAL DE ORDENES DE COMPRA ANUALES
 CREATE OR ALTER PROCEDURE Prod.UDP_TotalOrdenesCompraAnual
 AS
 BEGIN
@@ -98,10 +101,10 @@ BEGIN
 	GROUP BY orco_EstadoOrdenCompra
 END
 GO
--- TOTAL DE LAS ORDENES DE COMPRA ENTREGEDAS Y PENDIENTES SEMANALMENTE Y MENSUALMENTE (Basarse en PROCEDURE Prod.UDP_TotalOrdenesCompraDiario)
 
 
 
+-- PROCEDIMIENTO PARA MOSTRAR LAS ORDENES DE COMPRA POR ESTADO DE LA ULTIMA SEMANA
 CREATE OR ALTER PROCEDURE Prod.UDP_ContadorOrdenesCompra_PorEstado_UltimaSemana
 AS
 BEGIN
@@ -275,4 +278,60 @@ END
 GO
 
 
+-- TOTAL DE LAS ORDENES DE COMPRA ENTREGEDAS Y PENDIENTES SEMANALMENTE Y MENSUALMENTE (Basarse en PROCEDURE Prod.UDP_TotalOrdenesCompraDiario)
 
+-- TOTAL DE ORDENES DE COMPRA ENTREGADAS Y PENDIENTES DEL AÑO
+CREATE OR ALTER PROCEDURE Prod.UDP_PO_EntregadasPendientes_Anualmente
+AS
+BEGIN
+		SELECT	
+					COUNT(orco_Id) AS orco_Conteo, 
+					CASE orco_EstadoOrdenCompra
+						WHEN 'P' THEN 'Pendiente'
+						WHEN 'T' THEN 'Terminado'
+					END AS orco_Avance
+		FROM		Prod.tbOrdenCompra
+		WHERE		(DATEPART(YEAR, orco_FechaCreacion) = DATEPART(YEAR, GETDATE()))
+					AND orco_EstadoOrdenCompra IN ('P', 'T')
+		GROUP BY	orco_EstadoOrdenCompra
+END
+GO
+
+
+-- TOTAL DE ORDENES DE COMPRA ENTREGADAS Y PENDIENTES DEL MES
+CREATE OR ALTER PROCEDURE Prod.UDP_PO_EntregadasPendientes_Mensualmente
+AS
+BEGIN
+		SELECT	
+					COUNT(orco_Id) AS orco_Conteo, 
+					CASE orco_EstadoOrdenCompra
+						WHEN 'P' THEN 'Pendiente'
+						WHEN 'T' THEN 'Terminado'
+					END AS orco_Avance
+		FROM		Prod.tbOrdenCompra
+		WHERE		(DATEPART(YEAR, orco_FechaCreacion) = DATEPART(YEAR, GETDATE()))
+					AND (DATEPART(MONTH, orco_FechaCreacion) = DATEPART(MONTH, GETDATE()))
+					AND orco_EstadoOrdenCompra IN ('P', 'T')
+		GROUP BY	orco_EstadoOrdenCompra
+END
+GO
+
+
+-- TOTAL DE ORDENES DE COMPRA ENTREGADAS Y PENDIENTES DE LA SEMANA
+CREATE OR ALTER PROCEDURE Prod.UDP_PO_EntregadasPendientes_Semanalmente
+AS
+BEGIN
+		SELECT	
+					COUNT(orco_Id) AS orco_Conteo, 
+					CASE orco_EstadoOrdenCompra
+						WHEN 'P' THEN 'Pendiente'
+						WHEN 'T' THEN 'Terminado'
+					END AS orco_Avance
+		FROM		Prod.tbOrdenCompra
+		WHERE		(DATEPART(WEEK, orco_FechaCreacion)) = DATEPART(WEEK, GETDATE())
+					AND (DATEPART(YEAR, orco_FechaCreacion) = DATEPART(YEAR, GETDATE()))
+					AND (DATEPART(MONTH, orco_FechaCreacion) = DATEPART(MONTH, GETDATE()))
+					AND orco_EstadoOrdenCompra IN ('P', 'T')
+		GROUP BY	orco_EstadoOrdenCompra
+END
+GO

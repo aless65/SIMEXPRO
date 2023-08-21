@@ -13364,7 +13364,22 @@ BEGIN
 END
 GO
 
+/*Seleccionar lotes Material*/
+CREATE OR ALTER PROCEDURE Prod.UDP_tbLotes_Materiales 
+(@lote_Id INT)
+AS
+BEGIN
+	SELECT	lote_Id,
+			mate_Descripcion,
+			tblotes.lote_Stock,
+			tbarea.tipa_area
+				  
+	FROM Prod.tbLotes tblotes			
+			INNER JOIN Prod.tbMateriales tbmats		ON tblotes.mate_Id = tbmats.mate_Id
+			INNER JOIN Prod.tbArea	tbarea			ON tblotes.tipa_Id = tbarea.tipa_Id
+	WHERE tblotes.lote_Id = @lote_Id
 
+END
 
 
 --**************************************************************************************************--
@@ -13481,23 +13496,25 @@ GO
 
 
 
-CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccionDetalle_Listar 
+CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccionDetalle_Listar  
 	@ppro_Id INT
-AS BEGIN
-SELECT	ppde_Id,
-		tbdetalles.lote_Id,
-		ppde_Cantidad,
-		mate_Descripcion,
-		tblotes.lote_Stock,
-		tbarea.tipa_area
+AS 
+BEGIN
+	SELECT	ppde_Id,
+			tbdetalles.lote_Id,
+			ppde_Cantidad,
+			mate_Descripcion,
+			tblotes.lote_Stock,
+			tbarea.tipa_area
 				  
-FROM Prod.tbPedidosProduccionDetalles tbdetalles
-		INNER JOIN Prod.tbLotes tblotes			ON tbdetalles.lote_Id = tblotes.lote_Id
-		INNER JOIN Prod.tbMateriales tbmats		ON tblotes.mate_Id = tbmats.mate_Id
-		INNER JOIN Prod.tbArea	tbarea			ON tblotes.tipa_Id = tbarea.tipa_Id
-WHERE ppro_Id = tbdetalles.ppro_Id
-
+	FROM Prod.tbPedidosProduccionDetalles tbdetalles
+			INNER JOIN Prod.tbLotes tblotes			ON tbdetalles.lote_Id = tblotes.lote_Id
+			INNER JOIN Prod.tbMateriales tbmats		ON tblotes.mate_Id = tbmats.mate_Id
+			INNER JOIN Prod.tbArea	tbarea			ON tblotes.tipa_Id = tbarea.tipa_Id
+	WHERE tbdetalles.ppro_Id = @ppro_Id
 END
+GO
+
 
 --************************************************************************   Tabla Modulos fin   ***********************************************************************************************
 GO

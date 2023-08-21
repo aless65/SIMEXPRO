@@ -42,7 +42,8 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         private readonly SubCategoriasRepository                     _subCategoriasRepository;
         private readonly TallasRepository                            _tallasRepository;
         private readonly TipoEmbalajeRepository                      _tipoEmbalajeRepository;
-        private readonly DocumentosOrdenCompraDetallesRepository _documentosOrdenCompraDetallesRepository;
+        private readonly DocumentosOrdenCompraDetallesRepository    _documentosOrdenCompraDetallesRepository;
+        private readonly GraficasRepository                         _graficasRepository;
 
 
         public ProduccionServices(  AreasRepository  areasRepository,                                 
@@ -75,8 +76,11 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                                     RevisionDeCalidadRepository revisionDeCalidadRepository,
                                     SubCategoriasRepository subCategoriasRepository,
                                     TallasRepository tallasRepository,
-                                    TipoEmbalajeRepository tipoEmbalajeRepository
-                                    ,DocumentosOrdenCompraDetallesRepository documentosOrdenCompraDetallesRepository)
+                                    TipoEmbalajeRepository tipoEmbalajeRepository,
+                                    DocumentosOrdenCompraDetallesRepository documentosOrdenCompraDetallesRepository,
+                                    GraficasRepository graficasRepository
+                                    
+            )
         {
 
 
@@ -112,7 +116,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             _tallasRepository = tallasRepository;
             _tipoEmbalajeRepository = tipoEmbalajeRepository;
             _documentosOrdenCompraDetallesRepository = documentosOrdenCompraDetallesRepository;
-
+            _graficasRepository = graficasRepository;
 
         }
 
@@ -1766,7 +1770,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 if (item.code_CantidadPrenda.ToString() != "")
                 {
                     var map = _ordenCompraDetallesRepository.Update(item);
-    if (map.MessageStatus == "1")
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
@@ -1795,7 +1799,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 if (item.orco_Id != 0)
                 {
                     var map = _ordenCompraDetallesRepository.Delete(item);
-    if (map.MessageStatus == "1")
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
@@ -1815,6 +1819,22 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 return result.Error(ex.Message);
             }
         }
+
+        public ServiceResult LineaTiempoOrdenCompraDetalles(int orco_Id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var respuesta = _ordenCompraDetallesRepository.LineaTiempoOrdenCompraDetalles(orco_Id);
+
+                return result.Ok(respuesta);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
         #endregion
 
         #region Orden Compra 
@@ -1870,7 +1890,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 if (item.orco_IdCliente.ToString() != "")
                 {
                     var map = _ordenCompraRepository.Update(item);
-    if (map.MessageStatus == "1")
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
@@ -1899,7 +1919,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 if (item.orco_Id != 0)
                 {
                     var map = _ordenCompraRepository.Delete(item);
-    if (map.MessageStatus == "1")
+                    if (map.MessageStatus == "1")
                     {
                         return result.Ok(map);
                     }
@@ -1919,6 +1939,22 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 return result.Error(ex.Message);
             }
         }
+
+        public ServiceResult LineaTiempoOrdenCompra(int orco_Id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var respuesta = _ordenCompraRepository.LineaTiempo(orco_Id);
+
+                return result.Ok(respuesta);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
         #endregion
 
         #region Pedidos Orden Detalles
@@ -3055,6 +3091,50 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 {
                     return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
                 }
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Graficas
+        public ServiceResult Avance_Orden_Compra(tbGraficas item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.Avance_Orden_Compra(item);
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult TotalOrdenesCompraAnual()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.TotalOrdenesCompraAnual();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ContadorOrdenesCompraPorEstado()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.ContadorOrdenesCompraPorEstado();
+                return result.Ok(list);
             }
             catch (Exception ex)
             {

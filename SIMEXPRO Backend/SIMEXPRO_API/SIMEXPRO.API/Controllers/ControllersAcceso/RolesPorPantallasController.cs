@@ -64,6 +64,8 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
         {
             var datos = _accesoServices.DibujarMenu(role_Id);
 
+            datos.Data = _mapper.Map<IEnumerable<RolesPorPantallasViewModel>>(datos.Data);
+
             if (datos.Code == 200)
             {
                 return Ok(datos);

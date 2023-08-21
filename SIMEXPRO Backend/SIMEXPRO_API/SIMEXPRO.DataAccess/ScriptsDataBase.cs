@@ -608,12 +608,14 @@ namespace SIMEXPRO.DataAccess
         #endregion
 
         #region Orden de Compra
+        public static string ObtenerOrdenCompraPorIdParaLineaTiempo = "Prod.UDP_tbOrdenCompra_ObtenerPorId_Para_LineaTiempo";
         public static string ListarOrdenCompra = "Prod.UDP_tbOrdenCompra_Listado";
         public static string InsertarOrdenCompra = "Prod.UDP_tbOrdenCompra_Insertar";
         public static string EditarOrdenCompra = "Prod.UDP_tbOrdenCompra_Editar";
         #endregion
 
         #region Orden de Compra Detalles
+        public static string ObtenerDetallesPorIdCompraParaLineaTiempo = "Prod.UDP_tbOrdenCompraDetalle_ObtenerPorIdOrdenCompra_ParaLineaTiempo";
         public static string ListarOrdenCompraDetalles = "Prod.UDP_tbOrdenCompraDetalle_Listado";
         public static string InsertarOrdenCompraDetalles = "Prod.UDP_tbOrdenCompraDetalles_Insertar";
         public static string EditarOrdenCompraDetalles = "Prod.UDP_tbOrdenCompraDetalles_Editar";
@@ -650,6 +652,12 @@ namespace SIMEXPRO.DataAccess
 
         #endregion
 
+        #region Graficas
+        public static string GR_AvanceOrdenCompraPorID = "Prod.UDP_AvanceOrdenCompraByID";
+        public static string GR_TotalOrdenesCompraAnual = "Prod.UDP_TotalOrdenesCompraAnual";
+        public static string GR_ContadorOrdenesCompraPorEstado = "Prod.UDP_ContadorOrdenesCompra_PorEstado";
+
+        #endregion
     }
 }
 

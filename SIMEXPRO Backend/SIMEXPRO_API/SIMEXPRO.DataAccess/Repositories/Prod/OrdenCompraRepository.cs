@@ -71,5 +71,14 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             result.MessageStatus = answer;
             return result;
         }
+
+        public IEnumerable<tbOrdenCompra> LineaTiempo(int orco_Id)
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            var parametros = new DynamicParameters();
+            parametros.Add("@orco_Id", orco_Id, DbType.Int32, ParameterDirection.Input);
+           
+            return db.Query<tbOrdenCompra>(ScriptsDataBase.ObtenerOrdenCompraPorIdParaLineaTiempo, parametros, commandType: CommandType.StoredProcedure);
+        }
     }
 }

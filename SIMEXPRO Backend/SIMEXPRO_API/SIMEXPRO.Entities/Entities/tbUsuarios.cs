@@ -86,6 +86,7 @@ namespace SIMEXPRO.Entities.Entities
             tbEmpleadosusua_UsuarioCreacionNavigation = new HashSet<tbEmpleados>();
             tbEmpleadosusua_UsuarioEliminacionNavigation = new HashSet<tbEmpleados>();
             tbEmpleadosusua_UsuarioModificacionNavigation = new HashSet<tbEmpleados>();
+            tbEmpleadosusua_UsuarioActivacionNavigation = new HashSet<tbEmpleados>();
             tbEstadoBoletinusua_UsuarioCreacionNavigation = new HashSet<tbEstadoBoletin>();
             tbEstadoBoletinusua_UsuarioModificacionNavigation = new HashSet<tbEstadoBoletin>();
             tbEstadoMercanciasusua_UsuarioCreacionNavigation = new HashSet<tbEstadoMercancias>();
@@ -368,6 +369,7 @@ namespace SIMEXPRO.Entities.Entities
         public virtual ICollection<tbEmpleados> tbEmpleadosusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbEmpleados> tbEmpleadosusua_UsuarioEliminacionNavigation { get; set; }
         public virtual ICollection<tbEmpleados> tbEmpleadosusua_UsuarioModificacionNavigation { get; set; }
+        public virtual ICollection<tbEmpleados> tbEmpleadosusua_UsuarioActivacionNavigation { get; set; }
         public virtual ICollection<tbEstadoBoletin> tbEstadoBoletinusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbEstadoBoletin> tbEstadoBoletinusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbEstadoMercancias> tbEstadoMercanciasusua_UsuarioCreacionNavigation { get; set; }

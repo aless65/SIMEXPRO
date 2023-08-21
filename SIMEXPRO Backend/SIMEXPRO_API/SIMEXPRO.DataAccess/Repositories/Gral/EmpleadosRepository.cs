@@ -114,8 +114,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Gral
             RequestStatus result = new();
             var parameters = new DynamicParameters();
             parameters.Add("@empl_Id", item.empl_Id, DbType.Int32, ParameterDirection.Input);
-            parameters.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
-            parameters.Add("@empl_FechaModificacion", item.empl_FechaModificacion, DbType.String, ParameterDirection.Input);
+            parameters.Add("@usua_UsuarioActivacion", item.usua_UsuarioActivacion, DbType.Int32, ParameterDirection.Input);
+            parameters.Add("@empl_FechaActivacion", item.empl_FechaActivacion, DbType.DateTime, ParameterDirection.Input);
 
             var answer = db.QueryFirst<string>(ScriptsDataBase.ReactivarEmpleados, parameters, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;

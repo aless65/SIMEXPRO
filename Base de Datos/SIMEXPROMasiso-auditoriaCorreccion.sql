@@ -456,19 +456,23 @@ CREATE TABLE Gral.tbEmpleados(
 		usua_UsuarioModificacion		INT,
 		empl_FechaModificacion  		DATETIME,
 		usua_UsuarioEliminacion		    INT,
-		empl_FechaEliminacion 		    DATETIME, 
+		empl_FechaEliminacion 		    DATETIME,
+		usua_UsuarioActivacion			INT,
+		empl_FechaActivacion			DATETIME,
 		empl_Estado						BIT 			NOT NULL DEFAULT 1,
 
 		CONSTRAINT PK_Adua_tbEmpleados_emad_Id  PRIMARY KEY (empl_Id),
 		CONSTRAINT UQ_Gral_tbEmpleados_empl_DNI UNIQUE (empl_DNI),
-		CONSTRAINT FK_Gral_tbEstadosCiviles_Adua_tbEmpleados_escv_Id 			FOREIGN KEY (escv_Id) REFERENCES Gral.tbEstadosCiviles(escv_Id),
-		CONSTRAINT FK_Gral_tbProvincias_Adua_tbEmpleados_pvin_Id 	 			FOREIGN KEY (pvin_Id) REFERENCES Gral.tbProvincias(pvin_Id),
-		CONSTRAINT FK_Gral_tbCargos_Adua_tbasEmpleados_carg_Id 		 			FOREIGN KEY (carg_Id) REFERENCES Gral.tbCargos(carg_Id),
-		CONSTRAINT FK_Acce_tbUsuarios_Gral_tbEmpleados_empl_UsuarioCreacion 	FOREIGN KEY (usua_UsuarioCreacion) 	   REFERENCES Acce.tbUsuarios (usua_Id),
-		CONSTRAINT FK_Acce_tbUsuarios_Gral_tbEmpleados_empl_UsuarioModificacion FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
-		CONSTRAINT FK_Acce_tbUsuarios_Gral_tbEmpleados_empl_UsuarioEliminacion  FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios (usua_Id)
+		CONSTRAINT FK_Gral_tbEstadosCiviles_Adua_tbEmpleados_escv_Id 					FOREIGN KEY (escv_Id) REFERENCES Gral.tbEstadosCiviles(escv_Id),
+		CONSTRAINT FK_Gral_tbProvincias_Adua_tbEmpleados_pvin_Id 	 					FOREIGN KEY (pvin_Id) REFERENCES Gral.tbProvincias(pvin_Id),
+		CONSTRAINT FK_Gral_tbCargos_Adua_tbasEmpleados_carg_Id 		 					FOREIGN KEY (carg_Id) REFERENCES Gral.tbCargos(carg_Id),
+		CONSTRAINT FK_Acce_tbUsuarios_Gral_tbEmpleados_empl_UsuarioCreacion 			FOREIGN KEY (usua_UsuarioCreacion) 	   REFERENCES Acce.tbUsuarios (usua_Id),
+		CONSTRAINT FK_Acce_tbUsuarios_Gral_tbEmpleados_empl_UsuarioModificacion			FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
+		CONSTRAINT FK_Acce_tbUsuarios_Gral_tbEmpleados_empl_UsuarioEliminacion			FOREIGN KEY (usua_UsuarioEliminacion)  REFERENCES Acce.tbUsuarios (usua_Id),
+		CONSTRAINT FK_Gral_tbEmpleados_usua_UsuarioActivacion_Acce_tbUsuarios_usua_Id	FOREIGN KEY (usua_UsuarioActivacion)  REFERENCES Acce.tbUsuarios (usua_Id)
 )
 GO
+
 --**********************************************************--
 --**************** SCHEMA Aduana ***************************--
 --**********************************************************--

@@ -19,7 +19,6 @@ namespace SIMEXPRO.Entities.Entities
         public string pant_URL { get; set; }
         public string pant_Icono { get; set; }
         public string pant_Esquema { get; set; }
-        [NotMapped]
         public string pant_Subcategoria { get; set; }
         [NotMapped]
         public string Detalles { get; set; }

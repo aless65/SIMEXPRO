@@ -98,34 +98,34 @@ GO
 --GO
 
 --/*Dibujar menu*/ ESTE ES EL PROCEDIMIENTO VIEJO 
-CREATE OR ALTER PROCEDURE Acce.UDP_RolesPorPantalla_DibujadoMenu 
-    @role_ID INT
-AS
-BEGIN
-    SELECT 
-        ropa_Id, 
-        pnt.pant_Id, 
-        pant_Nombre,
-        pant_URL,
-        pant_Icono,
-        pant_Esquema,
-		pant_Subcategoria,
-		pant_EsAduana,
-        CASE 
-            WHEN pnt.pant_Id = rxp.pant_Id THEN 'Asignada'
-            ELSE 'No asignada' 
-        END AS Asignada,
-        pnt.usua_UsuarioCreacion, 
-        ropa_FechaCreacion
-    FROM Acce.tbPantallas pnt
-    LEFT JOIN Acce.tbRolesXPantallas rxp 
-	ON pnt.pant_Id = rxp.pant_Id 
-	AND rxp.role_Id = @role_ID;
-END
-GO
+--CREATE OR ALTER PROCEDURE Acce.UDP_RolesPorPantalla_DibujadoMenu 
+--    @role_ID INT
+--AS
+--BEGIN
+--    SELECT 
+--        ropa_Id, 
+--        pnt.pant_Id, 
+--        pant_Nombre,
+--        pant_URL,
+--        pant_Icono,
+--        pant_Esquema,
+--		pant_Subcategoria,
+--		pant_EsAduana,
+--        CASE 
+--            WHEN pnt.pant_Id = rxp.pant_Id THEN 'Asignada'
+--            ELSE 'No asignada' 
+--        END AS Asignada,
+--        pnt.usua_UsuarioCreacion, 
+--        ropa_FechaCreacion
+--    FROM Acce.tbPantallas pnt
+--    LEFT JOIN Acce.tbRolesXPantallas rxp 
+--	ON pnt.pant_Id = rxp.pant_Id 
+--	AND rxp.role_Id = @role_ID;
+--END
+--GO
 
 --ESTE ES EL PROCEDIMIENTO QUE HIZO JAVIER SI ESTA MALO PATEENLO
-CREATE OR ALTER PROCEDURE Acce.UDP_RolesPorPantalla_DibujarMenu 
+CREATE OR ALTER PROCEDURE [Acce].[UDP_RolesPorPantalla_DibujarMenu] 
 AS
 BEGIN
 
@@ -136,11 +136,16 @@ BEGIN
 			pant.pant_Esquema, 
 			pant.pant_EsAduana, 
 			pant.pant_Subcategoria,
-			(select	inerropa.role_Id, innerrols.role_Descripcion from Acce.tbRolesXPantallas inerropa INNER JOIN Acce.tbPantallas innerpant  ON inerropa.pant_Id = innerpant.pant_Id INNER JOIN Acce.tbRoles innerrols ON inerropa.role_Id = innerrols.role_Id
+			CASE
+    WHEN pant.pant_ID = 1 THEN (SELECT role_Descripcion FROM acce.tbRoles FOR JSON PATH)
+    ELSE (select	innerrols.role_Descripcion 
+			from Acce.tbRolesXPantallas inerropa INNER JOIN Acce.tbPantallas innerpant  
+			ON inerropa.pant_Id = innerpant.pant_Id INNER JOIN Acce.tbRoles innerrols 
+			ON inerropa.role_Id = innerrols.role_Id
 			WHERE innerpant.pant_Nombre = pant.pant_Nombre
 			ORDER BY innerpant.pant_Nombre  
-			FOR JSON PATH ) 
-			AS Detalles
+			FOR JSON PATH )
+END AS Detalles
 	FROM	Acce.tbPantallas pant 
 
 END
@@ -10036,10 +10041,13 @@ BEGIN
 			,CONCAT(talla.tall_Codigo, ' (', talla.tall_Nombre, ')') AS tall_Nombre
 			,ordenCompraDetalle.colr_Id
 			,colores.colr_Nombre
+			,clie.clie_Nombre_O_Razon_Social
 	  FROM	Prod.tbOrdenCompraDetalles			    ordenCompraDetalle
 			INNER JOIN	Prod.tbEstilos				estilo						ON	ordenCompraDetalle.esti_Id						= estilo.esti_Id
 			INNER JOIN	Prod.tbTallas				talla						ON	ordenCompraDetalle.tall_Id						= talla.tall_Id
 			INNER JOIN  Prod.tbColores				colores						ON	ordenCompraDetalle.colr_Id						= colores.colr_Id
+			INNER JOIN Prod.tbOrdenCompra			orco						ON ordenCompraDetalle.orco_Id						= orco.orco_Id
+			INNER JOIN Prod.tbClientes				clie						ON orco.orco_IdCliente = clie.clie_Id						
 	  WHERE ordenCompraDetalle.code_Id	=	@code_Id 
 END
 GO

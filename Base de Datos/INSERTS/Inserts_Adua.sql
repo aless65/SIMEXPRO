@@ -81045,11 +81045,11 @@ VALUES
 --****** INSERT TABLA CODIGO IMPUESTO --*********
 GO
 INSERT INTO Adua.tbCodigoImpuesto(coim_Descripcion, usua_UsuarioCreacion, coim_FechaCreacion)
-VALUES	('C�digo 1', 1, GETDATE()),
-		('C�digo 2', 1, GETDATE()),
-		('C�digo 3', 1, GETDATE()),
-		('C�digo 4', 1, GETDATE()),
-		('C�digo 5', 1, GETDATE());
+VALUES	('Código 1', 1, GETDATE()),
+		('Código 2', 1, GETDATE()),
+		('Código 3', 1, GETDATE()),
+		('Código 4', 1, GETDATE()),
+		('Código 5', 1, GETDATE());
 
 
 

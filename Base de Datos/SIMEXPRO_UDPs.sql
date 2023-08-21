@@ -13506,15 +13506,21 @@ GO
 
 
 
-CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccionDetalle_Listar  
+CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccionDetalle_Listar 
 	@ppro_Id INT
 AS 
 BEGIN
 	SELECT	ppde_Id,
+			ppro_Id,
 			tbdetalles.lote_Id,
+
 			ppde_Cantidad,
 			mate_Descripcion,
 			tblotes.lote_Stock,
+			ppde_Cantidad,
+			tblotes.mate_Id,
+			mate_Descripcion,
+			tblotes.tipa_Id,
 			tbarea.tipa_area
 				  
 	FROM Prod.tbPedidosProduccionDetalles tbdetalles
@@ -13525,6 +13531,74 @@ BEGIN
 END
 GO
 
+
+CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccionDetalle_Insertar 
+(@ppro_Id INT,
+ @lote_Id INT,
+ @ppde_Cantidad INT,
+ @usua_UsuarioCreacion INT,
+ @ppde_FechaCreacion DATETIME)
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO [Prod].[tbPedidosProduccionDetalles] ([ppro_Id], [lote_Id], [ppde_Cantidad], [usua_UsuarioCreacion], [ppde_FechaCreacion])
+		VALUES (@ppro_Id,@lote_Id,@lote_Id,@usua_UsuarioCreacion,@ppde_FechaCreacion);
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+			SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+
+
+
+GO
+CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccionDetalle_Editar 
+(@ppde_Id					INT,
+ @ppro_Id					INT,
+ @lote_Id					INT,
+ @ppde_Cantidad				INT,
+ @usua_UsuarioModificacion	INT,
+ @ppde_FechaModificacion DATETIME)
+AS
+BEGIN
+	BEGIN TRY
+
+		UPDATE [Prod].[tbPedidosProduccionDetalles]
+		SET [ppro_Id] = @ppro_Id, 
+			[lote_Id] = @lote_Id, 
+			[ppde_Cantidad] = @ppde_Cantidad , 
+			[usua_UsuarioModificacion] = @usua_UsuarioModificacion, 
+			[ppde_FechaCreacion] = @ppde_FechaModificacion
+		WHERE ppde_Id = @ppde_Id
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+			SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+
+
+
+GO
+CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccionDetalle_Eliminar
+(@ppde_Id					INT)
+AS
+BEGIN
+	BEGIN TRY
+
+		UPDATE [Prod].[tbPedidosProduccionDetalles]
+		SET [ppde_Estado] = 0
+		WHERE ppde_Id = @ppde_Id
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+			SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
 
 --************************************************************************   Tabla Modulos fin   ***********************************************************************************************
 GO

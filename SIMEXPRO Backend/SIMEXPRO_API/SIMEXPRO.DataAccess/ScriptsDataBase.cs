@@ -543,6 +543,7 @@ namespace SIMEXPRO.DataAccess
         public static string InsertarLotes = "Prod.UDP_tbLotes_Insertar";
         public static string EditarLotes = "Prod.UDP_tbLotes_Editar";
         public static string EliminarLotes = "Prod.UDP_tbLotes_Eliminar";
+        public static string LotesMateriales = "Prod.UDP_tbLotes_Materiales";
         #endregion
 
         #region MaquinasHitorial

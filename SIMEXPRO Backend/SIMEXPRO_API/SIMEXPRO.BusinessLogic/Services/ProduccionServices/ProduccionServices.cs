@@ -925,6 +925,19 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 return result.Error(ex.Message);
             }
         }
+        public ServiceResult LotesMateriales(tbLotes item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _lotesRepository.LotesMateriales(item);
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
 
         public ServiceResult InsertarLotes(tbLotes item)
         {

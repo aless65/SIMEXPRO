@@ -887,7 +887,18 @@ AS
 BEGIN
 	
 	BEGIN TRY
+	IF EXISTS (SELECT * FROM Gral.tbEstadosCiviles
+						WHERE escv_Nombre = @escv_Nombre
+						AND escv_Estado = 0)
+		BEGIN 
+		   UPDATE Gral.tbEstadosCiviles
+			SET	   escv_Estado = 1
+			WHERE  escv_Nombre = @escv_Nombre
 
+			SELECT 1
+		END
+		ELSE
+		BEGIN
 		INSERT INTO Gral.tbEstadosCiviles(escv_Nombre,
 		                                  usua_UsuarioCreacion, 
 										  escv_FechaCreacion)
@@ -895,6 +906,7 @@ BEGIN
 			          @usua_UsuarioCreacion, 
 					  @escv_FechaCreacion)
 			SELECT 1
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -11844,6 +11856,12 @@ BEGIN
 	END CATCH
 END 
 
+
+
+
+
+
+
 GO
 /*Editar Modulos*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Editar  
@@ -11884,10 +11902,11 @@ BEGIN
 
 			IF(@respuesta) = 1
 			BEGIN
-				UPDATE	Prod.tbModulos
-				SET		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-						modu_FechaEliminacion = @modu_FechaEliminacion,
-						modu_Estado = 0
+				 UPDATE Prod.tbModulos
+				    SET usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+						modu_FechaEliminacion   = @modu_FechaEliminacion,
+						modu_Estado             = 0
+				  WHERE modu_Id                 = @modu_Id
 			END
 
 			SELECT @respuesta AS Resultado
@@ -11897,6 +11916,8 @@ BEGIN
 	END CATCH
 END
 GO
+
+
 --************MAQUINAS******************--
 /*Insertar Maquinas*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinas_Insertar 

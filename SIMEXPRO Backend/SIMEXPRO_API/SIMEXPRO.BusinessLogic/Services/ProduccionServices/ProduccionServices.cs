@@ -2195,8 +2195,6 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                if (item.ppde_Cantidad.ToString() != "")
-                {
                     var map = _pedidosProduccionDetallesRepository.Insert(item);
                     if (map.MessageStatus == "1")
                     {
@@ -2207,11 +2205,6 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
 
                         return result.Error(map);
                     }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
             }
             catch (Exception ex)
             {
@@ -2224,8 +2217,6 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                if (item.ppde_Cantidad.ToString() != "")
-                {
                     var map = _pedidosProduccionDetallesRepository.Update(item);
                     if (map.MessageStatus == "1")
                     {
@@ -2236,11 +2227,6 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
 
                         return result.Error(map);
                     }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
             }
             catch (Exception ex)
             {
@@ -2253,8 +2239,6 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                if (item.ppro_Id != 0)
-                {
                     var map = _pedidosProduccionDetallesRepository.Delete(item);
                     if (map.MessageStatus == "1")
                     {
@@ -2265,11 +2249,6 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
 
                         return result.Error(map);
                     }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
             }
             catch (Exception ex)
             {

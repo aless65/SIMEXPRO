@@ -642,6 +642,9 @@ namespace SIMEXPRO.DataAccess
 
         #region Pedidos Produccion Detalles
         public static string ListarPedidosProduccionDetalles = "Prod.UDP_tbPedidosProduccionDetalle_Listar";
+        public static string InsertarPedidosProduccionDetalles = "Prod.UDP_tbPedidosProduccionDetalle_Insertar";
+        public static string EditarPedidosProduccionDetalles = "Prod.UDP_tbPedidosProduccionDetalle_Editar";
+        public static string EliminarPedidosProduccionDetalles = "Prod.UDP_tbPedidosProduccionDetalle_Eliminar";
         #endregion
 
         #region PO Detalle Por Pedido Orden Detalle
@@ -652,7 +655,6 @@ namespace SIMEXPRO.DataAccess
 
 
         #endregion
-
         #region Graficas
         public static string GR_AvanceOrdenCompraPorID = "Prod.UDP_AvanceOrdenCompraByID";
         public static string GR_TotalOrdenesCompraAnual = "Prod.UDP_TotalOrdenesCompraAnual";

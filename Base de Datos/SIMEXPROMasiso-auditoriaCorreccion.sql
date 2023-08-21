@@ -1411,6 +1411,7 @@ CREATE TABLE Prod.tbMateriales(
 	mate_Descripcion			NVARCHAR(200),
 	subc_Id  					INT,
 	mate_Precio					DECIMAL (18,2),
+	mate_Imagen					NVARCHAR(MAX) NOT NULL,
 	usua_UsuarioCreacion		INT					NOT NULL,
 	mate_FechaCreacion			DATETIME			NOT NULL ,
 	usua_UsuarioModificacion 	INT 			,

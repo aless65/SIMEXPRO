@@ -40,11 +40,11 @@ namespace SIMEXPRO.Entities.Entities
         [NotMapped]
         public int peor_Id { get; set; }
         [NotMapped]
-        public int prov_NombreCompania { get; set; }
+        public string prov_NombreCompania { get; set; }
         [NotMapped]
-        public int prov_NombreContacto { get; set; }
+        public string prov_NombreContacto { get; set; }
         [NotMapped]
-        public int prov_DireccionExacta{ get; set; }
+        public string prov_DireccionExacta { get; set; }
         [NotMapped]
         public string UsuarioCreacionNombre { get; set; }
         [NotMapped]

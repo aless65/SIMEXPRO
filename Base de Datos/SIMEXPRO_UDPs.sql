@@ -892,7 +892,18 @@ AS
 BEGIN
 	
 	BEGIN TRY
+	IF EXISTS (SELECT * FROM Gral.tbEstadosCiviles
+						WHERE escv_Nombre = @escv_Nombre
+						AND escv_Estado = 0)
+		BEGIN 
+		   UPDATE Gral.tbEstadosCiviles
+			SET	   escv_Estado = 1
+			WHERE  escv_Nombre = @escv_Nombre
 
+			SELECT 1
+		END
+		ELSE
+		BEGIN
 		INSERT INTO Gral.tbEstadosCiviles(escv_Nombre,
 		                                  usua_UsuarioCreacion, 
 										  escv_FechaCreacion)
@@ -900,6 +911,7 @@ BEGIN
 			          @usua_UsuarioCreacion, 
 					  @escv_FechaCreacion)
 			SELECT 1
+			END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -11599,7 +11611,8 @@ BEGIN
 	       subc.subc_Descripcion,
 		   cate.cate_Id,
 		   cate.cate_Descripcion,
-	       mate.mate_Precio, 
+	       mate.mate_Precio,
+		   mate.mate_Imagen, 
 	       mate.usua_UsuarioCreacion, 
 	       usuaCrea.usua_Nombre							AS usuarioCreacionNombre,
 	       mate.mate_FechaCreacion, 
@@ -11621,15 +11634,16 @@ GO
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMateriales_Insertar
 	 @mate_Descripcion         NVARCHAR(200),
 	 @subc_Id                  INT,
-	 @mate_Precio              DECIMAL(18,2), 
+	 @mate_Precio              DECIMAL(18,2),
+	 @mate_Imagen			   NVARCHAR(MAX),
 	 @usua_UsuarioCreacion     INT, 
 	 @mate_FechaCreacion       DATETIME
 AS 
 BEGIN
 	
 	BEGIN TRY
-		INSERT INTO Prod.tbMateriales (mate_Descripcion, subc_Id, mate_Precio, usua_UsuarioCreacion, mate_FechaCreacion)
-		VALUES(@mate_Descripcion, @subc_Id, @mate_Precio, @usua_UsuarioCreacion, @mate_FechaCreacion)
+		INSERT INTO Prod.tbMateriales (mate_Descripcion, subc_Id, mate_Precio, mate_Imagen, usua_UsuarioCreacion, mate_FechaCreacion)
+		VALUES(@mate_Descripcion, @subc_Id, @mate_Precio, @mate_Imagen, @usua_UsuarioCreacion, @mate_FechaCreacion)
 		
 		SELECT 1
 	END TRY
@@ -11644,7 +11658,8 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbMateriales_Editar
 	@mate_Id                   INT,
 	@mate_Descripcion          NVARCHAR(200), 
 	@subc_Id                   INT, 
-	@mate_Precio               DECIMAL(18,2), 
+	@mate_Precio               DECIMAL(18,2),
+	@mate_Imagen			   NVARCHAR(MAX), 
 	@usua_UsuarioModificacion  INT, 
 	@mate_FechaModificacion    DATETIME
 AS
@@ -11654,6 +11669,7 @@ BEGIN
 		SET		mate_Descripcion         = @mate_Descripcion,
 		        subc_Id                  = @subc_Id,
 				mate_Precio              = @mate_Precio,
+				mate_Imagen				 = @mate_Imagen,
 				usua_UsuarioModificacion = @usua_UsuarioModificacion,
 				mate_FechaModificacion   = @mate_FechaModificacion
 		WHERE	mate_Id = @mate_Id
@@ -11665,6 +11681,7 @@ BEGIN
 	END CATCH
 END
 GO
+
 /*Eliminar materiales*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMateriales_Eliminar
 	@mate_Id					INT	
@@ -11852,6 +11869,12 @@ BEGIN
 	END CATCH
 END 
 
+
+
+
+
+
+
 GO
 /*Editar Modulos*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Editar  
@@ -11892,10 +11915,11 @@ BEGIN
 
 			IF(@respuesta) = 1
 			BEGIN
-				UPDATE	Prod.tbModulos
-				SET		usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
-						modu_FechaEliminacion = @modu_FechaEliminacion,
-						modu_Estado = 0
+				 UPDATE Prod.tbModulos
+				    SET usua_UsuarioEliminacion = @usua_UsuarioEliminacion,
+						modu_FechaEliminacion   = @modu_FechaEliminacion,
+						modu_Estado             = 0
+				  WHERE modu_Id                 = @modu_Id
 			END
 
 			SELECT @respuesta AS Resultado
@@ -11905,6 +11929,8 @@ BEGIN
 	END CATCH
 END
 GO
+
+
 --************MAQUINAS******************--
 /*Insertar Maquinas*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMaquinas_Insertar 
@@ -12880,6 +12906,11 @@ BEGIN
 			rdet_TotalDia, 
 			rdet_TotalDanado, 
 			OrdenCompra.orco_Id,
+			colores.colr_Nombre,
+			case ordencompradetalle.code_Sexo 
+			when 'M' then 'Masculino'
+			when 'F' then 'Femenino'
+			else ordencompradetalle.code_Sexo end as Sexo,
 			clientes.[clie_Nombre_Contacto],
 			clientes.[clie_RTN],
  			ReporteModuloDia.code_Id, 
@@ -12895,6 +12926,7 @@ BEGIN
 			INNER JOIN Prod.tbEstilos			estilos					ON ordencompradetalle.esti_Id = estilos.esti_Id
 			INNER JOIN Prod.tbOrdenCompra		OrdenCompra				ON	ordencompradetalle.orco_Id = OrdenCompra.orco_Id
 			INNER JOIN Prod.tbClientes			clientes				ON  OrdenCompra.orco_IdCliente = clientes.clie_Id
+			INNER JOIN Prod.tbColores			colores					ON	ordencompradetalle.code_Id	= colores.colr_Id
 			WHERE ReporteModuloDia.remo_Id = @remo_Id
 
 	
@@ -13508,15 +13540,21 @@ GO
 
 
 
-CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccionDetalle_Listar  
+CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccionDetalle_Listar 
 	@ppro_Id INT
 AS 
 BEGIN
 	SELECT	ppde_Id,
+			ppro_Id,
 			tbdetalles.lote_Id,
+
 			ppde_Cantidad,
 			mate_Descripcion,
 			tblotes.lote_Stock,
+			ppde_Cantidad,
+			tblotes.mate_Id,
+			mate_Descripcion,
+			tblotes.tipa_Id,
 			tbarea.tipa_area
 				  
 	FROM Prod.tbPedidosProduccionDetalles tbdetalles

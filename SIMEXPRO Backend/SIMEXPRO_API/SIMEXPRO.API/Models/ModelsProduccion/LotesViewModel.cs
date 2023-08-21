@@ -28,9 +28,9 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public string mate_Descripcion { get; set; }
         public string tipa_area { get; set; }
         public int peor_Id { get; set; }
-        public int prov_NombreCompania { get; set; }
-        public int prov_NombreContacto { get; set; }
-        public int prov_DireccionExacta { get; set; }
+        public string prov_NombreCompania { get; set; }
+        public string prov_NombreContacto { get; set; }
+        public string prov_DireccionExacta { get; set; }
         public string UsuarioCreacionNombre { get; set; }
         public string UsuarioModificacionNombre { get; set; }
         public string UsuarioEliminacionNombre { get; set; }

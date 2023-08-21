@@ -676,6 +676,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         }
 
         #endregion
+
         #region CondicionesComerciales
 
         public ServiceResult ListarCondicionesComerciales()

@@ -215,7 +215,7 @@ BEGIN
 		   usua.usua_FechaEliminacion,
 		   usua.usua_UsuarioActivacion,
 		   usuaActiva.usua_Nombre	AS usuarioActivacionNombre,
-		   usuaActiva.usua_FechaActivacion,
+		   usua.usua_FechaActivacion,
 		   usua.usua_Estado,
 		   empl.empl_CorreoElectronico
 	FROM Acce.tbUsuarios usua LEFT JOIN Acce.tbRoles rol
@@ -13365,33 +13365,24 @@ END
 GO
 
 /*Seleccionar lotes Material*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbLotes_Materiales 
-(@lote_Id INT)
+CREATE OR ALTER PROCEDURE Prod.UDP_tbLotes_Materiales
+(
+	@lote_Id INT
+)
 AS
 BEGIN
 	SELECT	lote_Id,
 			mate_Descripcion,
 			tblotes.lote_Stock,
 			tbarea.tipa_area
-				  
 	FROM Prod.tbLotes tblotes			
 			INNER JOIN Prod.tbMateriales tbmats		ON tblotes.mate_Id = tbmats.mate_Id
 			INNER JOIN Prod.tbArea	tbarea			ON tblotes.tipa_Id = tbarea.tipa_Id
 	WHERE tblotes.lote_Id = @lote_Id
-
 END
-
+GO
 
 --**************************************************************************************************--
-
-
-
-
-
-
-
-
-
 
 
 --***************************************PEDIDOS PRODUCCION*****************************************--

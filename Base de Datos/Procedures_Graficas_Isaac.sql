@@ -51,18 +51,23 @@ GO
 CREATE OR ALTER PROCEDURE Prod.UDP_TotalOrdenesCompraDiario
 AS
 BEGIN
-SET LANGUAGE Spanish;
+    SET LANGUAGE Spanish;
 
+    DECLARE @FechaInicial DATE, @FechaFinal DATE;
+    SET @FechaInicial = DATEADD(DAY, -7, GETDATE()); 
+    SET @FechaFinal = GETDATE();
     SELECT
         CAST(orco_FechaCreacion AS DATE) AS Fecha,
         COUNT(orco_Id) AS orco_Conteo
     FROM Prod.tbOrdenCompra
+    WHERE orco_FechaCreacion BETWEEN @FechaInicial AND @FechaFinal
     GROUP BY CAST(orco_FechaCreacion AS DATE)
     ORDER BY Fecha;
 END
 GO
 
 
+-- PROCEDIMEINTO PARA MOSTRAR EL TOTAL DE ORDENES DE COMPRA RECIBIDOS POR AÑO
 CREATE OR ALTER PROCEDURE Prod.UDP_TotalOrdenesCompraAnual
 AS
 BEGIN
@@ -77,7 +82,7 @@ GO
 
 
 
-
+-- PROCEDIMIENTO PARA MOSTRAR EL CONTEO DE ORDENES DE COMPRA AGRUPADOS POR ESTADO (Pendiente, En Curso, Terminado)
 CREATE OR ALTER PROCEDURE Prod.UDP_ContadorOrdenesCompra_PorEstado
 AS
 BEGIN
@@ -93,19 +98,30 @@ BEGIN
 	GROUP BY orco_EstadoOrdenCompra
 END
 GO
+-- TOTAL DE LAS ORDENES DE COMPRA ENTREGEDAS Y PENDIENTES SEMANALMENTE Y MENSUALMENTE (Basarse en PROCEDURE Prod.UDP_TotalOrdenesCompraDiario)
 
 
-SELECT * FROM Prod.tbRevisionDeCalidad
 
-SELECT * FROM Prod.tbAsignacionesOrden
-SELECT * FROM Prod.tbAsignacionesOrdenDetalle
-SELECT * FROM Prod.tbOrde_Ensa_Acab_Etiq
-SELECT * FROM Prod.tbModulos
-SELECT * FROM Prod.tbProcesos
+CREATE OR ALTER PROCEDURE Prod.UDP_ContadorOrdenesCompra_PorEstado_UltimaSemana
+AS
+BEGIN
+    DECLARE @FechaInicial DATE, @FechaFinal DATE;
+    SET @FechaInicial = DATEADD(DAY, -7, GETDATE()); 
+    SET @FechaFinal = GETDATE();
 
-SELECT * FROM Adua.tbDuca
-SELECT * FROM Prod.tbOrdenCompra
-SELECT * FROM Prod.tbFacturasExportacion
+	SELECT	
+			COUNT(orco_Id) AS orco_Conteo, 
+			CASE orco_EstadoOrdenCompra
+				WHEN 'P' THEN 'Pendiente'
+				WHEN 'T' THEN 'Terminado'
+			END AS orco_Avance
+	FROM	Prod.tbOrdenCompra
+	WHERE orco_FechaCreacion BETWEEN @FechaInicial AND @FechaFinal
+	GROUP BY orco_EstadoOrdenCompra
+END
+GO
+
+
 
 INSERT INTO Prod.tbFacturasExportacion(duca_No_Duca, faex_Fecha, orco_Id, faex_Total, usua_UsuarioCreacion, faex_FechaCreacion)
 VALUES	('54363244535', '08-07-2023', 1, 15000, 1, '08-07-2023'),
@@ -174,7 +190,6 @@ VALUES	('54363244535', '08-22-2023', 1, 15000, 1, '08-22-2023'),
 		('83739333921', '09-06-2023', 3, 100000, 1, '09-06-2023')
 GO
 
--- TODOS LOS DE LA SEMANA
 SELECT  faex_Id, 
 		duca_No_Duca, 
 		faex_Fecha, 
@@ -185,41 +200,79 @@ SELECT  faex_Id,
 		usua_UsuarioModificacion, 
 		faex_FechaModificacion
 FROM	Prod.tbFacturasExportacion
-WHERE	(DATEPART(DAY, faex_Fecha) BETWEEN DATEPART(DAY, GETDATE()) AND DATEPART(DAY, GETDATE() + 7)) 
-		AND (DATEPART(MONTH, faex_Fecha) = DATEPART(MONTH, GETDATE()))
-		AND (DATEPART(YEAR, faex_Fecha) = DATEPART(YEAR, GETDATE()))
-
-
---TODOS LOS DEL MES
-SELECT  faex_Id, 
-		duca_No_Duca, 
-		faex_Fecha, 
-		orco_Id, 
-		faex_Total, 
-		usua_UsuarioCreacion, 
-		faex_FechaCreacion, 
-		usua_UsuarioModificacion, 
-		faex_FechaModificacion
-FROM	Prod.tbFacturasExportacion
-WHERE	(DATEPART(MONTH, faex_Fecha) = DATEPART(MONTH, GETDATE()))
-		AND (DATEPART(YEAR, faex_Fecha) = DATEPART(YEAR, GETDATE()))
-
-
---TODOS LOS DEL AÑO
-SELECT  faex_Id, 
-		duca_No_Duca, 
-		faex_Fecha, 
-		orco_Id, 
-		faex_Total, 
-		usua_UsuarioCreacion, 
-		faex_FechaCreacion, 
-		usua_UsuarioModificacion, 
-		faex_FechaModificacion
-FROM	Prod.tbFacturasExportacion
-WHERE (DATEPART(YEAR, faex_Fecha) = DATEPART(YEAR, GETDATE()))
-
-
-SELECT * FROM Prod.tbFacturasExportacion
 WHERE	faex_Fecha >= DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()), 0)
 		AND faex_Fecha <= DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()), 5)
+ORDER BY faex_Fecha ASC
+GO
+
+
+-- PROCEDIMIENTO QUE MUESTRA TODAS LAS VENTAS DE LA SEMANA (DIVIDIDO EN DIAS)
+CREATE OR ALTER PROCEDURE Prod.UDP_VentasSemanales
+AS
+BEGIN
+	SELECT	
+			CONVERT(DATE, MIN(faex_Fecha))	 AS FechaAntigua,
+			CONVERT(DATE, MAX(faex_Fecha))	AS FechaReciente,
+			DATEPART(MONTH, faex_Fecha) AS NumeroMes,
+			DATEPART(WEEK, faex_Fecha)	AS NumeroSemana,
+			DATEPART(DAY, faex_Fecha)	AS NumeroDia, 
+			SUM(faex_Total)				AS TotalIngresos	
+	FROM	Prod.tbFacturasExportacion
+	WHERE	
+			DATEPART(YEAR, faex_Fecha) =  DATEPART(YEAR, GETDATE())
+			AND DATEPART(MONTH, faex_Fecha) =  DATEPART(MONTH, GETDATE()) 
+			AND	DATEPART(WEEK, faex_Fecha) =  DATEPART(WEEK, GETDATE()) 
+	GROUP BY
+			DATEPART(YEAR, faex_Fecha),
+			DATEPART(MONTH, faex_Fecha),
+			DATEPART(WEEK, faex_Fecha),
+			DATEPART(DAY, faex_Fecha) 
+	ORDER BY FechaAntigua ASC
+END
+GO
+
+
+-- PROCEDIMIENTO QUE MUESTRA  TODAS LAS VENTAS DEL MES (DIVIDIDO EN SEMANAS)
+CREATE OR ALTER PROCEDURE Prod.UDP_VentasMensuales
+AS
+BEGIN
+	SELECT	
+			CONVERT(DATE, MIN(faex_Fecha))	 AS FechaAntigua,
+			CONVERT(DATE, MAX(faex_Fecha))	AS FechaReciente,
+			DATEPART(MONTH, faex_Fecha) AS NumeroMes,
+			DATEPART(WEEK, faex_Fecha)	AS NumeroSemana,
+			SUM(faex_Total)				AS TotalIngresos	
+	FROM	Prod.tbFacturasExportacion
+	WHERE	
+			DATEPART(YEAR, faex_Fecha) =  DATEPART(YEAR, GETDATE())
+			AND DATEPART(MONTH, faex_Fecha) = DATEPART(MONTH, GETDATE()) 
+	GROUP BY
+			DATEPART(YEAR, faex_Fecha),
+			DATEPART(MONTH, faex_Fecha),
+			DATEPART(WEEK, faex_Fecha)
+	ORDER BY FechaAntigua ASC
+END
+GO
+
+
+-- PROCEDIMIENTO QUE MUESTRA TODAS LAS VENTAS DEL AÑO (DIVIDIDO EN MESES)
+CREATE OR ALTER PROCEDURE Prod.UDP_VentasAnuales
+AS
+BEGIN
+	SELECT	
+			CONVERT(DATE, MIN(faex_Fecha))	 AS FechaAntigua,
+			CONVERT(DATE, MAX(faex_Fecha))	AS FechaReciente,
+			DATEPART(MONTH, faex_Fecha)		AS NumeroMes,
+			SUM(faex_Total)					AS TotalIngresos	
+	FROM Prod.tbFacturasExportacion
+	WHERE 
+			DATEPART(YEAR, faex_Fecha) =  DATEPART(YEAR, GETDATE())
+	GROUP BY
+			DATEPART(YEAR, faex_Fecha),
+			DATEPART(MONTH, faex_Fecha)
+	ORDER BY FechaAntigua ASC
+END
+GO
+
+
 

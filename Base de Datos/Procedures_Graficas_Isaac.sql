@@ -5,7 +5,7 @@ GO
 
 
 
-CREATE OR ALTER PROCEDURE Prod.UDP_AvanceOrdenCompraByID
+CREATE OR ALTER PROCEDURE Prod.UDP_AvanceOrdenCompraByID 
 	@orco_Id INT
 AS
 BEGIN
@@ -32,17 +32,50 @@ WHERE orco_Id = @orco_Id
 END
 GO
 
+CREATE OR ALTER PROCEDURE Prod.UDP_TotalOrdenesCompraMensual
+AS
+BEGIN
+SET LANGUAGE Spanish;
+
+    SELECT
+        YEAR(orco_FechaCreacion) AS Anio,
+        MONTH(orco_FechaCreacion) AS Mes,
+        COUNT(orco_Id) AS orco_Conteo,
+        DATENAME(MONTH, orco_FechaCreacion) AS MesLabel
+    FROM Prod.tbOrdenCompra
+    GROUP BY YEAR(orco_FechaCreacion), MONTH(orco_FechaCreacion), DATENAME(MONTH, orco_FechaCreacion)
+    ORDER BY Anio, Mes;
+END
+GO
+
+CREATE OR ALTER PROCEDURE Prod.UDP_TotalOrdenesCompraDiario
+AS
+BEGIN
+SET LANGUAGE Spanish;
+
+    SELECT
+        CAST(orco_FechaCreacion AS DATE) AS Fecha,
+        COUNT(orco_Id) AS orco_Conteo
+    FROM Prod.tbOrdenCompra
+    GROUP BY CAST(orco_FechaCreacion AS DATE)
+    ORDER BY Fecha;
+END
+GO
+
 
 CREATE OR ALTER PROCEDURE Prod.UDP_TotalOrdenesCompraAnual
 AS
 BEGIN
-SELECT
-		COUNT(orco_Id) AS orco_Conteo, 
-		orco_FechaCreacion
-FROM	Prod.tbOrdenCompra
-GROUP BY orco_FechaCreacion
+    SELECT
+        YEAR(orco_FechaCreacion) AS Anio,
+        COUNT(orco_Id) AS orco_Conteo
+    FROM Prod.tbOrdenCompra
+    GROUP BY YEAR(orco_FechaCreacion)
+    ORDER BY Anio;
 END
 GO
+
+
 
 
 CREATE OR ALTER PROCEDURE Prod.UDP_ContadorOrdenesCompra_PorEstado

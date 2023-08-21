@@ -3138,6 +3138,34 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             }
         }
 
+        public ServiceResult TotalOrdenesCompraMensual()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.TotalOrdenesCompraMensual();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult TotalOrdenesCompraDiario()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.TotalOrdenesCompraDiario();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
         public ServiceResult ContadorOrdenesCompraPorEstado()
         {
             var result = new ServiceResult();

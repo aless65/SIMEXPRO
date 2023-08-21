@@ -656,6 +656,8 @@ namespace SIMEXPRO.DataAccess
         #region Graficas
         public static string GR_AvanceOrdenCompraPorID = "Prod.UDP_AvanceOrdenCompraByID";
         public static string GR_TotalOrdenesCompraAnual = "Prod.UDP_TotalOrdenesCompraAnual";
+        public static string GR_TotalOrdenesCompraMensual = "Prod.UDP_TotalOrdenesCompraMensual";
+        public static string GR_TotalOrdenesCompraDiario = "Prod.UDP_TotalOrdenesCompraDiario";
         public static string GR_ContadorOrdenesCompraPorEstado = "Prod.UDP_ContadorOrdenesCompra_PorEstado";
 
         #endregion

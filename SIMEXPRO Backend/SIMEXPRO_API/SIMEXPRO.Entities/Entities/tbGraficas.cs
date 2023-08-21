@@ -25,5 +25,11 @@ namespace SIMEXPRO.Entities.Entities
         // DATOS PARA LA GRAFICA TOTAL ORDENES COMPRA ANUALES
         public int orco_Conteo { get; set; }
         public DateTime orco_FechaCreacion { get; set; }
+        public string Anio { get; set; }
+        public string Mes { get; set; }
+        public string MesLabel { get; set; }
+        public string Fecha { get; set; }
+
+
     }
 }

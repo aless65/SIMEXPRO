@@ -40,6 +40,22 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(listado);
         }
 
+        [HttpGet("TotalOrdenesCompraMensual")]
+        public IActionResult TotalOrdenesCompraMensual()
+        {
+            var listado = _produccionServices.TotalOrdenesCompraMensual();
+            listado.Data = _mapper.Map<IEnumerable<GraficasViewModel>>(listado.Data);
+            return Ok(listado);
+        }
+
+        [HttpGet("TotalOrdenesCompraDiario")]
+        public IActionResult TotalOrdenesCompraDiario()
+        {
+            var listado = _produccionServices.TotalOrdenesCompraDiario();
+            listado.Data = _mapper.Map<IEnumerable<GraficasViewModel>>(listado.Data);
+            return Ok(listado);
+        }
+
         [HttpGet("ContadorOrdenesCompraPorEstado")]
         public IActionResult ContadorOrdenesCompraPorEstado()
         {

@@ -9964,7 +9964,7 @@ BEGIN
 			,ordenCompraDetalle.esti_Id
 			,estilo.esti_Descripcion
 			,ordenCompraDetalle.tall_Id
-			,talla.tall_Nombre
+			,CONCAT(talla.tall_Codigo, ' (', talla.tall_Nombre, ')') AS tall_Nombre
 			,ordenCompraDetalle.colr_Id
 			,colores.colr_Nombre
 	  FROM	Prod.tbOrdenCompraDetalles			    ordenCompraDetalle

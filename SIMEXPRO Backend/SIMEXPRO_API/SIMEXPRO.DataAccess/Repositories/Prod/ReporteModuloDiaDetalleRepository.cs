@@ -47,13 +47,18 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             return result;
         }
 
-        public IEnumerable<tbReporteModuloDiaDetalle> List()
+        public IEnumerable<tbReporteModuloDiaDetalle> List(int remo_Id)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();
-            return db.Query<tbReporteModuloDiaDetalle>(ScriptsDataBase.ListarReporteModuloDiaDetalle, null, commandType: CommandType.StoredProcedure);
+            parametros.Add("@remo_Id",remo_Id, DbType.Int32, ParameterDirection.Input);
+            return db.Query<tbReporteModuloDiaDetalle>(ScriptsDataBase.ListarReporteModuloDiaDetalle, parametros, commandType: CommandType.StoredProcedure);
         }
 
+        public IEnumerable<tbReporteModuloDiaDetalle> List()
+        {
+            throw new NotImplementedException();
+        }
 
         public RequestStatus Update(tbReporteModuloDiaDetalle item)
         {

@@ -13,6 +13,7 @@ namespace SIMEXPRO.Entities.Entities
             Inverseusua_UsuarioCreacionNavigation = new HashSet<tbUsuarios>();
             Inverseusua_UsuarioEliminacionNavigation = new HashSet<tbUsuarios>();
             Inverseusua_UsuarioModificacionNavigation = new HashSet<tbUsuarios>();
+            Inverseusua_UsuarioActivacionNavigation = new HashSet<tbUsuarios>();
             tbAduanasusua_UsuarioCreacionNavigation = new HashSet<tbAduanas>();
             tbAduanasusua_UsuarioEliminacionNavigation = new HashSet<tbAduanas>();
             tbAduanasusua_UsuarioModificacionNavigation = new HashSet<tbAduanas>();
@@ -85,6 +86,7 @@ namespace SIMEXPRO.Entities.Entities
             tbEmpleadosusua_UsuarioCreacionNavigation = new HashSet<tbEmpleados>();
             tbEmpleadosusua_UsuarioEliminacionNavigation = new HashSet<tbEmpleados>();
             tbEmpleadosusua_UsuarioModificacionNavigation = new HashSet<tbEmpleados>();
+            tbEmpleadosusua_UsuarioActivacionNavigation = new HashSet<tbEmpleados>();
             tbEstadoBoletinusua_UsuarioCreacionNavigation = new HashSet<tbEstadoBoletin>();
             tbEstadoBoletinusua_UsuarioModificacionNavigation = new HashSet<tbEstadoBoletin>();
             tbEstadoMercanciasusua_UsuarioCreacionNavigation = new HashSet<tbEstadoMercancias>();
@@ -278,15 +280,20 @@ namespace SIMEXPRO.Entities.Entities
         public string usuarioEliminacionNombre { get; set; }
         public DateTime? usua_FechaEliminacion { get; set; }
         public bool? usua_Estado { get; set; }
-
+        public int? usua_UsuarioActivacion { get; set; }
+        [NotMapped]
+        public string usuarioActivacionNombre { get; set; }
+        public DateTime? usua_FechaActivacion { get; set; }
 
 
 
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioEliminacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }
+        public virtual tbUsuarios usua_UsuarioActivacionNavigation { get; set; }
         public virtual ICollection<tbUsuarios> Inverseusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbUsuarios> Inverseusua_UsuarioEliminacionNavigation { get; set; }
+        public virtual ICollection<tbUsuarios> Inverseusua_UsuarioActivacionNavigation { get; set; }
         public virtual ICollection<tbUsuarios> Inverseusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbAduanas> tbAduanasusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbAduanas> tbAduanasusua_UsuarioEliminacionNavigation { get; set; }
@@ -352,6 +359,8 @@ namespace SIMEXPRO.Entities.Entities
         public virtual ICollection<tbDocumentosDeSoporte> tbDocumentosDeSoporteusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbDocumentosDeSoporte> tbDocumentosDeSoporteusua_UsuarioEliminacionNavigation { get; set; }
         public virtual ICollection<tbDocumentosDeSoporte> tbDocumentosDeSoporteusua_UsuarioModificacionNavigation { get; set; }
+        public virtual ICollection<tbDocumentosOrdenCompraDetalles> tbDocumentosOrdenCompraDetallesusua_UsuarioCreacionNavigation { get; set; }
+        public virtual ICollection<tbDocumentosOrdenCompraDetalles> tbDocumentosOrdenCompraDetallesusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbDocumentosPDF> tbDocumentosPDFusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbDocumentosPDF> tbDocumentosPDFusua_UsuarioEliminacionNavigation { get; set; }
         public virtual ICollection<tbDocumentosPDF> tbDocumentosPDFusua_UsuarioModificacionNavigation { get; set; }
@@ -360,6 +369,7 @@ namespace SIMEXPRO.Entities.Entities
         public virtual ICollection<tbEmpleados> tbEmpleadosusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbEmpleados> tbEmpleadosusua_UsuarioEliminacionNavigation { get; set; }
         public virtual ICollection<tbEmpleados> tbEmpleadosusua_UsuarioModificacionNavigation { get; set; }
+        public virtual ICollection<tbEmpleados> tbEmpleadosusua_UsuarioActivacionNavigation { get; set; }
         public virtual ICollection<tbEstadoBoletin> tbEstadoBoletinusua_UsuarioCreacionNavigation { get; set; }
         public virtual ICollection<tbEstadoBoletin> tbEstadoBoletinusua_UsuarioModificacionNavigation { get; set; }
         public virtual ICollection<tbEstadoMercancias> tbEstadoMercanciasusua_UsuarioCreacionNavigation { get; set; }

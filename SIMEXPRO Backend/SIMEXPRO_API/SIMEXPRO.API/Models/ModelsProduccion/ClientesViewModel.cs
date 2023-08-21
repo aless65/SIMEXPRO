@@ -28,6 +28,7 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public string pvin_Codigo { get; set; }
         public string pvin_Nombre { get; set; }
         public int pais_Id { get; set; }
+        public string pais_Nombre { get; set; }
 
         public string usuarioNombreCreacion { get; set; }
         public string usuarioNombreModificacion { get; set; }

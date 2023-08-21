@@ -31,10 +31,12 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@ppro_Fecha", item.ppro_Fecha, DbType.DateTime, ParameterDirection.Input);
             parametros.Add("@ppro_Estados", item.ppro_Estados, DbType.String, ParameterDirection.Input);
             parametros.Add("@ppr_Observaciones", item.ppro_Observaciones, DbType.String, ParameterDirection.Input);
+            parametros.Add("@lote_Id", item.lote_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@ppde_Cantidad", item.ppde_Cantidad, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@ppro_FechaCreacion", item.ppro_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarPedidosProduccion, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarPedidosProduccion, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
             return result;
         }
@@ -57,7 +59,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@ppro_Estados", item.ppro_Estados, DbType.String, ParameterDirection.Input);
             parametros.Add("@ppr_Observaciones", item.ppro_Observaciones, DbType.String, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@ppro_FechaCreacion", item.ppro_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@ppro_FechaModificacion", item.ppro_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
 
             var answer = db.QueryFirst<string>(ScriptsDataBase.EditarPedidosProduccion, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;

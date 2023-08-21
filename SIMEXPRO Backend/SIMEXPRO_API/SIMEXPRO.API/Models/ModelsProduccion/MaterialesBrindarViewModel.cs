@@ -16,6 +16,12 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         [NotMapped]
         public string mate_Descripcion { get; set; }
         public int mabr_Cantidad { get; set; }
+
+        public int unme_Id { get; set; }
+
+        [NotMapped]
+        public string unme_Descripcion { get; set; }
+
         public int usua_UsuarioCreacion { get; set; }
         [NotMapped]
         public string usuarioCreacionNombre { get; set; }

@@ -51,6 +51,8 @@ namespace SIMEXPRO.Entities.Entities
 
         [NotMapped]
         public int pais_Id { get; set; }
+        [NotMapped]
+        public string pais_Nombre { get; set; }
 
         public virtual tbProvincias pvin { get; set; } 
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }

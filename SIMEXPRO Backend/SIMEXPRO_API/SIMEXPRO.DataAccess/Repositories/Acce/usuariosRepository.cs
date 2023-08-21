@@ -138,8 +138,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Acce
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
             parametros.Add("@usua_Id", item.usua_Id, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@usua_FechaModificacion", item.usua_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioActivacion", item.usua_UsuarioActivacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@usua_FechaActivacion", item.usua_FechaActivacion, DbType.DateTime, ParameterDirection.Input);
             var answer = db.QueryFirst<string>(ScriptsDataBase.ActivarEstadoUsuarios, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
             return result;

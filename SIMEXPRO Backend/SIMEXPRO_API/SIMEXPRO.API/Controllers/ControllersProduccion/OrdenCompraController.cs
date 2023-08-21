@@ -49,5 +49,14 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             var respuesta = _produccionServices.ActualizarOrdenCompra(item);
             return Ok(respuesta);
         }
+
+        [HttpGet("LineaTiempoOrdenCompra")]
+        public IActionResult LineaTiempo(int orco_Id)
+        {
+            var resultado = _produccionServices.LineaTiempoOrdenCompra(orco_Id);
+            resultado.Data = _mapper.Map<IEnumerable<OrdenCompraViewModel>>(resultado.Data);
+
+            return Ok(resultado);
+        }
     }
 }

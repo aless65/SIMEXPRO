@@ -59,12 +59,12 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
             return Ok(datos);
         }
 
-        [HttpPut("DibujarMenu")]
-        public IActionResult Dibujar(RolesPorPantallasViewModel rolesPantalla)
+        [HttpGet("DibujarMenu")]
+        public IActionResult Dibujar(int role_Id)
         {
-            var mapped = _mapper.Map<tbRolesXPantallas>(rolesPantalla);
-            var datos = _accesoServices.DibujarMenu(mapped);
-           
+            var datos = _accesoServices.DibujarMenu(role_Id);
+
+            datos.Data = _mapper.Map<IEnumerable<RolesPorPantallasViewModel>>(datos.Data);
 
             if (datos.Code == 200)
             {
@@ -74,6 +74,14 @@ namespace SIMEXPRO.API.Controllers.ControllersAcceso
             {
                 return BadRequest(datos);
             }
+        }
+
+        [HttpGet("DibujadoDeMenu")]
+        public IActionResult dibujado()
+        {
+            var datos = _accesoServices.DibujadoDeMenu();
+            datos.Data = _mapper.Map<IEnumerable<PantallasViewModel>>(datos.Data);
+            return Ok(datos);
         }
     }
 }

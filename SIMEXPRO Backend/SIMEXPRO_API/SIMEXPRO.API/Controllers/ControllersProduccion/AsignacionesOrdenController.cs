@@ -32,6 +32,14 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(listado);
         }
 
+        [HttpGet("Find")]
+        public IActionResult Find(int id)
+        {
+            var listado = _produccionServices.FindOrdenCompraDetalles(id);
+            listado.Data = _mapper.Map<AsignacionesOrdenViewModel>(listado.Data);
+            return Ok(listado);
+        }
+
         [HttpPost("Insertar")]
         public IActionResult Insert(AsignacionesOrdenViewModel asignacionesOrden)
         {

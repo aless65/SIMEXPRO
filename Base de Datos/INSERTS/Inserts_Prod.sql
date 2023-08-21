@@ -86,9 +86,9 @@ VALUES	('Corte de tela',			1, '10-16-2004'),
 		('Planchado',				1, '10-16-2004'),
 		('Empaque',					1, '10-16-2004'),
 		('Revisión de calidad',		1, '10-16-2004'),
-		('Etiquetado',				1, '10-16-2004'),
-		('Envío a distribución',	1, '10-16-2004'),
-		('Almacenamiento',			1, '10-16-2004');
+		('Etiquetado',				1, '10-16-2004');
+		--('Envío a distribución',	1, '10-16-2004'),
+		--('Almacenamiento',			1, '10-16-2004');
 
 
 /*------------------------------------*/

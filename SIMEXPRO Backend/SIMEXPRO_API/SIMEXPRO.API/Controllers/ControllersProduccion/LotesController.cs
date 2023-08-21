@@ -56,5 +56,12 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
+        [HttpGet("LotesMateriales")]
+        public IActionResult LotesMateriales(int lote_Id)
+        {
+            var listado = _produccionServices.LotesMateriales(lote_Id);
+            listado.Data = _mapper.Map<IEnumerable<LotesViewModel>>(listado.Data);
+            return Ok(listado);
+        }
     }
 }

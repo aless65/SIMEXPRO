@@ -14,8 +14,8 @@
    "SelectedToBeGenerated": 2,
    "Tables": [
       {
-         "Name": "[Prod].[tbDocumentosOrdenCompraDetalles]",
-         "ObjectType": 0
+         "Name": "[Prod].[VW_tbOrdenCompraDetalle_LineaTiempo]",
+         "ObjectType": 3
       }
    ],
    "UiHint": "practicaahm.SIMEXPRO",

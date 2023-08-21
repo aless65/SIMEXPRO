@@ -44,6 +44,15 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             return db.Query<tbMaterialesBrindar>(ScriptsDataBase.ListarMaterialesBrindar, null, commandType: CommandType.StoredProcedure);
         }
 
+        public IEnumerable<tbMaterialesBrindar> List2(int code_Id)
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            var parametros = new DynamicParameters();
+            parametros.Add("@code_Id", code_Id, DbType.Int32, ParameterDirection.Input);
+            var result = db.Query<tbMaterialesBrindar>(ScriptsDataBase.ListarMaterialesBrindarFiltrado, parametros, commandType: System.Data.CommandType.StoredProcedure);
+            return result;
+        }
+
         public RequestStatus Update(tbMaterialesBrindar item)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);

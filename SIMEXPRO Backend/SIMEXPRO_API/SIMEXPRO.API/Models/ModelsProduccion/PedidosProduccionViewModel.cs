@@ -15,14 +15,16 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public string ppro_Estados { get; set; }
         public string ppro_Observaciones { get; set; }
         public int usua_UsuarioCreacion { get; set; }
-        [NotMapped]
+        
+        public int lote_Id { get; set; }
+        public int ppde_Cantidad { get; set; }
         public string UsuarioCreacionNombre { get; set; } 
         public DateTime ppro_FechaCreacion { get; set; }
         public int? usua_UsuarioModificacion { get; set; }
-        [NotMapped]
         public string usuModificacion { get; set; }
         public DateTime? ppro_FechaModificacion { get; set; }
         public bool? ppro_Estado { get; set; }
         public string detalles { get; set; }
+
     }
 }

@@ -68,17 +68,23 @@ namespace SIMEXPRO.Entities.Entities
         public int? usua_UsuarioEliminacion { get; set; }
 
         [NotMapped]
-        public string? usuarioEliminacionNombre { get; set; }
+        public string usuarioEliminacionNombre { get; set; }
 
         public DateTime? empl_FechaEliminacion { get; set; }
         public bool? empl_Estado { get; set; }
 
+        public int? usua_UsuarioActivacion { get; set; }
+        [NotMapped]
+        public string usuarioActivacionNombre { get; set; }
+        public DateTime? empl_FechaActivacion { get; set; }
         public virtual tbCargos carg { get; set; }
         public virtual tbEstadosCiviles escv { get; set; }
         public virtual tbProvincias pvin { get; set; }
+
         public virtual tbUsuarios usua_UsuarioCreacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioEliminacionNavigation { get; set; }
         public virtual tbUsuarios usua_UsuarioModificacionNavigation { get; set; }
+        public virtual tbUsuarios usua_UsuarioActivacionNavigation { get; set; }
         public virtual ICollection<tbAsignacionesOrden> tbAsignacionesOrden { get; set; }
         public virtual ICollection<tbModulos> tbModulos { get; set; }
         public virtual ICollection<tbOrde_Ensa_Acab_Etiq> tbOrde_Ensa_Acab_Etiq { get; set; }

@@ -23,9 +23,14 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             return result;
         }
 
+        //Este find es para mostrar los campos "estilo", "talla" y "color" a la hora de escribir el id de la PO detalle en el modal de asignaciones
+
         public tbAsignacionesOrden Find(int? id)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            var parametros = new DynamicParameters();
+            parametros.Add("@code_Id", id, DbType.Int32, ParameterDirection.Input);
+            return db.QueryFirst<tbAsignacionesOrden>(ScriptsDataBase.FindOrdenCompraDetalle, parametros, commandType: CommandType.StoredProcedure);
         }
 
         public RequestStatus Insert(tbAsignacionesOrden item)

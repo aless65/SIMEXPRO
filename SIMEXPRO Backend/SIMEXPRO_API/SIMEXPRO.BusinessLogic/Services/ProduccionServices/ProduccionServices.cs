@@ -2517,12 +2517,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #region Reporte Modulo Dia Detalle
      
 
-        public ServiceResult ListarReporteModuloDiaDetalle()
+        public ServiceResult ListarReporteModuloDiaDetalle(int remo_Id)
         {
             var result = new ServiceResult();
             try
             {
-                var list = _reporteModuloDiaDetalleRepository.List();
+                var list = _reporteModuloDiaDetalleRepository.List(remo_Id);
                 return result.Ok(list);
             }
             catch (Exception ex)

@@ -24,10 +24,10 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             _mapper = mapper;
         }
 
-        [HttpGet("Listar")]
-        public IActionResult Index()
+        [HttpGet("Listar/{remo_Id}")]
+        public IActionResult Index(int @remo_Id)
         {
-            var listado = _produccionServices.ListarReporteModuloDiaDetalle();   
+            var listado = _produccionServices.ListarReporteModuloDiaDetalle(remo_Id);   
             listado.Data = _mapper.Map<IEnumerable<ReporteModuloDiaDetalleViewModel>>(listado.Data);
             return Ok(listado);
         }

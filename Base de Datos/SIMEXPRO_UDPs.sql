@@ -2247,7 +2247,7 @@ GO
 
 --************EMPLEADOS******************--
 /*Listar EMPLEADOS*/
-CREATE OR ALTER PROCEDURE Gral.UDP_tbEmpleados_Listar
+CREATE OR ALTER PROCEDURE Gral.UDP_tbEmpleados_Listar 1
 	@empl_EsAduana		BIT
 AS
 BEGIN
@@ -2284,11 +2284,15 @@ SELECT  empl.empl_Id								,
 		empl.usua_UsuarioEliminacion				,
 		usuaElimina.usua_Nombre						AS usuarioEliminacionNombre,
 		empl_FechaEliminacion						,
+		empl.usua_UsuarioActivacion					,
+		usuaActiva.usua_Nombre						AS usuarioActivacionNombre,
+		empl.empl_FechaActivacion					,
 		empl_Estado								
 FROM	Gral.tbEmpleados empl 
 		INNER JOIN Acce.tbUsuarios usuaCrea		ON empl.usua_UsuarioCreacion = usuaCrea.usua_Id 
 		LEFT JOIN Acce.tbUsuarios usuaModifica	ON empl.usua_UsuarioModificacion = usuaModifica.usua_Id 
 		LEFT JOIN Acce.tbUsuarios usuaElimina	ON empl.usua_UsuarioEliminacion = usuaElimina.usua_Id 
+		LEFT JOIN Acce.tbUsuarios usuaActiva	ON empl.usua_UsuarioActivacion = usuaActiva.usua_Id
 		INNER JOIN Gral.tbEstadosCiviles escv	ON empl.escv_Id = escv.escv_Id 
 		INNER JOIN Gral.tbProvincias pvin		ON empl.pvin_Id = pvin.pvin_Id 
 		INNER JOIN Gral.tbPaises pais			ON pvin.pais_Id = pais.pais_Id 
@@ -2486,15 +2490,15 @@ GO
 /*Reactivar EMPLEADOS*/
 CREATE OR ALTER PROCEDURE Gral.UDP_tbEmpleados_Reactivar
 	@empl_Id					INT,
-	@usua_UsuarioModificacion	INT,
-	@empl_FechaModificacion		DATETIME
+	@usua_UsuarioActivacion		INT,
+	@empl_FechaActivacion		DATETIME
 AS
 BEGIN
 	BEGIN TRY	
 			UPDATE	Gral.tbEmpleados
 			SET		empl_Estado = 1,
-					usua_UsuarioModificacion = @usua_UsuarioModificacion,
-					empl_FechaModificacion = @empl_FechaModificacion
+					usua_UsuarioActivacion = @usua_UsuarioActivacion,
+					empl_FechaActivacion = @empl_FechaActivacion
 			WHERE	empl_Id = @empl_Id
 
 			UPDATE Acce.tbUsuarios
@@ -13415,8 +13419,8 @@ GO
 --***************************************PEDIDOS PRODUCCION*****************************************--
 
 CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccion_Listar
-AS BEGIN
-
+AS 
+BEGIN
 	SELECT ppro_Id,
 		   pepo.empl_Id,
 		   CONCAT(empl_Nombres, ' ', empl_Apellidos) AS empl_NombreCompleto,
@@ -13434,45 +13438,43 @@ AS BEGIN
 	INNER JOIN Gral.tbEmpleados		empl		ON pepo.empl_Id =				empl.empl_Id
 	INNER JOIN Acce.tbUsuarios		crea		ON pepo.usua_UsuarioCreacion =	crea.usua_Id
 	LEFT JOIN Acce.tbUsuarios		modi 	ON pepo.usua_UsuarioModificacion =	modi.usua_Id
-
 END
 GO
 
 CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccion_Insertar
-@empl_Id INT,
-@ppro_Fecha DATETIME,
-@ppro_Estados NVARCHAR(150),
-@ppr_Observaciones NVARCHAR(MAX),
-@usua_UsuarioCreacion INT,
-@ppro_FechaCreacion DATETIME,
-@lote_Id INT,
-@ppde_Cantidad INT
-AS BEGIN
-BEGIN TRY
+	@empl_Id					INT,
+	@ppro_Fecha					DATETIME,
+	@ppro_Estados				NVARCHAR(150),
+	@ppr_Observaciones			NVARCHAR(MAX),
+	@lote_Id					INT,
+	@ppde_Cantidad				INT,
+	@usua_UsuarioCreacion		INT,	
+	@ppro_FechaCreacion			DATETIME
+AS 
+BEGIN
+	BEGIN TRY
+		INSERT INTO Prod.tbPedidosProduccion(empl_Id, 
+									     ppro_Fecha,
+										 ppro_Estados,
+										 ppro_Observaciones, 
+										 usua_UsuarioCreacion,
+										 ppro_FechaCreacion)
+		VALUES(@empl_Id, @ppro_Fecha, @ppro_Estados, @ppr_Observaciones, @usua_UsuarioCreacion, @ppro_FechaCreacion)
 
-INSERT INTO Prod.tbPedidosProduccion(empl_Id, 
-								     ppro_Fecha,
-									 ppro_Estados,
-									 ppro_Observaciones, 
-									 usua_UsuarioCreacion,
-									 ppro_FechaCreacion)
-VALUES(@empl_Id, @ppro_Fecha, @ppro_Estados, @ppr_Observaciones, @usua_UsuarioCreacion, @ppro_FechaCreacion)
+		DECLARE @ppro_Id INT = SCOPE_IDENTITY();
 
-DECLARE @ppro_Id INT = SCOPE_IDENTITY();
+		INSERT INTO Prod.tbPedidosProduccionDetalles(ppro_Id, 
+												 lote_Id,
+												 ppde_Cantidad, 
+												 usua_UsuarioCreacion,
+												 ppde_FechaCreacion)
+		VALUES (@ppro_Id, @lote_Id, @ppde_Cantidad, @usua_UsuarioCreacion, @ppro_FechaCreacion)
 
-INSERT INTO Prod.tbPedidosProduccionDetalles(ppro_Id, 
-											 lote_Id,
-											 ppde_Cantidad, 
-											 usua_UsuarioCreacion,
-											 ppde_FechaCreacion)
-VALUES (@ppro_Id, @lote_Id, @ppde_Cantidad, @usua_UsuarioCreacion, @ppro_FechaCreacion)
-
-END TRY
-BEGIN CATCH
+		SELECT 1
+	END TRY
+	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
-
-END CATCH
-
+	END CATCH
 END
 GO
 
@@ -13484,11 +13486,11 @@ CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccion_Editar
 @ppro_Observaciones NVARCHAR(MAX),
 @usua_UsuarioModificacion INT,
 @ppro_FechaModificacion DATETIME
-AS BEGIN
+AS 
+BEGIN
+	BEGIN TRY
 
-BEGIN TRY
-
-UPDATE Prod.tbPedidosProduccion SET empl_Id = @empl_Id,
+		UPDATE Prod.tbPedidosProduccion SET empl_Id = @empl_Id,
 									ppro_Fecha = @ppro_Fecha,
 									ppro_Estados = @ppro_Estados,
 									ppro_Observaciones = @ppro_Observaciones,
@@ -13496,13 +13498,11 @@ UPDATE Prod.tbPedidosProduccion SET empl_Id = @empl_Id,
 									ppro_FechaModificacion = @ppro_FechaModificacion
 								WHERE ppro_Id = @ppro_Id
 
-END TRY
-
-BEGIN CATCH
+		SELECT 1
+	END TRY
+	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
-
-END CATCH
-
+	END CATCH
 END
 GO
 

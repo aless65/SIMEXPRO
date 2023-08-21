@@ -28,6 +28,13 @@ namespace SIMEXPRO.Entities.Entities
         public bool? ppro_Estado { get; set; }
 
         [NotMapped]
+        public int lote_Id { get; set; }
+
+        [NotMapped]
+        public int ppde_Cantidad { get; set; }
+
+
+        [NotMapped]
         public string UsuarioCreacionNombre { get; set; }
         [NotMapped]
         public string UsuarioModificacionNombre { get; set; }

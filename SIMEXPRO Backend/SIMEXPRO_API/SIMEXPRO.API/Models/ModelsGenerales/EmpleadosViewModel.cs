@@ -35,8 +35,11 @@ namespace SIMEXPRO.API.Models
         public string usuarioModificacionNombre { get; set; }
         public DateTime? empl_FechaModificacion { get; set; }
         public int? usua_UsuarioEliminacion { get; set; }
-        public string? usuarioEliminacionNombre { get; set; }
+        public string usuarioEliminacionNombre { get; set; }
         public DateTime? empl_FechaEliminacion { get; set; }
         public bool? empl_Estado { get; set; }
+        public int? usua_UsuarioActivacion { get; set; }
+        public string usuarioActivacionNombre { get; set; }
+        public DateTime? empl_FechaActivacion { get; set; }
     }
 }

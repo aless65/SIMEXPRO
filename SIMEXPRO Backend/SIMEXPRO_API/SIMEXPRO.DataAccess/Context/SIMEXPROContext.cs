@@ -2074,6 +2074,8 @@ namespace SIMEXPRO.DataAccess.Context
                     .IsRequired()
                     .HasDefaultValueSql("((1))");
 
+                entity.Property(e => e.empl_FechaActivacion).HasColumnType("datetime");
+
                 entity.Property(e => e.empl_FechaCreacion).HasColumnType("datetime");
 
                 entity.Property(e => e.empl_FechaEliminacion).HasColumnType("datetime");
@@ -2113,6 +2115,11 @@ namespace SIMEXPRO.DataAccess.Context
                     .HasForeignKey(d => d.pvin_Id)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Gral_tbProvincias_Adua_tbEmpleados_pvin_Id");
+
+                entity.HasOne(d => d.usua_UsuarioActivacionNavigation)
+                    .WithMany(p => p.tbEmpleadosusua_UsuarioActivacionNavigation)
+                    .HasForeignKey(d => d.usua_UsuarioActivacion)
+                    .HasConstraintName("FK_Gral_tbEmpleados_usua_UsuarioActivacion_Acce_tbUsuarios_usua_Id");
 
                 entity.HasOne(d => d.usua_UsuarioCreacionNavigation)
                     .WithMany(p => p.tbEmpleadosusua_UsuarioCreacionNavigation)

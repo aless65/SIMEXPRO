@@ -20,6 +20,8 @@ namespace SIMEXPRO.Entities.Entities
         [NotMapped]
         public string pant_Esquema { get; set; }
         [NotMapped]
+        public bool? pant_EsAduana { get; set; }
+        [NotMapped]
         public string pant_Subcategoria { get; set; }
         public int? role_Id { get; set; }
         [NotMapped]

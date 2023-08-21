@@ -12893,6 +12893,11 @@ BEGIN
 			rdet_TotalDia, 
 			rdet_TotalDanado, 
 			OrdenCompra.orco_Id,
+			colores.colr_Nombre,
+			case ordencompradetalle.code_Sexo 
+			when 'M' then 'Masculino'
+			when 'F' then 'Femenino'
+			else ordencompradetalle.code_Sexo end as Sexo,
 			clientes.[clie_Nombre_Contacto],
 			clientes.[clie_RTN],
  			ReporteModuloDia.code_Id, 
@@ -12908,6 +12913,7 @@ BEGIN
 			INNER JOIN Prod.tbEstilos			estilos					ON ordencompradetalle.esti_Id = estilos.esti_Id
 			INNER JOIN Prod.tbOrdenCompra		OrdenCompra				ON	ordencompradetalle.orco_Id = OrdenCompra.orco_Id
 			INNER JOIN Prod.tbClientes			clientes				ON  OrdenCompra.orco_IdCliente = clientes.clie_Id
+			INNER JOIN Prod.tbColores			colores					ON	ordencompradetalle.code_Id	= colores.colr_Id
 			WHERE ReporteModuloDia.remo_Id = @remo_Id
 
 	
@@ -13532,6 +13538,10 @@ BEGIN
 			ppde_Cantidad,
 			mate_Descripcion,
 			tblotes.lote_Stock,
+			ppde_Cantidad,
+			tblotes.mate_Id,
+			mate_Descripcion,
+			tblotes.tipa_Id,
 			tbarea.tipa_area
 				  
 	FROM Prod.tbPedidosProduccionDetalles tbdetalles

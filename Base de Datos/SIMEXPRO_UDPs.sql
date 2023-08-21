@@ -12512,43 +12512,6 @@ FROM	Prod.tbPedidosOrden po
 END
 GO
 
-CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccion_Listar
-AS BEGIN
-	SELECT ppro_Id,
-		   pediproduccion.empl_Id,
-		   CONCAT(empl_Nombres, ' ', empl_Apellidos)					AS empl_NombreCompleto,
-		   ppro_Fecha,
-		   ppro_Estados, 
-		   ppro_Observaciones, 
-		   Creacion.usua_Nombre											AS UsuarioCreacionNombre,
-		   pediproduccion.usua_UsuarioCreacion,
-		   ppro_FechaCreacion,
-		   Modificacion.usua_Nombre										AS UsuarioModificacionNombre,
-		   pediproduccion.usua_UsuarioModificacion, 
-		   ppro_FechaModificacion,
-		   ppro_Estado,
-	   	      (SELECT ppde_Id,
-		   		   tbdetalles.lote_Id,
-		   		   ppde_Cantidad,
-		   		   mate_Descripcion,
-				   tblotes.lote_Stock,
-				   tbarea.tipa_area
-				  
-		   	  FROM Prod.tbPedidosProduccionDetalles tbdetalles
-					INNER JOIN Prod.tbLotes tblotes			ON tbdetalles.lote_Id = tblotes.lote_Id
-					INNER JOIN Prod.tbMateriales tbmats		ON tblotes.mate_Id = tbmats.mate_Id
-					INNER JOIN Prod.tbArea	tbarea			ON tblotes.tipa_Id = tbarea.tipa_Id
-			  WHERE pediproduccion.ppro_Id = tbdetalles.ppro_Id
-				  FOR JSON PATH)										AS Detalles
-	  FROM Prod.tbPedidosProduccion pediproduccion
-INNER JOIN Gral.tbEmpleados emples
-		ON pediproduccion.empl_Id = emples.empl_Id
-INNER JOIN Acce.tbUsuarios Creacion
-		ON pediproduccion.usua_UsuarioCreacion = Creacion.usua_Id
- LEFT JOIN Acce.tbUsuarios Modificacion
-		ON pediproduccion.usua_UsuarioModificacion = Modificacion.usua_Id
-END
-GO
 --*****Insertar*****--
 
 CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Insertar
@@ -13419,25 +13382,40 @@ GO
 --***************************************PEDIDOS PRODUCCION*****************************************--
 
 CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccion_Listar
-AS 
-BEGIN
+AS BEGIN
 	SELECT ppro_Id,
-		   pepo.empl_Id,
-		   CONCAT(empl_Nombres, ' ', empl_Apellidos) AS empl_NombreCompleto,
+		   pediproduccion.empl_Id,
+		   CONCAT(empl_Nombres, ' ', empl_Apellidos)					AS empl_NombreCompleto,
 		   ppro_Fecha,
 		   ppro_Estados, 
 		   ppro_Observaciones, 
-		   crea.usua_Nombre AS usuCreacion,
-		   pepo.usua_UsuarioCreacion,
+		   Creacion.usua_Nombre											AS UsuarioCreacionNombre,
+		   pediproduccion.usua_UsuarioCreacion,
 		   ppro_FechaCreacion,
-		   modi.usua_Nombre AS usuModificacion,
-		   pepo.usua_UsuarioModificacion, 
+		   Modificacion.usua_Nombre										AS UsuarioModificacionNombre,
+		   pediproduccion.usua_UsuarioModificacion, 
 		   ppro_FechaModificacion,
-		   ppro_Estado
-	FROM Prod.tbPedidosProduccion	pepo
-	INNER JOIN Gral.tbEmpleados		empl		ON pepo.empl_Id =				empl.empl_Id
-	INNER JOIN Acce.tbUsuarios		crea		ON pepo.usua_UsuarioCreacion =	crea.usua_Id
-	LEFT JOIN Acce.tbUsuarios		modi 	ON pepo.usua_UsuarioModificacion =	modi.usua_Id
+		   ppro_Estado,
+	   	      (SELECT ppde_Id,
+		   		   tbdetalles.lote_Id,
+		   		   ppde_Cantidad,
+		   		   mate_Descripcion,
+				   tblotes.lote_Stock,
+				   tbarea.tipa_area
+				  
+		   	  FROM Prod.tbPedidosProduccionDetalles tbdetalles
+					INNER JOIN Prod.tbLotes tblotes			ON tbdetalles.lote_Id = tblotes.lote_Id
+					INNER JOIN Prod.tbMateriales tbmats		ON tblotes.mate_Id = tbmats.mate_Id
+					INNER JOIN Prod.tbArea	tbarea			ON tblotes.tipa_Id = tbarea.tipa_Id
+			  WHERE pediproduccion.ppro_Id = tbdetalles.ppro_Id
+				  FOR JSON PATH)										AS Detalles
+	  FROM Prod.tbPedidosProduccion pediproduccion
+INNER JOIN Gral.tbEmpleados emples
+		ON pediproduccion.empl_Id = emples.empl_Id
+INNER JOIN Acce.tbUsuarios Creacion
+		ON pediproduccion.usua_UsuarioCreacion = Creacion.usua_Id
+ LEFT JOIN Acce.tbUsuarios Modificacion
+		ON pediproduccion.usua_UsuarioModificacion = Modificacion.usua_Id
 END
 GO
 
@@ -13463,14 +13441,9 @@ BEGIN
 
 		DECLARE @ppro_Id INT = SCOPE_IDENTITY();
 
-		INSERT INTO Prod.tbPedidosProduccionDetalles(ppro_Id, 
-												 lote_Id,
-												 ppde_Cantidad, 
-												 usua_UsuarioCreacion,
-												 ppde_FechaCreacion)
-		VALUES (@ppro_Id, @lote_Id, @ppde_Cantidad, @usua_UsuarioCreacion, @ppro_FechaCreacion)
+		
 
-		SELECT 1
+		SELECT @ppro_Id
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
@@ -13511,21 +13484,18 @@ GO
 CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccionDetalle_Listar 
 	@ppro_Id INT
 AS BEGIN
-SELECT ppde_Id,
-	   ppro_Id,
-	   lote_Id,
-	   ppde_Cantidad, 
-	   ppde.usua_UsuarioCreacion,
-	   crea.usua_Nombre AS usuarioCreacionNombre,
-	   ppde_FechaCreacion,
-	   ppde.usua_UsuarioModificacion,
-	   modi.usua_Nombre AS usuarioModificacionNombre,
-	   ppde_FechaModificacion, 
-	   ppde_Estado 
-FROM Prod.tbPedidosProduccionDetalles ppde
-INNER JOIN Acce.tbUsuarios crea				ON ppde.usua_UsuarioCreacion = crea.usua_Id
-LEFT JOIN Acce.tbUsuarios modi				ON ppde.usua_UsuarioModificacion = modi.usua_Id
-WHERE ppro_Id = @ppro_Id
+SELECT	ppde_Id,
+		tbdetalles.lote_Id,
+		ppde_Cantidad,
+		mate_Descripcion,
+		tblotes.lote_Stock,
+		tbarea.tipa_area
+				  
+FROM Prod.tbPedidosProduccionDetalles tbdetalles
+		INNER JOIN Prod.tbLotes tblotes			ON tbdetalles.lote_Id = tblotes.lote_Id
+		INNER JOIN Prod.tbMateriales tbmats		ON tblotes.mate_Id = tbmats.mate_Id
+		INNER JOIN Prod.tbArea	tbarea			ON tblotes.tipa_Id = tbarea.tipa_Id
+WHERE ppro_Id = tbdetalles.ppro_Id
 
 END
 

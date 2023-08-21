@@ -13527,11 +13527,11 @@ GO
 
 
 CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccionDetalle_Insertar 
-(@ppro_Id				INT,
- @lote_Id				INT,
- @ppde_Cantidad			INT,
- @usua_UsuarioCreacion	INT,
- @ppde_FechaCreacion	DATETIME)
+(@ppro_Id INT,
+ @lote_Id INT,
+ @ppde_Cantidad INT,
+ @usua_UsuarioCreacion INT,
+ @ppde_FechaCreacion DATETIME)
 AS
 BEGIN
 	BEGIN TRY

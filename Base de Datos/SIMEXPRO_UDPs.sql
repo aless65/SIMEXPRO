@@ -11591,7 +11591,8 @@ BEGIN
 	       subc.subc_Descripcion,
 		   cate.cate_Id,
 		   cate.cate_Descripcion,
-	       mate.mate_Precio, 
+	       mate.mate_Precio,
+		   mate.mate_Imagen, 
 	       mate.usua_UsuarioCreacion, 
 	       usuaCrea.usua_Nombre							AS usuarioCreacionNombre,
 	       mate.mate_FechaCreacion, 
@@ -11613,15 +11614,16 @@ GO
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMateriales_Insertar
 	 @mate_Descripcion         NVARCHAR(200),
 	 @subc_Id                  INT,
-	 @mate_Precio              DECIMAL(18,2), 
+	 @mate_Precio              DECIMAL(18,2),
+	 @mate_Imagen			   NVARCHAR(MAX),
 	 @usua_UsuarioCreacion     INT, 
 	 @mate_FechaCreacion       DATETIME
 AS 
 BEGIN
 	
 	BEGIN TRY
-		INSERT INTO Prod.tbMateriales (mate_Descripcion, subc_Id, mate_Precio, usua_UsuarioCreacion, mate_FechaCreacion)
-		VALUES(@mate_Descripcion, @subc_Id, @mate_Precio, @usua_UsuarioCreacion, @mate_FechaCreacion)
+		INSERT INTO Prod.tbMateriales (mate_Descripcion, subc_Id, mate_Precio, mate_Imagen, usua_UsuarioCreacion, mate_FechaCreacion)
+		VALUES(@mate_Descripcion, @subc_Id, @mate_Precio, @mate_Imagen, @usua_UsuarioCreacion, @mate_FechaCreacion)
 		
 		SELECT 1
 	END TRY
@@ -11636,7 +11638,8 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbMateriales_Editar
 	@mate_Id                   INT,
 	@mate_Descripcion          NVARCHAR(200), 
 	@subc_Id                   INT, 
-	@mate_Precio               DECIMAL(18,2), 
+	@mate_Precio               DECIMAL(18,2),
+	@mate_Imagen			   NVARCHAR(MAX), 
 	@usua_UsuarioModificacion  INT, 
 	@mate_FechaModificacion    DATETIME
 AS
@@ -11646,6 +11649,7 @@ BEGIN
 		SET		mate_Descripcion         = @mate_Descripcion,
 		        subc_Id                  = @subc_Id,
 				mate_Precio              = @mate_Precio,
+				mate_Imagen				 = @mate_Imagen,
 				usua_UsuarioModificacion = @usua_UsuarioModificacion,
 				mate_FechaModificacion   = @mate_FechaModificacion
 		WHERE	mate_Id = @mate_Id
@@ -11657,6 +11661,7 @@ BEGIN
 	END CATCH
 END
 GO
+
 /*Eliminar materiales*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbMateriales_Eliminar
 	@mate_Id					INT	

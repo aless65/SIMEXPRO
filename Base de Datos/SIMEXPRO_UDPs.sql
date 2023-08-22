@@ -11332,8 +11332,7 @@ SELECT	ensa_Id,
 		ensa_FechaInicio, 
 		ensa_FechaLimite, 
 		pp.ppro_Id, 
-		pro.proc_Id,
-		pro.proc_Descripcion,
+		
 		modu.modu_Id,
 		modu.modu_Nombre,
 		crea.usua_Nombre							AS UsurioCreacionNombre, 
@@ -11341,35 +11340,39 @@ SELECT	ensa_Id,
 		modi.usua_Nombre							AS UsuarioModificacionNombre, 
 		ensa_FechaModificacion, 
 		ensa_Estado
-FROM	Prod.tbOrde_Ensa_Acab_Etiq ensa
+		FROM	Prod.tbOrde_Ensa_Acab_Etiq ensa
 		INNER JOIN Gral.tbEmpleados emp				ON emp.empl_Id  = ensa.empl_Id
 		INNER JOIN Prod.tbOrdenCompraDetalles ocd	ON ocd.code_Id  = ensa.code_Id
 		INNER JOIN Prod.tbEstilos est				ON est.esti_Id	= ocd.esti_Id
 		INNER JOIN Prod.tbPedidosProduccion pp		ON pp.ppro_Id   = ensa.ppro_Id
-		INNER JOIN Prod.tbProcesos			pro		ON pro.proc_Id = ensa.proc_Id
 		INNER JOIN Prod.tbModulos			modu	ON ensa.modu_Id = modu.modu_Id
+		INNER JOIN Prod.tbProcesos	pro				ON modu.proc_Id = pro.proc_Id
 		INNER JOIN Acce.tbUsuarios crea				ON crea.usua_Id = ensa.usua_UsuarioCreacion 
 		LEFT JOIN  Acce.tbUsuarios modi				ON modi.usua_Id = ensa.usua_UsuarioModificacion 
 
 END
 GO
 /*Insertar ORDEN ENSABLAJE ACBADO ETIQUEDATO*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbOrde_Ensa_Acab_Etiq_Insertar
+CREATE OR ALTER PROCEDURE Prod.UDP_tbOrde_Ensa_Acab_Etiq_Insertar 
 @ensa_Cantidad			INT,
 @empl_Id				INT,
 @code_Id				INT,
 @ensa_FechaInicio		DATE,	
 @ensa_FechaLimite		DATE,
 @ppro_Id				INT,
+@modu_Id				INT,
 @usua_UsuarioCreacion	INT,
 @ensa_FechaCreacion		DATETIME
 AS
 BEGIN
 	BEGIN TRY
-		INSERT INTO Prod.tbOrde_Ensa_Acab_Etiq (ensa_Cantidad,			empl_Id, 
-												code_Id,				ensa_FechaInicio, 
+		INSERT INTO Prod.tbOrde_Ensa_Acab_Etiq (ensa_Cantidad,			
+												empl_Id, 
+												code_Id,				
+												ensa_FechaInicio, 
 												ensa_FechaLimite,		ppro_Id, 
-												usua_UsuarioCreacion,	ensa_FechaCreacion)
+												usua_UsuarioCreacion,	ensa_FechaCreacion, 
+												modu_Id)
 		VALUES (
 		@ensa_Cantidad,			
 		@empl_Id, 
@@ -11378,7 +11381,8 @@ BEGIN
 		@ensa_FechaLimite,		
 		@ppro_Id, 
 		@usua_UsuarioCreacion,	
-		@ensa_FechaCreacion
+		@ensa_FechaCreacion,
+		@modu_Id
 		)
 		SELECT 1
 	END TRY
@@ -11396,6 +11400,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbOrde_Ensa_Acab_Etiq_Editar
 @ensa_FechaInicio			DATE,	
 @ensa_FechaLimite			DATE,
 @ppro_Id					INT,
+@modu_Id					INT,
 @usua_UsuarioModificacion	INT,
 @ensa_FechaModificacion		DATETIME
 AS
@@ -11408,6 +11413,7 @@ BEGIN
 				ensa_FechaInicio		= @ensa_FechaInicio, 
 				ensa_FechaLimite		= @ensa_FechaLimite,		
 				ppro_Id					= @ppro_Id, 
+				modu_Id					= @modu_Id,
 				usua_UsuarioCreacion	= @usua_UsuarioModificacion,	
 				ensa_FechaCreacion		= @ensa_FechaModificacion
 		WHERE	ensa_Id					= @ensa_Id
@@ -13487,7 +13493,8 @@ BEGIN
 										 ppro_Estados,
 										 ppro_Observaciones, 
 										 usua_UsuarioCreacion,
-										 ppro_FechaCreacion)
+										 ppro_FechaCreacion
+										 )
 		VALUES(@empl_Id, @ppro_Fecha, @ppro_Estados, @ppr_Observaciones, @usua_UsuarioCreacion, @ppro_FechaCreacion)
 
 		DECLARE @ppro_Id INT = SCOPE_IDENTITY();

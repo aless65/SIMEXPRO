@@ -1643,8 +1643,6 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                if (item.ensa_Cantidad.ToString() != "")
-                {
                     var map = _orde_Ensa_Acab_EtiqRepository.Insert(item);
                     if (map.MessageStatus == "1")
                     {
@@ -1655,11 +1653,6 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
 
                         return result.Error(map);
                     }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
             }
             catch (Exception ex)
             {
@@ -1672,8 +1665,6 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                if (item.ensa_Cantidad.ToString() != "")
-                {
                     var map = _orde_Ensa_Acab_EtiqRepository.Update(item);
                     if (map.MessageStatus == "1")
                     {
@@ -1684,11 +1675,6 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
 
                         return result.Error(map);
                     }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
             }
             catch (Exception ex)
             {
@@ -1696,34 +1682,6 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             }
         }
 
-        public ServiceResult Eliminarorde_Ensa_Acab_Etiq(tbOrde_Ensa_Acab_Etiq item)
-        {
-            var result = new ServiceResult();
-            try
-            {
-                if (item.ensa_Id != 0)
-                {
-                    var map = _orde_Ensa_Acab_EtiqRepository.Delete(item);
-                    if (map.MessageStatus == "1")
-                    {
-                        return result.Ok(map);
-                    }
-                    else
-                    {
-
-                        return result.Error(map);
-                    }
-                }
-                else
-                {
-                    return result.SetMessage("La solicitud contiene sintaxis erronea", ServiceResultType.BadRecuest);
-                }
-            }
-            catch (Exception ex)
-            {
-                return result.Error(ex.Message);
-            }
-        }
         #endregion
 
         #region Orden Compra Detalles

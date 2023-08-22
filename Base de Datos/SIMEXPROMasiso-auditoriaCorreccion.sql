@@ -2620,6 +2620,7 @@ CREATE TABLE Prod.tbAsignacionesOrdenDetalle(
 GO
 
 --ewqeeeqw
+--select * from Prod.tbPedidosProduccionDetalles
 CREATE TABLE Prod.tbPedidosProduccionDetalles(
 	ppde_Id               			INT IDENTITY(1,1),
 	ppro_Id               			INT NOT NULL,

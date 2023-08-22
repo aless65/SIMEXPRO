@@ -32,7 +32,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@mate_Id", item.mate_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@prod_Cantidad", item.prod_Cantidad, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@prod_Precio", item.prod_Precio, DbType.Decimal, ParameterDirection.Input);
-            parametros.Add("@prod_Peso", item.prod_Peso, DbType.Decimal, ParameterDirection.Input);
+          //  parametros.Add("@prod_Peso", item.prod_Peso, DbType.Decimal, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@prod_FechaCreacion", item.prod_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
 
@@ -58,7 +58,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@mate_Id", item.mate_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@prod_Cantidad", item.prod_Cantidad, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@prod_Precio", item.prod_Precio, DbType.Decimal, ParameterDirection.Input);
-            parametros.Add("@prod_Peso", item.prod_Peso, DbType.Decimal, ParameterDirection.Input);
+          //  parametros.Add("@prod_Peso", item.prod_Peso, DbType.Decimal, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@prod_FechaCreacion", item.prod_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
 

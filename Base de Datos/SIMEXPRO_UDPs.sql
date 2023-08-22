@@ -3509,6 +3509,30 @@ BEGIN
 END
 -- me quede aqui 
 GO
+
+
+/* ELIMINAR ORDEN DE COMPRA DETALLES  */
+CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Eliminar
+	@code_Id	INT
+AS
+BEGIN
+BEGIN TRANSACTION
+	BEGIN TRY   
+		DELETE FROM [Prod].[tbMaterialesBrindar] WHERE [code_Id] = @code_Id
+
+		DELETE FROM [Prod].[tbOrdenCompraDetalles] WHERE [code_Id] = @code_Id
+
+		SELECT 1
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH 
+	ROLLBACK TRAN
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH 
+END
+GO
+
+
 /******************************** Formas de pago*****************************************/
 
 CREATE OR ALTER PROCEDURE Adua.UDP_tbFormadePago_Listar
@@ -12548,9 +12572,11 @@ GO
 
 --*****Insertar*****--
 
-CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Insertar
+CREATE OR ALTER PROCEDURE [Prod].[UDP_tbPedidosOrden_Insertar]
 @prov_Id				INT, 
 @peor_No_Duca			NVARCHAR(100), 
+@ciud_Id				INT,
+@peor_DireccionExacta	NVARCHAR(500),
 @peor_FechaEntrada		DATETIME, 
 @peor_Obsevaciones		NVARCHAR(100), 
 @peor_DadoCliente		BIT, 
@@ -12560,9 +12586,11 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Insertar
 AS
 BEGIN
 	BEGIN TRY
-		INSERT INTO Prod.tbPedidosOrden (prov_Id, peor_No_Duca, peor_FechaEntrada, peor_Obsevaciones, peor_DadoCliente, peor_Est, usua_UsuarioCreacion, peor_FechaCreacion)
+		INSERT INTO Prod.tbPedidosOrden (prov_Id, peor_No_Duca,ciud_Id,peor_DireccionExacta, peor_FechaEntrada, peor_Obsevaciones, peor_DadoCliente, peor_Est, usua_UsuarioCreacion, peor_FechaCreacion)
 		VALUES	(@prov_Id,				
-				 @peor_No_Duca,			
+				 @peor_No_Duca,	
+				 @ciud_Id,	
+				 @peor_DireccionExacta,
 				 @peor_FechaEntrada,		
 				 @peor_Obsevaciones,		
 				 @peor_DadoCliente,		
@@ -12579,10 +12607,12 @@ GO
 
 --*****Editar*****--
 
-CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrden_Editar
+CREATE OR ALTER   PROCEDURE [Prod].[UDP_tbPedidosOrden_Editar]
 @peor_Id					INT, 
 @prov_Id					INT, 
 @peor_No_Duca				NVARCHAR(100), 
+@ciud_Id					INT,
+@peor_DireccionExacta		NVARCHAR(500),
 @peor_FechaEntrada			DATETIME, 
 @peor_Obsevaciones			NVARCHAR(100), 
 @peor_DadoCliente			BIT, 
@@ -12594,7 +12624,9 @@ BEGIN
 	BEGIN TRY
 		UPDATE Prod.tbPedidosOrden 
 		SET prov_Id 				= @prov_Id, 
-		peor_No_Duca				= @peor_No_Duca, 
+		peor_No_Duca				= @peor_No_Duca,
+		ciud_Id						= @ciud_Id,
+		peor_DireccionExacta		= @peor_DireccionExacta,
 		peor_FechaEntrada			= @peor_FechaEntrada,	 
 		peor_Obsevaciones			= @peor_Obsevaciones, 
 		peor_DadoCliente			= @peor_DadoCliente,
@@ -12892,6 +12924,21 @@ BEGIN
 	END CATCH
 END
 
+GO
+
+/* ELIMINAR MATERIALES BRINDAR  */
+CREATE OR ALTER PROCEDURE Prod.UDP_tbMaterialesBrindar_Eliminar
+	@mabr_Id	INT
+AS
+BEGIN
+	BEGIN TRY 
+		DELETE FROM [Prod].[tbMaterialesBrindar] WHERE [mabr_Id] = @mabr_Id
+		SELECT 1
+	END TRY
+	BEGIN CATCH 
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH 
+END
 GO
 
 

@@ -555,6 +555,7 @@ VALUES('01 - KILOGRAMO NETO',	1, GETDATE(),1,1),
 /*-----------------------------------*/
 --***** INSERT TABLA PAISES --******--
 GO
+
 INSERT INTO [Gral].[tbPaises] ([pais_Codigo], [pais_Nombre], [pais_EsAduana], [usua_UsuarioCreacion], [pais_FechaCreacion])
 VALUES	('AD', 'ANDORRA',					1, 1, GETDATE()),
 		('AE', 'EMIRATOS ARABES UNIDOS',	1, 1, GETDATE()),
@@ -812,8 +813,8 @@ VALUES	('AD', 'ANDORRA',					1, 1, GETDATE()),
 		('PA', 'PANAMA',					0, 1, GETDATE()),
 		('MX', 'MEXICO',					0, 1, GETDATE()),
 		('GT', 'GUATEMALA',					0, 1, GETDATE()),
-		('CR', 'COSTA RICA',				0, 1, GETDATE());
-
+		('CR', 'COSTA RICA',				0, 1, GETDATE()),
+		('AR', 'ARGENTINA',					0, 1, GETDATE());
 
 
 /*--------------------------------------*/
@@ -825,7 +826,7 @@ VALUES	-- Provinces for Argentina (AR)
 		('Córdoba',			'CO', 11, 1, 1, GETDATE()),
 		('Santa Fe',		'SF', 11, 1, 1, GETDATE()),
 		('Mendoza',			'MZ', 11, 1, 1, GETDATE()),
-		('Tucumán',			'TU', 11, 1, 1, GETDATE()),
+		('Tucumán',			'TU', 258,0, 1, GETDATE()),
 		
 		-- Provinces for Brazil (BR)
 		('Sao Paulo',			'SP', 32, 0, 1, GETDATE()),

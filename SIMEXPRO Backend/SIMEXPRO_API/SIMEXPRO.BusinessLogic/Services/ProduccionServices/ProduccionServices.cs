@@ -2323,21 +2323,13 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                var map = _pedidosProduccionRepository.Delete(item);
-                if (map.MessageStatus == "1" || map.MessageStatus == "2")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-
-                    return result.Error(map);
-                }
+                var map = _pedidosProduccionRepository.Delete(item);       
+                return result.Ok(map);
             }
             catch (Exception ex)
             {
                 return result.Error(ex.Message);
-            }
+            }         
         }
         #endregion
 

@@ -2138,13 +2138,14 @@ CREATE TABLE Prod.tbAsignacionesOrden(
 );
 GO
 
+
 CREATE TABLE Prod.tbReporteModuloDia(
 	remo_Id						INT IDENTITY(1,1),
 	modu_Id						INT NOT NULL, 
 	remo_Fecha					DATE NOT NULL,
 	remo_TotalDia				INT NOT NULL, 
 	remo_TotalDanado			INT NOT NULL,
-	
+	remo_Finalizado				BIT DEFAULT 0 NULL,
 	usua_UsuarioCreacion		INT NOT NULL,
 	remo_FechaCreacion			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT DEFAULT NULL,
@@ -2285,14 +2286,7 @@ GO
 	    
 --)
 
-
-
-
-
-
-
-
-
+GO
 
 CREATE TABLE Prod.tbPedidosProduccion(
 	ppro_Id              			INT IDENTITY(1,1),
@@ -2300,7 +2294,7 @@ CREATE TABLE Prod.tbPedidosProduccion(
 	ppro_Fecha           			DATETIME NOT NULL,
 	ppro_Estados          			NVARCHAR(150) NOT NULL,
 	ppro_Observaciones   			NVARCHAR(MAX) NOT NULL,
-
+	ppro_Finalizado					BIT DEFAULT 0 NOT NULL,
 	usua_UsuarioCreacion			INT NOT NULL,
 	ppro_FechaCreacion				DATETIME NOT NULL,
 	usua_UsuarioModificacion		INT DEFAULT NULL,

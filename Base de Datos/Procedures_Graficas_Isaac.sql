@@ -333,13 +333,14 @@ GO
 
 
 SELECT * FROM Prod.tbRevisionDeCalidad
-SELECT * FROM Prod.tbOrde_Ensa_Acab_Etiq
 SELECT * FROM Prod.tbOrdenCompra
 SELECT * FROM Prod.tbOrdenCompraDetalles
+SELECT * FROM Prod.tbOrde_Ensa_Acab_Etiq
 
 SELECT * FROM Prod.tbFacturasExportacion
 SELECT * FROM Prod.tbFacturasExportacionDetalles
 
+SELECT * FROM Prod.tbMateriales
 
  
 SELECT	PO.orco_Id, 
@@ -374,3 +375,26 @@ INNER JOIN Prod.tbClientes AS Customer ON PO.orco_IdCliente = Customer.clie_Id
 INNER JOIN Prod.tbEstilos AS Styles ON PODetail.esti_Id = Styles.esti_Id
 INNER JOIN Prod.tbTallas AS Talla ON PODetail.tall_Id = Talla.tall_Id
 INNER JOIN Prod.tbColores AS Colors ON PODetail.colr_Id = Colors.colr_Id
+
+GO
+
+
+CREATE OR ALTER PROCEDURE Prod.UDP_ClientesMasProductivos
+AS
+BEGIN
+	SELECT	PO.orco_Id, 
+
+			Customer.clie_Nombre_O_Razon_Social, 
+
+			PODetail.code_Id,
+			PODetail.code_CantidadPrenda, 
+			PODetail.code_Unidad, 
+			PODetail.code_Valor, 
+			PODetail.code_Impuesto
+
+	FROM Prod.tbOrdenCompra AS PO
+	INNER JOIN Prod.tbOrdenCompraDetalles AS PODetail ON PODetail.orco_Id = PO.orco_Id
+	INNER JOIN Prod.tbClientes AS Customer ON PO.orco_IdCliente = Customer.clie_Id
+	GROUP BY PO.orco_IdCliente
+END
+GO

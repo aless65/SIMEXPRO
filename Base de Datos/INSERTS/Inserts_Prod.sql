@@ -228,10 +228,10 @@ VALUES	('Púrpura',1,GETDATE(),1),
 /*---------------------------------------*/
 --***** INSERT TABLA MATERIALES --******--
 GO
-INSERT INTO Prod.tbMateriales (mate_Descripcion, subc_Id, mate_Precio, usua_UsuarioCreacion, mate_FechaCreacion)
-VALUES	('Botones', 2, 23.99, 1, GETDATE()),
-		('Tela', 2, 23.99, 1, GETDATE()),
-		('Listones', 2, 23.99, 1, GETDATE());
+INSERT INTO Prod.tbMateriales (mate_Descripcion, subc_Id,mate_Imagen, usua_UsuarioCreacion, mate_FechaCreacion)
+VALUES	('Botones', 2, 'https://i.ibb.co/f0rh1sF/Botones.jpg', 1, GETDATE()),
+		('Tela', 2,'https://i.ibb.co/542sKWH/download.jpg', 1, GETDATE()),
+		('Listones', 2,'https://i.ibb.co/2M6gytK/saatin-300x300.jpg', 1, GETDATE());
 
 
 /*-----------------------------------*/
@@ -242,6 +242,8 @@ VALUES	(3,1,10,10,'-----',1,1,GETDATE(),1),
 		(3,1,10,10,'-----',1,1,GETDATE(),1),
 		(3,1,10,10,'-----',1,1,GETDATE(),1),
 		(3,1,10,10,'-----',1,1,GETDATE(),1);
+
+
 
 
 /*-----------------------------------*/
@@ -355,7 +357,7 @@ VALUES	(1, GETDATE(), 'En Proceso',	'--------', 1, GETDATE()),
 --***** INSERT TABLA PEDIDOS PRODUCCION DETALLE --******--
 GO
 INSERT INTO Prod.tbPedidosProduccionDetalles (ppro_Id, lote_Id, ppde_Cantidad, usua_UsuarioCreacion, ppde_FechaCreacion)
-VALUES (1, 4, 10, 1, GETDATE());
+VALUES (1, 1, 10, 1, GETDATE());
 
 
 /*------------------------------------------------------------------*/
@@ -424,67 +426,67 @@ GO
 
 --select * from prod.[tbPedidosOrdenDetalle]
 
-INSERT INTO [Prod].[tbPedidosOrdenDetalle] (pedi_Id, mate_Id, prod_Cantidad,prod_Precio,prod_Peso, usua_UsuarioCreacion, prod_FechaCreacion)
-VALUES		(1, 2, 20, 500.00, 20.5, 1, GETDATE()),
-			(1, 1, 50, 500.00, 20.5, 1, GETDATE()),
-			(1, 3, 30, 1500.00, 20.5, 1, GETDATE()),
-			(2, 2, 20, 1500.00, 20.5, 1, GETDATE()),
-			(2, 1, 50, 1500.00, 20.5, 1, GETDATE()),
-			(2, 3, 30, 1500.00, 20.5, 1, GETDATE()),
-			(2, 2, 20, 1500.00, 20.5, 1, GETDATE()),
-			(2, 1, 50, 1500.00, 20.5, 1, GETDATE()),
-			(3, 3, 30, 1500.00, 20.5, 1, GETDATE()),
-			(3, 2, 20, 1500.00, 20.5, 1, GETDATE()),
-			(3, 1, 50, 1500.00, 20.5, 1, GETDATE()),
-			(3, 3, 30, 1500.00, 20.5, 1, GETDATE()),
-			(3, 2, 20, 1500.00, 20.5, 1, GETDATE()),
-			(4, 1, 50, 1500.00, 20.5, 1, GETDATE()),
-			(4, 3, 30, 1500.00, 20.5, 1, GETDATE()),
-			(4, 2, 20, 1500.00, 20.5, 1, GETDATE()),
-			(4, 1, 50, 1500.00, 20.5, 1, GETDATE()),
-			(4, 3, 30, 1500.00, 20.5, 1, GETDATE()),
-			(4, 2, 20, 1500.00, 20.5, 1, GETDATE()),
-			(4, 1, 50, 1500.00, 20.5, 1, GETDATE()),
-			(5, 3, 30, 1500.00, 20.5, 1, GETDATE()),
-			(5, 2, 20, 1500.00, 20.5, 1, GETDATE()),
-			(5, 1, 50, 1500.00, 20.5, 1, GETDATE()),
-			(5, 3, 30, 1500.00, 20.5, 1, GETDATE()),
-			(5, 2, 20, 1500.00, 20.5, 1, GETDATE()),
-			(7, 1, 50, 1500.00, 20.5, 1, GETDATE()),
-			(7, 3, 30, 1500.00, 20.5, 1, GETDATE()),
-			(7, 1, 50, 1500.00, 20.5, 1, GETDATE()),
-			(7, 3, 30, 1500.00, 20.5, 1, GETDATE()),
-			(7, 1, 50, 1500.00, 20.5, 1, GETDATE()),
-			(7, 3, 30, 2500.00, 20.5, 1, GETDATE()),
-			(7, 1, 50, 2500.00, 20.5, 1, GETDATE()),
-			(6, 3, 30, 2500.00, 20.5, 1, GETDATE()),
-			(6, 1, 50, 2500.00, 20.5, 1, GETDATE()),
-			(6, 3, 30, 2500.00, 20.5, 1, GETDATE()),
-			(6, 3, 30, 2500.00, 20.5, 1, GETDATE()),
-			(6, 1, 50, 2500.00, 20.5, 1, GETDATE()),
-			(6, 3, 30, 2500.00, 20.5, 1, GETDATE()),
-			(6, 1, 50, 2500.00, 20.5, 1, GETDATE()),
-			(8, 3, 30, 2500.00, 20.5, 1, GETDATE()),
-			(8, 3, 30, 2500.00, 20.5, 1, GETDATE()),
-			(8, 1, 50, 2500.00, 20.5, 1, GETDATE()),
-			(8, 3, 30, 2500.00, 20.5, 1, GETDATE()),
-			(8, 1, 50, 2500.00, 20.5, 1, GETDATE()),
-			(8, 3, 30, 2500.00, 20.5, 1, GETDATE()),
-			(8, 3, 30, 2500.00, 20.5, 1, GETDATE()),
-			(9, 1, 50, 2500.00, 20.5, 1, GETDATE()),
-			(9, 3, 30, 2500.00, 20.5, 1, GETDATE()),
-			(9, 1, 50, 2500.00, 20.5, 1, GETDATE()),
-			(9, 3, 30, 2500.00, 20.5, 1, GETDATE()),
-			(9, 3, 30, 2500.00, 20.5, 1, GETDATE()),
-			(9, 1, 50, 2500.00, 20.5, 1, GETDATE()),
-			(9, 3, 30, 2500.00, 20.5, 1, GETDATE()),
-			(10, 1, 50, 500.00, 20.5, 1, GETDATE()),
-			(10, 3, 30, 500.00, 20.5, 1, GETDATE()),
-			(10, 3, 30, 500.00, 20.5, 1, GETDATE()),
-			(10, 1, 50, 500.00, 20.5, 1, GETDATE()),
-			(10, 3, 30, 500.00, 20.5, 1, GETDATE()),
-			(10, 1, 50, 500.00, 20.5, 1, GETDATE()),
-			(10, 3, 30, 500.00, 20.5, 1, GETDATE())
+INSERT INTO [Prod].[tbPedidosOrdenDetalle] (pedi_Id, mate_Id, prod_Cantidad,prod_Precio, usua_UsuarioCreacion, prod_FechaCreacion)
+VALUES		(1, 2, 20, 500.00, 1, GETDATE()),
+			(1, 1, 50, 500.00, 1, GETDATE()),
+			(1, 3, 30, 1500.00,1, GETDATE()),
+			(2, 2, 20, 1500.00,1, GETDATE()),
+			(2, 1, 50, 1500.00,1, GETDATE()),
+			(2, 3, 30, 1500.00,1, GETDATE()),
+			(2, 2, 20, 1500.00,1, GETDATE()),
+			(2, 1, 50, 1500.00,1, GETDATE()),
+			(3, 3, 30, 1500.00,1, GETDATE()),
+			(3, 2, 20, 1500.00,1, GETDATE()),
+			(3, 1, 50, 1500.00,1, GETDATE()),
+			(3, 3, 30, 1500.00,1, GETDATE()),
+			(3, 2, 20, 1500.00,1, GETDATE()),
+			(4, 1, 50, 1500.00,1, GETDATE()),
+			(4, 3, 30, 1500.00,1, GETDATE()),
+			(4, 2, 20, 1500.00,1, GETDATE()),
+			(4, 1, 50, 1500.00,1, GETDATE()),
+			(4, 3, 30, 1500.00,1, GETDATE()),
+			(4, 2, 20, 1500.00,1, GETDATE()),
+			(4, 1, 50, 1500.00,1, GETDATE()),
+			(5, 3, 30, 1500.00,1, GETDATE()),
+			(5, 2, 20, 1500.00,1, GETDATE()),
+			(5, 1, 50, 1500.00,1, GETDATE()),
+			(5, 3, 30, 1500.00,1, GETDATE()),
+			(5, 2, 20, 1500.00,1, GETDATE()),
+			(7, 1, 50, 1500.00,1, GETDATE()),
+			(7, 3, 30, 1500.00,1, GETDATE()),
+			(7, 1, 50, 1500.00,1, GETDATE()),
+			(7, 3, 30, 1500.00,1, GETDATE()),
+			(7, 1, 50, 1500.00,1, GETDATE()),
+			(7, 3, 30, 2500.00,1, GETDATE()),
+			(7, 1, 50, 2500.00,1, GETDATE()),
+			(6, 3, 30, 2500.00,1, GETDATE()),
+			(6, 1, 50, 2500.00,1, GETDATE()),
+			(6, 3, 30, 2500.00,1, GETDATE()),
+			(6, 3, 30, 2500.00,1, GETDATE()),
+			(6, 1, 50, 2500.00,1, GETDATE()),
+			(6, 3, 30, 2500.00,1, GETDATE()),
+			(6, 1, 50, 2500.00,1, GETDATE()),
+			(8, 3, 30, 2500.00,1, GETDATE()),
+			(8, 3, 30, 2500.00,1, GETDATE()),
+			(8, 1, 50, 2500.00,1, GETDATE()),
+			(8, 3, 30, 2500.00,1, GETDATE()),
+			(8, 1, 50, 2500.00,1, GETDATE()),
+			(8, 3, 30, 2500.00,1, GETDATE()),
+			(8, 3, 30, 2500.00,1, GETDATE()),
+			(9, 1, 50, 2500.00,1, GETDATE()),
+			(9, 3, 30, 2500.00,1, GETDATE()),
+			(9, 1, 50, 2500.00,1, GETDATE()),
+			(9, 3, 30, 2500.00,1, GETDATE()),
+			(9, 3, 30, 2500.00,1, GETDATE()),
+			(9, 1, 50, 2500.00,1, GETDATE()),
+			(9, 3, 30, 2500.00,1, GETDATE()),
+			(10, 1, 50, 500.00,1, GETDATE()),
+			(10, 3, 30, 500.00,1, GETDATE()),
+			(10, 3, 30, 500.00,1, GETDATE()),
+			(10, 1, 50, 500.00,1, GETDATE()),
+			(10, 3, 30, 500.00,1, GETDATE()),
+			(10, 1, 50, 500.00,1, GETDATE()),
+			(10, 3, 30, 500.00,1, GETDATE())
 
 
 INSERT INTO Prod.tbPODetallePorPedidoOrdenDetalle (prod_Id, code_Id,usua_UsuarioCreacion,ocpo_FechaCreacion)

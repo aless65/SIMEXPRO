@@ -11903,11 +11903,11 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbModulos_Insertar
 AS
 BEGIN
 	BEGIN TRY
-		IF EXISTS(SELECT modu_Id FROM Prod.tbModulos WHERE modu_Nombre = @modu_Nombre AND proc_Id = @proc_Id AND empr_Id = @empr_Id AND modu_Estado = 0)
+		IF EXISTS(SELECT modu_Id FROM Prod.tbModulos WHERE modu_Nombre = @modu_Nombre AND modu_Estado = 0)
 			BEGIN
 				UPDATE Prod.tbModulos
 				SET	   modu_Estado = 1
-				WHERE  modu_Nombre = @modu_Nombre AND proc_Id = @proc_Id AND empr_Id = @empr_Id
+				WHERE  modu_Nombre = @modu_Nombre 
 				SELECT 1
 			END
 		ELSE
@@ -11918,7 +11918,7 @@ BEGIN
 			END
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END 
 
@@ -11950,7 +11950,7 @@ BEGIN
 		 SELECT 1
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 
@@ -11978,7 +11978,7 @@ BEGIN
 			SELECT @respuesta AS Resultado
 	END TRY
 	BEGIN CATCH
-		SELECT 0
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
 	END CATCH
 END
 GO

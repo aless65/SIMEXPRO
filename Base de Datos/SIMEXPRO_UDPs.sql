@@ -13768,6 +13768,42 @@ BEGIN
 	END CATCH
 END
 
+
+
+GO
+CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosProduccionDetalle_Filtrar_Estado
+(
+@ppro_Id INT
+)
+AS
+BEGIN
+	BEGIN TRY
+		SELECT	PPD.ppde_Id, 
+		PPD.ppro_Id, 
+		PPD.ppde_Cantidad,
+		pp.[ppro_Estados],
+		PPD.lote_Id, 
+		lot.[lote_Stock],
+		mat.mate_Id,
+		mat.mate_Descripcion
+
+		FROM Prod.tbPedidosProduccionDetalles PPD
+			INNER JOIN Prod.tbPedidosProduccion pp 
+			ON ppd.ppro_Id = pp.ppro_Id
+			INNER JOIN Prod.tbLotes lot 
+			ON PPD.lote_Id = lot.lote_Id
+			INNER JOIN Prod.tbMateriales mat 
+			ON lot.mate_Id = mat.mate_Id
+			WHERE ppd.ppro_Id = @ppro_Id
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+			SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
 --************************************************************************   Tabla Modulos fin   ***********************************************************************************************
 GO
 --************************************************************************   Tabla Maquinas inicio   ***********************************************************************************************

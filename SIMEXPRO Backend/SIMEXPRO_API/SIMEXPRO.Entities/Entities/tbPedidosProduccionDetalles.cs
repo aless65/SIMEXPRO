@@ -23,6 +23,8 @@ namespace SIMEXPRO.Entities.Entities
         public int tipa_Id { get; set; }
         [NotMapped]
         public string tipa_area { get; set; }
+        [NotMapped]
+        public string ppro_Estados { get; set; }
         public int usua_UsuarioCreacion { get; set; }
         [NotMapped]
         public string usuarioCreacionNombre { get; set; }

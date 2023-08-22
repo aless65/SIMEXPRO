@@ -2255,6 +2255,20 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 return result.Error(ex.Message);
             }
         }
+
+        public ServiceResult FiltrarPedidosProduccioDetalles(int ppro_Id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _pedidosProduccionDetallesRepository.Filter(ppro_Id);
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
         #endregion
 
         #region Pedidos Produccion

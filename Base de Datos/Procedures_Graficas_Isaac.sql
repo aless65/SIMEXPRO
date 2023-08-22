@@ -37,7 +37,7 @@ GO
 CREATE OR ALTER PROCEDURE Prod.UDP_TotalOrdenesCompraAnual
 AS
 BEGIN
-    SELECT
+    SELECT		
         YEAR(orco_FechaCreacion) AS Anio,
         COUNT(orco_Id) AS orco_Conteo
     FROM Prod.tbOrdenCompra
@@ -188,21 +188,6 @@ VALUES	('54363244535', '08-07-2023', 1, 15000, 1, '08-07-2023'),
 GO
 
 
-SELECT  faex_Id, 
-		duca_No_Duca, 
-		faex_Fecha, 
-		orco_Id, 
-		faex_Total, 
-		usua_UsuarioCreacion, 
-		faex_FechaCreacion, 
-		usua_UsuarioModificacion, 
-		faex_FechaModificacion
-FROM	Prod.tbFacturasExportacion
-WHERE	faex_Fecha >= DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()), 0)
-		AND faex_Fecha <= DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()), 5)
-ORDER BY faex_Fecha ASC
-GO
-
 
 -- PROCEDIMIENTO QUE MUESTRA TODAS LAS VENTAS DE LA SEMANA (DIVIDIDO EN DIAS)
 CREATE OR ALTER PROCEDURE Prod.UDP_VentasSemanales
@@ -273,8 +258,6 @@ END
 GO
 
 
--- TOTAL DE LAS ORDENES DE COMPRA ENTREGEDAS Y PENDIENTES SEMANALMENTE Y MENSUALMENTE (Basarse en PROCEDURE Prod.UDP_TotalOrdenesCompraDiario)
-
 -- TOTAL DE ORDENES DE COMPRA ENTREGADAS Y PENDIENTES DEL AÑO
 CREATE OR ALTER PROCEDURE Prod.UDP_PO_EntregadasPendientes_Anualmente
 AS
@@ -317,7 +300,7 @@ CREATE OR ALTER PROCEDURE Prod.UDP_PO_EntregadasPendientes_Semanalmente
 AS
 BEGIN
 		SELECT	
-					COUNT(orco_Id) AS orco_Conteo, 
+					COUNT(orco_Id) AS orco_Conteo,
 					CASE orco_EstadoOrdenCompra
 						WHEN 'P' THEN 'Pendiente'
 						WHEN 'T' THEN 'Terminado'
@@ -332,69 +315,51 @@ END
 GO
 
 
-SELECT * FROM Prod.tbRevisionDeCalidad
-SELECT * FROM Prod.tbOrdenCompra
-SELECT * FROM Prod.tbOrdenCompraDetalles
-SELECT * FROM Prod.tbOrde_Ensa_Acab_Etiq
-
-SELECT * FROM Prod.tbFacturasExportacion
-SELECT * FROM Prod.tbFacturasExportacionDetalles
-
-SELECT * FROM Prod.tbMateriales
-
- 
-SELECT	PO.orco_Id, 
-
-		Customer.clie_Nombre_O_Razon_Social, 
-
-		PO.orco_FechaEmision,
-		PO.orco_FechaLimite, 
-		PO.orco_MetodoPago, 
-		PO.orco_Materiales, 
-		PO.orco_IdEmbalaje, 
-		PO.orco_EstadoOrdenCompra, 
-		PO.orco_DireccionEntrega,
-
-		PODetail.code_Id,
-		PODetail.code_CantidadPrenda, 
-		Styles.[esti_Descripcion],
-		Talla.tall_Codigo, 
-		Talla.tall_Nombre,
-		PODetail.code_Sexo, 
-		Colors.[colr_Nombre],
-		PODetail.proc_IdComienza, 
-		PODetail.proc_IdActual, 
-		PODetail.code_Unidad, 
-		PODetail.code_Valor, 
-		PODetail.code_Impuesto, 
-		PODetail.code_EspecificacionEmbalaje
-
-FROM Prod.tbOrdenCompra AS PO
-INNER JOIN Prod.tbOrdenCompraDetalles AS PODetail ON PODetail.orco_Id = PO.orco_Id
-INNER JOIN Prod.tbClientes AS Customer ON PO.orco_IdCliente = Customer.clie_Id
-INNER JOIN Prod.tbEstilos AS Styles ON PODetail.esti_Id = Styles.esti_Id
-INNER JOIN Prod.tbTallas AS Talla ON PODetail.tall_Id = Talla.tall_Id
-INNER JOIN Prod.tbColores AS Colors ON PODetail.colr_Id = Colors.colr_Id
-
-GO
-
-
-CREATE OR ALTER PROCEDURE Prod.UDP_ClientesMasProductivos
+-- EJEMPLO: LA CANTIDAD DE CHAQUETAS QUE SE PIDIERON EN LAS ORDENES DE COMPRA AGRUPADAS POR SEXO (F, M, U)
+CREATE OR ALTER PROCEDURE Prod.UDP_CantidadPrendas_SegunIDEstilo
+	@esti_Id INT
 AS
 BEGIN
-	SELECT	PO.orco_Id, 
-
-			Customer.clie_Nombre_O_Razon_Social, 
-
-			PODetail.code_Id,
-			PODetail.code_CantidadPrenda, 
-			PODetail.code_Unidad, 
-			PODetail.code_Valor, 
-			PODetail.code_Impuesto
-
-	FROM Prod.tbOrdenCompra AS PO
-	INNER JOIN Prod.tbOrdenCompraDetalles AS PODetail ON PODetail.orco_Id = PO.orco_Id
-	INNER JOIN Prod.tbClientes AS Customer ON PO.orco_IdCliente = Customer.clie_Id
-	GROUP BY PO.orco_IdCliente
+	SELECT	 
+			SUM(code_CantidadPrenda) AS PrendasSumatoria, 
+			code_Sexo,
+			esti_Descripcion
+	FROM Prod.tbOrdenCompraDetalles AS POdetail
+	INNER JOIN Prod.tbEstilos AS Style ON POdetail.esti_Id = Style.esti_Id
+	WHERE POdetail.esti_Id = @esti_Id
+	GROUP BY code_Sexo, esti_Descripcion
 END
 GO
+
+
+-- CLIENTES MÁS PRODUCTIVOS
+CREATE OR ALTER PROCEDURE Prod.UDP_ClientesMasProductivos
+AS
+	BEGIN
+		SELECT 
+				TOP(5)
+				Clie.clie_Nombre_O_Razon_Social,
+				SUM(Fact.faex_Total) AS CantidadIngresos
+		FROM Prod.tbFacturasExportacion AS Fact
+		INNER JOIN Prod.tbOrdenCompra AS PO ON Fact.orco_Id = PO.orco_Id
+		INNER JOIN Prod.tbClientes AS Clie ON PO.orco_IdCliente = Clie.clie_Id
+		GROUP BY Clie.clie_Nombre_O_Razon_Social
+	END
+GO
+
+
+
+-- CANTIDAD Y PORCENTAJE DE LAS PRENDAS QUE HAN HECHO POR MODULO
+CREATE OR ALTER PROCEDURE Prod.UDP_ProduccionModulo_CantidadPorcentaje
+AS
+	BEGIN
+		SELECT 
+				Modulo.modu_Nombre,
+				SUM(ReporteModulo.remo_TotalDia) AS TotalProduccionDia,
+				CONCAT(CONVERT( DECIMAL(18,2), (CONVERT(DECIMAL(18,2), SUM(ReporteModulo.remo_TotalDia) * 100)) / CONVERT(DECIMAL(18,2),(SELECT SUM(remo_TotalDia)FROM Prod.tbReporteModuloDia))), '%') AS PorcentajeProduccion
+		FROM Prod.tbReporteModuloDia AS ReporteModulo
+		INNER JOIN Prod.tbModulos AS Modulo ON ReporteModulo.modu_Id = Modulo.modu_Id
+		GROUP BY Modulo.modu_Nombre
+	END
+GO
+

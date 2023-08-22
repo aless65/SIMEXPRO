@@ -72,8 +72,8 @@ CREATE TABLE Acce.tbUsuariosHistorial(
 );
 GO
 
-INSERT INTO Acce.tbUsuarios
-VALUES ('prueba', '123', 1, '.jpg', 1, 1, 1,1, NULL, NULL,NULL,NULL,NULL,NULL,1)
+INSERT INTO Acce.tbUsuarios(usua_Nombre, usua_Contrasenia, empl_Id, usua_Image, role_Id, usua_EsAdmin, pant_subCategoria, usua_UsuarioCreacion, usua_FechaCreacion)
+VALUES						('prueba',		'123',				1, '.jpg',		1,			1,			1,					1,					GETDATE())
 GO
 
 CREATE TABLE Acce.tbRoles
@@ -1913,7 +1913,7 @@ CREATE TABLE Prod.tbOrdenCompraDetalles(
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_tall_Id_Prod_tbTalla_tall_Id				 FOREIGN KEY(tall_Id) REFERENCES Prod.tbTallas(tall_Id),
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_proc_IdComienza_Prod_tbProcesos_proc_Id     FOREIGN KEY(proc_IdComienza) REFERENCES Prod.tbProcesos(proc_Id),
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_proc_IdActual_Prod_tbProcesos_proc_Id       FOREIGN KEY(proc_IdActual) REFERENCES Prod.tbProcesos(proc_Id),
-	CONSTRAINT CK_Prod_tbOrdenCompraDetalles_code_Sexo									 CHECK (code_Sexo IN ('F','M')),
+	CONSTRAINT CK_Prod_tbOrdenCompraDetalles_code_Sexo									 CHECK (code_Sexo IN ('F','M','U')),
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_code_UsuarioCreacion_Acce_tbUsuarios_usua_Id					FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_code_UsuarioModificacion_Acce_tbUsuarios_usua_Id				FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	--CONSTRAINT FK_Prod_tbOrdenCompraDetalles__Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)

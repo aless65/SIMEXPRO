@@ -13651,7 +13651,30 @@ BEGIN
 END
 GO
 
+CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccion_Eliminar
+	@ppro_Id		INT
+AS
+BEGIN
+	BEGIN TRY
+		IF EXISTS(SELECT [ppde_Id] FROM [Prod].[tbPedidosProduccionDetalles] WHERE [ppro_Id] = @ppro_Id )
+			BEGIN
+				SELECT 2
+			END
+		ELSE
+			BEGIN	
+				UPDATE [Prod].[tbPedidosProduccion]
+				SET	   [ppro_Estado] = 0
+				WHERE  [ppro_Id] = @ppro_Id
 
+				SELECT 1
+			END
+	END TRY	
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+
+GO
 
 CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccionDetalle_Listar 
 	@ppro_Id INT

@@ -2324,7 +2324,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             try
             {
                 var map = _pedidosProduccionRepository.Delete(item);
-                if (map.MessageStatus == "1")
+                if (map.MessageStatus == "1" || map.MessageStatus == "2")
                 {
                     return result.Ok(map);
                 }

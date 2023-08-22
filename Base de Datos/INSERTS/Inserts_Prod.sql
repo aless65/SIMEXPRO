@@ -10,7 +10,7 @@
 --***** INSERT TABLA CLIENTES --******--
 GO
 INSERT INTO [Prod].[tbClientes](clie_Nombre_O_Razon_Social, clie_Direccion, clie_RTN, clie_Nombre_Contacto, clie_Numero_Contacto, clie_Correo_Electronico, clie_FAX, pvin_Id, usua_UsuarioCreacion, clie_FechaCreacion)
-VALUES('Miguel','Direccionando','054564','Josue','465465','sdkjssdasd','45454',5,1,'05-10-2021');
+VALUES('Miguel','Direccionando','1234-5678-123456','Josue','+504 1234-5678','Josue@gmail.com','45454',5,1,GETDATE());
 
 
 /*--------------------------------------------*/

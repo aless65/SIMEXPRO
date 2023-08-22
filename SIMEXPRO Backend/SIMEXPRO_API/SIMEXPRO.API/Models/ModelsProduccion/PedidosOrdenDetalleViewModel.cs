@@ -13,7 +13,8 @@ namespace SIMEXPRO.API.Models.ModelsProduccion
         public int mate_Id { get; set; }
         public int prod_Cantidad { get; set; }
         public decimal prod_Precio { get; set; }
-        public decimal prod_Peso { get; set; }
+
+        //public decimal prod_Peso { get; set; }
         public int usua_UsuarioCreacion { get; set; }
         [NotMapped]
         public string UsuarioCreacionNombre { get; set; }

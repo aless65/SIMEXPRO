@@ -37,6 +37,7 @@ CREATE TABLE Acce.tbUsuarios(
 		usua_Image					NVARCHAR(500) 	NULL,
 		role_Id						INT				NOT NULL,
 		usua_EsAdmin				BIT 			NOT NULL,
+		pant_subCategoria			NVARCHAR(150),
 
 		usua_UsuarioCreacion 		INT				NOT NULL,
 		usua_FechaCreacion 			DATETIME 		NOT NULL,
@@ -44,9 +45,13 @@ CREATE TABLE Acce.tbUsuarios(
 		usua_FechaModificacion		DATETIME 		DEFAULT NULL,
 		usua_UsuarioEliminacion 	INT				DEFAULT NULL,
 		usua_FechaEliminacion		DATETIME 		DEFAULT NULL,
+		usua_UsuarioActivacion		INT				NULL,
+		usua_FechaActivacion		DATETIME		NULL,
 		usua_Estado					BIT				DEFAULT 1,
-	CONSTRAINT PK_Acce_tbUsuarios_usua_Id 	  PRIMARY KEY (usua_Id),
-	CONSTRAINT UQ_acce_tbUsuarios_usua_Nombre UNIQUE(usua_Nombre)
+	CONSTRAINT PK_Acce_tbUsuarios_usua_Id 				 PRIMARY KEY (usua_Id),
+	CONSTRAINT UQ_acce_tbUsuarios_usua_Nombre			 UNIQUE(usua_Nombre),
+	CONSTRAINT FK_Acce_tbUsuarios_usua_UsuarioActivacion FOREIGN KEY(usua_UsuarioActivacion) REFERENCES Acce.tbUsuarios(usua_Id),
+
 );
 GO
 
@@ -68,7 +73,7 @@ CREATE TABLE Acce.tbUsuariosHistorial(
 GO
 
 INSERT INTO Acce.tbUsuarios
-VALUES ('prueba', '123', 1, '.jpg', 1, 1, 1,1, NULL, NULL,NULL,NULL,1)
+VALUES ('prueba', '123', 1, '.jpg', 1, 1, 1,1, NULL, NULL,NULL,NULL,NULL,NULL,1)
 GO
 
 CREATE TABLE Acce.tbRoles
@@ -1410,7 +1415,7 @@ CREATE TABLE Prod.tbMateriales(
 	mate_Id   					INT IDENTITY(1,1),
 	mate_Descripcion			NVARCHAR(200),
 	subc_Id  					INT,
-	mate_Precio					DECIMAL (18,2),
+	--mate_Precio					DECIMAL (18,2),
 	mate_Imagen					NVARCHAR(MAX) NOT NULL,
 	usua_UsuarioCreacion		INT					NOT NULL,
 	mate_FechaCreacion			DATETIME			NOT NULL ,
@@ -1907,8 +1912,8 @@ CREATE TABLE Prod.tbOrdenCompraDetalles(
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_colr_Id_Prod_tbColores_colr_Id				 FOREIGN KEY (colr_Id) REFERENCES Prod.tbColores(colr_Id),
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_tall_Id_Prod_tbTalla_tall_Id				 FOREIGN KEY(tall_Id) REFERENCES Prod.tbTallas(tall_Id),
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_proc_IdComienza_Prod_tbProcesos_proc_Id     FOREIGN KEY(proc_IdComienza) REFERENCES Prod.tbProcesos(proc_Id),
+	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_proc_IdActual_Prod_tbProcesos_proc_Id       FOREIGN KEY(proc_IdActual) REFERENCES Prod.tbProcesos(proc_Id),
 	CONSTRAINT CK_Prod_tbOrdenCompraDetalles_code_Sexo									 CHECK (code_Sexo IN ('F','M')),
-
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_code_UsuarioCreacion_Acce_tbUsuarios_usua_Id					FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_code_UsuarioModificacion_Acce_tbUsuarios_usua_Id				FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	--CONSTRAINT FK_Prod_tbOrdenCompraDetalles__Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
@@ -2525,7 +2530,7 @@ CREATE TABLE Prod.tbPedidosOrdenDetalle(--No se podrá eliminar de ninguna maner
 	mate_Id							INT NOT NULL,
 	prod_Cantidad					INT NOT NULL,
 	prod_Precio						DECIMAL(18,2) NOT NULL,
-	prod_Peso						DECIMAL(18,2) NOT NULL,
+--	prod_Peso						DECIMAL(18,2) NOT NULL,
 
 	usua_UsuarioCreacion			INT NOT NULL,
 	prod_FechaCreacion				DATETIME NOT NULL,

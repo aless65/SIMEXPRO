@@ -13551,7 +13551,6 @@ BEGIN
 			ppde_Cantidad,
 			mate_Descripcion,
 			tblotes.lote_Stock,
-			ppde_Cantidad,
 			tblotes.mate_Id,
 			mate_Descripcion,
 			tblotes.tipa_Id,
@@ -13576,7 +13575,7 @@ AS
 BEGIN
 	BEGIN TRY
 		INSERT INTO [Prod].[tbPedidosProduccionDetalles] ([ppro_Id], [lote_Id], [ppde_Cantidad], [usua_UsuarioCreacion], [ppde_FechaCreacion])
-		VALUES (@ppro_Id,@lote_Id,@lote_Id,@usua_UsuarioCreacion,@ppde_FechaCreacion);
+		VALUES (@ppro_Id,@lote_Id,@ppde_Cantidad,@usua_UsuarioCreacion,@ppde_FechaCreacion);
 
 		SELECT 1
 	END TRY

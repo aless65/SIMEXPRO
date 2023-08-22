@@ -50,6 +50,14 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(respuesta);
         }
 
+        [HttpPost("Eliminar")]
+        public IActionResult Delete(OrdenCompraViewModel ordenCompraViewModel)
+        {
+            var item = _mapper.Map<tbOrdenCompra>(ordenCompraViewModel);
+            var respuesta = _produccionServices.EliminarOrdenCompra(item);
+            return Ok(respuesta);
+        }
+
         [HttpGet("LineaTiempoOrdenCompra")]
         public IActionResult LineaTiempo(int orco_Id)
         {

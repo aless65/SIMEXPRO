@@ -57,5 +57,13 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             var respuesta = _produccionServices.EliminarPedidosProduccioDetalles(item);
             return Ok(respuesta);
         }
+
+        [HttpGet("Filtrar")]
+        public IActionResult Filter(int ppro_Id)
+        {
+            var listado = _produccionServices.FiltrarPedidosProduccioDetalles(ppro_Id);
+            listado.Data = _mapper.Map<IEnumerable<PedidosProduccionDetalleViewModel>>(listado.Data);
+            return Ok(listado);
+        }
     }
 }

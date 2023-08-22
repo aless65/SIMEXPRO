@@ -12852,6 +12852,8 @@ BEGIN
 			mabr.mate_Id, 
 			mate.mate_Descripcion,
 			mabr_Cantidad, 
+			unid.unme_Id,
+			unid.unme_Descripcion,
 			mabr.usua_UsuarioCreacion, 
 			usuCrea.usua_Nombre              AS usuarioCreacionNombre,
 			mabr_FechaCreacion,
@@ -12864,7 +12866,41 @@ BEGIN
 			LEFT JOIN Acce.tbUsuarios usuModi            ON usuModi.usua_Id = mabr.usua_UsuarioModificacion
 			LEFT JOIN Prod.tbOrdenCompraDetalles ordeC   ON ordeC.code_Id   = mabr.code_Id
 			LEFT JOIN Prod.tbMateriales mate             ON mate.mate_Id    = mabr.mate_Id
-	  WHERE mabr_Estado = 1
+			INNER JOIN Gral.tbUnidadMedidas unid		 ON mabr.unme_Id	= unid.unme_Id
+	  WHERE mabr_Estado = 1
+
+END
+
+GO
+
+/*PROCEDIMIENTO DE Listar materiales a brindar por el code_Id*/
+
+CREATE OR ALTER PROCEDURE [Prod].[UDP_tbMaterialesBrindarPorOrdenCompraDetalle_Listar] 
+@code_Id		INT
+AS
+BEGIN
+	SELECT	mabr_Id, 
+			mabr.code_Id, 
+			ordeC.code_CantidadPrenda,
+			mabr.mate_Id, 
+			mate.mate_Descripcion,
+			mabr_Cantidad, 
+			unid.unme_Id,
+			unid.unme_Descripcion,
+			mabr.usua_UsuarioCreacion, 
+			usuCrea.usua_Nombre              AS usuarioCreacionNombre,
+			mabr_FechaCreacion,
+			mabr.usua_UsuarioModificacion,
+			usuModi.usua_Nombre              AS usuarioModificacionNombre,
+			mabr_FechaModificacion, 
+			mabr_Estado
+	  FROM  Prod.tbMaterialesBrindar mabr
+	        INNER JOIN Acce.tbUsuarios usuCrea           ON usuCrea.usua_Id = mabr.usua_UsuarioCreacion
+			LEFT JOIN Acce.tbUsuarios usuModi            ON usuModi.usua_Id = mabr.usua_UsuarioModificacion
+			LEFT JOIN Prod.tbOrdenCompraDetalles ordeC   ON ordeC.code_Id   = mabr.code_Id
+			LEFT JOIN Prod.tbMateriales mate             ON mate.mate_Id    = mabr.mate_Id
+			INNER JOIN Gral.tbUnidadMedidas unid		 ON mabr.unme_Id	= unid.unme_Id
+	  WHERE mabr_Estado = 1 AND mabr.code_Id = @code_Id
 END
 
 GO
@@ -12874,6 +12910,7 @@ CREATE OR ALTER PROC prod.UDP_tbMaterialesBrindar_Insertar
 @code_Id					INT, 
 @mate_Id					INT, 
 @mabr_Cantidad				INT, 
+@unme_Id					INT,
 @usua_UsuarioCreacion		INT, 
 @mabr_FechaCreacion			DATETIME
 AS 
@@ -12883,18 +12920,20 @@ BEGIN
 		INSERT INTO Prod.tbMaterialesBrindar (code_Id, 
 		                                      mate_Id, 
 		                                      mabr_Cantidad, 
+											  unme_Id,
 		                                      usua_UsuarioCreacion, 
 		                                      mabr_FechaCreacion)
 		    VALUES (@code_Id,				
 		            @mate_Id,				
 		            @mabr_Cantidad,	
+					@unme_Id,
 		            @usua_UsuarioCreacion,
 		            @mabr_FechaCreacion)
 		   SELECT 1
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
-	END CATCH
+	END CATCH
 END
 
 GO
@@ -12905,6 +12944,7 @@ CREATE OR ALTER PROC prod.UDP_tbMaterialesBrindar_Editar
 @code_Id					INT, 
 @mate_Id					INT, 
 @mabr_Cantidad				INT, 
+@unme_Id					INT,
 @usua_UsuarioModificacion	INT, 
 @mabr_FechaModificacion		DATETIME
 AS 
@@ -12913,7 +12953,8 @@ BEGIN
 		UPDATE  Prod.tbMaterialesBrindar
 		SET		code_Id						= @code_Id,				
 				mate_Id						= @mate_Id,				 
-				mabr_Cantidad				= @mabr_Cantidad,	
+				mabr_Cantidad				= @mabr_Cantidad,
+				unme_Id						= @unme_Id,
 				usua_UsuarioCreacion		= @usua_UsuarioModificacion,
 				mabr_FechaCreacion			= @mabr_FechaModificacion	
 		WHERE	mabr_Id						= @mabr_Id
@@ -12921,7 +12962,7 @@ BEGIN
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE()
-	END CATCH
+	END CATCH
 END
 
 GO

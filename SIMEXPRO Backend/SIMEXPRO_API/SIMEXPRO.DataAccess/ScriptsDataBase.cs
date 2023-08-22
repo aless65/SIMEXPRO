@@ -674,6 +674,10 @@ namespace SIMEXPRO.DataAccess
         public static string GR_OrdenenesEntregadasPendientes_Mensual = "Prod.UDP_PO_EntregadasPendientes_Mensualmente";
         public static string GR_OrdenenesEntregadasPendientes_Semanal = "Prod.UDP_PO_EntregadasPendientes_Semanalmente";
 
+        public static string GR_PrendasPedidas = "Prod.UDP_CantidadPrendas_SegunIDEstilo";
+        public static string GR_ClientesProductivos = "Prod.UDP_ClientesMasProductivos";
+        public static string GR_ProductividadModulos = "Prod.UDP_ProduccionModulo_CantidadPorcentaje";
+
         #endregion
     }
 }

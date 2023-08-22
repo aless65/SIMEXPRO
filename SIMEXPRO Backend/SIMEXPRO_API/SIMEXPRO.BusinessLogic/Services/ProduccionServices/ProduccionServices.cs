@@ -3257,7 +3257,47 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             }
         }
 
+        public ServiceResult PrendasPedidas(tbGraficas item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.PrendasPedidas(item);
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
 
+        public ServiceResult ClientesProductivos()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.ClientesProductivos();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ProductividadModulos()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.ProductividadModulos();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
         #endregion
     }
 }

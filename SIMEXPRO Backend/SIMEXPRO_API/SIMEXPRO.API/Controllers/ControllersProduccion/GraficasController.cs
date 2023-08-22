@@ -120,6 +120,28 @@ namespace SIMEXPRO.API.Controllers.ControllersProduccion
             return Ok(listado);
         }
 
+        [HttpPost("PrendasPedidas")]
+        public IActionResult PrendasPedidas(GraficasViewModel item)
+        {
+            var data = _mapper.Map<tbGraficas>(item);
+            var listado = _produccionServices.PrendasPedidas(data);
+            return Ok(listado);
+        }
 
+        [HttpGet("ClientesProductivos")]
+        public IActionResult ClientesProductivos()
+        {
+            var listado = _produccionServices.ClientesProductivos();
+            listado.Data = _mapper.Map<IEnumerable<GraficasViewModel>>(listado.Data);
+            return Ok(listado);
+        }
+        
+        [HttpGet("ProductividadModulos")]
+        public IActionResult ProductividadModulos()
+        {
+            var listado = _produccionServices.ProductividadModulos();
+            listado.Data = _mapper.Map<IEnumerable<GraficasViewModel>>(listado.Data);
+            return Ok(listado);
+        }
     }
 }

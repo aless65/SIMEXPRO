@@ -455,7 +455,7 @@ namespace SIMEXPRO.DataAccess
         #region Revision de Calidad
         public static string ListarRevisionDeCalidad = "Prod.UDP_tbRevisionDeCalidad_Listar";
         public static string InsertaRevisionDeCalidad = "Prod.UDP_tbRevisionDeCalidad_Insertar";
-        public static string EditarRevisionDeCalidad = "Adua.UDP_tbRevisionDeCalidad_Editar";
+        public static string EditarRevisionDeCalidad = "Prod.UDP_tbRevisionDeCalidad_Editar";
         #endregion
 
         #region Sub Categoria
@@ -614,6 +614,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarOrdenCompra = "Prod.UDP_tbOrdenCompra_Listado";
         public static string InsertarOrdenCompra = "Prod.UDP_tbOrdenCompra_Insertar";
         public static string EditarOrdenCompra = "Prod.UDP_tbOrdenCompra_Editar";
+        public static string EliminarOrdenCompra = "Prod.UDP_tbOrdenCompra_Eliminar";
         #endregion
 
         #region Orden de Compra Detalles
@@ -640,6 +641,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarPedidosProduccion = "Prod.UDP_tbPedidosProduccion_Listar";
         public static string InsertarPedidosProduccion = "Prod.UDP_tbPedidosProduccion_Insertar";
         public static string EditarPedidosProduccion = "Prod.UDP_tbPedidosProduccion_Editar";
+        public static string EliminarPedidosProduccion = "Prod.UDP_tbPedidosProduccion_Eliminar";
         #endregion
 
         #region Pedidos Produccion Detalles
@@ -647,6 +649,7 @@ namespace SIMEXPRO.DataAccess
         public static string InsertarPedidosProduccionDetalles = "Prod.UDP_tbPedidosProduccionDetalle_Insertar";
         public static string EditarPedidosProduccionDetalles = "Prod.UDP_tbPedidosProduccionDetalle_Editar";
         public static string EliminarPedidosProduccionDetalles = "Prod.UDP_tbPedidosProduccionDetalle_Eliminar";
+        public static string FiltrarPedidosProduccionDetalles = "Prod.UDP_tbPedidosProduccionDetalle_Filtrar_Estado";
         #endregion
 
         #region PO Detalle Por Pedido Orden Detalle
@@ -671,6 +674,10 @@ namespace SIMEXPRO.DataAccess
         public static string GR_OrdenenesEntregadasPendientes_Anual = "Prod.UDP_PO_EntregadasPendientes_Anualmente";
         public static string GR_OrdenenesEntregadasPendientes_Mensual = "Prod.UDP_PO_EntregadasPendientes_Mensualmente";
         public static string GR_OrdenenesEntregadasPendientes_Semanal = "Prod.UDP_PO_EntregadasPendientes_Semanalmente";
+
+        public static string GR_PrendasPedidas = "Prod.UDP_CantidadPrendas_SegunIDEstilo";
+        public static string GR_ClientesProductivos = "Prod.UDP_ClientesMasProductivos";
+        public static string GR_ProductividadModulos = "Prod.UDP_ProduccionModulo_CantidadPorcentaje";
 
         #endregion
     }

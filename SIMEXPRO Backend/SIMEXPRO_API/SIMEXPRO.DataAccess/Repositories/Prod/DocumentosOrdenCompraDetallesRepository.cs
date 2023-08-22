@@ -45,14 +45,19 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             return result;
         }
 
-
-        public IEnumerable<tbDocumentosOrdenCompraDetalles> List()
+        public IEnumerable<tbDocumentosOrdenCompraDetalles> ListarByOrcoId(int orco_Id)
         {
             using var db = new SqlConnection(SIMEXPRO.ConnectionString);
             var parametros = new DynamicParameters();
-            return db.Query<tbDocumentosOrdenCompraDetalles>(ScriptsDataBase.ListarDocumentosOrdenCompraDetalles, null, commandType: CommandType.StoredProcedure);
+            parametros.Add("@orco_Id", orco_Id, DbType.Int32, ParameterDirection.Input);
+            var result = db.Query<tbDocumentosOrdenCompraDetalles>(ScriptsDataBase.ListarDocumentosOrdenCompraDetalles, parametros, commandType: System.Data.CommandType.StoredProcedure);
+            return result;
         }
 
+        public IEnumerable<tbDocumentosOrdenCompraDetalles> List()
+        {
+            throw new NotImplementedException();
+        }
 
         public RequestStatus Update(tbDocumentosOrdenCompraDetalles item)
         {

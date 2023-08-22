@@ -33,8 +33,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@peor_DireccionExacta", item.peor_DireccionExacta, DbType.String, ParameterDirection.Input);
             parametros.Add("@peor_FechaEntrada", item.peor_FechaEntrada, DbType.DateTime, ParameterDirection.Input);
             parametros.Add("@peor_Obsevaciones", item.peor_Obsevaciones, DbType.String, ParameterDirection.Input);
-            parametros.Add("@peor_DadoCliente", item.peor_DadoCliente, DbType.Boolean, ParameterDirection.Input);
-            parametros.Add("@peor_Est", item.peor_Est, DbType.Boolean, ParameterDirection.Input);
+            //parametros.Add("@peor_DadoCliente", item.peor_DadoCliente, DbType.Boolean, ParameterDirection.Input);
+            //parametros.Add("@peor_Est", item.peor_Est, DbType.Boolean, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@peor_FechaCreacion", item.peor_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
 
@@ -62,8 +62,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@peor_DireccionExacta", item.peor_DireccionExacta, DbType.String, ParameterDirection.Input);
             parametros.Add("@peor_FechaEntrada", item.peor_FechaEntrada, DbType.DateTime, ParameterDirection.Input);
             parametros.Add("@peor_Obsevaciones", item.peor_Obsevaciones, DbType.String, ParameterDirection.Input);
-            parametros.Add("@peor_DadoCliente", item.peor_DadoCliente, DbType.Boolean, ParameterDirection.Input);
-            parametros.Add("@peor_Est", item.peor_Est, DbType.Boolean, ParameterDirection.Input);
+            //parametros.Add("@peor_DadoCliente", item.peor_DadoCliente, DbType.Boolean, ParameterDirection.Input);
+            //parametros.Add("@peor_Est", item.peor_Est, DbType.Boolean, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@peor_FechaModificacion", item.peor_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
 

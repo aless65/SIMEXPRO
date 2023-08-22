@@ -81045,11 +81045,11 @@ VALUES
 --****** INSERT TABLA CODIGO IMPUESTO --*********
 GO
 INSERT INTO Adua.tbCodigoImpuesto(coim_Descripcion, usua_UsuarioCreacion, coim_FechaCreacion)
-VALUES	('C�digo 1', 1, GETDATE()),
-		('C�digo 2', 1, GETDATE()),
-		('C�digo 3', 1, GETDATE()),
-		('C�digo 4', 1, GETDATE()),
-		('C�digo 5', 1, GETDATE());
+VALUES	('Código 1', 1, GETDATE()),
+		('Código 2', 1, GETDATE()),
+		('Código 3', 1, GETDATE()),
+		('Código 4', 1, GETDATE()),
+		('Código 5', 1, GETDATE());
 
 
 
@@ -81147,9 +81147,9 @@ GO
 --********** INSERT TABLA DECLARACION DE VALOR ************--
 GO
 INSERT INTO [Adua].[tbDeclaraciones_Valor]   ([deva_AduanaIngresoId],[deva_AduanaDespachoId],[deva_DeclaracionMercancia],[deva_FechaAceptacion],[impo_Id],[pvde_Id],[inte_Id],[deva_LugarEntrega],[pais_EntregaId],[inco_Id],[inco_Version],[deva_NumeroContrato],[deva_FechaContrato],[foen_Id],[deva_FormaEnvioOtra],[deva_PagoEfectuado],[fopa_Id],[deva_FormaPagoOtra],[emba_Id],[pais_ExportacionId],[deva_FechaExportacion],[mone_Id],[mone_Otra],[deva_ConversionDolares],[usua_UsuarioCreacion],[deva_FechaCreacion])
-     VALUES
-           (1 ,2 ,'Importacion de platanos' ,GETDATE() ,11 ,6 ,4 ,'Guasaule' ,8 ,1 ,'EXW' ,'93949389' ,GETDATE() ,1 ,'Maritimo' ,1 ,2 ,'Aerio' ,1 ,2  ,GETDATE() ,1 ,1 ,24 ,1  ,GETDATE()),
-           (1 ,2 ,'Importacion de Guineos' ,GETDATE() ,11 ,6 ,5 ,'Guasaule' ,2 ,1 ,'EXW' ,'3232432423' ,GETDATE() ,1 ,'Terrestre' ,1 ,2 ,'Aerio' ,1 ,2  ,GETDATE() ,1 ,1 ,24 ,1  ,GETDATE());
+     VALUES(1 ,2 ,'Importacion de platanos' ,GETDATE() ,11 ,6 ,4 ,'Guasaule' ,8 ,1 ,'EXW' ,'93949389' ,GETDATE() ,1 ,'Maritimo' ,1 ,2 ,'Aerio' ,1 ,2  ,GETDATE() ,1 ,1 ,24 ,1  ,GETDATE()),
+           (1 ,2 ,'Importacion de Guineos' ,GETDATE() ,11 ,6 ,5 ,'Guasaule' ,2 ,1 ,'EXW' ,'3232432423' ,GETDATE() ,1 ,'Terrestre' ,1 ,2 ,'Aerio' ,1 ,2  ,GETDATE() ,1 ,1 ,24 ,1  ,GETDATE()),
+		   (2 ,3 ,'3453453453453' ,GETDATE() ,11 ,6 ,5 ,'San pedro sula' ,2 ,1 ,'EXW' ,'564564234' ,GETDATE() ,1 ,'Aereo' ,1 ,2 ,null ,1 ,2  ,GETDATE() ,1 ,1 ,24 ,1  ,GETDATE());
 
 
 
@@ -81160,7 +81160,7 @@ INSERT INTO [Adua].[tbDuca] ([duca_No_Duca],[duca_No_Correlativo_Referencia],[de
      VALUES
            ('83739333921' ,'7682182922292927729212292' ,1 ,1 ,13  ,'Centro Civíco Gubernamental' ,1  ,10 ,'94840440' ,21 ,'Zona Centro Sur'  ,'Temporales' ,'ferroviario'  ,'DUCA-T' ,'8g83b04m4893b' ,'H05Ym0gv%oz4f&'  ,'9239330473' ,'Centro Civíco tecnico' ,3 ,6 ,12 ,'El propio almacén es el que tiene la responsabilidad' ,'El Carmen' ,'Barrios' ,'Produccion' ,'Importacion e Exportacion de Produccion Platanera' ,'$mB8Ap6J8Qo6$u' ,2134 ,686535 ,1 ,'Carlos Amaya Del Valle' ,1 ,'DUT' ,GETDATE() ,'M' ,1 ,GETDATE()),
            ('54363244535' ,'24356423443234342' ,2 ,1 ,11  ,'Centro Cultural Gubernamental' ,1  ,5 ,'45434334' ,21 ,'Zona Centro Norte'  ,'Temporales' ,'ferroviario'  ,'DUCA-D' ,'8g8te04m4893b' ,'H05YwqeEgv%oz4f&'  ,'342423434' ,'Centro Maritimo tecnico' ,3 ,6 ,12 ,'El propio almacén es el que tiene la responsabilidad' ,'Barrios' ,'Puerto Cortez' ,'Produccion' ,'Importacion e Exportacion de Produccion de Guineos' ,'$mB8Ap6OD3o6$u' ,2134 ,686535 ,1 ,'Carlos Amaya DelaCrucito' ,1 ,'DUT' ,GETDATE() ,'M' ,1 ,GETDATE());
-
+		   ('12345678696' ,'435453748538745345873474' ,2 ,1 ,11  ,'Centro Cultural Gubernamental' ,1  ,5 ,'45434334' ,21 ,'Zona Centro Norte'  ,'Temporales' ,'ferroviario'  ,'DUCA-D' ,'8g8te04m4893b' ,'H05YwqeEgv%oz4f&'  ,'342423434' ,'Centro Maritimo tecnico' ,3 ,6 ,12 ,'El propio almacén es el que tiene la responsabilidad' ,'Barrios' ,'Puerto Cortez' ,'Produccion' ,'Importacion e Exportacion de Produccion de Guineos' ,'$mB8Ap6OD3o6$u' ,2134 ,686535 ,1 ,'Carlos Amaya DelaCrucito' ,1 ,'DUT' ,GETDATE() ,'M' ,1 ,GETDATE());<
 
 
 /*------------------------------------------*/

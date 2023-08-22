@@ -29,6 +29,8 @@ namespace SIMEXPRO.Entities.Entities
         public DateTime ensa_FechaInicio { get; set; }
         public DateTime ensa_FechaLimite { get; set; }
         public int ppro_Id { get; set; }
+
+        [NotMapped]
         public int proc_Id { get; set; }
         [NotMapped]
         public string proc_Descripcion { get; set; }

@@ -3336,7 +3336,7 @@ namespace SIMEXPRO.DataAccess.Context
 
                 entity.Property(e => e.mate_FechaModificacion).HasColumnType("datetime");
 
-                entity.Property(e => e.mate_Precio).HasColumnType("decimal(18, 2)");
+              //  entity.Property(e => e.mate_Precio).HasColumnType("decimal(18, 2)");
 
                 entity.HasOne(d => d.subc)
                     .WithMany(p => p.tbMateriales)

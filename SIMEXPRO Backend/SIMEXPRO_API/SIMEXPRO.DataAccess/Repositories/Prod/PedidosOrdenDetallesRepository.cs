@@ -32,11 +32,11 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@mate_Id", item.mate_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@prod_Cantidad", item.prod_Cantidad, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@prod_Precio", item.prod_Precio, DbType.Decimal, ParameterDirection.Input);
-            parametros.Add("@prod_Peso", item.prod_Peso, DbType.Decimal, ParameterDirection.Input);
+          //  parametros.Add("@prod_Peso", item.prod_Peso, DbType.Decimal, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@prod_FechaCreacion", item.prod_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarOrdenCompra, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarPedidosOrdenDetalles, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
             return result;
         }
@@ -58,11 +58,11 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@mate_Id", item.mate_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@prod_Cantidad", item.prod_Cantidad, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@prod_Precio", item.prod_Precio, DbType.Decimal, ParameterDirection.Input);
-            parametros.Add("@prod_Peso", item.prod_Peso, DbType.Decimal, ParameterDirection.Input);
-            parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@prod_FechaCreacion", item.prod_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
+          //  parametros.Add("@prod_Peso", item.prod_Peso, DbType.Decimal, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@prod_FechaCreacion", item.prod_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
 
-            var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarOrdenCompra, parametros, commandType: CommandType.StoredProcedure);
+            var answer = db.QueryFirst<string>(ScriptsDataBase.EditarPedidosOrdenDetalles, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
             return result;
         }

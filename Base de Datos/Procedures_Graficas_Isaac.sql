@@ -4,7 +4,7 @@ SELECT * FROM Prod.tbClientes
 GO
 
 
-
+-- PROCEDIMIENTO PARA VER EL AVANCE DE LAS ORDENES DE COMPRA SEGUN EL ID 
 CREATE OR ALTER PROCEDURE Prod.UDP_AvanceOrdenCompraByID 
 	@orco_Id INT
 AS
@@ -32,6 +32,22 @@ WHERE orco_Id = @orco_Id
 END
 GO
 
+
+-- PROCEDIMIENTO PARA MOSTRAR EL TOTAL DE ORDENES DE COMPRA ANUALES
+CREATE OR ALTER PROCEDURE Prod.UDP_TotalOrdenesCompraAnual
+AS
+BEGIN
+    SELECT		
+        YEAR(orco_FechaCreacion) AS Anio,
+        COUNT(orco_Id) AS orco_Conteo
+    FROM Prod.tbOrdenCompra
+    GROUP BY YEAR(orco_FechaCreacion)
+    ORDER BY Anio;
+END
+GO
+
+
+-- PROCEDIMIENTO PARA MOSTRAR EL TOTAL; DE OPRDENES DE COMPRA MENSUALES
 CREATE OR ALTER PROCEDURE Prod.UDP_TotalOrdenesCompraMensual
 AS
 BEGIN
@@ -48,6 +64,8 @@ SET LANGUAGE Spanish;
 END
 GO
 
+
+-- PROCEDIMIENTO PARA MOSTRAR LAS ORDENES DE COMPRA DIARIAS
 CREATE OR ALTER PROCEDURE Prod.UDP_TotalOrdenesCompraDiario
 AS
 BEGIN
@@ -67,21 +85,6 @@ END
 GO
 
 
--- PROCEDIMEINTO PARA MOSTRAR EL TOTAL DE ORDENES DE COMPRA RECIBIDOS POR AÑO
-CREATE OR ALTER PROCEDURE Prod.UDP_TotalOrdenesCompraAnual
-AS
-BEGIN
-    SELECT
-        YEAR(orco_FechaCreacion) AS Anio,
-        COUNT(orco_Id) AS orco_Conteo
-    FROM Prod.tbOrdenCompra
-    GROUP BY YEAR(orco_FechaCreacion)
-    ORDER BY Anio;
-END
-GO
-
-
-
 -- PROCEDIMIENTO PARA MOSTRAR EL CONTEO DE ORDENES DE COMPRA AGRUPADOS POR ESTADO (Pendiente, En Curso, Terminado)
 CREATE OR ALTER PROCEDURE Prod.UDP_ContadorOrdenesCompra_PorEstado
 AS
@@ -98,10 +101,9 @@ BEGIN
 	GROUP BY orco_EstadoOrdenCompra
 END
 GO
--- TOTAL DE LAS ORDENES DE COMPRA ENTREGEDAS Y PENDIENTES SEMANALMENTE Y MENSUALMENTE (Basarse en PROCEDURE Prod.UDP_TotalOrdenesCompraDiario)
 
 
-
+-- PROCEDIMIENTO PARA MOSTRAR LAS ORDENES DE COMPRA POR ESTADO DE LA ULTIMA SEMANA
 CREATE OR ALTER PROCEDURE Prod.UDP_ContadorOrdenesCompra_PorEstado_UltimaSemana
 AS
 BEGIN
@@ -142,11 +144,9 @@ VALUES	('54363244535', '08-07-2023', 1, 15000, 1, '08-07-2023'),
 		('83739333921', '08-20-2023', 1, 23000, 1, '08-20-2023'),
 		('83739333921', '08-20-2023', 2, 34500, 1, '08-20-2023'),
 		('83739333921', '08-21-2023', 2, 56000, 1, '08-21-2023'),
-		('83739333921', '08-21-2023', 3, 100000, 1, '08-21-2023')
-GO
-
-INSERT INTO Prod.tbFacturasExportacion(duca_No_Duca, faex_Fecha, orco_Id, faex_Total, usua_UsuarioCreacion, faex_FechaCreacion)
-VALUES	('54363244535', '08-07-2022', 1, 15000, 1, '08-07-2022'),
+		('83739333921', '08-21-2023', 3, 100000, 1, '08-21-2023'),
+		
+		('54363244535', '08-07-2022', 1, 15000, 1, '08-07-2022'),
 		('54363244535', '08-09-2022', 2, 35000, 1, '08-09-2022'),
 		('54363244535', '08-10-2022', 3, 20000, 1, '08-10-2022'),
 		('54363244535', '08-11-2022', 1, 30000, 1, '08-11-2022'),
@@ -164,12 +164,9 @@ VALUES	('54363244535', '08-07-2022', 1, 15000, 1, '08-07-2022'),
 		('83739333921', '08-20-2022', 1, 23000, 1, '08-20-2022'),
 		('83739333921', '08-20-2022', 2, 34500, 1, '08-20-2022'),
 		('83739333921', '08-21-2022', 2, 56000, 1, '08-21-2022'),
-		('83739333921', '08-21-2022', 3, 100000, 1, '08-21-2022')
-GO
-
+		('83739333921', '08-21-2022', 3, 100000, 1, '08-21-2022'),
 		
-INSERT INTO Prod.tbFacturasExportacion(duca_No_Duca, faex_Fecha, orco_Id, faex_Total, usua_UsuarioCreacion, faex_FechaCreacion)
-VALUES	('54363244535', '08-22-2023', 1, 15000, 1, '08-22-2023'),
+		('54363244535', '08-22-2023', 1, 15000, 1, '08-22-2023'),
 		('54363244535', '08-23-2023', 2, 35000, 1, '08-23-2023'),
 		('54363244535', '08-24-2023', 3, 20000, 1, '08-24-2023'),
 		('54363244535', '08-25-2023', 1, 30000, 1, '08-25-2023'),
@@ -190,20 +187,6 @@ VALUES	('54363244535', '08-22-2023', 1, 15000, 1, '08-22-2023'),
 		('83739333921', '09-06-2023', 3, 100000, 1, '09-06-2023')
 GO
 
-SELECT  faex_Id, 
-		duca_No_Duca, 
-		faex_Fecha, 
-		orco_Id, 
-		faex_Total, 
-		usua_UsuarioCreacion, 
-		faex_FechaCreacion, 
-		usua_UsuarioModificacion, 
-		faex_FechaModificacion
-FROM	Prod.tbFacturasExportacion
-WHERE	faex_Fecha >= DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()), 0)
-		AND faex_Fecha <= DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()), 5)
-ORDER BY faex_Fecha ASC
-GO
 
 
 -- PROCEDIMIENTO QUE MUESTRA TODAS LAS VENTAS DE LA SEMANA (DIVIDIDO EN DIAS)
@@ -275,4 +258,108 @@ END
 GO
 
 
+-- TOTAL DE ORDENES DE COMPRA ENTREGADAS Y PENDIENTES DEL AÑO
+CREATE OR ALTER PROCEDURE Prod.UDP_PO_EntregadasPendientes_Anualmente
+AS
+BEGIN
+		SELECT	
+					COUNT(orco_Id) AS orco_Conteo, 
+					CASE orco_EstadoOrdenCompra
+						WHEN 'P' THEN 'Pendiente'
+						WHEN 'T' THEN 'Terminado'
+					END AS orco_Avance
+		FROM		Prod.tbOrdenCompra
+		WHERE		(DATEPART(YEAR, orco_FechaCreacion) = DATEPART(YEAR, GETDATE()))
+					AND orco_EstadoOrdenCompra IN ('P', 'T')
+		GROUP BY	orco_EstadoOrdenCompra
+END
+GO
+
+
+-- TOTAL DE ORDENES DE COMPRA ENTREGADAS Y PENDIENTES DEL MES
+CREATE OR ALTER PROCEDURE Prod.UDP_PO_EntregadasPendientes_Mensualmente
+AS
+BEGIN
+		SELECT	
+					COUNT(orco_Id) AS orco_Conteo, 
+					CASE orco_EstadoOrdenCompra
+						WHEN 'P' THEN 'Pendiente'
+						WHEN 'T' THEN 'Terminado'
+					END AS orco_Avance
+		FROM		Prod.tbOrdenCompra
+		WHERE		(DATEPART(YEAR, orco_FechaCreacion) = DATEPART(YEAR, GETDATE()))
+					AND (DATEPART(MONTH, orco_FechaCreacion) = DATEPART(MONTH, GETDATE()))
+					AND orco_EstadoOrdenCompra IN ('P', 'T')
+		GROUP BY	orco_EstadoOrdenCompra
+END
+GO
+
+
+-- TOTAL DE ORDENES DE COMPRA ENTREGADAS Y PENDIENTES DE LA SEMANA
+CREATE OR ALTER PROCEDURE Prod.UDP_PO_EntregadasPendientes_Semanalmente
+AS
+BEGIN
+		SELECT	
+					COUNT(orco_Id) AS orco_Conteo,
+					CASE orco_EstadoOrdenCompra
+						WHEN 'P' THEN 'Pendiente'
+						WHEN 'T' THEN 'Terminado'
+					END AS orco_Avance
+		FROM		Prod.tbOrdenCompra
+		WHERE		(DATEPART(WEEK, orco_FechaCreacion)) = DATEPART(WEEK, GETDATE())
+					AND (DATEPART(YEAR, orco_FechaCreacion) = DATEPART(YEAR, GETDATE()))
+					AND (DATEPART(MONTH, orco_FechaCreacion) = DATEPART(MONTH, GETDATE()))
+					AND orco_EstadoOrdenCompra IN ('P', 'T')
+		GROUP BY	orco_EstadoOrdenCompra
+END
+GO
+
+
+-- EJEMPLO: LA CANTIDAD DE CHAQUETAS QUE SE PIDIERON EN LAS ORDENES DE COMPRA AGRUPADAS POR SEXO (F, M, U)
+CREATE OR ALTER PROCEDURE Prod.UDP_CantidadPrendas_SegunIDEstilo
+	@esti_Id INT
+AS
+BEGIN
+	SELECT	 
+			SUM(code_CantidadPrenda) AS PrendasSumatoria, 
+			code_Sexo,
+			esti_Descripcion
+	FROM Prod.tbOrdenCompraDetalles AS POdetail
+	INNER JOIN Prod.tbEstilos AS Style ON POdetail.esti_Id = Style.esti_Id
+	WHERE POdetail.esti_Id = @esti_Id
+	GROUP BY code_Sexo, esti_Descripcion
+END
+GO
+
+
+-- CLIENTES MÁS PRODUCTIVOS
+CREATE OR ALTER PROCEDURE Prod.UDP_ClientesMasProductivos
+AS
+	BEGIN
+		SELECT 
+				TOP(5)
+				Clie.clie_Nombre_O_Razon_Social,
+				SUM(Fact.faex_Total) AS CantidadIngresos
+		FROM Prod.tbFacturasExportacion AS Fact
+		INNER JOIN Prod.tbOrdenCompra AS PO ON Fact.orco_Id = PO.orco_Id
+		INNER JOIN Prod.tbClientes AS Clie ON PO.orco_IdCliente = Clie.clie_Id
+		GROUP BY Clie.clie_Nombre_O_Razon_Social
+	END
+GO
+
+
+
+-- CANTIDAD Y PORCENTAJE DE LAS PRENDAS QUE HAN HECHO POR MODULO
+CREATE OR ALTER PROCEDURE Prod.UDP_ProduccionModulo_CantidadPorcentaje
+AS
+	BEGIN
+		SELECT 
+				Modulo.modu_Nombre,
+				SUM(ReporteModulo.remo_TotalDia) AS TotalProduccionDia,
+				CONCAT(CONVERT( DECIMAL(18,2), (CONVERT(DECIMAL(18,2), SUM(ReporteModulo.remo_TotalDia) * 100)) / CONVERT(DECIMAL(18,2),(SELECT SUM(remo_TotalDia)FROM Prod.tbReporteModuloDia))), '%') AS PorcentajeProduccion
+		FROM Prod.tbReporteModuloDia AS ReporteModulo
+		INNER JOIN Prod.tbModulos AS Modulo ON ReporteModulo.modu_Id = Modulo.modu_Id
+		GROUP BY Modulo.modu_Nombre
+	END
+GO
 

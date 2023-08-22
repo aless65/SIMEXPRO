@@ -555,6 +555,7 @@ VALUES('01 - KILOGRAMO NETO',	1, GETDATE(),1,1),
 /*-----------------------------------*/
 --***** INSERT TABLA PAISES --******--
 GO
+
 INSERT INTO [Gral].[tbPaises] ([pais_Codigo], [pais_Nombre], [pais_EsAduana], [usua_UsuarioCreacion], [pais_FechaCreacion])
 VALUES	('AD', 'ANDORRA',					1, 1, GETDATE()),
 		('AE', 'EMIRATOS ARABES UNIDOS',	1, 1, GETDATE()),
@@ -802,7 +803,18 @@ VALUES	('AD', 'ANDORRA',					1, 1, GETDATE()),
 		('YT', 'MAYOTTE',					1, 1, GETDATE()),
 		('ZA', 'SURAFRICA',					1, 1, GETDATE()),
 		('ZM', 'ZAMBIA',					1, 1, GETDATE()),
-		('ZW', 'ZIMBABWE',					1, 1, GETDATE());
+		('ZW', 'ZIMBABWE',					1, 1, GETDATE()),
+		('HN', 'HONDURAS',					0, 1, GETDATE()),
+		('US', 'ESTADOS UNIDOS',			0, 1, GETDATE()),
+		('SV', 'EL SALVADOR',				0, 1, GETDATE()),
+		('SE', 'SUECIA',					0, 1, GETDATE()),
+		('PR', 'PUERTO RICO',				0, 1, GETDATE()),
+		('PE', 'PERU',						0, 1, GETDATE()),
+		('PA', 'PANAMA',					0, 1, GETDATE()),
+		('MX', 'MEXICO',					0, 1, GETDATE()),
+		('GT', 'GUATEMALA',					0, 1, GETDATE()),
+		('CR', 'COSTA RICA',				0, 1, GETDATE()),
+		('AR', 'ARGENTINA',					0, 1, GETDATE());
 
 
 /*--------------------------------------*/
@@ -814,7 +826,7 @@ VALUES	-- Provinces for Argentina (AR)
 		('Córdoba',			'CO', 11, 1, 1, GETDATE()),
 		('Santa Fe',		'SF', 11, 1, 1, GETDATE()),
 		('Mendoza',			'MZ', 11, 1, 1, GETDATE()),
-		('Tucumán',			'TU', 11, 1, 1, GETDATE()),
+		('Tucumán',			'TU', 258,0, 1, GETDATE()),
 		
 		-- Provinces for Brazil (BR)
 		('Sao Paulo',			'SP', 32, 0, 1, GETDATE()),
@@ -917,8 +929,8 @@ VALUES	-- Provinces for Argentina (AR)
 		('Olancho',				'15', 97, 0, 1, GETDATE()),
 		('Santa Barbara',		'16', 97, 0, 1, GETDATE()),
 		('Valle',				'17', 97, 0, 1, GETDATE()),
-		('Yoro',				'18', 97, 0, 1, GETDATE());
-
+		('Yoro',				'18', 97, 0, 1, GETDATE()),
+		('Cortés',				'05',248, 0, 1, GETDATE());
 
 /*-------------------------------------*/
 --***** INSERT TABLA CIUDADES --******--
@@ -1229,8 +1241,8 @@ VALUES
 	('Santa Rita', 82, 1, 1, GETDATE()),
 	('Sulaco', 82, 1, 1, GETDATE()),
 	('Victoria', 82, 1, 1, GETDATE()),
-	('Yorito', 82, 1, 1, GETDATE());
-
+	('Yorito', 82, 1, 1, GETDATE()),
+	('San pedro sula', 83, 0, 1, GETDATE());
 
 /*-----------------------------------*/
 --***** INSERT TABLA ALDEAS --******--

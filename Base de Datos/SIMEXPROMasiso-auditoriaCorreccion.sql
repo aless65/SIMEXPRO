@@ -37,6 +37,7 @@ CREATE TABLE Acce.tbUsuarios(
 		usua_Image					NVARCHAR(500) 	NULL,
 		role_Id						INT				NOT NULL,
 		usua_EsAdmin				BIT 			NOT NULL,
+		pant_subCategoria			NVARCHAR(150),
 
 		usua_UsuarioCreacion 		INT				NOT NULL,
 		usua_FechaCreacion 			DATETIME 		NOT NULL,
@@ -44,9 +45,13 @@ CREATE TABLE Acce.tbUsuarios(
 		usua_FechaModificacion		DATETIME 		DEFAULT NULL,
 		usua_UsuarioEliminacion 	INT				DEFAULT NULL,
 		usua_FechaEliminacion		DATETIME 		DEFAULT NULL,
+		usua_UsuarioActivacion		INT				NULL,
+		usua_FechaActivacion		DATETIME		NULL,
 		usua_Estado					BIT				DEFAULT 1,
-	CONSTRAINT PK_Acce_tbUsuarios_usua_Id 	  PRIMARY KEY (usua_Id),
-	CONSTRAINT UQ_acce_tbUsuarios_usua_Nombre UNIQUE(usua_Nombre)
+	CONSTRAINT PK_Acce_tbUsuarios_usua_Id 				 PRIMARY KEY (usua_Id),
+	CONSTRAINT UQ_acce_tbUsuarios_usua_Nombre			 UNIQUE(usua_Nombre),
+	CONSTRAINT FK_Acce_tbUsuarios_usua_UsuarioActivacion FOREIGN KEY(usua_UsuarioActivacion) REFERENCES Acce.tbUsuarios(usua_Id),
+
 );
 GO
 
@@ -67,8 +72,8 @@ CREATE TABLE Acce.tbUsuariosHistorial(
 );
 GO
 
-INSERT INTO Acce.tbUsuarios
-VALUES ('prueba', '123', 1, '.jpg', 1, 1, 1,1, NULL, NULL,NULL,NULL,1)
+INSERT INTO Acce.tbUsuarios(usua_Nombre, usua_Contrasenia, empl_Id, usua_Image, role_Id, usua_EsAdmin, pant_subCategoria, usua_UsuarioCreacion, usua_FechaCreacion)
+VALUES						('prueba',		'123',				1, '.jpg',		1,			1,			1,					1,					GETDATE())
 GO
 
 CREATE TABLE Acce.tbRoles
@@ -1410,7 +1415,7 @@ CREATE TABLE Prod.tbMateriales(
 	mate_Id   					INT IDENTITY(1,1),
 	mate_Descripcion			NVARCHAR(200),
 	subc_Id  					INT,
-	mate_Precio					DECIMAL (18,2),
+	--mate_Precio					DECIMAL (18,2),
 	mate_Imagen					NVARCHAR(MAX) NOT NULL,
 	usua_UsuarioCreacion		INT					NOT NULL,
 	mate_FechaCreacion			DATETIME			NOT NULL ,
@@ -1907,8 +1912,8 @@ CREATE TABLE Prod.tbOrdenCompraDetalles(
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_colr_Id_Prod_tbColores_colr_Id				 FOREIGN KEY (colr_Id) REFERENCES Prod.tbColores(colr_Id),
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_tall_Id_Prod_tbTalla_tall_Id				 FOREIGN KEY(tall_Id) REFERENCES Prod.tbTallas(tall_Id),
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_proc_IdComienza_Prod_tbProcesos_proc_Id     FOREIGN KEY(proc_IdComienza) REFERENCES Prod.tbProcesos(proc_Id),
-	CONSTRAINT CK_Prod_tbOrdenCompraDetalles_code_Sexo									 CHECK (code_Sexo IN ('F','M')),
-
+	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_proc_IdActual_Prod_tbProcesos_proc_Id       FOREIGN KEY(proc_IdActual) REFERENCES Prod.tbProcesos(proc_Id),
+	CONSTRAINT CK_Prod_tbOrdenCompraDetalles_code_Sexo									 CHECK (code_Sexo IN ('F','M','U')),
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_code_UsuarioCreacion_Acce_tbUsuarios_usua_Id					FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_code_UsuarioModificacion_Acce_tbUsuarios_usua_Id				FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	--CONSTRAINT FK_Prod_tbOrdenCompraDetalles__Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
@@ -1977,7 +1982,7 @@ CREATE TABLE Prod.tbModulos(
 	CONSTRAINT PK_Prod_tbModulos_modu_Id 									 PRIMARY KEY (modu_Id),
 	CONSTRAINT FK_Prod_tbModulos_proc_Id_Prod_tbProcesos_proc_Id 			 FOREIGN KEY (proc_Id) REFERENCES Prod.tbProcesos(proc_Id),
 	CONSTRAINT FK_Prod_tbModulos_empr_Id_Gral_tbEmpleados_empe_IdSupervisor  FOREIGN KEY (empr_Id) REFERENCES Gral.tbEmpleados(empl_Id),
-	
+	CONSTRAINT UQ_Prod_tbModulos_modu_Nombre								 UNIQUE (modu_Nombre),
 	CONSTRAINT FK_Prod_tbModulos_modu_UsuarioCreacion_Acce_tbUsuarios_usua_Id				FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbModulos_modu_UsuarioModificacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbModulos_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
@@ -2133,13 +2138,14 @@ CREATE TABLE Prod.tbAsignacionesOrden(
 );
 GO
 
+
 CREATE TABLE Prod.tbReporteModuloDia(
 	remo_Id						INT IDENTITY(1,1),
 	modu_Id						INT NOT NULL, 
 	remo_Fecha					DATE NOT NULL,
 	remo_TotalDia				INT NOT NULL, 
 	remo_TotalDanado			INT NOT NULL,
-	
+	remo_Finalizado				BIT DEFAULT 0 NULL,
 	usua_UsuarioCreacion		INT NOT NULL,
 	remo_FechaCreacion			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT DEFAULT NULL,
@@ -2280,14 +2286,7 @@ GO
 	    
 --)
 
-
-
-
-
-
-
-
-
+GO
 
 CREATE TABLE Prod.tbPedidosProduccion(
 	ppro_Id              			INT IDENTITY(1,1),
@@ -2295,7 +2294,7 @@ CREATE TABLE Prod.tbPedidosProduccion(
 	ppro_Fecha           			DATETIME NOT NULL,
 	ppro_Estados          			NVARCHAR(150) NOT NULL,
 	ppro_Observaciones   			NVARCHAR(MAX) NOT NULL,
-
+	ppro_Finalizado					BIT DEFAULT 0 NOT NULL,
 	usua_UsuarioCreacion			INT NOT NULL,
 	ppro_FechaCreacion				DATETIME NOT NULL,
 	usua_UsuarioModificacion		INT DEFAULT NULL,
@@ -2321,7 +2320,6 @@ CREATE TABLE Prod.tbOrde_Ensa_Acab_Etiq(
 	ensa_FechaInicio			DATE NOT NULL,
 	ensa_FechaLimite			DATE NOT NULL, 
 	ppro_Id						INT NOT NULL,
-	proc_Id						INT NOT NULL,
 	modu_Id						INT,
  
 	usua_UsuarioCreacion		INT NOT NULL,
@@ -2337,7 +2335,6 @@ CREATE TABLE Prod.tbOrde_Ensa_Acab_Etiq(
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_ppro_Id_Prod_tbPedidoProduccion_ppro_Id			FOREIGN KEY (ppro_Id)					REFERENCES Prod.tbPedidosProduccion			(ppro_Id),
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_usua_UsuarioCreacion_Acce_tbUsuario_usua_Id		FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios					(usua_Id),
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_usua_UsuarioModificacion_Acce_tbUsuario_usua_Id	FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios					(usua_Id),
-	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_Prod_tbProcesos_proc_Id							FOREIGN KEY (proc_Id)					REFERENCES Prod.tbProcesos					(proc_Id),
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_Prod_tbModulos_modu_Id							FOREIGN KEY (modu_Id) REFERENCES Prod.tbModulos (modu_Id)
 );
 GO
@@ -2525,7 +2522,7 @@ CREATE TABLE Prod.tbPedidosOrdenDetalle(--No se podrá eliminar de ninguna maner
 	mate_Id							INT NOT NULL,
 	prod_Cantidad					INT NOT NULL,
 	prod_Precio						DECIMAL(18,2) NOT NULL,
-	prod_Peso						DECIMAL(18,2) NOT NULL,
+--	prod_Peso						DECIMAL(18,2) NOT NULL,
 
 	usua_UsuarioCreacion			INT NOT NULL,
 	prod_FechaCreacion				DATETIME NOT NULL,

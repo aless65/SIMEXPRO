@@ -745,12 +745,12 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
         #endregion
 
         #region DocumentosOrdenCompraDetalles
-        public ServiceResult ListarDocumentosOrdenCompraDetalles()
+        public ServiceResult ListarDocumentosOrdenCompraDetalles(int Orco_Id)
         {
             var result = new ServiceResult();
             try
             {
-                var list = _documentosOrdenCompraDetallesRepository.List();
+                var list = _documentosOrdenCompraDetallesRepository.ListarByOrcoId(Orco_Id);
                 return result.Ok(list);
             }
             catch (Exception ex)
@@ -1764,7 +1764,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                if (item.orco_Id != 0)
+                if (item.code_Id != 0)
                 {
                     var map = _ordenCompraDetallesRepository.Delete(item);
                     if (map.MessageStatus == "1")
@@ -1887,7 +1887,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 if (item.orco_Id != 0)
                 {
                     var map = _ordenCompraRepository.Delete(item);
-                    if (map.MessageStatus == "1")
+                    if (map.MessageStatus == "1" || map.MessageStatus == "2")
                     {
                         return result.Ok(map);
                     }
@@ -2050,10 +2050,10 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                if (item.peor_DadoCliente.ToString() != "")
+                if (item.peor_No_Duca.ToString() != "")
                 {
                     var map = _pedidosOrdenRepository.Insert(item);
-                    if (map.MessageStatus == "1")
+                    if (map.MessageStatus != "0")
                     {
                         return result.Ok(map);
                     }
@@ -2079,7 +2079,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                if (item.peor_DadoCliente.ToString() != "")
+                if (item.peor_Id.ToString() != "")
                 {
                     var map = _pedidosOrdenRepository.Update(item);
                     if (map.MessageStatus == "1")
@@ -2213,6 +2213,20 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 return result.Error(ex.Message);
             }
         }
+
+        public ServiceResult FiltrarPedidosProduccioDetalles(int ppro_Id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _pedidosProduccionDetallesRepository.Filter(ppro_Id);
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
         #endregion
 
         #region Pedidos Produccion
@@ -2281,21 +2295,13 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             var result = new ServiceResult();
             try
             {
-                var map = _pedidosProduccionRepository.Delete(item);
-                if (map.MessageStatus == "1")
-                {
-                    return result.Ok(map);
-                }
-                else
-                {
-
-                    return result.Error(map);
-                }
+                var map = _pedidosProduccionRepository.Delete(item);       
+                return result.Ok(map);
             }
             catch (Exception ex)
             {
                 return result.Error(ex.Message);
-            }
+            }         
         }
         #endregion
 
@@ -3109,6 +3115,146 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
             try
             {
                 var list = _graficasRepository.ContadorOrdenesCompraPorEstado();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ContadorOrdenesCompraPorEstado_UltimaSemana()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.ContadorOrdenesCompraPorEstado_UltimaSemana();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult VentasSemanales()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.VentasSemanales();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }        
+        
+        public ServiceResult VentasMensuales()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.VentasMensuales();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }        
+        
+        public ServiceResult VentasAnuales()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.VentasAnuales();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }        
+        
+        public ServiceResult OrdenenesEntregadasPendientes_Anual()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.OrdenenesEntregadasPendientes_Anual();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }        
+        
+        public ServiceResult OrdenenesEntregadasPendientes_Mensual()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.OrdenenesEntregadasPendientes_Mensual();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }        
+        
+        public ServiceResult OrdenenesEntregadasPendientes_Semanal()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.OrdenenesEntregadasPendientes_Semanal();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult PrendasPedidas(tbGraficas item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.PrendasPedidas(item);
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ClientesProductivos()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.ClientesProductivos();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ProductividadModulos()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.ProductividadModulos();
                 return result.Ok(list);
             }
             catch (Exception ex)

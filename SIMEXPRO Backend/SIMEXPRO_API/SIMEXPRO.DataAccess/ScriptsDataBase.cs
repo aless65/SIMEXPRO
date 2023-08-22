@@ -455,7 +455,7 @@ namespace SIMEXPRO.DataAccess
         #region Revision de Calidad
         public static string ListarRevisionDeCalidad = "Prod.UDP_tbRevisionDeCalidad_Listar";
         public static string InsertaRevisionDeCalidad = "Prod.UDP_tbRevisionDeCalidad_Insertar";
-        public static string EditarRevisionDeCalidad = "Adua.UDP_tbRevisionDeCalidad_Editar";
+        public static string EditarRevisionDeCalidad = "Prod.UDP_tbRevisionDeCalidad_Editar";
         #endregion
 
         #region Sub Categoria
@@ -579,6 +579,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarMaterialesBrindarFiltrado = "Prod.UDP_tbMaterialesBrindarPorOrdenCompraDetalle_Listar";
         public static string InsertarMaterialesBrindar = "prod.UDP_tbMaterialesBrindar_Insertar";
         public static string EditarMaterialesBrindar = "prod.UDP_tbMaterialesBrindar_Editar";
+        public static string EliminarMaterialesBrindar = "Prod.UDP_tbMaterialesBrindar_Eliminar";
         #endregion
 
         #region Modelos Maquina
@@ -613,6 +614,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarOrdenCompra = "Prod.UDP_tbOrdenCompra_Listado";
         public static string InsertarOrdenCompra = "Prod.UDP_tbOrdenCompra_Insertar";
         public static string EditarOrdenCompra = "Prod.UDP_tbOrdenCompra_Editar";
+        public static string EliminarOrdenCompra = "Prod.UDP_tbOrdenCompra_Eliminar";
         #endregion
 
         #region Orden de Compra Detalles
@@ -620,6 +622,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarOrdenCompraDetalles = "Prod.UDP_tbOrdenCompraDetalle_Listado";
         public static string InsertarOrdenCompraDetalles = "Prod.UDP_tbOrdenCompraDetalles_Insertar";
         public static string EditarOrdenCompraDetalles = "Prod.UDP_tbOrdenCompraDetalles_Editar";
+        public static string EliminarOrdenCompraDetalles = "Prod.UDP_tbOrdenCompraDetalles_Eliminar";
         #endregion
 
         #region Orden de Pedido
@@ -638,6 +641,7 @@ namespace SIMEXPRO.DataAccess
         public static string ListarPedidosProduccion = "Prod.UDP_tbPedidosProduccion_Listar";
         public static string InsertarPedidosProduccion = "Prod.UDP_tbPedidosProduccion_Insertar";
         public static string EditarPedidosProduccion = "Prod.UDP_tbPedidosProduccion_Editar";
+        public static string EliminarPedidosProduccion = "Prod.UDP_tbPedidosProduccion_Eliminar";
         #endregion
 
         #region Pedidos Produccion Detalles
@@ -645,6 +649,7 @@ namespace SIMEXPRO.DataAccess
         public static string InsertarPedidosProduccionDetalles = "Prod.UDP_tbPedidosProduccionDetalle_Insertar";
         public static string EditarPedidosProduccionDetalles = "Prod.UDP_tbPedidosProduccionDetalle_Editar";
         public static string EliminarPedidosProduccionDetalles = "Prod.UDP_tbPedidosProduccionDetalle_Eliminar";
+        public static string FiltrarPedidosProduccionDetalles = "Prod.UDP_tbPedidosProduccionDetalle_Filtrar_Estado";
         #endregion
 
         #region PO Detalle Por Pedido Orden Detalle
@@ -655,12 +660,24 @@ namespace SIMEXPRO.DataAccess
 
 
         #endregion
+
         #region Graficas
         public static string GR_AvanceOrdenCompraPorID = "Prod.UDP_AvanceOrdenCompraByID";
         public static string GR_TotalOrdenesCompraAnual = "Prod.UDP_TotalOrdenesCompraAnual";
         public static string GR_TotalOrdenesCompraMensual = "Prod.UDP_TotalOrdenesCompraMensual";
         public static string GR_TotalOrdenesCompraDiario = "Prod.UDP_TotalOrdenesCompraDiario";
         public static string GR_ContadorOrdenesCompraPorEstado = "Prod.UDP_ContadorOrdenesCompra_PorEstado";
+        public static string GR_ContadorOrdenesCompraPorEstado_UltimaSemana = "Prod.UDP_ContadorOrdenesCompra_PorEstado_UltimaSemana";
+        public static string GR_VentasSemanales = "Prod.UDP_VentasSemanales";
+        public static string GR_VentasMensuales = "Prod.UDP_VentasMensuales";
+        public static string GR_VentasAnuales = "Prod.UDP_VentasAnuales";
+        public static string GR_OrdenenesEntregadasPendientes_Anual = "Prod.UDP_PO_EntregadasPendientes_Anualmente";
+        public static string GR_OrdenenesEntregadasPendientes_Mensual = "Prod.UDP_PO_EntregadasPendientes_Mensualmente";
+        public static string GR_OrdenenesEntregadasPendientes_Semanal = "Prod.UDP_PO_EntregadasPendientes_Semanalmente";
+
+        public static string GR_PrendasPedidas = "Prod.UDP_CantidadPrendas_SegunIDEstilo";
+        public static string GR_ClientesProductivos = "Prod.UDP_ClientesMasProductivos";
+        public static string GR_ProductividadModulos = "Prod.UDP_ProduccionModulo_CantidadPorcentaje";
 
         #endregion
     }

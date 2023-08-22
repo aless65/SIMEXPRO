@@ -9918,7 +9918,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompra_Editar
+CREATE OR ALTER   PROCEDURE [Prod].[UDP_tbOrdenCompra_Editar]
 (
 	@orco_Id					INT,
 	@orco_IdCliente				INT,
@@ -9929,23 +9929,23 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompra_Editar
 	@orco_IdEmbalaje 			INT,
 	@orco_EstadoOrdenCompra		CHAR(1),
 	@orco_DireccionEntrega		NVARCHAR(250),
-	@usua_UsuarioCreacion       INT,
-	@orco_FechaCreacion         DATETIME
+	@usua_UsuarioModificacion   INT,
+	@orco_FechaModificacion     DATETIME
 )
 AS
 BEGIN
 	BEGIN TRY
 		 UPDATE Prod.tbOrdenCompra
-			SET	orco_IdCliente			= @orco_IdCliente,				
-				orco_FechaEmision		= @orco_FechaEmision,			
-				orco_FechaLimite		= @orco_FechaLimite,			
-				orco_MetodoPago			= @orco_MetodoPago, 			
-				orco_Materiales			= @orco_Materiales,			
-				orco_IdEmbalaje			= @orco_IdEmbalaje, 			
-				orco_EstadoOrdenCompra	= @orco_EstadoOrdenCompra,		
-				orco_DireccionEntrega	= @orco_DireccionEntrega,		
-				usua_UsuarioCreacion	= @usua_UsuarioCreacion,       
-				orco_FechaCreacion		= @orco_FechaCreacion
+			SET	orco_IdCliente				= @orco_IdCliente,				
+				orco_FechaEmision			= @orco_FechaEmision,			
+				orco_FechaLimite			= @orco_FechaLimite,			
+				orco_MetodoPago				= @orco_MetodoPago, 			
+				orco_Materiales				= @orco_Materiales,			
+				orco_IdEmbalaje				= @orco_IdEmbalaje, 			
+				orco_EstadoOrdenCompra		= @orco_EstadoOrdenCompra,		
+				orco_DireccionEntrega		= @orco_DireccionEntrega,		
+				usua_UsuarioModificacion	= @orco_DireccionEntrega,       
+				orco_FechaModificacion		= @orco_FechaModificacion
 		  WHERE orco_Id = @orco_Id
 
 		  SELECT 1 AS Resultado
@@ -9954,7 +9954,9 @@ BEGIN
 		SELECT 'Error Message: ' + ERROR_MESSAGE() AS Resultado
 	END CATCH
 END
+
 GO
+
 
 /*Eliminar orden de compra solo si no tiene detalles*/
 CREATE OR ALTER PROCEDURE [Prod].[UDP_tbOrdenCompra_Eliminar]
@@ -10059,6 +10061,7 @@ BEGIN
 			,ordenCompraDetalle.esti_Id
 			,estilo.esti_Descripcion
 			,ordenCompraDetalle.tall_Id
+			,talla.tall_Nombre
 			,ordenCompraDetalle.code_Sexo
 			,ordenCompraDetalle.colr_Id
 			--,colores.colr_Codigo
@@ -10202,8 +10205,8 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbOrdenCompraDetalles_Editar
 	@code_Impuesto					DECIMAL(18,2),
 	--@code_Descuento					DECIMAL(18,2),
 	@code_EspecificacionEmbalaje	NVARCHAR(200),
-	@usua_UsuarioCreacion       	INT,
-	@code_FechaCreacion         	DATETIME
+	@usua_UsuarioModificacion     	INT,
+	@code_FechaModificacion      	DATETIME
 )
 AS
 BEGIN
@@ -10224,8 +10227,8 @@ BEGIN
 				code_Impuesto				= @code_Impuesto,					
 				--code_Descuento				= @code_Descuento,					
 				code_EspecificacionEmbalaje	= @code_EspecificacionEmbalaje,	
-				usua_UsuarioCreacion       	= @usua_UsuarioCreacion,       	
-				code_FechaCreacion         	= @code_FechaCreacion    
+				usua_UsuarioModificacion    = @usua_UsuarioModificacion,       	
+				code_FechaModificacion      = @code_FechaModificacion    
 		  WHERE code_Id = @code_Id
 
 		  SELECT 1 
@@ -11386,17 +11389,17 @@ SELECT	ensa_Id,
 		ensa_Cantidad, 
 		emp.empl_Id, 
 		CONCAT(emp.empl_Nombres ,' ',emp.empl_Apellidos) AS empl_NombreCompleto,
-		ocd.code_Id, 
+		ocd.code_Id,
 		ocd.code_Sexo,
 		est.esti_Id,
 		est.esti_Descripcion,
 		ensa_FechaInicio, 
 		ensa_FechaLimite, 
 		pp.ppro_Id, 
-		pro.proc_Id,
-		pro.proc_Descripcion,
 		modu.modu_Id,
 		modu.modu_Nombre,
+		modu.proc_Id,
+		pro.proc_Descripcion,
 		crea.usua_Nombre							AS UsurioCreacionNombre, 
 		ensa_FechaCreacion,							
 		modi.usua_Nombre							AS UsuarioModificacionNombre, 
@@ -11407,12 +11410,12 @@ FROM	Prod.tbOrde_Ensa_Acab_Etiq ensa
 		INNER JOIN Prod.tbOrdenCompraDetalles ocd	ON ocd.code_Id  = ensa.code_Id
 		INNER JOIN Prod.tbEstilos est				ON est.esti_Id	= ocd.esti_Id
 		INNER JOIN Prod.tbPedidosProduccion pp		ON pp.ppro_Id   = ensa.ppro_Id
-		INNER JOIN Prod.tbProcesos			pro		ON pro.proc_Id = ensa.proc_Id
 		INNER JOIN Prod.tbModulos			modu	ON ensa.modu_Id = modu.modu_Id
+		INNER JOIN Prod.tbProcesos			pro		ON pro.proc_Id = modu.proc_Id
 		INNER JOIN Acce.tbUsuarios crea				ON crea.usua_Id = ensa.usua_UsuarioCreacion 
 		LEFT JOIN  Acce.tbUsuarios modi				ON modi.usua_Id = ensa.usua_UsuarioModificacion 
-
 END
+
 GO
 /*Insertar ORDEN ENSABLAJE ACBADO ETIQUEDATO*/
 CREATE OR ALTER PROCEDURE Prod.UDP_tbOrde_Ensa_Acab_Etiq_Insertar
@@ -11721,7 +11724,6 @@ BEGIN
 		UPDATE  Prod.tbMateriales
 		SET		mate_Descripcion         = @mate_Descripcion,
 		        subc_Id                  = @subc_Id,
-				mate_Precio              = @mate_Precio,
 				mate_Imagen				 = @mate_Imagen,
 				usua_UsuarioModificacion = @usua_UsuarioModificacion,
 				mate_FechaModificacion   = @mate_FechaModificacion
@@ -12581,8 +12583,7 @@ SELECT	peor_Id,
 				   pod.mate_Id,
 				   mate_Descripcion,
 				   prod_Cantidad,
-				   prod_Precio,
-				   prod_Peso
+				   prod_Precio
    FROM Prod.tbPedidosOrdenDetalle pod
    INNER JOIN Prod.tbMateriales mates
    ON pod.mate_Id = mates.mate_Id
@@ -13163,7 +13164,6 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrdenDetalle_Insertar
 	 @mate_Id                    INT,
 	 @prod_Cantidad              INT,
 	 @prod_Precio                DECIMAL(18,2),
-	 @prod_Peso                  DECIMAL(18,2),
 	 @usua_UsuarioCreacion       INT,
 	 @prod_FechaCreacion         DATETIME
 )
@@ -13176,7 +13176,6 @@ BEGIN
                       mate_Id,
                       prod_Cantidad,
                       prod_Precio,
-                      prod_Peso,
                       usua_UsuarioCreacion,
                       prod_FechaCreacion
 					)
@@ -13185,7 +13184,6 @@ BEGIN
 					   @mate_Id,
 					   @prod_Cantidad,
 					   @prod_Precio,
-					   @prod_Peso,
 					   @usua_UsuarioCreacion,
 					   @prod_FechaCreacion
 			        )
@@ -13206,7 +13204,6 @@ CREATE OR ALTER PROCEDURE Prod.UDP_tbPedidosOrdenDetalle_Editar
 	 @mate_Id                    INT,
 	 @prod_Cantidad              INT,
 	 @prod_Precio                DECIMAL(18,2),
-	 @prod_Peso                  DECIMAL(18,2),
 	 @usua_UsuarioModificacion   INT,
 	 @prod_FechaModificacion     DATETIME
 )
@@ -13218,7 +13215,6 @@ BEGIN
 		       mate_Id = @mate_Id,
                prod_Cantidad = @prod_Cantidad,
                prod_Precio = @prod_Precio,
-               prod_Peso = @prod_Peso,
                usua_UsuarioModificacion = @usua_UsuarioModificacion,
                prod_FechaModificacion = @prod_FechaModificacion
 		 WHERE prod_Id = @prod_Id
@@ -13552,7 +13548,6 @@ GO
 
 
 --***************************************PEDIDOS PRODUCCION*****************************************--
-
 CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccion_Listar
 AS BEGIN
 	SELECT ppro_Id,
@@ -13588,6 +13583,33 @@ INNER JOIN Acce.tbUsuarios Creacion
 		ON pediproduccion.usua_UsuarioCreacion = Creacion.usua_Id
  LEFT JOIN Acce.tbUsuarios Modificacion
 		ON pediproduccion.usua_UsuarioModificacion = Modificacion.usua_Id
+
+		WHERE [ppro_Estado] = 1
+END
+GO
+
+
+CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccion_Eliminar
+	@ppro_Id		INT
+AS
+BEGIN
+	BEGIN TRY
+		IF EXISTS(SELECT [ppde_Id] FROM [Prod].[tbPedidosProduccionDetalles] WHERE [ppro_Id] = @ppro_Id )
+			BEGIN
+				SELECT 2
+			END
+		ELSE
+			BEGIN	
+				UPDATE [Prod].[tbPedidosProduccion]
+				SET	   [ppro_Estado] = 0
+				WHERE  [ppro_Id] = @ppro_Id
+
+				SELECT 1
+			END
+	END TRY	
+	BEGIN CATCH
+		SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
 END
 GO
 

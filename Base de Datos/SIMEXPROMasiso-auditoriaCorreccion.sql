@@ -2326,7 +2326,6 @@ CREATE TABLE Prod.tbOrde_Ensa_Acab_Etiq(
 	ensa_FechaInicio			DATE NOT NULL,
 	ensa_FechaLimite			DATE NOT NULL, 
 	ppro_Id						INT NOT NULL,
-	proc_Id						INT NOT NULL,
 	modu_Id						INT,
  
 	usua_UsuarioCreacion		INT NOT NULL,
@@ -2342,7 +2341,6 @@ CREATE TABLE Prod.tbOrde_Ensa_Acab_Etiq(
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_ppro_Id_Prod_tbPedidoProduccion_ppro_Id			FOREIGN KEY (ppro_Id)					REFERENCES Prod.tbPedidosProduccion			(ppro_Id),
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_usua_UsuarioCreacion_Acce_tbUsuario_usua_Id		FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios					(usua_Id),
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_usua_UsuarioModificacion_Acce_tbUsuario_usua_Id	FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios					(usua_Id),
-	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_Prod_tbProcesos_proc_Id							FOREIGN KEY (proc_Id)					REFERENCES Prod.tbProcesos					(proc_Id),
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_Prod_tbModulos_modu_Id							FOREIGN KEY (modu_Id) REFERENCES Prod.tbModulos (modu_Id)
 );
 GO

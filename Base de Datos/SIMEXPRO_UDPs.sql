@@ -13656,21 +13656,20 @@ CREATE OR ALTER PROC Prod.UDP_tbPedidosProduccion_Eliminar
 AS
 BEGIN
 	BEGIN TRY
-		IF EXISTS(SELECT [ppde_Id] FROM [Prod].[tbPedidosProduccionDetalles] WHERE [ppro_Id] = @ppro_Id )
-			BEGIN
-				SELECT 2
-			END
-		ELSE
-			BEGIN	
+		DECLARE @respuesta INT
+			EXEC dbo.UDP_ValidarReferencias 'ppro_Id', @ppro_Id, 'Prod.tbPedidosProduccion', @respuesta OUTPUT
+
+			IF(@respuesta) = 1
+					BEGIN
 				UPDATE [Prod].[tbPedidosProduccion]
 				SET	   [ppro_Estado] = 0
 				WHERE  [ppro_Id] = @ppro_Id
 
-				SELECT 1
-			END
+				END
+			SELECT @respuesta AS Resultado
 	END TRY	
 	BEGIN CATCH
-		SELECT 'Error Message: ' + ERROR_MESSAGE()
+		SELECT 0
 	END CATCH
 END
 

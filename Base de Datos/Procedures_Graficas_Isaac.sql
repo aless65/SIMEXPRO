@@ -32,6 +32,21 @@ WHERE orco_Id = @orco_Id
 END
 GO
 
+
+-- PROCEDIMIENTO PARA MOSTRAR EL TOTAL DE ORDENES DE COMPRA ANUALES
+CREATE OR ALTER PROCEDURE Prod.UDP_TotalOrdenesCompraAnual
+AS
+BEGIN
+    SELECT
+        YEAR(orco_FechaCreacion) AS Anio,
+        COUNT(orco_Id) AS orco_Conteo
+    FROM Prod.tbOrdenCompra
+    GROUP BY YEAR(orco_FechaCreacion)
+    ORDER BY Anio;
+END
+GO
+
+
 -- PROCEDIMIENTO PARA MOSTRAR EL TOTAL; DE OPRDENES DE COMPRA MENSUALES
 CREATE OR ALTER PROCEDURE Prod.UDP_TotalOrdenesCompraMensual
 AS
@@ -49,6 +64,7 @@ SET LANGUAGE Spanish;
 END
 GO
 
+
 -- PROCEDIMIENTO PARA MOSTRAR LAS ORDENES DE COMPRA DIARIAS
 CREATE OR ALTER PROCEDURE Prod.UDP_TotalOrdenesCompraDiario
 AS
@@ -57,7 +73,6 @@ BEGIN
 
     DECLARE @FechaInicial DATE, @FechaFinal DATE;
     SET @FechaInicial = DATEADD(DAY, -7, GETDATE()); 
-	SELECT @FechaInicial
     SET @FechaFinal = GETDATE();
     SELECT
         CAST(orco_FechaCreacion AS DATE) AS Fecha,
@@ -68,21 +83,6 @@ BEGIN
     ORDER BY Fecha;
 END
 GO
-
-
--- PROCEDIMEINTO PARA MOSTRAR EL TOTAL DE ORDENES DE COMPRA ANUALES
-CREATE OR ALTER PROCEDURE Prod.UDP_TotalOrdenesCompraAnual
-AS
-BEGIN
-    SELECT
-        YEAR(orco_FechaCreacion) AS Anio,
-        COUNT(orco_Id) AS orco_Conteo
-    FROM Prod.tbOrdenCompra
-    GROUP BY YEAR(orco_FechaCreacion)
-    ORDER BY Anio;
-END
-GO
-
 
 
 -- PROCEDIMIENTO PARA MOSTRAR EL CONTEO DE ORDENES DE COMPRA AGRUPADOS POR ESTADO (Pendiente, En Curso, Terminado)
@@ -101,7 +101,6 @@ BEGIN
 	GROUP BY orco_EstadoOrdenCompra
 END
 GO
-
 
 
 -- PROCEDIMIENTO PARA MOSTRAR LAS ORDENES DE COMPRA POR ESTADO DE LA ULTIMA SEMANA
@@ -145,11 +144,9 @@ VALUES	('54363244535', '08-07-2023', 1, 15000, 1, '08-07-2023'),
 		('83739333921', '08-20-2023', 1, 23000, 1, '08-20-2023'),
 		('83739333921', '08-20-2023', 2, 34500, 1, '08-20-2023'),
 		('83739333921', '08-21-2023', 2, 56000, 1, '08-21-2023'),
-		('83739333921', '08-21-2023', 3, 100000, 1, '08-21-2023')
-GO
-
-INSERT INTO Prod.tbFacturasExportacion(duca_No_Duca, faex_Fecha, orco_Id, faex_Total, usua_UsuarioCreacion, faex_FechaCreacion)
-VALUES	('54363244535', '08-07-2022', 1, 15000, 1, '08-07-2022'),
+		('83739333921', '08-21-2023', 3, 100000, 1, '08-21-2023'),
+		
+		('54363244535', '08-07-2022', 1, 15000, 1, '08-07-2022'),
 		('54363244535', '08-09-2022', 2, 35000, 1, '08-09-2022'),
 		('54363244535', '08-10-2022', 3, 20000, 1, '08-10-2022'),
 		('54363244535', '08-11-2022', 1, 30000, 1, '08-11-2022'),
@@ -167,12 +164,9 @@ VALUES	('54363244535', '08-07-2022', 1, 15000, 1, '08-07-2022'),
 		('83739333921', '08-20-2022', 1, 23000, 1, '08-20-2022'),
 		('83739333921', '08-20-2022', 2, 34500, 1, '08-20-2022'),
 		('83739333921', '08-21-2022', 2, 56000, 1, '08-21-2022'),
-		('83739333921', '08-21-2022', 3, 100000, 1, '08-21-2022')
-GO
-
+		('83739333921', '08-21-2022', 3, 100000, 1, '08-21-2022'),
 		
-INSERT INTO Prod.tbFacturasExportacion(duca_No_Duca, faex_Fecha, orco_Id, faex_Total, usua_UsuarioCreacion, faex_FechaCreacion)
-VALUES	('54363244535', '08-22-2023', 1, 15000, 1, '08-22-2023'),
+		('54363244535', '08-22-2023', 1, 15000, 1, '08-22-2023'),
 		('54363244535', '08-23-2023', 2, 35000, 1, '08-23-2023'),
 		('54363244535', '08-24-2023', 3, 20000, 1, '08-24-2023'),
 		('54363244535', '08-25-2023', 1, 30000, 1, '08-25-2023'),
@@ -192,6 +186,7 @@ VALUES	('54363244535', '08-22-2023', 1, 15000, 1, '08-22-2023'),
 		('83739333921', '09-05-2023', 2, 56000, 1, '09-04-2023'),
 		('83739333921', '09-06-2023', 3, 100000, 1, '09-06-2023')
 GO
+
 
 SELECT  faex_Id, 
 		duca_No_Duca, 
@@ -335,3 +330,47 @@ BEGIN
 		GROUP BY	orco_EstadoOrdenCompra
 END
 GO
+
+
+SELECT * FROM Prod.tbRevisionDeCalidad
+SELECT * FROM Prod.tbOrde_Ensa_Acab_Etiq
+SELECT * FROM Prod.tbOrdenCompra
+SELECT * FROM Prod.tbOrdenCompraDetalles
+
+SELECT * FROM Prod.tbFacturasExportacion
+SELECT * FROM Prod.tbFacturasExportacionDetalles
+
+
+ 
+SELECT	PO.orco_Id, 
+
+		Customer.clie_Nombre_O_Razon_Social, 
+
+		PO.orco_FechaEmision,
+		PO.orco_FechaLimite, 
+		PO.orco_MetodoPago, 
+		PO.orco_Materiales, 
+		PO.orco_IdEmbalaje, 
+		PO.orco_EstadoOrdenCompra, 
+		PO.orco_DireccionEntrega,
+
+		PODetail.code_Id,
+		PODetail.code_CantidadPrenda, 
+		Styles.[esti_Descripcion],
+		Talla.tall_Codigo, 
+		Talla.tall_Nombre,
+		PODetail.code_Sexo, 
+		Colors.[colr_Nombre],
+		PODetail.proc_IdComienza, 
+		PODetail.proc_IdActual, 
+		PODetail.code_Unidad, 
+		PODetail.code_Valor, 
+		PODetail.code_Impuesto, 
+		PODetail.code_EspecificacionEmbalaje
+
+FROM Prod.tbOrdenCompra AS PO
+INNER JOIN Prod.tbOrdenCompraDetalles AS PODetail ON PODetail.orco_Id = PO.orco_Id
+INNER JOIN Prod.tbClientes AS Customer ON PO.orco_IdCliente = Customer.clie_Id
+INNER JOIN Prod.tbEstilos AS Styles ON PODetail.esti_Id = Styles.esti_Id
+INNER JOIN Prod.tbTallas AS Talla ON PODetail.tall_Id = Talla.tall_Id
+INNER JOIN Prod.tbColores AS Colors ON PODetail.colr_Id = Colors.colr_Id

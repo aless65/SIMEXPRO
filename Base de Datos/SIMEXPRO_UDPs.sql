@@ -12974,7 +12974,7 @@ BEGIN
 			INNER JOIN Prod.tbOrdenCompra		OrdenCompra				ON	ordencompradetalle.orco_Id = OrdenCompra.orco_Id
 			INNER JOIN Prod.tbClientes			clientes				ON  OrdenCompra.orco_IdCliente = clientes.clie_Id
 			INNER JOIN Prod.tbColores			colores					ON	ordencompradetalle.code_Id	= colores.colr_Id
-			WHERE ReporteModuloDia.remo_Id = @remo_Id
+			WHERE ReporteModuloDia.remo_Id = @remo_Id AND rdet_Estado = 1
 
 	
 END

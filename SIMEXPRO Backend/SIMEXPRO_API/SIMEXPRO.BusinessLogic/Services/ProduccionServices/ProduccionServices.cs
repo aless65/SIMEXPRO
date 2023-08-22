@@ -3158,6 +3158,106 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 return result.Error(ex.Message);
             }
         }
+
+        public ServiceResult ContadorOrdenesCompraPorEstado_UltimaSemana()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.ContadorOrdenesCompraPorEstado_UltimaSemana();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult VentasSemanales()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.VentasSemanales();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }        
+        
+        public ServiceResult VentasMensuales()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.VentasMensuales();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }        
+        
+        public ServiceResult VentasAnuales()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.VentasAnuales();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }        
+        
+        public ServiceResult OrdenenesEntregadasPendientes_Anual()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.OrdenenesEntregadasPendientes_Anual();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }        
+        
+        public ServiceResult OrdenenesEntregadasPendientes_Mensual()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.OrdenenesEntregadasPendientes_Mensual();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }        
+        
+        public ServiceResult OrdenenesEntregadasPendientes_Semanal()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _graficasRepository.OrdenenesEntregadasPendientes_Semanal();
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+
         #endregion
     }
 }

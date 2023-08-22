@@ -31,5 +31,14 @@ namespace SIMEXPRO.Entities.Entities
         public string Fecha { get; set; }
 
 
+        // DATOS PARA LAS GRAFICAS DE FACTURAS 
+        public DateTime FechaAntigua { get; set; }
+        public DateTime FechaReciente { get; set; }
+        public int NumeroMes { get; set; }
+        public int NumeroSemana { get; set; }
+        public int NumeroDia { get; set; }
+        public int TotalIngresos { get; set; }
+
+
     }
 }

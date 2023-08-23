@@ -10240,6 +10240,43 @@ END
 GO
 -------------------------------------------/UDPS Para orden de compra detalle-----------------------------------------
 
+-----------------------------------------------UDPS Para proceso por orden de compra detalle---------------------------------------------
+
+GO
+CREATE OR ALTER PROCEDURE Prod.UDP_tbProcesoPorOrdenCompraDetalle_Listado_PorDetalle
+(
+@code_Id INT
+)
+AS
+BEGIN
+	BEGIN TRY
+		SELECT	PPOCD.[poco_Id], 
+				PPOCD.[code_Id], 
+				PPOCD.[proc_Id], 
+				PROCE.[proc_Descripcion],
+				PPOCD.[usua_UsuarioCreacion], 
+				PPOCD.[poco_FechaCreacion], 
+				PPOCD.[usua_UsuarioModificacion], 
+				PPOCD.[poco_FechaModificacion], 
+				PPOCD.[code_Estado]
+		FROM Prod.tbProcesoPorOrdenCompraDetalle PPOCD
+			INNER JOIN Prod.tbOrdenCompraDetalles OCD
+			ON PPOCD.code_Id = OCD.code_Id
+			INNER JOIN Prod.tbProcesos PROCE
+			ON PPOCD.proc_Id = PROCE.proc_Id
+			WHERE PPOCD.code_Id = @code_Id
+
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+			SELECT 'Error Message: ' + ERROR_MESSAGE()
+	END CATCH
+END
+GO
+
+
+-----------------------------------------------/UDPS Para proceso por orden de compra detalle---------------------------------------------
+
 ----------------------------------------------UDPS Para Asignaciones Orden--------------------------------------------
 
 CREATE OR ALTER PROCEDURE Prod.UDP_tbAsignacionesOrden_Listado

@@ -3657,6 +3657,10 @@ SELECT	adu.adua_Id							,
 		adu.adua_Codigo						,
 		adu.adua_Nombre						,
 		adu.adua_Direccion_Exacta			,
+		adu.ciud_Id,
+		ciud.ciud_Nombre                    ,
+		prov.pvin_Id                         ,
+		prov.pvin_Nombre                    ,
 		usu.usua_Nombre						AS usarioCreacion,
 		adu.adua_FechaCreacion				,
 		usu2.usua_Nombre					AS usuarioModificacion,
@@ -3665,10 +3669,12 @@ SELECT	adu.adua_Id							,
 FROM	Adua.tbAduanas adu 
 		INNER JOIN Acce.tbUsuarios usu		ON adu.usua_UsuarioCreacion = usu.usua_Id 
 		LEFT JOIN Acce.tbUsuarios usu2		ON usu2.usua_UsuarioModificacion = adu.usua_UsuarioModificacion 
-WHERE	adu.adua_Estado = 1
-
-
+        LEFT JOIN Gral.tbCiudades ciud      ON ciud.ciud_Id = adu.ciud_Id
+		LEFT JOIN Gral.tbProvincias prov   ON prov.pvin_Id = ciud.pvin_Id
+ WHERE	adu.adua_Estado = 1
 END 
+
+
 select GETDATE()
 /*Aduanas Crear */
 GO

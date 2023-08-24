@@ -72,8 +72,8 @@ CREATE TABLE Acce.tbUsuariosHistorial(
 );
 GO
 
-INSERT INTO Acce.tbUsuarios
-VALUES ('prueba', '123', 1, '.jpg', 1, 1, 1,1, NULL, NULL,NULL,NULL,NULL,NULL,1)
+INSERT INTO Acce.tbUsuarios(usua_Nombre, usua_Contrasenia, empl_Id, usua_Image, role_Id, usua_EsAdmin, pant_subCategoria, usua_UsuarioCreacion, usua_FechaCreacion)
+VALUES						('prueba',		'123',				1, '.jpg',		1,			1,			1,					1,					GETDATE())
 GO
 
 CREATE TABLE Acce.tbRoles
@@ -1913,10 +1913,29 @@ CREATE TABLE Prod.tbOrdenCompraDetalles(
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_tall_Id_Prod_tbTalla_tall_Id				 FOREIGN KEY(tall_Id) REFERENCES Prod.tbTallas(tall_Id),
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_proc_IdComienza_Prod_tbProcesos_proc_Id     FOREIGN KEY(proc_IdComienza) REFERENCES Prod.tbProcesos(proc_Id),
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_proc_IdActual_Prod_tbProcesos_proc_Id       FOREIGN KEY(proc_IdActual) REFERENCES Prod.tbProcesos(proc_Id),
-	CONSTRAINT CK_Prod_tbOrdenCompraDetalles_code_Sexo									 CHECK (code_Sexo IN ('F','M')),
+	CONSTRAINT CK_Prod_tbOrdenCompraDetalles_code_Sexo									 CHECK (code_Sexo IN ('F','M','U')),
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_code_UsuarioCreacion_Acce_tbUsuarios_usua_Id					FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbOrdenCompraDetalles_code_UsuarioModificacion_Acce_tbUsuarios_usua_Id				FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	--CONSTRAINT FK_Prod_tbOrdenCompraDetalles__Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
+);
+GO
+
+CREATE TABLE Prod.tbProcesoPorOrdenCompraDetalle(
+	poco_Id						INT IDENTITY(1,1),
+	code_Id						INT NOT NULL,
+	proc_Id						INT NOT NULL,
+
+	usua_UsuarioCreacion       	INT				 NOT NULL,
+	poco_FechaCreacion         	DATETIME		 NOT NULL,
+	usua_UsuarioModificacion   	INT DEFAULT		 NULL,
+	poco_FechaModificacion     	DATETIME DEFAULT NULL,
+	code_Estado                	BIT DEFAULT 1
+
+	CONSTRAINT PK_Prod_tbProcesoPorOrdenCompraDetalle_poco_Id											PRIMARY KEY(poco_Id),
+	CONSTRAINT FK_Prod_tbProcesoPorOrdenCompraDetalle_code_Id_Prod_tbOrdenCompraDetalles_code_Id		FOREIGN KEY(code_Id) REFERENCES Prod.tbOrdenCompraDetalles(code_Id),
+	CONSTRAINT FK_Prod_tbProcesoPorOrdenCompraDetalle_proc_Id_Prod_tbProcesos_proc_Id					FOREIGN KEY(code_Id) REFERENCES Prod.tbProcesos(proc_Id),
+	CONSTRAINT FK_Prod_tbProcesoPorOrdenCompraDetalle_usua_UsuarioCreacion_Acce_tbUsuarios_usua_Id		FOREIGN KEY(usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios (usua_Id),
+	CONSTRAINT FK_Prod_tbProcesoPorOrdenCompraDetalle_usua_UsuarioModificacion_Acce_tbUsuarios_usua_Id	FOREIGN KEY(usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios (usua_Id)
 );
 GO
 
@@ -1982,7 +2001,7 @@ CREATE TABLE Prod.tbModulos(
 	CONSTRAINT PK_Prod_tbModulos_modu_Id 									 PRIMARY KEY (modu_Id),
 	CONSTRAINT FK_Prod_tbModulos_proc_Id_Prod_tbProcesos_proc_Id 			 FOREIGN KEY (proc_Id) REFERENCES Prod.tbProcesos(proc_Id),
 	CONSTRAINT FK_Prod_tbModulos_empr_Id_Gral_tbEmpleados_empe_IdSupervisor  FOREIGN KEY (empr_Id) REFERENCES Gral.tbEmpleados(empl_Id),
-	
+	CONSTRAINT UQ_Prod_tbModulos_modu_Nombre								 UNIQUE (modu_Nombre),
 	CONSTRAINT FK_Prod_tbModulos_modu_UsuarioCreacion_Acce_tbUsuarios_usua_Id				FOREIGN KEY (usua_UsuarioCreacion)     REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbModulos_modu_UsuarioModificacion_Acce_tbUsuarios_usua_Id			FOREIGN KEY (usua_UsuarioModificacion) REFERENCES Acce.tbUsuarios (usua_Id),
 	CONSTRAINT FK_Prod_tbModulos_Acce_tbUsuarios_usua_UsuarioEliminacion_usua_Id  FOREIGN KEY (usua_UsuarioEliminacion) 		REFERENCES Acce.tbUsuarios 	(usua_Id)
@@ -2138,13 +2157,14 @@ CREATE TABLE Prod.tbAsignacionesOrden(
 );
 GO
 
+
 CREATE TABLE Prod.tbReporteModuloDia(
 	remo_Id						INT IDENTITY(1,1),
 	modu_Id						INT NOT NULL, 
 	remo_Fecha					DATE NOT NULL,
 	remo_TotalDia				INT NOT NULL, 
 	remo_TotalDanado			INT NOT NULL,
-	
+	remo_Finalizado				BIT DEFAULT 0 NULL,
 	usua_UsuarioCreacion		INT NOT NULL,
 	remo_FechaCreacion			DATETIME NOT NULL,
 	usua_UsuarioModificacion	INT DEFAULT NULL,
@@ -2285,14 +2305,7 @@ GO
 	    
 --)
 
-
-
-
-
-
-
-
-
+GO
 
 CREATE TABLE Prod.tbPedidosProduccion(
 	ppro_Id              			INT IDENTITY(1,1),
@@ -2300,7 +2313,7 @@ CREATE TABLE Prod.tbPedidosProduccion(
 	ppro_Fecha           			DATETIME NOT NULL,
 	ppro_Estados          			NVARCHAR(150) NOT NULL,
 	ppro_Observaciones   			NVARCHAR(MAX) NOT NULL,
-
+	ppro_Finalizado					BIT DEFAULT 0 NOT NULL,
 	usua_UsuarioCreacion			INT NOT NULL,
 	ppro_FechaCreacion				DATETIME NOT NULL,
 	usua_UsuarioModificacion		INT DEFAULT NULL,
@@ -2326,7 +2339,6 @@ CREATE TABLE Prod.tbOrde_Ensa_Acab_Etiq(
 	ensa_FechaInicio			DATE NOT NULL,
 	ensa_FechaLimite			DATE NOT NULL, 
 	ppro_Id						INT NOT NULL,
-	proc_Id						INT NOT NULL,
 	modu_Id						INT,
  
 	usua_UsuarioCreacion		INT NOT NULL,
@@ -2342,7 +2354,6 @@ CREATE TABLE Prod.tbOrde_Ensa_Acab_Etiq(
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_ppro_Id_Prod_tbPedidoProduccion_ppro_Id			FOREIGN KEY (ppro_Id)					REFERENCES Prod.tbPedidosProduccion			(ppro_Id),
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_usua_UsuarioCreacion_Acce_tbUsuario_usua_Id		FOREIGN KEY (usua_UsuarioCreacion)		REFERENCES Acce.tbUsuarios					(usua_Id),
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_usua_UsuarioModificacion_Acce_tbUsuario_usua_Id	FOREIGN KEY (usua_UsuarioModificacion)	REFERENCES Acce.tbUsuarios					(usua_Id),
-	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_Prod_tbProcesos_proc_Id							FOREIGN KEY (proc_Id)					REFERENCES Prod.tbProcesos					(proc_Id),
 	CONSTRAINT FK_Prod_tbOrdenCorte_Ensamblado_Acabado_Etiquetado_Prod_tbModulos_modu_Id							FOREIGN KEY (modu_Id) REFERENCES Prod.tbModulos (modu_Id)
 );
 GO
@@ -2625,6 +2636,7 @@ CREATE TABLE Prod.tbAsignacionesOrdenDetalle(
 GO
 
 --ewqeeeqw
+--select * from Prod.tbPedidosProduccionDetalles
 CREATE TABLE Prod.tbPedidosProduccionDetalles(
 	ppde_Id               			INT IDENTITY(1,1),
 	ppro_Id               			INT NOT NULL,

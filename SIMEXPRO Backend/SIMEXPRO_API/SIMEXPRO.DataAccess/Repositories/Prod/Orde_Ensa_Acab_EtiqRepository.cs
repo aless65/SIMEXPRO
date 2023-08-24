@@ -34,6 +34,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@ensa_FechaInicio", item.ensa_FechaInicio, DbType.DateTime, ParameterDirection.Input);
             parametros.Add("@ensa_FechaLimite", item.ensa_FechaLimite, DbType.DateTime, ParameterDirection.Input);
             parametros.Add("@ppro_Id", item.ppro_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@modu_Id", item.modu_Id, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@ensa_FechaCreacion", item.ensa_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
 
@@ -61,8 +62,9 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@ensa_FechaInicio", item.ensa_FechaInicio, DbType.DateTime, ParameterDirection.Input);
             parametros.Add("@ensa_FechaLimite", item.ensa_FechaLimite, DbType.DateTime, ParameterDirection.Input);
             parametros.Add("@ppro_Id", item.ppro_Id, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@usua_UsuarioCreacion", item.usua_UsuarioCreacion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@ensa_FechaCreacion", item.ensa_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
+            parametros.Add("@modu_Id", item.modu_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@usua_UsuarioModificacion", item.usua_UsuarioModificacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@ensa_FechaModificacion", item.ensa_FechaModificacion, DbType.DateTime, ParameterDirection.Input);
 
             var answer = db.QueryFirst<string>(ScriptsDataBase.EditarOrde_Ensa_Acab_Etiq, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;

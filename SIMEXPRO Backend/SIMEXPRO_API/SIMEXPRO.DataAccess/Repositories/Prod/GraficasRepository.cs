@@ -119,5 +119,32 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             var answer = db.Query<tbGraficas>(ScriptsDataBase.GR_OrdenenesEntregadasPendientes_Semanal, null, commandType: CommandType.StoredProcedure);
             return answer;
         }
+
+        public IEnumerable<tbGraficas> PrendasPedidas(tbGraficas item)
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            var parametros = new DynamicParameters();
+            parametros.Add("@esti_Id", item.esti_Id, DbType.Int32, ParameterDirection.Input);
+            var answer = db.Query<tbGraficas>(ScriptsDataBase.GR_PrendasPedidas, parametros, commandType: CommandType.StoredProcedure);
+            return answer;
+        }
+
+        public IEnumerable<tbGraficas> ClientesProductivos()
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            var parametros = new DynamicParameters();
+
+            var answer = db.Query<tbGraficas>(ScriptsDataBase.GR_ClientesProductivos, null, commandType: CommandType.StoredProcedure);
+            return answer;
+        }
+
+        public IEnumerable<tbGraficas> ProductividadModulos()
+        {
+            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            var parametros = new DynamicParameters();
+
+            var answer = db.Query<tbGraficas>(ScriptsDataBase.GR_ProductividadModulos, null, commandType: CommandType.StoredProcedure);
+            return answer;
+        }
     }
 }

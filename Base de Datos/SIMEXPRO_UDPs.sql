@@ -10110,13 +10110,14 @@ BEGIN
 			,ordenCompraDetalle.colr_Id
 			,colores.colr_Nombre
 			,clie.clie_Nombre_O_Razon_Social
+			,ordenCompraDetalle.proc_IdActual AS asor_Id
 	  FROM	Prod.tbOrdenCompraDetalles			    ordenCompraDetalle
 			INNER JOIN	Prod.tbEstilos				estilo						ON	ordenCompraDetalle.esti_Id						= estilo.esti_Id
 			INNER JOIN	Prod.tbTallas				talla						ON	ordenCompraDetalle.tall_Id						= talla.tall_Id
 			INNER JOIN  Prod.tbColores				colores						ON	ordenCompraDetalle.colr_Id						= colores.colr_Id
 			INNER JOIN Prod.tbOrdenCompra			orco						ON ordenCompraDetalle.orco_Id						= orco.orco_Id
 			INNER JOIN Prod.tbClientes				clie						ON orco.orco_IdCliente = clie.clie_Id						
-	  WHERE ordenCompraDetalle.code_Id	=	@code_Id 
+	  WHERE ordenCompraDetalle.code_Id	=	@code_Id AND ordenCompraDetalle.[proc_IdActual] IS NOT NULL
 END
 GO
 
@@ -11450,7 +11451,7 @@ SELECT	ensa_Id,
 		INNER JOIN Prod.tbModulos			modu	ON ensa.modu_Id = modu.modu_Id
 		INNER JOIN Prod.tbProcesos	pro				ON modu.proc_Id = pro.proc_Id
 		INNER JOIN Acce.tbUsuarios crea				ON crea.usua_Id = ensa.usua_UsuarioCreacion 
-		LEFT JOIN  Acce.tbUsuarios modi				ON modi.usua_Id = ensa.usua_UsuarioModificacion 
+		LEFT JOIN  Acce.tbUsuarios modi				ON ensa.usua_UsuarioModificacion = modi.usua_Id 
 END
 
 GO
@@ -11494,7 +11495,7 @@ BEGIN
 END
 GO
 /*Editar ORDEN ENSABLAJE ACBADO ETIQUEDATO*/
-CREATE OR ALTER PROCEDURE Prod.UDP_tbOrde_Ensa_Acab_Etiq_Editar
+CREATE OR ALTER PROCEDURE Prod.UDP_tbOrde_Ensa_Acab_Etiq_Editar 
 @ensa_Id					INT,
 @ensa_Cantidad				INT,
 @empl_Id					INT,
@@ -11516,7 +11517,7 @@ BEGIN
 				ensa_FechaLimite		= @ensa_FechaLimite,		
 				ppro_Id					= @ppro_Id, 
 				modu_Id					= @modu_Id,
-				usua_UsuarioCreacion	= @usua_UsuarioModificacion,	
+				usua_UsuarioModificacion	= @usua_UsuarioModificacion,	
 				ensa_FechaCreacion		= @ensa_FechaModificacion
 		WHERE	ensa_Id					= @ensa_Id
 

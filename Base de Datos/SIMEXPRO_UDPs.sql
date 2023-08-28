@@ -11494,6 +11494,11 @@ BEGIN
 		@modu_Id
 		)
 		SELECT 1
+		
+			UPDATE prod.tbPedidosProduccion 
+			SET ppro_Estados = 'Entregada',
+			ppro_Finalizado = 1
+			WHERE ppro_Id = @ppro_Id
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE() 
@@ -11526,7 +11531,11 @@ BEGIN
 				usua_UsuarioModificacion	= @usua_UsuarioModificacion,	
 				ensa_FechaCreacion		= @ensa_FechaModificacion
 		WHERE	ensa_Id					= @ensa_Id
-
+		
+			UPDATE prod.tbPedidosProduccion 
+			SET ppro_Estados = 'Entregada',
+			ppro_Finalizado = 1
+			WHERE ppro_Id = @ppro_Id
 		SELECT 1
 	END TRY
 	BEGIN CATCH

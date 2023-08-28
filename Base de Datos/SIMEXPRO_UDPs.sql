@@ -11532,11 +11532,21 @@ BEGIN
 				ensa_FechaCreacion		= @ensa_FechaModificacion
 		WHERE	ensa_Id					= @ensa_Id
 		
+		SELECT 1
+		DECLARE @ppro_Idold INT 
+		SELECT @ppro_Idold = ppro_Id FROM Prod.tbOrde_Ensa_Acab_Etiq WHERE ensa_Id = @ensa_Id
+		IF @ppro_Idold != @ppro_Id
+		BEGIN
+			UPDATE prod.tbPedidosProduccion 
+			SET ppro_Finalizado = 0,
+			ppro_Estados = 'Pendiente'
+			WHERE ppro_Id = @ppro_Idold
+
 			UPDATE prod.tbPedidosProduccion 
 			SET ppro_Estados = 'Entregada',
 			ppro_Finalizado = 1
 			WHERE ppro_Id = @ppro_Id
-		SELECT 1
+		END
 	END TRY
 	BEGIN CATCH
 		SELECT 'Error Message: ' + ERROR_MESSAGE() 

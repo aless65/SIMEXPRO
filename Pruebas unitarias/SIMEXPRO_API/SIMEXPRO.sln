@@ -14,6 +14,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavierAPITest", "JavierAPITest\JavierAPITest.csproj", "{7F6ACA22-2214-40D8-AA00-18ACCCE6B0F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{3E360246-B016-4D5B-8E02-B797BD244F7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestIntegration", "TestIntegration\TestIntegration.csproj", "{157CB776-2EBC-47D9-AD39-136B789E7899}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUnit", "TestUnit\TestUnit.csproj", "{86DFCB57-C17F-4779-98E3-8838DEE9904B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +48,14 @@ Global
 		{3E360246-B016-4D5B-8E02-B797BD244F7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E360246-B016-4D5B-8E02-B797BD244F7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E360246-B016-4D5B-8E02-B797BD244F7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{157CB776-2EBC-47D9-AD39-136B789E7899}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{157CB776-2EBC-47D9-AD39-136B789E7899}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{157CB776-2EBC-47D9-AD39-136B789E7899}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{157CB776-2EBC-47D9-AD39-136B789E7899}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86DFCB57-C17F-4779-98E3-8838DEE9904B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86DFCB57-C17F-4779-98E3-8838DEE9904B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86DFCB57-C17F-4779-98E3-8838DEE9904B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86DFCB57-C17F-4779-98E3-8838DEE9904B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

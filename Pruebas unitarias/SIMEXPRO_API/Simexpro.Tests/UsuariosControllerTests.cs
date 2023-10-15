@@ -27,20 +27,6 @@ namespace Simexpro.Tests
         public UsuariosControllerTests()
         {
             // Dependencies
-            //PantallasRepository pantallasRepository = A.Fake<PantallasRepository>();
-            //RolesRepository rolesRepository = A.Fake<RolesRepository>();
-            //RolesPorPantallaRepository rolesPorPantallaRepository = A.Fake<RolesPorPantallaRepository>();
-            //UsuariosRepository usuariosRepository = A.Fake<UsuariosRepository>();
-            //UsuariosHistorialRepository usuariosHistorialRepository = A.Fake<UsuariosHistorialRepository>();
-
-            //_accesoServices = new Mock<AccesoServices>(
-            //    pantallasRepository,
-            //    rolesRepository,
-            //    rolesPorPantallaRepository,
-            //    usuariosRepository,
-            //    usuariosHistorialRepository
-            //);
-            //_accesoServices = accesoServices;
             _accesoServices = new Mock<TestAccesoServices>();
             _mapper = A.Fake<IMapper>();
 

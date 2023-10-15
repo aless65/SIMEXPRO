@@ -1,44 +1,65 @@
 using AutoMapper;
 using FakeItEasy;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using SIMEXPRO.API.Controllers.ControllersAcceso;
-using SIMEXPRO.API.Models.ModelsAcceso;
+using Moq;
+using SIMEXPRO.BussinessLogic;
 using SIMEXPRO.BussinessLogic.Services.AccesoServices;
+using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
+using SIMEXPRO.DataAccess.Repositories.Acce;
 //using Simexpro.
 
 namespace Simexpro.Tests
 {
     public class UsuariosControllerTests
     {
-        private readonly AccesoServices _accesoServices;
+        private readonly UsuariosController _usuariosController;
+        //private readonly AccesoServices _accesoServices;
+        private readonly Mock<AccesoServices> _accesoServices;
         private readonly IMapper _mapper;
 
-        public UsuariosControllerTests(AccesoServices accesoServices, IMapper mapper)
+        public UsuariosControllerTests()
         {
-            _accesoServices = accesoServices;
-            _mapper = mapper;
+            // Dependencies
+            PantallasRepository pantallasRepository = A.Fake<PantallasRepository>();
+            RolesRepository rolesRepository = A.Fake<RolesRepository>();
+            RolesPorPantallaRepository rolesPorPantallaRepository = A.Fake<RolesPorPantallaRepository>();
+            UsuariosRepository usuariosRepository = A.Fake<UsuariosRepository>();
+            UsuariosHistorialRepository usuariosHistorialRepository = A.Fake<UsuariosHistorialRepository>();
+
+            _accesoServices = new Mock<AccesoServices>(
+                pantallasRepository,
+                rolesRepository,
+                rolesPorPantallaRepository,
+                usuariosRepository,
+                usuariosHistorialRepository
+            );
+            _mapper = A.Fake<IMapper>();
+
+            //SUT
+            _usuariosController = new UsuariosController(_accesoServices.Object, _mapper);
+
         }
 
        [Fact]
-        public void GetUsuarios_DevuelveCorrectamenteAsync()
+        public void GetUsuarios_DevuelveCorrectamenteSuccess()
         {
-            // Arrange 
-            //var dataStore = A.Fake<ISimexproDataStore>();
-            var usuarios = A.Fake<IEnumerable<UsuariosViewModel>>();
-            A.CallTo(() => _accesoServices.ListarUsuarios(true)).Returns(usuarios);
+            // Arrange - ¿Qué necesito traer?
+            var usuariosServiceResult = A.Fake<ServiceResult>();
+            //A.CallTo(() => _accesoServices.ListarUsuarios(true)).Returns(usuariosServiceResult);
+            _accesoServices.Setup(x => x.ListarUsuarios(It.IsAny<bool?>())).Returns(usuariosServiceResult);
 
-            var controller = new UsuariosController(_accesoServices, _mapper);
             // Act
-            var actionResult = controller.Index(false);
+            var result = _usuariosController.Index(true);
 
-            //var result = actionResult.Result as OK
-            // Assert
-            actionResult.Should().BeOfType<Task<IActionResult>>();
+            // Assert - Acciones para chequear objetos
+            result.Should().BeOfType<IActionResult>();
         }
     }
 }

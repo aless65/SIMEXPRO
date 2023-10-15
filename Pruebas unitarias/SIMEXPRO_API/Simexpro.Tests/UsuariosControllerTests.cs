@@ -20,7 +20,7 @@ namespace Simexpro.Tests
     public class UsuariosControllerTests
     {
         private readonly UsuariosController _usuariosController;
-        private readonly AccesoServices _accesoServices;
+        private readonly Mock<TestAccesoServices> _accesoServices;
         //private readonly Mock<AccesoServices> _accesoServices;
         private readonly IMapper _mapper;
 
@@ -41,11 +41,11 @@ namespace Simexpro.Tests
             //    usuariosHistorialRepository
             //);
             //_accesoServices = accesoServices;
-            _accesoServices = A.Fake<AccesoServices>();
+            _accesoServices = new Mock<TestAccesoServices>();
             _mapper = A.Fake<IMapper>();
 
             //SUT
-            _usuariosController = new UsuariosController(_accesoServices, _mapper);
+            _usuariosController = new UsuariosController(_accesoServices.Object, _mapper);
 
         }
 
@@ -53,16 +53,63 @@ namespace Simexpro.Tests
         public void GetUsuarios_DevuelveCorrectamenteSuccess()
         {
             // Arrange - ¿Qué necesito traer?
-            var usuariosServiceResult = A.Fake<ServiceResult>();
-            A.CallTo(() => _accesoServices.ListarUsuarios(It.IsAny<bool?>())).Returns(usuariosServiceResult);
+            //var usuariosServiceResult = A.Fake<ServiceResult>();
+            ////A.CallTo(() => _accesoServices.ListarUsuarios(It.IsAny<bool?>())).Returns(usuariosServiceResult);
             //_accesoServices.Setup(x => x.ListarUsuarios(It.IsAny<bool?>())).Returns(usuariosServiceResult);
 
             // Act
             var result = _usuariosController.Index(true);
 
             // Assert - Acciones para chequear objetos
-            result.Should().BeOfType<IActionResult>();
+            result.Should().BeOfType<OkObjectResult>();
+            //Assert.IsType<ServiceResult>(result);
+        }
+
+        [Fact]
+        public void PostUsuarios_DevuelveCorrectamenteSuccess()
+        {
+            // Arrange - ¿Qué necesito traer?
+            //var usuariosServiceResult = A.Fake<ServiceResult>();
+            ////A.CallTo(() => _accesoServices.ListarUsuarios(It.IsAny<bool?>())).Returns(usuariosServiceResult);
+            //_accesoServices.Setup(x => x.ListarUsuarios(It.IsAny<bool?>())).Returns(usuariosServiceResult);
+
+            // Act
+            var result = _usuariosController.Insertar(null);
+
+            // Assert - Acciones para chequear objetos
+            result.Should().BeOfType<OkObjectResult>();
             //Assert.IsType<ServiceResult>(result);
         }
     }
+
+    public class TestAccesoServices : AccesoServices
+    {
+        public TestAccesoServices() : base(
+            null, // Initialize with null or fake dependencies
+            null,
+            null,
+            null,
+            null)
+        {
+        }
+
+        public ServiceResult ListarUsuarios(bool? empl_EsAduana)
+        {
+            // Implement a simplified behavior for testing
+            var result = new ServiceResult();
+            // Fill in with expected results or logic you want to test
+            return result;
+        }
+
+        public ServiceResult InsertarUsuario(tbUsuarios item)
+        {
+
+            // Implement a simplified behavior for testing
+            var result = new ServiceResult();
+            // Fill in with expected results or logic you want to test
+            return result;
+        }
+
+    }
+
 }

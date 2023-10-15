@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIMEXPRO.DataAccess", "SIME
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIMEXPRO.Entities", "SIMEXPRO.Entities\SIMEXPRO.Entities.csproj", "{C3616ECC-7A4B-4495-8C23-60B48F6E0A0E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrdenDeCompraInsertar", "OrdenDeCompraInsertar\OrdenDeCompraInsertar.csproj", "{3703E186-6290-4072-8645-A73876B59B90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C3616ECC-7A4B-4495-8C23-60B48F6E0A0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3616ECC-7A4B-4495-8C23-60B48F6E0A0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3616ECC-7A4B-4495-8C23-60B48F6E0A0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3703E186-6290-4072-8645-A73876B59B90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3703E186-6290-4072-8645-A73876B59B90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3703E186-6290-4072-8645-A73876B59B90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3703E186-6290-4072-8645-A73876B59B90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

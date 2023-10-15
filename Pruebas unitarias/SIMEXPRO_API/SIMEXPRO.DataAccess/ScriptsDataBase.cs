@@ -484,6 +484,15 @@ namespace SIMEXPRO.DataAccess
         public static string InsertarTLC = "Adua.tbTratados_Insertar";
         public static string EditarTLC = "Adua.tbTratados_Editar";
         public static string ListTratadosById = "Adua.UDP_tbTratadosLibreComercio_ListById";
+        public static string ListAcuerdosPorTratado = "Adua.UDP_tbArancelesPorTratado_PorTratadoYCapitulo";
+        #endregion
+
+        #region ArancelesPorTratado
+
+        public static string InsertarArancelPorTratado = "Adua.tbArancelesPorTratadoInsertar";
+        public static string EditarArancelPorTratado = "Adua.tbArancelesPorTratadoEditar";
+        public static string EliminarArancelPorTratado = "Adua.tbArancelesPorTratadoEliminar";
+
         #endregion
 
         #region Tipo Documentos
@@ -753,6 +762,7 @@ namespace SIMEXPRO.DataAccess
         public static string EditarPedidosOrden = "Prod.UDP_tbPedidosOrden_Editar";
         public static string FinalizarPedidosOrden = "Prod.UDP_tbPedidosOrden_Finalizado";
         public static string PedidosOrdenFind = "Prod.UDP_tbPedidosOrden_FindCodigo";
+        public static string ItemsOrdenPedido  = "Prod.UDP_tbItems_OrdenDePedido";
         #endregion
 
         #region Orden de Pedido Detalles
@@ -761,6 +771,8 @@ namespace SIMEXPRO.DataAccess
         public static string EditarPedidosOrdenDetalles = "Prod.UDP_tbPedidosOrdenDetalle_Editar";
         public static string PedidosOrdenDetallesFind = "Prod.UDP_tbPedidosOrdenDetalle_Find";
         public static string PedidosOrdenDetallesEliminar = "Prod.UDP_tbPedidosOrdenDetalle_Eliminar";
+        public static string InsertarItemsPedidosOrdenDetalles = "Prod.UDP_tbOrdenPedido_InsertDuca";
+
         #endregion
 
         #region Pedidos Produccion

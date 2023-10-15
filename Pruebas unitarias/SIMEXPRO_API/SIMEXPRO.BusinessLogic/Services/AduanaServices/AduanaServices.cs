@@ -59,6 +59,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
         private readonly RegimenesAduanerosRepository _regimenesAduanerosRepository;
         private readonly ImportadoresRepository _importadoresRepository;
         private readonly ItemsDEVAporDUCARepository _itemsDEVAporDUCARepository;
+        private readonly ArancelesPorTratadoRepository _arancelesPorTratadoRepository;
 
         public AduanaServices(
             AduanasRepository AduanasRepository, 
@@ -105,7 +106,8 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             RegimenesAduanerosRepository regimenesAduanerosRepository, 
             ImportadoresRepository importadoresRepository, 
             ItemsDEVAporDUCARepository itemsDEVAporDUCARepository, 
-            TratadosLibreComercioRepository tratadosLibreComercioRepository
+            TratadosLibreComercioRepository tratadosLibreComercioRepository,
+            ArancelesPorTratadoRepository arancelesPorTratadoRepository
             )
         {
             _aduanasRepository = AduanasRepository;
@@ -156,6 +158,7 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             _regimenesAduanerosRepository = regimenesAduanerosRepository;
             _importadoresRepository = importadoresRepository;
             _itemsDEVAporDUCARepository = itemsDEVAporDUCARepository;
+            _arancelesPorTratadoRepository= arancelesPorTratadoRepository;
         }
 
         #region Aduanas
@@ -2361,6 +2364,20 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             }
         }
 
+        public ServiceResult ItemsOrdenPedido(string id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _itemsRepository.ItemsOrdenPedido(id);
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
         public ServiceResult InsertarItems(tbItems item)
         {
             var result = new ServiceResult();
@@ -3112,6 +3129,65 @@ namespace SIMEXPRO.BussinessLogic.Services.EventoServices
             try
             {
                 var map = _tratadosLibreComercioRepository.Update(item);
+                return result.Ok(map);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        public ServiceResult ListarAcuerdosPorTratado(int tratado, string capitulo)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _tratadosLibreComercioRepository.ListAcuerdoPorTratado(tratado, capitulo);
+                return result.Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+
+        #endregion
+
+
+        #region ArancelesPorTratado
+
+        public ServiceResult InsertarArancelPorTratado(tbArancelesPorTratados item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _arancelesPorTratadoRepository.Insert(item);
+                return result.Ok(map);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        public ServiceResult EditarArancelPorTratado(tbArancelesPorTratados item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _arancelesPorTratadoRepository.Update(item);
+                return result.Ok(map);
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
+        public ServiceResult EliminarArancelPorTratado(tbArancelesPorTratados item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _arancelesPorTratadoRepository.Delete(item);
                 return result.Ok(map);
             }
             catch (Exception ex)

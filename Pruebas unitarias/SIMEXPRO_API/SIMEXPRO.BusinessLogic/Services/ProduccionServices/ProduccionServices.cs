@@ -2194,6 +2194,30 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 return result.Error(ex.Message);
             }
         }
+
+
+
+        public ServiceResult InsertarItemsPedidosOrdenDetalle(tbPedidosOrdenDetalle item)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var map = _pedidosOrdenDetallesRepository.InsertItemsPedidosOrden(item);
+                if (map.MessageStatus == "1")
+                {
+                    return result.Ok(map);
+                }
+                else
+                {
+                    return result.Error(map);
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                return result.Error(ex.Message);
+            }
+        }
         #endregion
 
         #region Pedidos Orden
@@ -2224,6 +2248,7 @@ namespace SIMEXPRO.BussinessLogic.Services.ProduccionServices
                 return result.Error(ex.Message);
             }
         }
+
         public ServiceResult InsertarPedidosOrden(tbPedidosOrden item)
         {
             var result = new ServiceResult();

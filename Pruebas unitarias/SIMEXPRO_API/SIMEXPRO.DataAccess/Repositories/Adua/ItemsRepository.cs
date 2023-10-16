@@ -36,7 +36,9 @@ namespace SIMEXPRO.DataAccess.Repositories.Adua
         {
             RequestStatus result = new();
 
-            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            //using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            using var db = new SqlConnection("data source=simexproserver.database.windows.net; initial catalog=SIMEXPRO; user id=admin1; password=Administracion_123");
+
             var parametros = new DynamicParameters();
 
             parametros.Add("@fact_Id", item.fact_Id, DbType.Int32, ParameterDirection.Input);

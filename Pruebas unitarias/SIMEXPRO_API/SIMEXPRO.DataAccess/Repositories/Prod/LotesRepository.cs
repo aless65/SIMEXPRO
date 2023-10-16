@@ -32,7 +32,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
 
         public RequestStatus Insert(tbLotes item)
         {
-            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            using var db = new SqlConnection("data source=simexproserver.database.windows.net; initial catalog=SIMEXPRO; user id=admin1; password=Administracion_123");
             RequestStatus result = new();
             var parametros = new DynamicParameters();
             parametros.Add("@mate_Id", item.mate_Id, DbType.Int32, ParameterDirection.Input);
@@ -47,7 +47,10 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@lote_FechaCreacion", item.lote_FechaCreacion, DbType.DateTime, ParameterDirection.Input);
             var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarLotes, parametros, commandType: CommandType.StoredProcedure);
             result.MessageStatus = answer;
-            return result;
+            return new RequestStatus()
+            {
+                CodeStatus = answer == "1" ? 1 : 0
+            };
         }
 
         public IEnumerable<tbLotes> List()

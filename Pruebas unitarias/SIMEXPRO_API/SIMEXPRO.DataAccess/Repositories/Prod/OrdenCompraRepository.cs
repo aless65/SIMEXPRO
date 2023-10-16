@@ -56,8 +56,8 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
 
             return new RequestStatus()
             {
-                CodeStatus = answer == "23" ? 23 : 0,
-                MessageStatus = answer
+                CodeStatus = answer.Contains("Error Message") ? 0 : 1,
+                MessageStatus = result.MessageStatus
             };
         }
 

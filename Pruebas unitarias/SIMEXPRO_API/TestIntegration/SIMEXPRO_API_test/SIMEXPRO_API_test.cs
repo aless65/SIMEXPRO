@@ -1,11 +1,12 @@
 using NUnit.Framework;
+using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
 //using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using TestIntegration.SIMEXPRO_API_test;
 
 namespace SIMEXPRO_API
 {
@@ -31,6 +32,17 @@ namespace SIMEXPRO_API
             var response = await _API.GetUserData("Jua", "123");
             Assert.IsNotNull(response.data, "Usuario o Contraseña Incorrecto");
 
+        }
+
+        [Test]
+        public async Task Get_Aduanas()
+        {
+            //List<tbAduanas> result = new List<tbAduanas>();
+            Repository repository = new Repository();
+            //var result = (List<tbAduanas>)repository.List();
+            var result = repository.List();
+            Console.WriteLine(result);
+            Assert.NotNull(result);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.7.34009.444
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33801.447
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIMEXPRO.API", "SIMEXPRO.API\SIMEXPRO.API.csproj", "{7D61822F-F396-436D-8F8D-62063161B8F9}"
 EndProject
@@ -11,12 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIMEXPRO.DataAccess", "SIME
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIMEXPRO.Entities", "SIMEXPRO.Entities\SIMEXPRO.Entities.csproj", "{C3616ECC-7A4B-4495-8C23-60B48F6E0A0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavierAPITest", "JavierAPITest\JavierAPITest.csproj", "{7F6ACA22-2214-40D8-AA00-18ACCCE6B0F0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{3E360246-B016-4D5B-8E02-B797BD244F7D}"
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestIntegration", "TestIntegration\TestIntegration.csproj", "{157CB776-2EBC-47D9-AD39-136B789E7899}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUnit", "TestUnit\TestUnit.csproj", "{86DFCB57-C17F-4779-98E3-8838DEE9904B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestUnit", "TestUnit\TestUnit.csproj", "{86DFCB57-C17F-4779-98E3-8838DEE9904B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,14 +37,6 @@ Global
 		{C3616ECC-7A4B-4495-8C23-60B48F6E0A0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3616ECC-7A4B-4495-8C23-60B48F6E0A0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3616ECC-7A4B-4495-8C23-60B48F6E0A0E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7F6ACA22-2214-40D8-AA00-18ACCCE6B0F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7F6ACA22-2214-40D8-AA00-18ACCCE6B0F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7F6ACA22-2214-40D8-AA00-18ACCCE6B0F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7F6ACA22-2214-40D8-AA00-18ACCCE6B0F0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3E360246-B016-4D5B-8E02-B797BD244F7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3E360246-B016-4D5B-8E02-B797BD244F7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3E360246-B016-4D5B-8E02-B797BD244F7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3E360246-B016-4D5B-8E02-B797BD244F7D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{157CB776-2EBC-47D9-AD39-136B789E7899}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{157CB776-2EBC-47D9-AD39-136B789E7899}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{157CB776-2EBC-47D9-AD39-136B789E7899}.Release|Any CPU.ActiveCfg = Release|Any CPU

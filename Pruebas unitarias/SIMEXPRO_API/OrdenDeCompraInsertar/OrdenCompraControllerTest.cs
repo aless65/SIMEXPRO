@@ -4,10 +4,11 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NSubstitute;
-using NUnit.Framework;
 using SIMEXPRO.API.Controllers.ControllersProduccion;
 using SIMEXPRO.BussinessLogic;
 using SIMEXPRO.BussinessLogic.Services.ProduccionServices;
+using SIMEXPRO.DataAccess;
+using SIMEXPRO.DataAccess.Repositories.Prod;
 using SIMEXPRO.Entities.Entities;
 using System;
 using System.Collections.Generic;
@@ -21,38 +22,30 @@ namespace OrdenDeCompraInsertar
 {
     public class OrdenCompraControllerTest
     {
-        private OrdenCompraServicesTest ordenCompraServices;
-        private OrdenCompraRequest      ordenCompraRequest;
+        OrdenCompraRepository _OrdenCompraRepository = new();
 
-        [SetUp]
-        public void SetUp()
+        [Fact]
+        public void Test1()
         {
-            ordenCompraServices = Substitute.For<OrdenCompraServicesTest>();
-            ordenCompraRequest = new OrdenCompraRequest()
+            tbOrdenCompra datos = new()
             {
-                Name = "Cristian",
-                Age = 30
-                // acá van las vainas q se rellenan en el swagger
-            };
-        }
-
-        [TestCase(HttpStatusCode.OK)]
-        [TestCase(HttpStatusCode.InternalServerError)]
-        public async Task Insertar_Orden_Compra(HttpStatusCode code)
-        {
-            //Arrange
-            GenericResponse response = new GenericResponse()
-            {
-                HttpCode = code
+            orco_IdCliente=1,
+            orco_FechaEmision= new DateTime(2023, 10, 16, 01, 15, 00),
+            orco_FechaLimite= new DateTime(2023, 10, 16, 01, 15, 00),
+            orco_MetodoPago=1,
+            orco_Materiales=true,
+            orco_IdEmbalaje=1,
+            orco_EstadoOrdenCompra="C",
+            orco_DireccionEntrega="sdksk", 
+            usua_UsuarioCreacion=1,  
+            orco_FechaCreacion= new DateTime(2023, 10, 16, 01, 15, 00),    
+            orco_Codigo ="2212", 
             };
 
-            //Act
-            ordenCompraServices.Insertar(OrdenCompraRequest).ReturnsForAnyArgs(response);
-            OrdenCompraController controller = new OrdenCompraController(ordenCompraServices);
-            ObjectResult responseController = (ObjectResult)await controller.Insertar(OrdenCompraRequest);
+            RequestStatus result=  _OrdenCompraRepository.Insert(datos);
 
-            //Assert
-            Assert.AreEqual((int)code, responseController.StatusCode.Value);
+            Assert.Equal(23, result.CodeStatus);//El numero que recibe depende del autoincrementable que baya en la BD.el loquito de alex puso esa vaina asi 
+            //y no se porque 
         }
     }
 

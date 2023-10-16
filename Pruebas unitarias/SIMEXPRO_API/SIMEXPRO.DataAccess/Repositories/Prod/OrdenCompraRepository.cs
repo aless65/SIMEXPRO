@@ -37,7 +37,7 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
 
         public RequestStatus Insert(tbOrdenCompra item)
         {
-            using var db = new SqlConnection(SIMEXPRO.ConnectionString);
+            using var db = new SqlConnection("data source=simexproserver.database.windows.net; initial catalog=SIMEXPRO; user id=admin1; password=Administracion_123");
             RequestStatus result = new RequestStatus();
             var parametros = new DynamicParameters();
             parametros.Add("@orco_IdCliente", item.orco_IdCliente, DbType.Int32, ParameterDirection.Input);
@@ -53,8 +53,12 @@ namespace SIMEXPRO.DataAccess.Repositories.Prod
             parametros.Add("@orco_Codigo", item.orco_Codigo, DbType.String, ParameterDirection.Input);
 
             var answer = db.QueryFirst<string>(ScriptsDataBase.InsertarOrdenCompra, parametros, commandType: CommandType.StoredProcedure);
-            result.MessageStatus = answer;
-            return result;
+
+            return new RequestStatus()
+            {
+                CodeStatus = answer == "23" ? 23 : 0,
+                MessageStatus = answer
+            };
         }
 
         public IEnumerable<tbOrdenCompra> List()

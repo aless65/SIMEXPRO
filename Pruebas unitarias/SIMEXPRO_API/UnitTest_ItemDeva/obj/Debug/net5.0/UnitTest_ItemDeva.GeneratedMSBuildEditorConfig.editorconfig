@@ -7,4 +7,4 @@ build_property.PublishSingleFile =
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
 build_property.RootNamespace = UnitTest_ItemDeva
-build_property.ProjectDir = C:\Users\axel2\OneDrive\Documentos\SIMEXPRO\Pruebas unitarias\SIMEXPRO_API\UnitTest_ItemDeva\
+build_property.ProjectDir = C:\Users\LAB02\Desktop\SIMEXPRO\Pruebas unitarias\SIMEXPRO_API\UnitTest_ItemDeva\

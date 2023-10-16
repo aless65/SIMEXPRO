@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\TestUnit\\TestUnit.csproj": {}
+    "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\TestUnit\\TestUnit.csproj": {}
   },
   "projects": {
-    "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.API\\SIMEXPRO.API.csproj": {
+    "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.API\\SIMEXPRO.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.API\\SIMEXPRO.API.csproj",
+        "projectUniqueName": "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.API\\SIMEXPRO.API.csproj",
         "projectName": "SIMEXPRO.API",
-        "projectPath": "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.API\\SIMEXPRO.API.csproj",
-        "packagesPath": "C:\\Users\\danie\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.API\\obj\\",
+        "projectPath": "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.API\\SIMEXPRO.API.csproj",
+        "packagesPath": "C:\\Users\\Javinto7\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\danie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Javinto7\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -32,11 +32,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj": {
-                "projectPath": "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj"
+              "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj": {
+                "projectPath": "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj"
               },
-              "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.Entities\\SIMEXPRO.Entities.csproj": {
-                "projectPath": "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.Entities\\SIMEXPRO.Entities.csproj"
+              "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.Entities\\SIMEXPRO.Entities.csproj": {
+                "projectPath": "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.Entities\\SIMEXPRO.Entities.csproj"
               }
             }
           }
@@ -108,7 +108,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -120,24 +121,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj": {
+    "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj",
+        "projectUniqueName": "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj",
         "projectName": "SIMEXPRO.BusinessLogic",
-        "projectPath": "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj",
-        "packagesPath": "C:\\Users\\danie\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\obj\\",
+        "projectPath": "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\SIMEXPRO.BusinessLogic.csproj",
+        "packagesPath": "C:\\Users\\Javinto7\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.BusinessLogic\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\danie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Javinto7\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -152,8 +153,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.DataAccess\\SIMEXPRO.DataAccess.csproj": {
-                "projectPath": "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.DataAccess\\SIMEXPRO.DataAccess.csproj"
+              "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.DataAccess\\SIMEXPRO.DataAccess.csproj": {
+                "projectPath": "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.DataAccess\\SIMEXPRO.DataAccess.csproj"
               }
             }
           }
@@ -179,7 +180,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -188,24 +190,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.DataAccess\\SIMEXPRO.DataAccess.csproj": {
+    "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.DataAccess\\SIMEXPRO.DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.DataAccess\\SIMEXPRO.DataAccess.csproj",
+        "projectUniqueName": "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.DataAccess\\SIMEXPRO.DataAccess.csproj",
         "projectName": "SIMEXPRO.DataAccess",
-        "projectPath": "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.DataAccess\\SIMEXPRO.DataAccess.csproj",
-        "packagesPath": "C:\\Users\\danie\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.DataAccess\\obj\\",
+        "projectPath": "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.DataAccess\\SIMEXPRO.DataAccess.csproj",
+        "packagesPath": "C:\\Users\\Javinto7\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\danie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Javinto7\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -220,8 +222,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.Entities\\SIMEXPRO.Entities.csproj": {
-                "projectPath": "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.Entities\\SIMEXPRO.Entities.csproj"
+              "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.Entities\\SIMEXPRO.Entities.csproj": {
+                "projectPath": "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.Entities\\SIMEXPRO.Entities.csproj"
               }
             }
           }
@@ -263,7 +265,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -272,24 +275,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.Entities\\SIMEXPRO.Entities.csproj": {
+    "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.Entities\\SIMEXPRO.Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.Entities\\SIMEXPRO.Entities.csproj",
+        "projectUniqueName": "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.Entities\\SIMEXPRO.Entities.csproj",
         "projectName": "SIMEXPRO.Entities",
-        "projectPath": "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.Entities\\SIMEXPRO.Entities.csproj",
-        "packagesPath": "C:\\Users\\danie\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.Entities\\obj\\",
+        "projectPath": "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.Entities\\SIMEXPRO.Entities.csproj",
+        "packagesPath": "C:\\Users\\Javinto7\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.Entities\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\danie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Javinto7\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -321,7 +324,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -330,24 +334,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\TestUnit\\TestUnit.csproj": {
+    "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\TestUnit\\TestUnit.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\TestUnit\\TestUnit.csproj",
+        "projectUniqueName": "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\TestUnit\\TestUnit.csproj",
         "projectName": "TestUnit",
-        "projectPath": "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\TestUnit\\TestUnit.csproj",
-        "packagesPath": "C:\\Users\\danie\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\TestUnit\\obj\\",
+        "projectPath": "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\TestUnit\\TestUnit.csproj",
+        "packagesPath": "C:\\Users\\Javinto7\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\TestUnit\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\danie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Javinto7\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -362,8 +366,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.API\\SIMEXPRO.API.csproj": {
-                "projectPath": "C:\\Users\\danie\\OneDrive\\Documentos\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.API\\SIMEXPRO.API.csproj"
+              "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.API\\SIMEXPRO.API.csproj": {
+                "projectPath": "C:\\Users\\Javinto7\\Documents\\GitHub\\SIMEXPRO\\Pruebas unitarias\\SIMEXPRO_API\\SIMEXPRO.API\\SIMEXPRO.API.csproj"
               }
             }
           }
@@ -417,7 +421,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -426,7 +431,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

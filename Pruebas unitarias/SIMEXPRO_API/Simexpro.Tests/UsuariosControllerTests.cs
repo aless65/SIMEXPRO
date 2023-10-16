@@ -38,33 +38,21 @@ namespace Simexpro.Tests
        [Fact]
         public void GetUsuarios_DevuelveCorrectamenteSuccess()
         {
-            // Arrange - ¿Qué necesito traer?
-            //var usuariosServiceResult = A.Fake<ServiceResult>();
-            ////A.CallTo(() => _accesoServices.ListarUsuarios(It.IsAny<bool?>())).Returns(usuariosServiceResult);
-            //_accesoServices.Setup(x => x.ListarUsuarios(It.IsAny<bool?>())).Returns(usuariosServiceResult);
-
             // Act
             var result = _usuariosController.Index(true);
 
             // Assert - Acciones para chequear objetos
             result.Should().BeOfType<OkObjectResult>();
-            //Assert.IsType<ServiceResult>(result);
         }
 
         [Fact]
         public void PostUsuarios_DevuelveCorrectamenteSuccess()
         {
-            // Arrange - ¿Qué necesito traer?
-            //var usuariosServiceResult = A.Fake<ServiceResult>();
-            ////A.CallTo(() => _accesoServices.ListarUsuarios(It.IsAny<bool?>())).Returns(usuariosServiceResult);
-            //_accesoServices.Setup(x => x.ListarUsuarios(It.IsAny<bool?>())).Returns(usuariosServiceResult);
-
             // Act
             var result = _usuariosController.Insertar(null);
 
             // Assert - Acciones para chequear objetos
             result.Should().BeOfType<OkObjectResult>();
-            //Assert.IsType<ServiceResult>(result);
         }
     }
 

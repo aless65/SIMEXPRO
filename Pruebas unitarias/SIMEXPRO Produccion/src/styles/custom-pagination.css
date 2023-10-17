@@ -1,0 +1,26 @@
+/* custom-pagination.css */
+
+.custom-pagination .ant-pagination-item a {
+  text-decoration: none;
+  color: black;
+}
+
+.custom-pagination .ant-pagination-item {
+  border: 1px solid #d9d9d9;
+  margin: 0 4px;
+}
+
+.custom-pagination .ant-pagination-item:hover a,
+.custom-pagination .ant-pagination-item-active a { 
+  color: #41484f;
+}
+
+.custom-pagination .ant-pagination-item:hover,
+.custom-pagination .ant-pagination-item-active {
+  border-color: #41484f;
+}
+
+.custom-pagination .ant-pagination-item-active {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+}
